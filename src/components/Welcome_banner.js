@@ -42,7 +42,7 @@ export default function Welcome_banner(){
                         </a>
                     </div>
                 </div>
-                <h1 className="text-4xl md:text-6xl text-gray-950 font-bold mb-4">Elimahana Plantations</h1>
+                <h1 className="text-4xl md:text-6xl text-gray-950 font-bold mb-4">Elamahana Plantations</h1>
                 <p className="text-lg md:text-xl max-w-3xl text-gray-800 text-center mb-6">
                     Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.
                 </p>
