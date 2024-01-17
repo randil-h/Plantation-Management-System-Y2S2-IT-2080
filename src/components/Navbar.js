@@ -103,7 +103,7 @@ export default function Navbar() {
                     <a href="#" className=" font-medium leading-6 ">
                         Marketplace
                     </a>
-                    <a href="/src/pages/Dashboard" className=" font-medium leading-6 ">
+                    <a href="/dashboard" className=" font-medium leading-6 ">
                         Dashboard
                     </a>
                 </Popover.Group>
@@ -175,7 +175,7 @@ export default function Navbar() {
                                     Marketplace
                                 </a>
                                 <a
-                                    href="/src/pages/Dashboard"
+                                    href="/dashboard"
                                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 >
                                     Dashboard
