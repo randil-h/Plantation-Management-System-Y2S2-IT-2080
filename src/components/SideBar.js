@@ -28,7 +28,7 @@ export default function SideBar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <div className="w-1/6 lg:w-1/4 xl:w-1/6 flex-shrink-0 hidden lg:flex flex-col items-center justify-between bg-white h-screen fixed border-r z-30">
+        <div className="w-1/6 lg:w-1/4 xl:w-1/6  lg:flex flex-col items-center justify-between bg-white h-screen fixed border-r z-30">
             <ul className="flex flex-col items-center w-full text-gray-800 font-medium text-md py-4">
                 {menuItems.map((item) => (
                     <li
@@ -38,6 +38,8 @@ export default function SideBar() {
                         }`}
                     >
                         <Link to={item.path} className="pl-3 flex items-center h-full">
+
+
                             {item.icon && <item.icon className="mr-4" />}
                             {item.name}
                         </Link>
