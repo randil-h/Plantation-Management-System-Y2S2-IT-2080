@@ -7,6 +7,7 @@ import FunctionBar from "../components/Function_bar";
 import SubscribeNewsletter from "../components/subscribe_newsletter";
 import StatBar from "../components/stat_bar";
 import Footer from "../components/Footer";
+import NewEmployeeForm from "../components/AddNewEmployee";
 
 export default function Dashboard() {
     return (
@@ -22,7 +23,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Main Content Area */}
-                <div className="flex-1 ml-64  overflow-x-hidden overflow-y-auto">
+                <div className="flex-1 ml-72  overflow-x-hidden overflow-y-auto">
                     {/* Content to be stacked to the right of the Sidebar */}
 
                     <WelcomeBanner/>

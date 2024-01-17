@@ -18,7 +18,7 @@ export default function Employees() {
                 </div>
 
                 {/* Main Content Area */}
-                <div className="flex-1 ml-64  overflow-x-hidden overflow-y-auto">
+                <div className="flex-1 ml-72  overflow-x-hidden overflow-y-auto">
                     {/* Content to be stacked to the right of the Sidebar */}
 
                     <NewEmployeeForm/>
