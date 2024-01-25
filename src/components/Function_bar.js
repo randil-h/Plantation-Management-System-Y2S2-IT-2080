@@ -3,13 +3,12 @@ const features = [
     { name: 'Papaya (Redlady)', description: 'Solid walnut base with rare earth magnets and powder coated steel card cover' },
     { name: 'Coconut', description: '6.25" x 3.55" x 1.15"' },
     { name: 'Vegetables', description: 'Hand sanded and finished with natural oil' },
-
 ]
 
 export default function Function_bar() {
     return (
         <div className="bg-slate-100">
-            <div className="mx-auto grid max-w-2xl grid-cols-1  gap-x-16 gap-y-16 px-4 py-8 sm:px-6 sm:py-16 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
+            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 px-4 py-8 sm:px-6 sm:py-16 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
                 <div className="gap-y-4">
                     <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our Products</h2>
                     <p className="mt-6 text-gray-700">
