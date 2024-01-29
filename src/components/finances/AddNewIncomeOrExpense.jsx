@@ -1,11 +1,11 @@
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 
-export default function NewEmployeeForm() {
+export default function AddNewIncomeOrExpense() {
     return (
         <form>
             <div className="space-y-24">
                 <div className="border-b border-gray-900/10 pb-12">
-                    <h1 className="text-2xl pb-6 font-semibold leading-5 text-gray-900">Add a new employee</h1>
+                    <h1 className="text-2xl pb-6 font-semibold leading-5 text-gray-900">Add a new income or expense record</h1>
                     <h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
                     <p className="mt-1 text-sm leading-6 text-gray-600">
                         This information will be displayed publicly so be careful what you share.

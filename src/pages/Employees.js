@@ -2,7 +2,7 @@ import React from "react";
 
 import SideBar from "../components/SideBar";
 import Navbar from "../components/Navbar";
-import NewEmployeeForm from "../components/AddNewEmployee";
+
 
 export default function Employees() {
     return (
@@ -21,7 +21,7 @@ export default function Employees() {
                 <div className="flex-1 ml-72 flex flex-col w-screen items-center justify-center py-12 overflow-x-hidden overflow-y-auto">
                     {/* Content to be stacked to the right of the Sidebar */}
 
-                    <NewEmployeeForm/>
+
                     {/* Add more content components as needed */}
                 </div>
             </div>

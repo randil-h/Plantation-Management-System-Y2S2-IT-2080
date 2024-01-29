@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="mokuth na">
+      <change afterPath="$PROJECT_DIR$/src/components/dashboard_home/Statbar.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/finances/AddNewIncomeOrExpense.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Finances.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AddNewEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddNewEmployee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddNewEmployee.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/stat_bar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPageBanner.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Dashboard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Employees.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/landingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/landingPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +25,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package.json" />
+        <option value="JavaScript File" />
+        <option value="JSX File" />
       </list>
     </option>
   </component>
@@ -55,13 +63,14 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "javascript.nodejs.core.library.configured.version": "18.17.1",
-    "javascript.nodejs.core.library.typings.version": "",
+    "javascript.nodejs.core.library.typings.version": "18.17.19",
     "last_opened_file_path": "/Users/bimidugunathilake/Documents/SE/Projects/Elemahana/Farm-Management-System-Y2S2-IT-2080/farm-management-system",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "npm.start.executor": "Run",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default",
     "vue.rearranger.settings.migration": "true"
   }
@@ -133,7 +142,8 @@
       <workItem from="1706324951424" duration="745000" />
       <workItem from="1706451116373" duration="2102000" />
       <workItem from="1706491161603" duration="1382000" />
-      <workItem from="1706495830804" duration="819000" />
+      <workItem from="1706495830804" duration="1129000" />
+      <workItem from="1706512726189" duration="1769000" />
     </task>
     <task id="LOCAL-00001" summary="added basic structure">
       <option name="closed" value="true" />
@@ -167,7 +177,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706144675264</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="mokuth na">
+      <option name="closed" value="true" />
+      <created>1706497071226</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1706497071226</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

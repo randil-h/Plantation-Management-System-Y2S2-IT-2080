@@ -7,6 +7,7 @@ import LandingPage from "./pages/landingPage";
 import SignInPage from "./pages/signinPage";
 import Dashboard from "./pages/Dashboard";
 import Employees from "./pages/Employees";
+import Finances from "./pages/Finances";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,6 +18,7 @@ root.render(
             <Route path="/login" element={SignInPage()}/>
             <Route path="/dashboard" element={Dashboard()}/>
             <Route path="/employees" element={Employees()}/>
+            <Route path="/finances" element={Finances()}/>
         </Routes>
     </BrowserRouter>
 );
