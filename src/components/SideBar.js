@@ -33,13 +33,11 @@ export default function SideBar() {
                 {menuItems.map((item) => (
                     <li
                         key={item.name}
-                        className={`flex w-11/12 h-12 rounded-lg focus:outline-none focus:ring focus:ring-lime-500 ${
+                        className={`flex w-11/12 h-12 my-1 rounded-full focus:outline-none focus:ring focus:ring-lime-500 ${
                             isActive(item.path) ? "bg-gray-200 text-lime-600" : "hover:bg-gray-200"
                         }`}
                     >
                         <Link to={item.path} className="pl-3 flex items-center h-full">
-
-
                             {item.icon && <item.icon className="mr-4" />}
                             {item.name}
                         </Link>

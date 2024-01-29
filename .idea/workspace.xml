@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="added basic structure">
+    <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="mokuth na">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AddNewEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AddNewEmployee.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Employees.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,31 +19,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package.json" />
-        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="adding-new-components" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Scheffel333&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="2c47ac65-95b6-44ed-96eb-bbbe9e91ba1b" />
-        <option name="url" value="https://github.com/randil-h/Farm-Management-System-Y2S2-IT-2080.git" />
-      </UrlAndAccount>
-    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -58,27 +44,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;adding-a-test-form&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.17.1&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.17.1&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/bimidugunathilake/Documents/SE/Projects/Elemahana/Farm-Management-System-Y2S2-IT-2080/farm-management-system&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "javascript.nodejs.core.library.configured.version": "18.17.1",
+    "javascript.nodejs.core.library.typings.version": "",
+    "last_opened_file_path": "/Users/bimidugunathilake/Documents/SE/Projects/Elemahana/Farm-Management-System-Y2S2-IT-2080/farm-management-system",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/farm-management-system" />
@@ -119,6 +106,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-985749b364ce-JavaScript-WS-233.14015.89" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -129,7 +123,17 @@
       <updated>1705378247221</updated>
       <workItem from="1705378248301" duration="4716000" />
       <workItem from="1705383454513" duration="1333000" />
-      <workItem from="1705397722819" duration="1742000" />
+      <workItem from="1705631444531" duration="941000" />
+      <workItem from="1705637201544" duration="442000" />
+      <workItem from="1705640604920" duration="624000" />
+      <workItem from="1705649297958" duration="1407000" />
+      <workItem from="1705750799889" duration="655000" />
+      <workItem from="1705762970562" duration="3832000" />
+      <workItem from="1706144626368" duration="67000" />
+      <workItem from="1706324951424" duration="745000" />
+      <workItem from="1706451116373" duration="2102000" />
+      <workItem from="1706491161603" duration="1382000" />
+      <workItem from="1706495830804" duration="819000" />
     </task>
     <task id="LOCAL-00001" summary="added basic structure">
       <option name="closed" value="true" />
@@ -155,7 +159,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705383827765</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="mokuth na">
+      <option name="closed" value="true" />
+      <created>1706144675264</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706144675264</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,6 +176,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="added basic structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="added basic structure" />
+    <MESSAGE value="mokuth na" />
+    <option name="LAST_COMMIT_MESSAGE" value="mokuth na" />
   </component>
 </project>
