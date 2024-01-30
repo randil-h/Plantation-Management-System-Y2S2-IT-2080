@@ -4,7 +4,6 @@ import SideBar from "../components/SideBar";
 import Navbar from "../components/Navbar";
 import Statbar from "../components/dashboard_home/Statbar";
 
-
 export default function Dashboard() {
     return (
         <div className="flex-col">
