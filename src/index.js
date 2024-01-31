@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import './index.css';
 
-import LandingPage from "./pages/landingPage.jsx";
-import SigninPage from "./pages/signinPage.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
-import Employees from "./pages/Employees.jsx";
-import Finances from "./pages/Finances.jsx";
+import LandingPage from "./pages/landingPage.js";
+import SigninPage from "./pages/signinPage.js";
+import Dashboard from "./pages/Dashboard.js";
+import Employees from "./pages/Employees.js";
+import Finances from "./pages/Finances.js";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
