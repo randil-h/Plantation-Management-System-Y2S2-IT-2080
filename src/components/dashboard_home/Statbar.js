@@ -6,13 +6,15 @@ const stats = [
 
 export default function Statbar() {
     return (
-        <div className="bg-white py-24 sm:py-32">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="relative py-8 sm:py-8">
+            <div className="absolute inset-0 bg-gradient-to-r from-green-200 via-green-300 to-blue-500"></div>
+            <div className="absolute inset-0 bg-black opacity-20"></div>
+            <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
                 <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
                     {stats.map((stat) => (
                         <div key={stat.id} className="mx-auto flex max-w-xs flex-col gap-y-4">
-                            <dt className="text-base leading-7 text-gray-600">{stat.name}</dt>
-                            <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                            <dt className="text-base leading-7 text-white">{stat.name}</dt>
+                            <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">
                                 {stat.value}
                             </dd>
                         </div>
@@ -22,3 +24,4 @@ export default function Statbar() {
         </div>
     )
 }
+

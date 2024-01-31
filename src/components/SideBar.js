@@ -28,12 +28,12 @@ export default function SideBar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <div className="w-1/6 lg:w-1/4 xl:w-1/6  lg:flex flex-col items-center justify-between bg-gray-100 h-screen fixed border-r z-50 ">
-            <ul className="flex flex-col items-center w-full text-gray-800 font-medium text-md py-4">
+        <div className="items-center justify-between bg-gray-100 h-full  border-r z-50 ">
+            <ul className="flex flex-col items-center w-full text-gray-800 font-light text-md py-4">
                 {menuItems.map((item) => (
                     <li
                         key={item.name}
-                        className={`flex w-11/12 h-12 my-1 rounded-full focus:outline-none focus:ring focus:ring-lime-500 ${
+                        className={`flex w-11/12 h-12 my-1 rounded-lg focus:outline-none focus:ring focus:ring-lime-500 ${
                             isActive(item.path) ? "bg-gray-200 text-lime-600" : "hover:bg-gray-200"
                         }`}
                     >

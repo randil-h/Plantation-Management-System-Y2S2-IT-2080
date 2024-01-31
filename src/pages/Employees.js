@@ -4,27 +4,27 @@ import SideBar from "../components/SideBar";
 import Navbar from "../components/Navbar";
 
 
+
 export default function Employees() {
     return (
-        <div className="flex-col">
+        <div className="">
             {/* Navbar */}
             <div className="border-b sticky top-0 z-10">
-                <Navbar />
+                <Navbar/>
             </div>
-            <div className="flex">
-                {/* Fixed Sidebar */}
-                <div className="fixed h-full">
-                    <SideBar/>
-                </div>
+            <div className="">
+                <div className="grid sm:grid-cols-6 ">
+                    <div className="  col-span-1 sticky left-0 top-0">
+                        <SideBar/>
+                    </div>
 
-                {/* Main Content Area */}
-                <div className="flex-1 ml-72 flex flex-col w-screen items-center justify-center py-12 overflow-x-hidden overflow-y-auto">
-                    {/* Content to be stacked to the right of the Sidebar */}
+                    <div className="w-full col-span-5 flex flex-col ">
 
 
-                    {/* Add more content components as needed */}
+                    </div>
                 </div>
             </div>
+
         </div>
     );
 }
