@@ -28,8 +28,8 @@ export default function SideBar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <div className="items-center justify-between bg-gray-100 h-full  border-r z-50 ">
-            <ul className="flex flex-col items-center w-full text-gray-800 font-light text-md py-4">
+        <div className=" bg-gray-100 h-screen sticky scroll-auto top-12 border-r z-10 ">
+            <ul className="flex flex-col items-center text-gray-800 font-light text-md py-4">
                 {menuItems.map((item) => (
                     <li
                         key={item.name}

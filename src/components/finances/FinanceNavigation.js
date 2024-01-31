@@ -3,8 +3,8 @@ import {Link, useLocation} from "react-router-dom";
 
 const menuItems = [
     { name: "Home", path: "/finances"},
-    { name: "Incomes", path: "/dashboard"},
-    { name: "Expenses", path: "/crops",},
+    { name: "Incomes", path: "/financeincome"},
+    { name: "Expenses", path: "/financeexpense",},
     { name: "Assets", path: "/employees",},
     { name: "Liabilities", path: "/fertilizer",},
 ];
@@ -15,17 +15,17 @@ export default function Example() {
     const isActive = (path) => location.pathname === path;
 
     return (
-        <div className="bg-white sticky top-0">
-            <header className="relative ">
+        <div className="bg-white fixed top-12 border-b w-screen">
+            <header className=" ">
                 <nav aria-label="Top" className="">
-                    <div className="border-b border-gray-200 pl-8">
+                    <div className=" border-gray-200 pl-8">
                         <div className="flex items-center justify-center">
-                            <ul className="flex flex-row items-center w-full gap-6 text-gray-800  text-sm h-8">
+                            <ul className="flex flex-row items-center w-full gap-2 text-gray-800 px-2 text-sm h-8">
                                 {menuItems.map((item) => (
                                     <li
                                         key={item.name}
-                                        className={`flex gap-6 focus:outline-none focus:ring focus:ring-lime-500 ${
-                                            isActive(item.path) ? " text-lime-600 border-b border-lime-600" : "hover:text-gray-600"
+                                        className={`flex focus:outline-none focus:ring focus:ring-lime-500 ${
+                                            isActive(item.path) ? " text-gray-100 px-2 py-0.5 bg-lime-600 rounded-full " : "hover:text-gray-600"
                                         }`}
                                     >
                                         <Link to={item.path} className="px-2 flex items-center ">
