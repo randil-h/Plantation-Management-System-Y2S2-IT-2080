@@ -11,6 +11,10 @@ import Finances from "./pages/Finances.js";
 import FinanceIncome from "./pages/finance_pages/FinanceIncome";
 import FinanceExpenses from "./pages/finance_pages/FinanceExpenses";
 
+import CropManagement from "./pages/CropManagement";
+import seedsPlanting from "./pages/seedsPlanting";
+import RotationManagement from "./pages/RotationManagement";
+import Fertiliser from "./pages/Fertiliser"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,6 +27,10 @@ root.render(
             <Route path="/finances" element={Finances()}/>
             <Route path="/financeincome" element={FinanceIncome()}/>
             <Route path="/financeexpense" element={FinanceExpenses()}/>
+            <Route path = "/crops" element={CropManagement()}/>
+            <Route path= "/seedsPlanting" element={seedsPlanting()}/>
+            <Route path= "/rotation" element={RotationManagement()}/>
+            <Route path= "fertiliser" element={Fertiliser()}/>
         </Routes>
     </BrowserRouter>
 );
