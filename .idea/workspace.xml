@@ -4,18 +4,64 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="finance navi addes">
-      <change afterPath="$PROJECT_DIR$/jsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/finance_pages/FinanceExpenses.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/finance_pages/FinanceIncome.js" afterDir="false" />
+    <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="finance changes">
+      <change afterPath="$PROJECT_DIR$/backend/config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/models/TestModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/routes/TestRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Spinner.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/finances/TestForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/finances/finance_income/IncomeRecordsList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/finances/finance_income/TestRecordsTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/FinanceIncome.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/UpdateAnIncomeRecord.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/ViewNewIncomeRecord.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/finances/AddNewIncomeOrExpense.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/finances/AddNewIncomeOrExpense.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/finances/FinanceNavigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/finances/FinanceNavigation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Finances.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Finances.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/logo192.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/logo192.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/logo512.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/logo512.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/robots.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Admin_Dashboard/AdminDashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/DeleteAnIncomeRecord.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Footer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Function_bar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Function_bar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LandingPageBanner.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/LandingPageBanner.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Welcome_banner.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Welcome_banner.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cropManagement_home/AddFertiliser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cropManagement_home/AddSeeds.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cropManagement_home/recordRotation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dashboard_home/Statbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/dashboard_home/Statbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/finances/AddNewIncomeOrExpense.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/finances/AddNewIncomeOrExpense.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/finances/FinanceNavigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/finances/FinanceNavigation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sign_in.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/sign_in.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/subscribe_newsletter.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/subscribe_newsletter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/CropManagement.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Employees.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Fertiliser.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Employees.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Finances.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/RotationManagement.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/finance_pages/FinanceExpenses.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/Finances.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/finance_pages/FinanceIncome.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/AddNewIncomeRecord.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/landingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/landingPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/seedsPlanting.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/signinPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/signinPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +81,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="adding-new-components" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -54,31 +100,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.17.1&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.17.19&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/bimidugunathilake/Documents/SE/Projects/Elemahana/Farm-Management-System-Y2S2-IT-2080/farm-management-system&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.start.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "adding-backend",
+    "javascript.nodejs.core.library.configured.version": "18.17.1",
+    "javascript.nodejs.core.library.typings.version": "18.17.19",
+    "last_opened_file_path": "/Users/bimidugunathilake/Documents/SE/Projects/Elemahana/Farm-Management-System-Y2S2-IT-2080",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.start.executor": "Run",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/farm-management-system" />
       <recent name="$PROJECT_DIR$/farm-management-system/src" />
     </key>
@@ -98,7 +145,7 @@
       <method v="2" />
     </configuration>
     <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
+      <package-json value="$PROJECT_DIR$/frontend/package.json" />
       <command value="start" />
       <node-interpreter value="project" />
       <envs />
@@ -146,7 +193,13 @@
       <workItem from="1706491161603" duration="1382000" />
       <workItem from="1706495830804" duration="1129000" />
       <workItem from="1706512726189" duration="1769000" />
-      <workItem from="1706719544153" duration="2917000" />
+      <workItem from="1706719544153" duration="3046000" />
+      <workItem from="1706751948821" duration="2278000" />
+      <workItem from="1706818773938" duration="55000" />
+      <workItem from="1706845254229" duration="658000" />
+      <workItem from="1706853577390" duration="1059000" />
+      <workItem from="1706855868904" duration="599000" />
+      <workItem from="1706974176878" duration="519000" />
     </task>
     <task id="LOCAL-00001" summary="added basic structure">
       <option name="closed" value="true" />
@@ -188,16 +241,36 @@
       <option name="project" value="LOCAL" />
       <updated>1706497071226</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="finance changes">
+      <option name="closed" value="true" />
+      <created>1706722582154</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1706722582154</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="added basic structure" />
     <MESSAGE value="mokuth na" />
-    <option name="LAST_COMMIT_MESSAGE" value="mokuth na" />
+    <MESSAGE value="finance changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="finance changes" />
   </component>
 </project>
