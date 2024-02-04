@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 import {Link, useLocation} from "react-router-dom";
 
 const menuItems = [
-    { name: "Home", path: "/finances/financehome"},
+    { name: "Home", path: "/finances"},
     { name: "Incomes", path: "/finances/financeincome"},
     { name: "Expenses", path: "/finances/financeexpense",},
     { name: "Assets", path: "/employees",},
@@ -12,7 +12,7 @@ const menuItems = [
 export default function Example() {
     const [open, setOpen] = useState(false)
     const location = useLocation();
-    const isActive = (path) => location.pathname.startsWith(path);;
+    const isActive = (path) => location.pathname === path;
 
     return (
         <div className="bg-gray-100 bg-opacity-50 backdrop-blur fixed top-12 border-b w-screen">

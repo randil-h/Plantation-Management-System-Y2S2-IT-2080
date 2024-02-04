@@ -17,7 +17,7 @@ export default function App() {
             <Route path="/dashboard" element={Dashboard()}/>
             <Route path="/employees" element={Employees()}/>
 
-            <Route path="/finances/financehome" element={Finances()}/>
+            <Route path="/finances" element={Finances()}/>
             <Route path="/finances/financeincome" element={FinanceIncome()}/>
             <Route path="/finances/financeincome/addnewrecord" element={AddNewIncomeRecord()}/>
             <Route path="/finances/financeincome/viewrecord" element={FinanceIncome()}/>
