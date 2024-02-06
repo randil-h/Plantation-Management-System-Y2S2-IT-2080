@@ -15,12 +15,12 @@ export default function Example() {
     const isActive = (path) => location.pathname === path;
 
     return (
-        <div className="bg-gray-100 bg-opacity-50 backdrop-blur fixed top-12 border-b w-screen">
+        <div className="bg-gray-100 bg-opacity-50 backdrop-blur sticky top-12 border-b w-screen">
             <header className=" ">
                 <nav aria-label="Top" className="">
-                    <div className=" border-gray-200 pl-8">
+                    <div className=" border-gray-200 ">
                         <div className="flex items-center justify-center">
-                            <ul className="flex flex-row items-center w-full gap-2 text-gray-800 px-2 text-sm h-8">
+                            <ul className="flex flex-row items-center w-full gap-2 text-gray-800 px-2 text-sm font-medium h-8">
                                 {menuItems.map((item) => (
                                     <li
                                         key={item.name}

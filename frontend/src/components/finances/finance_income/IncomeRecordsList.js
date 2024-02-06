@@ -1,12 +1,12 @@
 
 export default function IncomeRecordsList({ testRecords }) {
     return (
-        <div className="flex-col flex items-center justify-center">
+        <div className="flex-col flex items-center justify-center mx-8">
 
-            <ul role="list" className="divide-y divide-gray-100 px-0 py-16 w-6/12 ">
-                <div className="flex flex-row justify-between my-8 items-center ">
+            <ul role="list" className="divide-y divide-gray-100 px-0 py-2 w-full ">
+                <div className="flex flex-row justify-between my-4 items-center ">
 
-                    <h1 className="text-2xl font-medium">Income Records</h1>
+                    <h1 className="text-3xl font-medium">Income Records</h1>
                     <a
                         href="/finances/financeincome/addnewrecord"
                         className=" rounded-full bg-gray-900 px-3.5 py-1 text-sm font-medium text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
@@ -18,7 +18,7 @@ export default function IncomeRecordsList({ testRecords }) {
                 </div>
 
                 {testRecords && testRecords.map((testRecords, index) => (
-                    <li key={testRecords._id} className="flex justify-between gap-x-6 py-5 ">
+                    <li key={testRecords._id} className="flex justify-between gap-x-6 py-5 border-l-2 border-green-500">
 
                         <div className="flex min-w-0 gap-x-4">
 
