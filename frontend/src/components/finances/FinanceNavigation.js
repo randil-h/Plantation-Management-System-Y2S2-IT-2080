@@ -7,6 +7,8 @@ const menuItems = [
     { name: "Expenses", path: "/finances/financeexpense",},
     { name: "Assets", path: "/employees",},
     { name: "Liabilities", path: "/fertilizer",},
+    { name: "Payroll", path: "/fertilizer",},
+    { name: "Insights", path: "/fertilizer",},
 ];
 
 export default function Example() {

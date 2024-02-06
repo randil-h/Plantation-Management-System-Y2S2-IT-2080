@@ -27,10 +27,8 @@ export default function FinanceIncome() {
     }, []);
 
     const breadcrumbItems = [
-        { name: 'Home', href: '#' },
-        { name: 'Products', href: '#' },
-        { name: 'Category', href: '#' },
-        { name: 'Specific Item', href: '#' }
+        { name: 'Finance', href: '/finances' },
+        { name: 'Income', href: '/finances/financeincome' },
     ];
 
     return (
