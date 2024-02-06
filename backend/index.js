@@ -21,10 +21,7 @@ app.use(
    })
  );
 */
-app.get('/', (request, response) => {
-     console.log(request);
-     return response.status(234).send('Welcome to ELEMAHANA');
-});
+
 
 app.use('/financeincome', testRoute);
 
