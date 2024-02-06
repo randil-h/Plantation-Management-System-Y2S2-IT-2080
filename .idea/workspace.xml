@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="added breadcrumbs and updated finance">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/finances/FinanceNavigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/finances/FinanceNavigation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/LandingPageBanner.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/landingPage/LandingPageBanner.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/finances/finance_income/IncomeRecordsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/finances/finance_income/IncomeRecordsList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/FinanceIncome.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/FinanceIncome.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/landingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/landingPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +91,7 @@
       <recent name="$PROJECT_DIR$/farm-management-system/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/components/landingPage" />
       <recent name="$PROJECT_DIR$/frontend/src/components/utility" />
       <recent name="$PROJECT_DIR$/frontend/public" />
       <recent name="$PROJECT_DIR$" />
@@ -226,7 +227,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707198024158</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="added breadcrumbs and updated finance">
+      <option name="closed" value="true" />
+      <created>1707199742594</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1707199742594</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
