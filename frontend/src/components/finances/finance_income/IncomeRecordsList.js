@@ -1,9 +1,9 @@
 
 export default function IncomeRecordsList({ testRecords }) {
     return (
-        <div className="flex-col flex items-center justify-center mx-8">
+        <div className="flex-col flex items-start justify-start mx-8">
 
-            <ul role="list" className="divide-y divide-gray-100 px-0 py-2 w-full ">
+            <ul role="list" className="divide-y divide-gray-100 px-0 py-2 w-9/12 ">
                 <div className="flex flex-row justify-between my-4 items-center ">
 
                     <h1 className="text-3xl font-medium">Income Records</h1>
@@ -18,7 +18,7 @@ export default function IncomeRecordsList({ testRecords }) {
                 </div>
 
                 {testRecords && testRecords.map((testRecords, index) => (
-                    <li key={testRecords._id} className="flex justify-between gap-x-6 py-5 border-l-2 border-green-500">
+                    <li key={testRecords._id} className="flex justify-between gap-x-6 py-5 ">
 
                         <div className="flex min-w-0 gap-x-4">
 
