@@ -4,7 +4,7 @@ import Spinner from "../../../components/Spinner";
 import {Link} from 'react-router-dom';
 
 import SideBar from "../../../components/SideBar";
-import Navbar from "../../../components/Navbar";
+import Navbar from "../../../components/utility/Navbar";
 import TestForm from "../../../components/finances/TestForm";
 import FinanceNavigation from "../../../components/finances/FinanceNavigation.js";
 import IncomeRecordsList from "../../../components/finances/finance_income/IncomeRecordsList";

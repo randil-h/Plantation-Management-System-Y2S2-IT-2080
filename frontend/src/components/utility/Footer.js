@@ -106,7 +106,7 @@ export default function Footer(){
                         <ul class="col-span-2 flex justify-start gap-6 lg:col-span-5 lg:justify-end">
                             <li>
                                 <a
-                                    href="/"
+                                    href="/frontend/public"
                                     rel="noreferrer"
                                     target="_blank"
                                     class="text-gray-700 transition hover:opacity-75"
@@ -125,7 +125,7 @@ export default function Footer(){
 
                             <li>
                                 <a
-                                    href="/"
+                                    href="/frontend/public"
                                     rel="noreferrer"
                                     target="_blank"
                                     class="text-gray-700 transition hover:opacity-75"
@@ -144,7 +144,7 @@ export default function Footer(){
 
                             <li>
                                 <a
-                                    href="/"
+                                    href="/frontend/public"
                                     rel="noreferrer"
                                     target="_blank"
                                     class="text-gray-700 transition hover:opacity-75"
@@ -161,7 +161,7 @@ export default function Footer(){
 
                             <li>
                                 <a
-                                    href="/"
+                                    href="/frontend/public"
                                     rel="noreferrer"
                                     target="_blank"
                                     class="text-gray-700 transition hover:opacity-75"
@@ -180,7 +180,7 @@ export default function Footer(){
 
                             <li>
                                 <a
-                                    href="/"
+                                    href="/frontend/public"
                                     rel="noreferrer"
                                     target="_blank"
                                     class="text-gray-700 transition hover:opacity-75"
