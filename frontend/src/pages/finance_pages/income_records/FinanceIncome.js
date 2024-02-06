@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Spinner from "../../../components/Spinner";
-import {Link} from 'react-router-dom';
-
 import SideBar from "../../../components/SideBar";
 import Navbar from "../../../components/utility/Navbar";
-import TestForm from "../../../components/finances/TestForm";
 import FinanceNavigation from "../../../components/finances/FinanceNavigation.js";
 import IncomeRecordsList from "../../../components/finances/finance_income/IncomeRecordsList";
-import TestRecordsTable from "../../../components/finances/finance_income/TestRecordsTable";
+import Breadcrumb from "../../../components/utility/Breadcrumbs";
 
 export default function FinanceIncome() {
 
@@ -30,6 +26,13 @@ export default function FinanceIncome() {
             });
     }, []);
 
+    const breadcrumbItems = [
+        { name: 'Home', href: '#' },
+        { name: 'Products', href: '#' },
+        { name: 'Category', href: '#' },
+        { name: 'Specific Item', href: '#' }
+    ];
+
     return (
         <div className="">
             <div className="border-b sticky top-0 z-10">
@@ -43,6 +46,7 @@ export default function FinanceIncome() {
 
                     <div className="w-full col-span-5 flex flex-col ">
                         <FinanceNavigation/>
+                        <Breadcrumb items = {breadcrumbItems}/>
                         <IncomeRecordsList testRecords={testRecords}/>
 
                     </div>
