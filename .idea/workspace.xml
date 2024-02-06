@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="added breadcrumbs and updated finance">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/finances/finance_transactions/TransactionsList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/transactions/AddNewTransaction.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/transactions/DeleteTransaction.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/transactions/EditTransaction.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/transactions/ViewAllTransactions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/transactions/ViewTransactionDetails.js" afterDir="false" />
+    <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="added finance transactions">
+      <change afterPath="$PROJECT_DIR$/backend/models/TransactionsModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/routes/transactionsRoute.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/finances/FinanceNavigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/finances/FinanceNavigation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/finances/finance_income/IncomeRecordsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/finances/finance_income/IncomeRecordsList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/finances/finance_transactions/TransactionsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/finances/finance_transactions/TransactionsList.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +247,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707214016186</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="added finance transactions">
+      <option name="closed" value="true" />
+      <created>1707218888214</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1707218888214</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,6 +279,7 @@
     <MESSAGE value="finance navi addes" />
     <MESSAGE value="added create for income records" />
     <MESSAGE value="added breadcrumbs and updated finance" />
-    <option name="LAST_COMMIT_MESSAGE" value="added breadcrumbs and updated finance" />
+    <MESSAGE value="added finance transactions" />
+    <option name="LAST_COMMIT_MESSAGE" value="added finance transactions" />
   </component>
 </project>
