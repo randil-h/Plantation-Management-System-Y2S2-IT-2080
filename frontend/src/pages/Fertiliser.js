@@ -1,7 +1,7 @@
 import React from "react";
 
 import SideBar from "../components/SideBar";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/utility/Navbar";
 import AddFertiliser from "../components/cropManagement_home/AddFertiliser";
 
 

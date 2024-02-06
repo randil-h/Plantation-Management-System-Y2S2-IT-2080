@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import SideBar from "../../../components/SideBar";
-import Navbar from "../../../components/Navbar";
+import Navbar from "../../../components/utility/Navbar";
 
 import FinanceNavigation from "../../../components/finances/FinanceNavigation.js";
 
