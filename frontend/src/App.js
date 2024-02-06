@@ -9,6 +9,12 @@ import Finances from "./pages/finance_pages/Finances.js";
 import FinanceIncome from "./pages/finance_pages/income_records/FinanceIncome";
 import AddNewIncomeRecord from "./pages/finance_pages/income_records/AddNewIncomeRecord";
 
+import CropManagement from "./pages/CropManagement";
+import seedsPlanting from "./pages/seedsPlanting";
+import RotationManagement from "./pages/RotationManagement";
+import Fertiliser from "./pages/Fertiliser"
+
+
 export default function App() {
     return (
         <Routes>
@@ -23,6 +29,11 @@ export default function App() {
             <Route path="/finances/financeincome/viewrecord" element={FinanceIncome()}/>
             <Route path="/finances/financeincome/updaterecord" element={FinanceIncome()}/>
             <Route path="/finances/financeincome/deleterecord" element={FinanceIncome()}/>
+
+            <Route path = "/crops" element={CropManagement()}/>
+            <Route path= "/seedsPlanting" element={seedsPlanting()}/>
+            <Route path= "/rotation" element={RotationManagement()}/>
+            <Route path= "fertiliser" element={Fertiliser()}/>
         </Routes>
     )
 }

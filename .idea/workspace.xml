@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="added create for income records">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/finances/finance_income/IncomeRecordsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/finances/finance_income/IncomeRecordsList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/AddNewIncomeRecord.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/AddNewIncomeRecord.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,8 +69,9 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.17.1&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.17.19&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.10.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.10.8&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/bimidugunathilake/Documents/SE/Projects/Elemahana/Farm-Management-System-Y2S2-IT-2080/farm-management-system&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -93,6 +90,7 @@
       <recent name="$PROJECT_DIR$/farm-management-system/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Elitebook\WebstormProjects\Plantation-Management-System-Y2S2-IT-2080\frontend\src\pages" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -160,6 +158,9 @@
       <workItem from="1706975850667" duration="5798000" />
       <workItem from="1707063842989" duration="1887000" />
       <workItem from="1707129455417" duration="863000" />
+      <workItem from="1706975850667" duration="3044000" />
+      <workItem from="1707188600065" duration="135000" />
+      <workItem from="1707188783808" duration="1160000" />
     </task>
     <task id="LOCAL-00001" summary="added basic structure">
       <option name="closed" value="true" />
@@ -201,13 +202,13 @@
       <option name="project" value="LOCAL" />
       <updated>1706497071226</updated>
     </task>
-    <task id="LOCAL-00006" summary="finance navi addes">
+    <task id="LOCAL-00006" summary="fixed folder structure">
       <option name="closed" value="true" />
-      <created>1707058086478</created>
+      <created>1707189677349</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1707058086478</updated>
+      <updated>1707189677349</updated>
     </task>
     <option name="localTasksCounter" value="7" />
     <servers />
@@ -219,6 +220,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="added basic structure" />
     <MESSAGE value="mokuth na" />
+    <MESSAGE value="fixed folder structure" />
     <MESSAGE value="finance navi addes" />
     <option name="LAST_COMMIT_MESSAGE" value="finance navi addes" />
   </component>
