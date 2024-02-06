@@ -6,7 +6,7 @@ import {ChevronDownIcon} from "@heroicons/react/20/solid";
 
 export default function IncomeRecordsList({ testRecords }) {
     return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div className=" overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <caption
                 className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">

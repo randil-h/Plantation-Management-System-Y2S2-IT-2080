@@ -2,13 +2,12 @@ import React, { Fragment, useState } from 'react'
 import {Link, useLocation} from "react-router-dom";
 
 const menuItems = [
-    { name: "Home", path: "/finances"},
-    { name: "Incomes", path: "/finances/financeincome"},
-    { name: "Expenses", path: "/finances/financeexpense",},
-    { name: "Assets", path: "/employees",},
-    { name: "Liabilities", path: "/fertilizer",},
-    { name: "Payroll", path: "/fertilizer",},
-    { name: "Insights", path: "/fertilizer",},
+    { name: "HOME", path: "/finances"},
+    { name: "TRANSACTIONS", path: "/finances/transactions"},
+    { name: "INCOMES", path: "/finances/financeincome"},
+    { name: "VALUATION", path: "/finances",},
+    { name: "SALARY PAYMENTS", path: "/finances",},
+    { name: "INSIGHTS", path: "/finances",},
 ];
 
 export default function Example() {
@@ -22,7 +21,7 @@ export default function Example() {
                 <nav aria-label="Top" className="">
                     <div className=" border-gray-200 ">
                         <div className="flex items-center justify-center">
-                            <ul className="flex flex-row items-center w-full gap-2 text-gray-800 px-2 text-sm font-medium h-8">
+                            <ul className="flex flex-row items-center w-full gap-2 text-gray-800 px-2 text-xs font-medium h-8">
                                 {menuItems.map((item) => (
                                     <li
                                         key={item.name}
