@@ -4,9 +4,9 @@ import { Link, useLocation } from "react-router-dom";
 const menuItems = [
     { name: "HOME", path: "/inventory" },
     { name: "EQUIPMENTS AND MACHINES", path: "/equipment" },
-    { name: "SEEDS", path: "/finances/financeincome" },
-    { name: "FERTILIZER", path: "/finances/valuation" },
-    { name: "WATER", path: "/finances/salaryPayment" },
+    { name: "SEEDS", path: "/seeds" },
+    { name: "FERTILIZER", path: "/fertillizers" },
+    { name: "WATER", path: "/water" },
 ];
 
 export default function Example() {
