@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-const FarmSchema = mongoose.Schema(
+const FinanceSchema = mongoose.Schema(
     {
         date: {
-            type: String,
+            type: Date,
             required: true,
         },
         type: {
@@ -32,7 +32,7 @@ const FarmSchema = mongoose.Schema(
     }
 );
 
-export const TransactionsRecord = mongoose.model('TransactionsRecord', FarmSchema);
+export const TransactionsRecord = mongoose.model('TransactionsRecord', FinanceSchema);
 
 
 

@@ -17,7 +17,7 @@ import { FaCannabis } from "react-icons/fa";
 
 const menuItems = [
     { name: "HOME", path: "/dashboard", icon: HiHome },
-    { name: "FINANCES", path: "/finances", icon: HiMiniWallet },
+    { name: "FINANCES", path: "/finances/home", icon: HiMiniWallet },
     { name: "CROPS", path: "/crops", icon: FaCannabis },
     { name: "EMPLOYEES", path: "/employees", icon: HiUsers },
     { name: "FERTILIZER", path: "/fertilizer", icon: HiMiniBeaker },
@@ -28,7 +28,11 @@ const menuItems = [
 export default function SideBar() {
     const location = useLocation();
 
-    const isActive = (path) => location.pathname.startsWith(path);
+    const isActive = (path) => {
+        const currentPath = location.pathname.split('/')[1]; // Get the first part of the current pathname
+        return currentPath === path.split('/')[1]; // Compare with the first part of the provided path
+    };
+
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
