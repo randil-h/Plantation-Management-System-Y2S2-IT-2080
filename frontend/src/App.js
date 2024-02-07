@@ -1,5 +1,6 @@
-import React from 'react';
-import { Route, Routes} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import LoadingAnimation from "./LoadingAnimation";
 
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
@@ -22,16 +23,29 @@ import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments
 import CropManagement from "./pages/CropManagement";
 import seedsPlanting from "./pages/seedsPlanting";
 import RotationManagement from "./pages/RotationManagement";
-import Fertiliser from "./pages/Fertiliser"
-
+import Fertiliser from "./pages/Fertiliser";
 
 export default function App() {
+    const [loading, setLoading] = useState(true);
+
+    // Simulate loading delay with useEffect
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000); // Simulate 2 seconds loading time
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
-        <Routes>
-            <Route path="/" element={LandingPage()}/>
-            <Route path="/login" element={SigninPage()}/>
-            <Route path="/dashboard" element={Dashboard()}/>
-            <Route path="/employees" element={Employees()}/>
+        <div className="App">
+            {loading ? (
+                <LoadingAnimation />
+            ) : (
+                <Routes>
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/login" element={<SigninPage />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/employees" element={<Employees />} />
 
             <Route path="/finances/home" element={Finances()}/>
             <Route path="/finances/financeincome" element={FinanceIncome()}/>
@@ -55,7 +69,5 @@ export default function App() {
             <Route path= "/rotation" element={RotationManagement()}/>
             <Route path= "fertiliser" element={Fertiliser()}/>
         </Routes>
-    )
+    );
 }
-
-
