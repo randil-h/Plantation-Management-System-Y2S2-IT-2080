@@ -4,21 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="added finance transactions">
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/salary_payments/SalaryPayments.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/valuation/Valuation.js" afterDir="false" />
+    <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="fixed sidebar with and added tentative loading animation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/TransactionsModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/TransactionsModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/transactionsRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/TransactionsRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SideBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/finances/FinanceNavigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/finances/FinanceNavigation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/finances/finance_transactions/TransactionsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/finances/finance_transactions/TransactionsList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/finance_pages/Finances.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/Finances.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/FinanceIncome.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/FinanceIncome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/finance_pages/transactions/AddNewTransaction.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/transactions/AddNewTransaction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/finance_pages/transactions/ViewAllTransactions.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/transactions/ViewAllTransactions.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -289,6 +276,7 @@
     <MESSAGE value="added create for income records" />
     <MESSAGE value="added breadcrumbs and updated finance" />
     <MESSAGE value="added finance transactions" />
-    <option name="LAST_COMMIT_MESSAGE" value="added finance transactions" />
+    <MESSAGE value="fixed sidebar with and added tentative loading animation" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed sidebar with and added tentative loading animation" />
   </component>
 </project>
