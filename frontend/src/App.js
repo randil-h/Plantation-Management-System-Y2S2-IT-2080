@@ -1,5 +1,6 @@
-import React from 'react';
-import { Route, Routes} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import LoadingAnimation from "./LoadingAnimation";
 
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
@@ -19,36 +20,41 @@ import DeleteTransaction from "./pages/finance_pages/transactions/DeleteTransact
 import CropManagement from "./pages/CropManagement";
 import seedsPlanting from "./pages/seedsPlanting";
 import RotationManagement from "./pages/RotationManagement";
-import Fertiliser from "./pages/Fertiliser"
-
+import Fertiliser from "./pages/Fertiliser";
 
 export default function App() {
+    const [loading, setLoading] = useState(true);
+
+    // Simulate loading delay with useEffect
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 2000); // Simulate 2 seconds loading time
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
-        <Routes>
-            <Route path="/" element={LandingPage()}/>
-            <Route path="/login" element={SigninPage()}/>
-            <Route path="/dashboard" element={Dashboard()}/>
-            <Route path="/employees" element={Employees()}/>
+        <div className="App">
+            {loading ? (
+                <LoadingAnimation />
+            ) : (
+                <Routes>
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/login" element={<SigninPage />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/employees" element={<Employees />} />
 
-            <Route path="/finances" element={Finances()}/>
-            <Route path="/finances/financeincome" element={FinanceIncome()}/>
-            <Route path="/finances/financeincome/addnewrecord" element={AddNewIncomeRecord()}/>
-            <Route path="/finances/financeincome/viewrecord" element={FinanceIncome()}/>
-            <Route path="/finances/financeincome/updaterecord" element={FinanceIncome()}/>
-            <Route path="/finances/financeincome/deleterecord" element={FinanceIncome()}/>
+                    <Route path="/finances" element={<Finances />} />
+                    <Route path="/finances/financeincome" element={<FinanceIncome />} />
+                    <Route path="/finances/financeincome/addnewrecord" element={<AddNewIncomeRecord />} />
+                    {/* Add more finance-related routes here */}
 
-                <Route path="/finances/transactions" element={ViewAllTransactions()}/>
-                <Route path="/finances/transactions/addTransaction" element={AddNewTransaction()}/>
-                <Route path="/finances/transactions/viewTransactionDetails" element={ViewTransactionDetails()}/>
-                <Route path="/finances/transactions/editTransaction" element={EditTransaction()}/>
-                <Route path="/finances/transactions/deleteTransaction" element={DeleteTransaction()}/>
-
-            <Route path = "/crops" element={CropManagement()}/>
-            <Route path= "/seedsPlanting" element={seedsPlanting()}/>
-            <Route path= "/rotation" element={RotationManagement()}/>
-            <Route path= "fertiliser" element={Fertiliser()}/>
-        </Routes>
-    )
+                    <Route path="/crops" element={<CropManagement />} />
+                    <Route path="/seedsPlanting" element={<seedsPlanting />} />
+                    <Route path="/rotation" element={<RotationManagement />} />
+                    <Route path="/fertiliser" element={<Fertiliser />} />
+                </Routes>
+            )}
+        </div>
+    );
 }
-
-
