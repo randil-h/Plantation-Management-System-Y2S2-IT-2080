@@ -12,7 +12,8 @@ import AddNewIncomeRecord from "./pages/finance_pages/income_records/AddNewIncom
 import CropManagement from "./pages/CropManagement";
 import seedsPlanting from "./pages/seedsPlanting";
 import RotationManagement from "./pages/RotationManagement";
-import Fertiliser from "./pages/Fertiliser"
+import Fertiliser from "./pages/Harvests"
+import Harvests from "./pages/Harvests";
 
 
 export default function App() {
@@ -33,7 +34,7 @@ export default function App() {
             <Route path = "/crops" element={CropManagement()}/>
             <Route path= "/seedsPlanting" element={seedsPlanting()}/>
             <Route path= "/rotation" element={RotationManagement()}/>
-            <Route path= "fertiliser" element={Fertiliser()}/>
+            <Route path= "/harvests" element={Harvests()}/>
         </Routes>
     )
 }

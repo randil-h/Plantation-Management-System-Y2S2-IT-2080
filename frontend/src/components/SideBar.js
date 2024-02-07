@@ -17,7 +17,7 @@ const menuItems = [
     { name: "Finances", path: "/finances", icon: HiMiniWallet },
     { name: "Crops", path: "/crops", icon: FaCannabis },
     { name: "Employees", path: "/employees", icon: HiUsers },
-    { name: "Fertilizer", path: "/fertilizer", icon: HiMiniBeaker },
+    { name: "Harvests", path: "/harvests", icon: HiMiniBeaker },
     { name: "Equipment", path: "/equipment", icon: HiWrenchScrewdriver },
     { name: "Insights", path: "/insights", icon: HiPresentationChartLine },
 ];

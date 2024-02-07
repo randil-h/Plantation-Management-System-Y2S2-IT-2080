@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="added breadcrumbs and updated finance">
+    <list default="true" id="e1650f54-0df0-4870-9838-5bccbf4c19de" name="Changes" comment="added basic structure">
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-16__11_30__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-01-16__11_30__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/finances/FinanceNavigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/finances/FinanceNavigation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/finances/finance_income/IncomeRecordsList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/finances/finance_income/IncomeRecordsList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/FinanceIncome.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/finance_pages/income_records/FinanceIncome.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/SideBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/SideBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Fertiliser.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Harvests.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="niwanka-branch" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -70,9 +72,9 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;bimidus-branch&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;18.17.1&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;18.17.19&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;niwankas-branch&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.11.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.11.16&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/bimidugunathilake/Documents/SE/Projects/Elemahana/Farm-Management-System-Y2S2-IT-2080/farm-management-system&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -161,6 +163,9 @@
       <workItem from="1706975850667" duration="5798000" />
       <workItem from="1707063842989" duration="1887000" />
       <workItem from="1707129455417" duration="2820000" />
+      <workItem from="1707204233952" duration="34000" />
+      <workItem from="1707204289295" duration="2062000" />
+      <workItem from="1707273399096" duration="2736000" />
     </task>
     <task id="LOCAL-00001" summary="added basic structure">
       <option name="closed" value="true" />

@@ -2,10 +2,10 @@ import React from "react";
 
 import SideBar from "../components/SideBar";
 import Navbar from "../components/utility/Navbar";
-import AddFertiliser from "../components/cropManagement_home/AddFertiliser";
 
 
-export default function seedsPlanting() {
+
+export default function Harvests() {
     return (
         <div className="flex-col">
             {/* Navbar */}
@@ -19,9 +19,7 @@ export default function seedsPlanting() {
                 </div>
 
             </div>
-            <div className="ml-80 mt-auto pt-10">
-                <AddFertiliser />
-            </div>
+
         </div>
     );
 }
