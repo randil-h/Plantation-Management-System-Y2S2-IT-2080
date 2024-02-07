@@ -15,7 +15,7 @@ export default function Finances() {
             </div>
             <div className="">
                 <div className="grid sm:grid-cols-6 ">
-                    <div className="  col-span-1 sticky left-0 top-0">
+                    <div className="col-span-1 sticky left-0 top-0">
                         <SideBar/>
                     </div>
 
