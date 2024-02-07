@@ -20,10 +20,10 @@ import DeleteTransaction from "./pages/finance_pages/transactions/DeleteTransact
 import Valuation from "./pages/finance_pages/valuation/Valuation";
 import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments";
 
-import CropManagement from "./pages/CropManagement";
-import seedsPlanting from "./pages/seedsPlanting";
-import RotationManagement from "./pages/RotationManagement";
-
+import CropManagement from "./pages/crop_pages/CropManagement";
+import seedsPlanting from "./pages/crop_pages/seedsPlanting";
+import RotationManagement from "./pages/crop_pages/RotationManagement";
+import Fertiliser from "./pages/crop_pages/Fertiliser";
 
 import Equipment from "./pages/Inventory/Eq and Machines/Equipments";
 import EqList from "./pages/Inventory/Eq and Machines/EqListPage";
@@ -31,7 +31,6 @@ import MaintenanceLog from "./pages/Inventory/Eq and Machines/MaintenanceLog"
 import AddEquipments from "./pages/Inventory/Eq and Machines/AddEquipments";
 import EquipmentFinances from "./pages/Inventory/Eq and Machines/EquipmentFinances";
 import AddEqFinances from "./pages/Inventory/Eq and Machines/AddEqFinances";
-import Fertiliser from "./pages/Fertiliser";
 
 export default function App() {
     const [loading, setLoading] = useState(true);

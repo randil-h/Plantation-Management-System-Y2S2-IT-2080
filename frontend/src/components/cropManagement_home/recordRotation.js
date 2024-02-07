@@ -3,12 +3,12 @@ import React from "react";
 export default function AddSeeds() {
     return (
         <div className="pt-1">
-            <div className="flex flex-col ml-1/3 mt-1">
+            <div className="">
                 <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                     Record Rotation
                 </h1>
             </div>
-            <form className="max-w-md ml-1/3 mt-8 p-4 bg-gray-200 rounded-lg">
+            <form className="max-w-md mx-auto mt-8 p-4 bg-gray-200 rounded-lg">
                 <label htmlFor="seasons" className="block pb-4">
                     Season
                 </label>

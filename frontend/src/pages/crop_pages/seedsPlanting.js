@@ -1,8 +1,8 @@
 import React from "react";
 
-import SideBar from "../components/SideBar";
-import Navbar from "../components/utility/Navbar";
-import AddSeeds from "../components/cropManagement_home/AddSeeds";
+import SideBar from "../../components/SideBar";
+import Navbar from "../../components/utility/Navbar";
+import AddSeeds from "../../components/cropManagement_home/AddSeeds";
 
 
 export default function seedsPlanting() {

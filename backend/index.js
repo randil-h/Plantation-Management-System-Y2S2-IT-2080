@@ -8,7 +8,6 @@ import TransactionsRoute from "./routes/TransactionsRoute.js";
 
 const app = express();
 
-// Middleware for parsing request body
 app.use(express.json());
 
 app.use(cors());
@@ -38,7 +37,3 @@ mongoose
     .catch((error) => {
         console.log(error);
     });
-
-
-
-

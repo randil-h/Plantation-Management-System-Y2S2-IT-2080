@@ -1,9 +1,8 @@
 import React from "react";
 
-import SideBar from "../components/SideBar";
-import Navbar from "../components/utility/Navbar";
-import AddFertiliser from "../components/cropManagement_home/AddFertiliser";
-
+import SideBar from "../../components/SideBar";
+import Navbar from "../../components/utility/Navbar";
+import Rotation from "../../components/cropManagement_home/recordRotation"
 
 export default function seedsPlanting() {
     return (
@@ -20,7 +19,7 @@ export default function seedsPlanting() {
 
             </div>
             <div className="ml-80 mt-auto pt-10">
-                <AddFertiliser />
+                <Rotation/>
             </div>
         </div>
     );

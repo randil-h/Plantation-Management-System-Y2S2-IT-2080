@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-import SideBar from "../components/SideBar";
-import Navbar from "../components/utility/Navbar";
-import HomeContent from "../components/cropManagement_home/homeContent";
-import FinanceNavigation from "../components/finances/FinanceNavigation";
-
+import SideBar from "../../components/SideBar";
+import Navbar from "../../components/utility/Navbar";
+import HomeContent from "../../components/cropManagement_home/homeContent";
+import FinanceNavigation from "../../components/finances/FinanceNavigation";
 
 export default function CropManagement() {
     return (
@@ -26,7 +25,6 @@ export default function CropManagement() {
                 </div>
             </div>
         </div>
-
     );
 };
 
