@@ -1,19 +1,21 @@
 import React, { Fragment, useState } from 'react'
-import {Link, useLocation} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
-    { name: "HOME", path: "/finances"},
-    { name: "TRANSACTIONS", path: "/finances/transactions"},
-    { name: "INCOMES", path: "/finances/financeincome"},
-    { name: "VALUATION", path: "/finances",},
-    { name: "SALARY PAYMENTS", path: "/finances",},
-    { name: "INSIGHTS", path: "/finances",},
+    { name: "HOME", path: "/finances/home" },
+    { name: "TRANSACTIONS", path: "/finances/transactions" },
+    { name: "INCOMES", path: "/finances/financeincome" },
+    { name: "VALUATION", path: "/finances/valuation" },
+    { name: "SALARY PAYMENTS", path: "/finances/salaryPayment" },
 ];
 
 export default function Example() {
     const [open, setOpen] = useState(false)
     const location = useLocation();
-    const isActive = (path) => location.pathname === path;
+    const isActive = (path) => {
+        // Check if the current pathname starts with the specified path
+        return location.pathname.startsWith(path);
+    };
 
     return (
         <div className="bg-gray-100 bg-opacity-50 backdrop-blur sticky top-12 border-b w-screen">
@@ -30,7 +32,7 @@ export default function Example() {
                                         }`}
                                     >
                                         <Link to={item.path} className="px-2 flex items-center ">
-                                            {item.icon && <item.icon className="mr-4"/>}
+                                            {item.icon && <item.icon className="mr-4" />}
                                             {item.name}
                                         </Link>
                                     </li>

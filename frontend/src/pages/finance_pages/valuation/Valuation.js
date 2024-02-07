@@ -1,11 +1,11 @@
 import React from "react";
 
-import SideBar from "../../components/SideBar";
-import Navbar from "../../components/utility/Navbar";
-import FinanceNavigation from "../../components/finances/FinanceNavigation";
+import SideBar from "../../../components/SideBar";
+import Navbar from "../../../components/utility/Navbar";
+import FinanceNavigation from "../../../components/finances/FinanceNavigation";
 
 
-export default function Finances() {
+export default function Valuation() {
     return (
         <div className="">
             {/* Navbar */}
@@ -14,7 +14,7 @@ export default function Finances() {
             </div>
             <div className="">
                 <div className="grid sm:grid-cols-6 ">
-                    <div className="col-span-1 sticky left-0 top-0">
+                    <div className="  col-span-1 sticky left-0 top-0">
                         <SideBar/>
                     </div>
 

@@ -1,21 +1,31 @@
 import {
     PencilSquareIcon,
-    TrashIcon
+    TrashIcon,
+    InformationCircleIcon
 } from '@heroicons/react/24/outline'
 import {ChevronDownIcon} from "@heroicons/react/20/solid";
 
-export default function TransactionsList() {
+export default function TransactionsList({TransactionsRecords}) {
     return (
-        <div className=" overflow-x-auto shadow-md sm:rounded-lg">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <caption
-                    className="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-                    Our products
-                    <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Browse a list of Flowbite
-                        products designed to help you work and play, stay organized, get answers, keep in touch, grow your
-                        business, and more.</p>
-                </caption>
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <div className=" overflow-x-auto  ">
+            <div className="flex flex-row justify-between  px-8 py-8">
+                <div>
+                    <h1 className=" text-lg font-semibold text-left">Transaction records</h1>
+                    <p className="mt-1 text-sm font-normal text-gray-500 0">Browse a list of all income
+                        and expense records stored in the system</p>
+                </div>
+
+                <div>
+                    <a href="/finances/transactions/addTransaction"
+                       className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                        Add new transaction <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+                <thead
+                    className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                 <tr>
                     <th scope="col" className="px-6 py-3">
                         Date
@@ -27,7 +37,7 @@ export default function TransactionsList() {
                         Amount
                     </th>
                     <th scope="col" className="px-6 py-3">
-                        Description
+                    Description
                     </th>
                     <th scope="col" className="px-6 py-3">
                         Payer/Payee
@@ -35,42 +45,67 @@ export default function TransactionsList() {
                     <th scope="col" className="px-6 py-3">
                         Payment Method
                     </th>
-                    <th scope="col" className="px-6 py-3">
+                    <th scope="col" className=" py-3">
+                        <span className="sr-only">Info</span>
+                    </th>
+                    <th scope="col" className=" py-3">
                         <span className="sr-only">Edit</span>
+                    </th>
+                    <th scope="col" className=" py-3">
+                        <span className="sr-only">Delete</span>
                     </th>
                 </tr>
                 </thead>
                 <tbody>
-                {/*
-                {testRecords.map((data, index) => (
-                    <tr key={index}
-                        className={index % 2 === 0 ? "bg-white border-b dark:bg-gray-800 dark:border-gray-700" : "bg-white dark:bg-gray-800"}>
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {testRecords.first_name}
-                        </th>
+
+                {TransactionsRecords.map((record, index) => (
+                    <tr key={record._id}
+                        className={`border-b  
+            ${record.type === 'expense' ? 'border-l-4 border-red-500 bg-red-100' : 'border-l-4 border-green-500 bg-green-100'}`}
+                    >
                         <td className="px-6 py-4">
-                            {testRecords.uemail}
+                            {record.date}
                         </td>
                         <td className="px-6 py-4">
-                            {testRecords.country}
+                            {record.type}
                         </td>
                         <td className="px-6 py-4">
-                            {testRecords.first_name}
+                            {record.amount}
                         </td>
                         <td className="px-6 py-4">
-                            {testRecords.first_name}
+                            {record.description}
                         </td>
                         <td className="px-6 py-4">
-                            {testRecords.first_name}
+                            {record.payer_payee}
                         </td>
                         <td className="px-6 py-4">
-                            {testRecords.first_name}
+                            {record.method}
                         </td>
-                        <td className="px-6 py-4 text-right">
-                            <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        <td className=" py-4 text-right">
+                            <a href="#" className="font-medium text-blue-600  hover:underline">
+                                <InformationCircleIcon
+                                    className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                    aria-hidden="true"/>
+                            </a>
+                        </td>
+                        <td className=" py-4 text-right">
+                            <a href="#" className="font-medium text-blue-600 hover:underline">
+                                <PencilSquareIcon
+                                    className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                    aria-hidden="true"/>
+                            </a>
+                        </td>
+                        <td className=" py-4 text-right">
+                            <a href="#" className="font-medium text-blue-600 hover:underline">
+                                <TrashIcon
+                                    className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                    aria-hidden="true"/>
+                            </a>
                         </td>
                     </tr>
-                ))} */}
+                ))}
+
+
                 </tbody>
             </table>
         </div>

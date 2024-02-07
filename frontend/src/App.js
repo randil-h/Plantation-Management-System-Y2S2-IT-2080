@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import LoadingAnimation from "./LoadingAnimation";
+import LoadingAnimation from "./components/utility/LoadingAnimation";
 
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
@@ -16,6 +16,9 @@ import ViewAllTransactions from "./pages/finance_pages/transactions/ViewAllTrans
 import ViewTransactionDetails from "./pages/finance_pages/transactions/ViewTransactionDetails";
 import EditTransaction from "./pages/finance_pages/transactions/EditTransaction";
 import DeleteTransaction from "./pages/finance_pages/transactions/DeleteTransaction";
+
+import Valuation from "./pages/finance_pages/valuation/Valuation";
+import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments";
 
 import CropManagement from "./pages/CropManagement";
 import seedsPlanting from "./pages/seedsPlanting";
@@ -37,7 +40,7 @@ export default function App() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
-        }, 2000); // Simulate 2 seconds loading time
+        }, 200); // Simulate 2 seconds loading time
         return () => clearTimeout(timer);
     }, []);
 
@@ -52,10 +55,22 @@ export default function App() {
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/employees" element={<Employees />} />
 
-                    <Route path="/finances" element={<Finances />} />
+                    <Route path="/finances/home" element={<Finances />} />
                     <Route path="/finances/financeincome" element={<FinanceIncome />} />
                     <Route path="/finances/financeincome/addnewrecord" element={<AddNewIncomeRecord />} />
-                    {/* Add more finance-related routes here */}
+                    <Route path="/finances/financeincome/viewrecord" element={<FinanceIncome />} />
+                    <Route path="/finances/financeincome/updaterecord" element={<FinanceIncome />} />
+                    <Route path="/finances/financeincome/deleterecord" element={<FinanceIncome />} />
+
+                    <Route path="/finances/transactions" element={<ViewAllTransactions />} />
+                    <Route path="/finances/transactions/addTransaction" element={<AddNewTransaction />} />
+                    <Route path="/finances/transactions/viewTransactionDetails" element={<ViewTransactionDetails />} />
+                    <Route path="/finances/transactions/editTransaction" element={<EditTransaction />} />
+                    <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
+
+                    <Route path="/finances/salaryPayment" element={<Valuation />} />
+
+                    <Route path="/finances/valuation" element={<SalaryPayments />} />
 
             <Route path = "/crops" element={CropManagement()}/>
             <Route path = "/seedsPlanting" element={seedsPlanting()}/>

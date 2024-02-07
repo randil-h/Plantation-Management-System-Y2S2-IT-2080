@@ -8,16 +8,16 @@ import Breadcrumb from "../../../components/utility/Breadcrumbs";
 
 export default function ViewAllTransactions() {
 
-    const [testRecords, setTestRecords] = useState([]);
+    const [TransactionsRecords, setTransactionsRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     //const [showType, setShowType] = useState('table');
 
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/financeincome')
+            .get('http://localhost:5555/transactions')
             .then((response) => {
-                setTestRecords(response.data.data);
+                setTransactionsRecords(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -45,7 +45,7 @@ export default function ViewAllTransactions() {
                     <div className="w-full col-span-5 flex flex-col ">
                         <FinanceNavigation/>
                         <Breadcrumb items = {breadcrumbItems}/>
-                        <TransactionsList/>
+                        <TransactionsList TransactionsRecords = {TransactionsRecords}/>
 
                     </div>
                 </div>
