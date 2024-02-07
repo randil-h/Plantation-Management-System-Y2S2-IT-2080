@@ -4,7 +4,9 @@ import SideBar from "../../../components/SideBar";
 import FinanceNavigation from "../../../components/finances/FinanceNavigation";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import BackButton from "../../../components/utility/BackButton";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import axios from "axios";
 
 export default function ViewTransactionDetails() {
 
@@ -14,6 +16,24 @@ export default function ViewTransactionDetails() {
         { name: 'Transactions', href: '/finances/transactions' },
         { name: 'Add New Transaction', href: '/finances/transactions/addTransaction' },
     ];
+
+    const [TransactionRecord, setTransactionRecord] = useState({});
+    const [loading, setLoading] = useState(false);
+    const { id } = useParams();
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(`http://localhost:5555/transactions/${id}`)
+            .then((response) => {
+                setTransactionRecord(response.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
 
 
     return (
@@ -36,7 +56,7 @@ export default function ViewTransactionDetails() {
 
                         <div className="px-8 py-8">
                             <div className="px-4 sm:px-0">
-                                <h3 className="text-base font-semibold leading-7 text-gray-900">Transaction Detail</h3>
+                                <h3 className="text-base font-semibold leading-7 text-gray-900">Transaction Details</h3>
                                 <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and
                                     application.</p>
                             </div>
@@ -45,47 +65,49 @@ export default function ViewTransactionDetails() {
                                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                         <dt className="text-sm font-medium leading-6 text-gray-900">Transaction date
                                         </dt>
-                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Margot
-                                            Foster
+                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{TransactionRecord.date}
                                         </dd>
                                     </div>
                                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                         <dt className="text-sm font-medium leading-6 text-gray-900">Transaction type
                                         </dt>
-                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Backend
-                                            Developer
+                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{TransactionRecord.type}
                                         </dd>
                                     </div>
                                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                         <dt className="text-sm font-medium leading-6 text-gray-900">Transaction amount
                                         </dt>
-                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">margotfoster@example.com</dd>
+                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{TransactionRecord.amount}</dd>
                                     </div>
                                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                         <dt className="text-sm font-medium leading-6 text-gray-900">Description
                                         </dt>
-                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">$120,000</dd>
+                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{TransactionRecord.description}</dd>
                                     </div>
                                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                         <dt className="text-sm font-medium leading-6 text-gray-900">Payer/payee
                                             involved
                                         </dt>
                                         <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                                            Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt
-                                            cillum culpa consequat. Excepteur
-                                            qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea
-                                            officia proident. Irure nostrud
-                                            pariatur mollit ad adipisicing reprehenderit deserunt qui eu.
+                                            {TransactionRecord.payer_payee}
                                         </dd>
                                     </div>
                                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                         <dt className="text-sm font-medium leading-6 text-gray-900">Payment method</dt>
                                         <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                                            Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt
-                                            cillum culpa consequat. Excepteur
-                                            qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea
-                                            officia proident. Irure nostrud
-                                            pariatur mollit ad adipisicing reprehenderit deserunt qui eu.
+                                            {TransactionRecord.method}
+                                        </dd>
+                                    </div>
+                                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                        <dt className="text-sm font-medium leading-6 text-gray-900">Record created at</dt>
+                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                            {new Date(TransactionRecord.createdAt).toString()}
+                                        </dd>
+                                    </div>
+                                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                        <dt className="text-sm font-medium leading-6 text-gray-900">Record last updated at</dt>
+                                        <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                            {new Date(TransactionRecord.updatedAt).toString()}
                                         </dd>
                                     </div>
                                 </dl>

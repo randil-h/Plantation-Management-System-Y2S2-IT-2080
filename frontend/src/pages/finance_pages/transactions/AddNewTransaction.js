@@ -31,7 +31,7 @@ export default function AddNewTransaction() {
         };
         setLoading(true);
         axios
-            .post('http://localhost:5555/transactions', data)
+            .post('http://localhost:5555/transactions/addTransactions', data)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });

@@ -9,7 +9,7 @@ function Breadcrumb({ items }) {
                 <li className="inline-flex items-center">
                     <HomeIcon className="w-4 h-4 mr-1 text-gray-700 dark:text-gray-400" />
                     <a href="/dashboard" className="inline-flex items-center text-sm font-normal text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
-                        Dashboar
+                        Dashboard
                     </a>
                 </li>
                 {/* Render other breadcrumb items */}
