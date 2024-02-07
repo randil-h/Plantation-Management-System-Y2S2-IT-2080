@@ -17,6 +17,9 @@ import ViewTransactionDetails from "./pages/finance_pages/transactions/ViewTrans
 import EditTransaction from "./pages/finance_pages/transactions/EditTransaction";
 import DeleteTransaction from "./pages/finance_pages/transactions/DeleteTransaction";
 
+import Valuation from "./pages/finance_pages/valuation/Valuation";
+import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments";
+
 import CropManagement from "./pages/CropManagement";
 import seedsPlanting from "./pages/seedsPlanting";
 import RotationManagement from "./pages/RotationManagement";
@@ -44,17 +47,27 @@ export default function App() {
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/employees" element={<Employees />} />
 
-                    <Route path="/finances" element={<Finances />} />
-                    <Route path="/finances/financeincome" element={<FinanceIncome />} />
-                    <Route path="/finances/financeincome/addnewrecord" element={<AddNewIncomeRecord />} />
-                    {/* Add more finance-related routes here */}
+            <Route path="/finances/home" element={Finances()}/>
+            <Route path="/finances/financeincome" element={FinanceIncome()}/>
+            <Route path="/finances/financeincome/addnewrecord" element={AddNewIncomeRecord()}/>
+            <Route path="/finances/financeincome/viewrecord" element={FinanceIncome()}/>
+            <Route path="/finances/financeincome/updaterecord" element={FinanceIncome()}/>
+            <Route path="/finances/financeincome/deleterecord" element={FinanceIncome()}/>
 
-                    <Route path="/crops" element={<CropManagement />} />
-                    <Route path="/seedsPlanting" element={<seedsPlanting />} />
-                    <Route path="/rotation" element={<RotationManagement />} />
-                    <Route path="/fertiliser" element={<Fertiliser />} />
-                </Routes>
-            )}
-        </div>
+                <Route path="/finances/transactions" element={ViewAllTransactions()}/>
+                <Route path="/finances/transactions/addTransaction" element={AddNewTransaction()}/>
+                <Route path="/finances/transactions/viewTransactionDetails" element={ViewTransactionDetails()}/>
+                <Route path="/finances/transactions/editTransaction" element={EditTransaction()}/>
+                <Route path="/finances/transactions/deleteTransaction" element={DeleteTransaction()}/>
+
+            <Route path="/finances/salaryPayment" element={Valuation()}/>
+
+            <Route path="/finances/valuation" element={SalaryPayments()}/>
+
+            <Route path = "/crops" element={CropManagement()}/>
+            <Route path= "/seedsPlanting" element={seedsPlanting()}/>
+            <Route path= "/rotation" element={RotationManagement()}/>
+            <Route path= "fertiliser" element={Fertiliser()}/>
+        </Routes>
     );
 }

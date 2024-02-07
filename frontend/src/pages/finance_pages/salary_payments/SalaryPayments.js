@@ -1,12 +1,11 @@
 import React from "react";
 
-import SideBar from "../../components/SideBar";
-import Navbar from "../../components/utility/Navbar";
-import AddNewIncomeOrExpense from "../../components/finances/AddNewIncomeOrExpense";
-import FinanceNavigation from "../../components/finances/FinanceNavigation";
+import SideBar from "../../../components/SideBar";
+import Navbar from "../../../components/utility/Navbar";
+import FinanceNavigation from "../../../components/finances/FinanceNavigation";
 
 
-export default function Finances() {
+export default function SalaryPayments() {
     return (
         <div className="">
             {/* Navbar */}
