@@ -6,6 +6,7 @@ import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useSnackbar} from "notistack";
 import axios from "axios";
+import BackButton from "../../../components/utility/BackButton";
 
 export default function AddNewTransaction() {
 
@@ -46,7 +47,6 @@ export default function AddNewTransaction() {
     };
 
     const breadcrumbItems = [
-        { name: 'Home', href: '/dashboard' },
         { name: 'Finance', href: '/finances' },
         { name: 'Transactions', href: '/finances/transactions' },
         { name: 'Add New Transaction', href: '/finances/transactions/addTransaction' },
@@ -65,11 +65,14 @@ export default function AddNewTransaction() {
 
                     <div className="w-full col-span-5 flex flex-col ">
                         <FinanceNavigation/>
-                        <Breadcrumb items={breadcrumbItems}/>
+                        <div className="flex flex-row">
+                            <BackButton/>
+                            <Breadcrumb items={breadcrumbItems}/>
+                        </div>
 
                         <form className=" flex-col flex items-center justify-center">
                             <div className="space-y-12 px-0 py-16 w-6/12 ">
-                                <div className="border-b border-gray-900/10 pb-12">
+                            <div className="border-b border-gray-900/10 pb-12">
                                     <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
 

@@ -14,7 +14,7 @@ export default function ViewTransactionDetails() {
 
         { name: 'Finance', href: '/finances' },
         { name: 'Transactions', href: '/finances/transactions' },
-        { name: 'Add New Transaction', href: '/finances/transactions/addTransaction' },
+        { name: 'View Transaction Details', href: '/finances/transactions/viewTransactionDetails' },
     ];
 
     const [TransactionRecord, setTransactionRecord] = useState({});
