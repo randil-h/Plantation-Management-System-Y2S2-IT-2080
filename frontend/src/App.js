@@ -20,6 +20,14 @@ import DeleteTransaction from "./pages/finance_pages/transactions/DeleteTransact
 import CropManagement from "./pages/CropManagement";
 import seedsPlanting from "./pages/seedsPlanting";
 import RotationManagement from "./pages/RotationManagement";
+
+
+import Equipment from "./pages/Inventory/Eq and Machines/Equipments";
+import EqList from "./pages/Inventory/Eq and Machines/EqListPage";
+import MaintenanceLog from "./pages/Inventory/Eq and Machines/MaintenanceLog"
+import AddEquipments from "./pages/Inventory/Eq and Machines/AddEquipments";
+import EquipmentFinances from "./pages/Inventory/Eq and Machines/EquipmentFinances";
+import AddEqFinances from "./pages/Inventory/Eq and Machines/AddEqFinances";
 import Fertiliser from "./pages/Fertiliser";
 
 export default function App() {
@@ -49,12 +57,24 @@ export default function App() {
                     <Route path="/finances/financeincome/addnewrecord" element={<AddNewIncomeRecord />} />
                     {/* Add more finance-related routes here */}
 
-                    <Route path="/crops" element={<CropManagement />} />
-                    <Route path="/seedsPlanting" element={<seedsPlanting />} />
-                    <Route path="/rotation" element={<RotationManagement />} />
-                    <Route path="/fertiliser" element={<Fertiliser />} />
-                </Routes>
+            <Route path = "/crops" element={CropManagement()}/>
+            <Route path = "/seedsPlanting" element={seedsPlanting()}/>
+            <Route path = "/rotation" element={RotationManagement()}/>
+            <Route path = "/fertiliser" element={Fertiliser()}/>
+
+            <Route path = "/equipment" element={Equipment()}/>
+            <Route path = "/eqlist" element={EqList()}/>
+            <Route path= "/maintenancelog" element={MaintenanceLog()}/>
+            <Route path = "/addequipments" element={AddEquipments()}/>
+            <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+                <Route path= "/addeqfinances" element={AddEqFinances()}/>
+
+        </Routes>
+
+
             )}
         </div>
     );
 }
+
+
