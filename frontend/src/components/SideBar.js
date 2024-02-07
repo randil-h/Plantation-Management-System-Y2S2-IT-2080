@@ -42,7 +42,7 @@ export default function SideBar() {
                     <li
                         key={item.name}
                         className={`flex w-full h-12 my-1  focus:outline-none focus:ring focus:ring-lime-500 ${
-                            isActive(item.path) ? "bg-gray-200 text-lime-600 drop-shadow-lg" : "hover:bg-gray-200 hover:shadow-md"
+                            isActive(item.path) ? "bg-gray-200 text-lime-600 drop-shadow-lg border-l-4 border-lime-600" : "hover:bg-gray-200 hover:shadow-md"
                         }`}
                     >
                         <Link to={item.path} className="pl-3 flex items-center h-full">
