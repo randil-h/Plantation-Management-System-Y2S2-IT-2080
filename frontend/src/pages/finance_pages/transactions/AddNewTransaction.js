@@ -95,6 +95,7 @@ export default function AddNewTransaction() {
                                                         Income
                                                     </label>
                                                 </div>
+                                                {/*
                                                 <div className="flex items-center gap-x-3">
                                                     <input
                                                         id="type"
@@ -108,7 +109,7 @@ export default function AddNewTransaction() {
                                                            className="block text-sm font-medium leading-6 text-gray-900">
                                                         Expense
                                                     </label>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </fieldset>
 
@@ -201,9 +202,6 @@ export default function AddNewTransaction() {
                                                 >
                                                     <option>Cash</option>
                                                     <option>Online Transfer</option>
-                                                    <option>Cheque</option>
-                                                    <option>Debit Card</option>
-                                                    <option>Other</option>
                                                 </select>
                                             </div>
                                         </div>

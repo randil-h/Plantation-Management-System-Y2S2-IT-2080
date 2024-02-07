@@ -82,7 +82,7 @@ export default function TransactionsList({TransactionsRecords}) {
                             {record.method}
                         </td>
                         <td className=" py-4 text-right">
-                            <a href="#" className="font-medium text-blue-600  hover:underline">
+                            <a href="/finances/transactions/viewTransactionDetails" className="font-medium text-blue-600  hover:underline">
                                 <InformationCircleIcon
                                     className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
                                     aria-hidden="true"/>
