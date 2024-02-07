@@ -41,7 +41,7 @@ export default function SideBar() {
                 {menuItems.map((item) => (
                     <li
                         key={item.name}
-                        className={`flex w-11/12 h-12 my-1 rounded-lg focus:outline-none focus:ring focus:ring-lime-500 ${
+                        className={`flex w-full h-12 my-1  focus:outline-none focus:ring focus:ring-lime-500 ${
                             isActive(item.path) ? "bg-gray-200 text-lime-600 drop-shadow-lg" : "hover:bg-gray-200 hover:shadow-md"
                         }`}
                     >
