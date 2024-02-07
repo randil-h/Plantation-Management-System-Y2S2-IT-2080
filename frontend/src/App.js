@@ -28,12 +28,10 @@ import Fertiliser from "./pages/Fertiliser";
 export default function App() {
     const [loading, setLoading] = useState(true);
 
-    // Simulate loading delay with useEffect
     useEffect(() => {
-        const timer = setTimeout(() => {
+        setTimeout(() => {
             setLoading(false);
-        }, 2000); // Simulate 2 seconds loading time
-        return () => clearTimeout(timer);
+        }, 200)
     }, []);
 
     return (
