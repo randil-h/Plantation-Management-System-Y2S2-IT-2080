@@ -19,7 +19,9 @@ export default function CropManagement() {
                     <div className="col-span-1 sticky left-0 top-0">
                         <SideBar/>
                     </div>
-                    <div> <HomeContent /></div>
+                    <div>
+                        <HomeContent />
+                    </div>
 
                 </div>
             </div>

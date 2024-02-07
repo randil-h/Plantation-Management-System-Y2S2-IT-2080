@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import LoadingAnimation from "./LoadingAnimation";
+import LoadingAnimation from "./components/utility/LoadingAnimation";
 
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
@@ -28,10 +28,12 @@ import Fertiliser from "./pages/Fertiliser";
 export default function App() {
     const [loading, setLoading] = useState(true);
 
+    // Simulate loading delay with useEffect
     useEffect(() => {
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             setLoading(false);
-        }, 200)
+        }, 200); // Simulate 2 seconds loading time
+        return () => clearTimeout(timer);
     }, []);
 
     return (
