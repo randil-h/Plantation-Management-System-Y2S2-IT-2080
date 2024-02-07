@@ -25,12 +25,14 @@ import seedsPlanting from "./pages/crop_pages/seedsPlanting";
 import RotationManagement from "./pages/crop_pages/RotationManagement";
 import Fertiliser from "./pages/crop_pages/Fertiliser";
 
-import Equipment from "./pages/Inventory/Eq and Machines/Equipments";
-import EqList from "./pages/Inventory/Eq and Machines/EqListPage";
-import MaintenanceLog from "./pages/Inventory/Eq and Machines/MaintenanceLog"
-import AddEquipments from "./pages/Inventory/Eq and Machines/AddEquipments";
-import EquipmentFinances from "./pages/Inventory/Eq and Machines/EquipmentFinances";
-import AddEqFinances from "./pages/Inventory/Eq and Machines/AddEqFinances";
+import Equipment from "./pages/inventory_pages/Eq and Machines/Equipments";
+import EqList from "./pages/inventory_pages/Eq and Machines/EqListPage";
+import MaintenanceLog from "./pages/inventory_pages/Eq and Machines/MaintenanceLog"
+import AddEquipments from "./pages/inventory_pages/Eq and Machines/AddEquipments";
+import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/EquipmentFinances";
+import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
+import Inventory from "./pages/inventory_pages/Inventory"
+
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -76,12 +78,15 @@ export default function App() {
             <Route path = "/rotation" element={RotationManagement()}/>
             <Route path = "/fertiliser" element={Fertiliser()}/>
 
+            <Route path= "/inventory" element={Inventory()}/>
             <Route path = "/equipment" element={Equipment()}/>
             <Route path = "/eqlist" element={EqList()}/>
             <Route path= "/maintenancelog" element={MaintenanceLog()}/>
             <Route path = "/addequipments" element={AddEquipments()}/>
             <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
-                <Route path= "/addeqfinances" element={AddEqFinances()}/>
+            <Route path= "/addeqfinances" element={AddEqFinances()}/>
+
+
 
         </Routes>
 

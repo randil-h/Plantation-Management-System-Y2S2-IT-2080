@@ -13,7 +13,7 @@ import {
     HiPresentationChartLine,
     HiUsers
 } from "react-icons/hi2";
-import { FaCannabis } from "react-icons/fa";
+import { FaCannabis,FaBoxes } from "react-icons/fa";
 
 const menuItems = [
     { name: "HOME", path: "/dashboard", icon: HiHome },
@@ -21,8 +21,8 @@ const menuItems = [
     { name: "CROPS", path: "/crops", icon: FaCannabis },
     { name: "EMPLOYEES", path: "/employees", icon: HiUsers },
     { name: "FERTILIZER", path: "/fertilizer", icon: HiMiniBeaker },
-    { name: "EQUIPMENT", path: "/equipment", icon: HiWrenchScrewdriver },
     { name: "INSIGHTS", path: "/insights", icon: HiPresentationChartLine },
+    { name: "INVENTORY", path: "/inventory", icon: FaBoxes },
 ];
 
 export default function SideBar() {
