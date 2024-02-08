@@ -32,6 +32,7 @@ import AddEquipments from "./pages/inventory_pages/Eq and Machines/AddEquipments
 import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/EquipmentFinances";
 import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
 import Inventory from "./pages/inventory_pages/Inventory"
+import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 
 
 export default function App() {
@@ -85,6 +86,7 @@ export default function App() {
             <Route path = "/addequipments" element={AddEquipments()}/>
             <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
             <Route path= "/addeqfinances" element={AddEqFinances()}/>
+                    <Route path= "/placeOrder" element={PlaceOrder()}/>
 
 
 
