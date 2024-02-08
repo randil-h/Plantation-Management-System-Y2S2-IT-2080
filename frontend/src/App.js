@@ -42,7 +42,7 @@ export default function App() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
-        }, 200); // Simulate 2 seconds loading time
+        }, 500); // Simulate 2 seconds loading time
         return () => clearTimeout(timer);
     }, []);
 
