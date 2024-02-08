@@ -73,10 +73,10 @@ export default function App() {
 
                     <Route path="/finances/valuation" element={<SalaryPayments />} />
 
-            <Route path = "/crops" element={CropManagement()}/>
-            <Route path = "/seedsPlanting" element={seedsPlanting()}/>
-            <Route path = "/rotation" element={RotationManagement()}/>
-            <Route path = "/fertiliser" element={Fertiliser()}/>
+            <Route path = "/crop/home" element={CropManagement()}/>
+            <Route path = "/crop/planting" element={seedsPlanting()}/>
+            <Route path = "/crop/rotation" element={RotationManagement()}/>
+            <Route path = "/crop/fertiliser" element={Fertiliser()}/>
 
             <Route path= "/inventory" element={Inventory()}/>
             <Route path = "/equipment" element={Equipment()}/>
