@@ -13,7 +13,7 @@ import CropManagement from "./pages/CropManagement";
 import seedsPlanting from "./pages/seedsPlanting";
 import RotationManagement from "./pages/RotationManagement";
 import Fertiliser from "./pages/Fertiliser"
-
+import PlaceOder from "./pages/WholeSaleManagement/PlaceOder";
 
 export default function App() {
     return (
@@ -34,6 +34,10 @@ export default function App() {
             <Route path= "/seedsPlanting" element={seedsPlanting()}/>
             <Route path= "/rotation" element={RotationManagement()}/>
             <Route path= "fertiliser" element={Fertiliser()}/>
+                <Route path= "/placeOrder" element={PlaceOder()}/>
+
+
+
         </Routes>
     )
 }
