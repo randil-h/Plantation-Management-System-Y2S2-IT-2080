@@ -1,10 +1,10 @@
 import React from "react";
 
-import Navbar from "../components/utility/Navbar";
-import SubscribeNewsletter from "../components/landingPage/subscribe_newsletter";
-import Footer from "../components/utility/Footer";
-import AgroTourism from "../components/AgroTourism/agro_tourism_intro";
-import Feedback from "../components/AgroTourism/feedbacks";
+import Navbar from "../../components/utility/Navbar";
+import Footer from "../../components/utility/Footer";
+import AgroTourism from "../../components/AgroTourism/agro_tourism_intro";
+import Feedback from "../../components/AgroTourism/feedbacks";
+import Subscribe_newsletter from "../../components/landingPage/subscribe_newsletter";
 
 export default function AgroTourismIntro() {
     return (
@@ -15,7 +15,7 @@ export default function AgroTourismIntro() {
             </div>
            <AgroTourism/>
             <Feedback/>
-            <SubscribeNewsletter/>
+            <Subscribe_newsletter/>
             <Footer/>
         </div>
     )

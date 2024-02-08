@@ -35,8 +35,6 @@ import Inventory from "./pages/inventory_pages/Inventory"
 import AgroTourism from "./components/AgroTourism/agro_tourism_intro";
 import Feedback from "./components/AgroTourism/feedbacks";
 
-
-
 export default function App() {
     const [loading, setLoading] = useState(true);
 

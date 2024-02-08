@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 export default function AgroTourism(){
     return (
         <div>
-            <p class="text-center ...">
+            <p className="text-center ...">
                 <p className="text-5xl ...">
                     <div><br/></div>
                     <h1 className="font-bold ...">Sow,Grow,Explore </h1>
                 </p>
                 <div><br/></div>
                 <p>Discover the beauty of agriculture with us.</p>
-                <p class="px-8 ...">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                <p className="px-8 ...">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
                     incididunt ut labore
                     et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
                     aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
