@@ -1,27 +1,27 @@
 import React from "react";
 
-export default function homeContent() {
-        const handleSeedButtonClick = () => {
-            window.location.href = '/seedsPlanting';
-        };
+export default function HomeContent() {
+    const handleSeedButtonClick = () => {
+        window.location.href = '/seedsPlanting';
+    };
 
-        function handleRotationButtonClick() {
-            window.location.href = '/rotation';
-        }
+    function handleRotationButtonClick() {
+        window.location.href = '/rotation';
+    }
 
-        function handleFertiliserButtonClick() {
-            window.location.href = '/fertiliser';
-        }
+    function handleFertiliserButtonClick() {
+        window.location.href = '/fertiliser';
+    }
 
     return (
-        <div className="w-full col-span-5 flex flex-col ">
-            <div className="flex flex-col items-center mt-4 ">
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                    Crop Management
+        <div className="position left-1/2 w-full col-span-5 flex flex-col ">
+            <div className="w-full flex justify-center items-center absolute top-16 right-0 mr-4 mt-4">
+                <h1 className="text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    <span className="inline-block bg-white p-2 rounded-lg">Crop Management</span>
                 </h1>
             </div>
 
-            <div className="mt-40 ml-auto">
+            <div className="mt-40 ml-auto relative top-20">
                 <div
                     className="bg-white p-4 rounded-lg shadow-md text-center absolute left-96 transform -translate-x-1/2 -translate-y-1/2 w-48 h-56 border border-neutral-900 transition duration-300 hover:bg-neutral-300">
                     <h1 className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-black ">Crop

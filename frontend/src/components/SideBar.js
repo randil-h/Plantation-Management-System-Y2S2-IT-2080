@@ -18,7 +18,7 @@ import { FaCannabis,FaBoxes } from "react-icons/fa";
 const menuItems = [
     { name: "HOME", path: "/dashboard", icon: HiHome },
     { name: "FINANCES", path: "/finances/home", icon: HiMiniWallet },
-    { name: "CROPS", path: "/crops", icon: FaCannabis },
+    { name: "CROPS", path: "/crop/home", icon: FaCannabis },
     { name: "EMPLOYEES", path: "/employees", icon: HiUsers },
     { name: "FERTILIZER", path: "/fertilizer", icon: HiMiniBeaker },
     { name: "INSIGHTS", path: "/insights", icon: HiPresentationChartLine },
