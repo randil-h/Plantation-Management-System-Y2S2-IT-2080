@@ -12,19 +12,20 @@ export default function seedsPlanting() {
             <div className="border-b sticky top-0 z-10">
                 <Navbar/>
             </div>
-            <div className="flex">
+            <div className="">
                 {/* Fixed Sidebar */}
-                <div className="fixed h-full">
-                    <SideBar/>
+                <div className="grid sm:grid-cols-6 ">
+                    <div className="col-span-1 sticky left-0 top-0">
+                        <SideBar/>
+                    </div>
+                    <div>
+                        <CropNavigation/>
+                        <Rotation/>
+                    </div>
                 </div>
 
             </div>
-            <div>
-                <CropNavigation/>
-            </div>
-            <div className="ml-80 mt-auto pt-10">
-                <Rotation/>
-            </div>
+
         </div>
     );
 }
