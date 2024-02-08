@@ -86,6 +86,10 @@ export default function App() {
             <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
             <Route path= "/addeqfinances" element={AddEqFinances()}/>
 
+                    <Route path="/tourism" element={AgroTourism()}/>
+                    <Route path="/feedback-form" element={FeedbackPg()}/>
+                    <Route path="/booking" element={BookingPg()}/>
+
 
 
         </Routes>
