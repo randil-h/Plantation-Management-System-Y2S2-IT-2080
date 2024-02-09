@@ -21,20 +21,20 @@ export default function EqList() {
 
             <Link to="../addequipments">
                 <button
-                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-10 mr-24"
+                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-10 mr-32"
                 >
                     Add
                 </button>
             </Link>
 
             <button
-                className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-10 mr-5"
+                className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-10 mr-14"
             >
                 Print
             </button>
 
             <div className="container mx-auto p-8 ml-60 mt-16">
-                <table className="w-auto bg-white shadow-md rounded-md overflow-hidden ml-1/3" style={{width: '95%'}}>
+                <table className="w-auto bg-white shadow-md rounded-md overflow-hidden -ml-56" style={{width: '600%'}}>
                     <thead className="bg-gray-200">
                     <tr>
                         <th className="py-2 px-4 border border-gray-400">No</th>

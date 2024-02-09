@@ -33,7 +33,7 @@ import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/Equipment
 import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
 import Inventory from "./pages/inventory_pages/Inventory"
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
-
+import Water from "./pages/inventory_pages/Water/Water";
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -86,6 +86,15 @@ export default function App() {
                     <Route path = "/addequipments" element={AddEquipments()}/>
                     <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
                     <Route path= "/addeqfinances" element={AddEqFinances()}/>
+            <Route path= "/inventory" element={Inventory()}/>
+            <Route path = "/equipment" element={Equipment()}/>
+            <Route path = "/eqlist" element={EqList()}/>
+            <Route path= "/maintenancelog" element={MaintenanceLog()}/>
+            <Route path = "/addequipments" element={AddEquipments()}/>
+            <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+            <Route path= "/addeqfinances" element={AddEqFinances()}/>
+             <Route path= "/water" element={Water()}    />
+
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
 
 
