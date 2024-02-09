@@ -8,15 +8,12 @@ import SubscribeNewsletter from "../../components/landingPage/subscribe_newslett
 export default function AgroTourismIntro() {
     return (
         <div>
-            {/* Navbar */}
             <Navbar />
-            {/* Content */}
             <div className="container">
                 <AgroTourism />
                 <Feedback />
                 <SubscribeNewsletter />
             </div>
-            {/* Footer */}
             <Footer />
         </div>
     );
