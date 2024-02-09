@@ -33,8 +33,8 @@ import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/Equipment
 import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
 import Inventory from "./pages/inventory_pages/Inventory"
 
-import AgroTourism from "./components/AgroTourism/agro_tourism_intro";
-import Feedback from "./components/AgroTourism/feedbacks";
+import AgroTourism from "./pages/tourism_pages/AgroTourismIntro";
+import Feedback from "./pages/tourism_pages/FeedbackPage";
 
 export default function App() {
     const [loading, setLoading] = useState(true);
