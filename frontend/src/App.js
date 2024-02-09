@@ -70,9 +70,9 @@ export default function App() {
                     <Route path="/finances/transactions/editTransaction" element={<EditTransaction />} />
                     <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
 
-                    <Route path="/finances/salaryPayment" element={<Valuation />} />
+                    <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
 
-                    <Route path="/finances/valuation" element={<SalaryPayments />} />
+                    <Route path="/finances/valuation" element={<Valuation />} />
 
             <Route path = "/crop/home" element={CropManagement()}/>
             <Route path = "/crop/planting" element={seedsPlanting()}/>

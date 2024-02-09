@@ -3,7 +3,7 @@ import { HomeIcon } from '@heroicons/react/24/outline';
 
 function Breadcrumb({ items }) {
     return (
-        <nav className="flex ml-8 mt-4" aria-label="Breadcrumb">
+        <nav className="flex ml-8 my-4" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 {/* Render the Home icon with the specified path */}
                 <li className="inline-flex items-center">

@@ -46,14 +46,15 @@ export default function ViewAllTransactions() {
 
                     <div className="w-full col-span-5 flex flex-col ">
                         <FinanceNavigation/>
-                        <div className="flex flex-row">
+                        <div className="flex flex-row ">
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
 
+
                         {loading ? (
-                            <LoadingAnimation />
-                        ) :
+                                <LoadingAnimation/>
+                            ) :
                             <TransactionsList TransactionsRecords={TransactionsRecords}/>
                         }
                     </div>

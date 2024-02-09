@@ -3,9 +3,12 @@ import React from "react";
 import SideBar from "../components/SideBar";
 import Navbar from "../components/utility/Navbar";
 import Statbar from "../components/dashboard_home/Statbar";
+import BackButton from "../components/utility/BackButton";
+import Breadcrumb from "../components/utility/Breadcrumbs";
 
 
 export default function Dashboard() {
+
     return (
         <div className="">
             {/* Navbar */}
@@ -19,14 +22,6 @@ export default function Dashboard() {
                     </div>
 
                     <div className="w-full col-span-5">
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
                         <Statbar/>
                     </div>
                 </div>

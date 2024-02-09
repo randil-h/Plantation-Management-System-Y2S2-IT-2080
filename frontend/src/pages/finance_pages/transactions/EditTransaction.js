@@ -10,7 +10,8 @@ export default function EditTransaction() {
 
     const breadcrumbItems = [
         { name: 'Finance', href: '/finances' },
-        { name: 'Income', href: '/finances/financeincome' },
+        { name: 'Transactions', href: '/finances/transactions' },
+        { name: 'Edit Transaction', href: '/finances/transactions/addTransaction' },
     ];
 
     return (
