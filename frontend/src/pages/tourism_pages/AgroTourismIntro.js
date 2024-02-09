@@ -11,7 +11,7 @@ export default function AgroTourismIntro() {
         <div className="flex-col">
             {/* Navbar */}
             <div className="border-b sticky top-0 z-10">
-                <Navbar />
+                <Navbar/>
             </div>
            <AgroTourism/>
             <Feedback/>
