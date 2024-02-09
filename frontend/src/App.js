@@ -74,18 +74,18 @@ export default function App() {
 
                     <Route path="/finances/valuation" element={<Valuation />} />
 
-            <Route path = "/crop/home" element={CropManagement()}/>
-            <Route path = "/crop/planting" element={seedsPlanting()}/>
-            <Route path = "/crop/rotation" element={RotationManagement()}/>
-            <Route path = "/crop/fertiliser" element={Fertiliser()}/>
+                    <Route path = "/crop/home" element={CropManagement()}/>
+                    <Route path = "/crop/planting" element={seedsPlanting()}/>
+                    <Route path = "/crop/rotation" element={RotationManagement()}/>
+                    <Route path = "/crop/fertiliser" element={Fertiliser()}/>
 
-            <Route path= "/inventory" element={Inventory()}/>
-            <Route path = "/equipment" element={Equipment()}/>
-            <Route path = "/eqlist" element={EqList()}/>
-            <Route path= "/maintenancelog" element={MaintenanceLog()}/>
-            <Route path = "/addequipments" element={AddEquipments()}/>
-            <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
-            <Route path= "/addeqfinances" element={AddEqFinances()}/>
+                    <Route path= "/inventory" element={Inventory()}/>
+                    <Route path = "/equipment" element={Equipment()}/>
+                    <Route path = "/eqlist" element={EqList()}/>
+                    <Route path= "/maintenancelog" element={MaintenanceLog()}/>
+                    <Route path = "/addequipments" element={AddEquipments()}/>
+                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+                    <Route path= "/addeqfinances" element={AddEqFinances()}/>
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
 
 
