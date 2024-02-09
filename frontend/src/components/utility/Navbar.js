@@ -100,7 +100,7 @@ export default function Navbar() {
                     <a href="#" className=" font-medium leading-6 ">
                         Features
                     </a>
-                    <a href="#" className=" font-medium leading-6 ">
+                    <a href="/placeOrder" className=" font-medium leading-6 ">
                         Marketplace
                     </a>
                     <a href="/dashboard" className=" font-medium leading-6 ">
@@ -169,7 +169,7 @@ export default function Navbar() {
                                     Features
                                 </a>
                                 <a
-                                    href="#"
+                                    href="/placeOrder"
                                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 >
                                     Marketplace

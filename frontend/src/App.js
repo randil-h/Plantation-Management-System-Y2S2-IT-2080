@@ -32,6 +32,7 @@ import AddEquipments from "./pages/inventory_pages/Eq and Machines/AddEquipments
 import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/EquipmentFinances";
 import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
 import Inventory from "./pages/inventory_pages/Inventory"
+
 import AgroTourism from "./components/AgroTourism/agro_tourism_intro";
 import Feedback from "./components/AgroTourism/feedbacks";
 
