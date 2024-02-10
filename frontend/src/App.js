@@ -35,6 +35,11 @@ import Inventory from "./pages/inventory_pages/Inventory"
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 import Water from "./pages/inventory_pages/Water/Water";
 
+import Employee from "./pages/employee_pages/Employee";
+
+
+
+
 export default function App() {
     const [loading, setLoading] = useState(true);
 
@@ -97,7 +102,7 @@ export default function App() {
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
 
-
+             <Route path= "/employee" element= {Employee()}/>
 
         </Routes>
 
