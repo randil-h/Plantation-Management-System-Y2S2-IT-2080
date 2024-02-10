@@ -102,7 +102,7 @@ export default function App() {
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
 
-             <Route path= "/employees/home" element= {Employee()}/>
+                    <Route path= "/employees/home" element= {Employee()}/>
 
         </Routes>
 
