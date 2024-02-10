@@ -34,6 +34,11 @@ import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances
 import Inventory from "./pages/inventory_pages/Inventory"
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 
+import DiseaseTracking from "./pages/diseaseTracking_pages/DiseaseTracking";
+import DiseaseVisualization from "./pages/diseaseTracking_pages/visualization/diseaseVisualization";
+
+
+
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -87,6 +92,9 @@ export default function App() {
             <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
             <Route path= "/addeqfinances" element={AddEqFinances()}/>
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
+
+            <Route path = "dtracking/home" element={DiseaseTracking()}/>
+            <Route path = "dtracking/visualization" element={DiseaseVisualization()}/>
 
 
 
