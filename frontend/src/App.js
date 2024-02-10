@@ -33,9 +33,9 @@ import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/Equipment
 import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
 import Inventory from "./pages/inventory_pages/Inventory"
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
-import Water from "./pages/inventory_pages/Water/Water";
 
-import Employee from "./pages/employee_pages/Employee";
+import DiseaseTracking from "./pages/diseaseTracking_pages/DiseaseTracking";
+import DiseaseVisualization from "./pages/diseaseTracking_pages/visualization/diseaseVisualization";
 
 
 
@@ -75,22 +75,15 @@ export default function App() {
                     <Route path="/finances/transactions/editTransaction" element={<EditTransaction />} />
                     <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
 
-                    <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
+                    <Route path="/finances/salaryPayment" element={<Valuation />} />
 
-                    <Route path="/finances/valuation" element={<Valuation />} />
+                    <Route path="/finances/valuation" element={<SalaryPayments />} />
 
-                    <Route path = "/crop/home" element={CropManagement()}/>
-                    <Route path = "/crop/planting" element={seedsPlanting()}/>
-                    <Route path = "/crop/rotation" element={RotationManagement()}/>
-                    <Route path = "/crop/fertiliser" element={Fertiliser()}/>
+            <Route path = "/crop/home" element={CropManagement()}/>
+            <Route path = "/crop/planting" element={seedsPlanting()}/>
+            <Route path = "/crop/rotation" element={RotationManagement()}/>
+            <Route path = "/crop/fertiliser" element={Fertiliser()}/>
 
-                    <Route path= "/inventory" element={Inventory()}/>
-                    <Route path = "/equipment" element={Equipment()}/>
-                    <Route path = "/eqlist" element={EqList()}/>
-                    <Route path= "/maintenancelog" element={MaintenanceLog()}/>
-                    <Route path = "/addequipments" element={AddEquipments()}/>
-                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
-                    <Route path= "/addeqfinances" element={AddEqFinances()}/>
             <Route path= "/inventory" element={Inventory()}/>
             <Route path = "/equipment" element={Equipment()}/>
             <Route path = "/eqlist" element={EqList()}/>
@@ -98,11 +91,12 @@ export default function App() {
             <Route path = "/addequipments" element={AddEquipments()}/>
             <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
             <Route path= "/addeqfinances" element={AddEqFinances()}/>
-             <Route path= "/water" element={Water()}    />
-
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
 
-             <Route path= "/employee" element= {Employee()}/>
+            <Route path = "dtracking/home" element={DiseaseTracking()}/>
+            <Route path = "dtracking/visualization" element={DiseaseVisualization()}/>
+
+
 
         </Routes>
 
