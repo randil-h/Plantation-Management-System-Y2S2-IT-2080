@@ -36,6 +36,8 @@ import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 
 import DiseaseTracking from "./pages/diseaseTracking_pages/DiseaseTracking";
 import DiseaseVisualization from "./pages/diseaseTracking_pages/visualization/diseaseVisualization";
+import Insights from "./pages/insights/Insights";
+import MarketPrice from "./pages/insights/marketPriceAnalysis/MarketPrice";
 
 
 
@@ -95,6 +97,9 @@ export default function App() {
 
             <Route path = "dtracking/home" element={DiseaseTracking()}/>
             <Route path = "dtracking/visualization" element={DiseaseVisualization()}/>
+
+            <Route path= "insights/home" element={Insights()}/>
+            <Route path= "insights/marketprice" element={MarketPrice()}/>
 
 
 

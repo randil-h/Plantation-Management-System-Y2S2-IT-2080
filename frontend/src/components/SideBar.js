@@ -22,7 +22,7 @@ const menuItems = [
     { name: "EMPLOYEES", path: "/employees", icon: HiUsers },
     { name: "FERTILIZER", path: "/fertilizer", icon: HiMiniBeaker },
     { name: "EQUIPMENT", path: "/equipment", icon: HiWrenchScrewdriver },
-    { name: "INSIGHTS", path: "/insights", icon: HiPresentationChartLine },
+    { name: "INSIGHTS", path: "/insights/home", icon: HiPresentationChartLine },
     { name: "DISEASE TRACKING", path: "/dtracking/home", icon: FaDisease},
 ];
 
