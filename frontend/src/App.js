@@ -36,6 +36,7 @@ import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 import Water from "./pages/inventory_pages/Water/Water";
 
 import Employee from "./pages/employee_pages/Employee.js";
+import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
 
 
 
@@ -103,7 +104,7 @@ export default function App() {
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
 
                     <Route path= "/employees/home" element= {Employee()}/>
-
+                    <Route path="/employees/registration" element={AddEmployee()}/>
         </Routes>
 
 
