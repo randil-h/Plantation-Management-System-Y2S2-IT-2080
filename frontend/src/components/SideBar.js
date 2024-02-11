@@ -19,7 +19,7 @@ const menuItems = [
     { name: "HOME", path: "/dashboard", icon: HiHome },
     { name: "FINANCES", path: "/finances/home", icon: HiMiniWallet },
     { name: "CROPS", path: "/crop/home", icon: FaCannabis },
-    { name: "EMPLOYEES", path: "/employees", icon: HiUsers },
+    { name: "EMPLOYEES", path: "/employees/home", icon: HiUsers },
     { name: "FERTILIZER", path: "/fertilizer", icon: HiMiniBeaker },
     { name: "INSIGHTS", path: "/insights", icon: HiPresentationChartLine },
     { name: "INVENTORY", path: "/inventory", icon: FaBoxes },
