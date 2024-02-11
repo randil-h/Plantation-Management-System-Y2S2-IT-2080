@@ -36,6 +36,7 @@ import Inventory from "./pages/inventory_pages/Inventory"
 import AgroTourism from "./pages/tourism_pages/AgroTourismIntro";
 import Feedback from "./pages/tourism_pages/FeedbackPage";
 import BookingPg from "./pages/tourism_pages/BookingPg";
+import PaymentPg from "./pages/tourism_pages/PaymentPg";
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -92,6 +93,7 @@ export default function App() {
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback-form" element={Feedback()}/>
                     <Route path="/booking" element={BookingPg()}/>
+                    <Route path="/payment" element={PaymentPg()}/>
 
 
 
