@@ -104,7 +104,7 @@ export default function EmpForm (){
                 </div>
                 <button
                     type="submit"
-                    className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800"
+                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-400"
                 >
                     Submit
                 </button>
