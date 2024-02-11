@@ -20,7 +20,7 @@ export default function Equipment() {
                         <SideBar/>
                     </div>
 
-            <div className="w-full col-span-5 flex flex-col -ml-60">
+            <div className="w-full col-span-5 flex flex-col ">
                 <InventoryNavbar/>
             </div>
 

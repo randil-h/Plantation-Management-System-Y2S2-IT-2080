@@ -5,6 +5,7 @@ import React from "react";
 
 import Navbar from "../../../components/utility/Navbar";
 import WaterTank from "../../../components/Inventory/Water/WaterTank";
+import InventoryNavbar from "../../../components/Inventory/InventoryNavbar";
 
 
 export default function Water() {
@@ -20,8 +21,11 @@ export default function Water() {
                         <SideBar/>
                     </div>
 
-           <WaterTank/>
-        </div>
+                    <div className="w-full col-span-5 flex flex-col ">
+                        <InventoryNavbar/>
+                        <WaterTank/>
+                    </div>
+                </div>
             </div>
         </div>
     );
