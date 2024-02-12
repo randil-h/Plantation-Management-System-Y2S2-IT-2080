@@ -5,12 +5,14 @@ import FinanceNavigation from "../../../components/finances/FinanceNavigation";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import IncomeRecordsList from "../../../components/finances/finance_income/IncomeRecordsList";
 import React from "react";
+import BackButton from "../../../components/utility/BackButton";
 
 export default function DeleteTransaction() {
 
     const breadcrumbItems = [
         { name: 'Finance', href: '/finances' },
-        { name: 'Income', href: '/finances/financeincome' },
+        { name: 'Transactions', href: '/finances/transactions' },
+        { name: 'Delete Transaction', href: '/finances/transactions/addTransaction' },
     ];
 
 
@@ -27,7 +29,10 @@ export default function DeleteTransaction() {
 
                     <div className="w-full col-span-5 flex flex-col ">
                         <FinanceNavigation/>
-                        <Breadcrumb items={breadcrumbItems}/>
+                        <div className="flex flex-row ">
+                            <BackButton/>
+                            <Breadcrumb items={breadcrumbItems}/>
+                        </div>
                     </div>
                 </div>
             </div>

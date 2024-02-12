@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css'
+
 
 export default function AddEqFinanceForm() {
     const [selectedDate, setSelectedDate] = useState(null);
@@ -38,23 +37,25 @@ export default function AddEqFinanceForm() {
                     />
                 </label>
 
-                <label className="block mb-4">
+                <label htmlFor="date" className="block pb-4">
                     Ordered Date:
-                    <DatePicker
-                        selected={selectedDate}
-                        onChange={date => setSelectedDate(date)}
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
-                        required
+
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        className="w-full p-2 border rounded mb-4 bg-opacity-80 backdrop-blur-lg focus:outline-none focus:border-blue-500"
                     />
                 </label>
 
-                <label className="block mb-4">
+                <label htmlFor="date" className="block pb-4">
                     Received Date:
-                    <DatePicker
-                        selected={selectedDate}
-                        onChange={date => setSelectedDate(date)}
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
-                        required
+
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        className="w-full p-2 border rounded mb-4 bg-opacity-80 backdrop-blur-lg focus:outline-none focus:border-blue-500"
                     />
                 </label>
 

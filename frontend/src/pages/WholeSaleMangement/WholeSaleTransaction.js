@@ -9,7 +9,7 @@ import WholeSaleProduct from "../../components/WholeSale_Management/WholeSalePro
 import {dividerClasses} from "@mui/material";
 
 
-export default function PlaceOrder() {
+export default function WholeSaleTransaction() {
     return (
         <div className="">
             {/* Navbar */}
@@ -23,7 +23,7 @@ export default function PlaceOrder() {
                         every product, ensuring satisfaction and delight with every purchase.</p>
                 </div>
 
-                <WholeSaleProduct/>
+                {/*<WholeSaleProduct/>*/}
             </div>
 
             <div>

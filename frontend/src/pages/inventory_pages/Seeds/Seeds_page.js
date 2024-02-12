@@ -5,7 +5,7 @@ import Navbar from "../../../components/utility/Navbar";
 import SideBar from "../../../components/SideBar";
 import InventoryNavbar from "../../../components/Inventory/InventoryNavbar";
 
-export default function Equipment() {
+export default function Seeds_page() {
 
     return (
         <div>
@@ -24,7 +24,7 @@ export default function Equipment() {
                         <InventoryNavbar/>
                         <div className="flex flex-col items-center mt-10 ml-4">
                             <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                                Equipment and Machinery Management
+                                Seeds Management
                             </h1>
                         </div>
 
@@ -52,22 +52,6 @@ export default function Equipment() {
                                         Finances</h1>
                                     <div className="space-x-4 mt-11">
                                         <Link to="/equipmentfinances">
-                                            <button
-                                                className="bg-green-800 text-white px-8 py-2 rounded-full font-semibold text-lg transition duration-300 hover:bg-green-700">Go
-                                                to page
-                                            </button>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div
-                                className="bg-white p-4 rounded-lg shadow-md text-center mb-6 border border-green-800 transition duration-300 hover:bg-neutral-300">
-                                <div className="flex justify-between items-center">
-                                    <h1 className="-mx-3 block rounded-lg px-3 py-2 text-2xl font-semibold leading-7 text-green-700">Maintenance
-                                        Log</h1>
-                                    <div className="space-x-4 mt-11">
-                                        <Link to="/maintenancelog">
                                             <button
                                                 className="bg-green-800 text-white px-8 py-2 rounded-full font-semibold text-lg transition duration-300 hover:bg-green-700">Go
                                                 to page

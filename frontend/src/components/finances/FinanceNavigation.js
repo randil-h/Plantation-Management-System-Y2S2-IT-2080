@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 const menuItems = [
     { name: "HOME", path: "/finances/home" },
     { name: "TRANSACTIONS", path: "/finances/transactions" },
-    { name: "INCOMES", path: "/finances/financeincome" },
     { name: "VALUATION", path: "/finances/valuation" },
     { name: "SALARY PAYMENTS", path: "/finances/salaryPayment" },
 ];

@@ -2,13 +2,13 @@ import React from "react";
 
 export default function AddSeeds() {
     return (
-        <div className="">
-            <div className="">
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <div className="relative w-full flex justify-center items-start">
+            <div className="ml-2/3 mt-16">
+                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl absolute inset-x-0 top-0 flex justify-cente pb-16">
                     Record Rotation
                 </h1>
             </div>
-            <form className="max-w-md mt-8 p-4 bg-gray-200 rounded-lg">
+            <form className="max-w-md mt-16 p-4 bg-gray-200 rounded-lg">
                 <label htmlFor="seasons" className="block pb-4">
                     Season
                 </label>
