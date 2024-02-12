@@ -2,9 +2,9 @@ import React, { Fragment, useState } from 'react'
 import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
-    { name: "Products", path: "/wholesale/home" },
-    { name: "Place Order", path: "/wholesale/transactions" },
-    { name: "My Oders", path: "/wholesale/financeincome" },
+    { name: "Products", path: "/placeOrder" },
+    { name: "Place Order", path: "/WholeSale/transactions" },
+    { name: "My Oders", path: "/WholeSale/orders" },
 ];
 
 export default function Example() {

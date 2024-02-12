@@ -33,13 +33,16 @@ import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/Equipment
 import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
 import Inventory from "./pages/inventory_pages/Inventory"
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
+
+import WholeSaleTransaction from "./pages/WholeSaleMangement/WholeSaleTransaction";
+import MyOrders from "./pages/WholeSaleMangement/MyOrders";
+
 import Water from "./pages/inventory_pages/Water/Water";
 import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
 
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
 import AddTask from "./pages/employee_pages/task_assigning/AddTask";
-
 
 
 
@@ -82,10 +85,27 @@ export default function App() {
 
                     <Route path="/finances/valuation" element={<Valuation />} />
 
+            <Route path = "/crop/home" element={CropManagement()}/>
+            <Route path = "/crop/planting" element={seedsPlanting()}/>
+            <Route path = "/crop/rotation" element={RotationManagement()}/>
+            <Route path = "/crop/fertiliser" element={Fertiliser()}/>
+
+            <Route path= "/inventory" element={Inventory()}/>
+            <Route path = "/equipment" element={Equipment()}/>
+            <Route path = "/eqlist" element={EqList()}/>
+            <Route path= "/maintenancelog" element={MaintenanceLog()}/>
+            <Route path = "/addequipments" element={AddEquipments()}/>
+            <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+            <Route path= "/addeqfinances" element={AddEqFinances()}/>
+                    <Route path= "/placeOrder" element={PlaceOrder()}/>
+                    <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
+                    <Route path="/WholeSale/orders" element={MyOrders()}/>
+
                     <Route path = "/crop/home" element={CropManagement()}/>
                     <Route path = "/crop/planting" element={seedsPlanting()}/>
                     <Route path = "/crop/rotation" element={RotationManagement()}/>
                     <Route path = "/crop/chemicals" element={Chemicals()}/>
+
 
                     <Route path= "/inventory" element={Inventory()}/>
                     <Route path = "/equipment" element={Equipment()}/>
