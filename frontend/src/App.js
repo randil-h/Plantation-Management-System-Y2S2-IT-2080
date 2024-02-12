@@ -50,8 +50,6 @@ import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
 import AddTask from "./pages/employee_pages/task_assigning/AddTask";
 
 
-
-
 export default function App() {
     const [loading, setLoading] = useState(true);
 
@@ -91,27 +89,27 @@ export default function App() {
 
                     <Route path="/finances/valuation" element={<Valuation />} />
 
-            <Route path = "/crop/home" element={CropManagement()}/>
-            <Route path = "/crop/planting" element={seedsPlanting()}/>
-            <Route path = "/crop/rotation" element={RotationManagement()}/>
-            <Route path = "/crop/chemicals" element={Chemicals()}/>
+                    <Route path = "/crop/home" element={CropManagement()}/>
+                    <Route path = "/crop/planting" element={seedsPlanting()}/>
+                    <Route path = "/crop/rotation" element={RotationManagement()}/>
+                    <Route path = "/crop/chemicals" element={Chemicals()}/>
 
-            <Route path= "/inventory" element={Inventory()}/>
-            <Route path = "/equipment" element={Equipment()}/>
-            <Route path = "/eqlist" element={EqList()}/>
-            <Route path= "/maintenancelog" element={MaintenanceLog()}/>
-            <Route path = "/addequipments" element={AddEquipments()}/>
-            <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
-            <Route path= "/addeqfinances" element={AddEqFinances()}/>
+                    <Route path= "/inventory" element={Inventory()}/>
+                    <Route path = "/equipment" element={Equipment()}/>
+                    <Route path = "/eqlist" element={EqList()}/>
+                    <Route path= "/maintenancelog" element={MaintenanceLog()}/>
+                    <Route path = "/addequipments" element={AddEquipments()}/>
+                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+                    <Route path= "/addeqfinances" element={AddEqFinances()}/>
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
                     <Route path="/WholeSale/orders" element={MyOrders()}/>
 
-            <Route path = "dtracking/home" element={DiseaseTracking()}/>
-            <Route path = "dtracking/visualization" element={DiseaseVisualization()}/>
+                    <Route path = "dtracking/home" element={DiseaseTracking()}/>
+                    <Route path = "dtracking/visualization" element={DiseaseVisualization()}/>
 
-            <Route path= "insights/home" element={Insights()}/>
-            <Route path= "insights/marketprice" element={MarketPrice()}/>
+                    <Route path= "insights/home" element={Insights()}/>
+                    <Route path= "insights/marketprice" element={MarketPrice()}/>
 
                     <Route path = "/crop/home" element={CropManagement()}/>
                     <Route path = "/crop/planting" element={seedsPlanting()}/>
@@ -134,8 +132,6 @@ export default function App() {
                     <Route path="/employees/registration" element={AddEmployee()}/>
                     <Route path="/employees/tasks" element={AddTask()}/>
         </Routes>
-
-
             )}
         </div>
     );
