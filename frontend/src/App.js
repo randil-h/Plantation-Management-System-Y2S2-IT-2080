@@ -23,7 +23,7 @@ import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments
 import CropManagement from "./pages/crop_pages/CropManagement";
 import seedsPlanting from "./pages/crop_pages/seedsPlanting";
 import RotationManagement from "./pages/crop_pages/RotationManagement";
-import Fertiliser from "./pages/crop_pages/Fertiliser";
+import Chemicals from "./pages/crop_pages/Chemicals";
 
 import Equipment from "./pages/inventory_pages/Eq and Machines/Equipments";
 import EqList from "./pages/inventory_pages/Eq and Machines/EqListPage";
@@ -85,7 +85,7 @@ export default function App() {
                     <Route path = "/crop/home" element={CropManagement()}/>
                     <Route path = "/crop/planting" element={seedsPlanting()}/>
                     <Route path = "/crop/rotation" element={RotationManagement()}/>
-                    <Route path = "/crop/fertiliser" element={Fertiliser()}/>
+                    <Route path = "/crop/chemicals" element={Chemicals()}/>
 
                     <Route path= "/inventory" element={Inventory()}/>
                     <Route path = "/equipment" element={Equipment()}/>
