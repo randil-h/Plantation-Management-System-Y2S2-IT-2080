@@ -23,7 +23,7 @@ import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments
 import CropManagement from "./pages/crop_pages/CropManagement";
 import seedsPlanting from "./pages/crop_pages/seedsPlanting";
 import RotationManagement from "./pages/crop_pages/RotationManagement";
-import Fertiliser from "./pages/crop_pages/Fertiliser";
+import Chemicals from "./pages/crop_pages/Chemicals";
 
 import Equipment from "./pages/inventory_pages/Eq and Machines/Equipments";
 import EqList from "./pages/inventory_pages/Eq and Machines/EqListPage";
@@ -33,8 +33,17 @@ import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/Equipment
 import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
 import Inventory from "./pages/inventory_pages/Inventory"
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
+
 import WholeSaleTransaction from "./pages/WholeSaleMangement/WholeSaleTransaction";
 import MyOrders from "./pages/WholeSaleMangement/MyOrders";
+
+import Water from "./pages/inventory_pages/Water/Water";
+import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
+
+import Employee from "./pages/employee_pages/Employee.js";
+import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
+import AddTask from "./pages/employee_pages/task_assigning/AddTask";
+
 
 
 export default function App() {
@@ -44,7 +53,7 @@ export default function App() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
-        }, 200); // Simulate 2 seconds loading time
+        }, 500); // Simulate 2 seconds loading time
         return () => clearTimeout(timer);
     }, []);
 
@@ -72,9 +81,9 @@ export default function App() {
                     <Route path="/finances/transactions/editTransaction" element={<EditTransaction />} />
                     <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
 
-                    <Route path="/finances/salaryPayment" element={<Valuation />} />
+                    <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
 
-                    <Route path="/finances/valuation" element={<SalaryPayments />} />
+                    <Route path="/finances/valuation" element={<Valuation />} />
 
             <Route path = "/crop/home" element={CropManagement()}/>
             <Route path = "/crop/planting" element={seedsPlanting()}/>
@@ -92,8 +101,27 @@ export default function App() {
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
                     <Route path="/WholeSale/orders" element={MyOrders()}/>
 
+                    <Route path = "/crop/home" element={CropManagement()}/>
+                    <Route path = "/crop/planting" element={seedsPlanting()}/>
+                    <Route path = "/crop/rotation" element={RotationManagement()}/>
+                    <Route path = "/crop/chemicals" element={Chemicals()}/>
 
 
+                    <Route path= "/inventory" element={Inventory()}/>
+                    <Route path = "/equipment" element={Equipment()}/>
+                    <Route path = "/eqlist" element={EqList()}/>
+                    <Route path= "/maintenancelog" element={MaintenanceLog()}/>
+                    <Route path = "/addequipments" element={AddEquipments()}/>
+                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+                    <Route path= "/addeqfinances" element={AddEqFinances()}/>
+                    <Route path= "/water" element={Water()}/>
+                    <Route path= "/seeds" element={Seeds_page()}/>
+
+                    <Route path= "/placeOrder" element={PlaceOrder()}/>
+
+                    <Route path= "/employees/home" element= {Employee()}/>
+                    <Route path="/employees/registration" element={AddEmployee()}/>
+                    <Route path="/employees/tasks" element={AddTask()}/>
         </Routes>
 
 

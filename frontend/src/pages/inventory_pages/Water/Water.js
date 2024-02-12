@@ -1,9 +1,14 @@
-import Navbar from "../../../components/utility/Navbar";
-import SideBar from "../../../components/SideBar";
-import React from "react";
-import EqFinanceTable from "../../../components/Inventory/Eq and Machine/EqFinanceTable";
 
-export default function Equipment() {
+import SideBar from "../../../components/SideBar";
+
+import React from "react";
+
+import Navbar from "../../../components/utility/Navbar";
+import WaterTank from "../../../components/Inventory/Water/WaterTank";
+import InventoryNavbar from "../../../components/Inventory/InventoryNavbar";
+
+
+export default function Water() {
     return (
         <div className="Equipment">
             <div className="border-b sticky top-0 z-10">
@@ -16,8 +21,11 @@ export default function Equipment() {
                         <SideBar/>
                     </div>
 
-            <EqFinanceTable/>
-        </div>
+                    <div className="w-full col-span-5 flex flex-col ">
+                        <InventoryNavbar/>
+                        <WaterTank/>
+                    </div>
+                </div>
             </div>
         </div>
     );

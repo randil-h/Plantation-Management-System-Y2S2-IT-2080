@@ -2,13 +2,13 @@ import React, { Fragment, useState } from 'react'
 import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
-    { name: "HOME", path: "/crop/home" },
-    { name: "ROTATION", path: "/crop/rotation" },
-    { name: "PLANTING", path: "/crop/planting" },
-    { name: "CHEMICALS", path: "/crop/chemicals" },
+    { name: "HOME", path: "/employees/home" },
+    { name: "REGISTRATION", path: "/employees/registration" },
+    { name: "ASSIGN TASKS", path: "/employees/tasks" },
+    { name: "SALARY REPORTS", path: "/employees/salaryreports" },
 ];
 
-export default function CropNavigation() {
+export default function Example() {
     const [open, setOpen] = useState(false)
     const location = useLocation();
     const isActive = (path) => {
@@ -17,7 +17,7 @@ export default function CropNavigation() {
     };
 
     return (
-        <div className="bg-gray-100 bg-opacity-50 backdrop-blur sticky top-12 border-b w-screen z-10">
+        <div className="bg-gray-100 bg-opacity-50 backdrop-blur sticky top-12 border-b w-screen">
             <header className=" ">
                 <nav aria-label="Top" className="">
                     <div className=" border-gray-200 ">

@@ -3,9 +3,17 @@ import React from "react";
 import SideBar from "../../../components/SideBar";
 import Navbar from "../../../components/utility/Navbar";
 import FinanceNavigation from "../../../components/finances/FinanceNavigation";
+import BackButton from "../../../components/utility/BackButton";
+import Breadcrumb from "../../../components/utility/Breadcrumbs";
 
 
 export default function SalaryPayments() {
+
+    const breadcrumbItems = [
+        { name: 'Finance', href: '/finances' },
+        { name: 'Salary Payments', href: '/finances/salaryPayment' },
+    ];
+
     return (
         <div className="">
             {/* Navbar */}
@@ -20,6 +28,10 @@ export default function SalaryPayments() {
 
                     <div className="w-full col-span-5 flex flex-col ">
                         <FinanceNavigation/>
+                        <div className="flex flex-row ">
+                            <BackButton/>
+                            <Breadcrumb items={breadcrumbItems}/>
+                        </div>
                     </div>
                 </div>
             </div>

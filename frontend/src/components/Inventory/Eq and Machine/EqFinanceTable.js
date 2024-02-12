@@ -33,7 +33,7 @@ export default function EqFinanceTable() {
                 Print
             </button>
 
-            <div className="container mx-auto p-8 ml-64 mt-16">
+            <div className="container mx-auto p-8 -ml-1 mt-16">
                 <table className="w-auto bg-white shadow-md rounded-md overflow-hidden ml-1/3" style={{width: '95%'}}>
                     <thead className="bg-gray-200">
                     <tr>

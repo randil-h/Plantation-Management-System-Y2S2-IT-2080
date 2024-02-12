@@ -8,7 +8,7 @@ import {ChevronDownIcon} from "@heroicons/react/20/solid";
 export default function TransactionsList({TransactionsRecords}) {
     return (
         <div className=" overflow-x-auto  ">
-            <div className="flex flex-row justify-between  px-8 py-8">
+            <div className="flex flex-row justify-between  px-8 py-4">
                 <div>
                     <h1 className=" text-lg font-semibold text-left">Transaction records</h1>
                     <p className="mt-1 text-sm font-normal text-gray-500 0">Browse a list of all income
