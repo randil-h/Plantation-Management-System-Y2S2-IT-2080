@@ -8,25 +8,24 @@ import CropNavigation from "../../components/cropManagement_home/CropNavigation"
 
 export default function seedsPlanting() {
         return (
-            <div className="">
+            <div className="flex-col">
                 {/* Navbar */}
                 <div className="border-b sticky top-0 z-10">
                     <Navbar/>
                 </div>
-                <div className="">
-                    <div className="grid sm:grid-cols-6 ">
-                        <div className="col-span-1 sticky left-0 top-0">
-                            <SideBar/>
-                        </div>
-                        <div>
-                            <CropNavigation/>
-                            <div className="absolute left-1/4">
-                            <AddSeeds/>
-                            </div>
-                        </div>
+                <div className="flex">
+                    {/* Fixed Sidebar */}
+                    <div className="fixed h-full">
+                        <SideBar/>
                     </div>
+
                 </div>
-</div>
-)
-    ;
+                <div>
+                    <CropNavigation/>
+                </div>
+                <div className="ml-80 mt-auto pt-10">
+                    <AddSeeds/>
+                </div>
+            </div>
+        );
 }
