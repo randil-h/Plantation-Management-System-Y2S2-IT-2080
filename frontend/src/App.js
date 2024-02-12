@@ -94,7 +94,7 @@ export default function App() {
             <Route path = "/crop/home" element={CropManagement()}/>
             <Route path = "/crop/planting" element={seedsPlanting()}/>
             <Route path = "/crop/rotation" element={RotationManagement()}/>
-            <Route path = "/crop/fertiliser" element={Fertiliser()}/>
+            <Route path = "/crop/chemicals" element={Chemicals()}/>
 
             <Route path= "/inventory" element={Inventory()}/>
             <Route path = "/equipment" element={Equipment()}/>
