@@ -13,7 +13,7 @@ import {
     HiPresentationChartLine,
     HiUsers
 } from "react-icons/hi2";
-import { FaCannabis,FaBoxes } from "react-icons/fa";
+import {FaCannabis, FaDisease} from "react-icons/fa";
 
 const menuItems = [
     { name: "HOME", path: "/dashboard", icon: HiHome },
@@ -21,8 +21,9 @@ const menuItems = [
     { name: "CROPS", path: "/crop/home", icon: FaCannabis },
     { name: "EMPLOYEES", path: "/employees/home", icon: HiUsers },
     { name: "FERTILIZER", path: "/fertilizer", icon: HiMiniBeaker },
-    { name: "INSIGHTS", path: "/insights", icon: HiPresentationChartLine },
-    { name: "INVENTORY", path: "/inventory", icon: FaBoxes },
+    { name: "EQUIPMENT", path: "/equipment", icon: HiWrenchScrewdriver },
+    { name: "INSIGHTS", path: "/insights/home", icon: HiPresentationChartLine },
+    { name: "DISEASE TRACKING", path: "/dtracking/home", icon: FaDisease},
 ];
 
 export default function SideBar() {
@@ -42,7 +43,7 @@ export default function SideBar() {
                     <li
                         key={item.name}
                         className={`flex w-full h-12 my-1  focus:outline-none focus:ring focus:ring-lime-500 ${
-                            isActive(item.path) ? "bg-gray-200 text-lime-600 drop-shadow-lg border-l-4 border-lime-600" : "hover:bg-gray-200 hover:shadow-md"
+                            isActive(item.path) ? "bg-gray-200 text-lime-600 drop-shadow-lg" : "hover:bg-gray-200 hover:shadow-md"
                         }`}
                     >
                         <Link to={item.path} className="pl-3 flex items-center h-full">
