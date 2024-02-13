@@ -18,11 +18,11 @@ import {FaCannabis, FaDisease} from "react-icons/fa";
 const menuItems = [
     { name: "HOME", path: "/dashboard", icon: HiHome },
     { name: "FINANCES", path: "/finances/home", icon: HiMiniWallet },
-    { name: "CROPS", path: "/crops", icon: FaCannabis },
-    { name: "EMPLOYEES", path: "/employees", icon: HiUsers },
+    { name: "CROPS", path: "/crop/home", icon: FaCannabis },
+    { name: "EMPLOYEES", path: "/employees/home", icon: HiUsers },
     { name: "FERTILIZER", path: "/fertilizer", icon: HiMiniBeaker },
     { name: "EQUIPMENT", path: "/equipment", icon: HiWrenchScrewdriver },
-    { name: "INSIGHTS", path: "/insights", icon: HiPresentationChartLine },
+    { name: "INSIGHTS", path: "/insights/home", icon: HiPresentationChartLine },
     { name: "DISEASE TRACKING", path: "/dtracking/home", icon: FaDisease},
 ];
 

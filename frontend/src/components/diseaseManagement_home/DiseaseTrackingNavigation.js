@@ -2,12 +2,11 @@ import React, { Fragment, useState } from 'react'
 import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
-    { name: "Products", path: "/placeOrder" },
-    { name: "Place Order", path: "/WholeSale/transactions" },
-    { name: "My Oders", path: "/WholeSale/orders" },
+    { name: "HOME", path: "/dtracking/home" },
+    { name: "VISUALIZATION", path: "/dtracking/visualization" },
 ];
 
-export default function Example() {
+export default function DiseaseTrackingNavigation() {
     const [open, setOpen] = useState(false)
     const location = useLocation();
     const isActive = (path) => {

@@ -18,7 +18,7 @@ export default function Example() {
     };
 
     return (
-        <div className="bg-gray-100 bg-opacity-50 backdrop-blur sticky top-12 ml-60 border-b w-screen">
+        <div className="bg-gray-100 bg-opacity-50 backdrop-blur sticky top-12 ml-0 border-b w-screen">
             <header className=" ">
                 <nav aria-label="Top" className="">
                     <div className=" border-gray-200 ">
