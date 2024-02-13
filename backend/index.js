@@ -5,6 +5,8 @@ import {TestRecord} from "./models/TestModel.js";
 import cors from 'cors';
 import testRoute from "./routes/TestRoute.js";
 import TransactionsRoute from "./routes/TransactionsRoute.js";
+import DiseaseRoute from "./routes/DiseaseRoute.js";
+
 
 const app = express();
 
@@ -25,6 +27,9 @@ app.use(
 
 app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
+
+//route for add new disease record
+app.use('/addDisease', DiseaseRoute);
 
 mongoose
     .connect(mongoDBURL)
