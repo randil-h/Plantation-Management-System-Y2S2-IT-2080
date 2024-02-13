@@ -18,7 +18,7 @@ export default function DeleteTransaction() {
 
     return (
         <div className="">
-            <div className="border-b sticky top-0 z-10">
+            <div className=" sticky top-0 z-10">
                 <Navbar/>
             </div>
             <div className="">
