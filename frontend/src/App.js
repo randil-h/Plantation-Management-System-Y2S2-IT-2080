@@ -21,7 +21,7 @@ import Valuation from "./pages/finance_pages/valuation/Valuation";
 import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments";
 
 import CropManagement from "./pages/crop_pages/CropManagement";
-import seedsPlanting from "./pages/crop_pages/seedsPlanting";
+import seedsPlanting from "./pages/crop_pages/SeedsPlanting";
 import RotationManagement from "./pages/crop_pages/RotationManagement";
 import Chemicals from "./pages/crop_pages/Chemicals";
 
