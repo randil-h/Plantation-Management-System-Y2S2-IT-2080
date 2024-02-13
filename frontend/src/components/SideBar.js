@@ -3,7 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { Disclosure, Transition } from "@headlessui/react";
 import {
     HomeIcon,
-    TrashIcon
+    TrashIcon,
+    WrenchIcon
 } from '@heroicons/react/24/outline'
 import {
     HiMiniWallet,
@@ -13,7 +14,7 @@ import {
     HiPresentationChartLine,
     HiUsers
 } from "react-icons/hi2";
-import {FaCannabis, FaDisease} from "react-icons/fa";
+import {FaCannabis, FaDisease, FaBoxOpen} from "react-icons/fa";
 
 const menuItems = [
     { name: "HOME", path: "/dashboard", icon: HiHome },
@@ -21,7 +22,7 @@ const menuItems = [
     { name: "CROPS", path: "/crop/home", icon: FaCannabis },
     { name: "EMPLOYEES", path: "/employees/home", icon: HiUsers },
     { name: "FERTILIZER", path: "/fertilizer", icon: HiMiniBeaker },
-    { name: "EQUIPMENT", path: "/equipment", icon: HiWrenchScrewdriver },
+    { name: "INVENTORY", path: "/inventory", icon: FaBoxOpen }, // Changed icon to FaBoxOpen
     { name: "INSIGHTS", path: "/insights/home", icon: HiPresentationChartLine },
     { name: "DISEASE TRACKING", path: "/dtracking/home", icon: FaDisease},
 ];
