@@ -111,11 +111,6 @@ export default function App() {
                     <Route path= "insights/home" element={Insights()}/>
                     <Route path= "insights/marketprice" element={MarketPrice()}/>
 
-                    <Route path = "/crop/home" element={CropManagement()}/>
-                    <Route path = "/crop/planting" element={seedsPlanting()}/>
-                    <Route path = "/crop/rotation" element={RotationManagement()}/>
-                    <Route path = "/crop/chemicals" element={Chemicals()}/>
-
                     <Route path= "/inventory" element={Inventory()}/>
                     <Route path = "/equipment" element={Equipment()}/>
                     <Route path = "/eqlist" element={EqList()}/>
