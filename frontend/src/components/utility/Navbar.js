@@ -1,3 +1,4 @@
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 import { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import {
@@ -26,6 +27,7 @@ function classNames(...classes) {
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const { login, register } = useKindeAuth();
 
     return (
         <header className="bg-white bg-opacity-50 backdrop-blur text-emerald-950 sticky top-0 w-screen z-50 shadow-md">
@@ -107,11 +109,11 @@ export default function Navbar() {
                         Dashboard
                     </a>
                 </Popover.Group>
-                <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <a href="/login" className=" font-medium leading-6 ">
-                        Log in <span aria-hidden="true">&rarr;</span>
-                    </a>
+                <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 font-medium">
+                    <button onClick={register} type="button">Register</button>
+                    <button onClick={login} type="button">Log In</button>
                 </div>
+
             </nav>
             <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
                 <div className="fixed inset-0 z-10" />

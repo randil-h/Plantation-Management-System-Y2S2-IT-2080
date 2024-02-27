@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoadingAnimation from "./components/utility/LoadingAnimation";
+import {KindeProvider} from "@kinde-oss/kinde-auth-react";
+
 
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
@@ -62,6 +64,12 @@ export default function App() {
     }, []);
 
     return (
+        <KindeProvider
+            clientId="398e8a2c8e8744c492bc437b4890c8c7"
+            domain="https://elemahana.kinde.com"
+            redirectUri="http://localhost:3000"
+            logoutUri="http://localhost:3000"
+        >
         <div className="App">
             {loading ? (
                 <LoadingAnimation />
@@ -129,6 +137,7 @@ export default function App() {
         </Routes>
             )}
         </div>
+        </KindeProvider>
     );
 }
 
