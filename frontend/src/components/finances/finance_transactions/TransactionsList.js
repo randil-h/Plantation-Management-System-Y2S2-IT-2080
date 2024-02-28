@@ -8,7 +8,7 @@ import {ChevronDownIcon} from "@heroicons/react/20/solid";
 export default function TransactionsList({TransactionsRecords}) {
     return (
         <div className=" overflow-x-auto  ">
-            <div className="flex flex-row justify-between  px-8 py-4">
+            <div className="flex flex-row justify-between items-center px-8 py-4">
                 <div>
                     <h1 className=" text-lg font-semibold text-left">Transaction records</h1>
                     <p className="mt-1 text-sm font-normal text-gray-500 0">Browse a list of all income
@@ -96,7 +96,7 @@ export default function TransactionsList({TransactionsRecords}) {
                             </a>
                         </td>
                         <td className=" py-4 text-right">
-                            <a href="#" className="font-medium text-blue-600 hover:underline">
+                            <a href="/finances/transactions/deleteTransaction" className="font-medium text-blue-600 hover:underline">
                                 <TrashIcon
                                     className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
                                     aria-hidden="true"/>

@@ -7,6 +7,7 @@ import TransactionsList from "../../../components/finances/finance_transactions/
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import BackButton from "../../../components/utility/BackButton";
 import LoadingAnimation from "../../../components/utility/LoadingAnimation";
+import Statbar from "../../../components/finances/finance_transactions/Statbar";
 
 export default function ViewAllTransactions() {
 
@@ -50,6 +51,9 @@ export default function ViewAllTransactions() {
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
+                        <div>
+                            <Statbar/>
+                        </div>
 
 
                         {loading ? (
@@ -57,6 +61,8 @@ export default function ViewAllTransactions() {
                             ) :
                             <TransactionsList TransactionsRecords={TransactionsRecords}/>
                         }
+
+
                     </div>
                 </div>
             </div>
