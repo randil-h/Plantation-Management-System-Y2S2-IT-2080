@@ -3,7 +3,7 @@ import {
     TrashIcon,
     InformationCircleIcon
 } from '@heroicons/react/24/outline'
-import {ChevronDownIcon} from "@heroicons/react/20/solid";
+
 
 export default function TransactionsList({TransactionsRecords}) {
     return (
@@ -61,7 +61,7 @@ export default function TransactionsList({TransactionsRecords}) {
                 {TransactionsRecords.map((record, index) => (
                     <tr key={record._id}
                         className={`border-b  
-            ${record.type === 'expense' ? 'border-l-4 border-red-500 bg-red-100' : 'border-l-4 border-green-500 bg-green-100'}`}
+            ${record.type === 'expense' ? 'border-l-4 border-red-400 ' : 'border-l-4 border-green-400 '}`}
                     >
                         <td className="px-6 py-4">
                             {record.date}
