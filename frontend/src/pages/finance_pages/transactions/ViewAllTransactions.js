@@ -7,7 +7,7 @@ import TransactionsList from "../../../components/finances/finance_transactions/
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import BackButton from "../../../components/utility/BackButton";
 import LoadingAnimation from "../../../components/utility/LoadingAnimation";
-import Statbar from "../../../components/finances/finance_transactions/Statbar";
+import FinanceTransactionsStatBar from "../../../components/finances/finance_transactions/FinanceTransactionsStatBar";
 
 export default function ViewAllTransactions() {
 
@@ -52,7 +52,7 @@ export default function ViewAllTransactions() {
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
                         <div>
-                            <Statbar/>
+                            <FinanceTransactionsStatBar/>
                         </div>
 
 
