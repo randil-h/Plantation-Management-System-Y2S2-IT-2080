@@ -27,6 +27,7 @@ export default function TransactionsList({TransactionsRecords}) {
                 <thead
                     className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                 <tr className=" ">
+                    <th></th>
                     <th scope="col" className="px-6 py-3">
                         Date
                     </th>
@@ -56,13 +57,14 @@ export default function TransactionsList({TransactionsRecords}) {
                     </th>
                 </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-400">
+                <tbody className="border-b border-green-400">
 
                 {TransactionsRecords.map((record, index) => (
                     <tr key={record._id}
                         className={` divide-y
             ${record.type === 'expense' ? 'border-l-4 border-red-400 ' : 'border-l-4 border-green-400 '}`}
                     >
+<td></td>
                         <td className="px-6 py-4">
                             {record.date}
                         </td>
