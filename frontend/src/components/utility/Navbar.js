@@ -1,3 +1,4 @@
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 import { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
 import {
@@ -26,6 +27,7 @@ function classNames(...classes) {
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const { login, register } = useKindeAuth();
 
     return (
         <header className="bg-white bg-opacity-50 backdrop-blur text-emerald-950 sticky top-0 w-screen z-50 shadow-md">
@@ -47,10 +49,7 @@ export default function Navbar() {
                 </div>
                 <Popover.Group className="hidden lg:flex lg:gap-x-12">
                     <Popover className="relative">
-                        <Popover.Button className="flex items-center gap-x-1 text-lg font-medium leading-6 ">
-                            Employees
-                            <ChevronDownIcon className="h-5 w-5 flex-none " aria-hidden="true" />
-                        </Popover.Button>
+
 
                         <Transition
                             as={Fragment}
@@ -97,21 +96,21 @@ export default function Navbar() {
                         </Transition>
                     </Popover>
 
-                    <a href="#" className=" font-medium leading-6 ">
+                    <a href="#" className=" font-medium leading-6 hover:text-lime-600">
                         Features
                     </a>
-                    <a href="/placeOrder" className=" font-medium leading-6 ">
+                    <a href="/placeOrder" className=" font-medium leading-6 hover:text-lime-600">
                         Marketplace
                     </a>
-                    <a href="/dashboard" className=" font-medium leading-6 ">
+                    <a href="/dashboard" className=" font-medium leading-6 hover:text-lime-600">
                         Dashboard
                     </a>
                 </Popover.Group>
-                <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <a href="/login" className=" font-medium leading-6 ">
-                        Log in <span aria-hidden="true">&rarr;</span>
-                    </a>
+                <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 font-medium">
+                    <button onClick={register} type="button" className="border-black border px-4 rounded-full hover:border-lime-600 hover:text-lime-600">Register</button>|
+                    <button onClick={login} type="button" className="hover:text-lime-600">Log In</button>
                 </div>
+
             </nav>
             <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
                 <div className="fixed inset-0 z-10" />

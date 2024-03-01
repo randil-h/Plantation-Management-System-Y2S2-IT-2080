@@ -21,7 +21,6 @@ const menuItems = [
     { name: "FINANCES", path: "/finances/home", icon: HiMiniWallet },
     { name: "CROPS", path: "/crop/home", icon: FaCannabis },
     { name: "EMPLOYEES", path: "/employees/home", icon: HiUsers },
-    { name: "FERTILIZER", path: "/fertilizer", icon: HiMiniBeaker },
     { name: "INVENTORY", path: "/inventory", icon: FaBoxOpen }, // Changed icon to FaBoxOpen
     { name: "INSIGHTS", path: "/insights/home", icon: HiPresentationChartLine },
     { name: "DISEASE TRACKING", path: "/dtracking/home", icon: FaDisease},

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoadingAnimation from "./components/utility/LoadingAnimation";
+import {KindeProvider} from "@kinde-oss/kinde-auth-react";
+
 
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
@@ -19,6 +21,7 @@ import DeleteTransaction from "./pages/finance_pages/transactions/DeleteTransact
 
 import Valuation from "./pages/finance_pages/valuation/Valuation";
 import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments";
+import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
 
 import CropManagement from "./pages/crop_pages/CropManagement";
 import seedsPlanting from "./pages/crop_pages/SeedsPlanting";
@@ -64,6 +67,12 @@ export default function App() {
     }, []);
 
     return (
+        <KindeProvider
+            clientId="398e8a2c8e8744c492bc437b4890c8c7"
+            domain="https://elemahana.kinde.com"
+            redirectUri="http://localhost:3000"
+            logoutUri="http://localhost:3000"
+        >
         <div className="App">
             {loading ? (
                 <LoadingAnimation />
@@ -91,6 +100,8 @@ export default function App() {
 
                     <Route path="/finances/valuation" element={<Valuation />} />
 
+                    <Route path="/finances/machineHours" element={<MachineHours />} />
+
                     <Route path = "/crop/home" element={CropManagement()}/>
                     <Route path = "/crop/planting" element={seedsPlanting()}/>
                     <Route path = "/crop/rotation" element={RotationManagement()}/>
@@ -112,11 +123,6 @@ export default function App() {
 
                     <Route path= "insights/home" element={Insights()}/>
                     <Route path= "insights/marketprice" element={MarketPrice()}/>
-
-                    <Route path = "/crop/home" element={CropManagement()}/>
-                    <Route path = "/crop/planting" element={seedsPlanting()}/>
-                    <Route path = "/crop/rotation" element={RotationManagement()}/>
-                    <Route path = "/crop/chemicals" element={Chemicals()}/>
 
                     <Route path= "/inventory" element={Inventory()}/>
                     <Route path = "/equipment" element={Equipment()}/>
@@ -143,6 +149,7 @@ export default function App() {
 
             )}
         </div>
+        </KindeProvider>
     );
 }
 
