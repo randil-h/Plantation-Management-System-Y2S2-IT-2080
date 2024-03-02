@@ -8,55 +8,102 @@ export default function AddEquipmentsForm() {
                     Add Equipment / Machines
                 </h1>
             </div>
-            <form className="max-w-md ml-96 mt-8 p-4 bg-gray-200 rounded-lg">
-                <label className="block mb-4">
-                    Equipment/Machine Name:
-                    <input
-                        type="text"
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
-                        required
-                    />
-                </label>
+            <form className="flex flex-col items-center justify-center">
+                <div className="space-y-12 px-0 py-16 w-6/12">
+                    <div className="border-b border-gray-900/10 pb-12">
+                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
-                <label htmlFor="fields" className="block pb-4">
-                    Type:
-                <select id="fields" name="fields" className="w-full p-2 border rounded mb-4">
-                    <option value="warehouse1">Machine</option>
-                    <option value="warehouse2">Equipment</option>
-                </select></label>
+                            <div className="col-span-full">
+                                <label htmlFor="Eq_machine_add"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Equipment / Machine Name
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        name="Eq_machine_add"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
 
-                <label htmlFor="fields" className="block pb-4">
-                    Storage Location:
-                <select id="fields" name="fields" className="w-full p-2 border rounded mb-4">
-                    <option value="warehouse1">Warehouse 1</option>
-                    <option value="warehouse2">Warehouse 2</option>
-                </select></label>
+                            <div className="sm:col-span-2 sm:col-start-1">
+                                <label htmlFor="eq_ty"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Type
+                                </label>
+                                <div className="mt-2">
+                                    <select
+                                        name="eq_ty"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    >
+                                        <option>Equipment</option>
+                                        <option>Machine</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                <label className="block mb-4">
-                    Quantity in Use:
-                    <input
-                        type="number"
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
-                        required
-                    />
-                </label>
+                            <div className="sm:col-span-2 sm:col-start-1">
+                                <label htmlFor="eq_store"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Storage Location
+                                </label>
+                                <div className="mt-2">
+                                    <select
+                                        name="eq_store"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    >
+                                        <option>Warehouse 1</option>
+                                        <option>Warehouse 2</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                <label className="block mb-4">
-                    Comment:
-                    <input
-                        type="text"
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
+                            <div className="col-span-full">
+                                <label htmlFor="Eq_quan"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Quantity in use
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="number"
+                                        name="Eq_quan"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
 
-                    />
-                </label>
+                            <div className="col-span-full">
+                                <label htmlFor="cmment" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Comment
+                                </label>
+                                <div className="mt-2">
+                                <textarea
+                                    id="comment"
+                                    name="comment"
+                                    rows={3}
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                />
+                                </div>
+                            </div>
 
-                <button
-                    type="submit"
-                    className="bg-black text-white px-8 py-2 rounded-full font-semibold text-lg transition duration-300 hover:bg-lime-500 mt-4"
-                >
-                    Save
-                </button>
+
+                        </div>
+                    </div>
+                    <div className="mt-6 flex items-center justify-end gap-x-6">
+                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+                            Cancel
+                        </button>
+                        <button
+
+                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
-    );
+    )
+        ;
 };
