@@ -7,6 +7,8 @@ import testRoute from "./routes/TestRoute.js";
 import TransactionsRoute from "./routes/TransactionsRoute.js";
 import RotationRoute from "./routes/RotationRoute.js"
 import PlantingRoute from "./routes/PlantingRoute.js"
+import ChemicalRoute from "./routes/ChemicalRoute.js"
+
 const app = express();
 
 app.use(express.json());
@@ -26,8 +28,10 @@ app.use(
 
 app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
+
 app.use('/rotation', RotationRoute);
 app.use('/planting', PlantingRoute);
+app.use('/chemicals', ChemicalRoute);
 
 mongoose
     .connect(mongoDBURL)
