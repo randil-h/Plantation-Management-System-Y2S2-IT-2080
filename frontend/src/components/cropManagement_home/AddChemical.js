@@ -69,7 +69,7 @@ export default function AddChemical() {
                         type="submit"
                         className="bg-black text-white py-2 rounded-full font-semibold text-lg transition duration-300 hover:bg-lime-500 mt-4 w-full"
                     >
-                        Add Fertiliser
+                        Add Chemical
                     </button>
             </form>
         </div>
