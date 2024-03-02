@@ -140,7 +140,7 @@ export default function App() {
                     <Route path="/employees/registration" element={AddEmployee()}/>
                     <Route path="/employees/tasks" element={AddTask()}/>
 
-                    <Route path="/harvest/home" element={harvest()}/>
+                    <Route path="/harvest/home"  element={harvest()}/>
         </Routes>
             )}
         </div>

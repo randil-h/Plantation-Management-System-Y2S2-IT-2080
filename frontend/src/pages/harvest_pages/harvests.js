@@ -9,7 +9,7 @@ import EmployeeNavbar from "../../components/Employee/EmployeeNavbar";
 
 export default function harvest() {
     return (
-        <div className="flex-col">
+         <div className="flex-col">
             {/* Navbar */}
             <div className="border-b sticky top-0 z-10">
                 <Navbar />
