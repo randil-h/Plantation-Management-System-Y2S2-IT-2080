@@ -4,8 +4,6 @@ import SideBar from "../../components/SideBar";
 import Navbar from "../../components/utility/Navbar";
 import AddSeeds from "../../components/cropManagement_home/AddSeeds";
 import CropNavigation from "../../components/cropManagement_home/CropNavigation";
-import AddChemical from "../../components/cropManagement_home/AddChemical";
-
 
 export default function seedsPlanting() {
     return (
@@ -22,7 +20,7 @@ export default function seedsPlanting() {
                     <div>
                         <CropNavigation/>
                         <div className="absolute left-1/4">
-                            <AddChemical/>
+                            <AddSeeds/>
                         </div>
                     </div>
                 </div>

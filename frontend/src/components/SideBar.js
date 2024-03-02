@@ -14,7 +14,7 @@ import {
     HiPresentationChartLine,
     HiUsers
 } from "react-icons/hi2";
-import {FaCannabis, FaDisease, FaBoxOpen} from "react-icons/fa";
+import {FaCannabis, FaDisease, FaBoxOpen, FaCrop} from "react-icons/fa";
 
 const menuItems = [
     { name: "HOME", path: "/dashboard", icon: HiHome },
@@ -24,6 +24,7 @@ const menuItems = [
     { name: "INVENTORY", path: "/inventory", icon: FaBoxOpen }, // Changed icon to FaBoxOpen
     { name: "INSIGHTS", path: "/insights/home", icon: HiPresentationChartLine },
     { name: "DISEASE TRACKING", path: "/dtracking/home", icon: FaDisease},
+    { name: "Harvest", path: "/harvest/home",  icon: FaCrop},
 ];
 
 export default function SideBar() {

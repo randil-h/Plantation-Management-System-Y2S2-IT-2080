@@ -48,11 +48,11 @@ import MyOrders from "./pages/WholeSaleMangement/MyOrders";
 import Water from "./pages/inventory_pages/Water/Water";
 import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
 
-
-
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
 import AddTask from "./pages/employee_pages/task_assigning/AddTask";
+
+import harvest from "./pages/harvest_pages/harvests";
 
 
 export default function App() {
@@ -139,14 +139,7 @@ export default function App() {
                     <Route path= "/employees/home" element= {Employee()}/>
                     <Route path="/employees/registration" element={AddEmployee()}/>
                     <Route path="/employees/tasks" element={AddTask()}/>
-            <Route path = "dtracking/home" element={DiseaseTracking()}/>
-            <Route path = "dtracking/visualization" element={DiseaseVisualization()}/>
-
-
-
         </Routes>
-
-
             )}
         </div>
         </KindeProvider>

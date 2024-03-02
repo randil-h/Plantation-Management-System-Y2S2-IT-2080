@@ -2,7 +2,7 @@ import React from "react";
 
 import SideBar from "../components/SideBar";
 import Navbar from "../components/utility/Navbar";
-import Statbar from "../components/finances/finance_transactions/Statbar";
+import FinanceTransactionsStatBar from "../components/finances/finance_transactions/FinanceTransactionsStatBar";
 import BackButton from "../components/utility/BackButton";
 import Breadcrumb from "../components/utility/Breadcrumbs";
 
