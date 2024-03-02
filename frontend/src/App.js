@@ -24,7 +24,7 @@ import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments
 import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
 
 import CropManagement from "./pages/crop_pages/CropManagement";
-import seedsPlanting from "./pages/crop_pages/SeedsPlanting";
+import SeedsPlanting from "./pages/crop_pages/SeedsPlanting";
 import RotationManagement from "./pages/crop_pages/RotationManagement";
 import Chemicals from "./pages/crop_pages/Chemicals";
 
@@ -34,7 +34,12 @@ import MaintenanceLog from "./pages/inventory_pages/Eq and Machines/MaintenanceL
 import AddEquipments from "./pages/inventory_pages/Eq and Machines/AddEquipments";
 import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/EquipmentFinances";
 import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
+import AddEqMainPage from "./pages/inventory_pages/Eq and Machines/AddEqMainPage";
 import Inventory from "./pages/inventory_pages/Inventory"
+import Water from "./pages/inventory_pages/Water/Water";
+import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
+import Fertilize_page from "./pages/inventory_pages/Fertilizers/Fertilize_page"
+
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 
 import DiseaseTracking from "./pages/diseaseTracking_pages/DiseaseTracking";
@@ -45,8 +50,7 @@ import MarketPrice from "./pages/insights/marketPriceAnalysis/MarketPrice";
 import WholeSaleTransaction from "./pages/WholeSaleMangement/WholeSaleTransaction";
 import MyOrders from "./pages/WholeSaleMangement/MyOrders";
 
-import Water from "./pages/inventory_pages/Water/Water";
-import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
+
 
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
@@ -103,17 +107,10 @@ export default function App() {
                     <Route path="/finances/machineHours" element={<MachineHours />} />
 
                     <Route path = "/crop/home" element={CropManagement()}/>
-                    <Route path = "/crop/planting" element={seedsPlanting()}/>
+                    <Route path = "/crop/planting" element={SeedsPlanting()}/>
                     <Route path = "/crop/rotation" element={RotationManagement()}/>
                     <Route path = "/crop/chemicals" element={Chemicals()}/>
 
-                    <Route path= "/inventory" element={Inventory()}/>
-                    <Route path = "/equipment" element={Equipment()}/>
-                    <Route path = "/eqlist" element={EqList()}/>
-                    <Route path= "/maintenancelog" element={MaintenanceLog()}/>
-                    <Route path = "/addequipments" element={AddEquipments()}/>
-                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
-                    <Route path= "/addeqfinances" element={AddEqFinances()}/>
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
                     <Route path="/WholeSale/orders" element={MyOrders()}/>
@@ -124,15 +121,22 @@ export default function App() {
                     <Route path= "insights/home" element={Insights()}/>
                     <Route path= "insights/marketprice" element={MarketPrice()}/>
 
-                    <Route path= "/inventory" element={Inventory()}/>
-                    <Route path = "/equipment" element={Equipment()}/>
+                    <Route path = "/crop/home" element={CropManagement()}/>
+                    <Route path = "/crop/planting" element={SeedsPlanting()}/>
+                    <Route path = "/crop/rotation" element={RotationManagement()}/>
+                    <Route path = "/crop/chemicals" element={Chemicals()}/>
+
+                    <Route path= "/inventory/home" element={Inventory()}/>
+                    <Route path = "/inventory/equipment" element={Equipment()}/>
                     <Route path = "/eqlist" element={EqList()}/>
                     <Route path= "/maintenancelog" element={MaintenanceLog()}/>
                     <Route path = "/addequipments" element={AddEquipments()}/>
                     <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
                     <Route path= "/addeqfinances" element={AddEqFinances()}/>
-                    <Route path= "/water" element={Water()}/>
-                    <Route path= "/seeds" element={Seeds_page()}/>
+                    <Route path="/addeqmainpage" element={(AddEqMainPage())}/>
+                    <Route path= "/inventory/water" element={Water()}/>
+                    <Route path= "/inventory/seeds" element={Seeds_page()}/>
+                    <Route path= "/inventory/fertillizers" element={Fertilize_page()}/>
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
 
