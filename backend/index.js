@@ -5,7 +5,8 @@ import {TestRecord} from "./models/TestModel.js";
 import cors from 'cors';
 import testRoute from "./routes/TestRoute.js";
 import TransactionsRoute from "./routes/TransactionsRoute.js";
-
+import RotationRoute from "./routes/RotationRoute.js"
+import PlantingRoute from "./routes/PlantingRoute.js"
 const app = express();
 
 app.use(express.json());
@@ -25,6 +26,8 @@ app.use(
 
 app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
+app.use('/rotation', RotationRoute);
+app.use('/planting', PlantingRoute);
 
 mongoose
     .connect(mongoDBURL)
