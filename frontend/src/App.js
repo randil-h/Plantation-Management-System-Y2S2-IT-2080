@@ -52,6 +52,8 @@ import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
 import AddTask from "./pages/employee_pages/task_assigning/AddTask";
 
+import harvest from "./pages/harvest_pages/harvests";
+
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -137,6 +139,8 @@ export default function App() {
                     <Route path= "/employees/home" element= {Employee()}/>
                     <Route path="/employees/registration" element={AddEmployee()}/>
                     <Route path="/employees/tasks" element={AddTask()}/>
+
+                    <Route path="/harvest/home"  element={harvest()}/>
         </Routes>
             )}
         </div>
