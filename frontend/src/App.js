@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoadingAnimation from "./components/utility/LoadingAnimation";
+import {KindeProvider} from "@kinde-oss/kinde-auth-react";
+
 
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
@@ -19,6 +21,7 @@ import DeleteTransaction from "./pages/finance_pages/transactions/DeleteTransact
 
 import Valuation from "./pages/finance_pages/valuation/Valuation";
 import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments";
+import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
 
 import CropManagement from "./pages/crop_pages/CropManagement";
 import seedsPlanting from "./pages/crop_pages/SeedsPlanting";
@@ -45,11 +48,11 @@ import MyOrders from "./pages/WholeSaleMangement/MyOrders";
 import Water from "./pages/inventory_pages/Water/Water";
 import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
 
-
-
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
 import AddTask from "./pages/employee_pages/task_assigning/AddTask";
+
+import harvest from "./pages/harvest_pages/harvests";
 
 
 export default function App() {
@@ -64,6 +67,12 @@ export default function App() {
     }, []);
 
     return (
+        <KindeProvider
+            clientId="398e8a2c8e8744c492bc437b4890c8c7"
+            domain="https://elemahana.kinde.com"
+            redirectUri="http://localhost:3000"
+            logoutUri="http://localhost:3000"
+        >
         <div className="App">
             {loading ? (
                 <LoadingAnimation />
@@ -91,6 +100,8 @@ export default function App() {
 
                     <Route path="/finances/valuation" element={<Valuation />} />
 
+                    <Route path="/finances/machineHours" element={<MachineHours />} />
+
                     <Route path = "/crop/home" element={CropManagement()}/>
                     <Route path = "/crop/planting" element={seedsPlanting()}/>
                     <Route path = "/crop/rotation" element={RotationManagement()}/>
@@ -113,11 +124,6 @@ export default function App() {
                     <Route path= "insights/home" element={Insights()}/>
                     <Route path= "insights/marketprice" element={MarketPrice()}/>
 
-                    <Route path = "/crop/home" element={CropManagement()}/>
-                    <Route path = "/crop/planting" element={seedsPlanting()}/>
-                    <Route path = "/crop/rotation" element={RotationManagement()}/>
-                    <Route path = "/crop/chemicals" element={Chemicals()}/>
-
                     <Route path= "/inventory" element={Inventory()}/>
                     <Route path = "/equipment" element={Equipment()}/>
                     <Route path = "/eqlist" element={EqList()}/>
@@ -133,16 +139,10 @@ export default function App() {
                     <Route path= "/employees/home" element= {Employee()}/>
                     <Route path="/employees/registration" element={AddEmployee()}/>
                     <Route path="/employees/tasks" element={AddTask()}/>
-            <Route path = "dtracking/home" element={DiseaseTracking()}/>
-            <Route path = "dtracking/visualization" element={DiseaseVisualization()}/>
-
-
-
         </Routes>
-
-
             )}
         </div>
+        </KindeProvider>
     );
 }
 

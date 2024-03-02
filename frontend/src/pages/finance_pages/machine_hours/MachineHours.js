@@ -1,16 +1,17 @@
 import React from "react";
 
-import SideBar from "../../components/SideBar";
-import Navbar from "../../components/utility/Navbar";
-import FinanceNavigation from "../../components/finances/FinanceNavigation";
-import BackButton from "../../components/utility/BackButton";
-import Breadcrumb from "../../components/utility/Breadcrumbs";
-import FinanceHomeStatBar from "../../components/finances/finance_home/FinanceHomeStatBar";
+import SideBar from "../../../components/SideBar";
+import Navbar from "../../../components/utility/Navbar";
+import FinanceNavigation from "../../../components/finances/FinanceNavigation";
+import BackButton from "../../../components/utility/BackButton";
+import Breadcrumb from "../../../components/utility/Breadcrumbs";
 
-export default function Finances() {
+
+export default function MachineHours() {
 
     const breadcrumbItems = [
         { name: 'Finance', href: '/finances' },
+        { name: 'Salary Payments', href: '/finances/salaryPayment' },
     ];
 
     return (
@@ -21,7 +22,7 @@ export default function Finances() {
             </div>
             <div className="">
                 <div className="grid sm:grid-cols-6 ">
-                    <div className="col-span-1 sticky left-0 top-0">
+                    <div className="  col-span-1 sticky left-0 top-0">
                         <SideBar/>
                     </div>
 
@@ -31,7 +32,6 @@ export default function Finances() {
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
-                        <FinanceHomeStatBar/>
                     </div>
                 </div>
             </div>

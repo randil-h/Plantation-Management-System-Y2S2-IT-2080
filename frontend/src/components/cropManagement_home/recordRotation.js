@@ -67,6 +67,14 @@ export default function AddSeeds() {
                     />
                 </label>
 
+                <label className="block mb-4">
+                    Remarks:
+                    <input type="text"
+                           className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+                           placeholder="Type Here.."
+                    />
+                </label>
+
                 <button
                     type="submit"
                     className="bg-black text-white px-8 py-2 rounded-full font-semibold text-lg transition duration-300 hover:bg-lime-500 mt-4">
