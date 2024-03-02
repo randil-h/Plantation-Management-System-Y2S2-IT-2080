@@ -1,16 +1,8 @@
-import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Disclosure, Transition } from "@headlessui/react";
-import {
-    HomeIcon,
-    TrashIcon,
-    WrenchIcon
-} from '@heroicons/react/24/outline'
+
 import {
     HiMiniWallet,
-    HiWrenchScrewdriver,
     HiHome,
-    HiMiniBeaker,
     HiPresentationChartLine,
     HiUsers
 } from "react-icons/hi2";
@@ -35,7 +27,6 @@ export default function SideBar() {
         return currentPath === path.split('/')[1]; // Compare with the first part of the provided path
     };
 
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
         <div className=" bg-gray-100 h-screen sticky top-12 border-r z-10">

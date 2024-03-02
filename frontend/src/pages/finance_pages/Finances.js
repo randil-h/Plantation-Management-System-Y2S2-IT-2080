@@ -6,6 +6,7 @@ import FinanceNavigation from "../../components/finances/FinanceNavigation";
 import BackButton from "../../components/utility/BackButton";
 import Breadcrumb from "../../components/utility/Breadcrumbs";
 import FinanceHomeStatBar from "../../components/finances/finance_home/FinanceHomeStatBar";
+import FinanceHomeStatCards from "../../components/finances/finance_home/FinanceHomeStatCards";
 
 export default function Finances() {
 
@@ -32,6 +33,7 @@ export default function Finances() {
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
                         <FinanceHomeStatBar/>
+                        <FinanceHomeStatCards/>
                     </div>
                 </div>
             </div>
