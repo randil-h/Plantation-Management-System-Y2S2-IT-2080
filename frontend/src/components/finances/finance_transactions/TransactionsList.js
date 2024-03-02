@@ -23,10 +23,11 @@ export default function TransactionsList({TransactionsRecords}) {
                 </div>
             </div>
 
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
                 <thead
                     className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
-                <tr>
+                <tr className=" ">
+                    <th></th>
                     <th scope="col" className="px-6 py-3">
                         Date
                     </th>
@@ -56,13 +57,14 @@ export default function TransactionsList({TransactionsRecords}) {
                     </th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody className="border-b border-green-400">
 
                 {TransactionsRecords.map((record, index) => (
                     <tr key={record._id}
-                        className={`border-b  
+                        className={` divide-y
             ${record.type === 'expense' ? 'border-l-4 border-red-400 ' : 'border-l-4 border-green-400 '}`}
                     >
+<td></td>
                         <td className="px-6 py-4">
                             {record.date}
                         </td>
