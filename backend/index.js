@@ -28,8 +28,7 @@ app.use(
 app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
 
-//route for add new disease record
-app.use('/addDisease', DiseaseRoute);
+app.use('/diseases', DiseaseRoute);
 
 mongoose
     .connect(mongoDBURL)
