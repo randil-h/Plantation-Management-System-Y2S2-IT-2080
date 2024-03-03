@@ -38,7 +38,8 @@ import AddEquipments from "./pages/inventory_pages/Eq and Machines/AddEquipments
 import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/EquipmentFinances";
 import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
 import AddEqMainPage from "./pages/inventory_pages/Eq and Machines/AddEqMainPage";
-import Inventory from "./pages/inventory_pages/Inventory"
+import EditEqMainPage from "./pages/inventory_pages/Eq and Machines/EditEqMainPage";
+import Inventory from "./pages/inventory_pages/Inventory";
 import Water from "./pages/inventory_pages/Water/Water";
 import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
 import Fertilize_page from "./pages/inventory_pages/Fertilizers/Fertilize_page"
@@ -62,6 +63,7 @@ import harvest from "./pages/harvest_pages/harvests";
 import harvestCal from "./pages/harvest_pages/harvest_Cal/harvestCal";
 import harvestRec from "./pages/harvest_pages/harvest_records/harvestRecords";
 import yieldLifeCal from "./pages/harvest_pages/Yield_lifespan/yieldLifsp";
+
 
 
 export default function App() {
@@ -137,6 +139,7 @@ export default function App() {
                     <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
                     <Route path= "/addeqfinances" element={AddEqFinances()}/>
                     <Route path="/addeqmainpage" element={(AddEqMainPage())}/>
+                    <Route path="/editeqmainpage/:id" element={<EditEqMainPage />} />
                     <Route path= "/inventory/water" element={Water()}/>
                     <Route path= "/inventory/seeds" element={Seeds_page()}/>
                     <Route path= "/inventory/fertillizers" element={Fertilize_page()}/>
