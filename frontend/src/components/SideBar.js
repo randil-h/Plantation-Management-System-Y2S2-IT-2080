@@ -16,7 +16,7 @@ const menuItems = [
     { name: "INVENTORY", path: "/inventory/home", icon: FaBoxOpen }, // Changed icon to FaBoxOpen
     { name: "INSIGHTS", path: "/insights/home", icon: HiPresentationChartLine },
     { name: "DISEASE TRACKING", path: "/dtracking/home", icon: FaDisease},
-    { name: "Harvest", path: "/harvest/home",  icon: FaCrop},
+    { name: "HARVEST", path: "/harvest/home",  icon: FaCrop},
 ];
 
 export default function SideBar() {
