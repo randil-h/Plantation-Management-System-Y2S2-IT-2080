@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 const BookingForm = () => {
     const [formData, setFormData] = useState({
         name: '',
-        contactNumber: '',
-        nicNumber: '',
+        telNo: '',
+        nicNo: '',
         email: '',
         selectedPackage: 'guidedFarmTour',
         date: '',
@@ -48,8 +48,8 @@ const BookingForm = () => {
                     </label>
                     <input
                         type="tel"
-                        id="contactNumber"
-                        name="contactNumber"
+                        id="telNo"
+                        name="telNo"
                         value={formData.contactNumber}
                         onChange={handleInputChange}
                         className="mt-1 p-2 w-full border rounded-md"
@@ -62,8 +62,8 @@ const BookingForm = () => {
                     </label>
                     <input
                         type="text"
-                        id="nicNumber"
-                        name="nicNumber"
+                        id="nicNo"
+                        name="nicNo"
                         value={formData.nicNumber}
                         onChange={handleInputChange}
                         className="mt-1 p-2 w-full border rounded-md"

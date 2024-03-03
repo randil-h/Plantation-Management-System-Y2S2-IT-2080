@@ -37,6 +37,7 @@ import AgroTourism from "./pages/tourism_pages/AgroTourismIntro";
 import Feedback from "./pages/tourism_pages/FeedbackPage";
 import BookingPg from "./pages/tourism_pages/BookingPg";
 import PaymentPg from "./pages/tourism_pages/PaymentPg";
+import ConfirmationPg from "./pages/tourism_pages/ConfirmationPg";
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -94,6 +95,7 @@ export default function App() {
                     <Route path="/feedback-form" element={Feedback()}/>
                     <Route path="/booking" element={BookingPg()}/>
                     <Route path="/payment" element={PaymentPg()}/>
+                    <Route path="/confirmation" element={ConfirmationPg()}/>
 
 
 
