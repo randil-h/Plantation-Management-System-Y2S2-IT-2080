@@ -1,5 +1,5 @@
 import express from 'express';
-import Booking from '../models/bookingModel.js'; // Updated model import
+import Booking from '../../models/AgroTourism/BookingModel.js'; // Updated model import
 
 const router = express.Router();
 

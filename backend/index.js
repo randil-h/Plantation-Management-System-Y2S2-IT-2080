@@ -5,7 +5,7 @@ import {TestRecord} from "./models/TestModel.js";
 import cors from 'cors';
 import testRoute from "./routes/TestRoute.js";
 import TransactionsRoute from "./routes/TransactionsRoute.js";
-import BookingRoute from "./routes/BookingRoute.js";
+import BookingRoute from "./routes/AgroTourism/BookingRoute.js";
 
 const app = express();
 
