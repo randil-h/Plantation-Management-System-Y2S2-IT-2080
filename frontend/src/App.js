@@ -26,7 +26,8 @@ import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
 import CropManagement from "./pages/crop_pages/CropManagement";
 import SeedsPlanting from "./pages/crop_pages/SeedsPlanting";
 import RotationManagement from "./pages/crop_pages/RotationManagement";
-import Chemicals from "./pages/crop_pages/Chemicals";
+import Chemicals from "./pages/crop_pages/Chemical Management/Chemicals";
+import AddChemicalsPage from "./pages/crop_pages/Chemical Management/AddChemicalsPage";
 
 import Equipment from "./pages/inventory_pages/Eq and Machines/Equipments";
 import EqList from "./pages/inventory_pages/Eq and Machines/EqListPage";
@@ -113,6 +114,7 @@ export default function App() {
                     <Route path = "/crop/planting" element={SeedsPlanting()}/>
                     <Route path = "/crop/rotation" element={RotationManagement()}/>
                     <Route path = "/crop/chemicals" element={Chemicals()}/>
+                    <Route path = "/crop/chemicals/add" element={AddChemicalsPage()}/>
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>

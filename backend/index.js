@@ -5,9 +5,9 @@ import {TestRecord} from "./models/TestModel.js";
 import cors from 'cors';
 import testRoute from "./routes/TestRoute.js";
 import TransactionsRoute from "./routes/TransactionsRoute.js";
-import RotationRoute from "./routes/RotationRoute.js"
-import PlantingRoute from "./routes/PlantingRoute.js"
-import ChemicalRoute from "./routes/ChemicalRoute.js"
+import RotationRoute from "./routes/Crop Routes/RotationRoute.js"
+import PlantingRoute from "./routes/Crop Routes/PlantingRoute.js"
+import ChemicalRoute from "./routes/Crop Routes/ChemicalRoute.js"
 
 const app = express();
 

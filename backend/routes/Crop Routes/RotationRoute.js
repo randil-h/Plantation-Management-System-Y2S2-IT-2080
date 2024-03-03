@@ -1,5 +1,5 @@
 import express from 'express';
-import { Rotation } from '../models/RotationModel.js';
+import { Rotation } from '../../models/Crop Models/RotationModel.js';
 
 const router = express.Router();
 
