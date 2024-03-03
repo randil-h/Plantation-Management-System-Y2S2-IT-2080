@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
     { name: "HOME", path: "/harvest/home" },
-    { name: "RECORDS", path: "/harvest/calculateHarvest" },
-    { name: "ESTIMATED HARVEST", path: "/harvest/harvestRecords" },
+    { name: "RECORDS", path: "/harvest/harvestRecords" },
+    { name: "ESTIMATED HARVEST", path: "/harvest/calculateHarvest" },
     { name: "YIELD LIFESPAN", path: "/harvest/yieldLifespan" },
 
 ];
