@@ -1,12 +1,14 @@
 import React from "react";
 import {Link} from 'react-router-dom'
 
-import Navbar from "../../components/utility/Navbar";
-import SideBar from "../../components/SideBar";
+import Navbar from "../../../components/utility/Navbar";
+import SideBar from "../../../components/SideBar";
 
-export default function harvest() {
+
+
+export default function harvestCal() {
     return (
-         <div className="flex-col">
+        <div className="flex-col">
             {/* Navbar */}
             <div className="border-b sticky top-0 z-10">
                 <Navbar />
