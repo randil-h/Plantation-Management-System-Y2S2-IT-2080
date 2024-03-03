@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
-import SideBar from "../../components/SideBar";
-import Navbar from "../../components/utility/Navbar";
-import AddSeeds from "../../components/cropManagement_home/AddSeeds";
-import CropNavigation from "../../components/cropManagement_home/CropNavigation";
+import SideBar from "../../../components/SideBar";
+import Navbar from "../../../components/utility/Navbar";
+import CropNavigation from "../../../components/cropManagement_home/CropNavigation";
+import AddPlanting from "../../../components/cropManagement_home/AddPlanting"
 
-export default function seedsPlanting() {
+export default function AddPlantingPage() {
     return (
-        <div className="flex-col">
+        <div className="">
             {/* Navbar */}
             <div className="border-b sticky top-0 z-10">
                 <Navbar/>
@@ -19,12 +20,12 @@ export default function seedsPlanting() {
                     </div>
                     <div>
                         <CropNavigation/>
-                        <div className="absolute left-1/4">
-                            <AddSeeds/>
-                        </div>
+                    </div>
+                    <div className="absolute top-20 left-1/4">
+                        <AddPlanting/>
                     </div>
                 </div>
             </div>
         </div>
     );
-}
+};

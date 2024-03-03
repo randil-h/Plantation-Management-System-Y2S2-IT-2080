@@ -24,10 +24,12 @@ import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments
 import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
 
 import CropManagement from "./pages/crop_pages/CropManagement";
-import SeedsPlanting from "./pages/crop_pages/SeedsPlanting";
-import RotationManagement from "./pages/crop_pages/RotationManagement";
+import SeedsPlanting from "./pages/crop_pages/Planting Management/SeedsPlanting";
+import CropRotation from "./pages/crop_pages/Rotation Management/CropRotation";
 import Chemicals from "./pages/crop_pages/Chemical Management/Chemicals";
 import AddChemicalsPage from "./pages/crop_pages/Chemical Management/AddChemicalsPage";
+import AddPlantingPage from "./pages/crop_pages/Planting Management/AddPlantingPage";
+import AddRotationPage from "./pages/crop_pages/Rotation Management/AddRotationPage";
 
 import Equipment from "./pages/inventory_pages/Eq and Machines/Equipments";
 import EqList from "./pages/inventory_pages/Eq and Machines/EqListPage";
@@ -56,7 +58,6 @@ import MyOrders from "./pages/WholeSaleMangement/MyOrders";
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
 import AddTask from "./pages/employee_pages/task_assigning/AddTask";
-
 import harvest from "./pages/harvest_pages/harvests";
 import harvestCal from "./pages/harvest_pages/harvest_Cal/harvestCal";
 import harvestRec from "./pages/harvest_pages/harvest_records/harvestRecords";
@@ -111,11 +112,13 @@ export default function App() {
                     <Route path="/finances/machineHours" element={<MachineHours />} />
 
                     <Route path = "/crop/home" element={CropManagement()}/>
+
                     <Route path = "/crop/planting" element={SeedsPlanting()}/>
-                    <Route path = "/crop/rotation" element={RotationManagement()}/>
+                    <Route path = "/crop/planting/add" element={AddPlantingPage()}/>
+                    <Route path = "/crop/rotation" element={CropRotation()}/>
+                    <Route path = "/crop/rotation/add" element={AddRotationPage()}/>
                     <Route path = "/crop/chemicals" element={Chemicals()}/>
                     <Route path = "/crop/chemicals/add" element={AddChemicalsPage()}/>
-
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
                     <Route path="/WholeSale/orders" element={MyOrders()}/>
@@ -125,11 +128,6 @@ export default function App() {
 
                     <Route path= "insights/home" element={Insights()}/>
                     <Route path= "insights/marketprice" element={MarketPrice()}/>
-
-                    <Route path = "/crop/home" element={CropManagement()}/>
-                    <Route path = "/crop/planting" element={SeedsPlanting()}/>
-                    <Route path = "/crop/rotation" element={RotationManagement()}/>
-                    <Route path = "/crop/chemicals" element={Chemicals()}/>
 
                     <Route path= "/inventory/home" element={Inventory()}/>
                     <Route path = "/inventory/equipment" element={Equipment()}/>
