@@ -6,6 +6,8 @@ import FinanceNavigation from "../../../components/finances/FinanceNavigation.js
 import TransactionsList from "../../../components/finances/finance_transactions/TransactionsList";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import BackButton from "../../../components/utility/BackButton";
+import LoadingAnimation from "../../../components/utility/LoadingAnimation";
+import FinanceTransactionsStatBar from "../../../components/finances/finance_transactions/FinanceTransactionsStatBar";
 
 export default function ViewAllTransactions() {
 
@@ -34,7 +36,7 @@ export default function ViewAllTransactions() {
 
     return (
         <div className="">
-            <div className="border-b sticky top-0 z-10">
+            <div className="sticky top-0 z-10">
                 <Navbar />
             </div>
             <div className="">
@@ -45,11 +47,21 @@ export default function ViewAllTransactions() {
 
                     <div className="w-full col-span-5 flex flex-col ">
                         <FinanceNavigation/>
-                        <div className="flex flex-row">
+                        <div className="flex flex-row ">
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
-                        <TransactionsList TransactionsRecords={TransactionsRecords}/>
+                        <div>
+                            <FinanceTransactionsStatBar/>
+                        </div>
+
+
+                        {loading ? (
+                                <LoadingAnimation/>
+                            ) :
+                            <TransactionsList TransactionsRecords={TransactionsRecords}/>
+                        }
+
 
                     </div>
                 </div>

@@ -3,12 +3,12 @@ import { HomeIcon } from '@heroicons/react/24/outline';
 
 function Breadcrumb({ items }) {
     return (
-        <nav className="flex ml-8 mt-4" aria-label="Breadcrumb">
+        <nav className="flex ml-8 my-4" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 {/* Render the Home icon with the specified path */}
                 <li className="inline-flex items-center">
                     <HomeIcon className="w-4 h-4 mr-1 text-gray-700 dark:text-gray-400" />
-                    <a href="/dashboard" className="inline-flex items-center text-sm font-normal text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                    <a href="/dashboard" className="inline-flex items-center text-sm font-normal text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500">
                         Dashboard
                     </a>
                 </li>
@@ -21,7 +21,7 @@ function Breadcrumb({ items }) {
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
                             </svg>
                         </div>
-                        <a href={item.href} className="inline-flex items-center text-sm font-normal text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+                        <a href={item.href} className="inline-flex items-center text-sm font-normal text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500">
                             {/* Render the name of the breadcrumb item */}
                             {item.name}
                         </a>

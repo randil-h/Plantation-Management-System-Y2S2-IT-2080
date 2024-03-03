@@ -2,14 +2,17 @@ import React from "react";
 
 import SideBar from "../components/SideBar";
 import Navbar from "../components/utility/Navbar";
-import Statbar from "../components/dashboard_home/Statbar";
+import FinanceTransactionsStatBar from "../components/finances/finance_transactions/FinanceTransactionsStatBar";
+import BackButton from "../components/utility/BackButton";
+import Breadcrumb from "../components/utility/Breadcrumbs";
 
 
 export default function Dashboard() {
+
     return (
         <div className="">
             {/* Navbar */}
-            <div className="border-b sticky top-0 z-10">
+            <div className=" sticky top-0 z-10">
                 <Navbar/>
             </div>
             <div className="">
@@ -19,15 +22,7 @@ export default function Dashboard() {
                     </div>
 
                     <div className="w-full col-span-5">
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
-                        <Statbar/>
+
                     </div>
                 </div>
             </div>

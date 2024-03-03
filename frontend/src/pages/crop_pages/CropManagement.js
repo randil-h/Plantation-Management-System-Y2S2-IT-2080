@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 
 import SideBar from "../../components/SideBar";
 import Navbar from "../../components/utility/Navbar";
-import HomeContent from "../../components/cropManagement_home/homeContent";
-import FinanceNavigation from "../../components/finances/FinanceNavigation";
+import CropNavigation from "../../components/cropManagement_home/CropNavigation";
 
 export default function CropManagement() {
     return (
@@ -19,12 +18,10 @@ export default function CropManagement() {
                         <SideBar/>
                     </div>
                     <div>
-                        <HomeContent />
+                        <CropNavigation/>
                     </div>
-
                 </div>
             </div>
         </div>
     );
 };
-

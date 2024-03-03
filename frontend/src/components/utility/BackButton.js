@@ -9,7 +9,7 @@ const BackButton = () => {
     };
 
     return (
-        <div className='flex pl-8 pt-4'>
+        <div className='flex pl-8 py-4'>
             <button onClick={goBack}
                className="font-medium text-blue-600 ">
                 <ArrowUturnLeftIcon

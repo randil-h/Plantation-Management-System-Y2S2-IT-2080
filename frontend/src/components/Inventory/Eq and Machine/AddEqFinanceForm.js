@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css'
+
 
 export default function AddEqFinanceForm() {
     const [selectedDate, setSelectedDate] = useState(null);
@@ -11,77 +10,123 @@ export default function AddEqFinanceForm() {
                     Add Equipment / Machine Finances
                 </h1>
             </div>
-            <form className="max-w-md ml-96 mt-8 p-4 bg-gray-200 rounded-lg">
-                <label className="block mb-4">
-                    Equipment/Machine Name:
-                    <input
-                        type="text"
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
-                        required
-                    />
-                </label>
-                <label className="block mb-4">
-                    Company:
-                    <input
-                        type="text"
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
-                        required
-                    />
-                </label>
+            <form className="flex flex-col items-center justify-center">
+                <div className="space-y-12 px-0 py-16 w-6/12">
+                    <div className="border-b border-gray-900/10 pb-12">
+                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
-                <label className="block mb-4">
-                    Seller Name:
-                    <input
-                        type="text"
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
-                        required
-                    />
-                </label>
+                            <div className="col-span-full">
+                                <label htmlFor="Eq_machine_fin"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Equipment / Machine Name
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        name="Eq_machine_fin"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
 
-                <label className="block mb-4">
-                    Ordered Date:
-                    <DatePicker
-                        selected={selectedDate}
-                        onChange={date => setSelectedDate(date)}
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
-                        required
-                    />
-                </label>
+                            <div className="col-span-full">
+                                <label htmlFor="company"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Company
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        name="company"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
 
-                <label className="block mb-4">
-                    Received Date:
-                    <DatePicker
-                        selected={selectedDate}
-                        onChange={date => setSelectedDate(date)}
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
-                        required
-                    />
-                </label>
+                            <div className="col-span-full">
+                                <label htmlFor="sell_name"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Seller Name
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        name="sell_name"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
 
-                <label className="block mb-4">
-                    Quantity Purchased:
-                    <input
-                        type="number"
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
+                            <div className="sm:col-span-3">
+                                <label htmlFor="or_date_eq"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Ordered Date
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="date"
+                                        name="or_date_eq"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
 
-                    />
-                </label>
+                            <div className="sm:col-span-3">
+                                <label htmlFor="re_date_eq"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Received date
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="date"
+                                        name="re_date_eq"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
 
-                <label className="block mb-4">
-                    Quality:
-                    <input
-                        type="text"
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
+                            <div className="col-span-full">
+                                <label htmlFor="quan_finance" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Quantity Purchased
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="number"
+                                        name="quan_finance"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                </div>
+                            </div>
 
-                    />
-                </label>
+                            <div className="col-span-full">
+                                <label htmlFor="Quality_eq" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Quality
+                                </label>
+                                <div className="mt-2">
+                                <textarea
+                                    id="Quality_eq"
+                                    name="Quality_eq"
+                                    rows={3}
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                />
+                                </div>
+                            </div>
 
-                <button
-                    type="submit"
-                    className="bg-black text-white px-8 py-2 rounded-full font-semibold text-lg transition duration-300 hover:bg-lime-500 mt-4"
-                >
-                    Save
-                </button>
+
+                        </div>
+                    </div>
+                    <div className="mt-6 flex items-center justify-end gap-x-6">
+                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+                            Cancel
+                        </button>
+                        <button
+
+                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     );
