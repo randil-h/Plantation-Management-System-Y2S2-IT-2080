@@ -42,6 +42,9 @@ import EditEqMainPage from "./pages/inventory_pages/Eq and Machines/EditEqMainPa
 import Inventory from "./pages/inventory_pages/Inventory";
 import Water from "./pages/inventory_pages/Water/Water";
 import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
+import SeedList from "./pages/inventory_pages/Seeds/SeedListPage";
+import AddSeedsPage from "./pages/inventory_pages/Seeds/AddSeedsPage"
+import EditSeedListPage from "./pages/inventory_pages/Seeds/EditSeedListPage";
 import Fertilize_page from "./pages/inventory_pages/Fertilizers/Fertilize_page"
 
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
@@ -63,6 +66,7 @@ import harvest from "./pages/harvest_pages/harvests";
 import harvestCal from "./pages/harvest_pages/harvest_Cal/harvestCal";
 import harvestRec from "./pages/harvest_pages/harvest_records/harvestRecords";
 import yieldLifeCal from "./pages/harvest_pages/Yield_lifespan/yieldLifsp";
+
 
 
 
@@ -142,6 +146,9 @@ export default function App() {
                     <Route path="/editeqmainpage/:id" element={<EditEqMainPage />} />
                     <Route path= "/inventory/water" element={Water()}/>
                     <Route path= "/inventory/seeds" element={Seeds_page()}/>
+                    <Route path= "/seedlist" element={SeedList()}/>
+                    <Route path= "/addseedspage" element={AddSeedsPage()}/>
+                    <Route path= "/editseedlistpage/:id" element={<EditSeedListPage />} />
                     <Route path= "/inventory/fertillizers" element={Fertilize_page()}/>
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
