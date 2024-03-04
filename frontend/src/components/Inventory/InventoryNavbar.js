@@ -5,7 +5,7 @@ const menuItems = [
     { name: "HOME", path: "/inventory/home" },
     { name: "EQUIPMENTS AND MACHINES", path: "/inventory/equipment" },
     { name: "SEEDS", path: "/inventory/seeds" },
-    { name: "FERTILIZER", path: "/inventory/fertillizers" },
+    { name: "CHEMICAL", path: "/inventory/chemicals" },
     { name: "WATER", path: "/inventory/water" },
 ];
 
