@@ -47,6 +47,9 @@ import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
 import SeedList from "./pages/inventory_pages/Seeds/SeedListPage";
 import AddSeedsPage from "./pages/inventory_pages/Seeds/AddSeedsPage"
 import EditSeedListPage from "./pages/inventory_pages/Seeds/EditSeedListPage";
+import SeedFinances from "./pages/inventory_pages/Seeds/SeedFinancesPage";
+import AddSeedFinances from "./pages/inventory_pages/Seeds/AddSeedFinancesPage"
+import EditSeedFinancesPage from "./pages/inventory_pages/Seeds/EditSeedFinancesPage";
 import Chemical_page from "./pages/inventory_pages/Chemical/Chemical_page"
 import ChemicalList from "./pages/inventory_pages/Chemical/ChemicalListPage";
 import AddChemicalsPage from "./pages/inventory_pages/Chemical/AddChemicalsPage";
@@ -183,6 +186,9 @@ export default function App() {
                     <Route path= "/seedlist" element={SeedList()}/>
                     <Route path= "/addseedspage" element={AddSeedsPage()}/>
                     <Route path= "/editseedlistpage/:id" element={<EditSeedListPage />} />
+                    <Route path= "/seedfinances" element={SeedFinances()}/>
+                    <Route path= "/addseedfinances" element={AddSeedFinances()}/>
+                    <Route path= "/editseedfinancespage/:id" element={<EditSeedFinancesPage />} />
                     <Route path= "/inventory/chemicals" element={Chemical_page()}/>
                     <Route path= "/chemicallist" element={ChemicalList()}/>
                     <Route path= "/addchemicalspage" element={AddChemicalsPage()}/>
