@@ -4,11 +4,11 @@ import SideBar from "../../../components/SideBar";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import React from "react";
 import BackButton from "../../../components/utility/BackButton";
-import EmpForm from "../../../components/Employee/Employee_register/EmpForm";
+
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
 
 
-export default function AddEmployee() {
+export default function Addsalary() {
 
     const breadcrumbItems = [
         { name: 'Employees', href: '/finances' },
@@ -36,7 +36,7 @@ export default function AddEmployee() {
 
                         </div>
                         <div className="flex-col flex items-center justify-center">
-                            <EmpForm/>
+                            <Salaryform/>
                         </div>
 
                     </div>

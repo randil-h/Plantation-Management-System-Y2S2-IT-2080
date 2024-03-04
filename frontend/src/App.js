@@ -38,6 +38,7 @@ import Water from "./pages/inventory_pages/Water/Water";
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
 import AddTask from "./pages/employee_pages/task_assigning/AddTask";
+import Addsalary from "./pages/employee_pages/emp_salary/Addsalary";
 
 
 
@@ -107,6 +108,7 @@ export default function App() {
                     <Route path= "/employees/home" element= {Employee()}/>
                     <Route path="/employees/registration" element={AddEmployee()}/>
                     <Route path="/employees/tasks" element={AddTask()}/>
+                    <Route path="/employees/salaryreports" element={Addsalary()}/>
         </Routes>
 
 
