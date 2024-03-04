@@ -5,6 +5,8 @@ import { TestRecord } from "./models/TestModel.js";
 import cors from 'cors';
 import testRoute from "./routes/TestRoute.js";
 import TransactionsRoute from "./routes/TransactionsRoute.js";
+import DiseaseRoute from "./routes/DiseaseRoute.js";
+
 
 import RotationRoute from "./routes/Crop Routes/RotationRoute.js"
 import PlantingRoute from "./routes/Crop Routes/PlantingRoute.js"
@@ -40,6 +42,8 @@ app.get('/', (request, response) => {
 
 app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
+
+app.use('/diseases', DiseaseRoute);
 
 app.use('/rotation', RotationRoute);
 app.use('/planting', PlantingRoute);
