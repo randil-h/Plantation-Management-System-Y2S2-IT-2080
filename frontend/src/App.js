@@ -27,7 +27,6 @@ import CropManagement from "./pages/crop_pages/CropManagement";
 import SeedsPlanting from "./pages/crop_pages/Planting Management/SeedsPlanting";
 import CropRotation from "./pages/crop_pages/Rotation Management/CropRotation";
 import Chemicals from "./pages/crop_pages/Chemical Management/Chemicals";
-import AddChemicalsPage from "./pages/crop_pages/Chemical Management/AddChemicalsPage";
 import AddPlantingPage from "./pages/crop_pages/Planting Management/AddPlantingPage";
 import AddRotationPage from "./pages/crop_pages/Rotation Management/AddRotationPage";
 import ViewRotation from "./pages/crop_pages/Rotation Management/ViewRotation";
@@ -48,7 +47,10 @@ import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
 import SeedList from "./pages/inventory_pages/Seeds/SeedListPage";
 import AddSeedsPage from "./pages/inventory_pages/Seeds/AddSeedsPage"
 import EditSeedListPage from "./pages/inventory_pages/Seeds/EditSeedListPage";
-import Fertilize_page from "./pages/inventory_pages/Fertilizers/Fertilize_page"
+import Chemical_page from "./pages/inventory_pages/Chemical/Chemical_page"
+import ChemicalList from "./pages/inventory_pages/Chemical/ChemicalListPage";
+import AddChemicalsPage from "./pages/inventory_pages/Chemical/AddChemicalsPage";
+import EditChemicalListPage from "./pages/inventory_pages/Chemical/EditChemicalListPage";
 
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 
@@ -77,6 +79,7 @@ import AgroTourism from "./pages/tourism_pages/AgroTourismIntro";
 import Feedback from "./pages/tourism_pages/FeedbackPage";
 import BookingPg from "./pages/tourism_pages/BookingPg";
 import PaymentPg from "./pages/tourism_pages/PaymentPg";
+
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -180,7 +183,10 @@ export default function App() {
                     <Route path= "/seedlist" element={SeedList()}/>
                     <Route path= "/addseedspage" element={AddSeedsPage()}/>
                     <Route path= "/editseedlistpage/:id" element={<EditSeedListPage />} />
-                    <Route path= "/inventory/fertillizers" element={Fertilize_page()}/>
+                    <Route path= "/inventory/chemicals" element={Chemical_page()}/>
+                    <Route path= "/chemicallist" element={ChemicalList()}/>
+                    <Route path= "/addchemicalspage" element={AddChemicalsPage()}/>
+                    <Route path= "/editchemicallistpage/:id" element={<EditChemicalListPage />} />
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
 
