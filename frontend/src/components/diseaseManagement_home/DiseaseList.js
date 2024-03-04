@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import {BsInfoCircle} from "react-icons/bs";
 import {AiOutlineEdit} from "react-icons/ai";
 import {MdOutlineDelete} from "react-icons/md";
-import React from "react";
+
 
 export default function DiseaseList({diseases}) {
     return (
