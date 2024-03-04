@@ -2,8 +2,8 @@
 import SideBar from "../../../components/SideBar";
 
 import React from "react";
-import AddEqFinanceForm from "../../../components/Inventory/Eq and Machine/AddEqFinanceForm";
 import Navbar from "../../../components/utility/Navbar";
+import AddEqFinances from "../../../components/Inventory/Eq and Machine/AddEqFinances";
 
 
 export default function Equipment() {
@@ -19,7 +19,7 @@ export default function Equipment() {
                 </div>
             </div>
 
-            <AddEqFinanceForm/>
+            <AddEqFinances/>
         </div>
     );
 }

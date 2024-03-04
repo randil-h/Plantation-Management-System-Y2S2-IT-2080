@@ -37,8 +37,9 @@ import Equipment from "./pages/inventory_pages/Eq and Machines/Equipments";
 import EqList from "./pages/inventory_pages/Eq and Machines/EqListPage";
 import MaintenanceLog from "./pages/inventory_pages/Eq and Machines/MaintenanceLog"
 import AddEquipments from "./pages/inventory_pages/Eq and Machines/AddEquipments";
-import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/EquipmentFinances";
-import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
+import EqFinances from "./pages/inventory_pages/Eq and Machines/EqFinancesPage";
+import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinancesPage";
+import EditEqFinancesPage from "./pages/inventory_pages/Eq and Machines/EditEqFinancesPage";
 import AddEqMainPage from "./pages/inventory_pages/Eq and Machines/AddEqMainPage";
 import EditEqMainPage from "./pages/inventory_pages/Eq and Machines/EditEqMainPage";
 import Inventory from "./pages/inventory_pages/Inventory";
@@ -133,14 +134,6 @@ export default function App() {
 
                     <Route path="/finances/valuation" element={<SalaryPayments />} />
 
-                    <Route path= "/inventory" element={Inventory()}/>
-                    <Route path = "/equipment" element={Equipment()}/>
-                    <Route path = "/eqlist" element={EqList()}/>
-                    <Route path= "/maintenancelog" element={MaintenanceLog()}/>
-                    <Route path = "/addequipments" element={AddEquipments()}/>
-                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
-                    <Route path= "/addeqfinances" element={AddEqFinances()}/>
-
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback-form" element={Feedback()}/>
                     <Route path="/booking" element={BookingPg()}/>
@@ -180,8 +173,9 @@ export default function App() {
                     <Route path = "/eqlist" element={EqList()}/>
                     <Route path= "/maintenancelog" element={MaintenanceLog()}/>
                     <Route path = "/addequipments" element={AddEquipments()}/>
-                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+                    <Route path= "/eqfinances" element={EqFinances()}/>
                     <Route path= "/addeqfinances" element={AddEqFinances()}/>
+                    <Route path= "/editeqfinancespage/:id" element={<EditEqFinancesPage />} />
                     <Route path="/addeqmainpage" element={(AddEqMainPage())}/>
                     <Route path="/editeqmainpage/:id" element={<EditEqMainPage />} />
                     <Route path= "/inventory/water" element={Water()}/>
