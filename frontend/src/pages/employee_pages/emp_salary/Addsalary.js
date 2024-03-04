@@ -4,7 +4,7 @@ import SideBar from "../../../components/SideBar";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import React from "react";
 import BackButton from "../../../components/utility/BackButton";
-
+import Salaryform from "../../../components/Employee/Salary_assign/Salaryform";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
 
 
