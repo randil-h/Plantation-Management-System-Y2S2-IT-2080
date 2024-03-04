@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import {Link} from "react-router-dom";
+import React, {useState, useEffect } from 'react';
 import axios from "axios";
 import Navbar from "../../../components/utility/Navbar";
 import SideBar from "../../../components/SideBar";
@@ -8,17 +7,14 @@ import DiseaseTrackingNavigation from "../../../components/diseaseManagement_hom
 import BackButton from "../../../components/utility/BackButton";
 import {MdOutlineAddBox} from "react-icons/md";
 import LoadingAnimation from "../../../components/utility/LoadingAnimation";
-
+import {Link} from "react-router-dom";
 import DiseaseList from "../../../components/diseaseManagement_home/DiseaseList";
 
 export default function ViewAllDiseases(){
 
-    const breadcrumbItems = [
-        { name: 'Records', href: '/diseases/records' },
-    ];
-
     const [diseases, setDisease] = useState([]);
     const [loading, setLoading] = useState(false);
+    //const [showType, setShowType] = useState('table');
 
     useEffect(() => {
         setLoading(true);
@@ -32,9 +28,11 @@ export default function ViewAllDiseases(){
                 console.log(error);
                 setLoading(false);
             });
-    }, []);
-
-
+    },);
+/*
+    const breadcrumbItems = [
+        { name: 'Records', href: '/diseases/records' },
+    ];*/
 
     return (
         <div className="">
@@ -51,7 +49,7 @@ export default function ViewAllDiseases(){
                         <DiseaseTrackingNavigation/>
                         <div className="flex flex-row ">
                             <BackButton/>
-                            <Breadcrumb items={breadcrumbItems}/>
+                            {/*<Breadcrumb items={breadcrumbItems}/>*/}
                         </div>
                     </div>
                     <div className= 'p-4'>
@@ -61,6 +59,7 @@ export default function ViewAllDiseases(){
                                 <MdOutlineAddBox className='text-sky-700 text-4xl'/>
                             </Link>
                         </div>
+
                         {loading ? (
                             <LoadingAnimation/>
                         ) :
