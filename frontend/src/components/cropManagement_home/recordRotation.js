@@ -46,6 +46,7 @@ export default function RecordRotation() {
             <form
                 className="max-w-md mt-16 p-4 bg-gray-200 rounded-lg"
                 onSubmit={handleSubmit}
+                method = "post"
             >
                 <label htmlFor="season" className="block pb-4">
                     Season
@@ -143,6 +144,7 @@ export default function RecordRotation() {
                     value={formData.remarks}
                     className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300"
                     placeholder="Type Here.."
+                    required
                 />
 
                 <button
