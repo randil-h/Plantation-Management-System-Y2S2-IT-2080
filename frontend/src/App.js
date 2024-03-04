@@ -54,6 +54,9 @@ import Chemical_page from "./pages/inventory_pages/Chemical/Chemical_page"
 import ChemicalList from "./pages/inventory_pages/Chemical/ChemicalListPage";
 import AddChemicalsPage from "./pages/inventory_pages/Chemical/AddChemicalsPage";
 import EditChemicalListPage from "./pages/inventory_pages/Chemical/EditChemicalListPage";
+import ChemicalFinances from "./pages/inventory_pages/Chemical/ChemicalFinancesPage";
+import AddChemicalFinances from "./pages/inventory_pages/Chemical/AddChemicalFinancesPage"
+import EditChemicalFinancesPage from "./pages/inventory_pages/Chemical/EditChemicalFinacesPage";
 
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 
@@ -193,6 +196,9 @@ export default function App() {
                     <Route path= "/chemicallist" element={ChemicalList()}/>
                     <Route path= "/addchemicalspage" element={AddChemicalsPage()}/>
                     <Route path= "/editchemicallistpage/:id" element={<EditChemicalListPage />} />
+                    <Route path= "/chemicalfinances" element={ChemicalFinances()}/>
+                    <Route path= "/addchemicalfinances" element={AddChemicalFinances()}/>
+                    <Route path= "/editchemicalfinancespage/:id" element={<EditChemicalFinancesPage />} />
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
 
