@@ -29,7 +29,7 @@ export default function SideBar() {
 
 
     return (
-        <div className=" bg-gray-100 h-screen sticky top-12 border-r z-10">
+        <div className=" bg-gray-100 h-screen sticky top-12 border-r">
             <ul className="flex flex-col items-center text-gray-800 font-medium text-sm py-4">
                 {menuItems.map((item) => (
                     <li

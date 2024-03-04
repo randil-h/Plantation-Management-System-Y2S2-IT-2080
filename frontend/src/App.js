@@ -30,6 +30,9 @@ import Chemicals from "./pages/crop_pages/Chemical Management/Chemicals";
 import AddChemicalsPage from "./pages/crop_pages/Chemical Management/AddChemicalsPage";
 import AddPlantingPage from "./pages/crop_pages/Planting Management/AddPlantingPage";
 import AddRotationPage from "./pages/crop_pages/Rotation Management/AddRotationPage";
+import ViewRotation from "./pages/crop_pages/Rotation Management/ViewRotation";
+import ViewChemicals from "./pages/crop_pages/Chemical Management/ViewChemicals";
+import ViewPlantingList from "./pages/crop_pages/Planting Management/ViewPlantingList";
 
 import Equipment from "./pages/inventory_pages/Eq and Machines/Equipments";
 import EqList from "./pages/inventory_pages/Eq and Machines/EqListPage";
@@ -116,11 +119,15 @@ export default function App() {
                     <Route path = "/crop/home" element={CropManagement()}/>
 
                     <Route path = "/crop/planting" element={SeedsPlanting()}/>
-                    <Route path = "/crop/planting/add" element={AddPlantingPage()}/>
+                    <Route path = "/crop/planting/view-add" element={AddPlantingPage()}/>
+                    <Route path = "/crop/planting/view" element={ViewPlantingList()}/>
                     <Route path = "/crop/rotation" element={CropRotation()}/>
-                    <Route path = "/crop/rotation/add" element={AddRotationPage()}/>
+                    <Route path = "/crop/rotation/view-add" element={AddRotationPage()}/>
+                    <Route path = "/crop/rotation/view" element={ViewRotation()}/>
                     <Route path = "/crop/chemicals" element={Chemicals()}/>
-                    <Route path = "/crop/chemicals/add" element={AddChemicalsPage()}/>
+                    <Route path = "/crop/chemicals/view-add" element={AddChemicalsPage()}/>
+                    <Route path = "/crop/chemicals/view" element={ViewChemicals()}/>
+
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
                     <Route path="/WholeSale/orders" element={MyOrders()}/>
