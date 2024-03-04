@@ -8,7 +8,7 @@ const menuItems = [
     { name: "SALARY REPORTS", path: "/employees/salaryreports" },
 ];
 
-export default function Example() {
+export default function EmployeeNavbar() {
     const [open, setOpen] = useState(false)
     const location = useLocation();
     const isActive = (path) => {
