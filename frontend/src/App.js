@@ -123,18 +123,13 @@ export default function App() {
 
                     <Route path="/finances/valuation" element={<SalaryPayments />} />
 
-            <Route path = "/crops" element={CropManagement()}/>
-            <Route path = "/seedsPlanting" element={seedsPlanting()}/>
-            <Route path = "/rotation" element={RotationManagement()}/>
-            <Route path = "/fertiliser" element={Fertiliser()}/>
-
-            <Route path= "/inventory" element={Inventory()}/>
-            <Route path = "/equipment" element={Equipment()}/>
-            <Route path = "/eqlist" element={EqList()}/>
-            <Route path= "/maintenancelog" element={MaintenanceLog()}/>
-            <Route path = "/addequipments" element={AddEquipments()}/>
-            <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
-            <Route path= "/addeqfinances" element={AddEqFinances()}/>
+                    <Route path= "/inventory" element={Inventory()}/>
+                    <Route path = "/equipment" element={Equipment()}/>
+                    <Route path = "/eqlist" element={EqList()}/>
+                    <Route path= "/maintenancelog" element={MaintenanceLog()}/>
+                    <Route path = "/addequipments" element={AddEquipments()}/>
+                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+                    <Route path= "/addeqfinances" element={AddEqFinances()}/>
 
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback-form" element={Feedback()}/>
