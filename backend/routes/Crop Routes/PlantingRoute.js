@@ -1,5 +1,5 @@
 import express from 'express';
-import { Planting } from '../models/PlantingModel.js';
+import { Planting } from '../../models/Crop Models/PlantingModel.js';
 
 const router = express.Router();
 

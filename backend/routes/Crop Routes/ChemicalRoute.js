@@ -1,5 +1,5 @@
 import express from 'express';
-import { Chemicals } from '../models/ChemicalModel.js';
+import { Chemicals } from '../../models/Crop Models/ChemicalModel.js';
 
 const router = express.Router();
 

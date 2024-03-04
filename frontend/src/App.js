@@ -24,9 +24,14 @@ import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments
 import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
 
 import CropManagement from "./pages/crop_pages/CropManagement";
-import SeedsPlanting from "./pages/crop_pages/SeedsPlanting";
-import RotationManagement from "./pages/crop_pages/RotationManagement";
-import Chemicals from "./pages/crop_pages/Chemicals";
+import SeedsPlanting from "./pages/crop_pages/Planting Management/SeedsPlanting";
+import CropRotation from "./pages/crop_pages/Rotation Management/CropRotation";
+import Chemicals from "./pages/crop_pages/Chemical Management/Chemicals";
+import AddPlantingPage from "./pages/crop_pages/Planting Management/AddPlantingPage";
+import AddRotationPage from "./pages/crop_pages/Rotation Management/AddRotationPage";
+import ViewRotation from "./pages/crop_pages/Rotation Management/ViewRotation";
+import ViewChemicals from "./pages/crop_pages/Chemical Management/ViewChemicals";
+import ViewPlantingList from "./pages/crop_pages/Planting Management/ViewPlantingList";
 
 import Equipment from "./pages/inventory_pages/Eq and Machines/Equipments";
 import EqList from "./pages/inventory_pages/Eq and Machines/EqListPage";
@@ -35,10 +40,17 @@ import AddEquipments from "./pages/inventory_pages/Eq and Machines/AddEquipments
 import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/EquipmentFinances";
 import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
 import AddEqMainPage from "./pages/inventory_pages/Eq and Machines/AddEqMainPage";
-import Inventory from "./pages/inventory_pages/Inventory"
+import EditEqMainPage from "./pages/inventory_pages/Eq and Machines/EditEqMainPage";
+import Inventory from "./pages/inventory_pages/Inventory";
 import Water from "./pages/inventory_pages/Water/Water";
 import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
-import Fertilize_page from "./pages/inventory_pages/Fertilizers/Fertilize_page"
+import SeedList from "./pages/inventory_pages/Seeds/SeedListPage";
+import AddSeedsPage from "./pages/inventory_pages/Seeds/AddSeedsPage"
+import EditSeedListPage from "./pages/inventory_pages/Seeds/EditSeedListPage";
+import Chemical_page from "./pages/inventory_pages/Chemical/Chemical_page"
+import ChemicalList from "./pages/inventory_pages/Chemical/ChemicalListPage";
+import AddChemicalsPage from "./pages/inventory_pages/Chemical/AddChemicalsPage";
+import EditChemicalListPage from "./pages/inventory_pages/Chemical/EditChemicalListPage";
 
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 
@@ -65,6 +77,13 @@ import harvest from "./pages/harvest_pages/harvests";
 import harvestCal from "./pages/harvest_pages/harvest_Cal/harvestCal";
 import harvestRec from "./pages/harvest_pages/harvest_records/harvestRecords";
 import yieldLifeCal from "./pages/harvest_pages/Yield_lifespan/yieldLifsp";
+
+
+
+import AgroTourism from "./pages/tourism_pages/AgroTourismIntro";
+import Feedback from "./pages/tourism_pages/FeedbackPage";
+import BookingPg from "./pages/tourism_pages/BookingPg";
+import PaymentPg from "./pages/tourism_pages/PaymentPg";
 
 
 export default function App() {
@@ -108,6 +127,24 @@ export default function App() {
                     <Route path="/finances/transactions/editTransaction" element={<EditTransaction />} />
                     <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
 
+
+                    <Route path="/finances/salaryPayment" element={<Valuation />} />
+
+                    <Route path="/finances/valuation" element={<SalaryPayments />} />
+
+                    <Route path= "/inventory" element={Inventory()}/>
+                    <Route path = "/equipment" element={Equipment()}/>
+                    <Route path = "/eqlist" element={EqList()}/>
+                    <Route path= "/maintenancelog" element={MaintenanceLog()}/>
+                    <Route path = "/addequipments" element={AddEquipments()}/>
+                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+                    <Route path= "/addeqfinances" element={AddEqFinances()}/>
+
+                    <Route path="/tourism" element={AgroTourism()}/>
+                    <Route path="/feedback-form" element={Feedback()}/>
+                    <Route path="/booking" element={BookingPg()}/>
+                    <Route path="/payment" element={PaymentPg()}/>
+
                     <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
 
                     <Route path="/finances/valuation" element={<Valuation />} />
@@ -115,9 +152,16 @@ export default function App() {
                     <Route path="/finances/machineHours" element={<MachineHours />} />
 
                     <Route path = "/crop/home" element={CropManagement()}/>
+
                     <Route path = "/crop/planting" element={SeedsPlanting()}/>
-                    <Route path = "/crop/rotation" element={RotationManagement()}/>
+                    <Route path = "/crop/planting/view-add" element={AddPlantingPage()}/>
+                    <Route path = "/crop/planting/view" element={ViewPlantingList()}/>
+                    <Route path = "/crop/rotation" element={CropRotation()}/>
+                    <Route path = "/crop/rotation/view-add" element={AddRotationPage()}/>
+                    <Route path = "/crop/rotation/view" element={ViewRotation()}/>
                     <Route path = "/crop/chemicals" element={Chemicals()}/>
+                    <Route path = "/crop/chemicals/view-add" element={AddChemicalsPage()}/>
+                    <Route path = "/crop/chemicals/view" element={ViewChemicals()}/>
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
@@ -134,10 +178,6 @@ export default function App() {
                     <Route path= "insights/home" element={Insights()}/>
                     <Route path= "insights/marketprice" element={MarketPrice()}/>
 
-                    <Route path = "/crop/home" element={CropManagement()}/>
-                    <Route path = "/crop/planting" element={SeedsPlanting()}/>
-                    <Route path = "/crop/rotation" element={RotationManagement()}/>
-                    <Route path = "/crop/chemicals" element={Chemicals()}/>
 
                     <Route path= "/inventory/home" element={Inventory()}/>
                     <Route path = "/inventory/equipment" element={Equipment()}/>
@@ -147,9 +187,16 @@ export default function App() {
                     <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
                     <Route path= "/addeqfinances" element={AddEqFinances()}/>
                     <Route path="/addeqmainpage" element={(AddEqMainPage())}/>
+                    <Route path="/editeqmainpage/:id" element={<EditEqMainPage />} />
                     <Route path= "/inventory/water" element={Water()}/>
                     <Route path= "/inventory/seeds" element={Seeds_page()}/>
-                    <Route path= "/inventory/fertillizers" element={Fertilize_page()}/>
+                    <Route path= "/seedlist" element={SeedList()}/>
+                    <Route path= "/addseedspage" element={AddSeedsPage()}/>
+                    <Route path= "/editseedlistpage/:id" element={<EditSeedListPage />} />
+                    <Route path= "/inventory/chemicals" element={Chemical_page()}/>
+                    <Route path= "/chemicallist" element={ChemicalList()}/>
+                    <Route path= "/addchemicalspage" element={AddChemicalsPage()}/>
+                    <Route path= "/editchemicallistpage/:id" element={<EditChemicalListPage />} />
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
 

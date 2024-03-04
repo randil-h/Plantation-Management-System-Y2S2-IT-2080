@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13558a26-baa0-48ae-9844-4985b6bdd1d4" name="Changes" comment="updated disease tracking backend">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_2024_12_23_PM__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.js" afterDir="false" />
-    </list>
+    <list default="true" id="13558a26-baa0-48ae-9844-4985b6bdd1d4" name="Changes" comment="updated disease tracking backend" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,7 +67,7 @@
       <workItem from="1709439313518" duration="6440000" />
       <workItem from="1709518736403" duration="1500000" />
       <workItem from="1709546616075" duration="195000" />
-      <workItem from="1709547063844" duration="1336000" />
+      <workItem from="1709547063844" duration="1357000" />
     </task>
     <task id="LOCAL-00001" summary="added createdisease backend">
       <option name="closed" value="true" />
