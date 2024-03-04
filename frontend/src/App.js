@@ -45,6 +45,9 @@ import EditEqMainPage from "./pages/inventory_pages/Eq and Machines/EditEqMainPa
 import Inventory from "./pages/inventory_pages/Inventory";
 import Water from "./pages/inventory_pages/Water/Water";
 import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
+import SeedList from "./pages/inventory_pages/Seeds/SeedListPage";
+import AddSeedsPage from "./pages/inventory_pages/Seeds/AddSeedsPage"
+import EditSeedListPage from "./pages/inventory_pages/Seeds/EditSeedListPage";
 import Fertilize_page from "./pages/inventory_pages/Fertilizers/Fertilize_page"
 
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
@@ -68,6 +71,11 @@ import harvestRec from "./pages/harvest_pages/harvest_records/harvestRecords";
 import yieldLifeCal from "./pages/harvest_pages/Yield_lifespan/yieldLifsp";
 
 
+
+import AgroTourism from "./pages/tourism_pages/AgroTourismIntro";
+import Feedback from "./pages/tourism_pages/FeedbackPage";
+import BookingPg from "./pages/tourism_pages/BookingPg";
+import PaymentPg from "./pages/tourism_pages/PaymentPg";
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -110,6 +118,29 @@ export default function App() {
                     <Route path="/finances/transactions/editTransaction" element={<EditTransaction />} />
                     <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
 
+
+                    <Route path="/finances/salaryPayment" element={<Valuation />} />
+
+                    <Route path="/finances/valuation" element={<SalaryPayments />} />
+
+            <Route path = "/crops" element={CropManagement()}/>
+            <Route path = "/seedsPlanting" element={seedsPlanting()}/>
+            <Route path = "/rotation" element={RotationManagement()}/>
+            <Route path = "/fertiliser" element={Fertiliser()}/>
+
+            <Route path= "/inventory" element={Inventory()}/>
+            <Route path = "/equipment" element={Equipment()}/>
+            <Route path = "/eqlist" element={EqList()}/>
+            <Route path= "/maintenancelog" element={MaintenanceLog()}/>
+            <Route path = "/addequipments" element={AddEquipments()}/>
+            <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+            <Route path= "/addeqfinances" element={AddEqFinances()}/>
+
+                    <Route path="/tourism" element={AgroTourism()}/>
+                    <Route path="/feedback-form" element={Feedback()}/>
+                    <Route path="/booking" element={BookingPg()}/>
+                    <Route path="/payment" element={PaymentPg()}/>
+
                     <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
 
                     <Route path="/finances/valuation" element={<Valuation />} />
@@ -149,6 +180,9 @@ export default function App() {
                     <Route path="/editeqmainpage/:id" element={<EditEqMainPage />} />
                     <Route path= "/inventory/water" element={Water()}/>
                     <Route path= "/inventory/seeds" element={Seeds_page()}/>
+                    <Route path= "/seedlist" element={SeedList()}/>
+                    <Route path= "/addseedspage" element={AddSeedsPage()}/>
+                    <Route path= "/editseedlistpage/:id" element={<EditSeedListPage />} />
                     <Route path= "/inventory/fertillizers" element={Fertilize_page()}/>
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
@@ -160,7 +194,6 @@ export default function App() {
                     <Route path="/harvest/home"  element={harvest()}/>
                     <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>
                     <Route path="/harvest/harvestRecords"  element={harvestRec()}/>
-                    <Route path="/harvest/yieldLifespan"  element={yieldLifeCal()}/>
         </Routes>
             )}
         </div>
