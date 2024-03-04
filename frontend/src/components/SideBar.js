@@ -15,7 +15,7 @@ const menuItems = [
     { name: "EMPLOYEES", path: "/employees/home", icon: HiUsers },
     { name: "INVENTORY", path: "/inventory/home", icon: FaBoxOpen }, // Changed icon to FaBoxOpen
     { name: "INSIGHTS", path: "/insights/home", icon: HiPresentationChartLine },
-    { name: "DISEASE TRACKING", path: "/dtracking/home", icon: FaDisease},
+    { name: "DISEASE TRACKING", path: "/diseases/home", icon: FaDisease},
     { name: "HARVEST", path: "/harvest/home",  icon: FaCrop},
 ];
 

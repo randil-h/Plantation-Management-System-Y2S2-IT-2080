@@ -44,6 +44,11 @@ import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 
 import DiseaseTracking from "./pages/diseaseTracking_pages/DiseaseTracking";
 import DiseaseVisualization from "./pages/diseaseTracking_pages/visualization/diseaseVisualization";
+import AddDiseaseRecord from "./pages/diseaseTracking_pages/records/AddDiseaseRecord";
+import UpdateDiseaseRecord from "./pages/diseaseTracking_pages/records/UpdateDiseaseRecord";
+import DeleteDiseaseRecord from "./pages/diseaseTracking_pages/records/DeleteDiseaseRecord";
+import ViewAllDiseases from "./pages/diseaseTracking_pages/records/ViewAllDiseases";
+import ViewDiseaseRecord from "./pages/diseaseTracking_pages/records/ViewDiseaseRecord";
 import Insights from "./pages/insights/Insights";
 import MarketPrice from "./pages/insights/marketPriceAnalysis/MarketPrice";
 
@@ -118,8 +123,13 @@ export default function App() {
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
                     <Route path="/WholeSale/orders" element={MyOrders()}/>
 
-                    <Route path = "dtracking/home" element={DiseaseTracking()}/>
-                    <Route path = "dtracking/visualization" element={DiseaseVisualization()}/>
+                    <Route path = "diseases/home" element={DiseaseTracking()}/>
+                    <Route path = "diseases/records" element={ViewAllDiseases()}/>
+                    <Route path = "diseases/records/addDisease" element={AddDiseaseRecord()}/>
+                    <Route path = "diseases/records/updateDisease/:id" element={UpdateDiseaseRecord()}/>
+                    <Route path = "diseases/records/deleteDisease/:id" element={DeleteDiseaseRecord()}/>
+                    <Route path = "diseases/records/viewDisease/:id" element={ViewDiseaseRecord()}/>
+                    <Route path = "diseases/visualization" element={DiseaseVisualization()}/>
 
                     <Route path= "insights/home" element={Insights()}/>
                     <Route path= "insights/marketprice" element={MarketPrice()}/>
