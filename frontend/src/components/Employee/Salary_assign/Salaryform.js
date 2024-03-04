@@ -82,7 +82,7 @@ export default function Salaryform(){
                         type="submit"
                         className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-400"
                     >
-                        Assign Task
+                        Assign Salary
                     </button>
                     <button
                         type="button"
