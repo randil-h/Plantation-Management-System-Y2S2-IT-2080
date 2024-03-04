@@ -1,9 +1,7 @@
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import Navbar from "../../../components/utility/Navbar";
 import SideBar from "../../../components/SideBar";
-import FinanceNavigation from "../../../components/finances/FinanceNavigation";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
-import IncomeRecordsList from "../../../components/finances/finance_income/IncomeRecordsList";
 import React from "react";
 import BackButton from "../../../components/utility/BackButton";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
