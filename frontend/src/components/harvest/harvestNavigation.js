@@ -3,13 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
     { name: "HOME", path: "/harvest/home" },
-    { name: "RECORDS", path: "/harvest" },
-    { name: "ESTIMATED HARVEST", path: "/insights/marketprice" },
-    { name: "YIELD LIFESPAN", path: "/insights/weather" },
+    { name: "RECORDS", path: "/harvest/harvestRecords" },
+    { name: "ESTIMATED HARVEST", path: "/harvest/calculateHarvest" },
+    { name: "YIELD LIFESPAN", path: "/harvest/yieldLifespan" },
 
 ];
 
-export default function InsightsNavigation() {
+export default function HarvestNavigation() {
     const [open, setOpen] = useState(false)
     const location = useLocation();
     const isActive = (path) => {

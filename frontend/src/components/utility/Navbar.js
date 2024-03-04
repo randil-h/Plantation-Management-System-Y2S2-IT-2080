@@ -103,7 +103,9 @@ export default function Navbar() {
                     <a href="/" className=" font-medium leading-6 hover:text-lime-600">
                         Home
                     </a>
+
                     <a href="/placeOrder" className=" font-medium leading-6 hover:text-lime-600">
+
                         Marketplace
                     </a>
                     <a href="/dashboard" className=" font-medium leading-6 hover:text-lime-600">

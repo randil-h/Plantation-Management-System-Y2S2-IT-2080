@@ -7,6 +7,7 @@ import {
     HiUsers
 } from "react-icons/hi2";
 import {FaCannabis, FaDisease, FaBoxOpen, FaCrop} from "react-icons/fa";
+import {FaPlantWilt} from "react-icons/fa6";
 
 const menuItems = [
     { name: "HOME", path: "/dashboard", icon: HiHome },
@@ -16,7 +17,7 @@ const menuItems = [
     { name: "INVENTORY", path: "/inventory/home", icon: FaBoxOpen }, // Changed icon to FaBoxOpen
     { name: "INSIGHTS", path: "/insights/home", icon: HiPresentationChartLine },
     { name: "DISEASE TRACKING", path: "/dtracking/home", icon: FaDisease},
-    { name: "HARVEST", path: "/harvest/home",  icon: FaCrop},
+    { name: "HARVEST", path: "/harvest/home",  icon: FaPlantWilt},
 ];
 
 export default function SideBar() {
@@ -29,7 +30,7 @@ export default function SideBar() {
 
 
     return (
-        <div className=" bg-gray-100 h-screen sticky top-12 border-r z-10">
+        <div className=" bg-gray-100 h-screen sticky top-12 border-r">
             <ul className="flex flex-col items-center text-gray-800 font-medium text-sm py-4">
                 {menuItems.map((item) => (
                     <li
