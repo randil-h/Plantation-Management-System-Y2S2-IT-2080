@@ -165,10 +165,6 @@ export default function App() {
                     <Route path= "insights/home" element={Insights()}/>
                     <Route path= "insights/marketprice" element={MarketPrice()}/>
 
-                    <Route path = "/crop/home" element={CropManagement()}/>
-                    <Route path = "/crop/planting" element={SeedsPlanting()}/>
-                    <Route path = "/crop/rotation" element={RotationManagement()}/>
-                    <Route path = "/crop/chemicals" element={Chemicals()}/>
 
                     <Route path= "/inventory/home" element={Inventory()}/>
                     <Route path = "/inventory/equipment" element={Equipment()}/>
@@ -196,7 +192,6 @@ export default function App() {
                     <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>
                     <Route path="/harvest/harvestRecords"  element={harvestRec()}/>
                     <Route path="/harvest/yieldLifespan"  element={yieldLifeCal()}/>
->>>>>>>>> Temporary merge branch 2
         </Routes>
             )}
         </div>
