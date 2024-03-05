@@ -12,18 +12,19 @@ export default function AddTask(){
                 <Navbar/>
             </div>
             <div className="">
-                {/* Fixed Sidebar */}
                 <div className="grid sm:grid-cols-6 ">
                     <div className="col-span-1 sticky left-0 top-0">
                         <SideBar/>
                     </div>
-                    <div>
-                        <EmployeeNavbar/>
+                    <div className="w-full col-span-5 flex flex-col ">
+                        <div>
+                            <EmployeeNavbar/>
+                        </div>
+                        <div className="flex flex-col justify-center items-center">
+                            <TaskForm/>
+                        </div>
                     </div>
 
-                    <div className="flex justify-center items-center">
-                        <TaskForm/>
-                    </div>
 
                 </div>
 

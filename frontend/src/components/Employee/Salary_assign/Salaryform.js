@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Salaryform(){
     return (
-        <div className="container mx-auto py-10">
+        <div className=" mx-auto py-10">
             <h1 className="text-3xl font-bold mb-5">Assign Salary</h1>
             <form className="max-w-md">
                 <div className="mb-4">
