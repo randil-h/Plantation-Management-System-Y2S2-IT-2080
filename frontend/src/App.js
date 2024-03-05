@@ -202,7 +202,7 @@ export default function App() {
                     <Route path="/employees/tasks" element={AddTask()}/>
 
                     <Route path="/employees/salaryreports" element={Addsalary()}/>
-        </Routes>
+
                     <Route path="/harvest/home"  element={harvest()}/>
                     <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>
                     <Route path="/harvest/harvestRecords"  element={harvestRec()}/>
