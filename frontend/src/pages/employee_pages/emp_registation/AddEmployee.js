@@ -35,7 +35,7 @@ export default function AddEmployee() {
                             <Breadcrumb items={breadcrumbItems}/>
 
                         </div>
-                        <div className="flex-col flex items-center justify-center">
+                        <div className="flex-col flex items-center justify-center h-full">
                             <EmpForm/>
                         </div>
 
