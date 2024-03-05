@@ -7,6 +7,7 @@ import {
     HiUsers
 } from "react-icons/hi2";
 import {FaCannabis, FaDisease, FaBoxOpen, FaCrop} from "react-icons/fa";
+import {FaPlantWilt} from "react-icons/fa6";
 
 const menuItems = [
     { name: "HOME", path: "/dashboard", icon: HiHome },

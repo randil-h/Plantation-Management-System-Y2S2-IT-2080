@@ -5,7 +5,7 @@ import { TestRecord } from "./models/TestModel.js";
 import cors from 'cors';
 import testRoute from "./routes/TestRoute.js";
 import TransactionsRoute from "./routes/Finance Routes/TransactionsRoute.js";
-import DiseaseRoute from "./routes/DiseaseRoute.js";
+import DiseaseRoute from "./routes/Disease Tracking Routes/DiseaseRoute.js";
 
 
 import RotationRoute from "./routes/Crop Routes/RotationRoute.js"

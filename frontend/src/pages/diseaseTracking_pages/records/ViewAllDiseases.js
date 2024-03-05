@@ -1,18 +1,16 @@
-import React, {useState, useEffect } from 'react';
-import axios from "axios";
-import Navbar from "../../../components/utility/Navbar";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import SideBar from "../../../components/SideBar";
+import Navbar from "../../../components/utility/Navbar";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
-import DiseaseTrackingNavigation from "../../../components/diseaseManagement_home/DiseaseTrackingNavigation";
 import BackButton from "../../../components/utility/BackButton";
-import {MdOutlineAddBox} from "react-icons/md";
 import LoadingAnimation from "../../../components/utility/LoadingAnimation";
-import {Link} from "react-router-dom";
 import DiseaseList from "../../../components/diseaseManagement_home/DiseaseList";
+import DiseaseTrackingNavigation from "../../../components/diseaseManagement_home/DiseaseTrackingNavigation";
 
-export default function ViewAllDiseases(){
+export default function ViewAllDiseases() {
 
-    const [diseases, setDisease] = useState([]);
+    /*const [DiseaseRecords, setDiseaseRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     //const [showType, setShowType] = useState('table');
 
@@ -21,18 +19,19 @@ export default function ViewAllDiseases(){
         axios
             .get('http://localhost:5555/diseases')
             .then((response) => {
-                setDisease(response.data.data);
+                setDiseaseRecords(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
                 setLoading(false);
             });
-    },);
-/*
+    }, []);*/
+
     const breadcrumbItems = [
-        { name: 'Records', href: '/diseases/records' },
-    ];*/
+        { name: 'Records', href: '/disease/records' },
+
+    ];
 
     return (
         <div className="">
@@ -49,26 +48,19 @@ export default function ViewAllDiseases(){
                         <DiseaseTrackingNavigation/>
                         <div className="flex flex-row ">
                             <BackButton/>
-                            {/*<Breadcrumb items={breadcrumbItems}/>*/}
+                            <Breadcrumb items={breadcrumbItems}/>
                         </div>
-                    </div>
-                    <div className= 'p-4'>
-                        <div className='flex justify-between items-center'>
-                            <h1 className='text-3xl my-8'>Disease List</h1>
-                            <Link to='/diseases/records/addDisease'>
-                                <MdOutlineAddBox className='text-sky-700 text-4xl'/>
-                            </Link>
-                        </div>
-
+{/*
                         {loading ? (
-                            <LoadingAnimation/>
-                        ) :
-                            <DiseaseList diseases={diseases}/>
-                        }
+                                <LoadingAnimation/>
+                            ) :
+                            <DiseaseList DiseaseRecords={DiseaseRecords}/>
+                        }*/}
+
+
                     </div>
                 </div>
             </div>
         </div>
     );
-
 }

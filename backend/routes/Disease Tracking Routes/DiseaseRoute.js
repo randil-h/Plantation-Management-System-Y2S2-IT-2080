@@ -1,4 +1,4 @@
-import {DiseasesRecord} from "../models/DiseasesModel.js";
+import {DiseasesRecord} from "../../models/Disease Tracking Models/DiseasesModel.js";
 import express, {request, response} from "express";
 
 const router = express.Router();
