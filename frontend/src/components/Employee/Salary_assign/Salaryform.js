@@ -1,9 +1,9 @@
 import React from "react";
-export default function TaskForm(){
-    return (
 
+export default function Salaryform(){
+    return (
         <div className=" mx-auto py-10">
-            <h1 className="text-3xl font-bold mb-5">Assign Tasks</h1>
+            <h1 className="text-3xl font-bold mb-5">Assign Salary</h1>
             <form className="max-w-md">
                 <div className="mb-4">
                     <label className="block text-sm font-semibold mb-1">Employee ID:</label>
@@ -15,15 +15,7 @@ export default function TaskForm(){
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-sm font-semibold mb-1">Task:</label>
-                    <textarea
-                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        required
-                    ></textarea>
-                </div>
-
-                <div className="mb-4">
-                    <label className="block text-sm font-semibold mb-1">Assign Date:</label>
+                    <label className="block text-sm font-semibold mb-1">Month:</label>
                     <input
                         type="date"
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
@@ -32,19 +24,57 @@ export default function TaskForm(){
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-sm font-semibold mb-1">Due Date:</label>
+                    <label className="block text-sm font-semibold mb-1">Basic salary:</label>
                     <input
-                        type="date"
+                        type="text"
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                         required
                     />
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="comments" className="block text-sm font-semibold mb-1">Comments/Notes:</label>
-                    <textarea
+                    <label className="block text-sm font-semibold mb-1">OT Hours:</label>
+                    <input
+                        type="text"
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-                    ></textarea>
+                        required
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-sm font-semibold mb-1">OT Rate:</label>
+                    <input
+                        type="text"
+                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-sm font-semibold mb-1">OT Total:</label>
+                    <input
+                        type="text"
+                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-sm font-semibold mb-1">Bonus:</label>
+                    <input
+                        type="text"
+                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-sm font-semibold mb-1">Total Salary:</label>
+                    <input
+                        type="text"
+                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                        required
+                    />
                 </div>
 
                 <div className="flex justify-between">
@@ -52,7 +82,7 @@ export default function TaskForm(){
                         type="submit"
                         className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-400"
                     >
-                        Assign Task
+                        Assign Salary
                     </button>
                     <button
                         type="button"
@@ -63,6 +93,6 @@ export default function TaskForm(){
                 </div>
             </form>
         </div>
-    );
 
+    );
 };
