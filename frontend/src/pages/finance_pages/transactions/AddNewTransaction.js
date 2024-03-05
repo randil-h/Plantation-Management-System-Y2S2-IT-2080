@@ -32,7 +32,7 @@ export default function AddNewTransaction() {
         };
         setLoading(true);
         axios
-            .post('http://localhost:5555/transactions/addTransactions', data)
+            .post('http://localhost:5555/transactions', data)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });
@@ -54,7 +54,7 @@ export default function AddNewTransaction() {
 
     return (
         <div className="">
-            <div className="border-b sticky top-0 z-10">
+            <div className=" sticky top-0 z-10">
                 <Navbar/>
             </div>
             <div className="">
@@ -76,15 +76,15 @@ export default function AddNewTransaction() {
                                     <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
 
-                                        <fieldset className="sm:col-span-4">
+                                        <fieldset className="sm:col-span-4 ">
                                             <legend
                                                 className="text-sm font-semibold leading-6 text-gray-900">Transaction
                                                 type
                                             </legend>
                                             <p className="mt-1 text-sm leading-6 text-gray-600">Specify whether this is
                                                 an income or an expense</p>
-                                            <div className="mt-6 space-y-6 flex flex-row align-middle">
-                                                <div className="flex items-center gap-x-3">
+                                            <div className="mt-6 gap-4 flex flex-row items-center ">
+                                                <div className="flex items-center gap-x-3 ">
                                                     <input
                                                         id="type"
                                                         name="type"
@@ -98,8 +98,8 @@ export default function AddNewTransaction() {
                                                         Income
                                                     </label>
                                                 </div>
-                                                {/*
-                                                <div className="flex items-center gap-x-3">
+
+                                                <div className="flex items-center gap-x-3 ">
                                                     <input
                                                         id="type"
                                                         name="type"
@@ -112,7 +112,7 @@ export default function AddNewTransaction() {
                                                            className="block text-sm font-medium leading-6 text-gray-900">
                                                         Expense
                                                     </label>
-                                                </div> */}
+                                                </div>
                                             </div>
                                         </fieldset>
 

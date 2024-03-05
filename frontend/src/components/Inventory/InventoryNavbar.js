@@ -2,11 +2,11 @@ import React, { Fragment, useState } from 'react'
 import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
-    { name: "HOME", path: "/inventory" },
-    { name: "EQUIPMENTS AND MACHINES", path: "/equipment" },
-    { name: "SEEDS", path: "/seeds" },
-    { name: "FERTILIZER", path: "/fertillizers" },
-    { name: "WATER", path: "/water" },
+    { name: "HOME", path: "/inventory/home" },
+    { name: "EQUIPMENTS AND MACHINES", path: "/inventory/equipment" },
+    { name: "SEEDS", path: "/inventory/seeds" },
+    { name: "CHEMICAL", path: "/inventory/chemicals" },
+    { name: "WATER", path: "/inventory/water" },
 ];
 
 export default function Example() {
@@ -18,7 +18,7 @@ export default function Example() {
     };
 
     return (
-        <div className="bg-gray-100 bg-opacity-50 backdrop-blur sticky top-12 ml-60 border-b w-screen">
+        <div className="bg-gray-100 bg-opacity-50 backdrop-blur sticky top-12 ml-0 border-b w-screen">
             <header className=" ">
                 <nav aria-label="Top" className="">
                     <div className=" border-gray-200 ">

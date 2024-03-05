@@ -5,7 +5,8 @@ import Navbar from "../../components/utility/Navbar";
 import FinanceNavigation from "../../components/finances/FinanceNavigation";
 import BackButton from "../../components/utility/BackButton";
 import Breadcrumb from "../../components/utility/Breadcrumbs";
-
+import FinanceHomeStatBar from "../../components/finances/finance_home/FinanceHomeStatBar";
+import FinanceHomeStatCards from "../../components/finances/finance_home/FinanceHomeStatCards";
 
 export default function Finances() {
 
@@ -16,7 +17,7 @@ export default function Finances() {
     return (
         <div className="">
             {/* Navbar */}
-            <div className="border-b sticky top-0 z-10">
+            <div className=" sticky top-0 z-10">
                 <Navbar />
             </div>
             <div className="">
@@ -31,6 +32,8 @@ export default function Finances() {
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
+                        <FinanceHomeStatBar/>
+                        <FinanceHomeStatCards/>
                     </div>
                 </div>
             </div>
