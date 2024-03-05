@@ -5,7 +5,7 @@ import { TestRecord } from "./models/TestModel.js";
 import cors from 'cors';
 import testRoute from "./routes/TestRoute.js";
 import TransactionsRoute from "./routes/Finance Routes/TransactionsRoute.js";
-import DiseaseRoute from "./routes/DiseaseRoute.js";
+import DiseaseRoute from "./routes/Disease Tracking Routes/DiseaseRoute.js";
 
 
 import RotationRoute from "./routes/Crop Routes/RotationRoute.js"
@@ -46,11 +46,13 @@ app.get('/', (request, response) => {
 app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
 
+
 app.use('/diseases', DiseaseRoute);
 
 app.use('/rotation', RotationRoute);
 app.use('/planting', PlantingRoute);
 app.use('/chemicals', ChemicalRoute);
+
 
 app.use('/inventoryrecords', EqMaintainroute);
 app.use('/seedRecords', AddSeedRoute);
