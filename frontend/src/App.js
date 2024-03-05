@@ -37,8 +37,9 @@ import Equipment from "./pages/inventory_pages/Eq and Machines/Equipments";
 import EqList from "./pages/inventory_pages/Eq and Machines/EqListPage";
 import MaintenanceLog from "./pages/inventory_pages/Eq and Machines/MaintenanceLog"
 import AddEquipments from "./pages/inventory_pages/Eq and Machines/AddEquipments";
-import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/EquipmentFinances";
-import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
+import EqFinances from "./pages/inventory_pages/Eq and Machines/EqFinancesPage";
+import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinancesPage";
+import EditEqFinancesPage from "./pages/inventory_pages/Eq and Machines/EditEqFinancesPage";
 import AddEqMainPage from "./pages/inventory_pages/Eq and Machines/AddEqMainPage";
 import EditEqMainPage from "./pages/inventory_pages/Eq and Machines/EditEqMainPage";
 import Inventory from "./pages/inventory_pages/Inventory";
@@ -47,10 +48,16 @@ import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
 import SeedList from "./pages/inventory_pages/Seeds/SeedListPage";
 import AddSeedsPage from "./pages/inventory_pages/Seeds/AddSeedsPage"
 import EditSeedListPage from "./pages/inventory_pages/Seeds/EditSeedListPage";
+import SeedFinances from "./pages/inventory_pages/Seeds/SeedFinancesPage";
+import AddSeedFinances from "./pages/inventory_pages/Seeds/AddSeedFinancesPage"
+import EditSeedFinancesPage from "./pages/inventory_pages/Seeds/EditSeedFinancesPage";
 import Chemical_page from "./pages/inventory_pages/Chemical/Chemical_page"
 import ChemicalList from "./pages/inventory_pages/Chemical/ChemicalListPage";
 import AddChemicalsPage from "./pages/inventory_pages/Chemical/AddChemicalsPage";
 import EditChemicalListPage from "./pages/inventory_pages/Chemical/EditChemicalListPage";
+import ChemicalFinances from "./pages/inventory_pages/Chemical/ChemicalFinancesPage";
+import AddChemicalFinances from "./pages/inventory_pages/Chemical/AddChemicalFinancesPage"
+import EditChemicalFinancesPage from "./pages/inventory_pages/Chemical/EditChemicalFinacesPage";
 
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 
@@ -127,14 +134,6 @@ export default function App() {
 
                     <Route path="/finances/valuation" element={<SalaryPayments />} />
 
-                    <Route path= "/inventory" element={Inventory()}/>
-                    <Route path = "/equipment" element={Equipment()}/>
-                    <Route path = "/eqlist" element={EqList()}/>
-                    <Route path= "/maintenancelog" element={MaintenanceLog()}/>
-                    <Route path = "/addequipments" element={AddEquipments()}/>
-                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
-                    <Route path= "/addeqfinances" element={AddEqFinances()}/>
-
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback-form" element={Feedback()}/>
                     <Route path="/booking" element={BookingPg()}/>
@@ -174,8 +173,9 @@ export default function App() {
                     <Route path = "/eqlist" element={EqList()}/>
                     <Route path= "/maintenancelog" element={MaintenanceLog()}/>
                     <Route path = "/addequipments" element={AddEquipments()}/>
-                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+                    <Route path= "/eqfinances" element={EqFinances()}/>
                     <Route path= "/addeqfinances" element={AddEqFinances()}/>
+                    <Route path= "/editeqfinancespage/:id" element={<EditEqFinancesPage />} />
                     <Route path="/addeqmainpage" element={(AddEqMainPage())}/>
                     <Route path="/editeqmainpage/:id" element={<EditEqMainPage />} />
                     <Route path= "/inventory/water" element={Water()}/>
@@ -183,10 +183,16 @@ export default function App() {
                     <Route path= "/seedlist" element={SeedList()}/>
                     <Route path= "/addseedspage" element={AddSeedsPage()}/>
                     <Route path= "/editseedlistpage/:id" element={<EditSeedListPage />} />
+                    <Route path= "/seedfinances" element={SeedFinances()}/>
+                    <Route path= "/addseedfinances" element={AddSeedFinances()}/>
+                    <Route path= "/editseedfinancespage/:id" element={<EditSeedFinancesPage />} />
                     <Route path= "/inventory/chemicals" element={Chemical_page()}/>
                     <Route path= "/chemicallist" element={ChemicalList()}/>
                     <Route path= "/addchemicalspage" element={AddChemicalsPage()}/>
                     <Route path= "/editchemicallistpage/:id" element={<EditChemicalListPage />} />
+                    <Route path= "/chemicalfinances" element={ChemicalFinances()}/>
+                    <Route path= "/addchemicalfinances" element={AddChemicalFinances()}/>
+                    <Route path= "/editchemicalfinancespage/:id" element={<EditChemicalFinancesPage />} />
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
 

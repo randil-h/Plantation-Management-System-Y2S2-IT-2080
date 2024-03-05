@@ -1,7 +1,10 @@
-import Navbar from "../../../components/utility/Navbar";
-import SideBar from "../../../components/SideBar";
 import React from "react";
-import EqFinanceTable from "../../../components/Inventory/Eq and Machine/EqFinanceTable";
+import { Link } from "react-router-dom";
+
+import SideBar from "../../../components/SideBar";
+import SeedFinances from "../../../components/Inventory/Seeds/SeedFinances";
+import Navbar from "../../../components/utility/Navbar";
+import InventoryNavbar from "../../../components/Inventory/InventoryNavbar";
 
 export default function Equipment() {
     return (
@@ -16,8 +19,13 @@ export default function Equipment() {
                         <SideBar/>
                     </div>
 
-            <EqFinanceTable/>
-        </div>
+
+                    <div className="w-full col-span-5 flex flex-col ">
+                        <InventoryNavbar/>
+                    </div>
+
+                    <SeedFinances/>
+                </div>
             </div>
         </div>
     );
