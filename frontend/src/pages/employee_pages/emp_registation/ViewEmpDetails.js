@@ -34,7 +34,7 @@ export default function ViewEmpDetails() {
                             <Breadcrumb items={breadcrumbItems}/>
 
                         </div>
-                        <div >
+                        <div>
                             <EmployeeList/>
                         </div>
 
