@@ -88,7 +88,9 @@ import AgroTourism from "./pages/tourism_pages/AgroTourismIntro";
 import Feedback from "./pages/tourism_pages/FeedbackPage";
 import BookingPg from "./pages/tourism_pages/BookingPg";
 import PaymentPg from "./pages/tourism_pages/PaymentPg";
-import EmployeeList from "./components/Employee/Employee_register/EmployeeList";
+import ViewEmpDetails from "./pages/employee_pages/emp_registation/ViewEmpDetails";
+import ViewsalaryList from "./pages/employee_pages/emp_salary/ViewsalaryList";
+import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
 
 
 export default function App() {
@@ -201,9 +203,12 @@ export default function App() {
 
                     <Route path= "/employees/home" element= {Employee()}/>
                     <Route path="/employees/registration/addEmployee" element={AddEmployee()}/>
-                    <Route path="/employees/tasks" element={AddTask()}/>
-                    <Route path="/employees/registration" element={EmployeeList()}/>
-                    <Route path="/employees/salaryreports" element={Addsalary()}/>
+                    <Route path="/employees/tasks/addTask" element={AddTask()}/>
+                    <Route path="/employees/registration" element={ViewEmpDetails()}/>
+                    <Route path="/employees/salaryreports/addSalary" element={Addsalary()}/>
+                    <Route path="employees/tasks" element={ViewTaskList()}/>
+                    <Route path="/employees/salaryreports" element={ViewsalaryList()}/>
+
 
                     <Route path="/harvest/home"  element={harvest()}/>
                     <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>

@@ -4,10 +4,10 @@ import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import React from "react";
 import BackButton from "../../../components/utility/BackButton";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
-import EmployeeList from "../../../components/Employee/Employee_register/EmployeeList";
+import TaskList from "../../../components/Employee/Task_assign/TaskList";
 
 
-export default function ViewEmpDetails() {
+export default function ViewTaskList() {
 
     const breadcrumbItems = [
         { name: 'Employees', href: '/finances' },
@@ -35,7 +35,7 @@ export default function ViewEmpDetails() {
 
                         </div>
                         <div >
-                            <EmployeeList/>
+                            <TaskList/>
                         </div>
 
                     </div>

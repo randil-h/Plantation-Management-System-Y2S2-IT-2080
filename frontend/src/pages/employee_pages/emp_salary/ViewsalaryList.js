@@ -4,14 +4,14 @@ import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import React from "react";
 import BackButton from "../../../components/utility/BackButton";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
-import EmployeeList from "../../../components/Employee/Employee_register/EmployeeList";
+import SalaryList from "../../../components/Employee/Salary_assign/SalaryList";
 
 
-export default function ViewEmpDetails() {
+export default function ViewsalaryList() {
 
     const breadcrumbItems = [
         { name: 'Employees', href: '/finances' },
-        { name: 'Transactions', href: '/finances/transactions' },
+        { name: 'Registration', href: '/finances/transactions' },
         { name: 'Delete Transaction', href: '/finances/transactions/addTransaction' },
     ];
 
@@ -35,7 +35,7 @@ export default function ViewEmpDetails() {
 
                         </div>
                         <div >
-                            <EmployeeList/>
+                            <SalaryList/>
                         </div>
 
                     </div>
