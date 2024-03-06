@@ -6,7 +6,7 @@ import Navbar from "../../components/utility/Navbar";
 import WholeSaleNavBar from "../../components/WholeSale_Management/WholeSaleNavBar";
 import WholeSaleProduct from "../../components/WholeSale_Management/WholeSaleProduct";
 import {dividerClasses} from "@mui/material";
-
+import OrderHistory from "../../components/WholeSale_Management/OrderHistory";
 
 export default function MyOrders() {
     return (
@@ -15,20 +15,19 @@ export default function MyOrders() {
             <div className="border-b sticky top-0 z-10">
                 <Navbar/>
                 <WholeSaleNavBar/>
-
-                {/*<div className="mx-auto max-w-3xl sm:text-center sm:py-20">*/}
-                {/*    <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">OUR PRODUCTS</h2>*/}
-                {/*    <p className="mt-6 text-lg leading-8 text-gray-600">Discover unparalleled freshness and quality in*/}
-                {/*        every product, ensuring satisfaction and delight with every purchase.</p>*/}
-                {/*</div>*/}
-
-                {/*<WholeSaleProduct/>*/}
             </div>
 
-            <div>
+            <div class="bg-white p-8 rounded-md w-full">
+                <div class=" flex items-center justify-between pb-6">
+                    <div>
+                        <h1 class="text-gray-600 font-semibold">My Orders</h1>
+                    </div>
+                </div>
 
+                <div>
+                    <OrderHistory/>
+                </div>
             </div>
-
         </div>
     );
 }
