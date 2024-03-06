@@ -2,8 +2,10 @@ import React, { Fragment, useState } from 'react'
 import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
-    { name: "HOME", path: "/dtracking/home" },
-    { name: "VISUALIZATION", path: "/dtracking/visualization" },
+    { name: "HOME", path: "/diseases/home" },
+    { name: "RECORDS", path: "/diseases/records"},
+    { name: "VISUALIZATION", path: "/diseases/visualization" },
+
 ];
 
 export default function DiseaseTrackingNavigation() {
