@@ -37,8 +37,9 @@ import Equipment from "./pages/inventory_pages/Eq and Machines/Equipments";
 import EqList from "./pages/inventory_pages/Eq and Machines/EqListPage";
 import MaintenanceLog from "./pages/inventory_pages/Eq and Machines/MaintenanceLog"
 import AddEquipments from "./pages/inventory_pages/Eq and Machines/AddEquipments";
-import EquipmentFinances from "./pages/inventory_pages/Eq and Machines/EquipmentFinances";
-import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinances";
+import EqFinances from "./pages/inventory_pages/Eq and Machines/EqFinancesPage";
+import AddEqFinances from "./pages/inventory_pages/Eq and Machines/AddEqFinancesPage";
+import EditEqFinancesPage from "./pages/inventory_pages/Eq and Machines/EditEqFinancesPage";
 import AddEqMainPage from "./pages/inventory_pages/Eq and Machines/AddEqMainPage";
 import EditEqMainPage from "./pages/inventory_pages/Eq and Machines/EditEqMainPage";
 import Inventory from "./pages/inventory_pages/Inventory";
@@ -47,15 +48,27 @@ import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
 import SeedList from "./pages/inventory_pages/Seeds/SeedListPage";
 import AddSeedsPage from "./pages/inventory_pages/Seeds/AddSeedsPage"
 import EditSeedListPage from "./pages/inventory_pages/Seeds/EditSeedListPage";
+import SeedFinances from "./pages/inventory_pages/Seeds/SeedFinancesPage";
+import AddSeedFinances from "./pages/inventory_pages/Seeds/AddSeedFinancesPage"
+import EditSeedFinancesPage from "./pages/inventory_pages/Seeds/EditSeedFinancesPage";
 import Chemical_page from "./pages/inventory_pages/Chemical/Chemical_page"
 import ChemicalList from "./pages/inventory_pages/Chemical/ChemicalListPage";
 import AddChemicalsPage from "./pages/inventory_pages/Chemical/AddChemicalsPage";
 import EditChemicalListPage from "./pages/inventory_pages/Chemical/EditChemicalListPage";
+import ChemicalFinances from "./pages/inventory_pages/Chemical/ChemicalFinancesPage";
+import AddChemicalFinances from "./pages/inventory_pages/Chemical/AddChemicalFinancesPage"
+import EditChemicalFinancesPage from "./pages/inventory_pages/Chemical/EditChemicalFinacesPage";
 
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 
 import DiseaseTracking from "./pages/diseaseTracking_pages/DiseaseTracking";
+import ViewAllDiseases from "./pages/diseaseTracking_pages/records/ViewAllDiseases";
 import DiseaseVisualization from "./pages/diseaseTracking_pages/visualization/diseaseVisualization";
+import AddDiseaseRecord from "./pages/diseaseTracking_pages/records/AddDiseaseRecord";
+import UpdateDiseaseRecord from "./pages/diseaseTracking_pages/records/UpdateDiseaseRecord";
+import DeleteDiseaseRecord from "./pages/diseaseTracking_pages/records/DeleteDiseaseRecord";
+import ViewDiseaseRecord from "./pages/diseaseTracking_pages/records/ViewDiseaseRecord";
+
 import Insights from "./pages/insights/Insights";
 import MarketPrice from "./pages/insights/marketPriceAnalysis/MarketPrice";
 
@@ -67,6 +80,7 @@ import MyOrders from "./pages/WholeSaleMangement/MyOrders";
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
 import AddTask from "./pages/employee_pages/task_assigning/AddTask";
+import Addsalary from "./pages/employee_pages/emp_salary/Addsalary";
 
 import harvest from "./pages/harvest_pages/harvests";
 import harvestCal from "./pages/harvest_pages/harvest_Cal/harvestCal";
@@ -79,6 +93,7 @@ import AgroTourism from "./pages/tourism_pages/AgroTourismIntro";
 import Feedback from "./pages/tourism_pages/FeedbackPage";
 import BookingPg from "./pages/tourism_pages/BookingPg";
 import PaymentPg from "./pages/tourism_pages/PaymentPg";
+
 
 
 export default function App() {
@@ -127,14 +142,6 @@ export default function App() {
 
                     <Route path="/finances/valuation" element={<SalaryPayments />} />
 
-                    <Route path= "/inventory" element={Inventory()}/>
-                    <Route path = "/equipment" element={Equipment()}/>
-                    <Route path = "/eqlist" element={EqList()}/>
-                    <Route path= "/maintenancelog" element={MaintenanceLog()}/>
-                    <Route path = "/addequipments" element={AddEquipments()}/>
-                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
-                    <Route path= "/addeqfinances" element={AddEqFinances()}/>
-
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback-form" element={Feedback()}/>
                     <Route path="/booking" element={BookingPg()}/>
@@ -162,8 +169,14 @@ export default function App() {
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
                     <Route path="/WholeSale/orders" element={MyOrders()}/>
 
-                    <Route path = "dtracking/home" element={DiseaseTracking()}/>
-                    <Route path = "dtracking/visualization" element={DiseaseVisualization()}/>
+                    <Route path = "diseases/home" element={DiseaseTracking()}/>
+
+                    <Route path = "diseases/records/addDisease" element={AddDiseaseRecord()}/>
+                    <Route path = "diseases/records/updateDisease/:id" element={UpdateDiseaseRecord()}/>
+                    <Route path = "diseases/records/deleteDisease/:id" element={DeleteDiseaseRecord()}/>
+                    <Route path = "diseases/records/viewDisease/:id" element={ViewDiseaseRecord()}/>
+                    <Route path = "diseases/records" element={ViewAllDiseases()}/>
+                    <Route path = "diseases/visualization" element={DiseaseVisualization()}/>
 
                     <Route path= "insights/home" element={Insights()}/>
                     <Route path= "insights/marketprice" element={MarketPrice()}/>
@@ -174,8 +187,9 @@ export default function App() {
                     <Route path = "/eqlist" element={EqList()}/>
                     <Route path= "/maintenancelog" element={MaintenanceLog()}/>
                     <Route path = "/addequipments" element={AddEquipments()}/>
-                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+                    <Route path= "/eqfinances" element={EqFinances()}/>
                     <Route path= "/addeqfinances" element={AddEqFinances()}/>
+                    <Route path= "/editeqfinancespage/:id" element={<EditEqFinancesPage />} />
                     <Route path="/addeqmainpage" element={(AddEqMainPage())}/>
                     <Route path="/editeqmainpage/:id" element={<EditEqMainPage />} />
                     <Route path= "/inventory/water" element={Water()}/>
@@ -183,16 +197,24 @@ export default function App() {
                     <Route path= "/seedlist" element={SeedList()}/>
                     <Route path= "/addseedspage" element={AddSeedsPage()}/>
                     <Route path= "/editseedlistpage/:id" element={<EditSeedListPage />} />
+                    <Route path= "/seedfinances" element={SeedFinances()}/>
+                    <Route path= "/addseedfinances" element={AddSeedFinances()}/>
+                    <Route path= "/editseedfinancespage/:id" element={<EditSeedFinancesPage />} />
                     <Route path= "/inventory/chemicals" element={Chemical_page()}/>
                     <Route path= "/chemicallist" element={ChemicalList()}/>
                     <Route path= "/addchemicalspage" element={AddChemicalsPage()}/>
                     <Route path= "/editchemicallistpage/:id" element={<EditChemicalListPage />} />
+                    <Route path= "/chemicalfinances" element={ChemicalFinances()}/>
+                    <Route path= "/addchemicalfinances" element={AddChemicalFinances()}/>
+                    <Route path= "/editchemicalfinancespage/:id" element={<EditChemicalFinancesPage />} />
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
 
                     <Route path= "/employees/home" element= {Employee()}/>
                     <Route path="/employees/registration" element={AddEmployee()}/>
                     <Route path="/employees/tasks" element={AddTask()}/>
+
+                    <Route path="/employees/salaryreports" element={Addsalary()}/>
 
                     <Route path="/harvest/home"  element={harvest()}/>
                     <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>

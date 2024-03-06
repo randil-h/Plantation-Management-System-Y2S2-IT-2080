@@ -1,0 +1,28 @@
+Index: index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import express, {request, response} from \"express\";\r\nimport {PORT, mongoDBURL} from \"./config.js\";\r\nimport mongoose from \"mongoose\";\r\nimport {TestRecord} from \"./models/TestModel.js\";\r\nimport cors from 'cors';\r\nimport testRoute from \"./routes/TestRoute.js\";\r\nimport TransactionsRoute from \"./routes/TransactionsRoute.js\";\r\n\r\nconst app = express();\r\n\r\napp.use(express.json());\r\n\r\napp.use(cors());\r\n\r\n/*\r\napp.use(\r\n  cors({\r\n     origin: 'http://localhost:3000',\r\n     methods: ['GET', 'POST', 'PUT', 'DELETE'],\r\n     allowedHeaders: ['Content-Type'],\r\n   })\r\n );\r\n*/\r\n\r\n\r\napp.use('/financeincome', testRoute);\r\napp.use('/transactions', TransactionsRoute);\r\n\r\nmongoose\r\n    .connect(mongoDBURL)\r\n    .then(() => {\r\n        console.log('App connected to the database');\r\n        app.listen(PORT, () => {\r\n            console.log(`App is listening to port : ${PORT}`);\r\n        });\r\n    })\r\n    .catch((error) => {\r\n        console.log(error);\r\n    });
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/index.js b/index.js
+--- a/index.js	(revision e39aa0c831f729b6ea6d1084d205be97606e4837)
++++ b/index.js	(date 1709362632338)
+@@ -12,7 +12,7 @@
+ 
+ app.use(cors());
+ 
+-/*
++
+ app.use(
+   cors({
+      origin: 'http://localhost:3000',
+@@ -20,7 +20,7 @@
+      allowedHeaders: ['Content-Type'],
+    })
+  );
+-*/
++
+ 
+ 
+ app.use('/financeincome', testRoute);

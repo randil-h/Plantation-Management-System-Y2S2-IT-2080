@@ -1,0 +1,23 @@
+Index: routes/DiseaseRoute.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {DiseasesRecord} from \"../models/DiseasesModel.js\";\r\nimport express, {request, response} from \"express\";\r\n\r\nconst router = express.Router();\r\n\r\n//create new disease record\r\nrouter.post('/', async (request, response) => {\r\n    try{\r\n        if (\r\n            !request.body.disease_name ||\r\n            !request.body.crop ||\r\n            !request.body.date ||\r\n            !request.body.location ||\r\n            !request.body.severity ||\r\n            !request.body.treatment ||\r\n            !request.body.status\r\n        ) {\r\n            return response.status(400).send({\r\n                message: 'Send all required fields',\r\n            });\r\n        }\r\n        const newDiseaseRecord = {\r\n            disease_name: request.body.disease_name,\r\n            crop: request.body.crop,\r\n            date: request.body.date,\r\n            location: request.body.location,\r\n            severity: request.body.severity,\r\n            treatment: request.body.treatment,\r\n            status: request.body.status,\r\n        };\r\n\r\n        const disease = await DiseasesRecord.create(newDiseaseRecord);\r\n\r\n        return response.status(201).send(disease);\r\n    }catch(error) {\r\n        console.log(error.message);\r\n        response.status(500).send({message: error.message});\r\n    }\r\n} );\r\n\r\nexport default router;\r\n
+===================================================================
+diff --git a/routes/DiseaseRoute.js b/routes/DiseaseRoute.js
+--- a/routes/DiseaseRoute.js	
++++ b/routes/DiseaseRoute.js	
+@@ -38,4 +38,14 @@
+     }
+ } );
+ 
++//get disease record
++router.get('/', async (request, response) => {
++    try{
++
++    }catch (error){
++        console.log(error.message);
++        response.status(500).send({ message: error.message});
++    }
++});
++
+ export default router;
