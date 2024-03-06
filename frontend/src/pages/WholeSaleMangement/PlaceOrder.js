@@ -24,6 +24,8 @@ export default function PlaceOrder() {
                 </div>
 
                 <WholeSaleProduct/>
+
+
             </div>
 
             <div>

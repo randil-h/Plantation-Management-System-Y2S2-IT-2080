@@ -3,51 +3,68 @@ import React from "react";
 export default function AddRecord() {
     return (
 
-        <div className="relative w-full flex justify-center items-start">
-            <div className="ml-2/3 mt-16">
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl absolute inset-x-0 top-0 flex justify-cente pb-16">
-                    Record Harvestings
-                </h1>
-            </div>
-            <form className="max-w-md mt-16 p-4 bg-gray-200 rounded-lg">
-                <label htmlFor="date" className="block pb-4">
-                    Date
-                </label>
-                <input
-                    type="date"
-                    className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
-                    required
-                />
-
-                <label className="block mb-4">
-                    Crop Type:
-                </label>
-                <select
-                    id="cropType"
-                    name="cropType"
-                    className="w-full p-2 border rounded mb-4 bg-opacity-80 backdrop-blur-lg focus:outline-none focus:border-blue-500">
-                    <option value="coconut">Coconut</option>
-                    <option value="guava">Guava</option>
-                    <option value="papaya">Papaya</option>
-                </select>
-
-                <label className="block mb-4">
-                    Picked harvest (Kg)
+        <div className=" mx-auto py-10">
+            <h1 className="text-2xl font-bold mb-5">Record Harvestings</h1>
+            <form className="max-w-md">
+                <div className="mb-4">
+                    <label className="block text-sm font-semibold mb-1">Date:</label>
                     <input
-                        type="text"
-                        className="w-full p-2 border rounded transition duration-300 focus:outline-none focus:border-blue-500 hover:shadow-md"
+                        type="date"
+                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                         required
                     />
-                </label>
-
-
-
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-semibold mb-1">Crop Type:</label>
+                    <select
+                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                        required
+                    >
+                        <option value="">Select Crop Type</option>
+                        <option value="coconut">Coconut</option>
+                        <option value="papaya">Papaya</option>
+                        <option value="guava">Guava</option>
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-semibold mb-1">Age of the Yield (months) :</label>
+                    <input
+                        type="text"
+                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-semibold mb-1">Way Picked:</label>
+                    <input
+                        type="text"
+                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-semibold mb-1">Quantity(kg) :</label>
+                    <input
+                        type="text"
+                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-semibold mb-1">Remarks:</label>
+                    <textarea
+                        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+                        required
+                    ></textarea>
+                </div>
                 <button
                     type="submit"
-                    className="bg-black text-white px-8 py-2 rounded-full font-semibold text-lg transition duration-300 hover:bg-lime-500 mt-4">
-                    Save
+                    className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-400"
+                >
+                    Submit
                 </button>
             </form>
+
         </div>
     );
 };
