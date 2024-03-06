@@ -1,5 +1,6 @@
-// BookingForm.js
+// Booking.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BookingForm = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +12,8 @@ const BookingForm = () => {
         date: '',
     });
 
+    const navigate = useNavigate();
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -20,8 +23,9 @@ const BookingForm = () => {
         e.preventDefault();
         // Implement your booking logic here
         console.log('Booking submitted:', formData);
-        // Reset form data after submission if needed
-        // setFormData({ name: '', contactNumber: '', nicNumber: '', email: '', selectedPackage: 'guidedFarmTours', date: '' });
+
+        // Redirect to /ConfirmationPg and pass form data as state
+        navigate('/ConfirmationPg', { state: { formData } });
     };
 
     return (
@@ -50,7 +54,7 @@ const BookingForm = () => {
                         type="tel"
                         id="telNo"
                         name="telNo"
-                        value={formData.contactNumber}
+                        value={formData.telNo}
                         onChange={handleInputChange}
                         className="mt-1 p-2 w-full border rounded-md"
                         required
@@ -64,7 +68,7 @@ const BookingForm = () => {
                         type="text"
                         id="nicNo"
                         name="nicNo"
-                        value={formData.nicNumber}
+                        value={formData.nicNo}
                         onChange={handleInputChange}
                         className="mt-1 p-2 w-full border rounded-md"
                         required
