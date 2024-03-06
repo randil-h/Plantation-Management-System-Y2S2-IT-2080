@@ -50,6 +50,9 @@ export default function ViewAllDiseases() {
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
+                        <div>
+                            <DiseaseList/>
+                        </div>
 {/*
                         {loading ? (
                                 <LoadingAnimation/>

@@ -26,7 +26,7 @@ export default function DiseaseList({DiseaseRecords}) {
                     <th className='border border-slate-600 rounded-md max-md:hidden'>Status</th>
                 </tr>
                 </thead>
-                <tbody className="border-b border-green-400">
+                {/*<tbody className="border-b border-green-400">
 
                 {DiseaseRecords.map((drecord, index) => (
                     <tr key={drecord._id} className='h-8'>
@@ -78,7 +78,7 @@ export default function DiseaseList({DiseaseRecords}) {
                 ))}
 
 
-                </tbody>
+                </tbody>*/}
             </table>
         </div>
     )
