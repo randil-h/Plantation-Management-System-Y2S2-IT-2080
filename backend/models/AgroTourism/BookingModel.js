@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const bookingSchema = mongoose.Schema(
     {
-        fullName: {
+        name: {
             type: String,
             required: true,
         },
@@ -18,11 +18,11 @@ const bookingSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        packageType: {
+        selectedPackage: {
             type: String,
             required: true,
         },
-        bookingDate: {
+        date: {
             type: Date,
             required: true,
         },
