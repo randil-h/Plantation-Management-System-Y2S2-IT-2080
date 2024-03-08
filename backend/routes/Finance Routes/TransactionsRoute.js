@@ -1,4 +1,4 @@
-import {TransactionsRecord} from "../models/TransactionsModel.js";
+import {TransactionsRecord} from "../../models/Finance Models/TransactionsModel.js";
 import express from "express";
 
 const router = express.Router();

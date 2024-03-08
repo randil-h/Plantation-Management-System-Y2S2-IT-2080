@@ -1,0 +1,62 @@
+Index: index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import express, {request, response} from \"express\";\r\nimport {PORT, mongoDBURL} from \"./config.js\";\r\nimport mongoose from \"mongoose\";\r\nimport {TestRecord} from \"./models/TestModel.js\";\r\nimport cors from 'cors';\r\nimport testRoute from \"./routes/TestRoute.js\";\r\nimport TransactionsRoute from \"./routes/TransactionsRoute.js\";\r\nimport DiseaseRoute from \"./routes/DiseaseRoute.js\";\r\n\r\n\r\nconst app = express();\r\n\r\napp.use(express.json());\r\n\r\napp.use(cors());\r\n\r\n/*\r\napp.use(\r\n  cors({\r\n     origin: 'http://localhost:3000',\r\n     methods: ['GET', 'POST', 'PUT', 'DELETE'],\r\n     allowedHeaders: ['Content-Type'],\r\n   })\r\n );\r\n*/\r\n\r\n\r\napp.use('/financeincome', testRoute);\r\napp.use('/transactions', TransactionsRoute);\r\n\r\n//route for add new disease record\r\napp.use('/addDisease', DiseaseRoute);\r\n\r\nmongoose\r\n    .connect(mongoDBURL)\r\n    .then(() => {\r\n        console.log('App connected to the database');\r\n        app.listen(PORT, () => {\r\n            console.log(`App is listening to port : ${PORT}`);\r\n        });\r\n    })\r\n    .catch((error) => {\r\n        console.log(error);\r\n    });
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/index.js b/index.js
+--- a/index.js	
++++ b/index.js	
+@@ -14,7 +14,7 @@
+ 
+ app.use(cors());
+ 
+-/*
++
+ app.use(
+   cors({
+      origin: 'http://localhost:3000',
+@@ -22,14 +22,14 @@
+      allowedHeaders: ['Content-Type'],
+    })
+  );
+-*/
++
+ 
+ 
+ app.use('/financeincome', testRoute);
+ app.use('/transactions', TransactionsRoute);
+ 
+ //route for add new disease record
+-app.use('/addDisease', DiseaseRoute);
++app.use('/diseases', DiseaseRoute);
+ 
+ mongoose
+     .connect(mongoDBURL)
+Index: .idea/vcs.xml
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/vcs.xml	
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_2024_12_23_PM__Changes_.xml
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_2024_12_23_PM__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_2024_12_23_PM__Changes_.xml
+new file mode 100644
+--- /dev/null	
++++ b/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_2024_12_23_PM__Changes_.xml	
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Checkout_at_3_2_2024_12_23_PM_[Changes]" date="1709362425430" recycled="false" toDelete="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_2_2024_12_23_PM_[Changes]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 3/2/2024 12:23 PM [Changes]" />
++</changelist>
+\ No newline at end of file

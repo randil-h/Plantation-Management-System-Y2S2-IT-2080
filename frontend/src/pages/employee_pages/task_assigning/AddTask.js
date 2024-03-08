@@ -3,8 +3,15 @@ import SideBar from "../../../components/SideBar";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
 import React from "react";
 import TaskForm from "../../../components/Employee/Task_assign/TaskForm";
+import BackButton from "../../../components/utility/BackButton";
+import Breadcrumb from "../../../components/utility/Breadcrumbs";
 
 export default function AddTask(){
+    const breadcrumbItems = [
+        { name: 'Employees', href: '/finances' },
+        { name: 'Transactions', href: '/finances/transactions' },
+        { name: 'Delete Transaction', href: '/finances/transactions/addTransaction' },
+    ];
     return (
         <div className="flex-col">
             {/* Navbar */}
@@ -12,18 +19,22 @@ export default function AddTask(){
                 <Navbar/>
             </div>
             <div className="">
-                {/* Fixed Sidebar */}
                 <div className="grid sm:grid-cols-6 ">
                     <div className="col-span-1 sticky left-0 top-0">
                         <SideBar/>
                     </div>
-                    <div>
+                    <div className="w-full col-span-5 flex flex-col ">
                         <EmployeeNavbar/>
+                        <div className="flex flex-row ">
+                            <BackButton/>
+                            <Breadcrumb items={breadcrumbItems}/>
+
+                        </div>
+                        <div className="flex flex-col justify-center items-center">
+                            <TaskForm/>
+                        </div>
                     </div>
 
-                    <div className="flex justify-center items-center">
-                        <TaskForm/>
-                    </div>
 
                 </div>
 

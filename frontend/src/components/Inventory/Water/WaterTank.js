@@ -59,7 +59,7 @@ function WaterTank() {
                     </div>
                 </div>
             </div>
-            <div className="flex-1 p-4 ml-52 mt-28">
+            <div className="flex-1 p-4 ml-52 mt-16">
                 <form onSubmit={handleSubmit}>
                     <label>
                         Enter Water Level:
@@ -72,12 +72,13 @@ function WaterTank() {
                     </label>
                     <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md ml-2">Submit</button>
                 </form>
+            </div>
                 {/* Added margin top and increased font size for the h2 tag */}
-                <h2 className="mt-8 text-lg font-bold">Water Level Record</h2>
+                <h2 className="mt-56 text-lg font-bold -ml-72">Water Level Record</h2>
                 {isLoading ? (
                     <p>Loading...</p>
                 ) : (
-                    <table className="border-collapse border border-gray-400 mt-2 ml-20">
+                    <table className="border-collapse border border-gray-400 mt-72 ml-20">
                         <thead>
                         <tr>
                             <th className="border border-gray-400 px-4 py-2">Water Level (%)</th>
@@ -110,7 +111,7 @@ function WaterTank() {
                     </table>
                 )}
             </div>
-        </div>
+
     );
 }
 
