@@ -9,14 +9,16 @@ export default function Equipment() {
             <div className="border-b sticky top-0 z-10">
                 <Navbar/>
             </div>
-            <div className="flex">
+            <div className="">
                 {/* Fixed Sidebar */}
-                <div className="fixed h-full">
-                    <SideBar/>
-                </div>
-            </div>
+                <div className="grid sm:grid-cols-6 ">
+                    <div className="col-span-1 sticky left-0 top-0">
+                        <SideBar/>
+                    </div>
 
             <EqFinanceTable/>
+        </div>
+            </div>
         </div>
     );
 }
