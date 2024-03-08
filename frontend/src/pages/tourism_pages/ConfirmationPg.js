@@ -5,6 +5,7 @@ import Footer from '../../components/utility/Footer';
 import StepIndicator from '../../components/AgroTourism/StepIndicator';
 import Confirmation from '../../components/AgroTourism/confirmation';
 import { useLocation } from 'react-router-dom';
+import BookingList from "../../components/AgroTourism/BookingList";
 console.log('Rendering ConfirmationPg');
 
 export default function BookingPg() {
@@ -18,8 +19,8 @@ export default function BookingPg() {
                 <Navbar />
             </div>
             <StepIndicator />
-            {/* Pass the location prop to Confirmation */}
-            {formData ? <Confirmation location={location} /> : <div>No booking data available</div>}
+        <BookingList/>
+
             <SubscribeNewsletter />
             <Footer />
         </div>

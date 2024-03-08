@@ -43,6 +43,7 @@ app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
 
 app.use('/booking', BookingRoute);
+app.use('/confirmation', BookingRoute);
 
 app.use('/rotation', RotationRoute);
 app.use('/planting', PlantingRoute);
