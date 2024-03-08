@@ -11,11 +11,11 @@ router.post('/', async (request, response) => {
             telNo,
             nicNo,
             email,
-            packageType,
-            bookingDate,
+            selectedPackage,
+            date,
         } = request.body;
 
-        if (!fullName || !telNo || !nicNo || !email || !packageType || !bookingDate) {
+        if (!fullName || !telNo || !nicNo || !email || !selectedPackage || !date) {
             return response.status(400).send({
                 message: 'Send all required fields: fullName, telNo, nicNo, email, packageType, bookingDate',
             });
@@ -26,8 +26,8 @@ router.post('/', async (request, response) => {
             telNo,
             nicNo,
             email,
-            packageType,
-            bookingDate,
+            selectedPackage,
+            date,
         };
 
         const booking = await Booking.create(newBooking);
