@@ -41,6 +41,7 @@ app.get('/', (request, response) => {
 
 app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
+
 app.use('/booking', BookingRoute);
 
 app.use('/rotation', RotationRoute);

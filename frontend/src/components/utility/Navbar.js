@@ -104,8 +104,6 @@ export default function Navbar() {
                         Home
                     </a>
 
-                    <a href="/placeOrder" className=" font-medium leading-6 ">
-
                     <a href="/placeOrder" className=" font-medium leading-6 hover:text-lime-600">
 
                         Marketplace
