@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import LoadingAnimation from "./components/utility/LoadingAnimation";
 import {KindeProvider} from "@kinde-oss/kinde-auth-react";
 
-
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
 import Dashboard from "./pages/Dashboard.js";
@@ -75,30 +74,26 @@ import MarketPrice from "./pages/insights/marketPriceAnalysis/MarketPrice";
 import WholeSaleTransaction from "./pages/WholeSaleMangement/WholeSaleTransaction";
 import MyOrders from "./pages/WholeSaleMangement/MyOrders";
 
-
-
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
 import AddTask from "./pages/employee_pages/task_assigning/AddTask";
 import Addsalary from "./pages/employee_pages/emp_salary/Addsalary";
-
 
 import harvest from "./pages/harvest_pages/harvests";
 import harvestCal from "./pages/harvest_pages/harvest_Cal/harvestCal";
 import harvestRec from "./pages/harvest_pages/harvest_records/harvestRecords";
 import yieldLifeCal from "./pages/harvest_pages/Yield_lifespan/yieldLifsp";
 
-
-
 import AgroTourism from "./pages/tourism_pages/AgroTourismIntro";
 import Feedback from "./pages/tourism_pages/FeedbackPage";
 import BookingPg from "./pages/tourism_pages/BookingPg";
 import PaymentPg from "./pages/tourism_pages/PaymentPg";
+
+import ConfirmationPg from "./pages/tourism_pages/ConfirmationPg";
+
 import ViewEmpDetails from "./pages/employee_pages/emp_registation/ViewEmpDetails";
 import ViewsalaryList from "./pages/employee_pages/emp_salary/ViewsalaryList";
 import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
-
-
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -146,10 +141,21 @@ export default function App() {
 
                     <Route path="/finances/valuation" element={<SalaryPayments />} />
 
+
+                    <Route path= "/inventory" element={Inventory()}/>
+                    <Route path = "/equipment" element={Equipment()}/>
+                    <Route path = "/eqlist" element={EqList()}/>
+                    <Route path= "/maintenancelog" element={MaintenanceLog()}/>
+                    <Route path = "/addequipments" element={AddEquipments()}/>
+                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+                    <Route path= "/addeqfinances" element={AddEqFinances()}/>
+
+
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback-form" element={Feedback()}/>
                     <Route path="/booking" element={BookingPg()}/>
                     <Route path="/payment" element={PaymentPg()}/>
+                    <Route path="/confirmation" element={ConfirmationPg()}/>
 
                     <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
 
