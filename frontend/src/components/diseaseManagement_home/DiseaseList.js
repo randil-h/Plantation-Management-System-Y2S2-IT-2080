@@ -10,7 +10,7 @@ export default function DiseaseList({DiseaseRecords}) {
         <div className=" overflow-x-auto  ">
             <div className="flex flex-row justify-between items-center px-8 py-4">
                 <div>
-                    <h1 className=" text-lg font-semibold text-left">Disease records</h1>
+                    <h1 className=" text-lg font-semibold text-left">Disease Records</h1>
                 </div>
 
                 <div>
@@ -22,19 +22,37 @@ export default function DiseaseList({DiseaseRecords}) {
 
             </div>
 
-            <table className='w-full border-separate border-spacing-2'>
-                <thead>
-                <tr>
-                    <th className='border border-slate-600 rounded-md'>Disease Name</th>
-                    <th className='border border-slate-600 rounded-md'>Crop Type</th>
-                    <th className='border border-slate-600 rounded-md'>Date</th>
-                    <th className='border border-slate-600 rounded-md'>Location</th>
-                    <th className='border border-slate-600 rounded-md'>Severity</th>
-                    <th className='border border-slate-600 rounded-md'>Treatment</th>
-                    <th className='border border-slate-600 rounded-md max-md:hidden'>Status</th>
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
+                <thead
+                    className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
+                <tr className=" ">
+                    <th></th>
+                    <th scope="col" className="px-6 py-3">Disease Name</th>
+                    <th scope="col" className="px-6 py-3">Crop Type</th>
+                    <th scope="col" className="px-6 py-3">Date</th>
+                    <th scope="col" className="px-6 py-3">Location</th>
+                    <th scope="col" className="px-6 py-3">Severity</th>
+                    <th scope="col" className="px-6 py-3">Treatment</th>
+                    <th scope="col" className="px-6 py-3">Status</th>
+                    <th scope="col" className=" py-3"><span className="sr-only">Info</span></th>
+                    <th scope="col" className=" py-3"><span className="sr-only">Edit</span></th>
+                    <th scope="col" className=" py-3"><span className="sr-only">Delete</span></th>
                 </tr>
                 </thead>
-                {/*<tbody className="border-b border-green-400">
+
+                {/*<table className='w-full border-separate border-spacing-2'>
+                    <thead>
+                    <tr>
+                        <th className='border border-slate-600 rounded-md'>Disease Name</th>
+                        <th className='border border-slate-600 rounded-md'>Crop Type</th>
+                        <th className='border border-slate-600 rounded-md'>Date</th>
+                        <th className='border border-slate-600 rounded-md'>Location</th>
+                        <th className='border border-slate-600 rounded-md'>Severity</th>
+                        <th className='border border-slate-600 rounded-md'>Treatment</th>
+                        <th className='border border-slate-600 rounded-md max-md:hidden'>Status</th>
+                    </tr>
+                    </thead>*/}
+                    {/*<tbody className="border-b border-green-400">
 
                 {DiseaseRecords.map((drecord, index) => (
                     <tr key={drecord._id} className='h-8'>
@@ -87,7 +105,7 @@ export default function DiseaseList({DiseaseRecords}) {
 
 
                 </tbody>*/}
-            </table>
+                </table>
         </div>
-    )
+)
 }
