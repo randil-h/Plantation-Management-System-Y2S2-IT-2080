@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/', async (request, response) => {
     try {
         const {
-            fullName,
+            name,
             telNo,
             nicNo,
             email,
@@ -15,14 +15,14 @@ router.post('/', async (request, response) => {
             date,
         } = request.body;
 
-        if (!fullName || !telNo || !nicNo || !email || !selectedPackage || !date) {
+        if (!name || !telNo || !nicNo || !email || !selectedPackage || !date) {
             return response.status(400).send({
-                message: 'Send all required fields: fullName, telNo, nicNo, email, packageType, bookingDate',
+                message: 'Send all required fields: name, telNo, nicNo, email, selectedPackage, date',
             });
         }
 
         const newBooking = {
-            fullName,
+            name,
             telNo,
             nicNo,
             email,
