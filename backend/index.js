@@ -26,7 +26,7 @@ app.use(
 
 app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
-app.use('/confirmation', BookingRoute);
+app.use('/booking', BookingRoute);
 
 mongoose
     .connect(mongoDBURL)
