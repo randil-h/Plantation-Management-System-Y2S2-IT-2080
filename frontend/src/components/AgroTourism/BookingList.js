@@ -23,7 +23,7 @@ const BookingList = () => {
 
     const handleDelete = (recordId) => {
         axios
-            .delete(`http://localhost:5555/bookings/${recordId}`)
+            .delete(`http://localhost:5555/booking/${recordId}`)
             .then(() => {
                 setBookingRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
             })
