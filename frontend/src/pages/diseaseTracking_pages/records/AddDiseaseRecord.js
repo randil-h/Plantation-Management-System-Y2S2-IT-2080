@@ -65,72 +65,78 @@ export default function AddDiseaseRecord(){
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
-                        {/*<form method = "post" className="max-w-md ml-1/3 mt-16 p-4 bg-gray-200 rounded-lg">
-                            <label className='text-xl mr-4 text-gray-500'>Disease Name</label>
-                            <select
-                                value={diseaseName}
-                                onChange={(e) => setName(e.target.value)}
-                                className='border-2 border-gray-500 px-4 py-2 w-full'
-                            >
-                                 <option value= "Wilt ">Wilt</option>
-                                 <option value = "Powdery Mildew">Powdery Mildew</option>
-                                 <option value = "Brown Spot">Brown Spot</option>
-                            </select>
-                            <label className='text-xl mr-4 text-gray-500'>Crop Type</label>
-                            <select
-                                value={cropType}
-                                onChange={(e) => setType(e.target.value)}
-                                className='border-2 border-gray-500 px-4 py-2 w-full'
-                            >
-                                <option value="Papaya">Papaya</option>
-                                <option value="Apple Guava">Apple Guava</option>
-                                <option value="Coconut">Coconut</option>
-                            </select>
-                            <label className='text-xl mr-4 text-gray-500'>Date</label>
-                            <input
-                                type='date'
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                className='border-2 border-gray-500 px-4 py-2 w-full'
-                            />
-                            <label className='text-xl mr-4 text-gray-500'>Location</label>
-                            <select
-                                value={location}
-                                onChange={(e) => setLocation(e.target.value)}
-                                className='border-2 border-gray-500 px-4 py-2 w-full'
-                            >
-                                <option value="Field A">Field A</option>
-                                <option value="Field B">Field B</option>
-                                <option value="Field C">Field C</option>
-                            </select>
-                            <label className='text-xl mr-4 text-gray-500'>Treatment</label>
-                            <input
-                                type='text'
-                                value={treatment}
-                                onChange={(e) => setTreatment(e.target.value)}
-                                className='border-2 border-gray-500 px-4 py-2 w-full'
-                            />
-                            <label className='text-xl mr-4 text-gray-500'>Severity</label>
-                            <input
-                                type='text'
-                                value={severity}
-                                onChange={(e) => setSeverity(e.target.value)}
-                                className='border-2 border-gray-500 px-4 py-2 w-full'
-                            />
-                            <label className='text-xl mr-4 text-gray-500'>Status</label>
-                            <select
-                                value={status}
-                                onChange={(e) => setStatus(e.target.value)}
-                                className='border-2 border-gray-500 px-4 py-2 w-full'
-                            >
-                                <option value="Not Treated">Not Treated</option>
-                                <option value="Under Treatment">Under Treatment</option>
-                                <option value="Recovered">Recovered</option>
-                            </select>
-                            <button className= 'p-2 bg-sky-300 m-8' onClick= {handleSaveDisease}>
-                                Add
-                            </button>
-                        </form>*/}
+                        <div className= 'items-center justify-center ml-96'>
+                            <form method = "post" className="max-w-md ml-1/3 mt-16 p-4 bg-gray-200 rounded-lg items-center justify-center flex flex-col">
+                                <legend className= 'text-x font-bold mb-2 '>Add New Disease Record</legend>
+                                <label className='text-md mr-4 text-gray-500 mb-1'>Disease Name</label>
+                                <select
+                                    /*value={diseaseName}
+                                    onChange={(e) => setName(e.target.value)}*/
+                                    className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
+                                >
+                                     <option value= "Wilt ">Wilt</option>
+                                     <option value = "Powdery Mildew">Powdery Mildew</option>
+                                     <option value = "Brown Spot">Brown Spot</option>
+                                </select>
+                                <label className='text-md mr-4 text-gray-500 mb-1'>Crop Type</label>
+                                <select
+                                   /* value={cropType}
+                                    onChange={(e) => setType(e.target.value)}*/
+                                    className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
+                                >
+                                    <option value="Papaya">Papaya</option>
+                                    <option value="Apple Guava">Apple Guava</option>
+                                    <option value="Coconut">Coconut</option>
+                                </select>
+                                <label className='text-md mr-4 text-gray-500 mb-1'>Date</label>
+                                <input
+                                    type='date'
+                                    required
+                                   /* value={date}
+                                    onChange={(e) => setDate(e.target.value)}*/
+                                    className='border-2 rounded-md mb-5 border-gray-500 px-4 py-2 w-full'
+                                />
+                                <label className='text-md mr-4 mb-1 text-gray-500'>Location</label>
+                                <select
+                                    /*value={location}
+                                    onChange={(e) => setLocation(e.target.value)}*/
+                                    className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
+                                >
+                                    <option value="Field A">Field A</option>
+                                    <option value="Field B">Field B</option>
+                                    <option value="Field C">Field C</option>
+                                </select>
+                                <label className='text-md mr-4 mb-1 text-gray-500'>Treatment</label>
+                                <input
+                                    type='text'
+                                    required
+                                    /*value={treatment}
+                                    onChange={(e) => setTreatment(e.target.value)}*/
+                                    className='border-2 mb-4 rounded-md border-gray-500 px-4 py-2 w-full'
+                                />
+                                <label className='text-md mb-1 mr-4 text-gray-500'>Severity</label>
+                                <input
+                                    type='text'
+                                    required
+                                   /* value={severity}
+                                    onChange={(e) => setSeverity(e.target.value)}*/
+                                    className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
+                                />
+                                <label className='text-md mr-4 mb-1 text-gray-500'>Status</label>
+                                <select
+                                    /*value={status}
+                                    onChange={(e) => setStatus(e.target.value)}*/
+                                    className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
+                                >
+                                    <option value="Not Treated">Not Treated</option>
+                                    <option value="Under Treatment">Under Treatment</option>
+                                    <option value="Recovered">Recovered</option>
+                                </select>
+                                <button className= 'rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' >
+                                    Add
+                                </button>
+                            </form>
+                        </div>
 
                     </div>
                 </div>
