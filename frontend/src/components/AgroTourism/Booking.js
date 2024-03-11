@@ -1,33 +1,48 @@
-// BookingForm.js
+// Booking.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
-const BookingForm = () => {
+export default function BookingForm() {
     const [formData, setFormData] = useState({
         name: '',
-        contactNumber: '',
-        nicNumber: '',
+        telNo: '',
+        nicNo: '',
         email: '',
-        selectedPackage: 'guidedFarmTour',
+        selectedPackage: '',
         date: '',
     });
+    const navigate = useNavigate();
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleBookingSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Implement your booking logic here
-        console.log('Booking submitted:', formData);
-        // Reset form data after submission if needed
-        // setFormData({ name: '', contactNumber: '', nicNumber: '', email: '', selectedPackage: 'guidedFarmTours', date: '' });
-    };
 
+        try {
+            const response = await axios.post('http://localhost:5555/booking', formData);
+            console.log(response.data);
+            setFormData({
+                name: '',
+                telNo: '',
+                nicNo: '',
+                email: '',
+                selectedPackage: '',
+                date: '',
+            });
+
+            // Redirect to a confirmation page or any other page after successful submission
+            navigate('/payment');
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
     return (
         <div className="max-w-md mx-auto mt-8 mb-8 p-6 bg-gray-100 rounded-md shadow-md">
             <h2 className="text-2xl font-bold mb-4">Join With Us to Explore the Farm</h2>
-            <form onSubmit={handleBookingSubmit}>
+            <form onSubmit={handleSubmit} method="post">
                 <div className="mb-4">
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                         Full Name
@@ -37,7 +52,7 @@ const BookingForm = () => {
                         id="name"
                         name="name"
                         value={formData.name}
-                        onChange={handleInputChange}
+                        onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                         required
                     />
@@ -48,10 +63,10 @@ const BookingForm = () => {
                     </label>
                     <input
                         type="tel"
-                        id="contactNumber"
-                        name="contactNumber"
-                        value={formData.contactNumber}
-                        onChange={handleInputChange}
+                        id="telNo"
+                        name="telNo"
+                        value={formData.telNo}
+                        onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                         required
                     />
@@ -62,10 +77,10 @@ const BookingForm = () => {
                     </label>
                     <input
                         type="text"
-                        id="nicNumber"
-                        name="nicNumber"
-                        value={formData.nicNumber}
-                        onChange={handleInputChange}
+                        id="nicNo"
+                        name="nicNo"
+                        value={formData.nicNo}
+                        onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                         required
                     />
@@ -79,7 +94,7 @@ const BookingForm = () => {
                         id="email"
                         name="email"
                         value={formData.email}
-                        onChange={handleInputChange}
+                        onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                         required
                     />
@@ -92,7 +107,7 @@ const BookingForm = () => {
                         id="selectedPackage"
                         name="selectedPackage"
                         value={formData.selectedPackage}
-                        onChange={handleInputChange}
+                        onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                         required
                     >
@@ -110,11 +125,12 @@ const BookingForm = () => {
                         id="date"
                         name="date"
                         value={formData.date}
-                        onChange={handleInputChange}
+                        onChange={handleChange}
                         className="mt-1 p-2 w-full border rounded-md"
                         required
                     />
                 </div>
+
                 <button type="submit" className="bg-black text-white p-2 rounded-md mx-auto block hover:bg-emerald-700">
                     Book Now
                 </button>
@@ -124,4 +140,3 @@ const BookingForm = () => {
     );
 };
 
-export default BookingForm;
