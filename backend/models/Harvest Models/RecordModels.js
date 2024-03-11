@@ -1,9 +1,32 @@
 import mongoose from 'mongoose';
-const HarvestSchema = mongoose.Schema(
-    {}
-)
 
+const HarvestRecordSchema = mongoose.Schema({
+    date: {
+        type: Date,
+        required: true
+    },
+    cropType: {
+        type: String,
+        required: true
+    },
+    ageOfYield: {
+        type: Number,
+        required: true
+    },
+    wayPicked: {
+        type: String,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
+    },
+    remarks: {
+        type: String,
+        required: true
+    }
+}, {
+    timestamps: true
+});
 
-
-
-export const HarvestRecord = mongoose.model('TransactionsRecord', HarvestSchema);
+export const HarvestingRecord = mongoose.model('HarvestingRecord', HarvestRecordSchema );
