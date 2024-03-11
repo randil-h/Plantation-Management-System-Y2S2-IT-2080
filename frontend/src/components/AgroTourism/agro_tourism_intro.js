@@ -1,34 +1,40 @@
 import { Link } from "react-router-dom";
-export default function AgroTourism(){
+
+export default function AgroTourism() {
     return (
         <div>
-            <p className="text-center ...">
-                <p className="text-5xl ...">
-                    <div><br/></div>
-                    <h1 className="font-bold ...">Sow,Grow,Explore </h1>
-                </p>
-                <div><br/></div>
+            <div className="text-center ...">
+                <div className="text-5xl ...">
+                    <div><br /></div>
+                    <h1 className="font-bold ...">Sow, Grow, Explore </h1>
+                </div>
+                <div><br /></div>
                 <p>Discover the beauty of agriculture with us.</p>
-                <p className="px-8 ...">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                    incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum.
+                <p className="px-8 ...">Welcome to the vibrant world of agro-tourism, where nature's bounty meets the
+                    charm of rural landscapes! Our website is your gateway to a unique and immersive experience that
+                    blends the tranquility of the countryside with the excitement of agricultural exploration.
                 </p>
-                <div><br/><br/><br/></div>
-            </p>
+                <div><br /><br /></div>
+                <p className="font-bold text-2xl">Tour Packages</p>
+                <div><br /><br /></div>
+            </div>
             <div className="px-8 ...">
                 <div className="flex justify-center items-center pb-12 ...">
                     <div className="flex space-x-4">
                         {/* Option 1 */}
-                        <div className="flex-1 bg-gray-100 p-10 rounded-md">
-                            <p className="text-xl font-semibold">Guided farm tours</p>
-                            <p>t dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                                nisi ut
-                                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit</p>
+                        <div className="flex-1 bg-gray-100 p-10 rounded-md flex flex-col items-center">
+                            <p className="text-xl font-semibold">Guided Farm Tours</p>
+                            <p>Explore agriculture up close with our Guided Farm Tours, a hands-on journey into the
+                                heart of sustainable farming and rural charm.</p>
                             <div><br/></div>
-
+                            <img src="/agri1.jpg" alt="agri1" className="rounded-md w-50 h-60"/>
+                            <div><br/></div>
+                            <button className="bg-black text-white px-4 py-2 rounded-xl mt-2 hover:bg-emerald-700">
+                                <Link to="/booking" className="text-white">
+                                    View details
+                                </Link>
+                            </button>
+                            <div><br/></div>
                         </div>
 
                         {/* Option 2 */}
@@ -38,7 +44,6 @@ export default function AgroTourism(){
                                 laborum.Duis
                                 aute irure dolor in reprehenderit in voluptate velit esse</p>
                             <div><br/><br/></div>
-
                         </div>
 
                         {/* Option 3 */}
@@ -48,7 +53,6 @@ export default function AgroTourism(){
                             <p>or workshop and classes.Offer workshops or classes on various agricultural topics such as
                                 sustainable farming practices, gardening, or cooking with farm-fresh ingredients.</p>
                             <div><br/></div>
-
                         </div>
                     </div>
                 </div>
@@ -59,21 +63,18 @@ export default function AgroTourism(){
                     <img
                         src="https://wallpapers.com/images/hd/funny-aesthetic-pictures-orh6df2mtw9ymchj.jpg"  // Replace with your image URLs
                         alt="pic"
-                        className="rounded-md w-50 h-60"
-                    />
+                        className="rounded-md w-50 h-60"/>
                     {/* Add more images as needed */}
                 </div>
 
                 {/* Right side with caption and "Book Now" button */}
                 <div className="w-1/2 p-10 bg-gray-100 rounded-xl flex flex-col justify-center items-center">
-
                     <p className="text-xl mb-4  ">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                         eiusmod tempor
                         incididunt ut labore
                         et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
                         ut
                         aliquip ex ea commodo consequat. Duis aute irure dolor</p>
-
                     <button className="bg-black text-white px-4 py-2 rounded-xl mt-2 hover:bg-emerald-700">
                         <Link to="/booking" className="text-white">
                             Book Now
@@ -81,11 +82,6 @@ export default function AgroTourism(){
                     </button>
                 </div>
             </div>
-
-
         </div>
-
-
     );
 }
-
