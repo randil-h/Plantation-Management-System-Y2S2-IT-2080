@@ -58,9 +58,9 @@ export default function RecordRotation() {
                     value={formData.season}
                     className="w-full p-2 border rounded mb-4"
                 >
-                    <option value="Season1">2023 Oct - 2024 May</option>
-                    <option value="Season2">2023 May - 2023 Oct</option>
-                    <option value="Season3">2022 Oct - 2023 May</option>
+                    <option value="2023 Oct - 2024 May">2023 Oct - 2024 May</option>
+                    <option value="2023 May - 2023 Oct">2023 May - 2023 Oct</option>
+                    <option value="2022 Oct - 2023 May">2022 Oct - 2023 May</option>
                 </select>
                 <label htmlFor="fieldName" className="block pb-4">
                     Field Name
