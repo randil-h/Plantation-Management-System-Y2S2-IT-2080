@@ -147,7 +147,7 @@ export default function App() {
                     <Route path = "/eqlist" element={EqList()}/>
                     <Route path= "/maintenancelog" element={MaintenanceLog()}/>
                     <Route path = "/addequipments" element={AddEquipments()}/>
-                    <Route path= "/equipmentfinances" element={EquipmentFinances()}/>
+                    <Route path= "/equipmentfinances" element={Equipment()}/>
                     <Route path= "/addeqfinances" element={AddEqFinances()}/>
 
 
