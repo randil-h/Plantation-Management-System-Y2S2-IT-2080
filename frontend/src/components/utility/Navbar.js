@@ -111,6 +111,9 @@ export default function Navbar() {
                     <a href="/dashboard" className=" font-medium leading-6 hover:text-lime-600">
                         Dashboard
                     </a>
+                    <a href="/tourism" className=" font-medium leading-6 hover:text-lime-600">
+                        Visit us
+                    </a>
                 </Popover.Group>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 font-medium">
                     <button onClick={register} type="button"
