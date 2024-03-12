@@ -17,7 +17,7 @@ export default function SalaryList() {
                 </div>
 
                 <div>
-                    <a href="/employees/registration/addSalary"
+                    <a href="/employees/salaryreports/addSalary"
                        className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                         Add salary Details <span aria-hidden="true">&rarr;</span>
                     </a>
