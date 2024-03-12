@@ -74,6 +74,7 @@ import MarketPrice from "./pages/insights/marketPriceAnalysis/MarketPrice";
 
 import WholeSaleTransaction from "./pages/WholeSaleMangement/WholeSaleTransaction";
 import MyOrders from "./pages/WholeSaleMangement/MyOrders";
+import AddingProduct from"./pages/WholeSaleMangement/AddingProduct";
 
 
 
@@ -97,6 +98,8 @@ import PaymentPg from "./pages/tourism_pages/PaymentPg";
 import ViewEmpDetails from "./pages/employee_pages/emp_registation/ViewEmpDetails";
 import ViewsalaryList from "./pages/employee_pages/emp_salary/ViewsalaryList";
 import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
+
+
 
 
 
@@ -172,6 +175,8 @@ export default function App() {
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
                     <Route path="/WholeSale/orders" element={MyOrders()}/>
+                    <Route path= "/placeOrder" element={PlaceOrder()}/>
+                    <Route path="/addingProduct" element={AddingProduct()}/>
 
                     <Route path = "diseases/home" element={DiseaseTracking()}/>
 
@@ -212,7 +217,7 @@ export default function App() {
                     <Route path= "/addchemicalfinances" element={AddChemicalFinances()}/>
                     <Route path= "/editchemicalfinancespage/:id" element={<EditChemicalFinancesPage />} />
 
-                    <Route path= "/placeOrder" element={PlaceOrder()}/>
+
 
                     <Route path= "/employees/home" element= {Employee()}/>
                     <Route path="/employees/registration/addEmployee" element={AddEmployee()}/>
