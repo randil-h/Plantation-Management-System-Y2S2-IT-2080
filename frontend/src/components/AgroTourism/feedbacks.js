@@ -4,7 +4,7 @@ export default function Feedback() {
     return (
         <div>
             <p className="text-3xl font-semibold text-center">
-                What others had to say about the experience
+                Visitor Stories: Hear What Others Have Experienced
             </p>
             <div className="p-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

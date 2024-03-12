@@ -88,12 +88,15 @@ import AgroTourism from "./pages/tourism_pages/AgroTourismIntro";
 import Feedback from "./pages/tourism_pages/FeedbackPage";
 import BookingPg from "./pages/tourism_pages/BookingPg";
 import PaymentPg from "./pages/tourism_pages/PaymentPg";
-
 import ConfirmationPg from "./pages/tourism_pages/ConfirmationPg";
+import FarmTourgPg from "./pages/tourism_pages/FarmTours";
+import FruitVegPicking from "./pages/tourism_pages/FruitVegPicking";
+import FarmChore from "./pages/tourism_pages/FarmChore";
 
 import ViewEmpDetails from "./pages/employee_pages/emp_registation/ViewEmpDetails";
 import ViewsalaryList from "./pages/employee_pages/emp_salary/ViewsalaryList";
 import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
+import FarmChoreExperience from "./components/AgroTourism/farm_chore";
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -156,6 +159,9 @@ export default function App() {
                     <Route path="/booking" element={BookingPg()}/>
                     <Route path="/payment" element={PaymentPg()}/>
                     <Route path="/confirmation" element={ConfirmationPg()}/>
+                    <Route path="/farmtour" element={FarmTourgPg()}/>
+                    <Route path="/fruitvegpick" element={FruitVegPicking()}/>
+                    <Route path="/farmchore" element={FarmChoreExperience()}/>
 
                     <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
 
