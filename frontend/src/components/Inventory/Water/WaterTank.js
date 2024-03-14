@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 
@@ -47,9 +47,7 @@ function WaterTank() {
             .post('http://localhost:5555/waterRecords', data)
             .then((response) => {
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                // Update waterRecords state with the newly added record
                 setWaterRecord(prevRecords => [...prevRecords, response.data]);
-                // Clear the form fields after successful submission
                 setWater_level1('');
                 setWater_level2('');
                 setWater_date('');
@@ -66,7 +64,7 @@ function WaterTank() {
         axios
             .get(`http://localhost:5555/waterRecords`)
             .then((response) => {
-                setWaterRecord(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
+                setWaterRecord(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -83,7 +81,6 @@ function WaterTank() {
             })
             .catch((error) => {
                 console.log(error);
-                // Handle error
             });
     };
 
@@ -94,7 +91,6 @@ function WaterTank() {
     // Calculate total percentage of water based on the latest record
     const latestRecord = waterRecords.length > 0 ? waterRecords[waterRecords.length - 1] : null;
     const totalPercentage = latestRecord ? ((latestRecord.water_level1 + latestRecord.water_level2) / (tank1Capacity + tank2Capacity)) * 100 : 0;
-
 
     return (
         <div className="flex">
@@ -121,9 +117,9 @@ function WaterTank() {
                             name="water_level1"
                             value={water_level1}
                             onChange={(e) => setWater_level1(e.target.value)}
-                            min="0" // Prevents entering negative values
-                            max={tank1Capacity} // Sets the maximum value to the tank capacity
-                            className="border border-gray-400 rounded-md p-2 w-80" // Added w-full class to set width to full
+                            min="0"
+                            max={tank1Capacity}
+                            className="border border-gray-400 rounded-md p-2 w-80"
                         />
                     </div>
                     <div className="mb-4">
@@ -135,9 +131,9 @@ function WaterTank() {
                             name="water_level2"
                             value={water_level2}
                             onChange={(e) => setWater_level2(e.target.value)}
-                            min="0" // Prevents entering negative values
-                            max={tank2Capacity} // Sets the maximum value to the tank capacity
-                            className="border border-gray-400 rounded-md p-2 w-80" // Added w-full class to set width to full
+                            min="0"
+                            max={tank2Capacity}
+                            className="border border-gray-400 rounded-md p-2 w-80"
                         />
                     </div>
 
@@ -150,7 +146,7 @@ function WaterTank() {
                             name="water_date"
                             value={water_date}
                             onChange={(e) => setWater_date(e.target.value)}
-                            className="border border-gray-400 rounded-md p-2 w-80" // Added w-full class to set width to full
+                            className="border border-gray-400 rounded-md p-2 w-80"
                         />
                     </div>
                     <div className="mb-4">
@@ -162,7 +158,7 @@ function WaterTank() {
                             value={water_des}
                             rows={3}
                             onChange={(e) => setWater_des(e.target.value)}
-                            className="border border-gray-400 rounded-md p-2 w-80" // Added w-full class to set width to full
+                            className="border border-gray-400 rounded-md p-2 w-80"
                         />
                     </div>
                     <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Submit</button>
@@ -205,5 +201,4 @@ function WaterTank() {
         </div>
     );
 }
-
 export default WaterTank;
