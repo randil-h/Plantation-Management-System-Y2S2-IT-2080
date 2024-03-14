@@ -11,6 +11,7 @@ import DiseaseRoute from "./routes/Disease Tracking Routes/DiseaseRoute.js";
 import RotationRoute from "./routes/Crop Routes/RotationRoute.js"
 import PlantingRoute from "./routes/Crop Routes/PlantingRoute.js"
 import ChemicalRoute from "./routes/Crop Routes/ChemicalRoute.js"
+import CropInputRoute from "./routes/Crop Routes/CropInputRoute.js"
 
 import EqMaintainroute from "./routes/Inventory Routes/EqMaintainroute.js";
 import AddSeedRoute from "./routes/Inventory Routes/AddSeedRoute.js";
@@ -52,6 +53,8 @@ app.use('/diseases', DiseaseRoute);
 app.use('/rotation', RotationRoute);
 app.use('/planting', PlantingRoute);
 app.use('/chemicals', ChemicalRoute);
+
+app.use('/cropinput', CropInputRoute);
 
 app.use('/inventoryrecords', EqMaintainroute);
 app.use('/seedRecords', AddSeedRoute);

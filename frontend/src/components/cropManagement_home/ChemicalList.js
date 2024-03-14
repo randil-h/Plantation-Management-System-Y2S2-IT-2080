@@ -117,7 +117,7 @@ const ChemicalList = () => {
                     </thead>
                     <tbody>
                     {ChemicalRecords.map((record, index) => (
-                        <tr className="hover:bg-gray-100" key={index}>
+                        <tr className="hover:bg-gray-100" key={record._id}>
                             <td className="py-2 px-4 border border-gray-400">{index + 1}</td>
                             <td className="py-2 px-4 border border-gray-400">{record.date}</td>
                             <td className="py-2 px-4 border border-gray-400">{record.fieldName}</td>

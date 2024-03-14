@@ -29,8 +29,10 @@ import Chemicals from "./pages/crop_pages/Chemical Management/Chemicals";
 import AddPlantingPage from "./pages/crop_pages/Planting Management/AddPlantingPage";
 import AddRotationPage from "./pages/crop_pages/Rotation Management/AddRotationPage";
 import ViewRotation from "./pages/crop_pages/Rotation Management/ViewRotation";
+import UpdateRotation from "./pages/crop_pages/Rotation Management/UpdateRotation"
 import ViewChemicals from "./pages/crop_pages/Chemical Management/ViewChemicals";
 import ViewPlantingList from "./pages/crop_pages/Planting Management/ViewPlantingList";
+import AddCropInput from "./pages/crop_pages/Crop Input/AddCropInput";
 
 import Equipment from "./pages/inventory_pages/Eq and Machines/Equipments";
 import EqList from "./pages/inventory_pages/Eq and Machines/EqListPage";
@@ -171,9 +173,11 @@ export default function App() {
                     <Route path = "/crop/rotation" element={CropRotation()}/>
                     <Route path = "/crop/rotation/view-add" element={AddRotationPage()}/>
                     <Route path = "/crop/rotation/view" element={ViewRotation()}/>
+                    <Route path = "/crop/rotation/update/:id" element={UpdateRotation()}/>
                     <Route path = "/crop/chemicals" element={Chemicals()}/>
                     <Route path = "/crop/chemicals/view-add" element={AddChemicalsPage()}/>
                     <Route path = "/crop/chemicals/view" element={ViewChemicals()}/>
+                    <Route path = "/crop/input/add" element={AddCropInput()}/>
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
@@ -239,5 +243,3 @@ export default function App() {
         </KindeProvider>
     );
 }
-
-
