@@ -194,7 +194,7 @@ export default function App() {
                     <Route path = "/eqlist" element={EqList()}/>
                     <Route path= "/inventory/maintenancelog" element={MaintenanceLog()}/>
                     <Route path = "/addequipments" element={AddEquipments()}/>
-                    <Route path="/addeqmainpage" element={(AddEqMainPage())}/>
+                    <Route path="/inventory/maintenancelog/addeqmainpage" element={(AddEqMainPage())}/>
                     <Route path="/editeqmainpage/:id" element={<EditEqMainPage />} />
                     <Route path= "/inventory/water" element={Water()}/>
                     <Route path= "/inventory/seeds" element={Seeds_page()}/>

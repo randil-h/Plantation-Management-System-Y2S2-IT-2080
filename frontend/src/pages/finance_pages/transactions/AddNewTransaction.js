@@ -46,7 +46,7 @@ function AddNewTransaction() {
     const breadcrumbItems = [
         { name: 'Finance', href: '/finances' },
         { name: 'Transactions', href: '/finances/transactions' },
-        { name: 'Add New Transaction', href: '/finances/transactions/addTransaction' },
+        { name: 'Add New Transaction', href: '/finances/transactions/addeqmainpage' },
     ];
 
     return (
