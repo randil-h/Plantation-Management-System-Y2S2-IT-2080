@@ -4,8 +4,49 @@ import {
     InformationCircleIcon
 } from '@heroicons/react/24/outline'
 
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import {FaTrash} from "react-icons/fa";
+import {useNavigate, useParams} from "react-router-dom";
+import {useSnackbar} from "notistack";
 
-export default function TransactionsList({TransactionsRecords}) {
+export default function TransactionsList() {
+
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const { enqueueSnackbar } = useSnackbar();
+    const [TransactionsRecords, setTransactionsRecords] = useState([]);
+
+    const handleDeleteTransaction = (id) => {
+        setLoading(true);
+        axios
+            .delete(`http://localhost:5555/transactions/${id}`)
+            .then(() => {
+                setTransactionsRecords(prevRecords => prevRecords.filter(record => record._id !== id));
+                setLoading(false);
+                enqueueSnackbar('Record Deleted successfully', { variant: 'success' });
+            })
+            .catch((error) => {
+                setLoading(false);
+                console.log(error);
+            });
+    };
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get('http://localhost:5555/transactions')
+            .then((response) => {
+                setTransactionsRecords(response.data.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
+
     return (
         <div className=" overflow-x-auto  ">
             <div className="flex flex-row justify-between items-center px-8 py-4">
@@ -97,12 +138,15 @@ export default function TransactionsList({TransactionsRecords}) {
                                     aria-hidden="true"/>
                             </a>
                         </td>
-                        <td className=" py-4 text-right">
-                            <a href="/finances/transactions/deleteTransaction" className="font-medium text-blue-600 hover:underline">
+                        <td className=" ">
+                            <button
+                              className="flex items-center"
+                                onClick={() => handleDeleteTransaction(record._id)}
+                            >
                                 <TrashIcon
                                     className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
                                     aria-hidden="true"/>
-                            </a>
+                            </button>
                         </td>
                     </tr>
                 ))}

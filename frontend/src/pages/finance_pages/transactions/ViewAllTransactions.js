@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+
 import SideBar from "../../../components/SideBar";
 import Navbar from "../../../components/utility/Navbar";
 import FinanceNavigation from "../../../components/finances/FinanceNavigation.js";
@@ -8,26 +8,13 @@ import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import BackButton from "../../../components/utility/BackButton";
 import LoadingAnimation from "../../../components/utility/LoadingAnimation";
 import FinanceTransactionsStatBar from "../../../components/finances/finance_transactions/FinanceTransactionsStatBar";
+import {useNavigate, useParams} from "react-router-dom";
+import {useSnackbar} from "notistack";
 
 export default function ViewAllTransactions() {
 
-    const [TransactionsRecords, setTransactionsRecords] = useState([]);
     const [loading, setLoading] = useState(false);
-    //const [showType, setShowType] = useState('table');
 
-    useEffect(() => {
-        setLoading(true);
-        axios
-            .get('http://localhost:5555/transactions')
-            .then((response) => {
-                setTransactionsRecords(response.data.data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setLoading(false);
-            });
-    }, []);
 
     const breadcrumbItems = [
         { name: 'Finance', href: '/finances' },
@@ -59,7 +46,7 @@ export default function ViewAllTransactions() {
                         {loading ? (
                                 <LoadingAnimation/>
                             ) :
-                            <TransactionsList TransactionsRecords={TransactionsRecords}/>
+                            <TransactionsList />
                         }
 
 
