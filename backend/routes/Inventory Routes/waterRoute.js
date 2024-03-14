@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 
 const router = express.Router();
 
-// Save a new seed record
+// Save a new water record
 router.post('/', async (request, response) => {
     try {
         const {
@@ -13,22 +13,17 @@ router.post('/', async (request, response) => {
             water_date,
             water_des
         } = request.body;
-
-        // Check if all required fields are present
         if (!water_level1 || !water_level2 || !water_date || !water_des) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });
         }
-
-        // Create a new seed record
         const newWaterRecord = await WaterRecord.create({
             water_level1,
             water_level2,
             water_date,
             water_des
         });
-
         return response.status(201).send(newWaterRecord);
 
     } catch (error) {
@@ -37,7 +32,7 @@ router.post('/', async (request, response) => {
     }
 });
 
-// Get all seed records
+// Get all water records
 router.get('/', async (request, response) => {
     try {
         const waterRecords = await WaterRecord.find({});
@@ -51,16 +46,13 @@ router.get('/', async (request, response) => {
     }
 });
 
-// Get seed record by ID
+// Get water record by ID
 router.get('/:id', async (request, response) => {
     try {
         const { id } = request.params;
-
-        // Ensure id is not undefined
         if (!id) {
             return response.status(400).json({ message: 'ID parameter is required' });
         }
-
         const waterRecord = await WaterRecord.findById(id);
         if (!waterRecord) {
             return response.status(404).json({ message: 'water Record not found' });
@@ -72,7 +64,7 @@ router.get('/:id', async (request, response) => {
     }
 });
 
-// Update seed record
+// Update water record
 router.put('/:id', async (request, response) => {
     try {
         const { id } = request.params;
@@ -82,15 +74,13 @@ router.put('/:id', async (request, response) => {
             water_date,
             water_des
         } = request.body;
-
-        // Check if all required fields are present
         if (!water_level1 || !water_level2 || !water_date || !water_des) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });
         }
 
-        // Find and update the seed record
+        // Find and update the water record
         const updatedRecord = await WaterRecord.findByIdAndUpdate(id, request.body, { new: true });
 
         if (!updatedRecord) {
@@ -104,11 +94,10 @@ router.put('/:id', async (request, response) => {
     }
 });
 
-// Delete seed record
+// Delete water record
 router.delete('/:id', async (request, response) => {
     try {
         const { id } = request.params;
-        // Find and delete the seed record
         const result = await WaterRecord.findByIdAndDelete(id);
         if (!result) {
             return response.status(404).json({ message: 'Water record not found' });
