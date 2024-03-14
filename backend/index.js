@@ -18,6 +18,7 @@ import AddChemicalRoute from "./routes/Inventory Routes/AddChemicalRoute.js";
 import SeedFinancesRoute from "./routes/Inventory Routes/SeedFinancesRoute.js";
 import ChemicalFinancesRoute from "./routes/Inventory Routes/ChemicalFinancesRoute.js";
 import EqFinancesRoute from "./routes/Inventory Routes/EqFinancesRoute.js";
+import WaterRoute from "./routes/Inventory Routes/waterRoute.js";
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.use('/chemicalRecords', AddChemicalRoute);
 app.use('/seedFinancesRecords', SeedFinancesRoute);
 app.use('/chemicalFinancesRecords', ChemicalFinancesRoute);
 app.use('/eqFinancesRecords', EqFinancesRoute);
+app.use('/waterRecords', WaterRoute);
 mongoose
     .connect(mongoDBURL)
     .then(() => {
