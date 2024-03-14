@@ -6,7 +6,7 @@ import {KindeProvider} from "@kinde-oss/kinde-auth-react";
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
 import Dashboard from "./pages/Dashboard.js";
-import Employees from "./pages/Employees.js";
+
 
 import Finances from "./pages/finance_pages/Finances.js";
 import FinanceIncome from "./pages/finance_pages/income_records/FinanceIncome";
