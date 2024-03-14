@@ -4,16 +4,11 @@ import EqMaintain from "../../../components/Inventory/Eq and Machine/EqMaintain"
 import Navbar from "../../../components/utility/Navbar";
 import SideBar from "../../../components/SideBar";
 import InventoryNavbar from "../../../components/Inventory/InventoryNavbar";
-import Breadcrumb from "../../../components/utility/Breadcrumbs";
-import BackButton from "../../../components/utility/BackButton";
+
 
 export default function Equipment() {
 
-    const breadcrumbItems = [
-        { name: 'Employees', href: '/finances' },
-        { name: 'Transactions', href: '/finances/transactions' },
-        { name: 'Delete Transaction', href: '/finances/transactions/addTransaction' },
-    ];
+
 
     return (
         <div className="Equipment">
