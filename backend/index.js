@@ -11,13 +11,12 @@ import DiseaseRoute from "./routes/Disease Tracking Routes/DiseaseRoute.js";
 import RotationRoute from "./routes/Crop Routes/RotationRoute.js"
 import PlantingRoute from "./routes/Crop Routes/PlantingRoute.js"
 import ChemicalRoute from "./routes/Crop Routes/ChemicalRoute.js"
+import CropInputRoute from "./routes/Crop Routes/CropInputRoute.js"
 
 import EqMaintainroute from "./routes/Inventory Routes/EqMaintainroute.js";
 import AddSeedRoute from "./routes/Inventory Routes/AddSeedRoute.js";
 import AddChemicalRoute from "./routes/Inventory Routes/AddChemicalRoute.js";
-import SeedFinancesRoute from "./routes/Inventory Routes/SeedFinancesRoute.js";
-import ChemicalFinancesRoute from "./routes/Inventory Routes/ChemicalFinancesRoute.js";
-import EqFinancesRoute from "./routes/Inventory Routes/EqFinancesRoute.js";
+import WaterRoute from "./routes/Inventory Routes/waterRoute.js";
 
 const app = express();
 
@@ -53,12 +52,12 @@ app.use('/rotation', RotationRoute);
 app.use('/planting', PlantingRoute);
 app.use('/chemicals', ChemicalRoute);
 
+app.use('/cropinput', CropInputRoute);
+
 app.use('/inventoryrecords', EqMaintainroute);
 app.use('/seedRecords', AddSeedRoute);
 app.use('/chemicalRecords', AddChemicalRoute);
-app.use('/seedFinancesRecords', SeedFinancesRoute);
-app.use('/chemicalFinancesRecords', ChemicalFinancesRoute);
-app.use('/eqFinancesRecords', EqFinancesRoute);
+app.use('/waterRecords', WaterRoute);
 mongoose
     .connect(mongoDBURL)
     .then(() => {

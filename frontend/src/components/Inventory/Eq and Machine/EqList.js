@@ -41,8 +41,9 @@ export default function EqList() {
                         <th className="py-2 px-4 border border-gray-400">Equipment/Machine</th>
                         <th className="py-2 px-4 border border-gray-400">Type</th>
                         <th className="py-2 px-4 border border-gray-400">Storage Location</th>
-                        <th className="py-2 px-4 border border-gray-400">Quantity Currently In Use</th>
-                        <th className="py-2 px-4 border border-gray-400">Comment</th>
+                        <th className="py-2 px-4 border border-gray-400">Date e</th>
+                        <th className="py-2 px-4 border border-gray-400">Date a</th>
+                        <th className="py-2 px-4 border border-gray-400"> Name</th>
                         <th className="py-2 px-4 border border-gray-400">Action</th>
                     </tr>
                     </thead>
@@ -72,28 +73,6 @@ export default function EqList() {
                     </tr>
 
 
-                    <tr className="hover:bg-gray-100">
-                        <td className="py-2 px-4 border border-gray-400">2</td>
-                        <td className="py-2 px-4 border border-gray-400">Ladder</td>
-                        <td className="py-2 px-4 border border-gray-400">Machine</td>
-                        <td className="py-2 px-4 border border-gray-400">5</td>
-                        <td className="py-2 px-4 border border-gray-400">2</td>
-                        <td className="py-2 px-4 border border-gray-400">2</td>
-                        <td className="py-2 px-4 border border-gray-400">
-                            <div className="flex">
-                                <button
-                                    className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 cursor-pointer border-none flex items-center">
-                                    <FaEdit className="mr-1"/>
-                                    <span>Edit</span>
-                                </button>
-                                <button
-                                    className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 cursor-pointer ml-6 border-none flex items-center">
-                                    <FaTrash className="mr-1"/>
-                                    <span>Delete</span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
                     </tbody>
                 </table>
             </div>

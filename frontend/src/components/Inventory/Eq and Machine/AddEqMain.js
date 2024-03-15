@@ -37,13 +37,13 @@ const AddEqMain = () => {
 
     return (
         <div className="pt-2">
-            <div className="flex flex-col ml-96 mt-6">
+            <div className="flex flex-col ml-64 mt-6">
                 <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                    Add Equipment / Machine Finances
+                    Add Equipment / Machine Maintenance Record
                 </h1>
             </div>
             <form className="flex flex-col items-center justify-center" onSubmit={handleSubmit}>
-                <div className="space-y-12 px-0 py-16 w-6/12">
+                <div className="space-y-12 px-0 py-16 w-6/12 ml-1">
                     <div className="border-b border-gray-900/10 pb-12">
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="col-span-full">

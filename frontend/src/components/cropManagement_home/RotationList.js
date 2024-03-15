@@ -96,44 +96,43 @@ const RotationList = () => {
                 Print
             </button>
 
-            <div className="container mx-auto p-8 mt-16">
-                <table
-                    id = "rotation-table"
-                    className="w-auto bg-white shadow-md rounded-md overflow-hidden absolute top-1/3 left-60">
-                    <thead className="bg-gray-200">
+            <div className="overflow-x-auto">
+            <table id="rotation-table"
+                       className="w-fit bg-white shadow-md rounded-md overflow-hidden absolute top-1/3 left-60">
+                    <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
                     <tr>
-                        <th className="py-2 px-4 border border-gray-400">No</th>
-                        <th className="py-2 px-4 border border-gray-400">Season</th>
-                        <th className="py-2 px-4 border border-gray-400">Field Name</th>
-                        <th className="py-2 px-4 border border-gray-400">Crop Type</th>
-                        <th className="py-2 px-4 border border-gray-400">Variety</th>
-                        <th className="py-2 px-4 border border-gray-400">Quantity</th>
-                        <th className="py-2 px-4 border border-gray-400">Yield</th>
-                        <th className="py-2 px-4 border border-gray-400">Remarks</th>
+                        <th className="px-6 py-3">No</th>
+                        <th className="px-6 py-3">Season</th>
+                        <th className="px-6 py-3">Field Name</th>
+                        <th className="px-6 py-3">Crop Type</th>
+                        <th className="px-6 py-3">Variety</th>
+                        <th className="px-6 py-3">Quantity</th>
+                        <th className="px-6 py-3">Yield</th>
+                        <th className="px-6 py-3">Remarks</th>
+                        <th className="px-6 py-3">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {RotationRecords.map((record, index) => (
-                        <tr className="hover:bg-gray-100" key={index}>
-                            <td className="py-2 px-4 border border-gray-400">{index + 1}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.season}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.fieldName}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.cropType}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.variety}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.quantity}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.yield}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.remarks}</td>
-                            <td className="py-2 px-4 border border-gray-400">
+                        <tr className="hover:bg-gray-100 divide-y divide-gray-200" key={index}>
+                            <td className="px-6 py-4">{index + 1}</td>
+                            <td className="px-6 py-4">{record.season}</td>
+                            <td className="px-6 py-4">{record.fieldName}</td>
+                            <td className="px-6 py-4">{record.cropType}</td>
+                            <td className="px-6 py-4">{record.variety}</td>
+                            <td className="px-6 py-4">{record.quantity}</td>
+                            <td className="px-6 py-4">{record.yield}</td>
+                            <td className="px-6 py-4">{record.remarks}</td>
+                            <td className="px-6 py-4">
                                 <div className="flex">
-                                    <Link to={`../editrotation/${record._id}`}
+                                    <Link to={`/crop/rotation/update/${record._id}`}
                                           className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer border-none flex items-center">
                                         <FaEdit className="mr-1"/>
                                         <span>Edit</span>
                                     </Link>
                                     <button
                                         className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer ml-6 border-none flex items-center"
-                                        onClick={() => handleDelete(record._id)}
-                                    >
+                                        onClick={() => handleDelete(record._id)}>
                                         <FaTrash className="mr-1"/>
                                         <span>Delete</span>
                                     </button>

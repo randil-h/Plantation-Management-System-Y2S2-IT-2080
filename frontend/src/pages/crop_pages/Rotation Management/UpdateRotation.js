@@ -1,12 +1,8 @@
-
 import SideBar from "../../../components/SideBar";
-
 import React from "react";
 import Navbar from "../../../components/utility/Navbar";
-import AddEqFinances from "../../../components/Inventory/Eq and Machine/AddEqFinances";
-
-
-export default function Equipment() {
+import EditRotation from "../../../components/cropManagement_home/EditRotation"
+export default function UpdateRotation() {
     return (
         <div className="Equipment">
             <div className="border-b sticky top-0 z-10">
@@ -19,7 +15,7 @@ export default function Equipment() {
                 </div>
             </div>
 
-            <AddEqFinances/>
+            <EditRotation/>
         </div>
     );
 }

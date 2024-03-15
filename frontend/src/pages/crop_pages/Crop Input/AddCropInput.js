@@ -1,13 +1,9 @@
-
-import SideBar from "../../../components/SideBar";
-
 import React from "react";
 
+import SideBar from "../../../components/SideBar";
 import Navbar from "../../../components/utility/Navbar";
-import AddSeedFinances from "../../../components/Inventory/Seeds/AddSeedFinances";
-
-
-export default function Equipment() {
+import AddCropInputForm from "../../../components/cropManagement_home/AddCropInputForm";
+export default function AddCropInput() {
     return (
         <div className="Equipment">
             <div className="border-b sticky top-0 z-10">
@@ -19,8 +15,7 @@ export default function Equipment() {
                     <SideBar/>
                 </div>
             </div>
-
-            <AddSeedFinances/>
+            <AddCropInputForm/>
         </div>
     );
 }

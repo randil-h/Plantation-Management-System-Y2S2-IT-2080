@@ -61,21 +61,7 @@ export default function Equipment() {
                                 </div>
                             </div>
 
-                            <div
-                                className="bg-white p-4 rounded-lg shadow-md text-center mb-6 border border-green-800 transition duration-300 hover:bg-neutral-300">
-                                <div className="flex justify-between items-center">
-                                    <h1 className="-mx-3 block rounded-lg px-3 py-2 text-2xl font-semibold leading-7 text-green-700">Maintenance
-                                        Log</h1>
-                                    <div className="space-x-4 mt-11">
-                                        <Link to="/maintenancelog">
-                                            <button
-                                                className="bg-green-800 text-white px-8 py-2 rounded-full font-semibold text-lg transition duration-300 hover:bg-green-700">Go
-                                                to page
-                                            </button>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
