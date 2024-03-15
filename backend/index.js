@@ -14,8 +14,6 @@ import ChemicalRoute from "./routes/Crop Routes/ChemicalRoute.js"
 import CropInputRoute from "./routes/Crop Routes/CropInputRoute.js"
 
 import EqMaintainroute from "./routes/Inventory Routes/EqMaintainroute.js";
-import AddSeedRoute from "./routes/Inventory Routes/AddSeedRoute.js";
-import AddChemicalRoute from "./routes/Inventory Routes/AddChemicalRoute.js";
 import WaterRoute from "./routes/Inventory Routes/waterRoute.js";
 
 const app = express();
@@ -55,8 +53,6 @@ app.use('/chemicals', ChemicalRoute);
 app.use('/cropinput', CropInputRoute);
 
 app.use('/inventoryrecords', EqMaintainroute);
-app.use('/seedRecords', AddSeedRoute);
-app.use('/chemicalRecords', AddChemicalRoute);
 app.use('/waterRecords', WaterRoute);
 mongoose
     .connect(mongoDBURL)
