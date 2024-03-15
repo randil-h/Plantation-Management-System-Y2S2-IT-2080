@@ -41,7 +41,7 @@ import AddEqMainPage from "./pages/inventory_pages/Eq and Machines/AddEqMainPage
 import EditEqMainPage from "./pages/inventory_pages/Eq and Machines/EditEqMainPage";
 import Inventory from "./pages/inventory_pages/Inventory";
 import Water from "./pages/inventory_pages/Water/Water";
-import InventoryRecordList from "./pages/inventory_pages/Inventory_records/InventoryRecordListpage";
+
 
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 
@@ -186,8 +186,7 @@ export default function App() {
                     <Route path= "/inventory/maintenancelog" element={MaintenanceLog()}/>
                     <Route path="/inventory/maintenancelog/addeqmainpage" element={(AddEqMainPage())}/>
                     <Route path="/editeqmainpage/:id" element={<EditEqMainPage />} />
-                    <Route path= "/inventory/water" element={Water()}/>
-                    <Route path= "/inventory/inventoryrecords" element={InventoryRecordList()}/>
+
 
 
 
