@@ -13,11 +13,18 @@ router.post('/', async (request, response) => {
             email,
             selectedPackage,
             date,
+            numberOfDays,
         } = request.body;
 
         if (!name || !telNo || !nicNo || !email || !selectedPackage || !date) {
             return response.status(400).send({
                 message: 'Send all required fields: name, telNo, nicNo, email, selectedPackage, date',
+            });
+        }
+        // Additional validation for guidedFarmTour package
+        if (selectedPackage === 'guidedFarmTour' && !numberOfDays) {
+            return response.status(400).send({
+                message: 'Number of days is required for the guided farm tour package',
             });
         }
 
@@ -28,6 +35,7 @@ router.post('/', async (request, response) => {
             email,
             selectedPackage,
             date,
+            numberOfDays,
         };
 
         const booking = await Booking.create(newBooking);

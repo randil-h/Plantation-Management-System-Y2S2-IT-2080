@@ -8,7 +8,7 @@ const OnlinePaymentPortal = () => {
         expirationDate: '',
         cvv: '',
         cardHolderName: '',
-        cardType: 'visa',
+        cardType: '',
     });
 
     const handleInputChange = (e) => {

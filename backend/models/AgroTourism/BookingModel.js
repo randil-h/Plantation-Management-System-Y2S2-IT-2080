@@ -26,7 +26,12 @@ const bookingSchema = mongoose.Schema(
             type: Date,
             required: true,
         },
+        numberOfDays: {
+            type: Number,
+
+        },
     },
+
     {
         timestamps: true,
     }
