@@ -18,17 +18,11 @@ export default function BookingForm() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevData => {
-            if (name === "selectedPackage" && value !== "guidedFarmTour") {
-                // If selected package is not guidedFarmTour, clear numberOfDays
-                return { ...prevData, [name]: value, numberOfDays: '' };
-            } else {
-                return { ...prevData, [name]: value };
-            }
-        });
+        setFormData(prevData => ({ ...prevData, [name]: value }));
     };
 
-const handleSubmit = async (e) => {
+
+    const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {

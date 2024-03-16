@@ -37,6 +37,7 @@ router.post('/', async (request, response) => {
             email,
             selectedPackage,
             date,
+            numberOfDays,
 
         };
 
