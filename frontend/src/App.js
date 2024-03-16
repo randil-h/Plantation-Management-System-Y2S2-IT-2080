@@ -33,23 +33,15 @@ import UpdateRotation from "./pages/crop_pages/Rotation Management/UpdateRotatio
 import ViewChemicals from "./pages/crop_pages/Chemical Management/ViewChemicals";
 import ViewPlantingList from "./pages/crop_pages/Planting Management/ViewPlantingList";
 import AddCropInput from "./pages/crop_pages/Crop Input/AddCropInput";
+import AddChemicalsPage from "./pages/crop_pages/Chemical Management/AddChemicalsPage";
 
-import Equipment from "./pages/inventory_pages/Eq and Machines/Equipments";
-import EqList from "./pages/inventory_pages/Eq and Machines/EqListPage";
+
 import MaintenanceLog from "./pages/inventory_pages/Eq and Machines/MaintenanceLog"
-import AddEquipments from "./pages/inventory_pages/Eq and Machines/AddEquipments";
 import AddEqMainPage from "./pages/inventory_pages/Eq and Machines/AddEqMainPage";
 import EditEqMainPage from "./pages/inventory_pages/Eq and Machines/EditEqMainPage";
 import Inventory from "./pages/inventory_pages/Inventory";
 import Water from "./pages/inventory_pages/Water/Water";
-import Seeds_page from "./pages/inventory_pages/Seeds/Seeds_page";
-import SeedList from "./pages/inventory_pages/Seeds/SeedListPage";
-import AddSeedsPage from "./pages/inventory_pages/Seeds/AddSeedsPage"
-import EditSeedListPage from "./pages/inventory_pages/Seeds/EditSeedListPage";
-import Chemical_page from "./pages/inventory_pages/Chemical/Chemical_page"
-import ChemicalList from "./pages/inventory_pages/Chemical/ChemicalListPage";
-import AddChemicalsPage from "./pages/inventory_pages/Chemical/AddChemicalsPage";
-import EditChemicalListPage from "./pages/inventory_pages/Chemical/EditChemicalListPage";
+
 
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 
@@ -94,6 +86,7 @@ import FarmChoreExperience from "./components/AgroTourism/farm_chore";
 
 
 
+
 export default function App() {
     const [loading, setLoading] = useState(true);
 
@@ -101,7 +94,7 @@ export default function App() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
-        }, 500); // Simulate 2 seconds loading time
+        }, 100); // Simulate 2 seconds loading time
         return () => clearTimeout(timer);
     }, []);
 
@@ -190,21 +183,11 @@ export default function App() {
 
 
                     <Route path= "/inventory/home" element={Inventory()}/>
-                    <Route path = "/inventory/equipment" element={Equipment()}/>
-                    <Route path = "/eqlist" element={EqList()}/>
                     <Route path= "/inventory/maintenancelog" element={MaintenanceLog()}/>
-                    <Route path = "/addequipments" element={AddEquipments()}/>
                     <Route path="/inventory/maintenancelog/addeqmainpage" element={(AddEqMainPage())}/>
                     <Route path="/editeqmainpage/:id" element={<EditEqMainPage />} />
                     <Route path= "/inventory/water" element={Water()}/>
-                    <Route path= "/inventory/seeds" element={Seeds_page()}/>
-                    <Route path= "/seedlist" element={SeedList()}/>
-                    <Route path= "/addseedspage" element={AddSeedsPage()}/>
-                    <Route path= "/editseedlistpage/:id" element={<EditSeedListPage />} />
-                    <Route path= "/inventory/chemicals" element={Chemical_page()}/>
-                    <Route path= "/chemicallist" element={ChemicalList()}/>
-                    <Route path= "/addchemicalspage" element={AddChemicalsPage()}/>
-                    <Route path= "/editchemicallistpage/:id" element={<EditChemicalListPage />} />
+
 
 
 
