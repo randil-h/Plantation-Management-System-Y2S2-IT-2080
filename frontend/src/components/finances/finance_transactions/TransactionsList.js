@@ -63,10 +63,10 @@ export default function TransactionsList() {
                     <div className=" py-4">
                         <input
                             type="text"
-                            placeholder="Search transactions..."
+                            placeholder="Search all transactions..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="border border-gray-300 rounded-full px-3 py-2 w-full"
+                            className="border border-gray-300 rounded-full px-3 py-1 w-full"
                         />
                     </div>
                 </div>

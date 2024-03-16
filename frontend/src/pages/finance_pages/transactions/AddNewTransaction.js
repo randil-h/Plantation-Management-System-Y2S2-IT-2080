@@ -49,6 +49,14 @@ function AddNewTransaction() {
         { name: 'Add New Transaction', href: '/finances/transactions/addeqmainpage' },
     ];
 
+
+
+
+        const handleCancel = () => {
+            // Navigate to the previous location
+            navigate(-1); // This will navigate back to the previous location in the history stack
+        };
+
     return (
         <div className="">
             <Navbar />
@@ -198,7 +206,7 @@ function AddNewTransaction() {
                                         </div>
                                     </div>
                                     <div className="mt-6 flex items-center justify-end gap-x-6">
-                                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+                                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900" onClick={handleCancel}>
                                             Cancel
                                         </button>
                                         <button
