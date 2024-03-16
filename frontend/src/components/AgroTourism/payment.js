@@ -1,6 +1,7 @@
 // OnlinePaymentPortal.js
 import React, { useState } from 'react';
 import { FaCcVisa, FaCcMastercard, FaCcAmex } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const OnlinePaymentPortal = () => {
     const [formData, setFormData] = useState({
@@ -10,7 +11,7 @@ const OnlinePaymentPortal = () => {
         cardHolderName: '',
         cardType: '',
     });
-
+    const navigate = useNavigate();
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -22,6 +23,7 @@ const OnlinePaymentPortal = () => {
         console.log('Payment submitted:', formData);
         // Reset form data after submission if needed
         // setFormData({ cardNumber: '', expirationDate: '', cvv: '', cardHolderName: '', cardType: 'visa' });
+        navigate('/confirmation');
     };
 
     return (

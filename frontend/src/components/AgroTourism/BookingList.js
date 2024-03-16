@@ -70,7 +70,6 @@ const BookingList = () => {
                         )}
                         <th className="py-2 px-4 border border-gray-400">Actions</th>
                     </tr>
-
                     </thead>
                     <tbody>
                     {bookingRecords.map((record, index) => (

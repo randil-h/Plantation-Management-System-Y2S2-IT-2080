@@ -84,7 +84,7 @@ import FarmChore from "./pages/tourism_pages/FarmChore";
 
 import ViewEmpDetails from "./pages/employee_pages/emp_registation/ViewEmpDetails";
 import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
-import FarmChoreExperience from "./components/AgroTourism/farm_chore";
+
 
 
 
@@ -143,7 +143,7 @@ export default function App() {
                     <Route path="/confirmation" element={ConfirmationPg()}/>
                     <Route path="/farmtour" element={FarmTourgPg()}/>
                     <Route path="/fruitvegpick" element={FruitVegPicking()}/>
-                    <Route path="/farmchore" element={FarmChoreExperience()}/>
+                    <Route path="/farmchore" element={FarmChore()}/>
 
                     <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
 

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
-
 export default function BookingForm() {
     const [formData, setFormData] = useState({
         name: '',
@@ -17,15 +16,23 @@ export default function BookingForm() {
     });
     const navigate = useNavigate();
 
-const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-};
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevData => {
+            if (name === "selectedPackage" && value !== "guidedFarmTour") {
+                // If selected package is not guidedFarmTour, clear numberOfDays
+                return { ...prevData, [name]: value, numberOfDays: '' };
+            } else {
+                return { ...prevData, [name]: value };
+            }
+        });
+    };
 
 const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-        const response = await axios.post('<http://localhost:5555/booking>', formData);
+        const response = await axios.post(('http://localhost:5555/booking'), formData);
         console.log(response.data);
         setFormData({
             name: '',
