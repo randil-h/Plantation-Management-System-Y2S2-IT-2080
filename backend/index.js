@@ -16,6 +16,8 @@ import CropInputRoute from "./routes/Crop Routes/CropInputRoute.js"
 import EqMaintainroute from "./routes/Inventory Routes/EqMaintainroute.js";
 import WaterRoute from "./routes/Inventory Routes/waterRoute.js";
 
+import RegistrationRoute from "./routes/Employee Routes/RegistrationRoute.js";
+
 const app = express();
 
 app.use(express.json());
@@ -54,6 +56,9 @@ app.use('/cropinput', CropInputRoute);
 
 app.use('/inventoryrecords', EqMaintainroute);
 app.use('/waterRecords', WaterRoute);
+
+app.use('/employeeRecords',RegistrationRoute);
+
 mongoose
     .connect(mongoDBURL)
     .then(() => {
