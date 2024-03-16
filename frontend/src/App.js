@@ -63,7 +63,7 @@ import AddingProduct from"./pages/WholeSaleMangement/AddingProduct";
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
 import AddTask from "./pages/employee_pages/task_assigning/AddTask";
-import Addsalary from "./pages/employee_pages/emp_salary/Addsalary";
+
 
 import harvest from "./pages/harvest_pages/harvests";
 import harvestCal from "./pages/harvest_pages/harvest_Cal/harvestCal";
@@ -80,7 +80,6 @@ import FruitVegPicking from "./pages/tourism_pages/FruitVegPicking";
 import FarmChore from "./pages/tourism_pages/FarmChore";
 
 import ViewEmpDetails from "./pages/employee_pages/emp_registation/ViewEmpDetails";
-import ViewsalaryList from "./pages/employee_pages/emp_salary/ViewsalaryList";
 import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
 import FarmChoreExperience from "./components/AgroTourism/farm_chore";
 
@@ -195,9 +194,8 @@ export default function App() {
                     <Route path="/employees/registration/addEmployee" element={AddEmployee()}/>
                     <Route path="/employees/tasks/addTask" element={AddTask()}/>
                     <Route path="/employees/registration" element={ViewEmpDetails()}/>
-                    <Route path="/employees/salaryreports/addSalary" element={Addsalary()}/>
                     <Route path="employees/tasks" element={ViewTaskList()}/>
-                    <Route path="/employees/salaryreports" element={ViewsalaryList()}/>
+
 
 
                     <Route path="/harvest/home"  element={harvest()}/>

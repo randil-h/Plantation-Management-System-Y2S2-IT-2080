@@ -10,9 +10,8 @@ import EmployeeList from "../../../components/Employee/Employee_register/Employe
 export default function ViewEmpDetails() {
 
     const breadcrumbItems = [
-        { name: 'Employees', href: '/finances' },
-        { name: 'Transactions', href: '/finances/transactions' },
-        { name: 'Delete Transaction', href: '/finances/transactions/addTransaction' },
+        { name: 'Employees', href: '/employees' },
+        { name: 'Registration', href: 'employees/registration' },
     ];
 
 
