@@ -1,9 +1,12 @@
 import {HarvestingRecord} from "../../models/Harvest Models/RecordModels.js";
 import express from "express";
-import {TransactionsRecord} from "../../models/Finance Models/TransactionsModel.js";
+import {WaterRecord} from "../../models/Inventory Models/waterModel.js";
+
 
 const router = express.Router();
 
+
+//Route to create new harvest record
 router.post('/', async(request, response) =>
 {
     try{
@@ -29,7 +32,7 @@ router.post('/', async(request, response) =>
             remarks: request.body.remarks,
         };
 
-        const HarvestRecord = await TransactionsRecord.create(NewHarvestRecord);
+        const HarvestRecord = await HarvestingRecord.create(NewHarvestRecord);
         return response.status(201).send(NewHarvestRecord);
 
     }catch(error)
@@ -38,3 +41,20 @@ router.post('/', async(request, response) =>
         response.status(500).send({message: error.message});
     }
 });
+
+router.get('/',async (request,response)=>
+{
+    try{
+        const Records = await HarvestingRecord.find({});
+        return response.status(200).json({
+            count: HarvestingRecord.length,
+            data: HarvestingRecord
+            });
+        }catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+})
+
+
+export default router;

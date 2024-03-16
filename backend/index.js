@@ -1,4 +1,4 @@
-import express from "express";
+ import express from "express";
 import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import { TestRecord } from "./models/TestModel.js";
@@ -18,6 +18,7 @@ import WaterRoute from "./routes/Inventory Routes/waterRoute.js";
 
 import RegistrationRoute from "./routes/Employee Routes/RegistrationRoute.js";
 
+import RecordRoute from "./routes/Harvest Routes/RecordRoute.js"
 const app = express();
 
 app.use(express.json());
@@ -58,6 +59,8 @@ app.use('/inventoryrecords', EqMaintainroute);
 app.use('/waterRecords', WaterRoute);
 
 app.use('/employeeRecords',RegistrationRoute);
+
+app.use('/newrecord', RecordRoute);
 
 mongoose
     .connect(mongoDBURL)
