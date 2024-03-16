@@ -6,7 +6,6 @@ import {
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {FaTrash} from "react-icons/fa";
 import {useNavigate, useParams} from "react-router-dom";
 import {useSnackbar} from "notistack";
 
@@ -17,6 +16,7 @@ export default function TransactionsList() {
     const { id } = useParams();
     const { enqueueSnackbar } = useSnackbar();
     const [TransactionsRecords, setTransactionsRecords] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const handleDeleteTransaction = (id) => {
         setLoading(true);
@@ -47,6 +47,12 @@ export default function TransactionsList() {
             });
     }, []);
 
+    const filteredRecords = TransactionsRecords.filter((record) =>
+        Object.values(record).some((value) =>
+            typeof value === 'string' && value.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+    );
+
     return (
         <div className=" overflow-x-auto  ">
             <div className="flex flex-row justify-between items-center px-8 py-4">
@@ -54,6 +60,15 @@ export default function TransactionsList() {
                     <h1 className=" text-lg font-semibold text-left">Transaction records</h1>
                     <p className="mt-1 text-sm font-normal text-gray-500 0">Browse a list of all income
                         and expense records stored in the system</p>
+                    <div className=" py-4">
+                        <input
+                            type="text"
+                            placeholder="Search transactions..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="border border-gray-300 rounded-full px-3 py-2 w-full"
+                        />
+                    </div>
                 </div>
 
                 <div>
@@ -63,6 +78,7 @@ export default function TransactionsList() {
                     </a>
                 </div>
             </div>
+
 
             <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
                 <thead
@@ -79,7 +95,7 @@ export default function TransactionsList() {
                         Amount
                     </th>
                     <th scope="col" className="px-6 py-3">
-                    Description
+                        Description
                     </th>
                     <th scope="col" className="px-6 py-3">
                         Payer/Payee
@@ -100,12 +116,12 @@ export default function TransactionsList() {
                 </thead>
                 <tbody className="border-b border-green-400">
 
-                {TransactionsRecords.map((record, index) => (
+                {filteredRecords.map((record, index) => (
                     <tr key={record._id}
                         className={` divide-y
             ${record.type === 'expense' ? 'border-l-4 border-red-400 ' : 'border-l-4 border-green-400 '}`}
                     >
-<td></td>
+                        <td></td>
                         <td className="px-6 py-4">
                             {record.date}
                         </td>
@@ -125,7 +141,8 @@ export default function TransactionsList() {
                             {record.method}
                         </td>
                         <td className=" py-4 text-right">
-                            <a href="/finances/transactions/viewTransactionDetails" className="font-medium text-blue-600  hover:underline">
+                            <a href="/finances/transactions/viewTransactionDetails"
+                               className="font-medium text-blue-600  hover:underline">
                                 <InformationCircleIcon
                                     className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
                                     aria-hidden="true"/>
@@ -140,7 +157,7 @@ export default function TransactionsList() {
                         </td>
                         <td className=" ">
                             <button
-                              className="flex items-center"
+                                className="flex items-center"
                                 onClick={() => handleDeleteTransaction(record._id)}
                             >
                                 <TrashIcon
