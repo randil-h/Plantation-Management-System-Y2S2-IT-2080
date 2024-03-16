@@ -48,9 +48,13 @@ export default function TransactionsList() {
     }, []);
 
     const filteredRecords = TransactionsRecords.filter((record) =>
-        Object.values(record).some((value) =>
-            typeof value === 'string' && value.toLowerCase().includes(searchQuery.toLowerCase())
-        )
+        Object.values(record).some((value) => {
+            if (typeof value === 'string' || typeof value === 'number') {
+                // Convert value to string and check if it includes the search query
+                return String(value).toLowerCase().includes(searchQuery.toLowerCase());
+            }
+            return false;
+        })
     );
 
     return (
