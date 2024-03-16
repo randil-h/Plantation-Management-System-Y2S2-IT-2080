@@ -10,9 +10,8 @@ import TaskList from "../../../components/Employee/Task_assign/TaskList";
 export default function ViewTaskList() {
 
     const breadcrumbItems = [
-        { name: 'Employees', href: '/finances' },
-        { name: 'Transactions', href: '/finances/transactions' },
-        { name: 'Delete Transaction', href: '/finances/transactions/addTransaction' },
+        { name: 'Employees', href: '/employees' },
+        { name: 'Assign Tasks', href: '/employees/tasks' },
     ];
 
 

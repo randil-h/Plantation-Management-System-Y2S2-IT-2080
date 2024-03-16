@@ -8,9 +8,9 @@ import Breadcrumb from "../../../components/utility/Breadcrumbs";
 
 export default function AddTask(){
     const breadcrumbItems = [
-        { name: 'Employees', href: '/finances' },
-        { name: 'Transactions', href: '/finances/transactions' },
-        { name: 'Delete Transaction', href: '/finances/transactions/addTransaction' },
+        { name: 'Employees', href: '/employees' },
+        { name: 'Assign Tasks', href: '/employees/tasks' },
+        { name: 'Add new task', href: '/employees/tasks/addTask' },
     ];
     return (
         <div className="flex-col">
@@ -30,7 +30,7 @@ export default function AddTask(){
                             <Breadcrumb items={breadcrumbItems}/>
 
                         </div>
-                        <div className="flex flex-col justify-center items-center">
+                        <div>
                             <TaskForm/>
                         </div>
                     </div>

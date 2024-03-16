@@ -44,6 +44,9 @@ export default function TaskList() {
                     <th scope="col" className="px-6 py-3">
                         Task Description
                     </th>
+                    <th scope="col" className="px-6 py-3">
+                        Status
+                    </th>
                     <th scope="col" className=" py-3">
                         <span className="sr-only">Info</span>
                     </th>
