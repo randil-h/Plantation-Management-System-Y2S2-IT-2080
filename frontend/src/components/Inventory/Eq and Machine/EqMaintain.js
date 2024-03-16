@@ -7,6 +7,8 @@ import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/rea
 const EqMaintain = () => {
     const [inventoryRecords, setInventoryRecords] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+
 
     useEffect(() => {
         setLoading(true);
@@ -34,6 +36,16 @@ const EqMaintain = () => {
             });
     };
 
+    const filteredRecords = inventoryRecords.filter((record) =>
+        Object.values(record).some((value) => {
+            if (typeof value === 'string' || typeof value === 'number') {
+                // Convert value to string and check if it includes the search query
+                return String(value).toLowerCase().includes(searchQuery.toLowerCase());
+            }
+            return false;
+        })
+    );
+
     return (
         <div className=" overflow-x-auto  ">
 
@@ -42,6 +54,15 @@ const EqMaintain = () => {
                     <h1 className=" text-lg font-semibold text-left">Maintenances Records</h1>
                     <p className="mt-1 text-sm font-normal text-gray-500 0">Easily access stored Maintenances Records
                         within the system for thorough insights.</p>
+                    <div className=" py-4">
+                        <input
+                            type="text"
+                            placeholder="Search all maintenances records..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="border border-gray-300 rounded-full px-3 py-1 w-full"
+                        />
+                    </div>
                 </div>
 
                 <div>
@@ -52,27 +73,14 @@ const EqMaintain = () => {
                 </div>
             </div>
             <div>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        className="border rounded-md px-3 py-1 mr-3 focus:outline-none focus:border-blue-500 absolute top-14 left-72 mt-40"
-                    />
-                    <button
-                        className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 left-1/3 mt-40"
-                    >
-                        Search
-                    </button>
-                </div>
-
 
                 <button
-                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-36 mr-5"
+                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-24 right-10 mt-36 mr-5"
                 >
                     Print
                 </button>
 
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500  mt-24">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
                     <thead
                         className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                     <tr className=" ">
@@ -111,7 +119,7 @@ const EqMaintain = () => {
                     </thead>
                     <tbody className="border-b border-green-400">
 
-                    {inventoryRecords.map((record, index) => (
+                    {filteredRecords.map((record, index) => (
                         <tr key={index}>
                             <td></td>
                             <td className="px-6 py-4">
@@ -144,7 +152,8 @@ const EqMaintain = () => {
                                 </a>
                             </td>
                             <td className=" py-4 text-right">
-                                <Link to={`../editeqmainpage/${record._id}`} className="font-medium text-blue-600 hover:underline">
+                                <Link to={`../editeqmainpage/${record._id}`}
+                                      className="font-medium text-blue-600 hover:underline">
                                     <PencilSquareIcon
                                         className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
                                         aria-hidden="true"/>
@@ -171,7 +180,7 @@ const EqMaintain = () => {
         </div>
 
 
-);
+    );
 };
 
 export default EqMaintain;
