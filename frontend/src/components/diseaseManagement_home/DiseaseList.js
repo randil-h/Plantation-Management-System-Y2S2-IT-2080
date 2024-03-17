@@ -3,14 +3,18 @@ import {
     TrashIcon,
     InformationCircleIcon
 } from '@heroicons/react/24/outline'
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {enqueueSnackbar} from "notistack";
 
 
 export default function DiseaseList() {
 
      const [DiseaseRecords, setDiseaseRecords] = useState([]);
-   const [loading, setLoading] = useState(false);
+     const [loading, setLoading] = useState(false);
+     const navigate = useNavigate();
+     const {id} = useParams();
    //const [showType, setShowType] = useState('table');
 
    useEffect(() => {
@@ -26,6 +30,25 @@ export default function DiseaseList() {
                setLoading(false);
            });
    }, []);
+
+    const handleDeleteDisease = (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this disease record?");
+        if (confirmDelete) {
+            setLoading(true);
+            axios
+                .delete(`http://localhost:5555/diseases/${id}`)
+                .then(() => {
+                    // Update state after successful deletion
+                    setDiseaseRecords(prevRecords => prevRecords.filter(record => record._id !== id));
+                    setLoading(false);
+                    enqueueSnackbar('Record Deleted successfully', { variant: 'success' });
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    console.log(error);
+                });
+        }
+    };
 
     return (
         <div className=" overflow-x-auto  ">
@@ -47,7 +70,6 @@ export default function DiseaseList() {
                 <thead
                     className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                 <tr className=" ">
-                    <th></th>
                     <th scope="col" className="px-6 py-3">Disease Name</th>
                     <th scope="col" className="px-6 py-3">Crop Type</th>
                     <th scope="col" className="px-6 py-3">Date</th>
@@ -61,41 +83,29 @@ export default function DiseaseList() {
                 </tr>
                 </thead>
 
-                {/*<table className='w-full border-separate border-spacing-2'>
-                    <thead>
-                    <tr>
-                        <th className='border border-slate-600 rounded-md'>Disease Name</th>
-                        <th className='border border-slate-600 rounded-md'>Crop Type</th>
-                        <th className='border border-slate-600 rounded-md'>Date</th>
-                        <th className='border border-slate-600 rounded-md'>Location</th>
-                        <th className='border border-slate-600 rounded-md'>Severity</th>
-                        <th className='border border-slate-600 rounded-md'>Treatment</th>
-                        <th className='border border-slate-600 rounded-md max-md:hidden'>Status</th>
-                    </tr>
-                    </thead>*/}
-                    <tbody className="border-b border-green-400">
+                <tbody className="border-b border-green-400">
 
                 {DiseaseRecords.map((drecord, index) => (
-                    <tr key={drecord._id} className='h-8'>
-                        <td className='border border-slate-700 rounded-md text-center'>
+                    <tr key={drecord._id} className='divide-y'>
+                        <td className='px-6 py-4'>
                             {drecord.disease_name}
                         </td>
-                        <td className='border border-slate-700 rounded-md text-center'>
-                            {drecord.cropType}
+                        <td className='bpx-6 py-4'>
+                            {drecord.crop}
                         </td>
-                        <td className='border border-slate-700 rounded-md text-center'>
+                        <td className='px-6 py-4'>
                             {drecord.date}
                         </td>
-                        <td className='border border-slate-700 rounded-md text-center'>
+                        <td className='px-6 py-4'>
                             {drecord.location}
                         </td>
-                        <td className='border border-slate-700 rounded-md text-center'>
+                        <td className='px-6 py-4'>
                             {drecord.severity}
                         </td>
-                        <td className='border border-slate-700 rounded-md text-center'>
+                        <td className='px-6 py-4'>
                             {drecord.treatment}
                         </td>
-                        <td className='border border-slate-700 rounded-md text-center'>
+                        <td className='px-6 py-4'>
                             {drecord.status}
                         </td>
                         <td className=" py-4 text-right">
@@ -107,26 +117,28 @@ export default function DiseaseList() {
                             </a>
                         </td>
                         <td className=" py-4 text-right">
-                            <a href="/diseases/records/updateDisease" className="font-medium text-blue-600 hover:underline">
+                            <Link to={`/diseases/records/updateDisease/${drecord._id}`}>
                                 <PencilSquareIcon
                                     className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
                                     aria-hidden="true"/>
-                            </a>
+                            </Link>
                         </td>
-                        <td className=" py-4 text-right">
-                            <a href="/diseases/records/deleteDisease"
-                               className="font-medium text-blue-600 hover:underline">
+                        <td className=" ">
+                            <button
+                                className="flex items-center"
+                                onClick={() => handleDeleteDisease(drecord._id)}
+                            >
                                 <TrashIcon
                                     className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
                                     aria-hidden="true"/>
-                            </a>
+                            </button>
                         </td>
                     </tr>
                 ))}
 
 
                 </tbody>
-                </table>
+            </table>
         </div>
-)
+    )
 }

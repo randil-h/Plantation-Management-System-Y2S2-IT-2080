@@ -6,13 +6,14 @@ const router = express.Router();
 //create new disease record
 router.post('/', async (request, response) => {
     try{
+        console.log('Request Body:', request.body);
         if (
             !request.body.disease_name ||
             !request.body.crop ||
             !request.body.date ||
             !request.body.location ||
-            !request.body.severity ||
             !request.body.treatment ||
+            !request.body.severity ||
             !request.body.status
         ) {
             return response.status(400).send({
@@ -24,8 +25,8 @@ router.post('/', async (request, response) => {
             crop: request.body.crop,
             date: request.body.date,
             location: request.body.location,
-            severity: request.body.severity,
             treatment: request.body.treatment,
+            severity: request.body.severity,
             status: request.body.status,
         };
 
@@ -76,8 +77,8 @@ router.put('/:id', async (request, response) => {
             !request.body.crop ||
             !request.body.date ||
             !request.body.location ||
-            !request.body.severity ||
             !request.body.treatment ||
+            !request.body.severity ||
             !request.body.status
         ) {
             return response.status(400).send({
