@@ -4,6 +4,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import axios from 'axios';
 
 const BookingList = () => {
+    const [originalRecords, setOriginalRecords] = useState([]);
     const [bookingRecords, setBookingRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchInput, setSearchInput] = useState('');
@@ -50,6 +51,10 @@ const BookingList = () => {
         // Update the bookingRecords state with the filtered result
         setBookingRecords(filteredRecords);
     };
+    const handleReset = () => {
+        setSearchInput('');
+        window.location.reload(); // Refreshes the page
+    };
 
     const handleDelete = (recordId) => {
         axios
@@ -74,8 +79,14 @@ const BookingList = () => {
                 />
                 <button
                     className="bg-black text-white px-4 py-2 rounded-md hover:bg-emerald-700 focus:outline-none "
-                    onClick={handleSearch} >
+                    onClick={handleSearch}>
                     Search
+                </button>
+                <button
+                    onClick={handleReset}
+                    className="bg-black text-white px-4 py-2 rounded-md hover:bg-emerald-700 focus:outline-none ml-4"
+                >
+                    Reset
                 </button>
             </div>
             <div className="flex items-center justify-center mb-4">
