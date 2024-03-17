@@ -18,6 +18,7 @@ import EditTransaction from "./pages/finance_pages/transactions/EditTransaction"
 import DeleteTransaction from "./pages/finance_pages/transactions/DeleteTransaction";
 
 import Valuation from "./pages/finance_pages/valuation/Valuation";
+import AddNewValuation from "./pages/finance_pages/valuation/AddValuation";
 import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments";
 import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
 
@@ -124,6 +125,10 @@ export default function App() {
                     <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
 
                     <Route path="/finances/valuation" element={<Valuation />} />
+                    <Route path="/finances/valuation/addValuation" element={<AddNewValuation/>} />
+                    <Route path="/finances/valuation/editValuation" element={<Valuation />} />
+                    <Route path="/finances/valuation/deleteValuation" element={<Valuation />} />
+
 
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback-form" element={Feedback()}/>
