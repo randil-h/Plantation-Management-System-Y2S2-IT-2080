@@ -8,16 +8,20 @@ import {
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {useSnackbar} from "notistack";
+
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {SnackbarProvider, useSnackbar} from "notistack";
+
 
 export default function TransactionsList() {
 
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
-    const { enqueueSnackbar } = useSnackbar();
     const [TransactionsRecords, setTransactionsRecords] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleDeleteTransaction = (id) => {
         setLoading(true);
@@ -25,8 +29,8 @@ export default function TransactionsList() {
             .delete(`http://localhost:5555/transactions/${id}`)
             .then(() => {
                 setTransactionsRecords(prevRecords => prevRecords.filter(record => record._id !== id));
-                setLoading(false);
                 enqueueSnackbar('Record Deleted successfully', { variant: 'success' });
+                setLoading(false);
             })
             .catch((error) => {
                 setLoading(false);
@@ -60,6 +64,7 @@ export default function TransactionsList() {
 
     return (
         <div className=" overflow-x-auto  ">
+            <SnackbarProvider />
             <div className="flex flex-row justify-between items-center px-8 py-4">
                 <div>
                     <h1 className=" text-lg font-semibold text-left">Transaction records</h1>
