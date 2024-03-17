@@ -12,6 +12,7 @@ const EmployeeList = () => {
 
     const [RegistrationRecords, setRegistrationRecords] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         setLoading(true);
@@ -39,6 +40,16 @@ const EmployeeList = () => {
             });
     };
 
+    const filteredRecords = RegistrationRecords.filter((record) =>
+        Object.values(record).some((value) => {
+            if (typeof value === 'string' || typeof value === 'number') {
+                // Convert value to string and check if it includes the search query
+                return String(value).toLowerCase().includes(searchQuery.toLowerCase());
+            }
+            return false;
+        })
+    );
+
 
 
         return (
@@ -49,6 +60,16 @@ const EmployeeList = () => {
                         <h1 className=" text-lg font-semibold text-left">Employee Details</h1>
                         <p className="mt-1 text-sm font-normal text-gray-500 0">Easily access stored employee details
                             within the system for thorough insights.</p>
+                        <div className=" py-4">
+                            <input
+                                type="text"
+                                placeholder="Search all employees..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="border border-gray-300 rounded-full px-3 py-1 w-full"
+                            />
+                        </div>
+
                     </div>
 
                     <div>
@@ -113,7 +134,7 @@ const EmployeeList = () => {
                     </thead>
                     <tbody className="border-b border-green-400">
 
-                    {RegistrationRecords.map((record, index) => (
+                    {filteredRecords.map((record, index) => (
                             <tr key={index}>
                                 <td></td>
                                 <td className="px-6 py-4">
@@ -126,7 +147,7 @@ const EmployeeList = () => {
                                     {record.l_name}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {record.dob}
+                                    {record.dob.split("T")[0]}
                                 </td>
                                 <td className="px-6 py-4">
                                     {record.gender}
@@ -150,17 +171,17 @@ const EmployeeList = () => {
                                     {record.qualifications}
                                 </td>
                                 <td className="px-6 py-4">
-                                    {record.h_date}
+                                    {record.h_date.split("T")[0]}
                                 </td>
 
 
                                 <td className=" py-4 text-right">
-                                    <a href="#"
+                                    <Link to={``}
                                        className="font-medium text-blue-600  hover:underline">
                                         <InformationCircleIcon
                                             className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
                                             aria-hidden="true"/>
-                                    </a>
+                                    </Link>
                                 </td>
                                 <td className=" py-4 text-right">
                                     <Link to={`/employees/registration/editEmployee/${record._id}`}
