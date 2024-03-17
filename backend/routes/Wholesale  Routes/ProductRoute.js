@@ -1,5 +1,6 @@
-import express from "express";
+import express, {request} from "express";
 import { Products } from '../../models/Wholesale Models/ProductModel.js';
+
 
 const router = express.Router();
 
@@ -33,5 +34,39 @@ router.post('/', async(request, response) =>{
     }
 
 });
+
+router.get('/', async (request, response) => {
+    try {
+        const productrecords = await Products.find({});
+        return response.status(200).json({
+            count: productrecords.length,
+            data: productrecords
+        });
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+
+
+
+// router.get('/', async(request,response) =>{
+//     try{
+//         const  {id} = request.params;
+//
+//         if(!id){
+//             return response.status(400).json({ message: 'ID parameter is required' });
+//         }
+//
+//         const  productRecords = await Products.findOne(id);
+//         if(!productRecords){
+//             return response.status(404).json({ message: 'Product Record not found' });
+//         }
+//         return response.status(200).jason(productRecords);
+//     }catch(error){
+//
+//     }
+// })
 
 export default router;
