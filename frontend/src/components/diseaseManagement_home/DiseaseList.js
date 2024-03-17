@@ -1,7 +1,7 @@
 import {
     PencilSquareIcon,
     TrashIcon,
-    InformationCircleIcon
+    InformationCircleIcon, MagnifyingGlassIcon
 } from '@heroicons/react/24/outline'
 import React, {useEffect, useState} from "react";
 import axios from "axios";
@@ -15,6 +15,7 @@ export default function DiseaseList() {
      const [loading, setLoading] = useState(false);
      const navigate = useNavigate();
      const {id} = useParams();
+     const [searchQuery, setSearchQuery] = useState('');
    //const [showType, setShowType] = useState('table');
 
    useEffect(() => {
@@ -50,11 +51,35 @@ export default function DiseaseList() {
         }
     };
 
+    const filteredRecords = DiseaseRecords.filter((record) =>
+        Object.values(record).some((value) => {
+            if (typeof value === 'string' || typeof value === 'number') {
+                // Convert value to string and check if it includes the search query
+                return String(value).toLowerCase().includes(searchQuery.toLowerCase());
+            }
+            return false;
+        })
+    );
+
     return (
         <div className=" overflow-x-auto  ">
             <div className="flex flex-row justify-between items-center px-8 py-4">
                 <div>
                     <h1 className=" text-lg font-semibold text-left">Disease Records</h1>
+                    <div className=" py-4 relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <MagnifyingGlassIcon className="text-gray-500 h-4 w-4"/>
+                        </div>
+                        <input
+                            type="text"
+                            placeholder="Search all records..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="border border-gray-300 rounded-full px-3 py-1 w-full text-sm pl-10"
+                            style={{paddingRight: "2.5rem"}}
+                        />
+
+                    </div>
                 </div>
 
                 <div>
@@ -85,7 +110,7 @@ export default function DiseaseList() {
 
                 <tbody className="border-b border-green-400">
 
-                {DiseaseRecords.map((drecord, index) => (
+                {filteredRecords.map((drecord, index) => (
                     <tr key={drecord._id} className='divide-y'>
                         <td className='px-6 py-4'>
                             {drecord.disease_name}
