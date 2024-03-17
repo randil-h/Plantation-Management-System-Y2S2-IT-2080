@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from "react-router-dom";
-import { FaEdit, FaTrash } from 'react-icons/fa';
 import axios from 'axios';
-import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
-
+import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
+import html2canvas from "html2canvas";
+import {jsPDF} from "jspdf";
 
 const InventoryRecordList = () => {
     const [inventoryInputs, setInventoryInputs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-
 
     useEffect(() => {
         setLoading(true);
@@ -45,6 +44,35 @@ const InventoryRecordList = () => {
         })
     );
 
+    const handlePrint = () => {
+        const input = document.getElementById('print-area');
+
+        html2canvas(input)
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4'); // Specify page orientation and unit as 'mm'
+                const imgWidth = pdf.internal.pageSize.getWidth() - 20; // Adjust width with margins
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 10; // Starting position with margin
+                pdf.setFontSize(16); // Set font size for the title
+                pdf.text("Inventory Record", 10, position); // Title position
+                heightLeft -= position + 10; // Update height left after title
+
+                pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight); // Position the content with margin
+                heightLeft -= imgHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
+                    heightLeft -= imgHeight;
+                }
+
+                pdf.save('inventory_records.pdf');
+            });
+    };
+
     return (
         <div className=" overflow-x-auto  ">
 
@@ -69,15 +97,15 @@ const InventoryRecordList = () => {
                        className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                         Add new inventory record <span aria-hidden="true">&rarr;</span>
                     </a>
+                    <button
+                        onClick={handlePrint}
+                        className="ml-4 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                        Print
+                    </button>
                 </div>
             </div>
             <div>
-                <button
-                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-48 mr-5"
-                >
-                    Print
-                </button>
-
+                <div id="print-area">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
                     <thead
                         className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
@@ -106,9 +134,6 @@ const InventoryRecordList = () => {
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Description
-                        </th>
-                        <th scope="col" className=" py-3">
-                            <span className="sr-only">Info</span>
                         </th>
                         <th scope="col" className=" py-3">
                             <span className="sr-only">Edit</span>
@@ -178,6 +203,7 @@ const InventoryRecordList = () => {
 
 
                 </table>
+                </div>
             </div>
         </div>
 
