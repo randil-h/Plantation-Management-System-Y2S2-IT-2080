@@ -5,13 +5,13 @@ import { useSnackbar } from 'notistack';
 
 const EditCropInput = () => {
     const { id } = useParams();
+    const [field, setField] = useState('');
+    const [cropType, setCropType] = useState('');
     const [formData, setFormData] = useState({
         date: "",
         type: "",
-        field: "",
         chemicalName: "",
         quantity: "",
-        cropType: "",
         variety: "",
         unitCost: "",
         remarks: ""
@@ -28,14 +28,14 @@ const EditCropInput = () => {
                 console.log("API Response: ", response.data);
 
                 const formattedDate = new Date(response.data.date).toISOString().split('T')[0];
-                const formField = response.data.field;
-                const formCrop  = response.data.cropType;
+
                 setFormData({
                     ...response.data,
                     date: formattedDate,
-                    field: formField,
-                    cropType: formCrop
+
                 });
+                setField(response.data.field);
+                setCropType(response.data.cropType);
                 setLoading(false);
             } catch (error) {
                 console.log(error.message);
@@ -59,7 +59,7 @@ const EditCropInput = () => {
             await axios.put(`http://localhost:5555/cropinput/${id}`, formData);
             setLoading(false);
             enqueueSnackbar('Record Updated successfully', { variant: 'success' });
-            navigate('/cropinput');
+            navigate('/crop/input/view');
         } catch (error) {
             setLoading(false);
             enqueueSnackbar('Error', { variant: 'error' });
@@ -168,18 +168,18 @@ const EditCropInput = () => {
                                                 id="field"
                                                 name="field"
                                                 onChange={handleChange}
-                                                value={formData.field}
+                                                value={field}
                                                 autoComplete="field"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             >
                                                 <option value="">Select an option</option>
-                                                <option value="fieldA">Field A</option>
-                                                <option value="fieldB">Field B</option>
-                                                <option value="fieldC">Field C</option>
-                                                <option value="fieldD">Field D</option>
-                                                <option value="fieldE">Field E</option>
-                                                <option value="fieldF">Field F</option>
-                                                <option value="fieldG">Field G</option>
+                                                <option value="Field A">Field A</option>
+                                                <option value="Field B">Field B</option>
+                                                <option value="Field C">Field C</option>
+                                                <option value="Field D">Field D</option>
+                                                <option value="Field E">Field E</option>
+                                                <option value="Field F">Field F</option>
+                                                <option value="Field G">Field G</option>
                                             </select>
                                         </div>
                                     </div>
@@ -195,14 +195,14 @@ const EditCropInput = () => {
                                                 id="cropType"
                                                 name="cropType"
                                                 onChange={handleChange}
-                                                value={formData.cropType}
+                                                value={cropType}
                                                 autoComplete="cropType"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             >
                                                 <option value="">Select an option</option>
-                                                <option value="coconut">Coconut</option>
-                                                <option value="apple guava">Apple Guava</option>
-                                                <option value="papaw">Papaya</option>
+                                                <option value="Coconut">Coconut</option>
+                                                <option value="Apple Guava">Apple Guava</option>
+                                                <option value="Papaya">Papaya</option>
                                             </select>
                                         </div>
                                     </div>

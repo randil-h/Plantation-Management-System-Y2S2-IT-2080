@@ -165,6 +165,10 @@ export default function AddCropInputForm() {
                                                 <option value="Field A">Field A</option>
                                                 <option value="Field B">Field B</option>
                                                 <option value="Field C">Field C</option>
+                                                <option value="Field D">Field D</option>
+                                                <option value="Field E">Field E</option>
+                                                <option value="Field F">Field F</option>
+                                                <option value="Field G">Field G</option>
                                             </select>
                                         </div>
                                     </div>
@@ -189,6 +193,25 @@ export default function AddCropInputForm() {
                                                 <option value="Apple Guava">Apple Guava</option>
                                                 <option value="Papaya">Papaya</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="variety"
+                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                        >
+                                            Variety
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="variety"
+                                                name="variety"
+                                                onChange={handleChange}
+                                                value={formData.variety}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
