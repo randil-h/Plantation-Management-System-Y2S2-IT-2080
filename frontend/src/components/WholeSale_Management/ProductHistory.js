@@ -1,6 +1,28 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
+import {Link} from "react-router-dom"
 
-export default function ProductHistory(){
+//import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
+
+const ProductHistory = () =>{
+    const [productRecords, setProductRecords] = useState([]);
+    const [loading,setLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get('http://localhost:5555/productRecords')
+            .then((response) =>{
+                setProductRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
+
     return(
         <div>
             <div class="flex flex-col">
@@ -10,6 +32,8 @@ export default function ProductHistory(){
                             <table class="min-w-full">
                                 <thead class="bg-gray-200 border-b">
                                 <tr>
+                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    </th>
                                     <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Product ID
                                     </th>
@@ -25,26 +49,40 @@ export default function ProductHistory(){
                                     <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Product Price
                                     </th>
+                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        Edit
+                                    </th>
+                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        Delete
+                                    </th>
                                 </tr>
                                 </thead>
+
                                 <tbody>
-                                <tr class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                                {productRecords.map((record, index) => (
+                                    <tr key={index}
+                                        class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        {index + 1}
+                                    </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        pd4580
+                                        {record.productID}
                                     </td>
                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        Potato
+                                        {record.productName}
                                     </td>
                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        derhjjfghjklcvbnm, fghjdfgh fghjkfgh
+                                        {record.productDescription}
                                     </td>
                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        25
+                                        {record.productQuantity}
                                     </td>
                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        120.00
+                                        {record.productPrice}
                                     </td>
                                 </tr>
+                                ))}
+
                                 </tbody>
                             </table>
                         </div>
@@ -54,3 +92,5 @@ export default function ProductHistory(){
         </div>
     );
 }
+
+export default ProductHistory;

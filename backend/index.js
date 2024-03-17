@@ -71,7 +71,7 @@ app.use('/inventoryinputs', InventoryRecordRoute);
 
 app.use('/employeeRecords',RegistrationRoute);
 
-app.use('/product' ,ProductRoute);
+app.use('/productRecords' ,ProductRoute);
 app.use('/record', recordRoute);
 mongoose
     .connect(mongoDBURL)
