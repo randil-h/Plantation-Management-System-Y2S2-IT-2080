@@ -79,7 +79,7 @@ import Feedback from "./pages/tourism_pages/FeedbackPage";
 import BookingPg from "./pages/tourism_pages/BookingPg";
 import PaymentPg from "./pages/tourism_pages/PaymentPg";
 import ConfirmationPg from "./pages/tourism_pages/ConfirmationPg";
-import FarmTourgPg from "./pages/tourism_pages/FarmTours";
+import FarmTourPg from "./pages/tourism_pages/FarmTours";
 import FruitVegPicking from "./pages/tourism_pages/FruitVegPicking";
 import FarmChore from "./pages/tourism_pages/FarmChore";
 import EditBookingPg from "./pages/tourism_pages/EditBooking";
@@ -140,7 +140,7 @@ export default function App() {
                     <Route path="/booking" element={BookingPg()}/>
                     <Route path="/payment" element={PaymentPg()}/>
                     <Route path="/confirmation" element={ConfirmationPg()}/>
-                    <Route path="/farmtour" element={FarmTourgPg()}/>
+                    <Route path="/farmtour" element={FarmTourPg()}/>
                     <Route path="/fruitvegpick" element={FruitVegPicking()}/>
                     <Route path="/farmchore" element={FarmChore()}/>
                     <Route path="/booking/edit/:id" element={EditBookingPg()} />
