@@ -48,7 +48,10 @@ const EditEqMain = () => {
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Edited successfully', { variant: 'success' });
-                navigate('/inventory/maintenancelog', { state: { highlighted: true } });
+                setTimeout(() => {
+                    window.alert('Record saved successfully');
+                    navigate('/inventory/maintenancelog');
+                }, 100);
             })
             .catch((error) => {
                 setLoading(false);
@@ -56,6 +59,8 @@ const EditEqMain = () => {
                 console.log(error);
             });
     };
+
+
 
     return (
         <div className="pt-2">

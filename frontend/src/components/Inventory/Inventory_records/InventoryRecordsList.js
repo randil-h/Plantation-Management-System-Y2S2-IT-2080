@@ -36,7 +36,14 @@ const InventoryRecordList = () => {
                 // Handle error
             });
     };
-
+    const filteredRecords = inventoryInputs.filter((record) =>
+        Object.values(record).some((value) => {
+            if (typeof value === 'string' || typeof value === 'number') {
+                return String(value).toLowerCase().includes(searchQuery.toLowerCase());
+            }
+            return false;
+        })
+    );
 
     return (
         <div className=" overflow-x-auto  ">
@@ -46,6 +53,15 @@ const InventoryRecordList = () => {
                     <h1 className=" text-lg font-semibold text-left">Inventory Records</h1>
                     <p className="mt-1 text-sm font-normal text-gray-500 0">Easily access stored Inventory Records
                         within the system for thorough insights.</p>
+                    <div className=" py-4">
+                        <input
+                            type="text"
+                            placeholder="Search all maintenances records..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="border border-gray-300 rounded-full px-3 py-1 w-full"
+                        />
+                    </div>
                 </div>
 
                 <div>
@@ -56,27 +72,13 @@ const InventoryRecordList = () => {
                 </div>
             </div>
             <div>
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Search..."
-                        className="border rounded-md px-3 py-1 mr-3 focus:outline-none focus:border-blue-500 absolute top-14 left-72 mt-40"
-                    />
-                    <button
-                        className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 left-1/3 mt-40"
-                    >
-                        Search
-                    </button>
-                </div>
-
-
                 <button
-                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-36 mr-5"
+                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-48 mr-5"
                 >
                     Print
                 </button>
 
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500  mt-24">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
                     <thead
                         className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                     <tr className=" ">
@@ -118,7 +120,7 @@ const InventoryRecordList = () => {
                     </thead>
                     <tbody className="border-b border-green-400">
 
-                    {inventoryInputs.map((record, index) => (
+                    {filteredRecords.map((record, index) => (
                         <tr
                             key={index}
                             className={`divide-y ${
@@ -148,14 +150,6 @@ const InventoryRecordList = () => {
                             </td>
                             <td className="px-6 py-4">
                                 {record.description}
-                            </td>
-                            <td className=" py-4 text-right">
-                                <a href="#"
-                                   className="font-medium text-blue-600  hover:underline">
-                                    <InformationCircleIcon
-                                        className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
-                                        aria-hidden="true"/>
-                                </a>
                             </td>
                             <td className=" py-4 text-right">
                                 <Link to={`/inventory/inventoryrecords/editinventorypage/${record._id}`}

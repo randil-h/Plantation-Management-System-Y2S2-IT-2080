@@ -24,6 +24,9 @@ import RegistrationRoute from "./routes/Employee Routes/RegistrationRoute.js";
 
 import ProductRoute from "./routes/Wholesale  Routes/ProductRoute.js";
 
+import RecordRoute from "./routes/Harvest Routes/RecordRoute.js";
+import recordRoute from "./routes/Harvest Routes/RecordRoute.js";
+
 
 const app = express();
 
@@ -69,6 +72,7 @@ app.use('/inventoryinputs', InventoryRecordRoute);
 app.use('/employeeRecords',RegistrationRoute);
 
 app.use('/product' ,ProductRoute);
+app.use('/record', recordRoute);
 mongoose
     .connect(mongoDBURL)
     .then(() => {
