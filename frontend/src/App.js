@@ -86,9 +86,8 @@ import EditBookingPg from "./pages/tourism_pages/EditBooking";
 import ViewEmpDetails from "./pages/employee_pages/emp_registation/ViewEmpDetails";
 import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
 
-
-
-
+import FarmChoreExperience from "./components/AgroTourism/farm_chore";
+import EditEmployeePage from "./pages/employee_pages/emp_registation/EditEmployeePage";
 
 
 export default function App() {
@@ -132,11 +131,9 @@ export default function App() {
                     <Route path="/finances/transactions/editTransaction/:id" element={<EditTransaction />} />
                     <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
 
-
                     <Route path="/finances/salaryPayment" element={<Valuation />} />
 
                     <Route path="/finances/valuation" element={<SalaryPayments />} />
-
 
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback-form" element={Feedback()}/>
@@ -186,7 +183,6 @@ export default function App() {
                     <Route path= "insights/home" element={Insights()}/>
                     <Route path= "insights/marketprice" element={MarketPrice()}/>
 
-
                     <Route path= "/inventory/home" element={Inventory()}/>
                     <Route path= "/inventory/maintenancelog" element={MaintenanceLog()}/>
                     <Route path="/inventory/maintenancelog/addeqmainpage" element={(AddEqMainPage())}/>
@@ -196,14 +192,12 @@ export default function App() {
                     <Route path= "/inventory/inventoryrecords/addinventoryrecordspage" element={(AddInventoryRecordsPage())}/>
                     <Route path= "/inventory/inventoryrecords/editinventorypage/:id" element={<EditInventoryRecords/>}/>
 
-
                     <Route path= "/employees/home" element= {Employee()}/>
                     <Route path="/employees/registration/addEmployee" element={AddEmployee()}/>
                     <Route path="/employees/tasks/addTask" element={AddTask()}/>
                     <Route path="/employees/registration" element={ViewEmpDetails()}/>
-                    <Route path="employees/tasks" element={ViewTaskList()}/>
-
-
+                    <Route path="/employees/tasks" element={ViewTaskList()}/>
+                    <Route path="/employees/registration/editEmployee/:id" element={<EditEmployeePage/>}/>
 
                     <Route path="/harvest/home"  element={harvest()}/>
                     <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>
