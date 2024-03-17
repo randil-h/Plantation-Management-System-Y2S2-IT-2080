@@ -3,7 +3,6 @@ import axios from 'axios';
 import { FaTrash } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
-
 function PercentageRuler() {
     return (
         <div className="percentage-ruler absolute h-full top-0 left-0 flex flex-col justify-between items-center">
@@ -21,7 +20,6 @@ function PercentageRuler() {
         </div>
     );
 }
-
 function WaterTank() {
     const [water_level1, setWater_level1] = useState('');
     const [water_level2, setWater_level2] = useState('');
@@ -32,8 +30,8 @@ function WaterTank() {
     const [waterRecords, setWaterRecord] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const tank1Capacity = 2000;
-    const tank2Capacity = 2000;
+    const tank1Capacity = 50000;
+    const tank2Capacity = 50000;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -68,8 +66,6 @@ function WaterTank() {
                 setLoading(false);
                 if (response.data.data.length > 0) {
                     const latestRecord = response.data.data[response.data.data.length - 1];
-                    const totalPercentage = ((latestRecord.water_level1 + latestRecord.water_level2) / (tank1Capacity + tank2Capacity)) * 100;
-                    enqueueSnackbar(`Water level is ${totalPercentage.toFixed(2)}%`, { variant: 'info' });
                 }
             })
             .catch((error) => {
@@ -77,7 +73,6 @@ function WaterTank() {
                 setLoading(false);
             });
     }, []);
-
 
     const handleDelete = (recordId) => {
         axios
@@ -96,9 +91,13 @@ function WaterTank() {
 
     // Calculate the rate of decrease in water level per day
     const calculateDecreaseRate = (latestRecord, prevRecord) => {
-        if (!latestRecord || !prevRecord) return 0; // No records yet
+        if (!latestRecord || !prevRecord) return 0;
+        let totalWaterRemaining = (prevRecord.water_level1 + prevRecord.water_level2) - (latestRecord.water_level1 + latestRecord.water_level2);
 
-        const totalWaterRemaining = (prevRecord.water_level1 + prevRecord.water_level2) - (latestRecord.water_level1 + latestRecord.water_level2);
+        // If the totalWaterRemaining is negative, it means water level increased
+        if (totalWaterRemaining < 0) {
+            totalWaterRemaining = (tank1Capacity + tank2Capacity) - (latestRecord.water_level1 + latestRecord.water_level2);
+        }
 
         // Calculate the rate of decrease in water level per day
         const decreaseRatePerDay = totalWaterRemaining / 7; // Assuming each record is 7 days apart
@@ -120,8 +119,6 @@ function WaterTank() {
         return daysToEmpty;
     };
 
-
-
     // Calculate decrease rate and days to empty
     let decreaseRatePerDay = 0;
     let daysToEmpty = Infinity;
@@ -131,8 +128,6 @@ function WaterTank() {
         decreaseRatePerDay = calculateDecreaseRate(latestRecord, prevRecord);
         daysToEmpty = calculateDaysToEmpty(decreaseRatePerDay);
     }
-
-
 
     // Display the result
     if (isFinite(daysToEmpty)) {
@@ -181,7 +176,6 @@ function WaterTank() {
                             className="border border-gray-400 rounded-md p-2 w-80"
                         />
                     </div>
-
                     <div className="mb-4">
                         <label htmlFor="water_date" className="block text-gray-700 text-sm font-bold mb-2">
                             Date:
@@ -246,5 +240,4 @@ function WaterTank() {
         </div>
     );
 }
-
 export default WaterTank;
