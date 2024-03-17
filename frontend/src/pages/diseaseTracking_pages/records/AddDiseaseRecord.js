@@ -11,25 +11,6 @@ import AddDisease from "../../../components/diseaseManagement_home/AddDisease";
 
 export default function AddDiseaseRecord(){
 
-
-   /* const handleDiseaseChange = (e) => {
-        const selectedDisease = e.target.value;
-        setDiseaseName(selectedDisease);
-        // Set treatment based on selected disease
-        if (selectedDisease === "Anthracnose") {
-            setTreatment("Daconil Chlorothalonil");
-        }else if(selectedDisease === "Maitas and Leaf Curling disease"){
-            setTreatment("Mitsu Abamectin");
-        }else if(selectedDisease === "Fungal Disease"){
-            setTreatment("Oasis Thiram");
-        }else if(selectedDisease === "Plesippa"){
-            setTreatment("Marshal 20 SC");
-        }
-         else {
-            setTreatment(""); // Reset treatment if disease changes
-        }
-    };*/
-
     const breadcrumbItems = [
         { name: 'Records', href: '/diseases/records/addDisease' },
         { name: 'New Disease Record', href: '/diseases/records/addDisease' },

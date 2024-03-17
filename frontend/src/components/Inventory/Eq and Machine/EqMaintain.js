@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
-
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
 const EqMaintain = () => {
     const [inventoryRecords, setInventoryRecords] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -13,7 +14,7 @@ const EqMaintain = () => {
         axios
             .get(`http://localhost:5555/inventoryrecords`)
             .then((response) => {
-                setInventoryRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
+                setInventoryRecords(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -35,7 +36,6 @@ const EqMaintain = () => {
                 });
         }
     };
-
     const filteredRecords = inventoryRecords.filter((record) =>
         Object.values(record).some((value) => {
             if (typeof value === 'string' || typeof value === 'number') {
@@ -45,14 +45,43 @@ const EqMaintain = () => {
         })
     );
 
+    const handlePrint = () => {
+        const input = document.getElementById('print-area');
+
+        html2canvas(input)
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4'); // Specify page orientation and unit as 'mm'
+                const imgWidth = pdf.internal.pageSize.getWidth() - 20; // Adjust width with margins
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 10; // Starting position with margin
+                pdf.setFontSize(16); // Set font size for the title
+                pdf.text("Maintenance Record", 10, position); // Title position
+                heightLeft -= position + 10; // Update height left after title
+
+                pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight); // Position the content with margin
+                heightLeft -= imgHeight;
+
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
+                    heightLeft -= imgHeight;
+                }
+
+                pdf.save('maintenances_records.pdf');
+            });
+    };
+
     return (
-        <div className=" overflow-x-auto  ">
+        <div className="overflow-x-auto">
             <div className="flex flex-row justify-between items-center px-8 py-4">
                 <div>
-                    <h1 className=" text-lg font-semibold text-left">Maintenances Records</h1>
+                    <h1 className="text-lg font-semibold text-left">Maintenances Records</h1>
                     <p className="mt-1 text-sm font-normal text-gray-500 0">Easily access stored Maintenances Records
                         within the system for thorough insights.</p>
-                    <div className=" py-4">
+                    <div className="py-4">
                         <input
                             type="text"
                             placeholder="Search all maintenances records..."
@@ -63,19 +92,20 @@ const EqMaintain = () => {
                     </div>
                 </div>
                 <div>
-                    <a href="/inventory/maintenancelog/addeqmainpage"
-                       className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
-                        Add new maintenances record <span aria-hidden="true">&rarr;</span>
-                    </a>
+                    <div className="flex items-center">
+                        <a href="/inventory/maintenancelog/addeqmainpage"
+                           className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                            Add new maintenances record <span aria-hidden="true">&rarr;</span>
+                        </a>
+                        <button
+                            onClick={handlePrint}
+                            className="ml-4 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                            Print
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div>
-                <button
-                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-24 right-10 mt-36 mr-5"
-                >
-                    Print
-                </button>
-
+            <div id="print-area">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
                     <thead
                         className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
@@ -100,10 +130,7 @@ const EqMaintain = () => {
                             Referred location
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Comment
-                        </th>
-                        <th scope="col" className=" py-3">
-                            <span className="sr-only">Info</span>
+                            Description
                         </th>
                         <th scope="col" className=" py-3">
                             <span className="sr-only">Edit</span>

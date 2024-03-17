@@ -11,18 +11,18 @@ const DiseaseSchema = mongoose.Schema(
             required: true,
         },
         date: {
-            type: Number,
+            type: String,
             required: true,
         },
         location: {
             type: String,
             required: true,
         },
-        severity: {
+        treatment: {
             type: String,
             required: true,
         },
-        treatment: {
+        severity: {
             type: String,
             required: true,
         },
