@@ -21,6 +21,7 @@ import WaterRoute from "./routes/Inventory Routes/waterRoute.js";
 import InventoryRecordRoute from "./routes/Inventory Routes/InventoryRecordRoute.js";
 
 import RegistrationRoute from "./routes/Employee Routes/RegistrationRoute.js";
+import TaskRoute from "./routes/Employee Routes/TaskRoute.js";
 
 import ProductRoute from "./routes/Wholesale  Routes/ProductRoute.js";
 
@@ -70,6 +71,7 @@ app.use('/waterRecords', WaterRoute);
 app.use('/inventoryinputs', InventoryRecordRoute);
 
 app.use('/employeeRecords',RegistrationRoute);
+app.use('/taskRecords',TaskRoute);
 
 app.use('/productRecords' ,ProductRoute);
 app.use('/record', recordRoute);
