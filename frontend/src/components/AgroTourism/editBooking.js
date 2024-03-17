@@ -132,7 +132,7 @@ const EditBooking = () => {
                                 </div>
                             </div>
                             <div className="sm:col-span-2 sm:col-start-1">
-                                <label htmlFor="packageType" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="selectedPackage" className="block text-sm font-medium leading-6 text-gray-900">
                                     Package Type
                                 </label>
                                 <div className="mt-2">
