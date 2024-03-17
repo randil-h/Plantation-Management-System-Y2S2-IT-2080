@@ -25,6 +25,12 @@ export default function ProductHistory(){
                                     <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Product Price
                                     </th>
+                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        Edit
+                                    </th>
+                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        Delete
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>

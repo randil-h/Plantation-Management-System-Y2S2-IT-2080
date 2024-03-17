@@ -1,39 +1,68 @@
 import React, {useState} from "react";
 import axios from "axios";
+import {useNavigate, useNavigation} from "react-router-dom";
+import {useSnackbar} from "notistack";
 
-export default function ProductAddingForm(){
-    const [formData, setFormData] = useState({
-        productID: '',
-        productName: '',
-        productDescription: '',
-        productQuantity: '',
-        productPrice: ''
-    });
+const ProductAddingForm = () => {
+    const [productID, setproductID] = useState('');
+    const [productName, setproductName] = useState('');
+    const [productDescription, setproductDescription] = useState('');
+    const [productQuantity, setproductQuantity] = useState('');
+    const [productPrice, setproductPrice] = useState('');
+    const {enqueueSnackbar} = useSnackbar();
+    const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        setFormData({...formData, [e.target.name]: e.target.value});
-    };
 
-    const handlesubmit = async (e) => {
+    // const [formData, setFormData] = useState({
+    //     productID: '',
+    //     productName: '',
+    //     productDescription: '',
+    //     productQuantity: '',
+    //     productPrice: ''
+    // });
+
+    // const handleChange = (e) => {
+    //     setFormData({...formData, [e.target.name]: e.target.value});
+    // };
+
+    const handlesubmit =  (e) => {
         e.preventDefault();
+        const data = {
+            productID,
+            productName,
+            productDescription,
+            productQuantity,
+            productPrice,
+        };
 
-        try {
-            const response = await axios.post('http://localhost:5555/product', formData);
-            console.log(response.data);
-            setFormData({
-                productID: '',
-                productName: '',
-                productDescription: '',
-                productQuantity: '',
-                productPrice: ''
+        axios
+            .post('http://localhost:5555/productRecords', data)
+            .then(() => {
+                enqueueSnackbar('Record Create Successfully', {variant: 'success'});
+                navigate('/wholesaleDashboard', {state:{highlighted: true}}); //
+            })
+            .catch((error) => {
+                enqueueSnackbar('Error', { variant: 'error' });
+                console.log(error);
             });
-        }catch (error) {
-            console.log(error.message);
-        }
-    }
+
+        // try {
+        //     const response = await axios.post('http://localhost:5555/product', formData);
+        //     console.log(response.data);
+        //     setFormData({
+        //         productID: '',
+        //         productName: '',
+        //         productDescription: '',
+        //         productQuantity: '',
+        //         productPrice: ''
+        //     });
+        // }catch (error) {
+        //     console.log(error.message);
+        // }
+    };
     return (
         <div>
-            <form>
+            <form onSubmit={handlesubmit}>
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="space-y-12">
                         <div className="border-b border-gray-900/10 pb-12">
@@ -53,8 +82,8 @@ export default function ProductAddingForm(){
                                         <input type="text"
                                                name="productID"
                                                id="productID"
-                                               onChange={handleChange}
-                                               value={formData.productID}
+                                               onChange={(e) => setproductID(e.target.value)}
+                                               value={productID}
                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                     </div>
                                 </div>
@@ -67,8 +96,8 @@ export default function ProductAddingForm(){
                                         <input type="text"
                                                name="productName"
                                                id="productName"
-                                               onChange={handleChange}
-                                               value={formData.productName}
+                                               onChange={(e) => setproductName(e.target.value)}
+                                               value={productName}
                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                     </div>
                                 </div>
@@ -79,8 +108,8 @@ export default function ProductAddingForm(){
                                     <div className="mt-2">
                                             <textarea id="productDescription"
                                                       name="productDescription"
-                                                      onChange={handleChange}
-                                                      value={formData.productDescription}
+                                                      onChange={(e) => setproductDescription(e.target.value)}
+                                                      value={productDescription}
                                                       rows="3"
                                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
                                     </div>
@@ -94,8 +123,8 @@ export default function ProductAddingForm(){
                                         <input type="text"
                                                name="productQuantity"
                                                id="productQuantity"
-                                               onChange={handleChange}
-                                               value={formData.productQuantity}
+                                               onChange={(e) => setproductQuantity(e.target.value)}
+                                               value={productQuantity}
                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                     </div>
                                 </div>
@@ -108,8 +137,8 @@ export default function ProductAddingForm(){
                                         <input type="text"
                                                name="productPrice"
                                                id="productPrice"
-                                               onChange={handleChange}
-                                               value={formData.productPrice}
+                                               onChange={(e) => setproductPrice(e.target.value)}
+                                               value={productPrice}
                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                     </div>
                                 </div>
@@ -128,3 +157,5 @@ export default function ProductAddingForm(){
         </div>
     );
 }
+
+export default ProductAddingForm;
