@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import {useSnackbar} from "notistack";
 
-export default function AddDisease() {
+export default function UpdateDisease() {
     const [disease_name, setName] = useState('');
     const [crop, setType] = useState('');
     const [date, setDate] = useState('');
@@ -12,10 +13,33 @@ export default function AddDisease() {
     const [status, setStatus] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const {id} = useParams();
+    const { enqueueSnackbar } = useSnackbar();
+
+    useEffect(() => {
+        setLoading(true);
+        axios.get(`http://localhost:5555/diseases/${id}`)
+            .then((response) => {
+                setName(response.data.disease_name);
+                setType(response.data.crop);
+                setDate(response.data.date);
+                setLocation(response.data.location);
+                setTreatment(response.data.treatment);
+                setSeverity(response.data.severity);
+                setStatus(response.data.status);
+                setLoading(false);
+            }).catch((error) => {
+            setLoading(false);
+            alert('An error happened. Please check console.');
+            console.log(error);
+        });
+
+    }, [id]);
+
 
     const handleDiseaseChange = (e) => {
         const selectedDisease = e.target.value;
-        setName(selectedDisease); // Update diseaseName state
+        setName(selectedDisease); // Update diseaseName state with the value, not label
         // Set treatment based on selected disease
         if (selectedDisease === "Anthracnose") {
             setTreatment("Daconil Chlorothalonil");
@@ -30,8 +54,8 @@ export default function AddDisease() {
         }
     };
 
-    const handleSaveDisease = (e) => {
-        e.preventDefault();
+    const handleUpdateDisease = (e) => {
+        e.preventDefault()
         const data = {
             disease_name,
             crop,
@@ -39,15 +63,16 @@ export default function AddDisease() {
             location,
             treatment,
             severity,
-            status
+            status,
         };
         setLoading(true);
         axios
-            .post(`http://localhost:5555/diseases`, data)
+            .put(`http://localhost:5555/diseases/${id}`, data)
             .then(() => {
                 setLoading(false);
+                enqueueSnackbar('Record Updated successfully', { variant: 'success' });
                 navigate('/diseases/records');
-                window.alert("Record Added Successfully!");
+                window.alert("Record Successfully updated!");
             })
             .catch((error) => {
                 setLoading(false);
@@ -57,17 +82,16 @@ export default function AddDisease() {
     };
     return (
         <div className='items-center justify-center ml-96'>
-            <form method="post"
-                  onSubmit={handleSaveDisease}
+            <form
+                  onSubmit={handleUpdateDisease}
                   className="max-w-md ml-1/3 mt-16 p-4 bg-gray-200 rounded-lg items-center justify-center flex flex-col">
-                <legend className='text-x font-bold mb-2 '>Add New Disease Record</legend>
+                <legend className='text-x font-bold mb-2 '>Update Disease Record</legend>
                 <label className='text-md mr-4 text-gray-500 mb-1'>Disease Name</label>
                 <select
                     value={disease_name}
                     onChange={handleDiseaseChange}
                     className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                 >
-                    <option >Select Disease</option>
                     <option value="Wilt ">Wilt</option>
                     <option value="Powdery Mildew">Powdery Mildew</option>
                     <option value="Brown Spot">Brown Spot</option>
@@ -79,11 +103,10 @@ export default function AddDisease() {
                 </select>
                 <label className='text-md mr-4 text-gray-500 mb-1'>Crop Type</label>
                 <select
-                     value={crop}
-                     onChange={(e) => setType(e.target.value)}
+                    value={crop}
+                    onChange={(e) => setType(e.target.value)}
                     className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                 >
-                    <option>Select Crop</option>
                     <option value="Papaya">Papaya</option>
                     <option value="Apple Guava">Apple Guava</option>
                     <option value="Coconut">Coconut</option>
@@ -92,8 +115,8 @@ export default function AddDisease() {
                 <input
                     type='date'
                     required
-                     value={date}
-                     onChange={(e) => setDate(e.target.value)}
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
                     className='border-2 rounded-md mb-5 border-gray-500 px-4 py-2 w-full'
                 />
                 <label className='text-md mr-4 mb-1 text-gray-500'>Location</label>
@@ -102,7 +125,6 @@ export default function AddDisease() {
                     onChange={(e) => setLocation(e.target.value)}
                     className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                 >
-                    <option>Select Location</option>
                     <option value="Field A">Field A</option>
                     <option value="Field B">Field B</option>
                     <option value="Field C">Field C</option>
@@ -123,8 +145,8 @@ export default function AddDisease() {
                 <input
                     type='text'
                     required
-                     value={severity}
-                     onChange={(e) => setSeverity(e.target.value)}
+                    value={severity}
+                    onChange={(e) => setSeverity(e.target.value)}
                     className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                 />
                 <label className='text-md mr-4 mb-1 text-gray-500'>Status</label>
@@ -133,18 +155,17 @@ export default function AddDisease() {
                     onChange={(e) => setStatus(e.target.value)}
                     className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                 >
-                    <option>Select Status</option>
                     <option value="Not Treated">Not Treated</option>
                     <option value="Under Treatment">Under Treatment</option>
                     <option value="Recovered">Recovered</option>
                 </select>
                 <button
                     className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
-                    Add
+                    Update
                 </button>
             </form>
         </div>
 
-);
+    );
 
 };
