@@ -35,7 +35,7 @@ const EditEmployee = () => {
                 setE_address(response.data.e_address);
                 setEmp_type(response.data.emp_type);
                 setQualifications(response.data.qualifications);
-                setH_date(response.data.h_date);
+                setH_date(response.data.h_date.split("T")[0]);
                 setLoading(false);
 
             }).catch((error) => {
