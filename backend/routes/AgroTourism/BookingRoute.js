@@ -1,5 +1,5 @@
 import express from 'express';
-import Booking from '../../models/AgroTourism/BookingModel.js'; // Updated model import
+import Booking from '../../models/AgroTourism/BookingModel.js';
 
 const router = express.Router();
 
@@ -13,11 +13,20 @@ router.post('/', async (request, response) => {
             email,
             selectedPackage,
             date,
+            numberOfDays,
         } = request.body;
 
+        // Check if all required fields are provided
         if (!name || !telNo || !nicNo || !email || !selectedPackage || !date) {
             return response.status(400).send({
-                message: 'Send all required fields: name, telNo, nicNo, email, selectedPackage, date',
+                message: 'All required fields must be provided: name, telNo, nicNo, email, selectedPackage, date',
+            });
+        }
+
+        // Additional validation for guidedFarmTour package
+        if (selectedPackage === 'guidedFarmTour' && !numberOfDays) {
+            return response.status(400).send({
+                message: 'Number of days is required for the guided farm tour package',
             });
         }
 
@@ -28,6 +37,8 @@ router.post('/', async (request, response) => {
             email,
             selectedPackage,
             date,
+            numberOfDays,
+
         };
 
         const booking = await Booking.create(newBooking);
@@ -35,7 +46,7 @@ router.post('/', async (request, response) => {
         return response.status(201).send(booking);
     } catch (error) {
         console.log(error.message);
-        response.status(500).send({ message: error.message });
+        response.status(500).send({ message: 'An error occurred while processing the request' });
     }
 });
 
@@ -50,7 +61,7 @@ router.get('/', async (request, response) => {
         });
     } catch (error) {
         console.log(error.message);
-        response.status(500).send({ message: error.message });
+        response.status(500).send({ message: 'An error occurred while processing the request' });
     }
 });
 
@@ -61,10 +72,14 @@ router.get('/:id', async (request, response) => {
 
         const booking = await Booking.findById(id);
 
+        if (!booking) {
+            return response.status(404).json({ message: 'Booking not found' });
+        }
+
         return response.status(200).json(booking);
     } catch (error) {
         console.log(error.message);
-        response.status(500).send({ message: error.message });
+        response.status(500).send({ message: 'An error occurred while processing the request' });
     }
 });
 
@@ -73,7 +88,7 @@ router.put('/:id', async (request, response) => {
     try {
         const { id } = request.params;
 
-        const result = await Booking.findByIdAndUpdate(id, request.body);
+        const result = await Booking.findByIdAndUpdate(id, request.body, { new: true });
 
         if (!result) {
             return response.status(404).json({ message: 'Booking not found' });
@@ -82,7 +97,7 @@ router.put('/:id', async (request, response) => {
         return response.status(200).send({ message: 'Booking updated successfully' });
     } catch (error) {
         console.log(error.message);
-        response.status(500).send({ message: error.message });
+        response.status(500).send({ message: 'An error occurred while processing the request' });
     }
 });
 
@@ -100,7 +115,7 @@ router.delete('/:id', async (request, response) => {
         return response.status(200).send({ message: 'Booking deleted successfully' });
     } catch (error) {
         console.log(error.message);
-        response.status(500).send({ message: error.message });
+        response.status(500).send({ message: 'An error occurred while processing the request' });
     }
 });
 

@@ -64,6 +64,10 @@ const BookingList = () => {
                         <th className="py-2 px-4 border border-gray-400">NIC No</th>
                         <th className="py-2 px-4 border border-gray-400">Email</th>
                         <th className="py-2 px-4 border border-gray-400">Package</th>
+                        {/* Conditionally show the column based on the selected package */}
+                        {bookingRecords.some(record => record.selectedPackage === 'guidedFarmTour') && (
+                            <th className="py-2 px-4 border border-gray-400">Number of Days</th>
+                        )}
                         <th className="py-2 px-4 border border-gray-400">Actions</th>
                     </tr>
                     </thead>
@@ -77,6 +81,10 @@ const BookingList = () => {
                             <td className="py-2 px-4 border border-gray-400">{record.nicNo}</td>
                             <td className="py-2 px-4 border border-gray-400">{record.email}</td>
                             <td className="py-2 px-4 border border-gray-400">{record.selectedPackage}</td>
+                            {/* Conditionally show the column based on the selected package */}
+                            {record.selectedPackage === 'guidedFarmTour' && (
+                                <td className="py-2 px-4 border border-gray-400">{record.numberOfDays}</td>
+                            )}
                             <td className="py-2 px-4 border border-gray-400">
                                 <div className="flex">
                                     <Link to={`/booking/edit/${record._id}`} className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer border-none flex items-center">

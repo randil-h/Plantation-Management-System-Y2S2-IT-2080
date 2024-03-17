@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import {Link} from "react-router-dom";
+import { FaEdit, FaTrash } from 'react-icons/fa';
 import axios from 'axios';
 import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 
-const EqMaintain = () => {
-    const [inventoryRecords, setInventoryRecords] = useState([]);
+
+const InventoryRecordList = () => {
+    const [inventoryInputs, setInventoryInputs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -13,9 +14,9 @@ const EqMaintain = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/inventoryrecords`)
+            .get(`http://localhost:5555/inventoryinputs`)
             .then((response) => {
-                setInventoryRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
+                setInventoryInputs(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
                 setLoading(false);
             })
             .catch((error) => {
@@ -26,9 +27,9 @@ const EqMaintain = () => {
 
     const handleDelete = (recordId) => {
         axios
-            .delete(`http://localhost:5555/inventoryrecords/${recordId}`)
+            .delete(`http://localhost:5555/inventoryinputs/${recordId}`)
             .then(() => {
-                setInventoryRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
+                setInventoryInputs(prevRecords => prevRecords.filter(record => record._id !== recordId));
             })
             .catch((error) => {
                 console.log(error);
@@ -36,51 +37,46 @@ const EqMaintain = () => {
             });
     };
 
-    const filteredRecords = inventoryRecords.filter((record) =>
-        Object.values(record).some((value) => {
-            if (typeof value === 'string' || typeof value === 'number') {
-                // Convert value to string and check if it includes the search query
-                return String(value).toLowerCase().includes(searchQuery.toLowerCase());
-            }
-            return false;
-        })
-    );
 
     return (
         <div className=" overflow-x-auto  ">
 
             <div className="flex flex-row justify-between items-center px-8 py-4">
                 <div>
-                    <h1 className=" text-lg font-semibold text-left">Maintenances Records</h1>
-                    <p className="mt-1 text-sm font-normal text-gray-500 0">Easily access stored Maintenances Records
+                    <h1 className=" text-lg font-semibold text-left">Inventory Records</h1>
+                    <p className="mt-1 text-sm font-normal text-gray-500 0">Easily access stored Inventory Records
                         within the system for thorough insights.</p>
-                    <div className=" py-4">
-                        <input
-                            type="text"
-                            placeholder="Search all maintenances records..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="border border-gray-300 rounded-full px-3 py-1 w-full"
-                        />
-                    </div>
                 </div>
 
                 <div>
-                    <a href="/inventory/maintenancelog/addeqmainpage"
+                    <a href="/inventory/inventoryrecords/addinventoryrecordspage"
                        className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
-                        Add new maintenances record <span aria-hidden="true">&rarr;</span>
+                        Add new inventory record <span aria-hidden="true">&rarr;</span>
                     </a>
                 </div>
             </div>
             <div>
+                <div>
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        className="border rounded-md px-3 py-1 mr-3 focus:outline-none focus:border-blue-500 absolute top-14 left-72 mt-40"
+                    />
+                    <button
+                        className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 left-1/3 mt-40"
+                    >
+                        Search
+                    </button>
+                </div>
+
 
                 <button
-                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-24 right-10 mt-36 mr-5"
+                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-36 mr-5"
                 >
                     Print
                 </button>
 
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500  mt-24">
                     <thead
                         className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                     <tr className=" ">
@@ -89,22 +85,25 @@ const EqMaintain = () => {
                             No
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Equipment/Machine
+                            Type
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Eq / Machine ID
+                            Record ID
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Date referred to
+                            Name
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Received date
+                            Storage Location
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Referred location
+                            Quantity
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Comment
+                            Expire Date
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Description
                         </th>
                         <th scope="col" className=" py-3">
                             <span className="sr-only">Info</span>
@@ -119,29 +118,32 @@ const EqMaintain = () => {
                     </thead>
                     <tbody className="border-b border-green-400">
 
-                    {filteredRecords.map((record, index) => (
+                    {inventoryInputs.map((record, index) => (
                         <tr key={index}>
                             <td></td>
                             <td className="px-6 py-4">
                                 {index + 1}
                             </td>
                             <td className="px-6 py-4">
-                                {record.Eq_machine_main}
+                                {record.type}
                             </td>
                             <td className="px-6 py-4">
-                                {record.Eq_id_main}
+                                {record.record_ID}
                             </td>
                             <td className="px-6 py-4">
-                                {record.date_referred.split("T")[0]}
+                                {record.record_name}
                             </td>
                             <td className="px-6 py-4">
-                                {record.date_received.split("T")[0]}
+                                {record.storage}
                             </td>
                             <td className="px-6 py-4">
-                                {record.ref_loc}
+                                {record.quantity}
                             </td>
                             <td className="px-6 py-4">
-                                {record.comment}
+                                {record.expire_date ? new Date(record.expire_date).toISOString().split('T')[0] : "N/A"}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.description}
                             </td>
                             <td className=" py-4 text-right">
                                 <a href="#"
@@ -152,7 +154,7 @@ const EqMaintain = () => {
                                 </a>
                             </td>
                             <td className=" py-4 text-right">
-                                <Link to={`../editeqmainpage/${record._id}`}
+                                <Link to={`/inventory/inventoryrecords/editinventorypage/${record._id}`}
                                       className="font-medium text-blue-600 hover:underline">
                                     <PencilSquareIcon
                                         className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
@@ -175,6 +177,8 @@ const EqMaintain = () => {
 
 
                     </tbody>
+
+
                 </table>
             </div>
         </div>
@@ -182,5 +186,4 @@ const EqMaintain = () => {
 
     );
 };
-
-export default EqMaintain;
+export default InventoryRecordList;

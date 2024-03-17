@@ -9,7 +9,7 @@ export default function AgroTourismIntro() {
     return (
         <div>
             <Navbar />
-            <div className="container">
+            <div className="">
                 <AgroTourism />
                 <Feedback />
                 <SubscribeNewsletter />
