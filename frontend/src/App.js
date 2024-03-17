@@ -128,8 +128,8 @@ export default function App() {
 
                     <Route path="/finances/transactions" element={<ViewAllTransactions />} />
                     <Route path="/finances/transactions/addTransaction" element={<AddNewTransaction />} />
-                    <Route path="/finances/transactions/viewTransactionDetails" element={<ViewTransactionDetails />} />
-                    <Route path="/finances/transactions/editTransaction" element={<EditTransaction />} />
+                    <Route path="/finances/transactions/viewTransactionDetails/:id" element={<ViewTransactionDetails />} />
+                    <Route path="/finances/transactions/editTransaction/:id" element={<EditTransaction />} />
                     <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
 
 

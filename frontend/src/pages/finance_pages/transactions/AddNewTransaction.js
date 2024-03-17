@@ -11,9 +11,9 @@ import BackButton from '../../../components/utility/BackButton';
 function AddNewTransaction() {
     const [date, setDate] = useState('');
     const [type, setType] = useState('income');
-    const [amount, setAmount] = useState('2000');
-    const [description, setDescription] = useState('new transaction');
-    const [payerPayee, setPayerPayee] = useState('Gunathilake');
+    const [amount, setAmount] = useState('');
+    const [description, setDescription] = useState('');
+    const [payerPayee, setPayerPayee] = useState('');
     const [method, setMethod] = useState('Cheque');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -53,7 +53,6 @@ function AddNewTransaction() {
 
 
         const handleCancel = () => {
-            // Navigate to the previous location
             navigate(-1); // This will navigate back to the previous location in the history stack
         };
 
