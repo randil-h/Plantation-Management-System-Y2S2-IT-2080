@@ -1,4 +1,4 @@
-import {TransactionsRecord} from "../../models/Finance Models/TransactionsModel.js";
+import {ValuationsRecord} from "../../models/Finance Models/ValuationModel.js";
 import express from "express";
 
 const router = express.Router();
@@ -9,27 +9,31 @@ router.post('/', async (request, response) => {
         if (
             !request.body.date ||
             !request.body.type ||
-            !request.body.amount ||
+            !request.body.subtype ||
+            !request.body.quantity ||
+            !request.body.price ||
             !request.body.description ||
             !request.body.payer_payee ||
-            !request.body.method
+            !request.body.appreciationOrDepreciation
         ) {
             return response.status(400).send({
-                message: 'Send all required fields: date, type, amount',
+                message: 'Send all required fields',
             });
         }
 
-        const NewTransactionsRecord = {
+        const NewValuationsRecord = {
             date: request.body.date,
             type: request.body.type,
-            amount: request.body.amount,
+            subtype: request.body.subtype,
+            quantity: request.body.quantity,
+            price: request.body.price,
             description: request.body.description,
             payer_payee: request.body.payer_payee,
-            method: request.body.method,
+            appreciationOrDepreciation: request.body.appreciationOrDepreciation,
         };
 
-        const TransactionRecord = await TransactionsRecord.create(NewTransactionsRecord);
-        return response.status(201).send(TransactionRecord);
+        const ValuationRecord = await ValuationsRecord.create(NewValuationsRecord);
+        return response.status(201).send(ValuationRecord);
 
     }catch (error) {
         console.log(error.message);
@@ -41,11 +45,11 @@ router.post('/', async (request, response) => {
 
 router.get('/', async (request, response) => {
     try {
-        const TransactionRecord = await TransactionsRecord.find({});
+        const ValuationRecord = await ValuationsRecord.find({});
 
         return response.status(200).json({
-            count: TransactionRecord.length,
-            data: TransactionRecord,
+            count: ValuationRecord.length,
+            data: ValuationRecord,
         });
     } catch (error) {
         console.log(error.message);
@@ -58,9 +62,9 @@ router.get('/:id', async (request, response) => {
     try {
         const { id } = request.params;
 
-        const TransactionRecord = await TransactionsRecord.findById(id);
+        const ValuationRecord = await ValuationsRecord.findById(id);
 
-        return response.status(200).json(TransactionRecord);
+        return response.status(200).json(ValuationRecord);
     } catch (error) {
         console.log(error.message);
         response.status(500).send({ message: error.message });
@@ -73,19 +77,21 @@ router.put('/:id', async (request, response) => {
         if (
             !request.body.date ||
             !request.body.type ||
-            !request.body.amount ||
+            !request.body.subtype ||
+            !request.body.quantity ||
+            !request.body.price ||
             !request.body.description ||
             !request.body.payer_payee ||
-            !request.body.method
+            !request.body.appreciationOrDepreciation
         ) {
             return response.status(400).send({
-                message: 'Send all required fields: title, author, publishYear',
+                message: 'Send all required fields',
             });
         }
 
         const { id } = request.params;
 
-        const result = await TransactionsRecord.findByIdAndUpdate(id, request.body);
+        const result = await ValuationsRecord.findByIdAndUpdate(id, request.body);
 
         if (!result) {
             return response.status(404).json({ message: 'Transaction record not found' });
@@ -103,7 +109,7 @@ router.delete('/:id', async (request, response) => {
     try {
         const { id } = request.params;
 
-        const result = await TransactionsRecord.findByIdAndDelete(id);
+        const result = await ValuationsRecord.findByIdAndDelete(id);
 
         if (!result) {
             return response.status(404).json({ message: 'Transaction record not found' });

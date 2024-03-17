@@ -10,7 +10,7 @@ import DiseaseTrackingNavigation from "../../../components/diseaseManagement_hom
 
 export default function ViewAllDiseases() {
 
-    /*const [DiseaseRecords, setDiseaseRecords] = useState([]);
+   /* const [DiseaseRecords, setDiseaseRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     //const [showType, setShowType] = useState('table');
 
@@ -20,6 +20,23 @@ export default function ViewAllDiseases() {
             .get('http://localhost:5555/diseases')
             .then((response) => {
                 setDiseaseRecords(response.data.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);*/
+
+   /* const [diseases, setDisease] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get('http://localhost:5555/diseases')
+            .then((response) => {
+                setDisease(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -53,14 +70,6 @@ export default function ViewAllDiseases() {
                         <div>
                             <DiseaseList/>
                         </div>
-{/*
-                        {loading ? (
-                                <LoadingAnimation/>
-                            ) :
-                            <DiseaseList DiseaseRecords={DiseaseRecords}/>
-                        }*/}
-
-
                     </div>
                 </div>
             </div>

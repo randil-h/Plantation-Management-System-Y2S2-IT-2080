@@ -1,11 +1,14 @@
- import express from "express";
+import express from "express";
 import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import { TestRecord } from "./models/TestModel.js";
 import cors from 'cors';
 import testRoute from "./routes/TestRoute.js";
-import BookingRoute from "./routes/AgroTourism/BookingRoute.js";
+import BookingRoute from "./routes/AgroTourism Routes/BookingRoute.js";
+
 import TransactionsRoute from "./routes/Finance Routes/TransactionsRoute.js";
+import ValuationRoute from "./routes/Finance Routes/ValuationRoute.js";
+
 import DiseaseRoute from "./routes/Disease Tracking Routes/DiseaseRoute.js";
 
 import RotationRoute from "./routes/Crop Routes/RotationRoute.js"
@@ -15,14 +18,17 @@ import CropInputRoute from "./routes/Crop Routes/CropInputRoute.js"
 
 import EqMaintainroute from "./routes/Inventory Routes/EqMaintainroute.js";
 import WaterRoute from "./routes/Inventory Routes/waterRoute.js";
+import InventoryRecordRoute from "./routes/Inventory Routes/InventoryRecordRoute.js";
 
 import RegistrationRoute from "./routes/Employee Routes/RegistrationRoute.js";
 
-import RecordRoute from "./routes/Harvest Routes/RecordRoute.js"
+import ProductRoute from "./routes/Wholesale  Routes/ProductRoute.js";
+
+
 const app = express();
 
 app.use(express.json());
-
+ 
 //app.use(cors());
 
 
@@ -43,6 +49,7 @@ app.get('/', (request, response) => {
 
 app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
+app.use('/valuation', ValuationRoute);
 
 app.use('/booking', BookingRoute);
 app.use('/confirmation', BookingRoute);
@@ -57,11 +64,11 @@ app.use('/cropinput', CropInputRoute);
 
 app.use('/inventoryrecords', EqMaintainroute);
 app.use('/waterRecords', WaterRoute);
+app.use('/inventoryinputs', InventoryRecordRoute);
 
 app.use('/employeeRecords',RegistrationRoute);
 
-app.use('/newrecord', RecordRoute);
-
+app.use('/product' ,ProductRoute);
 mongoose
     .connect(mongoDBURL)
     .then(() => {

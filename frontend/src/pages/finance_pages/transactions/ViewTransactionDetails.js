@@ -19,13 +19,12 @@ export default function ViewTransactionDetails() {
 
     const [TransactionRecord, setTransactionRecord] = useState({});
     const [loading, setLoading] = useState(false);
-    const { _id } = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         setLoading(true);
-        console.log("Transaction ID:", _id); // Add this line for debugging
         axios
-            .get(`http://localhost:5555/transactions/${_id}`)
+            .get(`http://localhost:5555/transactions/${id}`)
             .then((response) => {
                 setTransactionRecord(response.data);
                 setLoading(false);
@@ -34,7 +33,7 @@ export default function ViewTransactionDetails() {
                 console.log(error);
                 setLoading(false);
             });
-    }, [_id]);
+    }, [id]);
 
 
     return (
@@ -62,7 +61,7 @@ export default function ViewTransactionDetails() {
                                     application.</p>
                             </div>
                             <div className="mt-6 border-t border-gray-100">
-                                <dl className="divide-y divide-gray-100">
+                                <dl className="divide-y divide-gray-200">
                                     <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                         <dt className="text-sm font-medium leading-6 text-gray-900">Transaction date
                                         </dt>
@@ -102,7 +101,7 @@ export default function ViewTransactionDetails() {
                                     </div>
 
 
-                                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                   <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                         <dt className="text-sm font-medium leading-6 text-gray-900">Record created at</dt>
                                         <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                                             {new Date(TransactionRecord.createdAt).toString()}

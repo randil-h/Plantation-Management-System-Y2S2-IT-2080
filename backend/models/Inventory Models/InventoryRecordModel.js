@@ -1,37 +1,54 @@
 import mongoose from 'mongoose';
-
-const bookingSchema = mongoose.Schema(
+const InventoryRecordSchema = mongoose.Schema(
     {
-        name: {
+        type:{
             type: String,
             required: true,
         },
-        telNo: {
+        record_ID: {
             type: String,
             required: true,
         },
-        nicNo: {
+        record_name: {
             type: String,
             required: true,
         },
-        email: {
+        storage: {
             type: String,
             required: true,
         },
-        selectedPackage: {
-            type: String,
+        quantity: {
+            type: Number,
             required: true,
         },
-        date: {
+        expire_date: {
             type: Date,
+            required: false,
+        },
+        description: {
+            type: String,
             required: true,
         },
+
     },
     {
-        timestamps: true,
+        timestamps:true,
     }
 );
 
-const Booking = mongoose.model('Booking', bookingSchema);
+export const InventoryInput = mongoose.model('InventoryInput', InventoryRecordSchema);
 
-export default Booking;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
