@@ -39,6 +39,14 @@ const bookingSchema = mongoose.Schema(
         timestamps: true,
     }
 );
+bookingSchema.pre('save', function(next) {
+    // Ensure the 'date' field exists and is a valid Date object
+    if (this.date instanceof Date) {
+        // Convert the date to a string without time
+        this.date = this.date.toISOString().split('T')[0];
+    }
+    next();
+});
 
 const Booking = mongoose.model('Booking', bookingSchema);
 
