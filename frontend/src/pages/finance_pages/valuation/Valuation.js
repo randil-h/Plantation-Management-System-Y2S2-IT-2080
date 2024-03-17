@@ -32,6 +32,7 @@ export default function Valuation() {
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
+
                     </div>
                 </div>
             </div>

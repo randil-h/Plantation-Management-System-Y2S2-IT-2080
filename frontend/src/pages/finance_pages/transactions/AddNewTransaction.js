@@ -34,7 +34,7 @@ function AddNewTransaction() {
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                navigate(-1);
+                navigate('/');
             })
             .catch((error) => {
                 setLoading(false);

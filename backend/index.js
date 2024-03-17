@@ -4,8 +4,11 @@ import mongoose from "mongoose";
 import { TestRecord } from "./models/TestModel.js";
 import cors from 'cors';
 import testRoute from "./routes/TestRoute.js";
-import BookingRoute from "./routes/AgroTourism Routes/BookingRoute.js";
+import BookingRoute from "./routes/AgroTourism/BookingRoute.js";
+
 import TransactionsRoute from "./routes/Finance Routes/TransactionsRoute.js";
+import ValuationRoute from "./routes/Finance Routes/ValuationRoute.js";
+
 import DiseaseRoute from "./routes/Disease Tracking Routes/DiseaseRoute.js";
 
 import RotationRoute from "./routes/Crop Routes/RotationRoute.js"
@@ -20,6 +23,7 @@ import InventoryRecordRoute from "./routes/Inventory Routes/InventoryRecordRoute
 import RegistrationRoute from "./routes/Employee Routes/RegistrationRoute.js";
 
 import ProductRoute from "./routes/Wholesale  Routes/ProductRoute.js";
+
 
 const app = express();
 
@@ -45,6 +49,7 @@ app.get('/', (request, response) => {
 
 app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
+app.use('/valuation', ValuationRoute);
 
 app.use('/booking', BookingRoute);
 app.use('/confirmation', BookingRoute);
