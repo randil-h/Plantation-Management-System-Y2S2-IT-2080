@@ -77,7 +77,7 @@ router.get('/:id', async (request, response) => {
 
 
 
-
+//Route to update harvest record
 router.put('/:id', async (request, response) => {
     try {
         if(
@@ -103,6 +103,24 @@ router.put('/:id', async (request, response) => {
         }
 
         return response.status(200).send({ message: 'Harvest record updated successfully' });
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+// Route for Delete a harvest record
+router.delete('/:id', async (request, response) => {
+    try {
+        const { id } = request.params;
+
+        const result = await HarvestingRecord.findByIdAndDelete(id);
+
+        if (!result) {
+            return response.status(404).json({ message: 'Harvest record not found' });
+        }
+
+        return response.status(200).send({ message: 'Harvest record deleted successfully' });
     } catch (error) {
         console.log(error.message);
         response.status(500).send({ message: error.message });
