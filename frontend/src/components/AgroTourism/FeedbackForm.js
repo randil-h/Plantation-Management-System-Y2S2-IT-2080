@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
-
+import { useNavigate } from "react-router-dom";
 const FeedbackForm = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [feedback, setFeedback] = useState("");
     const [rating, setRating] = useState(0); // Initial rating
-
+    const navigate = useNavigate();
     const handleRatingChange = (newRating) => {
         setRating(newRating);
     };
@@ -16,6 +16,7 @@ const FeedbackForm = () => {
         e.preventDefault();
         // Handle the form submission (e.g., send data to server)
         console.log("Submitted Data:", { name, email, feedback, rating });
+        navigate("/feedbacklist");
     };
 
     return (
@@ -87,7 +88,7 @@ const FeedbackForm = () => {
                 </div>
             </form>
             <p className="mt-4 text-lg flex items-center">
-                <Link to="/tourism" className="text-black flex items-center">
+                <Link to="/feedback" className="text-black flex items-center">
                     <IoMdArrowRoundBack className="mr-2"/> Go back
                 </Link>
             </p>
