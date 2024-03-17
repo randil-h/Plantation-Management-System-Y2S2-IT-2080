@@ -87,7 +87,7 @@ const BookingList = () => {
                     {bookingRecords.map((record, index) => (
                         <tr className="hover:bg-gray-100" key={index}>
                             <td className="py-2 px-4 border border-gray-400">{index + 1}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.date}</td>
+                            <td className="py-2 px-4 border border-gray-400">{new Date(record.date).toLocaleDateString('en-GB')}</td>
                             <td className="py-2 px-4 border border-gray-400">{record.name}</td>
                             <td className="py-2 px-4 border border-gray-400">{record.telNo}</td>
                             <td className="py-2 px-4 border border-gray-400">{record.nicNo}</td>

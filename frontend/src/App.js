@@ -87,7 +87,6 @@ import EditBookingPg from "./pages/tourism_pages/EditBooking";
 import ViewEmpDetails from "./pages/employee_pages/emp_registation/ViewEmpDetails";
 import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
 
-import FarmChoreExperience from "./components/AgroTourism/farm_chore";
 import EditEmployeePage from "./pages/employee_pages/emp_registation/EditEmployeePage";
 
 
