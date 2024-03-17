@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import LoadingAnimation from "./components/utility/LoadingAnimation";
 import {KindeProvider} from "@kinde-oss/kinde-auth-react";
 
+
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
 import Dashboard from "./pages/Dashboard.js";
