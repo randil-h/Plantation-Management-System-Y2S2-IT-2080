@@ -4,8 +4,10 @@ import Subscribe_newsletter from "../../components/landingPage/subscribe_newslet
 import Footer from "../../components/utility/Footer";
 import StepIndicator from "../../components/AgroTourism/StepIndicator";
 import PaymentPortal from "../../components/AgroTourism/payment";
+import { SnackbarProvider } from 'notistack'; // Import SnackbarProvider
 export default function PaymentPg() {
     return (
+        <SnackbarProvider maxSnack={3}> {/* Wrap the component hierarchy with SnackbarProvider */}
         <div className="flex-col">
             {/* Navbar */}
             <div className="border-b sticky top-0 z-10">
@@ -16,5 +18,6 @@ export default function PaymentPg() {
             <Subscribe_newsletter/>
             <Footer/>
         </div>
+        </SnackbarProvider>
     )
 }
