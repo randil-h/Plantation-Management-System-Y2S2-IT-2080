@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa";
 import axios from 'axios';
 import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 
@@ -8,7 +7,6 @@ const EqMaintain = () => {
     const [inventoryRecords, setInventoryRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-
 
     useEffect(() => {
         setLoading(true);
@@ -25,21 +23,22 @@ const EqMaintain = () => {
     }, []);
 
     const handleDelete = (recordId) => {
-        axios
-            .delete(`http://localhost:5555/inventoryrecords/${recordId}`)
-            .then(() => {
-                setInventoryRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
-            })
-            .catch((error) => {
-                console.log(error);
-                // Handle error
-            });
+        const confirmed = window.confirm("Are you sure you want to delete this record?");
+        if (confirmed) {
+            axios
+                .delete(`http://localhost:5555/inventoryrecords/${recordId}`)
+                .then(() => {
+                    setInventoryRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     };
 
     const filteredRecords = inventoryRecords.filter((record) =>
         Object.values(record).some((value) => {
             if (typeof value === 'string' || typeof value === 'number') {
-                // Convert value to string and check if it includes the search query
                 return String(value).toLowerCase().includes(searchQuery.toLowerCase());
             }
             return false;
@@ -48,7 +47,6 @@ const EqMaintain = () => {
 
     return (
         <div className=" overflow-x-auto  ">
-
             <div className="flex flex-row justify-between items-center px-8 py-4">
                 <div>
                     <h1 className=" text-lg font-semibold text-left">Maintenances Records</h1>
@@ -64,7 +62,6 @@ const EqMaintain = () => {
                         />
                     </div>
                 </div>
-
                 <div>
                     <a href="/inventory/maintenancelog/addeqmainpage"
                        className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
@@ -73,7 +70,6 @@ const EqMaintain = () => {
                 </div>
             </div>
             <div>
-
                 <button
                     className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-24 right-10 mt-36 mr-5"
                 >
@@ -144,14 +140,6 @@ const EqMaintain = () => {
                                 {record.comment}
                             </td>
                             <td className=" py-4 text-right">
-                                <a href="#"
-                                   className="font-medium text-blue-600  hover:underline">
-                                    <InformationCircleIcon
-                                        className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
-                                        aria-hidden="true"/>
-                                </a>
-                            </td>
-                            <td className=" py-4 text-right">
                                 <Link to={`../editeqmainpage/${record._id}`}
                                       className="font-medium text-blue-600 hover:underline">
                                     <PencilSquareIcon
@@ -163,7 +151,6 @@ const EqMaintain = () => {
                                 <button
                                     className="flex items-center"
                                     onClick={() => handleDelete(record._id)}
-
                                 >
                                     <TrashIcon
                                         className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
@@ -172,15 +159,10 @@ const EqMaintain = () => {
                             </td>
                         </tr>
                     ))}
-
-
                     </tbody>
                 </table>
             </div>
         </div>
-
-
     );
 };
-
 export default EqMaintain;

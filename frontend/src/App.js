@@ -46,9 +46,6 @@ import InventoryRecordList from "./pages/inventory_pages/Inventory_records/Inven
 import AddInventoryRecordsPage from "./pages/inventory_pages/Inventory_records/AddInventoryRecordsPage";
 import EditInventoryRecords from "./components/Inventory/Inventory_records/EditInventoryRecords";
 
-
-import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
-
 import DiseaseTracking from "./pages/diseaseTracking_pages/DiseaseTracking";
 import ViewAllDiseases from "./pages/diseaseTracking_pages/records/ViewAllDiseases";
 import DiseaseVisualization from "./pages/diseaseTracking_pages/visualization/diseaseVisualization";
@@ -63,6 +60,9 @@ import MarketPrice from "./pages/insights/marketPriceAnalysis/MarketPrice";
 import WholeSaleTransaction from "./pages/WholeSaleMangement/WholeSaleTransaction";
 import MyOrders from "./pages/WholeSaleMangement/MyOrders";
 import AddingProduct from"./pages/WholeSaleMangement/AddingProduct";
+import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
+import WholeSaleDashBoard from "./pages/WholeSaleMangement/WholeSaleDashBoard";
+
 
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
@@ -170,6 +170,7 @@ export default function App() {
                     <Route path="/WholeSale/orders" element={MyOrders()}/>
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/addingProduct" element={AddingProduct()}/>
+                    <Route path="/wholesaleDashboard" element={WholeSaleDashBoard()}/>
 
                     <Route path = "diseases/home" element={DiseaseTracking()}/>
 

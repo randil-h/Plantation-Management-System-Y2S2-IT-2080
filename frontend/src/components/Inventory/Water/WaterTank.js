@@ -66,12 +66,18 @@ function WaterTank() {
             .then((response) => {
                 setWaterRecord(response.data.data);
                 setLoading(false);
+                if (response.data.data.length > 0) {
+                    const latestRecord = response.data.data[response.data.data.length - 1];
+                    const totalPercentage = ((latestRecord.water_level1 + latestRecord.water_level2) / (tank1Capacity + tank2Capacity)) * 100;
+                    enqueueSnackbar(`Water level is ${totalPercentage.toFixed(2)}%`, { variant: 'info' });
+                }
             })
             .catch((error) => {
                 console.log(error);
                 setLoading(false);
             });
     }, []);
+
 
     const handleDelete = (recordId) => {
         axios
@@ -84,13 +90,54 @@ function WaterTank() {
             });
     };
 
-    // Calculate percentage of water in each tank
-    const tank1Percentage = (water_level1 / tank1Capacity) * 100;
-    const tank2Percentage = (water_level2 / tank2Capacity) * 100;
-
     // Calculate total percentage of water based on the latest record
     const latestRecord = waterRecords.length > 0 ? waterRecords[waterRecords.length - 1] : null;
     const totalPercentage = latestRecord ? ((latestRecord.water_level1 + latestRecord.water_level2) / (tank1Capacity + tank2Capacity)) * 100 : 0;
+
+    // Calculate the rate of decrease in water level per day
+    const calculateDecreaseRate = (latestRecord, prevRecord) => {
+        if (!latestRecord || !prevRecord) return 0; // No records yet
+
+        const totalWaterRemaining = (prevRecord.water_level1 + prevRecord.water_level2) - (latestRecord.water_level1 + latestRecord.water_level2);
+
+        // Calculate the rate of decrease in water level per day
+        const decreaseRatePerDay = totalWaterRemaining / 7; // Assuming each record is 7 days apart
+        return decreaseRatePerDay;
+    };
+
+    // Calculate the estimated number of days until water becomes 0%
+    const calculateDaysToEmpty = (decreaseRatePerDay) => {
+        if (decreaseRatePerDay <= 0) return Infinity; // No decrease in water level
+
+        // Get the latest water record
+        const latestRecord = waterRecords[waterRecords.length - 1];
+
+        // Calculate the total water remaining based on the latest record
+        const totalWaterRemaining = (latestRecord.water_level1 + latestRecord.water_level2);
+
+        // Calculate the estimated number of days until water becomes 0%
+        const daysToEmpty = totalWaterRemaining / decreaseRatePerDay;
+        return daysToEmpty;
+    };
+
+
+
+    // Calculate decrease rate and days to empty
+    let decreaseRatePerDay = 0;
+    let daysToEmpty = Infinity;
+    {
+        const latestRecord = waterRecords[waterRecords.length - 1];
+        const prevRecord = waterRecords[waterRecords.length - 2];
+        decreaseRatePerDay = calculateDecreaseRate(latestRecord, prevRecord);
+        daysToEmpty = calculateDaysToEmpty(decreaseRatePerDay);
+    }
+
+
+
+    // Display the result
+    if (isFinite(daysToEmpty)) {
+        enqueueSnackbar(`Water will be empty in approximately ${Math.ceil(daysToEmpty)} days.`, { variant: 'info' });
+    }
 
     return (
         <div className="flex">
@@ -98,11 +145,9 @@ function WaterTank() {
                 <div className="WaterTank relative" style={{width: '400px', height: '600px'}}>
                     <h1 className="text-blue-500 text-3xl font-bold mb-4">Water Tank Visualization</h1>
                     <div className="border border-gray-400 rounded-md h-full relative overflow-hidden">
-                        <div className="WaterTank" style={{width: '400px', height: '100%', position: 'relative'}}>
-                            <div className="tank absolute bottom-0 bg-blue-500"
-                                 style={{height: `${totalPercentage}%`, width: '100%'}}/>
-                        </div>
-                        <PercentageRuler />
+                        <div className="tank absolute bottom-0 bg-blue-500"
+                             style={{height: `${totalPercentage}%`, width: '100%'}}/>
+                        <PercentageRuler/>
                     </div>
                 </div>
             </div>
@@ -201,4 +246,5 @@ function WaterTank() {
         </div>
     );
 }
+
 export default WaterTank;

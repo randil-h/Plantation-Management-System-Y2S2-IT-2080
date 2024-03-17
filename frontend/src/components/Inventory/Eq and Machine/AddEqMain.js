@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-
 const AddEqMain = () => {
     const [Eq_machine_main, setEq_machine_main] = useState('');
     const [Eq_id_main, setEq_id_main] = useState('');
@@ -15,6 +14,10 @@ const AddEqMain = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (new Date(date_received) <= new Date(date_referred)) {
+            window.alert('Received date must be after Date referred to');
+            return;
+        }
         const data = {
             Eq_machine_main,
             Eq_id_main,
@@ -26,13 +29,22 @@ const AddEqMain = () => {
         axios
             .post('http://localhost:5555/inventoryrecords', data)
             .then(() => {
+                window.alert('Record Created successfully');
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                navigate('/inventory/maintenancelog', { state: { highlighted: true } }); // Navigate to maintenance log and highlight it
+                navigate('/inventory/maintenancelog', { state: { highlighted: true } });
             })
             .catch((error) => {
                 enqueueSnackbar('Error', { variant: 'error' });
                 console.log(error);
             });
+    };
+    const handleCancel = () => {
+        setEq_machine_main('');
+        setEq_id_main('');
+        setDate_referred('');
+        setDate_received('');
+        setRef_loc('');
+        setComment('');
     };
 
     return (
@@ -57,6 +69,7 @@ const AddEqMain = () => {
                                         value={Eq_machine_main}
                                         onChange={(e) => setEq_machine_main(e.target.value)}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        required
                                     />
                                 </div>
                             </div>
@@ -71,6 +84,7 @@ const AddEqMain = () => {
                                         value={Eq_id_main}
                                         onChange={(e) => setEq_id_main(e.target.value)}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        required
                                     />
                                 </div>
                             </div>
@@ -85,6 +99,7 @@ const AddEqMain = () => {
                                         value={date_referred}
                                         onChange={(e) => setDate_referred(e.target.value)}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        required
                                     />
                                 </div>
                             </div>
@@ -99,6 +114,7 @@ const AddEqMain = () => {
                                         value={date_received}
                                         onChange={(e) => setDate_received(e.target.value)}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        required
                                     />
                                 </div>
                             </div>
@@ -113,6 +129,7 @@ const AddEqMain = () => {
                                         value={ref_loc}
                                         onChange={(e) => setRef_loc(e.target.value)}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        required
                                     />
                                 </div>
                             </div>
@@ -134,7 +151,7 @@ const AddEqMain = () => {
                         </div>
                     </div>
                     <div className="mt-6 flex items-center justify-end gap-x-6">
-                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900" onClick={handleCancel}>
                             Cancel
                         </button>
                         <button
