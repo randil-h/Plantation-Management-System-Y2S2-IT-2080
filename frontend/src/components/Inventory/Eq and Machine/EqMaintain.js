@@ -165,7 +165,7 @@ const EqMaintain = () => {
                                 {record.comment}
                             </td>
                             <td className=" py-4 text-right">
-                                <Link to={`../editeqmainpage/${record._id}`}
+                                <Link to={`/inventory/maintenancelog/editeqmainpage/${record._id}`}
                                       className="font-medium text-blue-600 hover:underline">
                                     <PencilSquareIcon
                                         className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"

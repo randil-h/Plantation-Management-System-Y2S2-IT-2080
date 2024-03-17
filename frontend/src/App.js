@@ -172,7 +172,7 @@ export default function App() {
                     <Route path= "/inventory/home" element={Inventory()}/>
                     <Route path= "/inventory/maintenancelog" element={MaintenanceLog()}/>
                     <Route path="/inventory/maintenancelog/addeqmainpage" element={(AddEqMainPage())}/>
-                    <Route path="/editeqmainpage/:id" element={<EditEqMainPage />} />
+                    <Route path="/inventory/maintenancelog/editeqmainpage/:id" element={<EditEqMainPage />} />
                     <Route path= "/inventory/water" element={Water()}/>
                     <Route path= "/inventory/inventoryrecords" element={InventoryRecordList()}/>
                     <Route path= "/inventory/inventoryrecords/addinventoryrecordspage" element={(AddInventoryRecordsPage())}/>
