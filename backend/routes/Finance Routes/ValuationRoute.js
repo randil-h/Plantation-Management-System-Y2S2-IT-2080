@@ -9,10 +9,12 @@ router.post('/', async (request, response) => {
         if (
             !request.body.date ||
             !request.body.type ||
-            !request.body.amount ||
+            !request.body.subtype ||
+            !request.body.quantity ||
+            !request.body.price ||
             !request.body.description ||
             !request.body.payer_payee ||
-            !request.body.method
+            !request.body.appreciationOrDepreciation
         ) {
             return response.status(400).send({
                 message: 'Send all required fields: date, type, amount',
@@ -22,10 +24,12 @@ router.post('/', async (request, response) => {
         const NewValuationsRecord = {
             date: request.body.date,
             type: request.body.type,
-            amount: request.body.amount,
+            subtype: request.body.subtype,
+            quantity: request.body.quantity,
+            price: request.body.price,
             description: request.body.description,
             payer_payee: request.body.payer_payee,
-            method: request.body.method,
+            appreciationOrDepreciation: request.body.appreciationOrDepreciation,
         };
 
         const ValuationRecord = await ValuationsRecord.create(NewValuationsRecord);
@@ -73,10 +77,12 @@ router.put('/:id', async (request, response) => {
         if (
             !request.body.date ||
             !request.body.type ||
-            !request.body.amount ||
+            !request.body.subtype ||
+            !request.body.quantity ||
+            !request.body.price ||
             !request.body.description ||
             !request.body.payer_payee ||
-            !request.body.method
+            !request.body.appreciationOrDepreciation
         ) {
             return response.status(400).send({
                 message: 'Send all required fields',
