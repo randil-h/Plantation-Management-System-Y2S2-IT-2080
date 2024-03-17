@@ -39,7 +39,7 @@ export default function BookingForm() {
         // Validate NIC number
         if (!formData.nicNo.trim()) {
             errors.nicNo = "NIC number is required";
-        } else if (!/^\d{9}[VvXx]?$/.test(formData.nicNo)) {
+        } else if (!/^\d{12}[VvXx]?$/.test(formData.nicNo)) {
             errors.nicNo = "Invalid NIC number";
         }
 
