@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import {
+    PencilSquareIcon,
+    TrashIcon,
+    InformationCircleIcon
+} from '@heroicons/react/24/outline';
 import axios from 'axios';
 import { PDFDownloadLink, PDFViewer, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import html2canvas from 'html2canvas';
@@ -24,8 +28,10 @@ const generatePDF = () => {
         html2canvas(input)
             .then((canvas) => {
                 const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('l', 'mm', 'a4');
+                const pdf = new jsPDF('l', 'mm', 'a3');
                 pdf.addImage(imgData, 'PNG', 0, 0);
+                const tableWidth = input.offsetWidth - input.rows[0].cells[input.rows[0].cells.length - 1].offsetWidth;
+                const tableHeight = input.offsetHeight;
                 pdf.save('rotation-list.pdf');
             })
             .catch((error) => {
@@ -39,6 +45,7 @@ const generatePDF = () => {
 const RotationList = () => {
     const [RotationRecords, setRotationRecords] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         setLoading(true);
@@ -66,15 +73,39 @@ const RotationList = () => {
             });
     };
 
+    const handleSearchInputChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const [filteredRecords, setFilteredRecords] = useState([]);
+
+    useEffect(() => {
+        setFilteredRecords(RotationRecords);
+    }, [RotationRecords]);
+
+    const handleSearch = () => {
+        const filteredRecords = RotationRecords.filter(record =>
+            record.season.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            record.fieldName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            record.cropType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            record.variety.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            record.remarks.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredRecords(filteredRecords);
+    };
+
     return (
         <div className= "z-0">
             <div>
                 <input
                     type="text"
+                    value={searchQuery}
+                    onChange={handleSearchInputChange}
                     placeholder="Search..."
                     className="border rounded-md px-3 py-1 mr-3 focus:outline-none focus:border-blue-500 absolute top-20 left-72 mt-10"
                 />
                 <button
+                    onClick={handleSearch}
                     className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-20 left-1/3 mt-10"
                 >
                     Search
@@ -98,7 +129,7 @@ const RotationList = () => {
 
             <div className="overflow-x-auto">
             <table id="rotation-table"
-                       className="w-fit bg-white shadow-md rounded-md overflow-hidden absolute top-1/3 left-60">
+                       className="w-10/12 bg-white shadow-md rounded-md overflow-hidden absolute top-1/3 left-60">
                     <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
                     <tr>
                         <th className="px-6 py-3">No</th>
@@ -113,7 +144,7 @@ const RotationList = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {RotationRecords.map((record, index) => (
+                    {filteredRecords.map((record, index) => (
                         <tr className="hover:bg-gray-100 divide-y divide-gray-200" key={index}>
                             <td className="px-6 py-4">{index + 1}</td>
                             <td className="px-6 py-4">{record.season}</td>
@@ -124,24 +155,25 @@ const RotationList = () => {
                             <td className="px-6 py-4">{record.yield}</td>
                             <td className="px-6 py-4">{record.remarks}</td>
                             <td className="px-6 py-4">
-                                <div className="flex">
-                                    <Link to={`/crop/rotation/update/${record._id}`}
-                                          className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer border-none flex items-center">
-                                        <FaEdit className="mr-1"/>
-                                        <span>Edit</span>
+                                <div className="flex justify-between">
+                                    <Link to={`/crop/rotation/update/${record._id}`}>
+                                        <PencilSquareIcon
+                                            className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                            aria-hidden="true"/>
                                     </Link>
                                     <button
-                                        className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer ml-6 border-none flex items-center"
+                                        className="flex items-center"
                                         onClick={() => handleDelete(record._id)}>
-                                        <FaTrash className="mr-1"/>
-                                        <span>Delete</span>
+                                        <TrashIcon
+                                            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                            aria-hidden="true"/>
                                     </button>
                                 </div>
                             </td>
                         </tr>
                     ))}
                     </tbody>
-                </table>
+            </table>
             </div>
         </div>
     );

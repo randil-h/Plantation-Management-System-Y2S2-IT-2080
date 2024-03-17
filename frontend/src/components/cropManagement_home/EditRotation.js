@@ -63,8 +63,6 @@ const EditRotation = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-
-        // Use switch case to handle each input field separately
         switch (name) {
             case "season":
                 setSeason(value);
@@ -90,6 +88,11 @@ const EditRotation = () => {
             default:
                 break;
         }
+    };
+
+
+    const handleCancel = () => {
+        navigate('/crop/rotation/view');
     };
 
     return (
@@ -231,7 +234,10 @@ const EditRotation = () => {
                     </div>
                 </div>
                 <div className="mt-6 flex items-center justify-end gap-x-6">
-                    <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+                    <button
+                        type="button"
+                        onClick={handleCancel}
+                        className="text-sm font-semibold leading-6 text-gray-900">
                         Cancel
                     </button>
                     <button

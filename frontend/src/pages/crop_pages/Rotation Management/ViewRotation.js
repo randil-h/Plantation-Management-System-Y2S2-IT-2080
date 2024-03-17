@@ -9,7 +9,6 @@ import RotationList from "../../../components/cropManagement_home/RotationList";
 export default function ViewRotation() {
     return (
         <div className="">
-            {/* Navbar */}
             <div className="border-b sticky top-0 z-10">
                 <Navbar/>
             </div>
