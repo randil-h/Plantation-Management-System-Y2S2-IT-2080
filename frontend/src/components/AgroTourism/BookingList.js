@@ -6,7 +6,18 @@ import axios from 'axios';
 const BookingList = () => {
     const [bookingRecords, setBookingRecords] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const mapPackageName = (packageName) => {
+        switch (packageName) {
+            case 'guidedFarmTour':
+                return 'Guided Farm Tour';
+            case 'fruitAndVegetablePicking':
+                return 'Fruit and Vegetable Picking';
+            case 'farmChoreExperience':
+                return 'Farm Chore Experience';
+            default:
+                return packageName;
+        }
+    };
     useEffect(() => {
         setLoading(true);
         axios
@@ -80,7 +91,7 @@ const BookingList = () => {
                             <td className="py-2 px-4 border border-gray-400">{record.telNo}</td>
                             <td className="py-2 px-4 border border-gray-400">{record.nicNo}</td>
                             <td className="py-2 px-4 border border-gray-400">{record.email}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.selectedPackage}</td>
+                            <td className="py-2 px-4 border border-gray-400">{mapPackageName(record.selectedPackage)}</td>
                             {/* Conditionally show the column based on the selected package */}
                             {record.selectedPackage === 'guidedFarmTour' && (
                                 <td className="py-2 px-4 border border-gray-400">{record.numberOfDays}</td>
