@@ -6,7 +6,18 @@ import axios from 'axios';
 const BookingList = () => {
     const [bookingRecords, setBookingRecords] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const mapPackageName = (packageName) => {
+        switch (packageName) {
+            case 'guidedFarmTour':
+                return 'Guided Farm Tour';
+            case 'fruitAndVegetablePicking':
+                return 'Fruit and Vegetable Picking';
+            case 'farmChoreExperience':
+                return 'Farm Chore Experience';
+            default:
+                return packageName;
+        }
+    };
     useEffect(() => {
         setLoading(true);
         axios
@@ -63,6 +74,7 @@ const BookingList = () => {
                         <th className="py-2 px-4 border border-gray-400">Tel No</th>
                         <th className="py-2 px-4 border border-gray-400">NIC No</th>
                         <th className="py-2 px-4 border border-gray-400">Email</th>
+                        <th className="py-2 px-4 border border-gray-400">No Of People</th>
                         <th className="py-2 px-4 border border-gray-400">Package</th>
                         {/* Conditionally show the column based on the selected package */}
                         {bookingRecords.some(record => record.selectedPackage === 'guidedFarmTour') && (
@@ -80,7 +92,8 @@ const BookingList = () => {
                             <td className="py-2 px-4 border border-gray-400">{record.telNo}</td>
                             <td className="py-2 px-4 border border-gray-400">{record.nicNo}</td>
                             <td className="py-2 px-4 border border-gray-400">{record.email}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.selectedPackage}</td>
+                            <th className="py-2 px-4 border border-gray-400">{record.numberOfPeople}</th>
+                            <td className="py-2 px-4 border border-gray-400">{mapPackageName(record.selectedPackage)}</td>
                             {/* Conditionally show the column based on the selected package */}
                             {record.selectedPackage === 'guidedFarmTour' && (
                                 <td className="py-2 px-4 border border-gray-400">{record.numberOfDays}</td>
@@ -91,11 +104,14 @@ const BookingList = () => {
                             )}
                             <td className="py-2 px-4 border border-gray-400">
                                 <div className="flex">
-                                    <Link to={`/booking/edit/${record._id}`} className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer border-none flex items-center">
+                                    <Link to={`/booking/edit/${record._id}`}
+                                          className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer border-none flex items-center">
                                         <FaEdit className="mr-1"/>
                                         <span>Edit</span>
                                     </Link>
-                                    <button className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer ml-6 border-none flex items-center" onClick={() => handleDelete(record._id)}>
+                                    <button
+                                        className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer ml-6 border-none flex items-center"
+                                        onClick={() => handleDelete(record._id)}>
                                         <FaTrash className="mr-1"/>
                                         <span>Delete</span>
                                     </button>
