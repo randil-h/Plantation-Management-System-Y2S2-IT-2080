@@ -17,7 +17,7 @@ router.post('/', async (request, response) => {
             !request.body.appreciationOrDepreciation
         ) {
             return response.status(400).send({
-                message: 'Send all required fields: date, type, amount',
+                message: 'Send all required fields',
             });
         }
 

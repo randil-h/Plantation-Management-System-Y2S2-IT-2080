@@ -5,6 +5,7 @@ import Navbar from "../../../components/utility/Navbar";
 import FinanceNavigation from "../../../components/finances/FinanceNavigation";
 import BackButton from "../../../components/utility/BackButton";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
+import ValuationTiles from "../../../components/finances/finance_valuation/valuation_tiles";
 
 
 export default function Valuation() {
@@ -32,7 +33,7 @@ export default function Valuation() {
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
-
+                        <ValuationTiles/>
                     </div>
                 </div>
             </div>

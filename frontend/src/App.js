@@ -131,9 +131,9 @@ export default function App() {
                     <Route path="/finances/transactions/editTransaction/:id" element={<EditTransaction />} />
                     <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
 
-                    <Route path="/finances/salaryPayment" element={<Valuation />} />
+                    <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
 
-                    <Route path="/finances/valuation" element={<SalaryPayments />} />
+                    <Route path="/finances/valuation" element={<Valuation />} />
 
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback-form" element={Feedback()}/>
