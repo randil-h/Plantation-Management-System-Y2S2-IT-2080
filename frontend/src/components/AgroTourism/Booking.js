@@ -12,6 +12,7 @@ export default function BookingForm() {
         selectedPackage: '',
         date: '',
         numberOfDays:'',
+        numberOfPeople:'',
 
     });
     const navigate = useNavigate();
@@ -35,6 +36,7 @@ export default function BookingForm() {
             email: '',
             selectedPackage: '',
             date: '',
+            numberOfPeople:'',
         });
 
         // Redirect to a confirmation page or any other page after successful submission
@@ -154,6 +156,21 @@ return (
                     id="date"
                     name="date"
                     value={formData.date}
+                    onChange={handleChange}
+                    className="mt-1 p-2 w-full border rounded-md"
+                    required
+                />
+            </div>
+            <div><br/></div>
+            <div className="mb-4">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    Number of People
+                </label>
+                <input
+                    type="number"
+                    id="numberOfPeople"
+                    name="numberOfPeople"
+                    value={formData.numberOfPeople}
                     onChange={handleChange}
                     className="mt-1 p-2 w-full border rounded-md"
                     required

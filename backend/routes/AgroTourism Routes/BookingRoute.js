@@ -1,5 +1,5 @@
 import express from 'express';
-import Booking from '../../models/AgroTourism/BookingModel.js';
+import Booking from '../../models/AgroTourism Models/BookingModel.js';
 
 const router = express.Router();
 
@@ -14,6 +14,7 @@ router.post('/', async (request, response) => {
             selectedPackage,
             date,
             numberOfDays,
+            numberOfPeople,
         } = request.body;
 
         // Check if all required fields are provided
@@ -38,6 +39,7 @@ router.post('/', async (request, response) => {
             selectedPackage,
             date,
             numberOfDays,
+            numberOfPeople,
 
         };
 
