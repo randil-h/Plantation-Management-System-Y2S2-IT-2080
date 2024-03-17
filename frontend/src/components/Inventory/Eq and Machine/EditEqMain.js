@@ -48,7 +48,7 @@ const EditEqMain = () => {
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Edited successfully', { variant: 'success' });
-                navigate('/maintenancelog', { state: { highlighted: true } });
+                navigate('/inventory/maintenancelog', { state: { highlighted: true } });
             })
             .catch((error) => {
                 setLoading(false);

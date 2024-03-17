@@ -3,19 +3,16 @@ import Navbar from "../../../components/utility/Navbar";
 import SideBar from "../../../components/SideBar";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import React from "react";
-import BackButton from "../../../components/utility/BackButton";
-import Salaryform from "../../../components/Employee/Salary_assign/Salaryform";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
+import EditEmployee from "../../../components/Employee/Employee_register/EditEmployee";
 
-
-export default function Addsalary() {
+export default function EditEmployeePage() {
 
     const breadcrumbItems = [
-        { name: 'Employees', href: '/finances' },
-        { name: 'Transactions', href: '/finances/transactions' },
-        { name: 'Delete Transaction', href: '/finances/transactions/addTransaction' },
+        { name: 'Employee', href: '/employees' },
+        { name: 'Registration', href: '/employees/registration' },
+        { name: 'Edit Employee Details', href: '/employees/registration/editEmployee' },
     ];
-
 
     return (
         <div className="">
@@ -30,15 +27,11 @@ export default function Addsalary() {
 
                     <div className="w-full col-span-5 flex flex-col ">
                         <EmployeeNavbar/>
-                        <div className="flex flex-row ">
-                            <BackButton/>
-                            <Breadcrumb items={breadcrumbItems}/>
+                        <Breadcrumb items={breadcrumbItems}/>
 
+                        <div>
+                            <EditEmployee/>
                         </div>
-                        <div className="flex-col flex items-center justify-center h-full">
-                            <Salaryform/>
-                        </div>
-
                     </div>
                 </div>
             </div>

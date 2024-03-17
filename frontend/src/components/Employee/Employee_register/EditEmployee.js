@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
-const EmpForm = () => {
-
+const EditEmployee = () => {
     const [f_name, setF_name] = useState('');
     const [l_name, setL_name] = useState('');
     const [dob, setDob] = useState('');
@@ -16,11 +15,37 @@ const EmpForm = () => {
     const [emp_type, setEmp_type] = useState('');
     const [qualifications, setQualifications] = useState('');
     const [h_date, setH_date] = useState('');
+    const [loading, setLoading] = useState(false);
     const {enqueueSnackbar} = useSnackbar();
     const navigate = useNavigate();
+    const {id} = useParams(); // Extracting id from route parameters
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    useEffect(() => {
+        setLoading(true);
+        axios.get(`http://localhost:5555/employeeRecords/${id}`)
+            .then((response) => {
+
+                setF_name(response.data.f_name);
+                setL_name(response.data.l_name);
+                setDob(response.data.dob.split("T")[0]); // Extracting date part
+                setGender(response.data.gender);
+                setContact_no(response.data.contact_no);
+                setEmp_email(response.data.emp_email);
+                setNic(response.data.nic);
+                setE_address(response.data.e_address);
+                setEmp_type(response.data.emp_type);
+                setQualifications(response.data.qualifications);
+                setH_date(response.data.h_date.split("T")[0]);
+                setLoading(false);
+
+            }).catch((error) => {
+            setLoading(false);
+            enqueueSnackbar('An error occurred. Please check the console.', {variant: 'error'});
+            console.log(error);
+        });
+    }, [id]); // Adding id to dependency array
+
+    const handleEdit = () => {
         const data = {
             f_name,
             l_name,
@@ -34,14 +59,17 @@ const EmpForm = () => {
             qualifications,
             h_date,
         };
+        setLoading(true);
         axios
-            .post('http://localhost:5555/employeeRecords', data)
+            .put(`http://localhost:5555/employeeRecords/${id}`, data)
             .then(() => {
-                enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                navigate('/employees/registration', { state: { highlighted: true } }); // Navigate to maintenance log and highlight it
+                setLoading(false);
+                enqueueSnackbar('Record Edited successfully', {variant: 'success'});
+                navigate('employees/registration', {state: {highlighted: true}});
             })
             .catch((error) => {
-                enqueueSnackbar('Error', { variant: 'error' });
+                setLoading(false);
+                enqueueSnackbar('Error', {variant: 'error'});
                 console.log(error);
             });
     };
@@ -53,7 +81,7 @@ const EmpForm = () => {
                     Employee Registration Form
                 </h1>
             </div>
-            <form className="flex flex-col items-center justify-center" onSubmit={handleSubmit}>
+            <form className="flex flex-col items-center justify-center" onSubmit={handleEdit}>
                 <div className="space-y-12 px-0 py-16 w-6/12 ml-1">
                     <div className="border-b border-gray-900/10 pb-12">
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -250,7 +278,7 @@ const EmpForm = () => {
                             type="submit"
                             className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
-                           Submit
+                            Update
                         </button>
 
                         <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
@@ -265,8 +293,6 @@ const EmpForm = () => {
 
     );
 
-
 }
-export default EmpForm;
 
-
+export default EditEmployee;

@@ -1,7 +1,7 @@
 import Navbar from "../../../components/utility/Navbar";
 import SideBar from "../../../components/SideBar";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
-import React from "react";
+import React, {useState} from "react";
 import BackButton from "../../../components/utility/BackButton";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
 import EmployeeList from "../../../components/Employee/Employee_register/EmployeeList";
@@ -9,10 +9,10 @@ import EmployeeList from "../../../components/Employee/Employee_register/Employe
 
 export default function ViewEmpDetails() {
 
+
     const breadcrumbItems = [
-        { name: 'Employees', href: '/finances' },
-        { name: 'Transactions', href: '/finances/transactions' },
-        { name: 'Delete Transaction', href: '/finances/transactions/addTransaction' },
+        { name: 'Employees', href: '/employees' },
+        { name: 'Registration', href: 'employees/registration' },
     ];
 
 

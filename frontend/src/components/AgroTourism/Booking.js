@@ -11,18 +11,22 @@ export default function BookingForm() {
         email: '',
         selectedPackage: '',
         date: '',
+        numberOfDays:'',
+
     });
     const navigate = useNavigate();
 
-const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-};
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevData => ({ ...prevData, [name]: value }));
+    };
 
-const handleSubmit = async (e) => {
+
+    const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-        const response = await axios.post('<http://localhost:5555/booking>', formData);
+        const response = await axios.post(('http://localhost:5555/booking'), formData);
         console.log(response.data);
         setFormData({
             name: '',
@@ -116,12 +120,30 @@ return (
                     className="mt-1 p-2 w-full border rounded-md"
                     required
                 >
-                    <option value="guidedFarmTour">Guided Farm Tour</option>
                     <option value="fruitAndVegetablePicking">Fruit and Vegetable Picking</option>
                     <option value="farmChoreExperience">Farm Chore Experience</option>
+                    <option value="guidedFarmTour">Guided Farm Tour</option>
                 </select>
             </div>
             <div><br/></div>
+            {/* Conditional rendering based on the selected package */}
+            {formData.selectedPackage === 'guidedFarmTour' && (
+                <div className="mb-4">
+                    <label htmlFor="numberOfDays" className="block text-sm font-medium text-gray-700">
+                        Number of Days for the Stay
+                    </label>
+                    <input
+                        type="number"
+                        id="numberOfDays"
+                        name="numberOfDays"
+                        value={formData.numberOfDays}
+                        onChange={handleChange}
+                        className="mt-1 p-2 w-full border rounded-md"
+                        required
+                    />
+                </div>
+            )}
+
             <div className="mb-4">
                 <label htmlFor="date" className="block text-sm font-medium text-gray-700">
                     Date for Booking

@@ -11,9 +11,9 @@ import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
 export default function AddEmployee() {
 
     const breadcrumbItems = [
-        { name: 'Employees', href: '/finances' },
-        { name: 'Transactions', href: '/finances/transactions' },
-        { name: 'Delete Transaction', href: '/finances/transactions/addTransaction' },
+        { name: 'Employees', href: '/employees' },
+        { name: 'Registration', href: '/employees/registration' },
+        { name: 'Add Employee', href: '/employees/registration/addEmployee' },
     ];
 
 
@@ -35,7 +35,7 @@ export default function AddEmployee() {
                             <Breadcrumb items={breadcrumbItems}/>
 
                         </div>
-                        <div className="flex-col flex items-center justify-center h-full">
+                        <div>
                             <EmpForm/>
                         </div>
 

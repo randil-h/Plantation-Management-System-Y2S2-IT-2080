@@ -15,12 +15,11 @@ import CropInputRoute from "./routes/Crop Routes/CropInputRoute.js"
 
 import EqMaintainroute from "./routes/Inventory Routes/EqMaintainroute.js";
 import WaterRoute from "./routes/Inventory Routes/waterRoute.js";
+import InventoryRecordRoute from "./routes/Inventory Routes/InventoryRecordRoute.js";
 
 import RegistrationRoute from "./routes/Employee Routes/RegistrationRoute.js";
 
 import ProductRoute from "./routes/Wholesale  Routes/ProductRoute.js";
-
-
 
 const app = express();
 
@@ -60,6 +59,7 @@ app.use('/cropinput', CropInputRoute);
 
 app.use('/inventoryrecords', EqMaintainroute);
 app.use('/waterRecords', WaterRoute);
+app.use('/inventoryinputs', InventoryRecordRoute);
 
 app.use('/employeeRecords',RegistrationRoute);
 

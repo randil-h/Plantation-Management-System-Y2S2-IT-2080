@@ -1,22 +1,27 @@
 import {
     PencilSquareIcon,
     TrashIcon,
-    InformationCircleIcon
+    InformationCircleIcon,
+    MagnifyingGlassIcon
 } from '@heroicons/react/24/outline'
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {useNavigate, useParams} from "react-router-dom";
-import {useSnackbar} from "notistack";
+import {Link, useNavigate, useParams} from "react-router-dom";
+
+import {toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {SnackbarProvider, useSnackbar} from "notistack";
+
 
 export default function TransactionsList() {
 
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
-    const { enqueueSnackbar } = useSnackbar();
     const [TransactionsRecords, setTransactionsRecords] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleDeleteTransaction = (id) => {
         setLoading(true);
@@ -24,8 +29,8 @@ export default function TransactionsList() {
             .delete(`http://localhost:5555/transactions/${id}`)
             .then(() => {
                 setTransactionsRecords(prevRecords => prevRecords.filter(record => record._id !== id));
-                setLoading(false);
                 enqueueSnackbar('Record Deleted successfully', { variant: 'success' });
+                setLoading(false);
             })
             .catch((error) => {
                 setLoading(false);
@@ -59,20 +64,28 @@ export default function TransactionsList() {
 
     return (
         <div className=" overflow-x-auto  ">
+            <SnackbarProvider />
             <div className="flex flex-row justify-between items-center px-8 py-4">
                 <div>
                     <h1 className=" text-lg font-semibold text-left">Transaction records</h1>
                     <p className="mt-1 text-sm font-normal text-gray-500 0">Browse a list of all income
                         and expense records stored in the system</p>
-                    <div className=" py-4">
+                    <div className=" py-4 relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <MagnifyingGlassIcon className="text-gray-500 h-4 w-4"/>
+                        </div>
                         <input
                             type="text"
                             placeholder="Search all transactions..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="border border-gray-300 rounded-full px-3 py-1 w-full"
+                            className="border border-gray-300 rounded-full px-3 py-1 w-full text-sm pl-10"
+                            style={{paddingRight: "2.5rem"}}
                         />
+
                     </div>
+
+
                 </div>
 
                 <div>
@@ -145,19 +158,16 @@ export default function TransactionsList() {
                             {record.method}
                         </td>
                         <td className=" py-4 text-right">
-                            <a href="/finances/transactions/viewTransactionDetails"
-                               className="font-medium text-blue-600  hover:underline">
-                                <InformationCircleIcon
-                                    className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
-                                    aria-hidden="true"/>
-                            </a>
+                            <Link to={`/finances/transactions/viewTransactionDetails/${record._id}`}>
+                                <InformationCircleIcon className="h-6 w-6 flex-none bg-gray-200 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                                  aria-hidden="true" />
+                            </Link>
                         </td>
                         <td className=" py-4 text-right">
-                            <a href="#" className="font-medium text-blue-600 hover:underline">
-                                <PencilSquareIcon
-                                    className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                    aria-hidden="true"/>
-                            </a>
+                            <Link to={`/finances/transactions/editTransaction/${record._id}`}>
+                                <PencilSquareIcon className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                                  aria-hidden="true" />
+                            </Link>
                         </td>
                         <td className=" ">
                             <button
