@@ -27,7 +27,7 @@ const AddEqMain = () => {
             .post('http://localhost:5555/inventoryrecords', data)
             .then(() => {
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                navigate('/maintenancelog', { state: { highlighted: true } }); // Navigate to maintenance log and highlight it
+                navigate('/inventory/maintenancelog', { state: { highlighted: true } }); // Navigate to maintenance log and highlight it
             })
             .catch((error) => {
                 enqueueSnackbar('Error', { variant: 'error' });

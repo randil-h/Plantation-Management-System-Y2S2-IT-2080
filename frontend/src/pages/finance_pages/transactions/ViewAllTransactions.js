@@ -9,7 +9,7 @@ import BackButton from "../../../components/utility/BackButton";
 import LoadingAnimation from "../../../components/utility/LoadingAnimation";
 import FinanceTransactionsStatBar from "../../../components/finances/finance_transactions/FinanceTransactionsStatBar";
 import {useNavigate, useParams} from "react-router-dom";
-import {useSnackbar} from "notistack";
+import {SnackbarProvider, useSnackbar} from "notistack";
 
 export default function ViewAllTransactions() {
 
@@ -22,6 +22,7 @@ export default function ViewAllTransactions() {
     ];
 
     return (
+        <SnackbarProvider>
         <div className="">
             <div className="sticky top-0 z-10">
                 <Navbar />
@@ -54,5 +55,6 @@ export default function ViewAllTransactions() {
                 </div>
             </div>
         </div>
+        </SnackbarProvider>
     );
 }

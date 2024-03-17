@@ -12,7 +12,7 @@ export default function AddRotationPage() {
                 <Navbar/>
             </div>
             <div className="flex">
-                <div className="fixed h-full">
+                <div className="fixed h-full w-1/6">
                     <SideBar/>
                 </div>
             </div>
