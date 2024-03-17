@@ -64,13 +64,13 @@ export default function TransactionsList() {
                     <h1 className=" text-lg font-semibold text-left">Transaction records</h1>
                     <p className="mt-1 text-sm font-normal text-gray-500 0">Browse a list of all income
                         and expense records stored in the system</p>
-                    <div className=" py-4">
+                    <div className="text-gray-100 py-4">
                         <input
                             type="text"
                             placeholder="Search all transactions..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="border border-gray-300 rounded-full px-3 py-1 w-full"
+                            className="border border-gray-300 rounded-full px-3 py-1 w-full text-sm"
                         />
                     </div>
                 </div>
