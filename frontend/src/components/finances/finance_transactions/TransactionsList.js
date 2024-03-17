@@ -1,7 +1,8 @@
 import {
     PencilSquareIcon,
     TrashIcon,
-    InformationCircleIcon
+    InformationCircleIcon,
+    MagnifyingGlassIcon
 } from '@heroicons/react/24/outline'
 
 import React, { useEffect, useState } from 'react';
@@ -64,15 +65,22 @@ export default function TransactionsList() {
                     <h1 className=" text-lg font-semibold text-left">Transaction records</h1>
                     <p className="mt-1 text-sm font-normal text-gray-500 0">Browse a list of all income
                         and expense records stored in the system</p>
-                    <div className="text-gray-100 py-4">
+                    <div className=" py-4 relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <MagnifyingGlassIcon className="text-gray-500 h-4 w-4"/>
+                        </div>
                         <input
                             type="text"
                             placeholder="Search all transactions..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="border border-gray-300 rounded-full px-3 py-1 w-full text-sm"
+                            className="border border-gray-300 rounded-full px-3 py-1 w-full text-sm pl-10"
+                            style={{paddingRight: "2.5rem"}}
                         />
+
                     </div>
+
+
                 </div>
 
                 <div>
