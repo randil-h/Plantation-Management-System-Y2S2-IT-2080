@@ -83,9 +83,9 @@ export default function RecordRotation() {
                                         value={formData.season}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     >
-                                        <option value="Season1">2023 Oct - 2024 May</option>
-                                        <option value="Season2">2023 May - 2023 Oct</option>
-                                        <option value="Season3">2022 Oct - 2023 May</option>
+                                        <option value="2023 Oct - 2024 May">2023 Oct - 2024 May</option>
+                                        <option value="2023 May - 2023 Oct">2023 May - 2023 Oct</option>
+                                        <option value="2022 Oct - 2023 May">2022 Oct - 2023 May</option>
                                     </select>
                                 </div>
                             </div>
@@ -103,9 +103,14 @@ export default function RecordRotation() {
                                         value={formData.fieldName}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     >
+                                        <option value="">Select an option</option>
                                         <option value="fieldA">Field A</option>
                                         <option value="fieldB">Field B</option>
                                         <option value="fieldC">Field C</option>
+                                        <option value="fieldC">Field D</option>
+                                        <option value="fieldC">Field E</option>
+                                        <option value="fieldC">Field F</option>
+                                        <option value="fieldC">Field G</option>
                                     </select>
                                 </div>
                             </div>
@@ -123,8 +128,9 @@ export default function RecordRotation() {
                                         value={formData.cropType}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     >
+                                        <option value="">Select an option</option>
                                         <option value="coconut">Coconut</option>
-                                        <option value="guava">Guava</option>
+                                        <option value="apple guava">Apple Guava</option>
                                         <option value="papaw">Papaya</option>
                                     </select>
                                 </div>
@@ -182,7 +188,6 @@ export default function RecordRotation() {
                                 </div>
                             </div>
 
-
                             <div className="col-span-full">
                                 <label htmlFor="remarks"
                                        className="block text-sm font-medium leading-6 text-gray-900">
@@ -201,7 +206,6 @@ export default function RecordRotation() {
                                     />
                                 </div>
                             </div>
-
 
                         </div>
                     </div>

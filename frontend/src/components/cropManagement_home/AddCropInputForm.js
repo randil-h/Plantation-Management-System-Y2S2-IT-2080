@@ -6,10 +6,9 @@ export default function AddCropInputForm() {
         date: "",
         type: "",
         field: "",
-        chemicalName: "",
-        quantity: "",
         cropType: "",
         variety: "",
+        quantity: "",
         unitCost: "",
         remarks: ""
     });
@@ -40,10 +39,9 @@ export default function AddCropInputForm() {
                 date: "",
                 type: "",
                 field: "",
-                chemicalName: "",
-                quantity: "",
                 cropType: "",
                 variety: "",
+                quantity: "",
                 unitCost: "",
                 remarks: ""
             });
@@ -57,10 +55,9 @@ export default function AddCropInputForm() {
             date: "",
             type: "",
             field: "",
-            chemicalName: "",
-            quantity: "",
             cropType: "",
             variety: "",
+            quantity: "",
             unitCost: "",
             remarks: ""
         });
@@ -126,7 +123,7 @@ export default function AddCropInputForm() {
                                 </div>
                             </div>
 
-                            <div className="sm:col-span-2 sm:col-start-1">
+                            <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                 <label
                                     htmlFor="date"
                                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -145,7 +142,6 @@ export default function AddCropInputForm() {
                                     />
                                 </div>
                             </div>
-
                             {formData.type === "Planting" && (
                                 <>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
@@ -156,15 +152,20 @@ export default function AddCropInputForm() {
                                             Field Name
                                         </label>
                                         <div className="mt-2">
-                                            <input
-                                                type="text"
+                                            <select
                                                 id="field"
                                                 name="field"
                                                 onChange={handleChange}
                                                 value={formData.field}
+                                                autoComplete="field"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 required
-                                            />
+                                            >
+                                                <option value="">Select an option</option>
+                                                <option value="Field A">Field A</option>
+                                                <option value="Field B">Field B</option>
+                                                <option value="Field C">Field C</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
@@ -175,34 +176,19 @@ export default function AddCropInputForm() {
                                             Crop Type
                                         </label>
                                         <div className="mt-2">
-                                            <input
-                                                type="text"
+                                            <select
                                                 id="cropType"
                                                 name="cropType"
                                                 onChange={handleChange}
                                                 value={formData.cropType}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="variety"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
-                                        >
-                                            Variety
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="variety"
-                                                name="variety"
-                                                onChange={handleChange}
-                                                value={formData.variety}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                            >
+                                                <option value="">Select an option</option>
+                                                <option value="Coconut">Coconut</option>
+                                                <option value="Apple Guava">Apple Guava</option>
+                                                <option value="Papaya">Papaya</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
@@ -239,26 +225,6 @@ export default function AddCropInputForm() {
                                                 onChange={handleChange}
                                                 value={formData.unitCost}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="remarks"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
-                                        >
-                                            Remarks
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="remarks"
-                                                name="remarks"
-                                                onChange={handleChange}
-                                                value={formData.remarks}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                placeholder="Type Here.."
                                                 required
                                             />
                                         </div>
@@ -266,107 +232,26 @@ export default function AddCropInputForm() {
                                 </>
                             )}
 
-                            {/* Render Agrochemical-specific inputs */}
-                            {formData.type === "Agrochemical" && (
-                                <>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="chemicalName"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
-                                        >
-                                            Chemical Name
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="chemicalName"
-                                                name="chemicalName"
-                                                onChange={handleChange}
-                                                value={formData.chemicalName}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="field"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
-                                        >
-                                            Field Name
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="field"
-                                                name="field"
-                                                onChange={handleChange}
-                                                value={formData.field}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="quantity"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
-                                        >
-                                            Quantity
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="quantity"
-                                                name="quantity"
-                                                onChange={handleChange}
-                                                value={formData.quantity}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="unitCost"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
-                                        >
-                                            Unit Cost
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="unitCost"
-                                                name="unitCost"
-                                                onChange={handleChange}
-                                                value={formData.unitCost}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="remarks"
-                                            className="block text-sm font-medium leading-6 text-gray-900"
-                                        >
-                                            Remarks
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="remarks"
-                                                name="remarks"
-                                                onChange={handleChange}
-                                                value={formData.remarks}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                placeholder="Type Here.."
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                </>
-                            )}
+                            <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                <label
+                                    htmlFor="remarks"
+                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                    Remarks
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        id="remarks"
+                                        name="remarks"
+                                        onChange={handleChange}
+                                        value={formData.remarks}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        placeholder="Type Here.."
+                                        required
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
 

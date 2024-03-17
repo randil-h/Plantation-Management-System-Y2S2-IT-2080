@@ -5,6 +5,7 @@ import axios from 'axios';
 import { PDFDownloadLink, PDFViewer, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 
 const pdfStyles = StyleSheet.create({
     page: {
@@ -25,12 +26,14 @@ const ChemicalList = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/chemicals`)
+            .get(`http://localhost:5555/cropinput`)
             .then((response) => {
-                const formattedRecords = response.data.data.map(record => ({
-                    ...record,
-                    date: new Date(record.date).toLocaleDateString('en-GB') // Use 'en-GB' locale for British format
-                }));
+                const formattedRecords = response.data.data
+                    .filter(record => record.type === "Agrochemical")
+                    .map(record => ({
+                        ...record,
+                        date: new Date(record.date).toLocaleDateString('en-GB')
+                    }));
                 setChemicalRecords(formattedRecords);
                 setLoading(false);
             })
@@ -42,7 +45,7 @@ const ChemicalList = () => {
 
     const handleDelete = (recordId) => {
         axios
-            .delete(`http://localhost:5555/chemicals/${recordId}`)
+            .delete(`http://localhost:5555/cropinput/${recordId}`)
             .then(() => {
                 setChemicalRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
             })
@@ -70,7 +73,7 @@ const ChemicalList = () => {
     };
 
     return (
-        <div className= "z-0">
+        <div className="z-0">
             <div>
                 <input
                     type="text"
@@ -84,7 +87,7 @@ const ChemicalList = () => {
                 </button>
             </div>
 
-            <Link to="/crop/chemicals/view-add">
+            <Link to="/crop/input/add">
                 <button
                     className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-10 mr-24"
                 >
@@ -99,45 +102,44 @@ const ChemicalList = () => {
                 Print
             </button>
 
-            <div className="container mx-auto p-8 mt-16">
+            <div className="overflow-x-auto">
                 <table
-                    id = "chemical-table"
-                    className="w-auto bg-white shadow-md rounded-md overflow-hidden absolute top-1/3 left-60">
-                    <thead className="bg-gray-200">
+                    id="chemical-table"
+                    className="w-10/12 bg-white shadow-md rounded-md overflow-hidden absolute top-1/3 left-64"
+                >
+                    <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
                     <tr>
-                        <th className="py-2 px-4 border border-gray-400">No</th>
-                        <th className="py-2 px-4 border border-gray-400">Date</th>
-                        <th className="py-2 px-4 border border-gray-400">Field Name</th>
-                        <th className="py-2 px-4 border border-gray-400">Chemical Type</th>
-                        <th className="py-2 px-4 border border-gray-400">Quantity</th>
-                        <th className="py-2 px-4 border border-gray-400">Unit Cost</th>
-                        <th className="py-2 px-16 border border-gray-400">Remarks</th>
-                        <th className="py-2 px-4 border border-gray-400"></th>
+                        <th className="px-6 py-3">No</th>
+                        <th className="px-6 py-3">Date</th>
+                        <th className="px-6 py-3">Field Name</th>
+                        <th className="px-6 py-3">Chemical Type</th>
+                        <th className="px-6 py-3">Quantity</th>
+                        <th className="px-6 py-3">Unit Cost</th>
+                        <th className="px-6 py-3">Remarks</th>
+                        <th className="px-6 py-3"></th>
                     </tr>
                     </thead>
                     <tbody>
                     {ChemicalRecords.map((record, index) => (
-                        <tr className="hover:bg-gray-100" key={record._id}>
-                            <td className="py-2 px-4 border border-gray-400">{index + 1}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.date}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.fieldName}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.chemicalType}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.quantity}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.unitCost}</td>
-                            <td className="py-2 px-16 border border-gray-400">{record.remarks}</td>
-                            <td className="py-2 px-4 border border-gray-400">
-                                <div className="flex">
-                                    <Link to={`../editchemical/${record._id}`}
-                                          className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer border-none flex items-center">
-                                        <FaEdit className="mr-1"/>
-                                        <span>Edit</span>
+                        <tr className="hover:bg-gray-100 divide-y divide-gray-200" key={record._id}>
+                            <td className="px-6 py-4">{index + 1}</td>
+                            <td className="px-6 py-4">{record.date}</td>
+                            <td className="px-6 py-4">{record.field}</td>
+                            <td className="px-6 py-4">{record.chemicalName}</td>
+                            <td className="px-6 py-4">{record.quantity}</td>
+                            <td className="px-6 py-4">{record.unitCost}</td>
+                            <td className="px-6 py-4">{record.remarks}</td>
+                            <td className="px-6 py-4">
+                                <div className="flex justify-between">
+                                    <Link to={`/crop/input/update/${record._id}`}>
+                                        <PencilSquareIcon
+                                            className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                            aria-hidden="true"/>
                                     </Link>
-                                    <button
-                                        className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer ml-6 border-none flex items-center"
-                                        onClick={() => handleDelete(record._id)}
-                                    >
-                                        <FaTrash className="mr-1"/>
-                                        <span>Delete</span>
+                                    <button className="flex items-center" onClick={() => handleDelete(record._id)}>
+                                        <TrashIcon
+                                            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                            aria-hidden="true"/>
                                     </button>
                                 </div>
                             </td>

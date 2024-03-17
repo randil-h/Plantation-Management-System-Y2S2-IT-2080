@@ -14,7 +14,7 @@ const EditRotation = () => {
     const [loading, setLoading] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
-    const { id } = useParams(); // Extracting id from route parameters
+    const { id } = useParams();
 
     useEffect(() => {
         setLoading(true);

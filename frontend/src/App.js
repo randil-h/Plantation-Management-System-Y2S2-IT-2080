@@ -3,11 +3,9 @@ import { Route, Routes } from "react-router-dom";
 import LoadingAnimation from "./components/utility/LoadingAnimation";
 import {KindeProvider} from "@kinde-oss/kinde-auth-react";
 
-
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
 import Dashboard from "./pages/Dashboard.js";
-
 
 import Finances from "./pages/finance_pages/Finances.js";
 import FinanceIncome from "./pages/finance_pages/income_records/FinanceIncome";
@@ -24,18 +22,13 @@ import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments
 import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
 
 import CropManagement from "./pages/crop_pages/CropManagement";
-import SeedsPlanting from "./pages/crop_pages/Planting Management/SeedsPlanting";
 import CropRotation from "./pages/crop_pages/Rotation Management/CropRotation";
-import Chemicals from "./pages/crop_pages/Chemical Management/Chemicals";
-import AddPlantingPage from "./pages/crop_pages/Planting Management/AddPlantingPage";
 import AddRotationPage from "./pages/crop_pages/Rotation Management/AddRotationPage";
 import ViewRotation from "./pages/crop_pages/Rotation Management/ViewRotation";
 import UpdateRotation from "./pages/crop_pages/Rotation Management/UpdateRotation"
-import ViewChemicals from "./pages/crop_pages/Chemical Management/ViewChemicals";
-import ViewPlantingList from "./pages/crop_pages/Planting Management/ViewPlantingList";
 import AddCropInput from "./pages/crop_pages/Crop Input/AddCropInput";
-import AddChemicalsPage from "./pages/crop_pages/Chemical Management/AddChemicalsPage";
-
+import ViewCropInputPage from "./pages/crop_pages/Crop Input/ViewCropInputPage";
+import UpdateCropInputPage from "./pages/crop_pages/Crop Input/UpdateCropInputPage";
 
 import MaintenanceLog from "./pages/inventory_pages/Eq and Machines/MaintenanceLog"
 import AddEqMainPage from "./pages/inventory_pages/Eq and Machines/AddEqMainPage";
@@ -63,11 +56,9 @@ import AddingProduct from"./pages/WholeSaleMangement/AddingProduct";
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 import WholeSaleDashBoard from "./pages/WholeSaleMangement/WholeSaleDashBoard";
 
-
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
 import AddTask from "./pages/employee_pages/task_assigning/AddTask";
-
 
 import harvest from "./pages/harvest_pages/harvests";
 import harvestCal from "./pages/harvest_pages/harvest_Cal/harvestCal";
@@ -88,7 +79,6 @@ import ViewEmpDetails from "./pages/employee_pages/emp_registation/ViewEmpDetail
 import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
 
 import EditEmployeePage from "./pages/employee_pages/emp_registation/EditEmployeePage";
-
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -152,18 +142,13 @@ export default function App() {
                     <Route path="/finances/machineHours" element={<MachineHours />} />
 
                     <Route path = "/crop/home" element={CropManagement()}/>
-
-                    <Route path = "/crop/planting" element={SeedsPlanting()}/>
-                    <Route path = "/crop/planting/view-add" element={AddPlantingPage()}/>
-                    <Route path = "/crop/planting/view" element={ViewPlantingList()}/>
                     <Route path = "/crop/rotation" element={CropRotation()}/>
                     <Route path = "/crop/rotation/view-add" element={AddRotationPage()}/>
                     <Route path = "/crop/rotation/view" element={ViewRotation()}/>
                     <Route path = "/crop/rotation/update/:id" element={UpdateRotation()}/>
-                    <Route path = "/crop/chemicals" element={Chemicals()}/>
-                    <Route path = "/crop/chemicals/view-add" element={AddChemicalsPage()}/>
-                    <Route path = "/crop/chemicals/view" element={ViewChemicals()}/>
                     <Route path = "/crop/input/add" element={AddCropInput()}/>
+                    <Route path = "/crop/input/view" element={ViewCropInputPage()}/>
+                    <Route path = "/crop/input/update/:id" element = {UpdateCropInputPage()}/>
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>

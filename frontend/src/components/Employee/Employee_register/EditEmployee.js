@@ -27,7 +27,7 @@ const EditEmployee = () => {
 
                 setF_name(response.data.f_name);
                 setL_name(response.data.l_name);
-                setDob(response.data.dob.split("T")[0]); // Extracting date part
+                setDob(response.data.dob.split("T")[0]);
                 setGender(response.data.gender);
                 setContact_no(response.data.contact_no);
                 setEmp_email(response.data.emp_email);
