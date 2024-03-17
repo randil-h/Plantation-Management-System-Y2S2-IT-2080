@@ -101,18 +101,38 @@ router.put('/:id', async (request, response) => {
         } = request.body;
 
         // Check if all required fields are present
-        if (!type || !record_ID || !record_name || !storage || !quantity || !expire_date || !description) {
+        if (!type || !record_ID || !record_name || !storage || !quantity || !description) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });
         }
 
-        // Find and update the inventory record
-        const updatedRecord = await InventoryInput.findByIdAndUpdate(id, request.body, { new: true });
+        // If type is Agrochemical, require expire_date
+        if (type === 'Agrochemical' && !expire_date) {
+            return response.status(400).send({
+                message: 'Expire date is required for agrochemical records',
+            });
+        }
 
-        if (!updatedRecord) {
+        // Find the inventory record by ID
+        let inventoryInput = await InventoryInput.findById(id);
+
+        // Check if the inventory record exists
+        if (!inventoryInput) {
             return response.status(404).json({ message: 'Inventory record not found' });
         }
+
+        // Update the inventory record fields
+        inventoryInput.type = type;
+        inventoryInput.record_ID = record_ID;
+        inventoryInput.record_name = record_name;
+        inventoryInput.storage = storage;
+        inventoryInput.quantity = quantity;
+        inventoryInput.expire_date = expire_date;
+        inventoryInput.description = description;
+
+        // Save the updated inventory record
+        const updatedRecord = await inventoryInput.save();
 
         return response.status(200).send(updatedRecord);
     } catch (error) {
@@ -120,6 +140,7 @@ router.put('/:id', async (request, response) => {
         response.status(500).send({ message: error.message });
     }
 });
+
 
 // Delete inventory record
 router.delete('/:id', async (request, response) => {
