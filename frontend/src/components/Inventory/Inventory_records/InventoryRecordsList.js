@@ -15,7 +15,7 @@ const InventoryRecordList = () => {
         axios
             .get(`http://localhost:5555/inventoryinputs`)
             .then((response) => {
-                setInventoryInputs(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
+                setInventoryInputs(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -43,25 +43,23 @@ const InventoryRecordList = () => {
             return false;
         })
     );
-
     const handlePrint = () => {
         const input = document.getElementById('print-area');
 
         html2canvas(input)
             .then((canvas) => {
                 const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('p', 'mm', 'a4'); // Specify page orientation and unit as 'mm'
-                const imgWidth = pdf.internal.pageSize.getWidth() - 20; // Adjust width with margins
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const imgWidth = pdf.internal.pageSize.getWidth() - 20;
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
                 let heightLeft = imgHeight;
-                let position = 10; // Starting position with margin
-                pdf.setFontSize(16); // Set font size for the title
-                pdf.text("Inventory Record", 10, position); // Title position
-                heightLeft -= position + 10; // Update height left after title
+                let position = 10;
+                pdf.setFontSize(16);
+                pdf.text("Inventory Record", 10, position);
+                heightLeft -= position + 10;
 
-                pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight); // Position the content with margin
+                pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
                 heightLeft -= imgHeight;
-
                 while (heightLeft >= 0) {
                     position = heightLeft - imgHeight;
                     pdf.addPage();
@@ -91,7 +89,6 @@ const InventoryRecordList = () => {
                         />
                     </div>
                 </div>
-
                 <div>
                     <a href="/inventory/inventoryrecords/addinventoryrecordspage"
                        className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
@@ -149,8 +146,7 @@ const InventoryRecordList = () => {
                         <tr
                             key={index}
                             className={`divide-y ${
-                                record.type === 'Planting' ? 'border-l-4 border-green-400' : record.type === 'Equipments' ? 'border-l-4 border-red-400' : 'border-l-4 border-blue-400'}`}
-                        >
+                                record.type === 'Planting' ? 'border-l-4 border-green-400' : record.type === 'Equipments' ? 'border-l-4 border-red-400' : record.type === 'Agrochemical' ? 'border-l-4 border-blue-400' : 'border-l-4 border-yellow-900'}`}>
                             <td></td>
                             <td className="px-6 py-4">
                                 {index + 1}
@@ -187,9 +183,7 @@ const InventoryRecordList = () => {
                             <td className=" ">
                                 <button
                                     className="flex items-center"
-                                    onClick={() => handleDelete(record._id)}
-
-                                >
+                                    onClick={() => handleDelete(record._id)}>
                                     <TrashIcon
                                         className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
                                         aria-hidden="true"/>
@@ -197,17 +191,11 @@ const InventoryRecordList = () => {
                             </td>
                         </tr>
                     ))}
-
-
                     </tbody>
-
-
                 </table>
                 </div>
             </div>
         </div>
-
-
     );
 };
 export default InventoryRecordList;

@@ -132,6 +132,7 @@ function WaterTank() {
     // Display the result
     if (isFinite(daysToEmpty)) {
         enqueueSnackbar(`Water will be empty in approximately ${Math.ceil(daysToEmpty)} days.`, { variant: 'info' });
+        enqueueSnackbar(`Water Percentage is ${totalPercentage.toFixed(2)}%`, { variant: 'info' });
     }
 
     return (
@@ -225,8 +226,7 @@ function WaterTank() {
                                 <div className="flex">
                                     <button
                                         className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 cursor-pointer border-none flex items-center"
-                                        onClick={() => handleDelete(record._id)}
-                                    >
+                                        onClick={() => handleDelete(record._id)}>
                                         <FaTrash className="mr-1"/>
                                         <span>Delete</span>
                                     </button>
