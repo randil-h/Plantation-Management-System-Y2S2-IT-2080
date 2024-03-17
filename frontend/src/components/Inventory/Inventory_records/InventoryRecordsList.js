@@ -119,7 +119,11 @@ const InventoryRecordList = () => {
                     <tbody className="border-b border-green-400">
 
                     {inventoryInputs.map((record, index) => (
-                        <tr key={index}>
+                        <tr
+                            key={index}
+                            className={`divide-y ${
+                                record.type === 'Planting' ? 'border-l-4 border-green-400' : record.type === 'Equipments' ? 'border-l-4 border-red-400' : 'border-l-4 border-blue-400'}`}
+                        >
                             <td></td>
                             <td className="px-6 py-4">
                                 {index + 1}

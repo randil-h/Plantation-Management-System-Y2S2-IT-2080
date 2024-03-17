@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import LoadingAnimation from "./components/utility/LoadingAnimation";
 import {KindeProvider} from "@kinde-oss/kinde-auth-react";
 
+
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
 import Dashboard from "./pages/Dashboard.js";
@@ -127,8 +128,8 @@ export default function App() {
 
                     <Route path="/finances/transactions" element={<ViewAllTransactions />} />
                     <Route path="/finances/transactions/addTransaction" element={<AddNewTransaction />} />
-                    <Route path="/finances/transactions/viewTransactionDetails" element={<ViewTransactionDetails />} />
-                    <Route path="/finances/transactions/editTransaction" element={<EditTransaction />} />
+                    <Route path="/finances/transactions/viewTransactionDetails/:id" element={<ViewTransactionDetails />} />
+                    <Route path="/finances/transactions/editTransaction/:id" element={<EditTransaction />} />
                     <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
 
                     <Route path="/finances/salaryPayment" element={<Valuation />} />

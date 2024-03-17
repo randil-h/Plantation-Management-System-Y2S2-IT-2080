@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 const EditBooking = () => {
-    const [fullName, setFullName] = useState('');
+    const [name, setFullName] = useState('');
     const [telNo, setTelNo] = useState('');
     const [nicNo, setNicNo] = useState('');
     const [email, setEmail] = useState('');
@@ -19,8 +19,8 @@ const EditBooking = () => {
         setLoading(true);
         axios.get(`http://localhost:5555/booking/${id}`)
             .then((response) => {
-                const { fullName, telNo, nicNo, email, selectedPackage, numberOfDays } = response.data;
-                setFullName(fullName);
+                const { name, telNo, nicNo, email, selectedPackage, numberOfDays } = response.data;
+                setFullName(name);
                 setTelNo(telNo);
                 setNicNo(nicNo);
                 setEmail(email);
@@ -41,24 +41,23 @@ const EditBooking = () => {
         }
     }, [selectedPackage]);
 
-    const handleEdit = () => {
+    const handleEdit = async (e) => {
+        e.preventDefault(); // Prevent default form submission behavior
         console.log("Submitting form...");
-        const data = { fullName, telNo, nicNo, email, selectedPackage, numberOfDays };
+        const data = { name, telNo, nicNo, email, selectedPackage, numberOfDays };
         setLoading(true);
-        axios
-            .put(`http://localhost:5555/booking/${id}`, data)
-            .then(() => {
-                console.log("Form submitted successfully");
-                setLoading(false);
-                enqueueSnackbar('Record Edited successfully', { variant: 'success' });
-                navigate('/confirmation', { state: { highlighted: true } });
-            })
-            .catch((error) => {
-                console.error("Error submitting form:", error);
-                setLoading(false);
-                enqueueSnackbar('Error', { variant: 'error' });
-                console.log(error);
-            });
+        try {
+            await axios.put(`http://localhost:5555/booking/${id}`, data);
+            console.log("Form submitted successfully");
+            setLoading(false);
+            enqueueSnackbar('Record Edited successfully', { variant: 'success' });
+            navigate('/confirmation', { state: { highlighted: true } }); // Redirect after successful save
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            setLoading(false);
+            enqueueSnackbar('Error', { variant: 'error' });
+            console.log(error);
+        }
     };
 
     return (
@@ -73,14 +72,14 @@ const EditBooking = () => {
                     <div className="border-b border-gray-900/10 pb-12">
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="col-span-full">
-                                <label htmlFor="fullName" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                                     Full Name
                                 </label>
                                 <div className="mt-2">
                                     <input
                                         type="text"
-                                        name="fullName"
-                                        value={fullName}
+                                        name="name"
+                                        value={name}
                                         onChange={(e) => setFullName(e.target.value)}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         required

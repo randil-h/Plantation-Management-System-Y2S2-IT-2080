@@ -7,7 +7,7 @@ const EditInventoryRecords = () => {
     const [loading, setLoading] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
-    const { id } = useParams(); // Extracting id from route parameters
+    const { id } = useParams();
     const [formData, setFormData] = useState({
         type: '',
         record_ID: '',
@@ -17,6 +17,7 @@ const EditInventoryRecords = () => {
         expire_date: '',
         description: ''
     });
+    const [selectedType, setSelectedType] = useState('');
 
     useEffect(() => {
         setLoading(true);
@@ -24,24 +25,28 @@ const EditInventoryRecords = () => {
             .then((response) => {
                 const data = response.data;
                 setFormData({
-                    type: data.Eq_machine_main,
-                    record_ID: data.Eq_id_main,
-                    record_name: data.Eq_id_main,
-                    storage: data.Eq_id_main,
+                    type: data.type,
+                    record_ID: data.record_ID,
+                    record_name: data.record_name,
+                    storage: data.storage,
                     quantity: data.quantity,
-                    expire_date: data.date_received.split("T")[0], // Extracting date part
-                    description: data.ref_loc
+                    expire_date: data.expire_date ? data.expire_date.split("T")[0] : '',
+                    description: data.description
                 });
+                setSelectedType(data.type);
                 setLoading(false);
             }).catch((error) => {
             setLoading(false);
             enqueueSnackbar('An error occurred. Please check the console.', { variant: 'error' });
             console.log(error);
         });
-    }, [id]); // Adding id to dependency array
+    }, [id]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if (name === 'type') {
+            setSelectedType(value);
+        }
         setFormData({ ...formData, [name]: value });
     };
 
@@ -56,7 +61,7 @@ const EditInventoryRecords = () => {
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Edited successfully', { variant: 'success' });
-                navigate('/', { state: { highlighted: true } });
+                navigate('/inventory/inventoryrecords', { state: { highlighted: true } });
             })
             .catch((error) => {
                 setLoading(false);
@@ -75,7 +80,7 @@ const EditInventoryRecords = () => {
             <form
                 className="flex flex-col items-center justify-center"
                 onSubmit={handleEdit}
-                method="post"
+                method="PUT"
             >
                 <div className="space-y-12 px-0 py-16 w-6/12">
                     <div className="border-b border-gray-900/10 pb-12">
@@ -93,7 +98,7 @@ const EditInventoryRecords = () => {
                                             name="type"
                                             value="Planting"
                                             onChange={handleChange}
-                                            checked={formData.type === "Planting"}
+                                            checked={selectedType === "Planting"}
                                             className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                             required
                                         />
@@ -111,7 +116,7 @@ const EditInventoryRecords = () => {
                                             name="type"
                                             value="Agrochemical"
                                             onChange={handleChange}
-                                            checked={formData.type === "Agrochemical"}
+                                            checked={selectedType === "Agrochemical"}
                                             className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                             required
                                         />
@@ -130,7 +135,7 @@ const EditInventoryRecords = () => {
                                             name="type"
                                             value="Equipments"
                                             onChange={handleChange}
-                                            checked={formData.type === "Equipments"}
+                                            checked={selectedType === "Equipments"}
                                             className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
                                             required
                                         />
@@ -144,7 +149,7 @@ const EditInventoryRecords = () => {
                                 </div>
                             </div>
 
-                            {formData.type === "Planting" && (
+                            {selectedType === "Planting" && (
                                 <>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
@@ -246,7 +251,7 @@ const EditInventoryRecords = () => {
                             )}
 
                             {/* Render Agrochemical-specific inputs */}
-                            {formData.type === "Agrochemical" && (
+                            {selectedType === "Agrochemical" && (
                                 <>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
@@ -340,7 +345,6 @@ const EditInventoryRecords = () => {
                                                 onChange={handleChange}
                                                 value={formData.expire_date}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-
                                             />
                                         </div>
                                     </div>
@@ -367,7 +371,7 @@ const EditInventoryRecords = () => {
                                 </>
                             )}
 
-                            {formData.type === "Equipments" && (
+                            {selectedType === "Equipments" && (
                                 <>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label

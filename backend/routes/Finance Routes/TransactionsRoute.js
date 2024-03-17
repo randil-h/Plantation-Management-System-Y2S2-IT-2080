@@ -53,7 +53,7 @@ router.get('/', async (request, response) => {
     }
 });
 
-// Route for Get One Book from database by id
+// Route for Get One transaction from database by id
 router.get('/:id', async (request, response) => {
     try {
         const { id } = request.params;
@@ -67,7 +67,7 @@ router.get('/:id', async (request, response) => {
     }
 });
 
-// Route for Update a Book
+// Route for Update a transaction
 router.put('/:id', async (request, response) => {
     try {
         if (
