@@ -1,4 +1,4 @@
-// OnlinePaymentPortal.js
+// Payment.js
 import React, { useState } from 'react';
 import { FaCcVisa, FaCcMastercard, FaCcAmex } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +24,8 @@ const OnlinePaymentPortal = () => {
         // Reset form data after submission if needed
         // setFormData({ cardNumber: '', expirationDate: '', cvv: '', cardHolderName: '', cardType: 'visa' });
         navigate('/confirmation');
+        // Show booking confirmation alert
+        alert('Booking successful!');
     };
 
     return (
