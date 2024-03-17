@@ -34,6 +34,7 @@ export default function TransactionsList() {
             })
             .catch((error) => {
                 setLoading(false);
+                enqueueSnackbar('Record Deletion failed', { variant: 'error' });
                 console.log(error);
             });
     };
