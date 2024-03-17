@@ -85,6 +85,10 @@ const BookingList = () => {
                             {record.selectedPackage === 'guidedFarmTour' && (
                                 <td className="py-2 px-4 border border-gray-400">{record.numberOfDays}</td>
                             )}
+                            {/* Add an empty cell if the selected package is 'Fruit and Vegetable Picking' or 'Farm Chore Activity' */}
+                            {['fruitAndVegetablePicking', 'farmChoreExperience'].includes(record.selectedPackage) && (
+                                <td className="py-2 px-4 border border-gray-400"></td>
+                            )}
                             <td className="py-2 px-4 border border-gray-400">
                                 <div className="flex">
                                     <Link to={`/booking/edit/${record._id}`} className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer border-none flex items-center">
