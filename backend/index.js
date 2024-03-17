@@ -19,11 +19,12 @@ import InventoryRecordRoute from "./routes/Inventory Routes/InventoryRecordRoute
 
 import RegistrationRoute from "./routes/Employee Routes/RegistrationRoute.js";
 
+import ProductRoute from "./routes/Wholesale  Routes/ProductRoute.js";
 
 const app = express();
 
 app.use(express.json());
-
+ 
 //app.use(cors());
 
 
@@ -62,6 +63,7 @@ app.use('/inventoryinputs', InventoryRecordRoute);
 
 app.use('/employeeRecords',RegistrationRoute);
 
+app.use('/product' ,ProductRoute);
 mongoose
     .connect(mongoDBURL)
     .then(() => {
