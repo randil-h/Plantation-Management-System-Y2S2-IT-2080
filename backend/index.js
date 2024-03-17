@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import { TestRecord } from "./models/TestModel.js";
 import cors from 'cors';
 import testRoute from "./routes/TestRoute.js";
-import BookingRoute from "./routes/AgroTourism/BookingRoute.js";
+import BookingRoute from "./routes/AgroTourism Routes/BookingRoute.js";
 
 import TransactionsRoute from "./routes/Finance Routes/TransactionsRoute.js";
 import ValuationRoute from "./routes/Finance Routes/ValuationRoute.js";
