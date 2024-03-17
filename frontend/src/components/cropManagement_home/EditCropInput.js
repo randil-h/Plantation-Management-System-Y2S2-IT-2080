@@ -59,7 +59,7 @@ const EditCropInput = () => {
             await axios.put(`http://localhost:5555/cropinput/${id}`, formData);
             setLoading(false);
             enqueueSnackbar('Record Updated successfully', { variant: 'success' });
-            navigate('/cropinput');
+            navigate('/crop/input/view');
         } catch (error) {
             setLoading(false);
             enqueueSnackbar('Error', { variant: 'error' });
