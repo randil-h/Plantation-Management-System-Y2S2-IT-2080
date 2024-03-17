@@ -21,24 +21,24 @@ export default function AddInventoryRecordsPage() {
     return (
         <div className="Equipment">
             <div className="">
-                <Navbar />
-                <div className="">
-                    <div className="grid sm:grid-cols-6 ">
-                        <div className="col-span-1 sticky top-0">
-                            <SideBar />
-                        </div>
-
-                        <div className="w-full col-span-5 flex flex-col ">
-                            <InventoryNavbar/>
-                            <div className="flex flex-row">
-                                <BackButton />
-                                <Breadcrumb items={breadcrumbItems} />
-                            </div>
-                            <EditInventoryRecords/>
-                        </div>
+                <div className="border-b sticky top-0 z-10">
+                    <Navbar/>
+                </div>
+                <div className="flex">
+                    <div className="fixed h-full">
+                        <SideBar/>
                     </div>
+                </div>
+                <div className="w-full col-span-5 flex flex-col ">
+                    <InventoryNavbar/>
+                    <div className="flex flex-row">
+                        <BackButton/>
+                        <Breadcrumb items={breadcrumbItems}/>
+                    </div>
+                    <EditInventoryRecords/>
                 </div>
             </div>
         </div>
-    );
+)
+    ;
 }
