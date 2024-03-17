@@ -120,6 +120,7 @@ return (
                     className="mt-1 p-2 w-full border rounded-md"
                     required
                 >
+                    <option value="">Select Package</option>
                     <option value="fruitAndVegetablePicking">Fruit and Vegetable Picking</option>
                     <option value="farmChoreExperience">Farm Chore Experience</option>
                     <option value="guidedFarmTour">Guided Farm Tour</option>
