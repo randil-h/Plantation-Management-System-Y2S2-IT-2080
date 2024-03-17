@@ -82,6 +82,7 @@ import FarmChore from "./pages/tourism_pages/FarmChore";
 import ViewEmpDetails from "./pages/employee_pages/emp_registation/ViewEmpDetails";
 import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
 import FarmChoreExperience from "./components/AgroTourism/farm_chore";
+import EditEmployeePage from "./pages/employee_pages/emp_registation/EditEmployeePage";
 
 
 
@@ -194,7 +195,8 @@ export default function App() {
                     <Route path="/employees/registration/addEmployee" element={AddEmployee()}/>
                     <Route path="/employees/tasks/addTask" element={AddTask()}/>
                     <Route path="/employees/registration" element={ViewEmpDetails()}/>
-                    <Route path="employees/tasks" element={ViewTaskList()}/>
+                    <Route path="/employees/tasks" element={ViewTaskList()}/>
+                    <Route path="/employees/registration/editEmployee/:id" element={<EditEmployeePage/>}/>
 
 
 

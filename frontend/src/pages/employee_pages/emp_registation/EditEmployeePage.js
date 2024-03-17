@@ -1,20 +1,18 @@
+import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import Navbar from "../../../components/utility/Navbar";
 import SideBar from "../../../components/SideBar";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
-import React, {useState} from "react";
-import BackButton from "../../../components/utility/BackButton";
+import React from "react";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
-import EmployeeList from "../../../components/Employee/Employee_register/EmployeeList";
+import EditEmployee from "../../../components/Employee/Employee_register/EditEmployee";
 
-
-export default function ViewEmpDetails() {
-
+export default function EditEmployeePage() {
 
     const breadcrumbItems = [
-        { name: 'Employees', href: '/employees' },
-        { name: 'Registration', href: 'employees/registration' },
+        { name: 'Employee', href: '/employees' },
+        { name: 'Registration', href: '/employees/registration' },
+        { name: 'Edit Employee Details', href: '/employees/registration/editEmployee' },
     ];
-
 
     return (
         <div className="">
@@ -29,15 +27,11 @@ export default function ViewEmpDetails() {
 
                     <div className="w-full col-span-5 flex flex-col ">
                         <EmployeeNavbar/>
-                        <div className="flex flex-row ">
-                            <BackButton/>
-                            <Breadcrumb items={breadcrumbItems}/>
+                        <Breadcrumb items={breadcrumbItems}/>
 
-                        </div>
                         <div>
-                            <EmployeeList/>
+                            <EditEmployee/>
                         </div>
-
                     </div>
                 </div>
             </div>
