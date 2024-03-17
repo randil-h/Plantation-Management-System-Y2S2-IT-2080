@@ -18,7 +18,7 @@ export default function ProductAddingForm(){
         e.preventDefault();
 
         try {
-            const response = await axios.post('', formData);
+            const response = await axios.post('http://localhost:5555/product', formData);
             console.log(response.data);
             setFormData({
                 productID: '',
