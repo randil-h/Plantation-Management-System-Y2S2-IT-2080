@@ -1,15 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 export default function AddRecord() {
-    return (
+    const [date, setDate] = useState('');
+    const [cropType, setCropType] = useState('');
+    const [ageOfYield, setAgeOfYield] = useState('');
+    const [wayPicked, setWayPicked] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [remarks, setRemarks] = useState('');
 
-        <div className=" mx-auto py-10">
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const data = {
+                date,
+                cropType,
+                ageOfYield,
+                wayPicked,
+                quantity,
+                remarks
+            };
+            await axios.post('http://localhost:5555/record', data);
+            alert('Record submitted successfully!');
+            // Optionally, you can redirect or perform any other action here
+        } catch (error) {
+            console.error('Error submitting record:', error);
+            alert('An error occurred while submitting the record. Please try again.');
+        }
+    };
+
+    return (
+        <div className="mx-auto py-10">
             <h1 className="text-2xl font-bold mb-5">Record Harvestings</h1>
-            <form className="max-w-md">
+            <form onSubmit={handleSubmit} className="max-w-md">
                 <div className="mb-4">
                     <label className="block text-sm font-semibold mb-1">Date:</label>
                     <input
                         type="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                         required
                     />
@@ -17,6 +46,8 @@ export default function AddRecord() {
                 <div className="mb-4">
                     <label className="block text-sm font-semibold mb-1">Crop Type:</label>
                     <select
+                        value={cropType}
+                        onChange={(e) => setCropType(e.target.value)}
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                         required
                     >
@@ -27,9 +58,11 @@ export default function AddRecord() {
                     </select>
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-semibold mb-1">Age of the Yield (months) :</label>
+                    <label className="block text-sm font-semibold mb-1">Age of the Yield (months):</label>
                     <input
                         type="text"
+                        value={ageOfYield}
+                        onChange={(e) => setAgeOfYield(e.target.value)}
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                         required
                     />
@@ -38,14 +71,18 @@ export default function AddRecord() {
                     <label className="block text-sm font-semibold mb-1">Way Picked:</label>
                     <input
                         type="text"
+                        value={wayPicked}
+                        onChange={(e) => setWayPicked(e.target.value)}
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                         required
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-semibold mb-1">Quantity(kg) :</label>
+                    <label className="block text-sm font-semibold mb-1">Quantity (kg):</label>
                     <input
                         type="text"
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                         required
                     />
@@ -53,6 +90,8 @@ export default function AddRecord() {
                 <div className="mb-4">
                     <label className="block text-sm font-semibold mb-1">Remarks:</label>
                     <textarea
+                        value={remarks}
+                        onChange={(e) => setRemarks(e.target.value)}
                         className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                         required
                     ></textarea>
@@ -64,12 +103,6 @@ export default function AddRecord() {
                     Submit
                 </button>
             </form>
-
         </div>
     );
-};
-
-
-
-
-
+}
