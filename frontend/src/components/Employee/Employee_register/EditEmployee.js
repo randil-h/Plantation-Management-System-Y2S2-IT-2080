@@ -45,6 +45,7 @@ const EditEmployee = () => {
         });
     }, [id]); // Adding id to dependency array
 
+
     const handleEdit = () => {
         const data = {
             f_name,
@@ -281,7 +282,7 @@ const EditEmployee = () => {
                             Update
                         </button>
 
-                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900" >
                             Cancel
                         </button>
 

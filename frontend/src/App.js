@@ -84,6 +84,7 @@ import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
 
 import EditEmployeePage from "./pages/employee_pages/emp_registation/EditEmployeePage";
 
+
 export default function App() {
     const [loading, setLoading] = useState(true);
 
@@ -191,7 +192,8 @@ export default function App() {
                     <Route path="/employees/tasks/addTask" element={AddTask()}/>
                     <Route path="/employees/registration" element={ViewEmpDetails()}/>
                     <Route path="/employees/tasks" element={ViewTaskList()}/>
-                    <Route path="/employees/registration/editEmployee/:id" element={<EditEmployeePage/>}/>
+                    <Route path="/employees/registration/editEmployee/:id" element={<EditEmployeePage />}/>
+
 
                     <Route path="/harvest/home"  element={harvest()}/>
                     <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>
