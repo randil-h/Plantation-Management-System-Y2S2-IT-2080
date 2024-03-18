@@ -6,7 +6,9 @@ import {
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {enqueueSnackbar} from "notistack";
+import {enqueueSnackbar, useSnackbar} from "notistack";
+
+
 
 
 export default function DiseaseList() {
@@ -16,6 +18,9 @@ export default function DiseaseList() {
      const navigate = useNavigate();
      const {id} = useParams();
      const [searchQuery, setSearchQuery] = useState('');
+     const [diseaseChart, setDiseaseChart] = useState({});
+     const { enqueueSnackbar } = useSnackbar();
+
    //const [showType, setShowType] = useState('table');
 
    useEffect(() => {
@@ -25,12 +30,45 @@ export default function DiseaseList() {
            .then((response) => {
                setDiseaseRecords(response.data.data);
                setLoading(false);
+              /* if (response.data.data) { // Check if data is available
+                   generateChartData(response.data.data);
+               }*/
            })
            .catch((error) => {
                console.log(error);
                setLoading(false);
            });
    }, []);
+
+   const generateChartData = (data) => {
+       const diseaseCounts = {};
+       data.forEach((record) => {
+           const diseaseName = record.disease_name;
+           if(diseaseCounts[diseaseName]) {
+               diseaseCounts[diseaseName]++;
+           }
+           else
+           {
+               diseaseCounts[diseaseName] = 1;
+           }
+       });
+
+       const chartData = {
+           labels: Object.keys(diseaseCounts),
+           datasets: [
+               {
+                   label: 'Number of Diseases',
+                   data: Object.values(diseaseCounts),
+                   backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                   borderColor: 'rgba(54, 162, 235, 1)',
+                   borderWidth: 1,
+               },
+           ],
+       };
+
+       setDiseaseChart(chartData);
+   }
+
 
     const handleDeleteDisease = (id) => {
         const confirmDelete = window.confirm("Are you sure you want to delete this disease record?");
@@ -91,6 +129,19 @@ export default function DiseaseList() {
 
             </div>
 
+           {/* <div style={{height: '400px', margin: '0 auto'}}>
+                <Bar data={diseaseChart} options={{
+                    maintainAspectRatio: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }}/>
+            </div>*/}
+
             <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
                 <thead
                     className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
@@ -119,7 +170,7 @@ export default function DiseaseList() {
                         {/*<td className='px-6 py-4'>
                             {drecord.plant_id}
                         </td>*/}
-                        <td className='bpx-6 py-4'>
+                        <td className='px-6 py-4'>
                             {drecord.crop}
                         </td>
                         <td className='px-6 py-4'>
