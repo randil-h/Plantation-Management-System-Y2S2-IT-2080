@@ -1,11 +1,11 @@
 import React from "react";
 
 
-import SideBar from "../../components/SideBar";
-import Navbar from "../../components/utility/Navbar";
-import FinanceTransactionsStatBar from "../../components/finances/finance_transactions/FinanceTransactionsStatBar";
-import WholeSaleNavBar from "../../components/WholeSale_Management/WholeSaleNavBar";
-import WholeSaleProduct from "../../components/WholeSale_Management/WholeSaleProduct";
+import SideBar from "../../../components/SideBar";
+import Navbar from "../../../components/utility/Navbar";
+import FinanceTransactionsStatBar from "../../../components/finances/finance_transactions/FinanceTransactionsStatBar";
+import WholeSaleNavBar from "../../../components/WholeSale_Management/WholeSaleNavBar";
+import WholeSaleProduct from "../../../components/WholeSale_Management/WholeSaleProduct";
 import {dividerClasses} from "@mui/material";
 
 
