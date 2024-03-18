@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../../components/utility/Navbar";
-import ProductEdtingForm from "../../components/WholeSale_Management/ProductEdtingForm";
+import ProductEdtingForm from "../../components/WholeSale_Management/ProductEditingForm";
 
 export default function EditProduct(){
     return(
