@@ -63,20 +63,20 @@ const ProductAddingForm = () => {
     return (
         <div>
             <form onSubmit={handlesubmit}>
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                <div className="mx-auto max-w-7xl px-10 lg:px-8 flex justify-center">
                     <div className="space-y-12">
-                        <div className="border-b border-gray-900/10 pb-12">
-                            <h2 className="text-base font-semibold leading-7 text-gray-900">Add a Product</h2>
-                        </div>
+                            <h2 className="text-xl font-semibold leading-7 text-gray-900 mt-4">Add a Product</h2>
                     </div>
                 </div>
+
+
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="space-y-12">
+                    <div className="space-y-12">
                         <div className="border-b border-gray-900/10 pb-12">
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="sm:col-span-3">
                                     <label
-                                           className="block text-sm font-medium leading-6 text-gray-900">Product
+                                        className="block text-sm font-medium leading-6 text-gray-900">Product
                                         ID</label>
                                     <div className="mt-2">
                                         <input type="text"
@@ -90,7 +90,7 @@ const ProductAddingForm = () => {
 
                                 <div className="sm:col-span-3">
                                     <label
-                                           className="block text-sm font-medium leading-6 text-gray-900">Product
+                                        className="block text-sm font-medium leading-6 text-gray-900">Product
                                         Name</label>
                                     <div className="mt-2">
                                         <input type="text"
@@ -104,7 +104,7 @@ const ProductAddingForm = () => {
 
                                 <div className="col-span-full">
                                     <label
-                                           className="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                        className="block text-sm font-medium leading-6 text-gray-900">Description</label>
                                     <div className="mt-2">
                                             <textarea id="productDescription"
                                                       name="productDescription"
@@ -118,7 +118,7 @@ const ProductAddingForm = () => {
 
                                 <div className="sm:col-span-3">
                                     <label
-                                           className="block text-sm font-medium leading-6 text-gray-900">Quantity</label>
+                                        className="block text-sm font-medium leading-6 text-gray-900">Quantity</label>
                                     <div className="mt-2">
                                         <input type="text"
                                                name="productQuantity"
@@ -131,7 +131,7 @@ const ProductAddingForm = () => {
 
                                 <div className="sm:col-span-3">
                                     <label
-                                           className="block text-sm font-medium leading-6 text-gray-900">Price Per
+                                        className="block text-sm font-medium leading-6 text-gray-900">Price Per
                                         1Kg</label>
                                     <div className="mt-2">
                                         <input type="text"
