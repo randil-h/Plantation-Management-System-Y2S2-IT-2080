@@ -59,6 +59,8 @@ app.use('/valuation', ValuationRoute);
 
 app.use('/booking', BookingRoute);
 app.use('/confirmation', BookingRoute);
+app.use('/feedbacklist',FeedbackRoute);
+app.use('/feedback',FeedbackRoute);
 
 app.use('/diseases', DiseaseRoute);
 

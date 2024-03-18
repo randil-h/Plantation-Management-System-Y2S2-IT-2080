@@ -75,13 +75,21 @@ const FeedbackList = () => {
                 >
                     Reset
                 </button>
+                <Link to="/dashboard">
+                    <button
+                        className="bg-black text-white px-8 py-2 rounded-md hover:bg-emerald-700 focus:outline-none ml-4"
+                    >
+                        View Dashboard
+                    </button>
+                </Link>
             </div>
 
             {loading ? (
                 <div>Loading...</div>
             ) : (
-                <div className="container mx-auto p-6 mt-4">
-                    <table id="feedback-table" className="w-auto bg-white shadow-md rounded-md overflow-hidden">
+                <div className="container mx-auto px-10 mt-4 mb-4">
+                    <table id="feedback-table" className="w-auto bg-white shadow-md rounded-md overflow-hidden mx-auto">
+
                         <thead className="bg-gray-200">
                         <tr>
                             <th className="py-2 px-4 border border-gray-400">No</th>
@@ -103,17 +111,18 @@ const FeedbackList = () => {
                                 <td className="py-2 px-4 border border-gray-400">
                                     <div className="flex">
                                         <Link
-                                            to={`/feedback/edit/${record._id}`}
+                                            to={`/feedback/${record._id}`} // Update the path to match the feedback form URL
                                             className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer border-none flex items-center"
                                         >
-                                            <FaEdit className="mr-1" />
+                                            <FaEdit className="mr-1"/>
                                             <span>Edit</span>
                                         </Link>
+
                                         <button
                                             className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer ml-6 border-none flex items-center"
                                             onClick={() => handleDelete(record._id)}
                                         >
-                                            <FaTrash className="mr-1" />
+                                            <FaTrash className="mr-1"/>
                                             <span>Delete</span>
                                         </button>
                                     </div>

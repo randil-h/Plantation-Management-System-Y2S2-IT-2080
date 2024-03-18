@@ -1,28 +1,53 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+
 const FeedbackForm = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [feedback, setFeedback] = useState("");
     const [rating, setRating] = useState(0); // Initial rating
     const navigate = useNavigate();
+
     const handleRatingChange = (newRating) => {
         setRating(newRating);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle the form submission (e.g., send data to server)
-        console.log("Submitted Data:", { name, email, feedback, rating });
-        navigate("/feedbacklist");
+        try {
+            const response = await fetch("http://localhost:5555/feedback", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    feedback,
+                    rating,
+                }),
+            });
+            if (!response.ok) {
+                throw new Error("Failed to submit feedback");
+            }
+            // Reset form fields after successful submission
+            setName("");
+            setEmail("");
+            setFeedback("");
+            setRating(0);
+            // Navigate to the feedback list page
+            navigate("/feedbacklist");
+        } catch (error) {
+            console.error("Error submitting feedback:", error);
+            // Handle error (e.g., display error message to user)
+        }
     };
 
     return (
         <div className="h-screen flex flex-col justify-center items-center">
-            <form onSubmit={handleSubmit} className="w-120 border p-10 rounded-lg bg-gray-200">
-                <h1 className="text-3xl font-semibold mb-4">Give Us Your Feedback</h1>
+            <form onSubmit={handleSubmit} className="w-full max-w-md border p-10 rounded-lg bg-white">
+                <h1 className="text-3xl font-semibold mb-4 text-center">Give Us Your Feedback</h1>
                 <div className="mb-4">
                     <label htmlFor="name" className="block text-sm font-medium text-gray-600">
                         Name
@@ -70,6 +95,7 @@ const FeedbackForm = () => {
                                     type="radio"
                                     name="rating"
                                     value={number}
+                                    checked={rating === number}
                                     onChange={() => handleRatingChange(number)}
                                     className="form-radio text-blue-500"
                                 />
@@ -81,18 +107,17 @@ const FeedbackForm = () => {
                 <div className="mb-3 mt-8 flex justify-center">
                     <button
                         type="submit"
-                        className="bg-black text-white px-4 py-2 rounded-2xl hover:bg-gray-800"
+                        className="bg-black text-white p-2 rounded-md w-full hover:bg-emerald-700"
                     >
                         Submit Feedback
                     </button>
                 </div>
             </form>
             <p className="mt-4 text-lg flex items-center">
-                <Link to="/feedback" className="text-black flex items-center">
+                <Link to="/tourism" className="text-black flex items-center">
                     <IoMdArrowRoundBack className="mr-2"/> Go back
                 </Link>
             </p>
-
         </div>
     );
 };

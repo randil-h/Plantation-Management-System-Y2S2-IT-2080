@@ -137,7 +137,7 @@ export default function App() {
 
 
                     <Route path="/tourism" element={AgroTourism()}/>
-                    <Route path="/feedback-form" element={Feedback()}/>
+                    <Route path="/feedback" element={Feedback()}/>
                     <Route path="/booking" element={BookingPg()}/>
                     <Route path="/payment" element={PaymentPg()}/>
                     <Route path="/confirmation" element={ConfirmationPg()}/>

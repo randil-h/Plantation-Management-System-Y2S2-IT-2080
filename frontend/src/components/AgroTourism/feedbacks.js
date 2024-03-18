@@ -38,7 +38,7 @@ export default function Feedback() {
                     <div className="flex flex-col items-center mt-4 mb-4">
                         <p className="text-xl">
                             Want to give us a feedback?{" "}
-                            <Link to="/feedback-form" className="text-blue-500">
+                            <Link to="/feedback" className="text-blue-500">
                                 Click here
                             </Link>
                         </p>
