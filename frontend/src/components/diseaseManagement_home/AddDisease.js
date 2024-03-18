@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 export default function AddDisease() {
     const [disease_name, setName] = useState('');
+    const [plant_id, setId] = useState('');
     const [crop, setType] = useState('');
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
@@ -34,6 +35,7 @@ export default function AddDisease() {
         e.preventDefault();
         const data = {
             disease_name,
+            /*plant_id,*/
             crop,
             date,
             location,
@@ -77,6 +79,14 @@ export default function AddDisease() {
                     <option value="Maitas and Leaf Curling disease">Maitas and Leaf Curling</option>
                     <option value="Other">Other</option>
                 </select>
+               {/* <label className='text-md mr-4 text-gray-500 mb-1'>Plant ID</label>
+                <input
+                    type='text'
+                    required
+                    value={plant_id}
+                    onChange={(e) => setId(e.target.value)}
+                    className='border-2 rounded-md mb-5 border-gray-500 px-4 py-2 w-full'
+                />*/}
                 <label className='text-md mr-4 text-gray-500 mb-1'>Crop Type</label>
                 <select
                      value={crop}

@@ -5,6 +5,7 @@ import {useSnackbar} from "notistack";
 
 export default function UpdateDisease() {
     const [disease_name, setName] = useState('');
+    const [plant_id, setId] = useState('');
     const [crop, setType] = useState('');
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
@@ -21,6 +22,7 @@ export default function UpdateDisease() {
         axios.get(`http://localhost:5555/diseases/${id}`)
             .then((response) => {
                 setName(response.data.disease_name);
+                setId(response.data.plant_id);
                 setType(response.data.crop);
                 setDate(response.data.date);
                 setLocation(response.data.location);
@@ -58,6 +60,7 @@ export default function UpdateDisease() {
         e.preventDefault()
         const data = {
             disease_name,
+            plant_id,
             crop,
             date,
             location,
@@ -72,7 +75,7 @@ export default function UpdateDisease() {
                 setLoading(false);
                 enqueueSnackbar('Record Updated successfully', { variant: 'success' });
                 navigate('/diseases/records');
-                window.alert("Record Successfully updated!");
+                window.alert("Record Updated Successfully!");
             })
             .catch((error) => {
                 setLoading(false);
@@ -83,8 +86,8 @@ export default function UpdateDisease() {
     return (
         <div className='items-center justify-center ml-96'>
             <form
-                  onSubmit={handleUpdateDisease}
-                  className="max-w-md ml-1/3 mt-16 p-4 bg-gray-200 rounded-lg items-center justify-center flex flex-col">
+                onSubmit={handleUpdateDisease}
+                className="max-w-md ml-1/3 mt-16 p-4 bg-gray-200 rounded-lg items-center justify-center flex flex-col">
                 <legend className='text-x font-bold mb-2 '>Update Disease Record</legend>
                 <label className='text-md mr-4 text-gray-500 mb-1'>Disease Name</label>
                 <select
@@ -101,6 +104,14 @@ export default function UpdateDisease() {
                     <option value="Maitas and Leaf Curling disease">Maitas and Leaf Curling</option>
                     <option value="Other">Other</option>
                 </select>
+               {/* <label className='text-md mr-4 text-gray-500 mb-1'>Plant ID</label>
+                <input
+                    type='text'
+                    required
+                    value={plant_id}
+                    onChange={(e) => setId(e.target.value)}
+                    className='border-2 rounded-md mb-5 border-gray-500 px-4 py-2 w-full'
+                />*/}
                 <label className='text-md mr-4 text-gray-500 mb-1'>Crop Type</label>
                 <select
                     value={crop}
