@@ -130,7 +130,7 @@ export default function TransactionsList() {
                     </th>
                 </tr>
                 </thead>
-                <tbody className="border-b border-green-400">
+                <tbody className="border-b border-gray-200">
 
                 {filteredRecords.map((record, index) => (
                     <tr key={record._id}

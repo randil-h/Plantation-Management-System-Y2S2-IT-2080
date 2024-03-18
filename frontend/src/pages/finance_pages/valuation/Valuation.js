@@ -108,7 +108,7 @@ export default function Valuation() {
                             </div>
                         </div>
 
-                        <div>
+                        <div className="sticky top-20">
                             <div className=" flex flex-row w-full bg-gray-200  h-72 ">
                                 <button value="Land" onClick={(e) => setSearchQuery(e.target.value)}
                                     className="w-full overflow-hidden h-full bg-lime-100 flex flex-col justify-between items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
@@ -249,7 +249,7 @@ export default function Valuation() {
 
                             </div>
 
-                            <div className="flex justify-center align-middle w-full  py-4">
+                            <div className="flex justify-center align-middle w-full  py-4 ">
                                 <div className="w-6 h-6 ">
                                     <ChevronDownIcon/>
                                 </div>
@@ -297,7 +297,7 @@ export default function Valuation() {
                                 </th>
                             </tr>
                             </thead>
-                            <tbody className="border-b border-green-400">
+                            <tbody className="border-b border-gray-200">
 
                             {filteredRecords.map((record, index) => (
                                 <tr key={record._id}
