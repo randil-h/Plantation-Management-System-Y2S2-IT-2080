@@ -56,6 +56,7 @@ import MyOrders from "./pages/WholeSaleMangement/MyOrders";
 import AddingProduct from"./pages/WholeSaleMangement/AddingProduct";
 import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
 import WholeSaleDashBoard from "./pages/WholeSaleMangement/WholeSaleDashBoard";
+import EditProduct from "./pages/WholeSaleMangement/EditProduct";
 
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
@@ -164,6 +165,8 @@ export default function App() {
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/addingProduct" element={AddingProduct()}/>
                     <Route path="/wholesaleDashboard" element={WholeSaleDashBoard()}/>
+                    <Route path="/editProduct/:id" element={<EditProduct />}/>
+
 
                     <Route path = "diseases/home" element={DiseaseTracking()}/>
 
