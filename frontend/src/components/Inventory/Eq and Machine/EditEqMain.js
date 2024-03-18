@@ -60,8 +60,6 @@ const EditEqMain = () => {
             });
     };
 
-
-
     return (
         <div className="pt-2">
             <div className="flex flex-col ml-96 mt-6">

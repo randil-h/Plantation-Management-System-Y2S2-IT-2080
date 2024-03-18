@@ -30,9 +30,10 @@ export default function AddRecord() {
     };
 
     return (
-        <div className="mx-auto py-10">
+        <div className="pt-2">
+            <div className="flex flex-col ml-96 mt-6">
             <h1 className="text-2xl font-bold mb-5">Record Harvestings</h1>
-            <form onSubmit={handleSubmit} className="max-w-md">
+            <form onSubmit={handleSubmit} className="max-w-md space-y-4">
                 <div className="mb-4">
                     <label className="block text-sm font-semibold mb-1">Date:</label>
                     <input
@@ -103,6 +104,8 @@ export default function AddRecord() {
                     Submit
                 </button>
             </form>
+                </div>
         </div>
+
     );
 }

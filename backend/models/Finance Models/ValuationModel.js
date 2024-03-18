@@ -3,35 +3,35 @@ const FinanceSchema = mongoose.Schema(
     {
         date: {
             type: String,
-            required: true,
+            required: false,
         },
         type: {
             type: String,
-            required: true,
+            required: false,
         },
         subtype: {
             type: String,
-            required: true,
+            required: false,
         },
         quantity: {
             type: Number,
-            required: true,
+            required: false,
         },
         price: {
             type: Number,
-            required: true,
+            required: false,
         },
         description: {
             type: String,
-            required: true,
+            required: false,
         },
         payer_payee: {
             type: String,
-            required: true,
+            required: false,
         },
         appreciationOrDepreciation: {
             type: Number,
-            required: true,
+            required: false,
         }
     },
     {
