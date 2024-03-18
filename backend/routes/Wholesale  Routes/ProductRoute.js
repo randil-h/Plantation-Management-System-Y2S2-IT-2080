@@ -51,23 +51,57 @@ router.get('/', async (request, response) => {
 
 
 
-// router.get('/', async(request,response) =>{
-//     try{
-//         const  {id} = request.params;
-//
-//         if(!id){
-//             return response.status(400).json({ message: 'ID parameter is required' });
-//         }
-//
-//         const  productRecords = await Products.findOne(id);
-//         if(!productRecords){
-//             return response.status(404).json({ message: 'Product Record not found' });
-//         }
-//         return response.status(200).jason(productRecords);
-//     }catch(error){
-//
-//     }
-// })
+router.get('/', async(request,response) =>{
+    try{
+        const  {id} = request.params;
+
+        // if(!id){
+        //     return response.status(400).json({ message: 'ID parameter is required' });
+        // }
+
+        const  productRecords = await Products.findById(id);
+
+        return response.status(200).json(Products)
+        // if(!productRecords){
+        //     return response.status(404).json({ message: 'Product Record not found' });
+        // }
+        //return response.status(200).jason(productRecords);
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+
+router.put('/:id', async (request, response) => {
+    try{
+        if(
+            !request.body.productID ||
+            !request.body.productName ||
+            !request.body.productDescription ||
+            !request.body.productQuantity ||
+            !request.body.productPrice
+        ) {
+            return response.status(400).send({
+                message: 'Send all required fields'
+            });
+        }
+
+        const { id } = request.params;
+
+        const result = await Products.findByIdAndUpdate(id, request.body);
+
+        if(!result){
+            return response.status(404).json({message: 'Product Records not Founded'});
+        }
+
+        return response.status(200).send({ message: 'Product record updated successfully' });
+
+    }catch (error){
+        console.log(error.message);
+        response.status(500).send({message: error.message});
+    }
+});
 
 router.delete('/:id', async (request, response) =>{
     try{
