@@ -51,12 +51,12 @@ import ViewDiseaseRecord from "./pages/diseaseTracking_pages/records/ViewDisease
 import Insights from "./pages/insights/Insights";
 import MarketPrice from "./pages/insights/marketPriceAnalysis/MarketPrice";
 
-import WholeSaleTransaction from "./pages/WholeSaleMangement/WholeSaleTransaction";
-import MyOrders from "./pages/WholeSaleMangement/MyOrders";
-import AddingProduct from"./pages/WholeSaleMangement/AddingProduct";
-import PlaceOrder from "./pages/WholeSaleMangement/PlaceOrder";
-import WholeSaleDashBoard from "./pages/WholeSaleMangement/WholeSaleDashBoard";
-import EditProduct from "./pages/WholeSaleMangement/EditProduct";
+import WholeSaleTransaction from "./pages/WholeSaleMangement/WholeSaleCustomer/WholeSaleTransaction";
+import MyOrders from "./pages/WholeSaleMangement/WholeSaleCustomer/MyOrders";
+import AddingProduct from "./pages/WholeSaleMangement/OperationManager/AddingProduct";
+import PlaceOrder from "./pages/WholeSaleMangement/WholeSaleCustomer/PlaceOrder";
+import WholeSaleDashBoard from "./pages/WholeSaleMangement/OperationManager/WholeSaleDashBoard";
+import EditProduct from "./pages/WholeSaleMangement/OperationManager/EditProduct";
 
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
@@ -166,7 +166,7 @@ export default function App() {
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
                     <Route path="/WholeSale/orders" element={MyOrders()}/>
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
-                    <Route path="/addingProduct" element={AddingProduct()}/>
+                    <Route path="OperationManager/AddingProduct" element={AddingProduct()}/>
                     <Route path="/wholesaleDashboard" element={WholeSaleDashBoard()}/>
                     <Route path="/editProduct/:id" element={<EditProduct />}/>
 
