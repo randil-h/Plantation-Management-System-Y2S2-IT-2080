@@ -6,7 +6,7 @@ import {
     InformationCircleIcon
 } from '@heroicons/react/24/outline';
 import axios from 'axios';
-import { PDFDownloadLink, PDFViewer, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { StyleSheet } from '@react-pdf/renderer';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
@@ -46,6 +46,7 @@ const RotationList = () => {
     const [RotationRecords, setRotationRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [recordToDelete, setRecordToDelete] = useState(null);
 
     useEffect(() => {
         setLoading(true);
@@ -62,15 +63,38 @@ const RotationList = () => {
     }, []);
 
     const handleDelete = (recordId) => {
+        setRecordToDelete(recordId);
+    };
+
+    const confirmDelete = () => {
+        if (recordToDelete) {
+            axios
+                .delete(`http://localhost:5555/rotation/${recordToDelete}`)
+                .then(() => {
+                    setRotationRecords(prevRecords =>
+                        prevRecords.filter(record => record._id !== recordToDelete)
+                    );
+                    setRecordToDelete(null);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    };
+
+    const confirmDeleteAction = () => {
         axios
-            .delete(`http://localhost:5555/rotation/${recordId}`)
+            .delete(`http://localhost:5555/rotation/${recordToDelete}`)
             .then(() => {
-                setRotationRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
+                setRotationRecords(prevRecords => prevRecords.filter(record => record._id !== recordToDelete));
             })
             .catch((error) => {
                 console.log(error);
-                // Handle error
             });
+    };
+
+    const handleCancelDelete = () => {
+        setRecordToDelete(null);
     };
 
     const handleSearchInputChange = (event) => {
@@ -95,7 +119,7 @@ const RotationList = () => {
     };
 
     return (
-        <div className= "z-0">
+        <div className="z-0">
             <div>
                 <input
                     type="text"
@@ -128,7 +152,7 @@ const RotationList = () => {
             </button>
 
             <div className="overflow-x-auto">
-            <table id="rotation-table"
+                <table id="rotation-table"
                        className="w-10/12 bg-white shadow-md rounded-md overflow-hidden absolute top-1/3 left-60">
                     <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
                     <tr>
@@ -163,17 +187,42 @@ const RotationList = () => {
                                     </Link>
                                     <button
                                         className="flex items-center"
-                                        onClick={() => handleDelete(record._id)}>
+                                        onClick={() => handleDelete(record._id)}
+                                    >
                                         <TrashIcon
                                             className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                            aria-hidden="true"/>
+                                            aria-hidden="true"
+                                        />
                                     </button>
                                 </div>
                             </td>
                         </tr>
                     ))}
                     </tbody>
-            </table>
+                </table>
+                {recordToDelete && (
+                    <div
+                        className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex items-center justify-center">
+                        <div className="bg-white p-5 rounded-md shadow-lg">
+                            <p className="text-lg font-semibold mb-3">Confirm Deletion</p>
+                            <p className="mb-5">Are you sure you want to delete this record?</p>
+                            <div className="flex justify-end">
+                                <button
+                                    onClick={confirmDelete}
+                                    className="px-4 py-2 bg-red-500 text-white rounded-md mr-2"
+                                >
+                                    Confirm
+                                </button>
+                                <button
+                                    onClick={() => setRecordToDelete(null)}
+                                    className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
