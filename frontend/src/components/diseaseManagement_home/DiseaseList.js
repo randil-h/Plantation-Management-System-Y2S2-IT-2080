@@ -96,6 +96,7 @@ export default function DiseaseList() {
                     className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                 <tr className=" ">
                     <th scope="col" className="px-6 py-3">Disease Name</th>
+                    {/*<th scope="col" className="px-6 py-3"> Plant ID</th>*/}
                     <th scope="col" className="px-6 py-3">Crop Type</th>
                     <th scope="col" className="px-6 py-3">Date</th>
                     <th scope="col" className="px-6 py-3">Location</th>
@@ -115,6 +116,9 @@ export default function DiseaseList() {
                         <td className='px-6 py-4'>
                             {drecord.disease_name}
                         </td>
+                        {/*<td className='px-6 py-4'>
+                            {drecord.plant_id}
+                        </td>*/}
                         <td className='bpx-6 py-4'>
                             {drecord.crop}
                         </td>
