@@ -1,7 +1,7 @@
 import Navbar from "../../../components/utility/Navbar";
 import SideBar from "../../../components/SideBar";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
-import React, {useState} from "react";
+import React from "react";
 import BackButton from "../../../components/utility/BackButton";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
 import EmployeeList from "../../../components/Employee/Employee_register/EmployeeList";

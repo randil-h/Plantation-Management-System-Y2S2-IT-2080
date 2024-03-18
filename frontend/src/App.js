@@ -18,6 +18,7 @@ import EditTransaction from "./pages/finance_pages/transactions/EditTransaction"
 import DeleteTransaction from "./pages/finance_pages/transactions/DeleteTransaction";
 
 import Valuation from "./pages/finance_pages/valuation/Valuation";
+import AddNewValuation from "./pages/finance_pages/valuation/AddValuation";
 import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments";
 import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
 
@@ -83,6 +84,7 @@ import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
 
 import EditEmployeePage from "./pages/employee_pages/emp_registation/EditEmployeePage";
 
+
 export default function App() {
     const [loading, setLoading] = useState(true);
 
@@ -127,6 +129,10 @@ export default function App() {
                     <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
 
                     <Route path="/finances/valuation" element={<Valuation />} />
+                    <Route path="/finances/valuation/addValuation" element={<AddNewValuation/>} />
+                    <Route path="/finances/valuation/editValuation" element={<Valuation />} />
+                    <Route path="/finances/valuation/deleteValuation" element={<Valuation />} />
+
 
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback-form" element={Feedback()}/>
@@ -186,7 +192,8 @@ export default function App() {
                     <Route path="/employees/tasks/addTask" element={AddTask()}/>
                     <Route path="/employees/registration" element={ViewEmpDetails()}/>
                     <Route path="/employees/tasks" element={ViewTaskList()}/>
-                    <Route path="/employees/registration/editEmployee/:id" element={<EditEmployeePage/>}/>
+                    <Route path="/employees/registration/editEmployee/:id" element={<EditEmployeePage />}/>
+
 
                     <Route path="/harvest/home"  element={harvest()}/>
                     <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>

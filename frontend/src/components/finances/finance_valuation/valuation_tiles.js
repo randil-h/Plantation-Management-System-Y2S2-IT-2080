@@ -1,84 +1,163 @@
+
 import {
-    ArrowUpCircleIcon,
-    ArrowDownCircleIcon
+    TruckIcon,
+    RectangleGroupIcon,
+    HomeModernIcon,
+    ChevronDownIcon
 } from '@heroicons/react/24/solid'
+import { GiFruitBowl } from "react-icons/gi";
+import { MdElectricalServices } from "react-icons/md";
+import { GiWaterTank } from "react-icons/gi";
+import { RiCoinsFill } from "react-icons/ri";
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import { GiReceiveMoney } from "react-icons/gi";
+import { GiPayMoney } from "react-icons/gi";
+import { FaMoneyCheck } from "react-icons/fa";
+import { GiTwoCoins } from "react-icons/gi";
+
 
 export default function ValuationTiles() {
     return (
-        <div className="relative py-8 sm:py-8  overflow-hidden ">
-            <div
-                className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/4 transform-gpu blur-2xl"
-                aria-hidden="true"
-            >
-                <div
-                    className="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#2563eb] to-[#84cc16] opacity-30"
-                    style={{
-                        clipPath:
-                            'polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)',
-                    }}
-                />
-            </div>
-            <div
-                className="absolute left-[max(45rem,calc(50%+8rem))] top-1/4 -z-10 -translate-y-1/2 -translate-x-1/4 transform-gpu blur-2xl"
-                aria-hidden="true"
-            >
-                <div
-                    className="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#2563eb] to-[#84cc16]
-                     opacity-30"
-                    style={{
-                        clipPath:
-                            'polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)',
-                    }}
-                />
-            </div>
-            <div className="mx-auto max-w-7xl px-6 lg:px-8 relative flex flex-row ">
 
-
-                <div className="mx-auto flex max-w-xs flex-col gap-y-1">
-                    <div className="flex flex-row items-center gap-4">
-                        <dd className=" text-xl font-semibold text-gray-900 tracking-tight  sm:text-3xl">
-                            Rs.110,000
-                        </dd>
+        <div>
+            <div className=" flex flex-row w-full bg-gray-200  h-72 ">
+                <button  className="w-full overflow-hidden h-full bg-lime-100 flex flex-col justify-between items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                    <div
+                        className="flex flex-col h-full items-center content-center align-middle justify-between pb-8  pt-8">
                         <div className="w-8 h-8">
-                            <ArrowUpCircleIcon/>
+                            <RectangleGroupIcon/>
+                        </div>
+                        <dd className="text-xl font-semibold text-gray-900 sm:text-xl [writing-mode:vertical-lr] rotate-180">
+                            Land
+                        </dd>
+                    </div>
+                </button>
+                <div className="w-full overflow-hidden bg-green-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                    <div
+                        className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
+                        <div className="w-8 h-8">
+                            <TruckIcon/>
+                        </div>
+
+                        <div
+                            className="text-xl font-semibold text-gray-900 sm:text-xl [writing-mode:vertical-lr] rotate-180">
+                            Machinery
+                        </div>
+
+
+                    </div>
+                </div>
+                <div className="w-full overflow-hidden bg-teal-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                    <div
+                        className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
+                        <div className="w-8 h-8">
+                            <GiFruitBowl className="w-full h-full"/>
+                        </div>
+
+                        <div
+                            className="text-xl font-semibold text-gray-900 sm:text-xl [writing-mode:vertical-lr] rotate-180">
+                            Crops
+                        </div>
+
+
+                    </div>
+                </div>
+                <div className="w-full overflow-hidden bg-cyan-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                    <div
+                        className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
+                        <div className="w-8 h-8">
+                            <HomeModernIcon/>
+                        </div>
+                        <div
+                            className="text-xl font-semibold text-gray-900 sm:text-xl [writing-mode:vertical-lr] rotate-180">
+                            Infrastruscture
                         </div>
                     </div>
-
-
-                    <dt className="text-base leading-7 text-gray-900">Income this week</dt>
                 </div>
-
-                <div className="mx-auto flex max-w-xs flex-col gap-y-1">
-                    <div className="flex flex-row items-center gap-4">
-                        <dd className=" text-xl font-semibold  tracking-tight text-gray-900 sm:text-3xl">
-                            Rs.110,000
-                        </dd>
+                <div className="w-full overflow-hidden bg-sky-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                    <div
+                        className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                         <div className="w-8 h-8">
-                            <ArrowDownCircleIcon/>
+                            <MdElectricalServices className="w-full h-full"/>
+                        </div>
+                        <div
+                            className="text-xl font-semibold text-gray-900 sm:text-xl [writing-mode:vertical-lr] rotate-180">
+                            Utilities
                         </div>
                     </div>
-
-
-                    <dt className="text-base leading-7 text-gray-900">Income this week</dt>
                 </div>
 
-                <div className="mx-auto flex max-w-xs flex-col gap-y-1">
-                    <div className="flex flex-row items-center gap-4">
-                        <dd className=" text-xl font-semibold text-gray-900 tracking-tight  sm:text-3xl">
-                            Rs.110,000
-                        </dd>
+                <div className="w-full overflow-hidden bg-blue-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                    <div
+                        className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                         <div className="w-8 h-8">
-                            <ArrowUpCircleIcon/>
+                            <GiWaterTank className="w-full h-full"/>
+                        </div>
+                        <div
+                            className="text-xl font-semibold text-gray-900 sm:text-xl [writing-mode:vertical-lr] rotate-180">
+                            Water
                         </div>
                     </div>
-
-
-                    <dt className="text-base leading-7 text-gray-900">Income this week</dt>
                 </div>
-
+                <div className="w-full overflow-hidden bg-rose-200 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                    <div
+                        className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
+                        <div className="w-8 h-8">
+                            <GiReceiveMoney className="w-full h-full"/>
+                        </div>
+                        <div
+                            className="text-xl font-semibold text-gray-900 sm:text-xl [writing-mode:vertical-lr] rotate-180">
+                            Loans
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full overflow-hidden bg-red-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                    <div
+                        className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
+                        <div className="w-8 h-8">
+                            <GiPayMoney className="w-full h-full"/>
+                        </div>
+                        <div
+                            className="text-xl font-semibold text-gray-900 sm:text-xl [writing-mode:vertical-lr] rotate-180">
+                            Debts
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full overflow-hidden bg-pink-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                    <div
+                        className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
+                        <div className="w-8 h-8">
+                            <FaMoneyCheck className="w-full h-full"/>
+                        </div>
+                        <div
+                            className="text-xl font-semibold text-gray-900 sm:text-xl [writing-mode:vertical-lr] rotate-180">
+                            Leases
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full overflow-hidden bg-violet-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                    <div
+                        className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
+                        <div className="w-8 h-8">
+                            <GiTwoCoins className="w-full h-full"/>
+                        </div>
+                        <div
+                            className="text-xl font-semibold text-gray-900 sm:text-xl [writing-mode:vertical-lr] rotate-180">
+                            Taxes
+                        </div>
+                    </div>
+                </div>
 
             </div>
+
+            <div className="flex justify-center align-middle w-full  py-4">
+                <div className="w-6 h-6 ">
+                    <ChevronDownIcon/>
+                </div>
+            </div>
+
         </div>
+
     )
 }
 
