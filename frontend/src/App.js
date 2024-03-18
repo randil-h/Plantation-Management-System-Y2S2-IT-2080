@@ -197,13 +197,12 @@ export default function App() {
                     <Route path="/employees/tasks" element={ViewTaskList()}/>
                     <Route path="/employees/registration/editEmployee/:id" element={<EditEmployeePage />}/>
 
-
                     <Route path="/harvest/home"  element={harvest()}/>
                     <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>
                     <Route path="/harvest/harvestRecords"  element={harvestRec()}/>
                     <Route path="/harvest/yieldLifespan"  element={yieldLifeCal()}/>
                     <Route path="/harvest/records/addRecord" element={<AddRecord />} />
-                    <Route path="/harvest/records/updateRecord" element={<EditHarvest />} />
+                    <Route path="/harvest/records/updateRecord/:id" element={<EditHarvest />} />
                     <Route path="/harvest/records" element={<HarvestList />} />
 
                 </Routes>
