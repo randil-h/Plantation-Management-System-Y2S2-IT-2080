@@ -20,7 +20,7 @@ export default function ViewRotation() {
                     <div className="z-20">
                         <CropNavigation/>
                     </div>
-                    <div>
+                    <div className="">
                         <RotationList/>
                     </div>
                 </div>
