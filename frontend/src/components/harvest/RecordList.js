@@ -69,39 +69,57 @@ export default function HarvestList() {
                 </tr>
                 </thead>
                 <tbody className="border-b border-green-400">
-                {harvestRecords.map((record) => (
-                    <tr>
-                        <td className="border border-slate-700 rounded-md text-center">{record.date}</td>
-                        <td className="border border-slate-700 rounded-md text-center">{record.cropType}</td>
-                        <td className="border border-slate-700 rounded-md text-center">{record.ageOfYield}</td>
-                        <td className="border border-slate-700 rounded-md text-center">{record.wayPicked}</td>
-                        <td className="border border-slate-700 rounded-md text-center">{record.quantity}</td>
-                        <td className="border border-slate-700 rounded-md text-center">{record.remarks}</td>
+                {harvestRecords.map((record, index) => (
+                    <tr key={index} className="border border-gray-200">
+                        <td className="px-6 py-4 whitespace-nowrap">
+                            {index + 1}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                            {new Date(record.date).toLocaleDateString()}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                            {record.cropType}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                            {record.ageOfYield}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                            {record.wayPicked}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                            {record.quantity}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                            {record.remarks}
+                        </td>
                         <td className="py-4 text-right">
-                            <a href="/harvests/records/viewHarvest" className="font-medium text-blue-600 hover:underline">
-                                <InformationCircleIcon className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500" aria-hidden="true" />
+                            <a href="/harvests/records/viewHarvest"
+                               className="font-medium text-blue-600 hover:underline">
+                                <InformationCircleIcon
+                                    className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                    aria-hidden="true"/>
                             </a>
                         </td>
                         <td className="py-4 text-right">
-                            <a href="/harvest/records/updateRecord" className="font-medium text-blue-600 hover:underline">
-                                <PencilSquareIcon className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500" aria-hidden="true" />
+                            <a href={`/harvest/records/updateRecord/${record._id}`}
+                               className="font-medium text-blue-600 hover:underline">
+                                <PencilSquareIcon
+                                    className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                    aria-hidden="true"/>
                             </a>
                         </td>
                         <td className="py-4 text-right">
-                            <button
-                                className="flex items-center"
-                                onClick={() => handleDeleteHarvest(record._id)}
-                            >
-
-                                    <TrashIcon
-                                        className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                        aria-hidden="true"/>
+                            <button className="flex items-center" onClick={() => handleDeleteHarvest(record._id)}>
+                                <TrashIcon
+                                    className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                    aria-hidden="true"/>
                             </button>
                         </td>
                     </tr>
-                    ))}
+                ))}
                 </tbody>
             </table>
+
         </div>
-);
+    );
 }
