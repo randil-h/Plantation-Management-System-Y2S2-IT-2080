@@ -302,7 +302,7 @@ export default function Valuation() {
                             {filteredRecords.map((record, index) => (
                                 <tr key={record._id}
                                     className={` divide-y
-            ${record.type === 'expense' ? 'border-l-4 border-red-400 ' : 'border-l-4 border-green-400 '}`}
+            ${record.subtype === 'Machinery' ? 'border-l-4 border-red-400 ' : 'border-l-4 border-green-400 '}`}
                                 >
                                     <td></td>
                                     <td className="px-6 py-4">

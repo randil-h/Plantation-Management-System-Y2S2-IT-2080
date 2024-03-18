@@ -16,14 +16,15 @@ const ProductEdtingForm =() =>{
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:5555/productRecords/${id}`)
+        axios
+            .get(`http://localhost:5555/productRecords/${id}`)
             .then((response) => {
-
                 setproductID(response.data.productID);
                 setproductName(response.data.productName);
                 setproductDescription(response.data.productDescription);
                 setproductQuantity(response.data.productQuantity);
                 setproductPrice(response.data.productPrice);
+
                 setLoading(false);
             }).catch((error) => {
             setLoading(false);
@@ -78,8 +79,9 @@ const ProductEdtingForm =() =>{
                                         <input type="text"
                                                name="productID"
                                                id="productID"
-                                               onChange={(e) => setproductID(e.target.value)}
                                                value={productID}
+                                               onChange={(e) => setproductID(e.target.value)}
+
                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                                     </div>
                                 </div>
