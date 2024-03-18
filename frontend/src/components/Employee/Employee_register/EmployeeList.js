@@ -7,6 +7,8 @@ import {
     InformationCircleIcon
 } from '@heroicons/react/24/outline'
 import {Link} from "react-router-dom";
+import html2canvas from "html2canvas";
+import {jsPDF} from "jspdf";
 
 const EmployeeList = () => {
 
@@ -51,6 +53,34 @@ const EmployeeList = () => {
     );
 
 
+    const handlePrint = () => {
+        const input = document.getElementById('print-area');
+
+        html2canvas(input)
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const imgWidth = pdf.internal.pageSize.getWidth() - 20;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 10;
+                pdf.setFontSize(16);
+                pdf.text("Employee Details", 10, position);
+                heightLeft -= position + 10;
+
+                pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
+                heightLeft -= imgHeight;
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
+                    heightLeft -= imgHeight;
+                }
+
+                pdf.save('Employee_Details.pdf');
+            });
+    };
+
 
         return (
             <div className=" overflow-x-auto  ">
@@ -77,10 +107,16 @@ const EmployeeList = () => {
                            className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                             Add new employee <span aria-hidden="true">&rarr;</span>
                         </a>
+                        <button
+                            onClick={handlePrint}
+                            className="ml-4 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                            Print
+                        </button>
                     </div>
                 </div>
 
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
+                <div id="print-area">
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
                     <thead
                         className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                     <tr className=" ">
@@ -208,6 +244,7 @@ const EmployeeList = () => {
 
                          </tbody>
                 </table>
+            </div>
             </div>
         )
 };
