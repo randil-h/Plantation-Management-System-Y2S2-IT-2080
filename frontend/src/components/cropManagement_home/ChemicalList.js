@@ -22,6 +22,8 @@ const pdfStyles = StyleSheet.create({
 const ChemicalList = () => {
     const [ChemicalRecords, setChemicalRecords] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredRecords, setFilteredRecords] = useState([]);
 
     useEffect(() => {
         setLoading(true);
@@ -35,6 +37,7 @@ const ChemicalList = () => {
                         date: new Date(record.date).toLocaleDateString('en-GB')
                     }));
                 setChemicalRecords(formattedRecords);
+                setFilteredRecords(formattedRecords);
                 setLoading(false);
             })
             .catch((error) => {
@@ -52,6 +55,20 @@ const ChemicalList = () => {
             .catch((error) => {
                 console.log(error);
             });
+    };
+
+    const handleSearchInputChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const handleSearch = () => {
+        const filteredRecords = ChemicalRecords.filter(record =>
+            record.date.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            record.field.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            record.chemicalName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            record.remarks.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredRecords(filteredRecords);
     };
 
     const generatePDF = () => {
@@ -77,10 +94,13 @@ const ChemicalList = () => {
             <div>
                 <input
                     type="text"
+                    value={searchQuery}
+                    onChange={handleSearchInputChange}
                     placeholder="Search..."
                     className="border rounded-md px-3 py-1 mr-3 focus:outline-none focus:border-blue-500 absolute top-20 left-72 mt-10"
                 />
                 <button
+                    onClick={handleSearch}
                     className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-20 left-1/3 mt-10"
                 >
                     Search
@@ -120,7 +140,7 @@ const ChemicalList = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {ChemicalRecords.map((record, index) => (
+                    {filteredRecords.map((record, index) => (
                         <tr className="hover:bg-gray-100 divide-y divide-gray-200" key={record._id}>
                             <td className="px-6 py-4">{index + 1}</td>
                             <td className="px-6 py-4">{record.date}</td>

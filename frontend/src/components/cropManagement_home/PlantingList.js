@@ -22,6 +22,8 @@ const pdfStyles = StyleSheet.create({
 const PlantingList = () => {
     const [plantingRecords, setPlantingRecords] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredRecords, setFilteredRecords] = useState([]);
 
     useEffect(() => {
         setLoading(true);
@@ -34,7 +36,8 @@ const PlantingList = () => {
                         ...record,
                         date: new Date(record.date).toLocaleDateString('en-GB')
                     }));
-                setPlantingRecords(formattedRecords); // Update with filtered and formatted records
+                setPlantingRecords(formattedRecords);
+                setFilteredRecords(formattedRecords);
                 setLoading(false);
             })
             .catch((error) => {
@@ -42,7 +45,6 @@ const PlantingList = () => {
                 setLoading(false);
             });
     }, []);
-
     const handleDelete = (recordId) => {
         axios
             .delete(`http://localhost:5555/cropinput/${recordId}`)
@@ -52,6 +54,20 @@ const PlantingList = () => {
             .catch((error) => {
                 console.log(error);
             });
+    };
+
+    const handleSearchInputChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+    const handleSearch = () => {
+        const filteredRecords = plantingRecords.filter(record =>
+            record.date.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            record.field.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            record.cropType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            record.variety.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            record.remarks.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredRecords(filteredRecords);
     };
 
     const generatePDF = () => {
@@ -73,20 +89,22 @@ const PlantingList = () => {
     };
 
     return (
-        <div className= "z-0">
+        <div className="z-0">
             <div>
                 <input
                     type="text"
+                    value={searchQuery}
+                    onChange={handleSearchInputChange}
                     placeholder="Search..."
                     className="border rounded-md px-3 py-1 mr-3 focus:outline-none focus:border-blue-500 absolute top-20 left-72 mt-10"
                 />
                 <button
+                    onClick={handleSearch}
                     className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-20 left-1/3 mt-10"
                 >
                     Search
                 </button>
             </div>
-
             <Link to="/crop/input/add">
                 <button
                     className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-10 mr-24"
@@ -121,7 +139,7 @@ const PlantingList = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {plantingRecords.map((record, index) => (
+                    {filteredRecords.map((record, index) => (
                         <tr className="hover:bg-gray-100 divide-y divide-gray-200" key={index}>
                             <td className="px-6 py-4">{index + 1}</td>
                             <td className="px-6 py-4">{record.date}</td>
