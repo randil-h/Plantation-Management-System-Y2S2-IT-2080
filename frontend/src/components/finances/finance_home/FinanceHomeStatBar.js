@@ -5,7 +5,7 @@ import {
 
 export default function FinanceHomeStatBar() {
     return (
-        <div className="relative py-8 sm:py-8  overflow-hidden ">
+        <div className="relative py-12 sm:py-12  overflow-hidden ">
             <div
                 className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/4 transform-gpu blur-2xl"
                 aria-hidden="true"

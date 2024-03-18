@@ -35,6 +35,7 @@ const InventoryRecordList = () => {
                 // Handle error
             });
     };
+
     const filteredRecords = inventoryInputs.filter((record) =>
         Object.values(record).some((value) => {
             if (typeof value === 'string' || typeof value === 'number') {

@@ -60,11 +60,9 @@ const ProductEdtingForm =() =>{
     return (
         <div>
             <form onSubmit={handleEdit}>
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                <div className="mx-auto max-w-7xl px-10 lg:px-8 flex justify-center">
                     <div className="space-y-12">
-                        <div className="border-b border-gray-900/10 pb-12">
-                            <h2 className="text-base font-semibold leading-7 text-gray-900">Edit Product Details</h2>
-                        </div>
+                        <h2 className="text-xl font-semibold leading-7 text-gray-900 mt-4">Edit Product</h2>
                     </div>
                 </div>
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">

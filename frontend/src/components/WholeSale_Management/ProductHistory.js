@@ -3,8 +3,6 @@ import axios from "axios";
 import {Link} from "react-router-dom"
 import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 
-//import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
-
 const ProductHistory = () =>{
     const [productRecords, setProductRecords] = useState([]);
     const [loading,setLoading] = useState(false);
