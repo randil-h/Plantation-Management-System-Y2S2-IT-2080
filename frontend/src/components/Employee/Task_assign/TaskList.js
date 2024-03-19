@@ -1,11 +1,87 @@
+import React, { useState, useEffect } from 'react';
+
+import axios from 'axios';
 import {
     PencilSquareIcon,
     TrashIcon,
     InformationCircleIcon
 } from '@heroicons/react/24/outline'
+import {Link} from "react-router-dom";
+import html2canvas from "html2canvas";
+import {jsPDF} from "jspdf";
+
+const TaskList = () => {
+
+    const [TaskRecords, setTaskRecords] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(`http://localhost:5555/taskRecords`)
+            .then((response) => {
+                setTaskRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
+
+    const handleDelete = (recordId) => {
+        axios
+            .delete(`http://localhost:5555/taskRecords/${recordId}`)
+            .then(() => {
+                setTaskRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
+            })
+            .catch((error) => {
+                console.log(error);
+                // Handle error
+            });
+    };
+
+    const filteredRecords = TaskRecords.filter((record) =>
+        Object.values(record).some((value) => {
+            if (typeof value === 'string' || typeof value === 'number') {
+                // Convert value to string and check if it includes the search query
+                return String(value).toLowerCase().includes(searchQuery.toLowerCase());
+            }
+            return false;
+        })
+    );
 
 
-export default function TaskList() {
+    const handlePrint = () => {
+        const input = document.getElementById('print-area');
+
+        html2canvas(input)
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const imgWidth = pdf.internal.pageSize.getWidth() - 20;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 10;
+                pdf.setFontSize(16);
+                pdf.text("Task Details", 10, position);
+                heightLeft -= position + 10;
+
+                pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
+                heightLeft -= imgHeight;
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
+                    heightLeft -= imgHeight;
+                }
+
+                pdf.save('Task_Details.pdf');
+            });
+    };
+
+
     return (
         <div className=" overflow-x-auto  ">
 
@@ -14,6 +90,15 @@ export default function TaskList() {
                     <h1 className=" text-lg font-semibold text-left">Task Details</h1>
                     <p className="mt-1 text-sm font-normal text-gray-500 0">Easily access stored task details
                         within the system for thorough insights.</p>
+                    <div className=" py-4">
+                        <input
+                            type="text"
+                            placeholder="Search all Tasks..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="border border-gray-300 rounded-full px-3 py-1 w-full"
+                        />
+                    </div>
                 </div>
 
                 <div>
@@ -21,96 +106,114 @@ export default function TaskList() {
                        className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                         Add new task <span aria-hidden="true">&rarr;</span>
                     </a>
+                    <button
+                        onClick={handlePrint}
+                        className="ml-4 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                        Print
+                    </button>
                 </div>
             </div>
 
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
-                <thead
-                    className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
-                <tr className=" ">
-                    <th></th>
-                    <th scope="col" className="px-6 py-3">
-                        Employee ID
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                        Task
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                        Assign Date
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                        Due Date
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                        Task Description
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                        Status
-                    </th>
-                    <th scope="col" className=" py-3">
-                        <span className="sr-only">Info</span>
-                    </th>
-                    <th scope="col" className=" py-3">
-                        <span className="sr-only">Edit</span>
-                    </th>
-                    <th scope="col" className=" py-3">
-                        <span className="sr-only">Delete</span>
-                    </th>
-                </tr>
-                </thead>
-                {/*     <tbody className="border-b border-green-400">*/}
+            <div id="print-area">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
+                    <thead
+                        className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
+                    <tr className=" ">
+                        <th></th>
+                        <th scope="col" className="px-6 py-3">
+                            No
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Employee ID
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Task
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Assign Date
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Due Date
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Task Description
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Status
+                        </th>
+                        <th scope="col" className=" py-3">
+                            <span className="sr-only">Info</span>
+                        </th>
+                        <th scope="col" className=" py-3">
+                            <span className="sr-only">Edit</span>
+                        </th>
+                        <th scope="col" className=" py-3">
+                            <span className="sr-only">Delete</span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody className="border-b border-green-400">
 
-                {/*    {TransactionsRecords.map((record, index) => (*/}
-                {/*        <tr key={record._id}*/}
-                {/*            className={` divide-y*/}
-                {/*${record.type === 'expense' ? 'border-l-4 border-red-400 ' : 'border-l-4 border-green-400 '}`}*/}
-                {/*        >*/}
-                {/*            <td></td>*/}
-                {/*            <td className="px-6 py-4">*/}
-                {/*                {record.date}*/}
-                {/*            </td>*/}
-                {/*            <td className="px-6 py-4">*/}
-                {/*                {record.type}*/}
-                {/*            </td>*/}
-                {/*            <td className="px-6 py-4">*/}
-                {/*                {record.amount}*/}
-                {/*            </td>*/}
-                {/*            <td className="px-6 py-4">*/}
-                {/*                {record.description}*/}
-                {/*            </td>*/}
-                {/*            <td className="px-6 py-4">*/}
-                {/*                {record.payer_payee}*/}
-                {/*            </td>*/}
-                {/*            <td className="px-6 py-4">*/}
-                {/*                {record.method}*/}
-                {/*            </td>*/}
-                {/*            <td className=" py-4 text-right">*/}
-                {/*                <a href="/finances/transactions/viewTransactionDetails" className="font-medium text-blue-600  hover:underline">*/}
-                {/*                    <InformationCircleIcon*/}
-                {/*                        className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"*/}
-                {/*                        aria-hidden="true"/>*/}
-                {/*                </a>*/}
-                {/*            </td>*/}
-                {/*            <td className=" py-4 text-right">*/}
-                {/*                <a href="#" className="font-medium text-blue-600 hover:underline">*/}
-                {/*                    <PencilSquareIcon*/}
-                {/*                        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"*/}
-                {/*                        aria-hidden="true"/>*/}
-                {/*                </a>*/}
-                {/*            </td>*/}
-                {/*            <td className=" py-4 text-right">*/}
-                {/*                <a href="/finances/transactions/deleteTransaction" className="font-medium text-blue-600 hover:underline">*/}
-                {/*                    <TrashIcon*/}
-                {/*                        className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"*/}
-                {/*                        aria-hidden="true"/>*/}
-                {/*                </a>*/}
-                {/*            </td>*/}
-                {/*        </tr>*/}
-                {/*    ))}*/}
+                    {filteredRecords.map((record, index) => (
+                        <tr key={index}>
+                            <td></td>
+                            <td className="px-6 py-4">
+                                {index + 1}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.emp_id}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.task}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.assign_date.split("T")[0]}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.due_date.split("T")[0]}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.task_des}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.task_status}
+                            </td>
+
+                            <td className=" py-4 text-right">
+                                <Link to={``}
+                                      className="font-medium text-blue-600  hover:underline">
+                                    <InformationCircleIcon
+                                        className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                        aria-hidden="true"/>
+                                </Link>
+                            </td>
+                            <td className=" py-4 text-right">
+                                <Link to={`/employees/tasks/editTasks/${record._id}`}
+                                      className="font-medium text-blue-600 hover:underline">
+                                    <PencilSquareIcon
+                                        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                        aria-hidden="true"/>
+                                </Link>
+                            </td>
+
+                            <td className=" py-4 text-right">
+                                <button
+                                    className="flex items-center"
+                                    onClick={() => handleDelete(record._id)}
+                                >
+                                    <TrashIcon
+                                        className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                        aria-hidden="true"/>
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
 
 
-                {/*    </tbody> */}
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
-}
+};
+export default TaskList;

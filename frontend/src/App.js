@@ -86,6 +86,8 @@ import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
 
 import EditEmployeePage from "./pages/employee_pages/emp_registation/EditEmployeePage";
 import ViewReport from "./pages/diseaseTracking_pages/records/ViewReport";
+import EditTask from "./components/Employee/Task_assign/EditTask";
+import EditTaskPage from "./pages/employee_pages/task_assigning/EditTaskPage";
 
 
 export default function App() {
@@ -199,6 +201,7 @@ export default function App() {
                     <Route path="/employees/registration" element={ViewEmpDetails()}/>
                     <Route path="/employees/tasks" element={ViewTaskList()}/>
                     <Route path="/employees/registration/editEmployee/:id" element={<EditEmployeePage />}/>
+                    <Route path ="/employees/tasks/editTasks/:id" element ={<EditTaskPage/>}/>
 
                     <Route path="/harvest/home"  element={harvest()}/>
                     <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>

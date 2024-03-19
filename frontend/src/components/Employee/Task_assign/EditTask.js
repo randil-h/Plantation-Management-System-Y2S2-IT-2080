@@ -1,21 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
-const TaskForm = () => {
-
+const EditTask = () => {
     const [emp_id, setEmp_id] = useState('');
     const [task, setTask] = useState('');
     const [assign_date, setAssign_date] = useState('');
     const [due_date, setDue_date] = useState('');
     const [task_des, setTask_des] = useState('');
     const [task_status, setTask_status] = useState('');
+    const [loading, setLoading] = useState(false);
     const {enqueueSnackbar} = useSnackbar();
     const navigate = useNavigate();
+    const {id} = useParams(); // Extracting id from route parameters
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    useEffect(() => {
+        setLoading(true);
+        axios.get(`http://localhost:5555/taskRecords/${id}`)
+            .then((response) => {
+
+                setEmp_id(response.data.emp_id);
+                setTask(response.data.task);
+                setAssign_date(response.data.assign_date.split("T")[0]);
+                setDue_date(response.data.due_date.split("T")[0]);
+                setTask_des(response.data.task_des);
+                setTask_status(response.data.task_status);
+                setLoading(false);
+
+            }).catch((error) => {
+            setLoading(false);
+            enqueueSnackbar('An error occurred. Please check the console.', {variant: 'error'});
+            console.log(error);
+        });
+    }, [id]); // Adding id to dependency array
+
+
+    const handleEdit = () => {
         const data = {
             emp_id,
             task,
@@ -24,14 +45,17 @@ const TaskForm = () => {
             task_des,
             task_status,
         };
+        setLoading(true);
         axios
-            .post('http://localhost:5555/taskRecords', data)
+            .put(`http://localhost:5555/taskRecords/${id}`, data)
             .then(() => {
-                enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                navigate('/employees/tasks', { state: { highlighted: true } }); // Navigate to maintenance log and highlight it
+                setLoading(false);
+                enqueueSnackbar('Record Edited successfully', {variant: 'success'});
+                navigate('employees/tasks', {state: {highlighted: true}});
             })
             .catch((error) => {
-                enqueueSnackbar('Error', { variant: 'error' });
+                setLoading(false);
+                enqueueSnackbar('Error', {variant: 'error'});
                 console.log(error);
             });
     };
@@ -48,7 +72,7 @@ const TaskForm = () => {
                     Assign Tasks
                 </h1>
             </div>
-            <form className="flex flex-col items-center justify-center"  onSubmit={handleSubmit}>
+            <form className="flex flex-col items-center justify-center"  onSubmit={handleEdit}>
                 <div className="space-y-12 px-0 py-16 w-6/12 ml-1">
                     <div className="border-b border-gray-900/10 pb-12">
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -179,5 +203,6 @@ const TaskForm = () => {
 
     );
 
-};
-export default TaskForm;
+}
+
+export default EditTask;
