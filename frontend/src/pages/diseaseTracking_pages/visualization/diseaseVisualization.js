@@ -22,6 +22,7 @@ export default function DiseaseVisualization() {
                     <div className="w-full col-span-5 flex flex-col ">
                         <DiseaseTrackingNavigation/>
                     </div>
+
                 </div>
             </div>
 

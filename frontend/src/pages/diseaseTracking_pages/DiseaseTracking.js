@@ -3,10 +3,17 @@ import React from "react";
 import SideBar from "../../components/SideBar";
 import Navbar from "../../components/utility/Navbar";
 import DiseaseTrackingNavigation from "../../components/diseaseManagement_home/DiseaseTrackingNavigation";
+import DiseaseHome from "../../components/diseaseManagement_home/home/DiseaseHome";
+import {SnackbarProvider} from "notistack";
 
 
 export default function DiseaseTracking() {
     return (
+        <SnackbarProvider
+            style={{
+                backgroundColor: 'red',
+            }}
+        >
         <div className="">
             {/* Navbar */}
             <div className="border-b sticky top-0 z-10">
@@ -21,9 +28,13 @@ export default function DiseaseTracking() {
                     <div className="w-full col-span-5 flex flex-col ">
                         <DiseaseTrackingNavigation/>
                     </div>
+                    <div>
+                        <DiseaseHome/>
+                    </div>
                 </div>
             </div>
 
         </div>
+        </SnackbarProvider>
     );
 }

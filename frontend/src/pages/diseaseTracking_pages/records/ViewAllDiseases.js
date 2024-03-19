@@ -7,43 +7,9 @@ import BackButton from "../../../components/utility/BackButton";
 import LoadingAnimation from "../../../components/utility/LoadingAnimation";
 import DiseaseList from "../../../components/diseaseManagement_home/DiseaseList";
 import DiseaseTrackingNavigation from "../../../components/diseaseManagement_home/DiseaseTrackingNavigation";
+import {SnackbarProvider} from "notistack";
 
 export default function ViewAllDiseases() {
-
-   /* const [DiseaseRecords, setDiseaseRecords] = useState([]);
-    const [loading, setLoading] = useState(false);
-    //const [showType, setShowType] = useState('table');
-
-    useEffect(() => {
-        setLoading(true);
-        axios
-            .get('http://localhost:5555/diseases')
-            .then((response) => {
-                setDiseaseRecords(response.data.data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setLoading(false);
-            });
-    }, []);*/
-
-   /* const [diseases, setDisease] = useState([]);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        setLoading(true);
-        axios
-            .get('http://localhost:5555/diseases')
-            .then((response) => {
-                setDisease(response.data.data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setLoading(false);
-            });
-    }, []);*/
 
     const breadcrumbItems = [
         { name: 'Records', href: '/disease/records' },
@@ -51,6 +17,12 @@ export default function ViewAllDiseases() {
     ];
 
     return (
+        <SnackbarProvider
+
+            style={{
+                backgroundColor: 'red',
+            }}
+        >
         <div className="">
             <div className="sticky top-0 z-10">
                 <Navbar />
@@ -74,5 +46,6 @@ export default function ViewAllDiseases() {
                 </div>
             </div>
         </div>
+        </SnackbarProvider>
     );
 }

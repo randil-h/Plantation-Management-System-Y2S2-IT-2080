@@ -6,7 +6,9 @@ import {
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {enqueueSnackbar} from "notistack";
+import {enqueueSnackbar, useSnackbar} from "notistack";
+
+
 
 
 export default function DiseaseList() {
@@ -16,6 +18,9 @@ export default function DiseaseList() {
      const navigate = useNavigate();
      const {id} = useParams();
      const [searchQuery, setSearchQuery] = useState('');
+     const [diseaseChart, setDiseaseChart] = useState({});
+     const { enqueueSnackbar } = useSnackbar();
+
    //const [showType, setShowType] = useState('table');
 
    useEffect(() => {
@@ -87,7 +92,15 @@ export default function DiseaseList() {
                        className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                         Add New Disease Record <span aria-hidden="true">&rarr;</span>
                     </a>
+                    &nbsp;
+
+                    {/*<a href="/diseases/records/generateReport"
+                       className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                        Generate Report
+                    </a>*/}
+
                 </div>
+
 
             </div>
 
@@ -119,7 +132,7 @@ export default function DiseaseList() {
                         {/*<td className='px-6 py-4'>
                             {drecord.plant_id}
                         </td>*/}
-                        <td className='bpx-6 py-4'>
+                        <td className='px-6 py-4'>
                             {drecord.crop}
                         </td>
                         <td className='px-6 py-4'>
@@ -138,12 +151,11 @@ export default function DiseaseList() {
                             {drecord.status}
                         </td>
                         <td className=" py-4 text-right">
-                            <a href="/diseases/records/viewDisease"
-                               className="font-medium text-blue-600  hover:underline">
+                            <Link to={`/diseases/records/viewDisease/${drecord._id}`}>
                                 <InformationCircleIcon
                                     className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
                                     aria-hidden="true"/>
-                            </a>
+                            </Link>
                         </td>
                         <td className=" py-4 text-right">
                             <Link to={`/diseases/records/updateDisease/${drecord._id}`}>
