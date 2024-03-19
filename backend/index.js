@@ -14,8 +14,6 @@ import ValuationRoute from "./routes/Finance Routes/ValuationRoute.js";
 import DiseaseRoute from "./routes/Disease Tracking Routes/DiseaseRoute.js";
 
 import RotationRoute from "./routes/Crop Routes/RotationRoute.js"
-import PlantingRoute from "./routes/Crop Routes/PlantingRoute.js"
-import ChemicalRoute from "./routes/Crop Routes/ChemicalRoute.js"
 import CropInputRoute from "./routes/Crop Routes/CropInputRoute.js"
 
 import EqMaintainroute from "./routes/Inventory Routes/EqMaintainroute.js";
@@ -27,7 +25,6 @@ import TaskRoute from "./routes/Employee Routes/TaskRoute.js";
 
 import ProductRoute from "./routes/Wholesale  Routes/ProductRoute.js";
 
-import RecordRoute from "./routes/Harvest Routes/RecordRoute.js";
 import recordRoute from "./routes/Harvest Routes/RecordRoute.js";
 
 
@@ -65,8 +62,6 @@ app.use('/feedback',FeedbackRoute);
 app.use('/diseases', DiseaseRoute);
 
 app.use('/rotation', RotationRoute);
-app.use('/planting', PlantingRoute);
-app.use('/chemicals', ChemicalRoute);
 
 app.use('/cropinput', CropInputRoute);
 
