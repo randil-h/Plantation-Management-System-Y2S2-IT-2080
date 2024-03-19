@@ -1,12 +1,12 @@
 import React from "react";
 
 
-import SideBar from "../../components/SideBar";
-import Navbar from "../../components/utility/Navbar";
-import WholeSaleNavBar from "../../components/WholeSale_Management/WholeSaleNavBar";
-import WholeSaleProduct from "../../components/WholeSale_Management/WholeSaleProduct";
+import SideBar from "../../../components/SideBar";
+import Navbar from "../../../components/utility/Navbar";
+import WholeSaleNavBar from "../../../components/WholeSale_Management/WholeSaleNavBar";
+import WholeSaleProduct from "../../../components/WholeSale_Management/WholeSaleProduct";
 import {dividerClasses} from "@mui/material";
-import OrderHistory from "../../components/WholeSale_Management/OrderHistory";
+import OrderHistory from "../../../components/WholeSale_Management/OrderHistory";
 
 export default function MyOrders() {
     return (

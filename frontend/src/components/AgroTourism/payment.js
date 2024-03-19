@@ -147,14 +147,40 @@ const OnlinePaymentPortal = () => {
                         {errors.cvv && <p className="text-red-500 text-sm mt-1">{errors.cvv}</p>}
                     </div>
                 </div>
-                {/* Card Type */}
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">Card Type</label>
-                    <div className="flex items-center">
-                        {/* Card Type Radio Buttons */}
-                        {/* Rest of the code remains the same */}
-                    </div>
-                </div>
+                <label className="block text-sm font-medium text-gray-700">Card Type</label>
+                <div className="flex items-center">
+                    <label className="mr-12">
+                        <input
+                            type="radio"
+                            name="cardType"
+                            value="visa"
+                            checked={formData.cardType === 'visa'}
+                            onChange={handleInputChange}
+                        />
+                        <FaCcVisa size={30} className="ml-2" />
+                    </label>
+                    <label className="mr-12">
+                        <input
+                            type="radio"
+                            name="cardType"
+                            value="master"
+                            checked={formData.cardType === 'master'}
+                            onChange={handleInputChange}
+                        />
+                        <FaCcMastercard size={30} className="ml-2" />
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="cardType"
+                            value="amex"
+                            checked={formData.cardType === 'amex'}
+                            onChange={handleInputChange}
+                        />
+                        <FaCcAmex size={30} className="ml-2" />
+                    </label>
+
+        </div>
                 {/* Cardholder Name */}
                 <div className="mb-4">
                     <label htmlFor="cardHolderName" className="block text-sm font-medium text-gray-700">

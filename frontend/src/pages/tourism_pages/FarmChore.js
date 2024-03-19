@@ -1,6 +1,6 @@
 import {useLocation} from "react-router-dom";
 import Navbar from "../../components/utility/Navbar";
-
+import FarmChoreExperience from "../../components/AgroTourism/farm_chore";
 import SubscribeNewsletter from "../../components/landingPage/subscribe_newsletter";
 import Footer from "../../components/utility/Footer";
 import React from "react";
@@ -15,7 +15,7 @@ export default function FarmChore() {
             <div className="border-b sticky top-0 z-10">
                 <Navbar />
             </div>
-
+            <FarmChoreExperience/>
             <SubscribeNewsletter />
             <Footer />
         </div>

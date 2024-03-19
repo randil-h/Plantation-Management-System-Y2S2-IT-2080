@@ -6,6 +6,10 @@ const DiseaseSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        /*plant_id: {
+            type: String,
+            required: true,
+        },*/
         crop: {
             type: String,
             required: true,
