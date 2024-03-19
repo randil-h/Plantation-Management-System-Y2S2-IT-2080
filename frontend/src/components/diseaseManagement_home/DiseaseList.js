@@ -3,10 +3,12 @@ import {
     TrashIcon,
     InformationCircleIcon, MagnifyingGlassIcon
 } from '@heroicons/react/24/outline'
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {enqueueSnackbar, useSnackbar} from "notistack";
+import Chart from 'chart.js';
+
 
 
 
@@ -20,7 +22,6 @@ export default function DiseaseList() {
      const [searchQuery, setSearchQuery] = useState('');
      const [diseaseChart, setDiseaseChart] = useState({});
      const { enqueueSnackbar } = useSnackbar();
-
    //const [showType, setShowType] = useState('table');
 
    useEffect(() => {
@@ -103,11 +104,11 @@ export default function DiseaseList() {
 
 
             </div>
-
             <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
                 <thead
                     className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                 <tr className=" ">
+                    <th></th>
                     <th scope="col" className="px-6 py-3">Disease Name</th>
                     {/*<th scope="col" className="px-6 py-3"> Plant ID</th>*/}
                     <th scope="col" className="px-6 py-3">Crop Type</th>
@@ -126,6 +127,7 @@ export default function DiseaseList() {
 
                 {filteredRecords.map((drecord, index) => (
                     <tr key={drecord._id} className='divide-y'>
+                        <td></td>
                         <td className='px-6 py-4'>
                             {drecord.disease_name}
                         </td>
