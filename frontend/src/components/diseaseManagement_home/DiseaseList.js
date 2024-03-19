@@ -30,45 +30,12 @@ export default function DiseaseList() {
            .then((response) => {
                setDiseaseRecords(response.data.data);
                setLoading(false);
-              /* if (response.data.data) { // Check if data is available
-                   generateChartData(response.data.data);
-               }*/
            })
            .catch((error) => {
                console.log(error);
                setLoading(false);
            });
    }, []);
-
-   const generateChartData = (data) => {
-       const diseaseCounts = {};
-       data.forEach((record) => {
-           const diseaseName = record.disease_name;
-           if(diseaseCounts[diseaseName]) {
-               diseaseCounts[diseaseName]++;
-           }
-           else
-           {
-               diseaseCounts[diseaseName] = 1;
-           }
-       });
-
-       const chartData = {
-           labels: Object.keys(diseaseCounts),
-           datasets: [
-               {
-                   label: 'Number of Diseases',
-                   data: Object.values(diseaseCounts),
-                   backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                   borderColor: 'rgba(54, 162, 235, 1)',
-                   borderWidth: 1,
-               },
-           ],
-       };
-
-       setDiseaseChart(chartData);
-   }
-
 
     const handleDeleteDisease = (id) => {
         const confirmDelete = window.confirm("Are you sure you want to delete this disease record?");
@@ -125,22 +92,17 @@ export default function DiseaseList() {
                        className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                         Add New Disease Record <span aria-hidden="true">&rarr;</span>
                     </a>
+                    &nbsp;
+
+                    {/*<a href="/diseases/records/generateReport"
+                       className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                        Generate Report
+                    </a>*/}
+
                 </div>
 
-            </div>
 
-           {/* <div style={{height: '400px', margin: '0 auto'}}>
-                <Bar data={diseaseChart} options={{
-                    maintainAspectRatio: false,
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
-                }}/>
-            </div>*/}
+            </div>
 
             <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
                 <thead
@@ -189,12 +151,11 @@ export default function DiseaseList() {
                             {drecord.status}
                         </td>
                         <td className=" py-4 text-right">
-                            <a href="/diseases/records/viewDisease"
-                               className="font-medium text-blue-600  hover:underline">
+                            <Link to={`/diseases/records/viewDisease/${drecord._id}`}>
                                 <InformationCircleIcon
                                     className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
                                     aria-hidden="true"/>
-                            </a>
+                            </Link>
                         </td>
                         <td className=" py-4 text-right">
                             <Link to={`/diseases/records/updateDisease/${drecord._id}`}>
