@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
-
+import Chart from "chart.js";
 export default function GenerateGraphs() {
 
     const [DiseaseRecords, setDiseaseRecords] = useState([]);
