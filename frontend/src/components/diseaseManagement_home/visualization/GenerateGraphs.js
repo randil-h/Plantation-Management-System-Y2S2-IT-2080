@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
-import Chart from "chart.js";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 
 export default function GenerateGraphs() {
