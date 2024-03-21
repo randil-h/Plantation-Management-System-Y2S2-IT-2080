@@ -21,6 +21,10 @@ const HarvestRecordSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    treesPicked: {
+        type: Number,
+        required: true
+    },
     remarks: {
         type: String,
         required: true

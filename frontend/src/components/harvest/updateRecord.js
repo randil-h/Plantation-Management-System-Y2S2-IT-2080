@@ -9,6 +9,7 @@ const EditHarvest = () => {
     const [ageOfYield, setAgeOfYield] = useState('');
     const [wayPicked, setWayPicked] = useState('');
     const [quantity, setQuantity] = useState('');
+    const [treesPicked, setTreesPicked] = useState('');
     const [remarks, setRemarks] = useState('');
     const [loading, setLoading] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
@@ -24,6 +25,7 @@ const EditHarvest = () => {
                 setAgeOfYield(response.data.ageOfYield);
                 setWayPicked(response.data.wayPicked);
                 setQuantity(response.data.quantity);
+                setTreesPicked(response.data.treesPicked);
                 setRemarks(response.data.remarks);
                 setLoading(false);
             }).catch((error) => {
@@ -91,7 +93,8 @@ const EditHarvest = () => {
                         </select>
                     </div>
                     <div>
-                        <label htmlFor="ageOfYield" className="block text-sm font-medium text-gray-900">Age of the Yield (months)</label>
+                        <label htmlFor="ageOfYield" className="block text-sm font-medium text-gray-900">Age of the Yield
+                            (months)</label>
                         <input
                             type="text"
                             name="ageOfYield"
@@ -102,7 +105,8 @@ const EditHarvest = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="wayPicked" className="block text-sm font-medium text-gray-900">Way Picked</label>
+                        <label htmlFor="wayPicked" className="block text-sm font-medium text-gray-900">Way
+                            Picked</label>
                         <input
                             type="text"
                             name="wayPicked"
@@ -113,12 +117,25 @@ const EditHarvest = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="quantity" className="block text-sm font-medium text-gray-900">Quantity (kg)</label>
+                        <label htmlFor="quantity" className="block text-sm font-medium text-gray-900">Quantity
+                            (kg)</label>
                         <input
                             type="text"
                             name="quantity"
                             value={quantity}
                             onChange={(e) => setQuantity(e.target.value)}
+                            className="w-full px-4 py-2 border rounded-md text-gray-900"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="treesPicked" className="block text-sm font-medium text-gray-900">Trees
+                            Picked</label>
+                        <input
+                            type="number"
+                            name="treesPicked"
+                            value={treesPicked}
+                            onChange={(e) => setTreesPicked(e.target.value)}
                             className="w-full px-4 py-2 border rounded-md text-gray-900"
                             required
                         />

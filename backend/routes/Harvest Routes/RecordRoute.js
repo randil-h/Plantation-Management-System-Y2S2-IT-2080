@@ -16,6 +16,7 @@ router.post('/', async(request, response) =>
             !request.body.cropType ||
             !request.body.ageOfYield ||
             !request.body.wayPicked ||
+            !request.body.treesPicked ||
             !request.body.quantity ||
             !request.body.remarks
             ){
@@ -29,6 +30,7 @@ router.post('/', async(request, response) =>
             cropType: request.body.cropType,
             ageOfYield: request.body.ageOfYield,
             wayPicked: request.body.wayPicked,
+            treesPicked: request.body.treesPicked,
             quantity: request.body.quantity,
             remarks: request.body.remarks,
         };
@@ -85,6 +87,7 @@ router.put('/:id', async (request, response) => {
             !request.body.cropType ||
             !request.body.ageOfYield ||
             !request.body.wayPicked ||
+            !request.body.treesPicked ||
             !request.body.quantity ||
             !request.body.remarks
         ){
