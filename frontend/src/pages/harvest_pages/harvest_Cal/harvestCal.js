@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom'
 import Navbar from "../../../components/utility/Navbar";
 import SideBar from "../../../components/SideBar";
 import HarvestNavigation from "../../../components/harvest/harvestNavigation";
+import HarvestList from "../../../components/harvest/RecordList";
+import HarvestCalculator from "../../../components/harvest/HarvestEstCal";
 
 
 
@@ -23,6 +25,9 @@ export default function harvestCal() {
 
                     <div className="w-full col-span-5 flex flex-col ">
                         <HarvestNavigation/>
+                    </div>
+                    <div>
+                        <HarvestCalculator/>
                     </div>
                 </div>
 

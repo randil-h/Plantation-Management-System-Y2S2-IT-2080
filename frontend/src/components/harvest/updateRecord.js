@@ -43,6 +43,7 @@ const EditHarvest = () => {
             ageOfYield,
             wayPicked,
             quantity,
+            treesPicked,
             remarks,
         };
         setLoading(true);
@@ -132,7 +133,7 @@ const EditHarvest = () => {
                         <label htmlFor="treesPicked" className="block text-sm font-medium text-gray-900">Trees
                             Picked</label>
                         <input
-                            type="number"
+                            type="text"
                             name="treesPicked"
                             value={treesPicked}
                             onChange={(e) => setTreesPicked(e.target.value)}
