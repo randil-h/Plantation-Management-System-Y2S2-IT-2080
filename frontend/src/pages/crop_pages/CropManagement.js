@@ -4,12 +4,13 @@ import { Link } from 'react-router-dom';
 import SideBar from "../../components/SideBar";
 import Navbar from "../../components/utility/Navbar";
 import CropNavigation from "../../components/cropManagement_home/CropNavigation";
+import CropSummary from "../../components/cropManagement_home/CropSummary";
 
 export default function CropManagement() {
     return (
         <div className="">
             {/* Navbar */}
-            <div className="border-b sticky top-0 z-10">
+            <div className="sticky top-0 z-10">
                 <Navbar/>
             </div>
             <div className="">
@@ -17,8 +18,9 @@ export default function CropManagement() {
                     <div className="col-span-1 sticky left-0 top-0">
                         <SideBar/>
                     </div>
-                    <div>
+                    <div className = "w-full col-span-5 flex flex-col ">
                         <CropNavigation/>
+                        <CropSummary/>
                     </div>
                 </div>
             </div>

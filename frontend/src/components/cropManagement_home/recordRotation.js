@@ -104,13 +104,13 @@ export default function RecordRotation() {
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     >
                                         <option value="">Select an option</option>
-                                        <option value="fieldA">Field A</option>
-                                        <option value="fieldB">Field B</option>
-                                        <option value="fieldC">Field C</option>
-                                        <option value="fieldC">Field D</option>
-                                        <option value="fieldC">Field E</option>
-                                        <option value="fieldC">Field F</option>
-                                        <option value="fieldC">Field G</option>
+                                        <option value="Field A">Field A</option>
+                                        <option value="Field B">Field B</option>
+                                        <option value="Field C">Field C</option>
+                                        <option value="Field D">Field D</option>
+                                        <option value="Field E">Field E</option>
+                                        <option value="Field F">Field F</option>
+                                        <option value="Field G">Field G</option>
                                     </select>
                                 </div>
                             </div>
