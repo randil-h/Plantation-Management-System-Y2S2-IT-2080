@@ -25,7 +25,7 @@ export default function CropManagement() {
     return (
         <div className="flex flex-col h-screen">
             {/* Navbar */}
-            <div className="border-b sticky top-0 z-10">
+            <div className="sticky top-0 z-10">
                 <Navbar/>
             </div>
             <div className="flex-grow flex flex-col items-center justify-center">

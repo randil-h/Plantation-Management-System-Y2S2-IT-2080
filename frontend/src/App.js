@@ -89,6 +89,7 @@ import ViewReport from "./pages/diseaseTracking_pages/records/ViewReport";
 import EditTask from "./components/Employee/Task_assign/EditTask";
 import EditTaskPage from "./pages/employee_pages/task_assigning/EditTaskPage";
 
+import ErrorPage from "./pages/ErrorPage";
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -211,6 +212,7 @@ export default function App() {
                     <Route path="/harvest/records/updateRecord/:id" element={<EditHarvest />} />
                     <Route path="/harvest/records" element={<HarvestList />} />
 
+                    <Route path = "*" element={<ErrorPage/>} />
                 </Routes>
             )}
         </div>
