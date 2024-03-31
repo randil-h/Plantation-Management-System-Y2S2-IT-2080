@@ -12,49 +12,28 @@ import DetailSalaryPaymentsCard from "./detail_cards/DetailSalaryPaymentsCard";
 import DetailMachineHoursCard from "./detail_cards/DetailMachineHoursCard";
 
 export default function FinanceHomeStatCards() {
-    const [activeCard, setActiveCard] = useState(null);
-
-    const transitionStyles = {
-        transition: "transform 0.4s ease-in-out",
-    };
-
-    const [clicked, setClicked] = useState(false);
-
-    const toggleWidth = () => {
-        setClicked(prevClicked => !prevClicked);
-    };
     return (
-        <div className="flex flex-row py-8 h-[60%] w-full text-gray-700 gap-4 px-4 relative">
+        <div className="flex flex-col py-8 h-[60%] w-full text-gray-700 gap-4 px-4 relative">
             <div className="flex flex-row w-full gap-4 px-4">
-                <button className="h-full w-full" onClick={() => setActiveCard('transactions')}>
+                <button className="h-full w-full">
                     <TransactionsCard/>
                 </button>
-                <button className="h-full w-full" onClick={() => setActiveCard('valuations')}>
+                <button className="h-full w-full">
                     <ValuationCard/>
                 </button>
-                <button className="h-full w-full" onClick={() => setActiveCard('salaryPayments')}>
+                <button className="h-full w-full">
                     <SalaryPaymentsCard/>
                 </button>
-                <button className="h-full w-full" onClick={() => setActiveCard('machineHours')}>
+                <button className="h-full w-full">
                     <MachineHoursCard/>
                 </button>
-                <button
-                    className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-max-width duration-500 ${
-                        clicked ? 'max-w-full' : 'max-w-auto'
-                    }`}
-                    onClick={toggleWidth}
-                >
-                    {clicked ? 'Shrink' : 'Expand'}
-                </button>
             </div>
-            {activeCard && (
-                <div className="w-full h-full p-8 ">
-                    {activeCard === 'transactions' && <DetailTransactionCard onBack={() => setActiveCard(null)}/>}
-                    {activeCard === 'valuations' && <DetailValuationCard onBack={() => setActiveCard(null)}/>}
-                    {activeCard === 'salaryPayments' && <DetailSalaryPaymentsCard onBack={() => setActiveCard(null)} />}
-                        {activeCard === 'machineHours' && <DetailMachineHoursCard onBack={() => setActiveCard(null)} />}
-                    </div>
-                )}
+            <div className="gap-4 flex flex-col">
+                <DetailTransactionCard/>
+                <DetailValuationCard/>
+                <DetailSalaryPaymentsCard/>
+                <DetailMachineHoursCard/>
+            </div>
         </div>
     )
 }

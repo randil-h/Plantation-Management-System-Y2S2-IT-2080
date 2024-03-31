@@ -7,7 +7,7 @@ export default function TransactionsCard() {
 
     return (
         <div
-            className="relative py-8 overflow-hidden  w-full h-full bg-gray-200 rounded-3xl transition-all duration-300 ease-in-out hover:bg-gradient-to-br from-blue-200 to-violet-100  hover:shadow-xl hover:text-black">
+            className="relative py-8 overflow-hidden  w-full h-full bg-gray-200 rounded-3xl transition-all duration-300 ease-in-out hover:bg-gradient-to-br from-blue-200 to-purple-100  hover:shadow-xl hover:text-black">
             <div
                 className="mx-auto max-w-7xl px-6 lg:px-8 relative flex flex-col content-between h-full  justify-between">
                 <div className="mx-auto  flex max-w-xs flex-col gap-y-1  w-full">
