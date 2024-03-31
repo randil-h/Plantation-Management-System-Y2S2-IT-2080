@@ -2,7 +2,21 @@ import React, { useState } from 'react';
 import { FaCcVisa, FaCcMastercard, FaCcAmex } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { SnackbarProvider, useSnackbar } from 'notistack';
+import { useLocation } from 'react-router-dom';
 
+export function PaymentConfirmation() {
+    const location = useLocation();
+    const { totalPayment } = location.state;
+
+    return (
+        <div className="max-w-lg mx-auto mt-8 mb-8 p-4 rounded-md shadow-md">
+            <h2 className="text-3xl font-bold mb-4 text-center">Payment Confirmation</h2>
+            <div className="text-center">
+                <p className="text-lg">Total Payment: ${totalPayment}</p>
+            </div>
+        </div>
+    );
+}
 const OnlinePaymentPortal = () => {
     const [formData, setFormData] = useState({
         cardNumber: '',

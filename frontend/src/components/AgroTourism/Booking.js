@@ -74,6 +74,27 @@ export default function BookingForm() {
         return Object.keys(errors).length === 0;
     };
 
+    const calculateTotalPayment = () => {
+        const { selectedPackage, numberOfDays } = formData;
+        let price = 0;
+
+        switch (selectedPackage) {
+            case 'fruitAndVegetablePicking':
+                price = 300;
+                break;
+            case 'farmChoreExperience':
+                price = 1200;
+                break;
+            case 'guidedFarmTour':
+                price = 700;
+                break;
+            default:
+                price = 0;
+        }
+
+        return price * parseInt(numberOfDays);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -82,8 +103,11 @@ export default function BookingForm() {
 
         if (isValid) {
             try {
+                // Calculate total payment
+                const totalPayment = calculateTotalPayment();
                 const response = await axios.post(('http://localhost:5555/booking'), formData);
                 console.log(response.data);
+                // Post booking data
                 setFormData({
                     name: '',
                     telNo: '',
@@ -95,7 +119,7 @@ export default function BookingForm() {
                 });
 
                 // Redirect to a confirmation page or any other page after successful submission
-                navigate('/payment');
+                navigate('/payment', { state: { totalPayment } });
             } catch (error) {
                 console.log(error.message);
             }
