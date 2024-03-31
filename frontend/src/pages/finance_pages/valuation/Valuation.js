@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-
 import SideBar from "../../../components/SideBar";
 import Navbar from "../../../components/utility/Navbar";
 import FinanceNavigation from "../../../components/finances/FinanceNavigation";
@@ -71,6 +70,23 @@ export default function Valuation() {
                 console.log(error);
             });
     };
+
+    const subtypeBorderColorMap = {
+        Land: "border-lime-400",
+        Machinery: "border-green-400",
+        Crops: "border-teal-400",
+        Infrastructure: "border-cyan-400",
+        Utilities: "border-sky-400",
+        Water: "border-blue-400",
+        Loans: "border-rose-400",
+        Debts: "border-red-400",
+        Leases: "border-pink-400",
+        Taxes: "border-violet-400",
+    };
+
+    function getBorderColorClass(subtype) {
+        return subtypeBorderColorMap[subtype] || "border-gray-200"; // Default color
+    }
 
     return (
         <div className="">
@@ -180,7 +196,6 @@ export default function Valuation() {
                                         </div>
                                     </div>
                                 </button>
-
                                 <button value="Water" onClick={(e) => setSearchQuery(e.target.value)}
                                     className="w-full overflow-hidden bg-blue-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
                                     <div
@@ -301,69 +316,69 @@ export default function Valuation() {
 
                             {filteredRecords.map((record, index) => (
                                 <tr key={record._id}
-                                    className={` divide-y
-            ${record.subtype === 'Machinery' ? 'border-l-4 border-red-400 ' : 'border-l-4 border-green-400 '}`}
+                                    className={`divide-y border-l-4 ${getBorderColorClass(record.subtype)}`}
                                 >
-                                    <td></td>
-                                    <td className="px-6 py-4">
-                                        {record.date}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        {record.type}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        {record.subtype}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        {record.quantity}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        {record.price}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        {record.description}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        {record.payer_payee}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        {record.appreciationOrDepreciation}
-                                    </td>
-                                    <td className=" py-4 text-right">
-                                        <Link to={`/finances/transactions/viewValuationDetails/${record._id}`}>
-                                            <InformationCircleIcon
-                                                className="h-6 w-6 flex-none bg-gray-200 p-1 rounded-full text-gray-800 hover:bg-gray-500"
-                                                aria-hidden="true"/>
-                                        </Link>
-                                    </td>
-                                    <td className=" py-4 text-right">
-                                        <Link to={`/finances/transactions/editValuation/${record._id}`}>
-                                            <PencilSquareIcon
-                                                className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                                aria-hidden="true"/>
-                                        </Link>
-                                    </td>
-                                    <td className=" ">
-                                        <button
-                                            className="flex items-center"
-                                            onClick={() => handleDeleteValuation(record._id)}
-                                        >
-                                            <TrashIcon
-                                                className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                                aria-hidden="true"/>
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                                <td></td>
+                                <td className="px-6 py-4">
+                            {record.date}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.type}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.subtype}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.quantity}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.price}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.description}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.payer_payee}
+                            </td>
+                            <td className="px-6 py-4">
+                                {record.appreciationOrDepreciation}
+                            </td>
+                            <td className=" py-4 text-right">
+                                <Link to={`/finances/transactions/viewValuationDetails/${record._id}`}>
+                                    <InformationCircleIcon
+                                        className="h-6 w-6 flex-none bg-gray-200 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                        aria-hidden="true"/>
+                                </Link>
+                            </td>
+                            <td className=" py-4 text-right">
+                                <Link to={`/finances/transactions/editValuation/${record._id}`}>
+                                    <PencilSquareIcon
+                                        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                        aria-hidden="true"/>
+                                </Link>
+                            </td>
+                            <td className=" ">
+                                <button
+                                    className="flex items-center"
+                                    onClick={() => handleDeleteValuation(record._id)}
+                                >
+                                    <TrashIcon
+                                        className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                        aria-hidden="true"/>
+                                </button>
+                            </td>
+                        </tr>
+                        ))}
 
 
-                            </tbody>
-                        </table>
+                    </tbody>
+                </table>
 
-                    </div>
-                </div>
             </div>
-
         </div>
-    );
+</div>
+
+</div>
+)
+    ;
 }

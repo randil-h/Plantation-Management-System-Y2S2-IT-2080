@@ -49,9 +49,6 @@ function AddNewTransaction() {
         { name: 'Add New Transaction', href: '/finances/transactions/addeqmainpage' },
     ];
 
-
-
-
         const handleCancel = () => {
             navigate(-1); // This will navigate back to the previous location in the history stack
         };
