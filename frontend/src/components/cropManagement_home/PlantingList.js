@@ -56,10 +56,8 @@ const PlantingList = () => {
             });
     };
 
-    const handleSearchInputChange = (event) => {
+    const handleSearch = (event) => {
         setSearchQuery(event.target.value);
-    };
-    const handleSearch = () => {
         const filteredRecords = plantingRecords.filter(record =>
             record.date.toLowerCase().includes(searchQuery.toLowerCase()) ||
             record.field.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -93,17 +91,11 @@ const PlantingList = () => {
             <div>
                 <input
                     type="text"
+                    placeholder="Search planting"
                     value={searchQuery}
-                    onChange={handleSearchInputChange}
-                    placeholder="Search..."
-                    className="border rounded-md px-3 py-1 mr-3 focus:outline-none focus:border-blue-500 absolute top-20 left-72 mt-10"
+                    onChange={handleSearch}
+                    className="border border-gray-300 rounded-full px-3 py-1 absolute top-28 left-80 mt-10"
                 />
-                <button
-                    onClick={handleSearch}
-                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-20 left-1/3 mt-10"
-                >
-                    Search
-                </button>
             </div>
             <Link to="/crop/input/add">
                 <button

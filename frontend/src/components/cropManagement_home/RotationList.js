@@ -97,17 +97,8 @@ const RotationList = () => {
         setRecordToDelete(null);
     };
 
-    const handleSearchInputChange = (event) => {
+    const handleSearch = (event) => {
         setSearchQuery(event.target.value);
-    };
-
-    const [filteredRecords, setFilteredRecords] = useState([]);
-
-    useEffect(() => {
-        setFilteredRecords(RotationRecords);
-    }, [RotationRecords]);
-
-    const handleSearch = () => {
         const filteredRecords = RotationRecords.filter(record =>
             record.season.toLowerCase().includes(searchQuery.toLowerCase()) ||
             record.fieldName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -118,22 +109,23 @@ const RotationList = () => {
         setFilteredRecords(filteredRecords);
     };
 
+    const [filteredRecords, setFilteredRecords] = useState([]);
+
+    useEffect(() => {
+        setFilteredRecords(RotationRecords);
+    }, [RotationRecords]);
+
+
     return (
         <div className="z-0">
             <div>
                 <input
                     type="text"
+                    placeholder="Search Rotation"
                     value={searchQuery}
-                    onChange={handleSearchInputChange}
-                    placeholder="Search..."
-                    className="border rounded-md px-3 py-1 mr-3 focus:outline-none focus:border-blue-500 absolute top-20 left-72 mt-10"
+                    onChange={handleSearch}
+                    className="border border-gray-300 rounded-full px-3 py-1 absolute top-28 left-80 mt-10"
                 />
-                <button
-                    onClick={handleSearch}
-                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-20 left-1/3 mt-10"
-                >
-                    Search
-                </button>
             </div>
 
             <Link to="/crop/rotation/view-add">
@@ -153,7 +145,7 @@ const RotationList = () => {
 
             <div className="overflow-x-auto">
                 <table id="rotation-table"
-                       className="w-10/12 bg-white shadow-md rounded-md overflow-hidden absolute top-1/3 left-60">
+                       className="w-10/12 bg-white shadow-md rounded-md overflow-hidden absolute top-1/3 left-64">
                     <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
                     <tr>
                         <th className="px-6 py-3">No</th>
