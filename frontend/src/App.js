@@ -159,7 +159,7 @@ export default function App() {
 
                     <Route path = "/crop/home" element={CropManagement()}/>
                     <Route path = "/crop/rotation" element={CropRotation()}/>
-                    <Route path = "/crop/rotation/view-add" element={AddRotationPage()}/>
+                    <Route path = "/crop/rotation/add" element={AddRotationPage()}/>
                     <Route path = "/crop/rotation/view" element={ViewRotation()}/>
                     <Route path = "/crop/rotation/update/:id" element={UpdateRotation()}/>
                     <Route path = "/crop/input/add" element={AddCropInput()}/>
