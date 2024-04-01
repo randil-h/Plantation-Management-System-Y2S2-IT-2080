@@ -5,18 +5,19 @@ export default function AgroTourism() {
         <div>
             <div className="text-center ...">
                 <div className="text-5xl ...">
-                    <div><br /></div>
+                    <div><br/></div>
                     <h1 className="font-bold ...">Sow, Grow, Explore </h1>
                 </div>
-                <div><br /></div>
+                <div><br/></div>
                 <p className="text-xl">Discover the beauty of agriculture with us.</p>
-                <p className="px-8 text-xl">Welcome to the vibrant world of agro-tourism, where nature's bounty meets the
+                <p className="px-8 text-xl">Welcome to the vibrant world of agro-tourism, where nature's bounty meets
+                    the
                     charm of rural landscapes! Our website is your gateway to a unique and immersive experience that
                     blends the tranquility of the countryside with the excitement of agricultural exploration.
                 </p>
-                <div><br /><br /></div>
+                <div><br/><br/></div>
                 <p className="font-bold text-3xl">Tour Packages</p>
-                <div><br /></div>
+                <div><br/></div>
             </div>
             <div className="px-8 ...">
                 <div className="flex justify-center items-center pb-12 text-center">
@@ -70,26 +71,26 @@ export default function AgroTourism() {
                     </div>
                 </div>
             </div>
-            <div className="flex p-12">
-                {/* Left side with pictures */}
-                <div className="w-1/2 px-20">
-                    <img
-                        src="/agri9.jpg"
-                        alt="agri4"
-                        className=" w-70 h-80"/>
-                    {/* Add more images as needed */}
-                </div>
 
-                {/* Right side with caption and "Book Now" button */}
-                <div className="w-1/2 p-10 bg-gray-100 rounded-xl flex flex-col justify-center items-center">
-                    <p className="text-xl mb-4  ">Embark on a seamless journey to create unforgettable memories with our hassle-free booking process. Dive into the world of agro-tourism and reserve your spot to sow, grow, and explore the beauty of agriculture with just a few clicks. Your next adventure awaits – book now and cultivate extraordinary experiences!</p>
-                    <button className="bg-black text-white px-4 py-2 rounded-xl mt-2 hover:bg-emerald-700">
-                        <Link to="/booking" className="text-white">
-                            Book Now
-                        </Link>
-                    </button>
-                </div>
+
+            <div className="text-center px-8">
+                <p className="text-xl mb-2">
+                    Embark on a seamless journey to create unforgettable memories with our hassle-free booking process.
+                    Dive into the world of agro-tourism and reserve your spot to sow, grow, and explore the beauty of
+                    agriculture with just a few clicks. Your next adventure awaits – book now and cultivate
+                    extraordinary experiences!
+                </p>
+                <button
+                    className="bg-blue-900 text-white px-4 py-2 rounded-xl mt-2 hover:bg-emerald-700">
+                    <Link to="/booking" className="text-white">
+                        Book Your Package Now!
+                    </Link>
+                </button>
+                <div><br/><br/></div>
             </div>
+
+
         </div>
+
     );
 }
