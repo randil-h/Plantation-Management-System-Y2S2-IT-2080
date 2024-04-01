@@ -45,80 +45,90 @@ const FeedbackForm = () => {
     };
 
     return (
-        <div className="h-screen flex flex-col justify-center items-center">
-            <form onSubmit={handleSubmit} className="w-full max-w-md border p-10 rounded-lg bg-white">
-                <h1 className="text-3xl font-semibold mb-4 text-center">Give Us Your Feedback</h1>
-                <div className="mb-4">
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-600">
-                        Name
-                    </label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="mt-1 p-2 w-full border rounded-md"
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-600">
-                        Email Address
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="mt-1 p-2 w-full border rounded-md"
-                        required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="feedback" className="block text-sm font-medium text-gray-600">
-                        Feedback
-                    </label>
-                    <textarea
-                        id="feedback"
-                        value={feedback}
-                        onChange={(e) => setFeedback(e.target.value)}
-                        className="mt-1 p-2 w-full border rounded-md"
-                        required
-                    ></textarea>
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">Rating</label>
-                    <div className="flex items-center">
-                        {[1, 2, 3, 4, 5].map((number) => (
-                            <label key={number} className="inline-flex items-center mr-4">
-                                <input
-                                    type="radio"
-                                    name="rating"
-                                    value={number}
-                                    checked={rating === number}
-                                    onChange={() => handleRatingChange(number)}
-                                    className="form-radio text-blue-500"
-                                />
-                                <span className="ml-2">{number}</span>
-                            </label>
-                        ))}
+        <div className="grid grid-cols-2 h-screen">
+            <div className="bg-gradient-to-r from-blue-200 to-purple-50 text-black flex justify-center items-center">
+                <p className="text-3xl font-bold px-5 text-center">
+                    Your feedback helps us provide you with the best possible experience. We value your input and use it
+                    to continually improve our services.<br/> Thank you for taking the time to share your thoughts with us!
+                </p>
+            </div>
+            <div className="flex justify-center items-center">
+                <form onSubmit={handleSubmit} className="max-w-md w-full">
+                    <h1 className="text-3xl font-semibold mb-4 text-center">Give Us Your Feedback</h1>
+                    <div className="mb-4">
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-600">
+                            Name
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="mt-1 p-2 w-full border rounded-md"
+                            required
+                        />
                     </div>
-                </div>
-                <div className="mb-3 mt-8 flex justify-center">
-                    <button
-                        type="submit"
-                        className="bg-black text-white p-2 rounded-md w-full hover:bg-emerald-700"
-                    >
-                        Submit Feedback
-                    </button>
-                </div>
-            </form>
-            <p className="mt-4 text-lg flex items-center">
-                <Link to="/tourism" className="text-black flex items-center">
-                    <IoMdArrowRoundBack className="mr-2"/> Go back
-                </Link>
-            </p>
+                    <div className="mb-4">
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-600">
+                            Email Address
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="mt-1 p-2 w-full border rounded-md"
+                            required
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="feedback" className="block text-sm font-medium text-gray-600">
+                            Feedback
+                        </label>
+                        <textarea
+                            id="feedback"
+                            value={feedback}
+                            onChange={(e) => setFeedback(e.target.value)}
+                            className="mt-1 p-2 w-full border rounded-md"
+                            required
+                        ></textarea>
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-600">Rating</label>
+                        <div className="flex items-center">
+                            {[1, 2, 3, 4, 5].map((number) => (
+                                <label key={number} className="inline-flex items-center mr-4">
+                                    <input
+                                        type="radio"
+                                        name="rating"
+                                        value={number}
+                                        checked={rating === number}
+                                        onChange={() => handleRatingChange(number)}
+                                        className="form-radio text-blue-500"
+                                    />
+                                    <span className="ml-2">{number}</span>
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+                    <div className="mb-3 mt-8 flex justify-center">
+                        <button
+                            type="submit"
+                            className="bg-black text-white p-2 rounded-md w-full hover:bg-emerald-700"
+                        >
+                            Submit Feedback
+                        </button>
+                    </div>
+                    <p className="mt-4 text-lg flex items-center">
+                        <Link to="/tourism" className="text-black flex items-center">
+                            <IoMdArrowRoundBack className="mr-2"/> Go back
+                        </Link>
+                    </p>
+                </form>
+
+            </div>
         </div>
+
     );
 };
 
