@@ -44,11 +44,13 @@ function HarvestCalculator() {
         // Filter records based on selected crop type
         const filteredRecords = harvestRecords.filter(record => record.cropType === cropType);
 
+        const totalTrees = filteredRecords.reduce((accumulator, record) => accumulator + record.treesPicked, 0);
+
         // Calculate total yield for the selected crop type
         const totalYield = filteredRecords.reduce((accumulator, record) => accumulator + record.quantity, 0);
 
         // Calculate average yield
-        return totalYield / filteredRecords.length;
+        return Math.round(totalYield / totalTrees);
     };
 
     const calculateHarvest = (averageYieldFromDB) => {
@@ -64,14 +66,16 @@ function HarvestCalculator() {
     };
 
     return (
-        <div>
-            <h2>Harvest Calculator</h2>
+        <div style={{fontFamily: "Arial, sans-serif", padding: "20px"}}>
+            <h2 style={{marginBottom: "20px"}}>Harvest Calculator</h2>
             {loading ? (
                 <p>Loading harvest records...</p>
             ) : (
                 <div>
-                    <div>
-                        <label htmlFor="treesPicked">Enter Number of Trees:</label>
+                    <div style={{marginBottom: "15px"}}>
+                        <label htmlFor="treesPicked" style={{marginRight: "10px"}}>
+                            Enter Number of Trees:
+                        </label>
                         <input
                             type="number"
                             id="treesPicked"
@@ -79,15 +83,27 @@ function HarvestCalculator() {
                             value={treesPicked}
                             onChange={handleChange}
                             placeholder="Enter number of trees"
+                            style={{
+                                padding: "5px",
+                                borderRadius: "5px",
+                                border: "1px solid #ccc"
+                            }}
                         />
                     </div>
-                    <div>
-                        <label htmlFor="cropType">Select Crop Type:</label>
+                    <div style={{marginBottom: "15px"}}>
+                        <label htmlFor="cropType" style={{marginRight: "10px"}}>
+                            Select Crop Type:
+                        </label>
                         <select
                             id="cropType"
                             name="cropType"
                             value={cropType}
                             onChange={handleChange}
+                            style={{
+                                padding: "5px",
+                                borderRadius: "5px",
+                                border: "1px solid #ccc"
+                            }}
                         >
                             <option value="">Select Crop</option>
                             <option value="coconut">Coconut</option>
@@ -95,16 +111,26 @@ function HarvestCalculator() {
                             <option value="guava">Guava</option>
                         </select>
                     </div>
-                    <button onClick={calculateHarvest}>Calculate Expected Harvest</button>
-                    <div>
+                    <button
+                        onClick={calculateHarvest}
+                        style={{
+                            padding: "8px 20px",
+                            backgroundColor: "#007bff",
+                            color: "#fff",
+                            border: "none",
+                            borderRadius: "5px",
+                            cursor: "pointer"
+                        }}
+                    >
+                        Calculate Expected Harvest
+                    </button>
+                    <div style={{marginTop: "20px"}}>
                         {averageYield !== null ? (
                             <p>Average Yield: {averageYield} kg/tree</p>
                         ) : (
                             <p>No data available for the selected crop type.</p>
                         )}
                         <p>Expected Harvest: {expectedHarvest} kg</p>
-
-
                     </div>
                 </div>
             )}
