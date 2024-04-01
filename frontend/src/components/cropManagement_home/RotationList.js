@@ -9,6 +9,7 @@ import axios from 'axios';
 import { StyleSheet } from '@react-pdf/renderer';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import {FaSearch} from "react-icons/fa";
 
 const pdfStyles = StyleSheet.create({
     page: {
@@ -118,19 +119,20 @@ const RotationList = () => {
 
     return (
         <div className="z-0">
-            <div>
+            <div className="absolute left-80 mt-10">
                 <input
                     type="text"
                     placeholder="Search Rotation"
                     value={searchQuery}
                     onChange={handleSearch}
-                    className="border border-gray-300 rounded-full px-3 py-1 absolute top-28 left-80 mt-10"
+                    className="border border-gray-300 rounded-full px-3 py-1 pl-10"
                 />
+                <FaSearch className="absolute left-3 top-2 text-gray-400"/>
             </div>
 
             <Link to="/crop/rotation/add">
                 <button
-                    className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-10 mr-24"
+                    className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-14 right-10 mt-10 mr-24"
                 >
                     Add
                 </button>
@@ -138,7 +140,7 @@ const RotationList = () => {
 
             <button
                 onClick={generatePDF}
-                className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-10 mr-5"
+                className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-14 right-10 mt-10 mr-5"
             >
                 Print
             </button>
