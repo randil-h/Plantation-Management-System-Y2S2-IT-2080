@@ -1,26 +1,23 @@
-{/*
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
-import Chart from "chart.js";
-export default function GenerateGraphs() {
+import { select, scaleBand, scaleLinear, axisBottom, axisLeft, line, curveMonotoneX, scaleTime } from "d3";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
+
+export default function GenerateGraphs() {
     const [DiseaseRecords, setDiseaseRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const chartContainer = useRef(null);
-    const chartInstance = useRef(null);
     const lineChartContainer = useRef(null);
-    const lineChartInstance = useRef(null);
     const cropBarChartContainer = useRef(null);
-    const cropBarChartInstance = useRef(null);
 
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/diseases')
+            .get("http://localhost:5555/diseases")
             .then((response) => {
                 setDiseaseRecords(response.data.data);
-                console.log('DiseaseRecords:', response.data.data);
+                console.log("DiseaseRecords:", response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -38,91 +35,215 @@ export default function GenerateGraphs() {
     const renderBarChart = () => {
         const typesOfDiseases = new Map();
 
-        DiseaseRecords.forEach(record => {
-            typesOfDiseases.set(record.disease_name, (typesOfDiseases.get(record.disease_name) || 0) + 1);
+        DiseaseRecords.forEach((record) => {
+            typesOfDiseases.set(
+                record.disease_name,
+                (typesOfDiseases.get(record.disease_name) || 0) + 1
+            );
         });
 
         const labels = [...typesOfDiseases.keys()];
         const data = [...typesOfDiseases.values()];
 
-        if(chartInstance.current !== null) {
-            chartInstance.current.destroy();
-        }
+        const svg = select(chartContainer.current);
 
-        const ctx = chartContainer.current.getContext('2d');
-        chartInstance.current = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Number of Diseased Plants',
-                    data: data,
-                    backgroundColor: 'rgba(0, 226, 29, 0.28)',
-                    borderColor: 'rgb(212, 225, 87)',
-                    borderWidth: 1
-                }]
-            },
+        svg.selectAll("*").remove();
 
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        min: 0,
-                        max:1
-                    }
-                },
-                elements: {
-                    bar: {
-                        barThickness: 10 // Adjust the value as needed
-                    }
-                }
-            }
-        });
+        const margin = { top: 20, right: 20, bottom: 60, left: 60 };
+        const width = svg.attr("width") - margin.left - margin.right;
+        const height = svg.attr("height") - margin.top - margin.bottom;
+
+        const x = scaleBand()
+            .range([0, width])
+            .padding(0.3)
+            .domain(labels);
+
+        const y = scaleLinear()
+            .range([height, 0])
+            .domain([0, Math.max(...data)]);
+
+        const g = svg
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        g.append("g")
+            .attr("class", "axis axis--x")
+            .attr("transform", "translate(0," + height + ")")
+            .call(axisBottom(x));
+
+        g.append("g")
+            .attr("class", "axis axis--y")
+            .call(axisLeft(y).ticks(10, "s"))
+            .append("text")
+            .attr("class", "axis-title")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.71em")
+            .attr("text-anchor", "end")
+            .text("Number of Diseased Plants");
+
+        g.selectAll(".bar")
+            .data(typesOfDiseases)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", (d) => x(d[0]))
+            .attr("y", (d) => y(d[1]))
+            .attr("width", x.bandwidth())
+            .attr("height", (d) => height - y(d[1]))
+            .style("fill", "rgba(0, 226, 29, 0.28)")
+            .style("stroke", "rgba(212, 225, 87)")
+            .style("stroke-width", 1)
+            .on("mouseover", (event, d) => {
+                tooltip.style("opacity", 1);
+                tooltip.html(`Disease: ${d[0]}<br/>Value: ${d[1]}`)
+                    .style("left", `${event.pageX}px`)
+                    .style("top", `${event.pageY}px`);
+            })
+
+            .on("mousemove", (event) => {
+                tooltip.style("left", `${event.pageX}px`)
+                    .style("top", `${event.pageY}px`);
+            })
+            .on("mouseout", () => {
+                tooltip.style("opacity", 0);
+            });
+
+        const tooltip = select("body")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0)
+            .style("position", "absolute")
+            .style("pointer-events", "none")
+            .style("background-color", "rgba(212, 225, 87)")
+            .style("padding", "5px")
+            .style("border-radius", "10px")
+            .style("border", "1px solid black ");
+
+
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("x", margin.left + (width / 2))
+            .attr("y", height + margin.top + 50)
+            .style("text-anchor", "middle")
+            .style("font-weight", "bold")
+            .text("Disease Type");
+
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("transform", "rotate(-90)")
+            .attr("x", 0 - (height / 2))
+            .attr("y", 60 - margin.left)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .style("font-weight", "bold")
+            .text("Amount of Records");
     };
 
     const renderCropBarChart = () => {
         const typesOfCrops = new Map();
 
-        DiseaseRecords.forEach(record => {
+        DiseaseRecords.forEach((record) => {
             typesOfCrops.set(record.crop, (typesOfCrops.get(record.crop) || 0) + 1);
         });
 
         const labels1 = [...typesOfCrops.keys()];
         const data1 = [...typesOfCrops.values()];
 
-        if(cropBarChartInstance.current !== null) {
-            cropBarChartInstance.current.destroy();
-        }
+        const svg = select(cropBarChartContainer.current);
 
-        const ctx = cropBarChartContainer.current.getContext('2d');
-        cropBarChartInstance.current = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels1,
-                datasets: [{
-                    label: 'Number of Diseased Plants',
-                    data: data1,
-                    backgroundColor: 'rgba(0, 226, 29, 0.28)',
-                    borderColor: 'rgb(212, 225, 87)',
-                    borderWidth: 1
-                }]
-            },
+        svg.selectAll("*").remove();
 
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        min: 0,
-                        max:1
-                    }
-                },
-                elements: {
-                    bar: {
-                        barThickness: 10 // Adjust the value as needed
-                    }
-                }
-            }
-        });
+        const margin = { top: 10, right: 20, bottom: 60, left: 60 };
+        const width = svg.attr("width") - margin.left - margin.right;
+        const height = svg.attr("height") - margin.top - margin.bottom;
+
+        const x = scaleBand()
+            .range([0, width])
+            .padding(0.5)
+            .domain(labels1);
+
+        const y = scaleLinear().range([height, 0]).domain([0, Math.max(...data1)]);
+
+        const g = svg
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        g.append("g")
+            .attr("class", "axis axis--x")
+            .attr("transform", "translate(0," + height + ")")
+            .call(axisBottom(x));
+
+        g.append("g")
+            .attr("class", "axis axis--y")
+            .call(axisLeft(y).ticks(10, "s"))
+            .append("text")
+            .attr("class", "axis-title")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.71em")
+            .attr("text-anchor", "end")
+            .text("Number of Diseased Plants");
+
+        g.selectAll(".bar")
+            .data(typesOfCrops)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", (d) => x(d[0]))
+            .attr("y", (d) => y(d[1]))
+            .attr("width", x.bandwidth())
+            .attr("height", (d) => height - y(d[1]))
+            .style("fill", "rgba(0, 226, 29, 0.28)")
+            .style("stroke", "rgba(212, 225, 87)")
+            .style("stroke-width", 1)
+            .on("mouseover", (event, d) => {
+
+                tooltip.style("opacity", 1);
+                tooltip.html(`Crop: ${d[0]}<br/>Value: ${d[1]}`)
+                    .style("left", `${event.pageX}px`)
+                    .style("top", `${event.pageY}px`);
+            })
+            .on("mousemove", (event) => {
+
+                tooltip.style("left", `${event.pageX}px`)
+                    .style("top", `${event.pageY}px`);
+            })
+            .on("mouseout", () => {
+
+                tooltip.style("opacity", 0);
+            });
+
+
+        const tooltip = select("body")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0)
+            .style("position", "absolute")
+            .style("pointer-events", "none")
+            .style("background-color", "rgba(212, 225, 87)")
+            .style("padding", "5px")
+            .style("border-radius", "5px")
+            .style("border", "1px solid black");
+
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("x", margin.left + (width / 2))
+            .attr("y", height + margin.top + 50)
+            .style("text-anchor", "middle")
+            .style("font-weight", "bold")
+            .text("Crop Type");
+
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("transform", "rotate(-90)")
+            .attr("x", 0 - (height / 2))
+            .attr("y", 60 - margin.left)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .style("font-weight", "bold")
+            .text("Amount of Diseased Plants");
+
     };
 
     const renderLineChart = () => {
@@ -132,7 +253,7 @@ export default function GenerateGraphs() {
 
         const accumulatedCounts = new Map();
 
-        DiseaseRecords.forEach(record => {
+        DiseaseRecords.forEach((record) => {
             const date = record.date;
             if (!accumulatedCounts.has(date)) {
                 accumulatedCounts.set(date, 0);
@@ -140,85 +261,152 @@ export default function GenerateGraphs() {
             accumulatedCounts.set(date, accumulatedCounts.get(date) + 1);
         });
 
-        const sortedDates = Array.from(accumulatedCounts.keys()).sort((a, b) => new Date(a) - new Date(b));
-        const counts = sortedDates.map(date => accumulatedCounts.get(date));
+        const sortedDates = Array.from(accumulatedCounts.keys()).sort(
+            (a, b) => new Date(a) - new Date(b)
+        );
+        const counts = sortedDates.map((date) => accumulatedCounts.get(date));
 
-        if (lineChartInstance.current !== null) {
-            lineChartInstance.current.destroy();
-        }
+        const svg = select(lineChartContainer.current);
 
-        const ctx = lineChartContainer.current.getContext("2d");
-        lineChartInstance.current = new Chart(ctx, {
-            type: "line",
-            data: {
-                labels: sortedDates,
-                datasets: [
-                    {
-                        label: "Number of Records",
-                        data: counts,
-                        fill: false,
-                        borderColor: "rgba(0, 226, 29, 0.28)",
-                        borderWidth: 1,
-                        pointBackgroundColor: "rgb(212, 225, 87)"
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    x: {
-                        type: "time",
-                        time: {
-                            unit: "day"
-                        },
-                        title: {
-                            display: true,
-                            text: 'Date'
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Number of Records'
-                        }
-                    }
-                }
-            }
-        });
+        svg.selectAll("*").remove();
+
+        const margin = { top: 20, right: 20, bottom: 60, left: 60 };
+        const width = svg.attr("width") - margin.left - margin.right;
+        const height = svg.attr("height") - margin.top - margin.bottom;
+
+        const x = scaleTime()
+            .range([0, width])
+            .domain([new Date(sortedDates[0]), new Date(sortedDates[sortedDates.length - 1])]);
+
+        const y = scaleLinear().range([height, 0]).domain([0, Math.max(...counts)]);
+
+        const g = svg
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        g.selectAll("circle")
+            .data(counts)
+            .enter()
+            .append("circle")
+            .attr("cx", (d, i) => x(new Date(sortedDates[i])))
+            .attr("cy", (d) => y(d))
+            .attr("r", 5)
+            .attr("fill", "rgba(0, 226, 29, 0.28)")
+            .on("mouseover", (event, d, i) => {
+
+                tooltip.style("opacity", 1);
+                tooltip.html(`Value: ${d}`)
+                    .style("left", `${event.pageX}px`)
+                    .style("top", `${event.pageY}px`);
+            })
+            .on("mousemove", (event) => {
+
+                tooltip.style("left", `${event.pageX}px`)
+                    .style("top", `${event.pageY}px`);
+            })
+            .on("mouseout", () => {
+
+                tooltip.style("opacity", 0);
+            });
+
+
+        const tooltip = select("body")
+            .append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0)
+            .style("position", "absolute")
+            .style("pointer-events", "none")
+            .style("background-color", "rgba(0, 226, 29, 0.28")
+            .style("padding", "5px")
+            .style("border-radius", "5px")
+            .style("border", "1px solid black");
+
+        g.append("g")
+            .attr("class", "axis axis--x")
+            .attr("transform", "translate(0," + height + ")")
+            .call(axisBottom(x).ticks(5));
+
+        g.append("g")
+            .attr("class", "axis axis--y")
+            .call(axisLeft(y).ticks(10, "s"))
+            .append("text")
+            .attr("class", "axis-title")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.71em")
+            .attr("text-anchor", "end")
+            .text("Number of Records");
+
+        const line1 = line()
+            .x((d, i) => x(new Date(sortedDates[i])))
+            .y((d) => y(d))
+            .curve(curveMonotoneX);
+
+        g.append("path")
+            .datum(counts)
+            .attr("fill", "none")
+            .attr("stroke", "rgba(0, 226, 29, 0.28)")
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+            .attr("stroke-width", 1.5)
+            .attr("d", line1);
+
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("x", margin.left + (width / 2))
+            .attr("y", height + margin.top + 50)
+            .style("text-anchor", "middle")
+            .style("font-weight", "bold")
+            .text("Time");
+
+        svg.append("text")
+            .attr("class", "axis-label")
+            .attr("transform", "rotate(-90)")
+            .attr("x", 0 - (height / 2))
+            .attr("y", 60 - margin.left)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .style("font-weight", "bold")
+            .text("Amount of Diseased Plants");
+
     };
-
-
 
     return (
         <div className=" overflow-x-auto  ">
             <div className="flex flex-row justify-between items-center px-8 py-4">
                 <div>
-                    <h1 className=" text-lg font-semibold text-left">GRAPH VISUALIZATION</h1>
-                    <p className="mt-1 text-sm font-normal text-gray-500 0">Visualize trends of diseases that escalate
-                        throughout the farm...</p>
+                    <h1 className=" text-lg font-semibold text-left">
+                        GRAPH VISUALIZATION
+                    </h1>
+                    <p className="mt-1 text-sm font-normal text-gray-500 0">
+                        Visualize trends of diseases that escalate throughout the farm...
+                    </p>
                 </div>
             </div>
-            <div className="px-8 ">
-                <h1 className=" w-2/3 text-md font-bold text-left flex justify-center items-center">Disease V Records</h1>
-                <div className=" w-2/3 h-1/3  py-4 ">
-                    <canvas ref={chartContainer}></canvas>
+            <div className="mx-auto px-8  w-fit border-2 rounded-xl border-green-400">
+                <h1 className=" mt-4 text-lg font-bold text-left flex justify-center items-center">
+                    Disease V Records
+                </h1>
+                <div className="  py-4 ">
+                    <svg ref={chartContainer} width="800" height="400"></svg>
                 </div>
             </div>
-            <div className="px-8 py-4">
-                <h1 className=" w-2/3 text-md font-bold text-left flex justify-center items-center">Number of Diseased
-                    Plants V Time</h1>
-                <div className=" w-2/3 h-1/4  py-4">
-                    <canvas ref={lineChartContainer}></canvas>
+            <div className="mx-auto px-8 w-fit py-4 border-2 mt-6 rounded-xl border-green-400">
+                <h1 className="  text-lg font-bold text-left flex justify-center items-center">
+                    Number of Diseased Plants V Time
+                </h1>
+                <div className=" w-2/3 h-1/4  py-4 ">
+                    <svg ref={lineChartContainer} width="800" height="400"></svg>
                 </div>
             </div>
-            <div className="px-8 py-4">
-                <h1 className=" w-1/2 text-md font-bold text-left flex justify-center items-center">Amount of Diseased Plants V Crop Type</h1>
-                <div className=" w-1/2 h-1/5 py-4">
-                    <canvas ref={cropBarChartContainer}></canvas>
+            <div className=" w-fit mx-auto px-8 py-4 border-2 mt-6 rounded-xl border-green-400">
+                <h1 className=" mb-2 text-lg font-bold text-left flex justify-center items-center">
+                    Amount of Diseased Plants V Crop Type
+                </h1>
+                <div className=" w-2/3 h-1/4 py-4 ">
+                    <svg ref={cropBarChartContainer} width="800" height="300" ></svg>
                 </div>
             </div>
         </div>
-
-)
-
-}*/}
+    );
+}

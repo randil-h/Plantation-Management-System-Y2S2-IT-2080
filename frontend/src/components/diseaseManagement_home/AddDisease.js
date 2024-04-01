@@ -20,7 +20,7 @@ export default function AddDisease() {
         // Set treatment based on selected disease
         if (selectedDisease === "Anthracnose") {
             setTreatment("Daconil Chlorothalonil");
-        } else if (selectedDisease === "Maitas and Leaf Curling disease") {
+        } else if (selectedDisease === "Leaf Curling disease") {
             setTreatment("Mitsu Abamectin");
         } else if (selectedDisease === "Fungal Disease") {
             setTreatment("Oasis Thiram");
@@ -76,7 +76,7 @@ export default function AddDisease() {
                     <option value="Anthracnose">Anthracnose Disease</option>
                     <option value="Plesispa">Plesispa (Coconut Bug)</option>
                     <option value="Fungal Disease">Fungal Disease</option>
-                    <option value="Maitas and Leaf Curling disease">Maitas and Leaf Curling</option>
+                    <option value="Leaf Curling disease">Leaf Curling Disease</option>
                     <option value="Other">Other</option>
                 </select>
                {/* <label className='text-md mr-4 text-gray-500 mb-1'>Plant ID</label>
