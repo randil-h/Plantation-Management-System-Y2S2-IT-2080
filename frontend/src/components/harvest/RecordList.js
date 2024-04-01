@@ -52,10 +52,11 @@ export default function HarvestList() {
 
     return (
         <div className="overflow-x-auto">
+            <div>
+                <h1 className="text-lg font-semibold text-left px-8 py-2">Harvest Records</h1>
+            </div>
             <div className="flex flex-row justify-between items-center px-8 py-4">
-                <div>
-                    <h1 className="text-lg font-semibold text-left">Harvest Records</h1>
-                </div>
+
                 <div className=" py-4">
                     <select
                         value={selectedCropType}
@@ -70,14 +71,15 @@ export default function HarvestList() {
                     </select>
                     <button onClick={handleSort}
                             style={{
-                        padding: "8px 20px",
-                        backgroundColor: "#007bff",
-                        color: "#fff",
-                        border: "none",
-                        borderRadius: "5px",
-                        cursor: "pointer",
-                        margin: "10px"
-                    }}>Apply Filter</button>
+                                padding: "8px",
+                                backgroundColor: "#007bff",
+                                color: "#fff",
+                                border: "none",
+                                borderRadius: "5px",
+                                cursor: "pointer",
+                                margin: "10px"
+                            }}>Apply Filter
+                    </button>
                 </div>
                 <div>
                     <a href="/harvest/records/addRecord"
@@ -114,18 +116,26 @@ export default function HarvestList() {
                         <td className="px-6 py-4 whitespace-nowrap">{record.treesPicked}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{record.remarks}</td>
                         <td className="py-4 text-right">
-                            <a href="/harvests/records/viewHarvest" className="font-medium text-blue-600 hover:underline">
-                                <InformationCircleIcon className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500" aria-hidden="true"/>
+                            <a href="/harvests/records/viewHarvest"
+                               className="font-medium text-blue-600 hover:underline">
+                                <InformationCircleIcon
+                                    className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                    aria-hidden="true"/>
                             </a>
                         </td>
                         <td className="py-4 text-right">
-                            <a href={`/harvest/records/updateRecord/${record._id}`} className="font-medium text-blue-600 hover:underline">
-                                <PencilSquareIcon className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500" aria-hidden="true"/>
+                            <a href={`/harvest/records/updateRecord/${record._id}`}
+                               className="font-medium text-blue-600 hover:underline">
+                                <PencilSquareIcon
+                                    className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                    aria-hidden="true"/>
                             </a>
                         </td>
                         <td className="py-4 text-right">
                             <button className="flex items-center" onClick={() => handleDeleteHarvest(record._id)}>
-                                <TrashIcon className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500" aria-hidden="true"/>
+                                <TrashIcon
+                                    className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                    aria-hidden="true"/>
                             </button>
                         </td>
                     </tr>
