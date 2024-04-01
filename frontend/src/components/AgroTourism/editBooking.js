@@ -61,147 +61,118 @@ const EditBooking = () => {
             console.log(error);
         }
     };
+    const handleCancel = () => {
+        navigate(-1); // Go back to the previous page
+    };
 
     return (
-        <div className="pt-2">
-            <div className="flex flex-col ml-96 mt-6">
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                    Edit Booking
-                </h1>
-            </div>
-            <form className="flex flex-col items-center justify-center" onSubmit={handleEdit}>
-                <div className="space-y-12 px-0 py-16 w-6/12">
-                    <div className="border-b border-gray-900/10 pb-12">
-                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                            <div className="col-span-full">
-                                <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Full Name
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value={name}
-                                        onChange={(e) => setFullName(e.target.value)}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div className="sm:col-span-2 sm:col-start-1">
-                                <label htmlFor="telNo" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Contact Number
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        type="tel"
-                                        name="telNo"
-                                        value={telNo}
-                                        onChange={(e) => setTelNo(e.target.value)}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div className="sm:col-span-2 sm:col-start-1">
-                                <label htmlFor="nicNo" className="block text-sm font-medium leading-6 text-gray-900">
-                                    NIC Number
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        type="text"
-                                        name="nicNo"
-                                        value={nicNo}
-                                        onChange={(e) => setNicNo(e.target.value)}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div className="sm:col-span-2 sm:col-start-1">
-                                <label htmlFor="numberOfPeople" className="block text-sm font-medium leading-6 text-gray-900">
-                                    No Of People
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        type="number"
-                                        name="numberOfPeople"
-                                        value={numberOfPeople}
-                                        onChange={(e) => setnumberOfPeople(e.target.value)}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div className="sm:col-span-2 sm:col-start-1">
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Email
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div className="sm:col-span-2 sm:col-start-1">
-                                <label htmlFor="selectedPackage"
-                                       className="block text-sm font-medium leading-6 text-gray-900">
-                                    Package Type
-                                </label>
-                                <div className="mt-2">
-                                    <select
-                                        name="selectedPackage"
-                                        value={selectedPackage}
-                                        onChange={(e) => setselectedPackage(e.target.value)}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        required
-                                    >
-                                        <option value="">Select Package Type</option>
-                                        <option value="fruitAndVegetablePicking">Fruit and Vegetable Picking</option>
-                                        <option value="farmChoreExperience">Farm Chore Experience</option>
-                                        <option value="guidedFarmTour">Guided Farm Tour</option>
-                                    </select>
-                                </div>
-                            </div>
-                            {selectedPackage === 'guidedFarmTour' && (
-                                <div className="sm:col-span-2 sm:col-start-1">
-                                    <label htmlFor="numberOfDays"
-                                           className="block text-sm font-medium leading-6 text-gray-900">
-                                        Number of Days
-                                    </label>
-                                    <div className="mt-2">
-                                        <input
-                                            type="text"
-                                            name="numberOfDays"
-                                            value={numberOfDays}
-                                            onChange={(e) => setNumberOfDays(e.target.value)}
-                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+        <div className="container mx-auto px-4 py-8">
+
+            <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">Edit Booking Details</h1>
+            <form onSubmit={handleEdit} className="max-w-lg mx-auto">
+                <div className="space-y-6">
+                    <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value={name}
+                            onChange={(e) => setFullName(e.target.value)}
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            required
+                        />
                     </div>
+                    <div>
+                        <label htmlFor="telNo" className="block text-sm font-medium text-gray-700">Contact Number</label>
+                        <input
+                            type="tel"
+                            name="telNo"
+                            value={telNo}
+                            onChange={(e) => setTelNo(e.target.value)}
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="nicNo" className="block text-sm font-medium text-gray-700">NIC Number</label>
+                        <input
+                            type="text"
+                            name="nicNo"
+                            value={nicNo}
+                            onChange={(e) => setNicNo(e.target.value)}
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="numberOfPeople" className="block text-sm font-medium text-gray-700">No Of People</label>
+                        <input
+                            type="number"
+                            name="numberOfPeople"
+                            value={numberOfPeople}
+                            onChange={(e) => setnumberOfPeople(e.target.value)}
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="selectedPackage" className="block text-sm font-medium text-gray-700">Package Type</label>
+                        <select
+                            name="selectedPackage"
+                            value={selectedPackage}
+                            onChange={(e) => setselectedPackage(e.target.value)}
+                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            required
+                        >
+                            <option value="">Select Package Type</option>
+                            <option value="fruitAndVegetablePicking">Fruit and Vegetable Picking</option>
+                            <option value="farmChoreExperience">Farm Chore Experience</option>
+                            <option value="guidedFarmTour">Guided Farm Tour</option>
+                        </select>
+                    </div>
+                    {selectedPackage === 'guidedFarmTour' && (
+                        <div>
+                            <label htmlFor="numberOfDays" className="block text-sm font-medium text-gray-700">Number of Days</label>
+                            <input
+                                type="text"
+                                name="numberOfDays"
+                                value={numberOfDays}
+                                onChange={(e) => setNumberOfDays(e.target.value)}
+                                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                required
+                            />
+                        </div>
+                    )}
                 </div>
-                <div className="mt-6 pb-10 flex items-center justify-end gap-x-6">
-                    <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+                <div className="mt-6 flex justify-end">
+                    <button
+                        type="button"
+                        className="mr-3 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        onClick={handleCancel}
+                    >
                         Cancel
                     </button>
                     <button
                         type="submit"
-                        className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        className="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         Save
                     </button>
                 </div>
             </form>
         </div>
+
     );
 }
 
