@@ -50,7 +50,7 @@ function HarvestCalculator() {
         const totalYield = filteredRecords.reduce((accumulator, record) => accumulator + record.quantity, 0);
 
         // Calculate average yield
-        return Math.round(totalYield / totalTrees);
+        return Math.round((totalYield / totalTrees) * 100) /100;
     };
 
     const calculateHarvest = (averageYieldFromDB) => {
@@ -67,7 +67,7 @@ function HarvestCalculator() {
 
     return (
         <div style={{fontFamily: "Arial, sans-serif", padding: "20px"}}>
-            <h2 style={{marginBottom: "20px"}}>Harvest Calculator</h2>
+            <h1 className="text-lg font-semibold text-left px-2 py-2">Harvest Calculator</h1>
             {loading ? (
                 <p>Loading harvest records...</p>
             ) : (
@@ -84,7 +84,7 @@ function HarvestCalculator() {
                             onChange={handleChange}
                             placeholder="Enter number of trees"
                             style={{
-                                padding: "5px",
+                                padding: "10px",
                                 borderRadius: "5px",
                                 border: "1px solid #ccc"
                             }}
