@@ -6,6 +6,13 @@ import Navbar from "../../../components/utility/Navbar";
 import CropNavigation from "../../../components/cropManagement_home/CropNavigation";
 import PlantingList from "../../../components/cropManagement_home/PlantingList";
 import ChemicalList from "../../../components/cropManagement_home/ChemicalList";
+import BackButton from "../../../components/utility/BackButton";
+import Breadcrumb from "../../../components/utility/Breadcrumbs";
+
+const breadcrumbItems = [
+    { name: 'Crop', href: '/crop/home' },
+    { name: 'Crop Input', href: '/crop/input/view' },
+];
 
 export default function CropManagement() {
     const showPlantingList = () => {
@@ -35,6 +42,10 @@ export default function CropManagement() {
                     </div>
                     <div className="col-span-5">
                         <CropNavigation/>
+                        <div className="flex flex-row ">
+                            <BackButton/>
+                            <Breadcrumb items={breadcrumbItems}/>
+                        </div>
                         <div className="flex justify-center mt-4 left-16">
                             <button
                                 id="plantingButton"
@@ -49,7 +60,7 @@ export default function CropManagement() {
                             <div id="plantingList">
                                 <PlantingList/>
                             </div>
-                            <div id="chemicalList" style={{ display: 'none' }}>
+                            <div id="chemicalList" style={{display: 'none'}}>
                                 <ChemicalList/>
                             </div>
                         </div>
