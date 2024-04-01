@@ -28,13 +28,13 @@ export default function DiseaseVisualization() {
                         <SideBar/>
                     </div>
 
-                    <div className="w-full col-span-5 flex flex-col ">
+                    <div className="w-full col-span-5 flex flex-col">
                         <DiseaseTrackingNavigation/>
                         <div className="flex flex-row">
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
-                        <div>
+                        <div >
                             <GenerateGraphs/>
                         </div>
 
