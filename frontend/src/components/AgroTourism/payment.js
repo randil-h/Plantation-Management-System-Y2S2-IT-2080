@@ -9,14 +9,17 @@ export function PaymentConfirmation() {
     const { totalPayment } = location.state;
 
     return (
-        <div className="max-w-lg mx-auto mt-8 mb-8 p-4 rounded-md shadow-md">
+        <div
+            className="max-w-lg mx-auto mt-8 mb-8 p-4 rounded-md shadow-md bg-gradient-to-r from-blue-50 to-green-50">
             <h2 className="text-3xl font-bold mb-4 text-center">Payment Confirmation</h2>
             <div className="text-center">
                 <p className="text-lg">Total Payment: ${totalPayment}</p>
             </div>
         </div>
+
     );
 }
+
 const OnlinePaymentPortal = () => {
     const [formData, setFormData] = useState({
         cardNumber: '',
@@ -28,7 +31,7 @@ const OnlinePaymentPortal = () => {
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
-    const { enqueueSnackbar } = useSnackbar();
+    const {enqueueSnackbar } = useSnackbar();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

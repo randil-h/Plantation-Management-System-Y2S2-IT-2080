@@ -39,7 +39,7 @@ export default function BookingForm() {
         // Validate NIC number
         if (!formData.nicNo.trim()) {
             errors.nicNo = "NIC number is required";
-        } else if (!/^\d{12}[VvXx]?$/.test(formData.nicNo)) {
+        } else if (!/^\d{12}[vVxX]?$/.test(formData.nicNo)) {
             errors.nicNo = "Invalid NIC number";
         }
 
@@ -67,6 +67,11 @@ export default function BookingForm() {
             errors.numberOfPeople = "Invalid number of people";
         }
 
+        // If guidedFarmTour is selected, validate number of days
+        if (formData.selectedPackage === 'guidedFarmTour' && !formData.numberOfDays.trim()) {
+            errors.numberOfDays = "Number of days is required";
+        }
+
         // Set the errors state
         setErrors(errors);
 
@@ -75,25 +80,27 @@ export default function BookingForm() {
     };
 
     const calculateTotalPayment = () => {
-        const { selectedPackage, numberOfDays } = formData;
+        const { selectedPackage, numberOfDays, numberOfPeople, visitorType } = formData;
         let price = 0;
 
         switch (selectedPackage) {
             case 'fruitAndVegetablePicking':
-                price = 300;
+                price = visitorType === 'foreign' ? 700 * parseInt(numberOfPeople) : 300 * parseInt(numberOfPeople);
                 break;
             case 'farmChoreExperience':
-                price = 1200;
+                price = visitorType === 'foreign' ? 2500 * parseInt(numberOfPeople) : 1200 * parseInt(numberOfPeople);
                 break;
             case 'guidedFarmTour':
-                price = 700;
+                price = visitorType === 'foreign' ? 700 * parseInt(numberOfDays) * parseInt(numberOfPeople) : 700 * parseInt(numberOfDays) * parseInt(numberOfPeople);
                 break;
             default:
                 price = 0;
         }
 
-        return price * parseInt(numberOfDays);
+        // Check if price is NaN, return 0 in such cases
+        return isNaN(price) ? 0 : price;
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -105,9 +112,9 @@ export default function BookingForm() {
             try {
                 // Calculate total payment
                 const totalPayment = calculateTotalPayment();
-                const response = await axios.post(('http://localhost:5555/booking'), formData);
-                console.log(response.data);
                 // Post booking data
+                await axios.post(('http://localhost:5555/booking'), formData);
+                // Reset form data
                 setFormData({
                     name: '',
                     telNo: '',
@@ -115,6 +122,7 @@ export default function BookingForm() {
                     email: '',
                     selectedPackage: '',
                     date: '',
+                    numberOfDays: '',
                     numberOfPeople: '',
                 });
 
@@ -192,6 +200,33 @@ export default function BookingForm() {
                     {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                 </div>
                 <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Visitor Type
+                    </label>
+                    <div className="flex items-center">
+                        <input
+                            type="radio"
+                            id="localVisitor"
+                            name="visitorType"
+                            value="local"
+                            checked={formData.visitorType === "local"}
+                            onChange={handleChange}
+                            className="mr-2"
+                        />
+                        <label htmlFor="localVisitor" className="mr-4">Local</label>
+                        <input
+                            type="radio"
+                            id="foreignVisitor"
+                            name="visitorType"
+                            value="foreign"
+                            checked={formData.visitorType === "foreign"}
+                            onChange={handleChange}
+                            className="mr-2"
+                        />
+                        <label htmlFor="foreignVisitor">Foreign</label>
+                    </div>
+                </div>
+                <div className="mb-4">
                     <label htmlFor="selectedPackage" className="block text-sm font-medium text-gray-700">
                         Package Type
                     </label>
@@ -244,7 +279,7 @@ export default function BookingForm() {
                     {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="numberOfPeople" className="block text-sm font-medium text-gray-700">
                         Number of People
                     </label>
                     <input
