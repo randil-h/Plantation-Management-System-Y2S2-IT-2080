@@ -15,15 +15,15 @@ export default function AgroTourism() {
                     blends the tranquility of the countryside with the excitement of agricultural exploration.
                 </p>
                 <div><br /><br /></div>
-                <p className="font-bold text-2xl">Tour Packages</p>
-                <div><br /><br /></div>
+                <p className="font-bold text-3xl">Tour Packages</p>
+                <div><br /></div>
             </div>
             <div className="px-8 ...">
                 <div className="flex justify-center items-center pb-12 text-center">
                     <div className="flex space-x-4">
                         {/* Option 1 */}
                         <div className="flex-1 bg-gray-100 p-10 rounded-md flex flex-col items-center">
-                            <p className="text-xl font-semibold">Guided Farm Tours</p>
+                            <p className="text-2xl font-semibold">Guided Farm Tours</p>
                             <p>Explore agriculture up close with our Guided Farm Tours, a hands-on journey into the
                                 heart of sustainable farming and rural charm.</p>
                             <div><br/></div>
@@ -39,7 +39,7 @@ export default function AgroTourism() {
 
                         {/* Option 2 - Fruit and Vegetable Picking*/}
                         <div className="flex-1 bg-gray-100 p-10 rounded-md flex flex-col items-center">
-                            <p className="text-xl font-semibold">Fruit and Vegetable Picking</p>
+                            <p className="text-2xl font-semibold">Fruit and Vegetable Picking</p>
                             <p>Embark on a delightful farm-to-plate journey with our Fruit and Vegetable Picking
                                 experience, where the lush fields invite you to harvest the freshest produce.</p>
                             <div><br/></div>
@@ -54,7 +54,7 @@ export default function AgroTourism() {
 
                         {/* Option 3 */}
                         <div className="flex-1 bg-gray-100 p-10 rounded-md flex flex-col items-center">
-                            <p className="text-xl font-semibold">Farm Chore Experience
+                            <p className="text-2xl font-semibold">Farm Chore Experience
                             </p>
                             <p>Embark on an immersive farm chore experience, where hands-on activities blend with the
                                 serenity of rural life.</p>
