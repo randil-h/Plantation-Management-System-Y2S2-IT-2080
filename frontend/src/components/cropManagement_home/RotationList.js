@@ -128,7 +128,7 @@ const RotationList = () => {
                 />
             </div>
 
-            <Link to="/crop/rotation/view-add">
+            <Link to="/crop/rotation/add">
                 <button
                     className="rounded-md bg-lime-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-lime-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600 absolute top-14 right-10 mt-10 mr-24"
                 >

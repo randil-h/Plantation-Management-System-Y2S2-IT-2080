@@ -1,10 +1,17 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import Breadcrumb from "../../../components/utility/Breadcrumbs";
+import BackButton from "../../../components/utility/BackButton";
 
 import SideBar from "../../../components/SideBar";
 import Navbar from "../../../components/utility/Navbar";
 import CropNavigation from "../../../components/cropManagement_home/CropNavigation";
 import RotationList from "../../../components/cropManagement_home/RotationList";
+
+const breadcrumbItems = [
+    { name: 'Crop', href: '/crop/home' },
+    { name: 'Rotation Records', href: '/crop/rotation/view' },
+];
 
 export default function ViewRotation() {
     return (
@@ -19,6 +26,10 @@ export default function ViewRotation() {
                     </div>
                     <div className="w-full col-span-5 flex flex-col">
                         <CropNavigation/>
+                        <div className="flex flex-row ">
+                            <BackButton/>
+                            <Breadcrumb items={breadcrumbItems}/>
+                        </div>
                         <RotationList/>
                     </div>
                 </div>
