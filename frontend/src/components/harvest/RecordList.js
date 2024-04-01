@@ -68,7 +68,16 @@ export default function HarvestList() {
                         <option value="papaya">Papaya</option>
 
                     </select>
-                    <button onClick={handleSort}>Filter by Crop Type</button>
+                    <button onClick={handleSort}
+                            style={{
+                        padding: "8px 20px",
+                        backgroundColor: "#007bff",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                        margin: "10px"
+                    }}>Apply Filter</button>
                 </div>
                 <div>
                     <a href="/harvest/records/addRecord"
