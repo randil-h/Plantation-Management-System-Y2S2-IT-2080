@@ -24,7 +24,7 @@ export default function AddRecord() {
             };
             await axios.post('http://localhost:5555/record', data);
             alert('Record submitted successfully!');
-            // Optionally, you can redirect or perform any other action here
+
         } catch (error) {
             console.error('Error submitting record:', error);
             alert('An error occurred while submitting the record. Please try again.');
