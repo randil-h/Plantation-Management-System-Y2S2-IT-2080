@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import axios from 'axios';
+import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 
 const BookingList = () => {
     const [originalRecords, setOriginalRecords] = useState([]);
@@ -99,39 +100,37 @@ const BookingList = () => {
                 </Link>
             </div>
 
-    <div className="container mx-auto p-6 mt-4">
-        <table
-            id="booking-table"
-            className="w-auto bg-white shadow-md rounded-md overflow-hidden"
-        >
-            <thead className="bg-gray-200">
-            <tr>
-                <th className="py-2 px-4 border border-gray-400">No</th>
-                <th className="py-2 px-4 border border-gray-400">Date</th>
-                <th className="py-2 px-4 border border-gray-400">Name</th>
-                <th className="py-2 px-4 border border-gray-400">Tel No</th>
-                <th className="py-2 px-4 border border-gray-400">NIC No</th>
-                <th className="py-2 px-4 border border-gray-400">Email</th>
-                <th className="py-2 px-4 border border-gray-400">No Of People</th>
-                        <th className="py-2 px-4 border border-gray-400">Package</th>
+            <div className="overflow-x-auto flex justify-center">
+                <table id="booking-table"
+                       className="w-10/12 bg-white shadow-md rounded-md overflow-hidden  top-1/3 mb-10">
+                    <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
+                    <tr>
+                        <th className="px-6 py-3">No</th>
+                        <th className="px-6 py-3">Date</th>
+                        <th className="px-6 py-3">Name</th>
+                        <th className="px-6 py-3">Tel No</th>
+                        <th className="px-6 py-3">NIC No</th>
+                        <th className="px-6 py-3">Email</th>
+                        <th className="px-6 py-3">No Of People</th>
+                        <th className="px-6 py-3">Package</th>
                         {/* Conditionally show the column based on the selected package */}
                         {bookingRecords.some(record => record.selectedPackage === 'guidedFarmTour') && (
-                            <th className="py-2 px-4 border border-gray-400">Number of Days</th>
+                            <th className="px-6 py-3">Number of Days</th>
                         )}
-                        <th className="py-2 px-4 border border-gray-400">Actions</th>
+                        <th className="px-6 py-3">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {bookingRecords.map((record, index) => (
-                        <tr className="hover:bg-gray-100" key={index}>
-                            <td className="py-2 px-4 border border-gray-400">{index + 1}</td>
-                            <td className="py-2 px-4 border border-gray-400">{new Date(record.date).toLocaleDateString('en-GB')}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.name}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.telNo}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.nicNo}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.email}</td>
-                            <th className="py-2 px-4 border border-gray-400">{record.numberOfPeople}</th>
-                            <td className="py-2 px-4 border border-gray-400">{mapPackageName(record.selectedPackage)}</td>
+                        <tr className="hover:bg-gray-100 divide-y divide-gray-200" key={index}>
+                            <td className="px-6 py-3">{index + 1}</td>
+                            <td className="px-6 py-3">{new Date(record.date).toLocaleDateString('en-GB')}</td>
+                            <td className="px-6 py-3">{record.name}</td>
+                            <td className="px-6 py-3">{record.telNo}</td>
+                            <td className="px-6 py-3">{record.nicNo}</td>
+                            <td className="px-6 py-3">{record.email}</td>
+                            <th className="px-6 py-3">{record.numberOfPeople}</th>
+                            <td className="px-6 py-3">{mapPackageName(record.selectedPackage)}</td>
                             {/* Conditionally show the column based on the selected package */}
                             {record.selectedPackage === 'guidedFarmTour' && (
                                 <td className="py-2 px-4 border border-gray-400">{record.numberOfDays}</td>
@@ -143,23 +142,20 @@ const BookingList = () => {
                             <td className="py-2 px-4 border border-gray-400">
                                 <div className="flex">
                                     <Link to={`/booking/edit/${record._id}`}
-                                          className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer border-none flex items-center">
-                                        <FaEdit className="mr-1"/>
-                                        <span>Edit</span>
+                                          className="bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500">
+                                        <PencilSquareIcon className="h-6 w-6 flex-none"/>
                                     </Link>
-                                    <button
-                                        className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer ml-6 border-none flex items-center"
-                                        onClick={() => handleDelete(record._id)}>
-                                        <FaTrash className="mr-1"/>
-                                        <span>Delete</span>
+                                    <button onClick={() => handleDelete(record._id)}
+                                            className="bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500">
+                                        <TrashIcon className="h-6 w-6 flex-none"/>
                                     </button>
                                 </div>
                             </td>
                         </tr>
                     ))}
                     </tbody>
-                </table>
-            </div>
+        </table>
+    </div>
         </div>
     );
 };
