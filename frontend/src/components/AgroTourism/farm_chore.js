@@ -14,7 +14,7 @@ export default function FarmChoreExperience() {
 
             <div className="flex mb-8 items-center justify-center">
                 <img src="/agri4.jpg" alt="farm_chore_experience1" className="w-86 h-96 object-cover px-8"/>
-                <img src="/agri10.jpg" alt="farm_chore_experience2" className="w-86 h-96 object-cover px-8"/>
+                <img src="/agri9.jpg" alt="farm_chore_experience2" className="w-86 h-96 object-cover px-8"/>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
