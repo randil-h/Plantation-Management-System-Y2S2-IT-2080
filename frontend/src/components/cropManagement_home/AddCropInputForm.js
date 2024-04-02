@@ -13,6 +13,70 @@ export default function AddCropInputForm() {
         remarks: ""
     });
 
+    const [agrochemicals, setAgrochemicals] = useState({
+        Coconut: [
+            { name: "Urea, 50 kg", price: 14000},
+            { name: "YPM, 50 kg", price: 12000},
+            { name: "Dolomite, 50 kg", price: 6000},
+            { name: "Muriate of Potash, 50 kg", price: 15000},
+        ],
+        Papaya: [
+            { name: "NPK, 25 kg", price: 24000 },
+        ],
+        AppleGuava: [
+            { name: "NPK, 25kg", price: 18000 },
+        ],
+    });
+
+    const agrochemicalsData = [
+        {
+            name: "Mitsu Abamectin (abamectin 18g/l EC) insecticide",
+            quantity: "50ml bottle",
+            price: 1050,
+        },
+        {
+            name: "Marshal 20 SC (carbosulfan 200g/l SC) insecticide",
+            quantity: "400ml bottle",
+            price: 3680,
+        },
+        {
+            name: "Daconil Chlorothalonil 500g/l fungicide",
+            quantity: "400ml bottle",
+            price: 4250,
+        },
+        {
+            name: "Booster K 45%",
+            quantity: "400ml bottle",
+            price: 820,
+        },
+        {
+            name: "Alberts solution",
+            quantity: "1kg packet",
+            price: 2950,
+        },
+        {
+            name: "Crop Master solution",
+            quantity: "1l bottle",
+            price: 4020,
+        },
+        {
+            name: "Oasis Thiram fungicide",
+            quantity: "1kg packet",
+            price: 3850,
+        },
+        {
+            name: "Glyphosate",
+            quantity: "4l bottle",
+            price: null,
+        },
+        {
+            name: "Rootone",
+            quantity: "500ml bottle",
+            price: 2450,
+        },
+    ];
+
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 

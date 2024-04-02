@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import {FaEdit, FaSearch, FaTrash} from "react-icons/fa";
+import {FaSearch} from "react-icons/fa";
 import axios from 'axios';
 import { PDFDownloadLink, PDFViewer, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import html2canvas from 'html2canvas';
@@ -24,6 +24,7 @@ const PlantingList = () => {
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredRecords, setFilteredRecords] = useState([]);
+    const [recordToDelete, setRecordToDelete] = useState(null);
 
     useEffect(() => {
         setLoading(true);
@@ -46,14 +47,41 @@ const PlantingList = () => {
             });
     }, []);
     const handleDelete = (recordId) => {
+        setRecordToDelete(recordId);
+    };
+
+    const confirmDelete = () => {
+        if (recordToDelete) {
+            axios
+                .delete(`http://localhost:5555/cropinput/${recordToDelete}`)
+                .then(() => {
+                    setPlantingRecords(prevRecords =>
+                        prevRecords.filter(record => record._id !== recordToDelete)
+                    );
+                    setRecordToDelete(null);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    };
+
+
+    const confirmDeleteAction = () => {
         axios
-            .delete(`http://localhost:5555/cropinput/${recordId}`)
+            .delete(`http://localhost:5555/cropinput/${recordToDelete}`)
             .then(() => {
-                setPlantingRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
+                setPlantingRecords(prevRecords =>
+                    prevRecords.filter(record => record._id !== recordToDelete)
+                );
             })
             .catch((error) => {
                 console.log(error);
             });
+    };
+
+    const handleCancelDelete = () => {
+        setRecordToDelete(null);
     };
 
     const handleSearch = (event) => {
@@ -163,6 +191,29 @@ const PlantingList = () => {
                     ))}
                     </tbody>
                 </table>
+                {recordToDelete && (
+                    <div
+                        className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex items-center justify-center">
+                        <div className="bg-white p-5 rounded-md shadow-lg">
+                            <p className="text-lg font-semibold mb-3">Confirm Deletion</p>
+                            <p className="mb-5">Are you sure you want to delete this record?</p>
+                            <div className="flex justify-end">
+                                <button
+                                    onClick={confirmDelete}
+                                    className="px-4 py-2 bg-red-500 text-white rounded-md mr-2"
+                                >
+                                    Confirm
+                                </button>
+                                <button
+                                    onClick={() => setRecordToDelete(null)}
+                                    className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

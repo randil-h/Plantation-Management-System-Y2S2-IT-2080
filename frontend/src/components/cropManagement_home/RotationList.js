@@ -48,13 +48,14 @@ const RotationList = () => {
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [recordToDelete, setRecordToDelete] = useState(null);
+    const [selectedFieldFilter, setSelectedFieldFilter] = useState('All Fields');
 
     useEffect(() => {
         setLoading(true);
         axios
             .get(`http://localhost:5555/rotation`)
             .then((response) => {
-                setRotationRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
+                setRotationRecords(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -62,6 +63,19 @@ const RotationList = () => {
                 setLoading(false);
             });
     }, []);
+
+    useEffect(() => {
+        setFilteredRecords(
+            RotationRecords.filter((record) =>
+                (selectedFieldFilter === 'All Fields' || record.fieldName === selectedFieldFilter) &&
+                (record.season.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    record.fieldName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    record.cropType.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    record.variety.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    record.remarks.toLowerCase().includes(searchQuery.toLowerCase()))
+            )
+        );
+    }, [RotationRecords, searchQuery, selectedFieldFilter]);
 
     const handleDelete = (recordId) => {
         setRecordToDelete(recordId);
@@ -100,22 +114,19 @@ const RotationList = () => {
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
-        const filteredRecords = RotationRecords.filter(record =>
-            record.season.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            record.fieldName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            record.cropType.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            record.variety.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            record.remarks.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        setFilteredRecords(filteredRecords);
     };
+
+    const handleFieldFilterChange = (event) => {
+        setSelectedFieldFilter(event.target.value);
+    };
+
+    const fieldOptions = ['All Fields', 'Field A', 'Field B', 'Field C', 'Field D', 'Field E', 'Field F', 'Field G'];
 
     const [filteredRecords, setFilteredRecords] = useState([]);
 
     useEffect(() => {
         setFilteredRecords(RotationRecords);
     }, [RotationRecords]);
-
 
     return (
         <div className="z-0">
@@ -128,6 +139,15 @@ const RotationList = () => {
                     className="border border-gray-300 rounded-full px-3 py-1 pl-10"
                 />
                 <FaSearch className="absolute left-3 top-2 text-gray-400"/>
+                <select
+                    value={selectedFieldFilter}
+                    onChange={(e) => setSelectedFieldFilter(e.target.value)}
+                    className="ml-3 border border-gray-300 rounded-full px-8 py-1"
+                >
+                    {fieldOptions.map((field, index) => (
+                        <option key={index} value={field}>{field}</option>
+                    ))}
+                </select>
             </div>
 
             <Link to="/crop/rotation/add">
