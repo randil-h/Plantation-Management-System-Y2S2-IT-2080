@@ -6,6 +6,7 @@ import SideBar from "../../components/SideBar";
 import InventoryNavbar from "../../components/Inventory/InventoryNavbar";
 import BackButton from "../../components/utility/BackButton";
 import Breadcrumb from "../../components/utility/Breadcrumbs";
+import InHome from "../../components/Inventory/InHome";
 
 export default function Equipment() {
 
@@ -32,6 +33,7 @@ export default function Equipment() {
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
+                        <InHome/>
                     </div>
 
                 </div>
