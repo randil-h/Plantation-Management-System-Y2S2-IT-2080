@@ -127,7 +127,7 @@ export default function Valuation() {
                         <div className="sticky top-20">
                             <div className=" flex flex-row w-full bg-gray-200  h-72 ">
                                 <button value="Land" onClick={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full overflow-hidden h-full bg-lime-100 flex flex-col justify-between items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                                    className="w-full overflow-hidden h-full bg-lime-100 flex flex-col justify-between items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle justify-between pb-8  pt-8">
                                         <div className="w-8 h-8">
@@ -139,7 +139,7 @@ export default function Valuation() {
                                     </div>
                                 </button>
                                 <button value="Machinery" onClick={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full overflow-hidden bg-green-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                                    className="w-full overflow-hidden bg-green-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                                         <div className="w-8 h-8">
@@ -155,7 +155,7 @@ export default function Valuation() {
                                     </div>
                                 </button>
                                 <button value="Crops" onClick={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full overflow-hidden bg-teal-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                                    className="w-full overflow-hidden bg-teal-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                                         <div className="w-8 h-8">
@@ -171,7 +171,7 @@ export default function Valuation() {
                                     </div>
                                 </button>
                                 <button value="Infrastruscture" onClick={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full overflow-hidden bg-cyan-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                                    className="w-full overflow-hidden bg-cyan-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                                         <div className="w-8 h-8">
@@ -184,7 +184,7 @@ export default function Valuation() {
                                     </div>
                                 </button>
                                 <button value="Utilities" onClick={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full overflow-hidden bg-sky-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                                    className="w-full overflow-hidden bg-sky-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                                         <div className="w-8 h-8">
@@ -197,7 +197,7 @@ export default function Valuation() {
                                     </div>
                                 </button>
                                 <button value="Water" onClick={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full overflow-hidden bg-blue-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                                    className="w-full overflow-hidden bg-blue-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                                         <div className="w-8 h-8">
@@ -210,7 +210,7 @@ export default function Valuation() {
                                     </div>
                                 </button>
                                 <button value="Loans" onClick={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full overflow-hidden bg-rose-200 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                                    className="w-full overflow-hidden bg-rose-200 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                                         <div className="w-8 h-8">
@@ -223,7 +223,7 @@ export default function Valuation() {
                                     </div>
                                 </button>
                                 <button value="Debts" onClick={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full overflow-hidden bg-red-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                                    className="w-full overflow-hidden bg-red-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                                         <div className="w-8 h-8">
@@ -236,7 +236,7 @@ export default function Valuation() {
                                     </div>
                                 </button>
                                 <button value="Leases" onClick={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full overflow-hidden bg-pink-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                                    className="w-full overflow-hidden bg-pink-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                                         <div className="w-8 h-8">
@@ -249,7 +249,7 @@ export default function Valuation() {
                                     </div>
                                 </button>
                                 <button value="Taxes" onClick={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full overflow-hidden bg-violet-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                                    className="w-full overflow-hidden bg-violet-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                                         <div className="w-8 h-8">

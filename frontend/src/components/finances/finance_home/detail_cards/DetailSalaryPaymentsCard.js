@@ -4,7 +4,7 @@ import {ArrowDownCircleIcon,
     ArrowUpCircleIcon,
     XCircleIcon} from "@heroicons/react/24/outline";
 
-export default function DetailSalaryPaymentsCard({onBack, hidden}) {
+export default function DetailSalaryPaymentsCard() {
 
 
     return (
@@ -17,7 +17,7 @@ export default function DetailSalaryPaymentsCard({onBack, hidden}) {
                             <GiPayMoney className="w-full h-full"/>
                         </div>
                         <dd className=" text-xl font-semibold  tracking-tight  sm:text-2xl">
-                            Transactions
+                            Salary Payments
                         </dd>
 
                     </div>
@@ -38,10 +38,7 @@ export default function DetailSalaryPaymentsCard({onBack, hidden}) {
                     </div>
 
                 </div>
-                <button onClick={(e) => {
-                    e.stopPropagation();
-                    onBack();
-                }}><XCircleIcon className="w-6 h-6"/>
+                <button ><XCircleIcon className="w-6 h-6"/>
                 </button>
 
             </div>
