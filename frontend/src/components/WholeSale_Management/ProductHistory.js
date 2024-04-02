@@ -19,29 +19,30 @@ const pdfStyles = StyleSheet.create({
     }
 });
 
-const generatePDF = () => {
-    const input = document.getElementById('rotation-table');
-    if (input) {
-        html2canvas(input)
-            .then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('l', 'mm', 'a3');
-                pdf.addImage(imgData, 'PNG', 0, 0);
-                const tableWidth = input.offsetWidth - input.rows[0].cells[input.rows[0].cells.length - 1].offsetWidth;
-                const tableHeight = input.offsetHeight;
-                pdf.save('rotation-list.pdf');
-            })
-            .catch((error) => {
-                console.error('Error generating PDF:', error);
-            });
-    } else {
-        console.error('Table element not found');
-    }
-};
+// const generatePDF = () => {
+//     const input = document.getElementById('product-table');
+//     if (input) {
+//         html2canvas(input)
+//             .then((canvas) => {
+//                 const imgData = canvas.toDataURL('image/png');
+//                 const pdf = new jsPDF('l', 'mm', 'a3');
+//                 pdf.addImage(imgData, 'PNG', 0, 0);
+//                 const tableWidth = input.offsetWidth - input.rows[0].cells[input.rows[0].cells.length - 1].offsetWidth;
+//                 const tableHeight = input.offsetHeight;
+//                 pdf.save('product-list.pdf');
+//             })
+//             .catch((error) => {
+//                 console.error('Error generating PDF:', error);
+//             });
+//     } else {
+//         console.error('Table element not found');
+//     }
+// };
 
 const ProductHistory = () =>{
     const [productRecords, setProductRecords] = useState([]);
     const [loading,setLoading] = useState(false);
+    const [filteredRecords, setFilteredRecords] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
@@ -73,6 +74,29 @@ const ProductHistory = () =>{
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
+        const filteredRecords = productRecords.filter(record =>
+            record.productName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            record.productID.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setFilteredRecords(filteredRecords);
+    };
+
+    const generatePDF = () => {
+        const input = document.getElementById('product-table');
+        if (input) {
+            html2canvas(input)
+                .then((canvas) => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF('l', 'mm', 'b4');
+                    pdf.addImage(imgData, 'PNG', 0, 0);
+                    pdf.save('product-list.pdf');
+                })
+                .catch((error) => {
+                    console.error('Error generating PDF:', error);
+                });
+        } else {
+            console.error('Table element not found');
+        }
     };
 
 
@@ -104,6 +128,7 @@ const ProductHistory = () =>{
                             onChange={handleSearch}
                             className="border border-gray-300 rounded-full px-3 py-1"
                         />
+                        <FaSearch className="absolute left-3 top-2 text-gray-400"/>
                     </div>
 
                 </div>
