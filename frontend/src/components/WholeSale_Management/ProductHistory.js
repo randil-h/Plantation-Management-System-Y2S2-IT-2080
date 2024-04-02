@@ -19,26 +19,6 @@ const pdfStyles = StyleSheet.create({
     }
 });
 
-// const generatePDF = () => {
-//     const input = document.getElementById('product-table');
-//     if (input) {
-//         html2canvas(input)
-//             .then((canvas) => {
-//                 const imgData = canvas.toDataURL('image/png');
-//                 const pdf = new jsPDF('l', 'mm', 'a3');
-//                 pdf.addImage(imgData, 'PNG', 0, 0);
-//                 const tableWidth = input.offsetWidth - input.rows[0].cells[input.rows[0].cells.length - 1].offsetWidth;
-//                 const tableHeight = input.offsetHeight;
-//                 pdf.save('product-list.pdf');
-//             })
-//             .catch((error) => {
-//                 console.error('Error generating PDF:', error);
-//             });
-//     } else {
-//         console.error('Table element not found');
-//     }
-// };
-
 const ProductHistory = () =>{
     const [productRecords, setProductRecords] = useState([]);
     const [loading,setLoading] = useState(false);
@@ -183,7 +163,12 @@ const ProductHistory = () =>{
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {record.productName}
                                         </td>
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                            style={{
+                                                overflow: "visible",
+                                                maxWidth: 350,
+                                                wordWrap: "break-word"
+                                            }}>
                                             {record.productDescription}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
