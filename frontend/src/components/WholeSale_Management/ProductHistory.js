@@ -19,6 +19,12 @@ const pdfStyles = StyleSheet.create({
     }
 });
 
+// const descriptionCellStyle = {
+//     overflow: "visible",
+//     maxWidth: "100px",
+//     wordWrap: "break-word",
+// };
+
 const ProductHistory = () =>{
     const [productRecords, setProductRecords] = useState([]);
     const [loading,setLoading] = useState(false);
@@ -119,7 +125,7 @@ const ProductHistory = () =>{
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
                             <table class="min-w-full">
-                                <thead class="bg-gray-200 border-b">
+                                <thead class="bg-gray-200 border-b" >
                                 <tr>
                                     <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     </th>
@@ -129,7 +135,9 @@ const ProductHistory = () =>{
                                     <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Product Name
                                     </th>
-                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                        // style={{ maxWidth: '100px', wordWrap: 'break-word' }}
+                                    >
                                         Product Description
                                     </th>
                                     <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -164,11 +172,8 @@ const ProductHistory = () =>{
                                             {record.productName}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                                            style={{
-                                                overflow: "visible",
-                                                maxWidth: 350,
-                                                wordWrap: "break-word"
-                                            }}>
+                                            style={{ maxWidth: '300px', wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
+                                            >
                                             {record.productDescription}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
