@@ -5,7 +5,7 @@ const menuItems = [
     { name: "HOME", path: "/harvest/home" },
     { name: "RECORDS", path: "/harvest/harvestRecords" },
     { name: "ESTIMATED HARVEST", path: "/harvest/calculateHarvest" },
-    { name: "YIELD LIFESPAN", path: "/harvest/yieldLifespan" },
+
 
 ];
 

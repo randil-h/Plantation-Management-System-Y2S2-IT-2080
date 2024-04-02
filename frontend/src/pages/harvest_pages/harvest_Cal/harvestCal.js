@@ -12,6 +12,13 @@ import Breadcrumb from "../../../components/utility/Breadcrumbs";
 
 
 export default function harvestCal() {
+
+    const breadcrumbItems = [
+        { name: 'Home', href: '/harvest/home' },
+        { name: 'Calculator', href: '/harvest/calculateHarvest'}
+
+    ];
+
     return (
         <div className="">
             <div className="sticky top-0 z-10">
@@ -25,7 +32,10 @@ export default function harvestCal() {
 
                     <div className="w-full col-span-5 flex flex-col ">
                         <HarvestNavigation/>
-
+                        <div className="flex flex-row ">
+                            <BackButton/>
+                            <Breadcrumb items={breadcrumbItems}/>
+                        </div>
 
                         <div>
                             <HarvestCalculator/>

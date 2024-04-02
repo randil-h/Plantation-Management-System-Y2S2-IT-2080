@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import axios from 'axios';
+import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 
 const FeedbackList = () => {
     const [feedbackRecords, setFeedbackRecords] = useState([]);
@@ -77,9 +78,9 @@ const FeedbackList = () => {
                 </button>
                 <Link to="/dashboard">
                     <button
-                        className="bg-black text-white px-8 py-2 rounded-md hover:bg-emerald-700 focus:outline-none ml-4"
+                        className="bg-blue-800 text-white px-8 py-2 rounded-md hover:bg-emerald-700 focus:outline-none ml-4"
                     >
-                        View Dashboard
+                        View Feedback Summary
                     </button>
                 </Link>
             </div>
@@ -87,17 +88,17 @@ const FeedbackList = () => {
             {loading ? (
                 <div>Loading...</div>
             ) : (
-                <div className="container mx-auto px-10 mt-4 mb-4">
-                    <table id="feedback-table" className="w-auto bg-white shadow-md rounded-md overflow-hidden mx-auto">
-
-                        <thead className="bg-gray-200">
+                <div className="overflow-x-auto flex justify-center">
+                    <table id="feedback-table"
+                           className="w-10/12 bg-white shadow-md rounded-md overflow-hidden  top-1/3 mb-10">
+                        <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
                         <tr>
-                            <th className="py-2 px-4 border border-gray-400">No</th>
-                            <th className="py-2 px-4 border border-gray-400">Name</th>
-                            <th className="py-2 px-4 border border-gray-400">Email</th>
-                            <th className="py-2 px-4 border border-gray-400">Feedback</th>
-                            <th className="py-2 px-4 border border-gray-400">Rating</th>
-                            <th className="py-2 px-4 border border-gray-400">Actions</th>
+                            <th className="px-6 py-3">No</th>
+                            <th className="px-6 py-3">Name</th>
+                            <th className="px-6 py-3">Email</th>
+                            <th className="px-6 py-3">Feedback</th>
+                            <th className="px-6 py-3">Rating</th>
+                            <th className="px-6 py-3">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -112,19 +113,17 @@ const FeedbackList = () => {
                                     <div className="flex">
                                         <Link
                                             to={`/feedback/${record._id}`} // Update the path to match the feedback form URL
-                                            className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer border-none flex items-center"
-                                        >
-                                            <FaEdit className="mr-1"/>
-                                            <span>Edit</span>
+                                            className="bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500 ">
+                                            <PencilSquareIcon className="h-6 w-6 flex-none"/>
                                         </Link>
 
                                         <button
-                                            className="bg-black text-white px-4 py-2 rounded-md hover:bg-lime-400 hover:text-black transition duration-300 cursor-pointer ml-6 border-none flex items-center"
                                             onClick={() => handleDelete(record._id)}
-                                        >
-                                            <FaTrash className="mr-1"/>
-                                            <span>Delete</span>
+                                            className="bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500">
+
+                                            <TrashIcon className="h-6 w-6 flex-none"/>
                                         </button>
+
                                     </div>
                                 </td>
                             </tr>

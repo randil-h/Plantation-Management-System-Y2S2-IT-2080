@@ -65,7 +65,7 @@ import AddTask from "./pages/employee_pages/task_assigning/AddTask";
 import harvest from "./pages/harvest_pages/harvests";
 import harvestCal from "./pages/harvest_pages/harvest_Cal/harvestCal";
 import harvestRec from "./pages/harvest_pages/harvest_records/harvestRecords";
-import yieldLifeCal from "./pages/harvest_pages/Yield_lifespan/yieldLifsp";
+
 import AddRecord from "./components/harvest/AddRecord";
 import EditHarvest from "./components/harvest/updateRecord";
 import HarvestList from "./components/harvest/RecordList";
@@ -207,7 +207,7 @@ export default function App() {
                     <Route path="/harvest/home"  element={harvest()}/>
                     <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>
                     <Route path="/harvest/harvestRecords"  element={harvestRec()}/>
-                    <Route path="/harvest/yieldLifespan"  element={yieldLifeCal()}/>
+
                     <Route path="/harvest/records/addRecord" element={<AddRecord />} />
                     <Route path="/harvest/records/updateRecord/:id" element={<EditHarvest />} />
                     <Route path="/harvest/records" element={<HarvestList />} />

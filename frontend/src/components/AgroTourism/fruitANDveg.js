@@ -39,8 +39,8 @@ export default function FruitVegetablePicking() {
                     <p>Weedays - 8am to 10am</p>
                     <div><br/></div>
                     <h2 className="text-xl font-semibold mb-2">Price Range </h2>
-                    <p>Local - Total cost of the picked vegetable/fruit</p>
-                    <p>Foreign - Total cost of the picked vegetable/fruit</p>
+                    <p>Local - RS 300/= & cost of the picked vegetables/fruits</p>
+                    <p>Foreign - RS 300/= & cost of the picked vegetables/fruits</p>
                 </div>
             </div>
 
