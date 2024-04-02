@@ -2,6 +2,42 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom"
 import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
+import {FaSearch} from "react-icons/fa";
+import {StyleSheet} from "@react-pdf/renderer";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+
+const pdfStyles = StyleSheet.create({
+    page: {
+        flexDirection: 'row',
+        backgroundColor: '#ffffff',
+    },
+    section: {
+        margin: 10,
+        padding: 10,
+        flexGrow: 1
+    }
+});
+
+const generatePDF = () => {
+    const input = document.getElementById('rotation-table');
+    if (input) {
+        html2canvas(input)
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('l', 'mm', 'a3');
+                pdf.addImage(imgData, 'PNG', 0, 0);
+                const tableWidth = input.offsetWidth - input.rows[0].cells[input.rows[0].cells.length - 1].offsetWidth;
+                const tableHeight = input.offsetHeight;
+                pdf.save('rotation-list.pdf');
+            })
+            .catch((error) => {
+                console.error('Error generating PDF:', error);
+            });
+    } else {
+        console.error('Table element not found');
+    }
+};
 
 const ProductHistory = () =>{
     const [productRecords, setProductRecords] = useState([]);
@@ -22,6 +58,8 @@ const ProductHistory = () =>{
             });
     }, []);
 
+
+
     const handleDelete = (recordId) => {
         axios
             .delete(`http://localhost:5555/productRecords/${recordId}`)
@@ -33,16 +71,28 @@ const ProductHistory = () =>{
             });
     };
 
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+
     return(
         <div>
             <div className="flex justify-between items-center">
                 <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-                    <div className="max-w-xs px-8">
+                    <div className="flex justify-between">
                         <a href="/OperationManager/AddingProduct"
                            className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
-                               focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"> Add
+                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"> Add
                             a Product
                         </a>
+                        <button
+                            onClick={generatePDF}
+                            className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
+                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        >
+                            Print
+                        </button>
                     </div>
                 </div>
                 <div className="mt-10">
@@ -51,7 +101,7 @@ const ProductHistory = () =>{
                             type="text"
                             placeholder="Search Product"
                             value={searchQuery}
-                            //onChange={handleSearch}
+                            onChange={handleSearch}
                             className="border border-gray-300 rounded-full px-3 py-1"
                         />
                     </div>
