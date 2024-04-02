@@ -9,12 +9,14 @@ import {
 import {Link} from "react-router-dom";
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
+import {enqueueSnackbar, useSnackbar} from "notistack";
 
 const EmployeeList = () => {
 
     const [RegistrationRecords, setRegistrationRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const {enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         setLoading(true);
@@ -30,16 +32,24 @@ const EmployeeList = () => {
             });
     }, []);
 
-    const handleDelete = (recordId) => {
-        axios
-            .delete(`http://localhost:5555/employeeRecords/${recordId}`)
-            .then(() => {
-                setRegistrationRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
-            })
-            .catch((error) => {
-                console.log(error);
-                // Handle error
-            });
+    const handleDelete = (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this registration record?");
+        if (confirmDelete) {
+            setLoading(true);
+            axios
+                .delete(`http://localhost:5555/employeeRecords/${id}`)
+                .then(() => {
+                    
+                    setRegistrationRecords(prevRecords => prevRecords.filter(record => record._id !== id));
+                    setLoading(false);
+                    enqueueSnackbar('Record Deleted successfully', { variant: 'success' });
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                    // Handle error
+                });
+        }
     };
 
     const filteredRecords = RegistrationRecords.filter((record) =>
@@ -65,7 +75,7 @@ const EmployeeList = () => {
                 let heightLeft = imgHeight;
                 let position = 10;
                 pdf.setFontSize(16);
-                pdf.text("Employee Details", 10, position);
+                pdf.text("Employee Summary", 10, position);
                 heightLeft -= position + 10;
 
                 pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
@@ -212,7 +222,7 @@ const EmployeeList = () => {
 
 
                                 <td className=" py-4 text-right">
-                                    <Link to={``}
+                                    <Link to={`/employees/registration/viewEmployee/${record._id}`}
                                        className="font-medium text-blue-600  hover:underline">
                                         <InformationCircleIcon
                                             className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"

@@ -9,12 +9,14 @@ import {
 import {Link} from "react-router-dom";
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
+import {enqueueSnackbar, useSnackbar} from "notistack";
 
 const TaskList = () => {
 
     const [TaskRecords, setTaskRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const {enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         setLoading(true);
@@ -31,15 +33,21 @@ const TaskList = () => {
     }, []);
 
     const handleDelete = (recordId) => {
-        axios
-            .delete(`http://localhost:5555/taskRecords/${recordId}`)
-            .then(() => {
-                setTaskRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
-            })
-            .catch((error) => {
-                console.log(error);
-                // Handle error
-            });
+        const confirmDelete = window.confirm("Are you sure you want to delete this task record?");
+        if (confirmDelete) {
+            setLoading(true);
+            axios
+                .delete(`http://localhost:5555/taskRecords/${recordId}`)
+                .then(() => {
+                    setTaskRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
+                    setLoading(false);
+                    enqueueSnackbar('Record Deleted successfully', { variant: 'success' });
+                })
+                .catch((error) => {
+                    console.log(error);
+                    // Handle error
+                });
+        }
     };
 
     const filteredRecords = TaskRecords.filter((record) =>
@@ -180,7 +188,7 @@ const TaskList = () => {
                             </td>
 
                             <td className=" py-4 text-right">
-                                <Link to={``}
+                                <Link to={`/employees/tasks/viewTask/${record._id}`}
                                       className="font-medium text-blue-600  hover:underline">
                                     <InformationCircleIcon
                                         className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
