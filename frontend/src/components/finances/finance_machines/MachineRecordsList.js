@@ -61,7 +61,23 @@ export default function MachineRecordsList() {
             });
     };
 
-    /*const handleSortBy = (criteria) => {
+    const sortedRecords = [...machineRecords].sort((a, b) => {
+        if (sortBy === 'date') {
+            return sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
+        }
+    });
+
+    const filteredMachineRecords = sortedRecords.filter(record => {
+        // Convert all values to lowercase for case-insensitive search
+        const searchTerm = searchQuery.toLowerCase();
+
+        // Check if any field in the record contains the search query
+        return Object.values(record).some(value =>
+            typeof value === 'string' && value.toLowerCase().includes(searchTerm)
+        );
+    });
+
+    const handleSortBy = (criteria) => {
         if (criteria === sortBy) {
             setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
         } else {
@@ -82,62 +98,30 @@ export default function MachineRecordsList() {
         setSortOrder('asc');
     };
 
-    const sortedRecords = [...MachinesRecords].sort((a, b) => {
-        if (sortBy === 'date') {
-            return sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
-        } else if (sortBy === 'amount') {
-            return sortOrder === 'asc' ? a.amount - b.amount : b.amount - a.amount;
-        }
-    });
-
-    const sortedAndFilteredRecords = sortedRecords.filter((record) =>
-        Object.values(record).some((value) => {
-            if (typeof value === 'string' || typeof value === 'number') {
-                return String(value).toLowerCase().includes(searchQuery.toLowerCase());
-            }
-            return false;
-        })
-    );
-
-    useEffect(() => {
-        fetchMachineRecords();
-    }, []);
-
-    const fetchMachineRecords = () => {
-        axios.get('http://localhost:5555/machines')
-            .then(response => {
-                setMachineRecords(response.data.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    };
-
     const handleDownloadPDF = () => {
-        const sortedMachineRecords = machineRecords.sort((a, b) => {
+        const sortedRecords = machineRecords.sort((a, b) => {
             if (sortBy === 'date') {
                 return sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
-            } else if (sortBy === 'amount') {
-                return sortOrder === 'asc' ? a.amount - b.amount : b.amount - a.amount;
             }
         });
 
-        const filteredTransactions = sortedTransactions.filter(transaction => {
-            const transactionDate = new Date(transaction.date);
+        const filteredRecords = sortedRecords.filter(machine => {
+            const transactionDate = new Date(machine.date);
             return transactionDate >= selectedDates[0] && transactionDate <= selectedDates[1];
         });
 
         const doc = new jsPDF();
-        doc.text('Transaction Report', 10, 10);
+        doc.text('Machine Records Report', 10, 10);
 
-        const headers = [['Date', 'Type', 'Amount', 'Description', 'Payer/Payee', 'Payment Method']];
-        const data = filteredTransactions.map(transaction => [
-            transaction.date,
-            transaction.type,
-            transaction.amount,
-            transaction.description,
-            transaction.payer_payee,
-            transaction.method
+        const headers = [['Date', 'Type', 'Hours/nos.', 'Rate', 'Description', 'Payer/Payee', 'Paid']];
+        const data = filteredRecords.map(machine => [
+            machine.date,
+            machine.type,
+            machine.hours_nos,
+            machine.rate,
+            machine.description,
+            machine.payer_payee,
+            machine.paid
         ]);
 
         doc.autoTable({
@@ -146,9 +130,9 @@ export default function MachineRecordsList() {
             startY: 20,
         });
 
-        doc.save('transaction_report.pdf');
+        doc.save('machine_records_report.pdf');
     };
-*/
+
 
     return (
         <div>
@@ -182,7 +166,77 @@ export default function MachineRecordsList() {
                                 </button>
                             )}
                         </div>
+
+                        <div className="flex items-center space-x-4 relative px-4">
+                            <button
+                                className="flex items-center space-x-1 cursor-pointer bg-lime-200 px-4 py-1 rounded-full hover:bg-lime-400"
+                                onClick={() => handleSortBy('date')}
+                            >
+                                <span className="text-sm text-gray-600">Date</span>
+                                {sortBy === 'date' && (
+                                    sortOrder === 'asc' ? (
+                                        <ChevronUpIcon
+                                            className="w-4 h-4 bg-green-800 text-white stroke-2 rounded-full"/>
+                                    ) : (
+                                        <ChevronDownIcon
+                                            className="w-4 h-4 bg-green-800 text-white stroke-2 rounded-full"/>
+                                    )
+                                )}
+                            </button>
+
+                            <button
+                                className="flex items-center space-x-1 bg-rose-200 rounded-full hover:bg-red-400 cursor-pointer p-1"
+                                onClick={handleClearSorting}
+                            >
+                                <XMarkIcon className="w-4 h-4 "/>
+                            </button>
+
+                            <div>
+                                <Button shape="round"
+                                        className="font-semibold bg-amber-200 text-gray-700 hover:bg-amber-500 border-none"
+                                        onClick={() => setPopoverVisible(true)}>
+                                    Download PDF Report
+                                </Button>
+                                <Popover
+                                    content={
+                                        <div className="text-gray-600">
+                                            <DatePicker.RangePicker
+                                                onChange={(dates) => setSelectedDates(dates)}
+                                            />
+                                            <div className="flex flex-col space-y-4 py-4">
+                                                <span>Select sorting criteria:</span>
+                                                <Radio.Group
+                                                    onChange={(e) => setSortBy(e.target.value)}
+                                                    value={sortBy}
+                                                >
+                                                    <Radio value="date">Date</Radio>
+
+                                                </Radio.Group>
+                                                <span>Select sorting order:</span>
+                                                <Radio.Group
+                                                    onChange={(e) => setSortOrder(e.target.value)}
+                                                    value={sortOrder}
+                                                >
+                                                    <Radio value="asc">Ascending</Radio>
+                                                    <Radio value="desc">Descending</Radio>
+                                                </Radio.Group>
+                                            </div>
+                                            <Button shape="round"
+                                                    className="bg-lime-600 border-none hover:text-lime-600 text-white"
+                                                    onClick={handleDownloadPDF}>Download</Button>
+                                        </div>
+                                    }
+                                    title="Select Date Range and Sorting"
+                                    trigger="click"
+                                    visible={popoverVisible}
+                                    onVisibleChange={setPopoverVisible}
+                                />
+                            </div>
+
+
+                        </div>
                     </div>
+
                 </div>
                 <div>
                     <a
@@ -238,11 +292,11 @@ export default function MachineRecordsList() {
                     </tr>
                     </thead>
                     <tbody className="border-b border-gray-200">
-                    {machineRecords.map((record, index) => (
+                    {filteredMachineRecords.map((record, index) => (
                         <tr
                             key={record._id}
                             className={` divide-y
-                                    ${record.paid === 'expense' ? 'border-l-4 border-red-400 ' : 'border-l-4 border-green-400 '}`}
+                                    ${record.paid === 'false' ? 'border-l-4 border-red-500 ' : 'border-l-4 border-lime-500 '}`}
                         >
                             <td></td>
                             <td className="px-6 py-4">{record.date}</td>

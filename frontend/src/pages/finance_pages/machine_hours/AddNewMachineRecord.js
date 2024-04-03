@@ -82,7 +82,7 @@ function AddNewMachineRecord() {
                                                        className="block text-sm font-medium leading-6 text-gray-900">
                                                     Machine Type
                                                 </label>
-                                                <div className="mt-2">
+                                                <div className="">
                                                     <select
                                                         name="type"
                                                         value={type}
