@@ -161,17 +161,17 @@ export default function MachineRecordsList() {
                         Browse a list of all machine renting activity stored in the system
                     </p>
                     <div className="flex flex-row gap-4">
-                        <div className="py-4 relative">
+                        <div className="py-4  relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <MagnifyingGlassIcon className="text-gray-500 h-4 w-4"/>
                             </div>
                             <input
                                 type="text"
-                                placeholder="Search all machine records..."
+                                placeholder="Search all records..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="border border-gray-300 rounded-full px-3 py-1 w-full text-sm pl-10"
-                                style={{paddingRight: '2.5rem'}}
+                                className="border border-gray-300 rounded-full px-3 py-1 w-fit text-sm pl-10 pr-4"
+                                style={{paddingRight: ''}}
                             />
                             {searchQuery && (
                                 <button
@@ -261,9 +261,7 @@ export default function MachineRecordsList() {
                             </div>*/}
 
 
-                        </div>
                     </div>
-
                 </div>
                 <div>
                     <a
@@ -274,6 +272,8 @@ export default function MachineRecordsList() {
                     </a>
                 </div>
             </div>
+
+        </div>
 
 
             <div id="print-area">
