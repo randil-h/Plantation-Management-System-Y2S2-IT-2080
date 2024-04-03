@@ -3,9 +3,9 @@ import Tomato from "../WholeSale_Management/pictuers/tomato.jpeg";
 import {Link} from "react-router-dom"
 import axios from "axios";
 
-const WholeSaleProduct = () =>{
 
-const ProductHistory = () => {
+
+const WholeSaleProduct = () => {
     const [productRecords, setProductRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     // const [filteredRecords, setFilteredRecords] = useState([]);
@@ -24,9 +24,10 @@ const ProductHistory = () => {
                 setLoading(false);
             });
     }, []);
-};
+
     return(
-       {productRecords.map((record, index) => (
+        <div>
+            {productRecords.map((record, index) => (
                 <div>
                     <div className="bg-white py-24 sm:py-4">
                         <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -34,7 +35,7 @@ const ProductHistory = () => {
                             <div
                                 className="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-0 lg:mx-0 lg:flex lg:max-w-none">
                                 <div className="p-8 sm:p-10 lg:flex-auto">
-                                    <h3 className="text-2xl font-bold tracking-tight text-gray-900">1{record.productID}</h3>
+                                    <h3 className="text-2xl font-bold tracking-tight text-gray-900">{record.productName}</h3>
                                     <p className="mt-6 text-base leading-7 text-gray-600">{record.productDescription}</p>
                                     <div className="mt-10 flex items-center gap-x-10">
                                         <div className="h-px flex-auto bg-gray-300"></div>
@@ -57,7 +58,7 @@ const ProductHistory = () => {
                                                       d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
                                                       clip-rule="evenodd"/>
                                             </svg>
-                                            Price for Kilo(Rs) - {record.productPrice}
+                                            Price for Kilo(Rs) - {record.productQuantity}
                                         </li>
                                         <li className="flex gap-x-3">
                                             <svg className="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20"
@@ -98,6 +99,7 @@ const ProductHistory = () => {
                     </div>
                 </div>
             ))}
+        </div>
     );
 }
 
