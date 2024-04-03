@@ -5,6 +5,8 @@ import React from "react";
 import BackButton from "../../../components/utility/BackButton";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
 import EmployeeList from "../../../components/Employee/Employee_register/EmployeeList";
+import {SnackbarProvider} from "notistack";
+
 
 
 export default function ViewEmpDetails() {
@@ -17,6 +19,7 @@ export default function ViewEmpDetails() {
 
 
     return (
+        <SnackbarProvider>
         <div className="">
             <div className=" sticky top-0 z-10">
                 <Navbar/>
@@ -42,5 +45,6 @@ export default function ViewEmpDetails() {
                 </div>
             </div>
         </div>
+        </SnackbarProvider>
     )
 }
