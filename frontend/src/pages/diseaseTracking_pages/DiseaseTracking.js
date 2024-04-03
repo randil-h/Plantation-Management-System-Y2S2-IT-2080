@@ -7,6 +7,8 @@ import DiseaseHome from "../../components/diseaseManagement_home/home/DiseaseHom
 import {SnackbarProvider} from "notistack";
 import BackButton from "../../components/utility/BackButton";
 import Breadcrumb from "../../components/utility/Breadcrumbs";
+import DiseaseHomeContent from "../../components/diseaseManagement_home/home/DiseaseHomeContent";
+
 
 
 export default function DiseaseTracking() {
@@ -39,9 +41,13 @@ export default function DiseaseTracking() {
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
-                    </div>
-                    <div>
-                        <DiseaseHome/>
+
+                        <div>
+                            <DiseaseHome/>
+                        </div>
+                        <div>
+                            <DiseaseHomeContent/>
+                        </div>
                     </div>
                 </div>
             </div>
