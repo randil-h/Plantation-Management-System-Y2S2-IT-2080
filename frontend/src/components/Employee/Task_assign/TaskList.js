@@ -10,6 +10,8 @@ import {Link} from "react-router-dom";
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
 import {enqueueSnackbar, useSnackbar} from "notistack";
+import {FaBan, FaCheck, FaHourglassStart, FaTools} from "react-icons/fa";
+import {GiPauseButton} from "react-icons/gi";
 
 const TaskList = () => {
 
@@ -54,7 +56,7 @@ const TaskList = () => {
         Object.values(record).some((value) => {
             if (typeof value === 'string' || typeof value === 'number') {
                 // Convert value to string and check if it includes the search query
-                return String(value).toLowerCase().includes(searchQuery.toLowerCase());
+                return String(value).toLowerCase().includes((searchQuery || '').toLowerCase());
             }
             return false;
         })
@@ -89,6 +91,19 @@ const TaskList = () => {
             });
     };
 
+    const subtypeBorderColorMap = {
+        pending: "border-lime-400",
+        inprogress: "border-green-400",
+        completed: "border-blue-400",
+        onhold: "border-cyan-400",
+        cancelled: "border-red-400",
+
+    };
+
+    function getBorderColorClass(task_status) {
+        return subtypeBorderColorMap[task_status] || "border-gray-200"; // Default color
+    }
+
 
     return (
         <div className=" overflow-x-auto  ">
@@ -121,7 +136,73 @@ const TaskList = () => {
                     </button>
                 </div>
             </div>
+            <div>
+                <div className="flex flex-row bg-gray-200 h-30">
 
+                    <button value="pending" onClick={(e) => setSearchQuery(e.target.value)}
+                            className="flex-grow overflow-hidden bg-yellow-100 flex flex-col justify-between items-center hover:w-[20%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                        <div
+                            className="flex flex-col h-full items-center content-center align-middle justify-between pb-4  pt-4">
+                            <div className="w-8 h-8">
+                                <FaHourglassStart/>
+                            </div>
+                            <dd className="text-xl font-semibold text-gray-900">
+                                Pending
+                            </dd>
+                        </div>
+                    </button>
+                    <button value="inprogress" onClick={(e) => setSearchQuery(e.target.value)}
+                            className="flex-grow overflow-hidden bg-green-100 flex justify-center items-center hover:w-[20%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                        <div
+                            className="flex flex-col h-full items-center content-center align-middle pt-4 pb-4  justify-between ">
+                            <div className="w-8 h-8">
+                                <FaTools/>
+                            </div>
+                            <div className="text-xl font-semibold text-gray-900">
+                                In Progress
+                            </div>
+                        </div>
+                    </button>
+                    <button value="completed" onClick={(e) => setSearchQuery(e.target.value)}
+                            className="flex-grow overflow-hidden bg-blue-100 flex justify-center items-center hover:w-[20%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                        <div
+                            className="flex flex-col h-full items-center content-center align-middle pt-4 pb-4  justify-between ">
+                            <div className="w-8 h-8">
+                                <FaCheck/>
+                            </div>
+                            <div className="text-xl font-semibold text-gray-900">
+                                Completed
+                            </div>
+                        </div>
+                    </button>
+                    <button value="onhold" onClick={(e) => setSearchQuery(e.target.value)}
+                            className="flex-grow overflow-hidden bg-purple-100 flex justify-center items-center hover:w-[20%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                        <div
+                            className="flex flex-col h-full items-center content-center align-middle pt-4 pb-4  justify-between ">
+                            <div className="w-8 h-8">
+                                <GiPauseButton/>
+                            </div>
+                            <div className="text-xl font-semibold text-gray-900">
+                                On Hold
+                            </div>
+                        </div>
+                    </button>
+                    <button value="cancelled" onClick={(e) => setSearchQuery(e.target.value)}
+                            className="flex-grow overflow-hidden bg-red-100 flex justify-center items-center hover:w-[20%] hover:h-[105%] transition-all duration-300 ease-in-out">
+                        <div
+                            className="flex flex-col h-full items-center content-center align-middle pt-4 pb-4  justify-between ">
+                            <div className="w-8 h-8">
+                                <FaBan/>
+                            </div>
+                            <div className="text-xl font-semibold text-gray-900">
+                                Cancelled
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <br/> <br/>
             <div id="print-area">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
                     <thead
@@ -163,7 +244,9 @@ const TaskList = () => {
                     <tbody className="border-b border-green-400">
 
                     {filteredRecords.map((record, index) => (
-                        <tr key={index}>
+                        <tr key={index}
+                            className={`divide-y border-l-4 ${getBorderColorClass(record.task_status)}`}
+                        >
                             <td></td>
                             <td className="px-6 py-4">
                                 {index + 1}
