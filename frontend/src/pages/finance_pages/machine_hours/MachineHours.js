@@ -5,13 +5,14 @@ import Navbar from "../../../components/utility/Navbar";
 import FinanceNavigation from "../../../components/finances/FinanceNavigation";
 import BackButton from "../../../components/utility/BackButton";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
+import MachineRecordsList from "../../../components/finances/finance_machines/MachineRecordsList";
 
 
 export default function MachineHours() {
 
     const breadcrumbItems = [
         { name: 'Finance', href: '/finances' },
-        { name: 'Salary Payments', href: '/finances/salaryPayment' },
+        { name: 'Machine Records', href: '/finances/machineHours' },
     ];
 
     return (
@@ -32,21 +33,8 @@ export default function MachineHours() {
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
-                        <div>
-                            <div className="flex flex-row justify-between items-center px-8 py-4">
-                                <div>
-                                    <h1 className=" text-lg font-semibold text-left">Machine Renting records</h1>
-                                    <p className="mt-1 text-sm font-normal text-gray-500 0">Browse a list of all machine renting activity stored in the system</p>
-                                </div>
 
-                                <div>
-                                    <a href="/finances/valuation/addValuation"
-                                       className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
-                                        Add new record <span aria-hidden="true">&rarr;</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <MachineRecordsList/>
                     </div>
                 </div>
             </div>

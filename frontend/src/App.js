@@ -19,8 +19,11 @@ import DeleteTransaction from "./pages/finance_pages/transactions/DeleteTransact
 
 import Valuation from "./pages/finance_pages/valuation/Valuation";
 import AddNewValuation from "./pages/finance_pages/valuation/AddValuation";
+
 import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments";
+
 import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
+import AddNewMachineRecord from "./pages/finance_pages/machine_hours/AddNewMachineRecord";
 
 import CropManagement from "./pages/crop_pages/CropManagement";
 import CropRotation from "./pages/crop_pages/Rotation Management/CropRotation";
@@ -140,8 +143,10 @@ export default function App() {
                     <Route path="/finances/valuation" element={<Valuation />} />
                     <Route path="/finances/valuation/addValuation" element={<AddNewValuation/>} />
                     <Route path="/finances/valuation/editValuation" element={<Valuation />} />
-                    <Route path="/finances/valuation/deleteValuation" element={<Valuation />} />
+                    <Route path="/finances/valuation/deleteValuation" element={<Valuation />} />AddNewMachineRecord
 
+                    <Route path="/finances/machineHours" element={<MachineHours />} />
+                    <Route path="/finances/machineHours/addMachineRecords" element={<AddNewMachineRecord />} />
 
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback" element={Feedback()}/>
@@ -153,12 +158,6 @@ export default function App() {
                     <Route path="/farmchore" element={FarmChore()}/>
                     <Route path="/booking/edit/:id" element={EditBookingPg()} />
                     <Route path="/feedbacklist" element={FeedbackDisplay()}/>
-
-                    <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
-
-                    <Route path="/finances/valuation" element={<Valuation />} />
-
-                    <Route path="/finances/machineHours" element={<MachineHours />} />
 
                     <Route path = "/crop/home" element={CropManagement()}/>
                     <Route path = "/crop/rotation" element={CropRotation()}/>
