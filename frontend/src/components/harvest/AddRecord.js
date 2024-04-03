@@ -10,6 +10,9 @@ export default function AddRecord() {
     const [treesPicked, setTreesPicked] = useState('');
     const [remarks, setRemarks] = useState('');
 
+
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -28,6 +31,27 @@ export default function AddRecord() {
         } catch (error) {
             console.error('Error submitting record:', error);
             alert('An error occurred while submitting the record. Please try again.');
+        }
+    };
+
+    const handleAgeOfYieldChange = (e) => {
+        const value = parseInt(e.target.value);
+        if (!isNaN(value) && value >= 0) {
+            setAgeOfYield(value);
+        }
+    };
+
+    const handleQuantityChange = (e) => {
+        const value = parseInt(e.target.value);
+        if (!isNaN(value) && value >= 0) {
+            setQuantity(value);
+        }
+    };
+
+    const handleTreesPickedChange = (e) => {
+        const value = parseInt(e.target.value);
+        if (!isNaN(value) && value >= 0) {
+            setTreesPicked(value);
         }
     };
 
@@ -65,7 +89,7 @@ export default function AddRecord() {
                         <input
                             type="text"
                             value={ageOfYield}
-                            onChange={(e) => setAgeOfYield(e.target.value)}
+                            onChange={handleAgeOfYieldChange}
                             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                             required
                         />
@@ -85,7 +109,7 @@ export default function AddRecord() {
                         <input
                             type="text"
                             value={quantity}
-                            onChange={(e) => setQuantity(e.target.value)}
+                            onChange={handleQuantityChange}
                             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                             required
                         />
@@ -95,7 +119,7 @@ export default function AddRecord() {
                         <input
                             type="text"
                             value={treesPicked}
-                            onChange={(e) => setTreesPicked(e.target.value)}
+                            onChange={handleTreesPickedChange}
                             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                             required
                         />

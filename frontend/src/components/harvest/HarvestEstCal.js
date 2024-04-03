@@ -71,7 +71,7 @@ function HarvestCalculator() {
             {loading ? (
                 <p>Loading harvest records...</p>
             ) : (
-                <div>
+                <div >
                     <div style={{marginBottom: "15px"}}>
                         <label htmlFor="treesPicked" style={{marginRight: "10px"}}>
                             Enter Number of Trees:
@@ -104,7 +104,7 @@ function HarvestCalculator() {
                                 borderRadius: "5px",
                                 border: "1px solid #ccc"
                             }}
-                        >
+                         >
                             <option value="">Select Crop</option>
                             <option value="coconut">Coconut</option>
                             <option value="papaya">Papaya</option>
