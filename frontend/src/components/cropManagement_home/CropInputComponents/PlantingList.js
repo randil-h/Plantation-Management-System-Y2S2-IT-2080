@@ -46,6 +46,7 @@ const PlantingList = () => {
                 setLoading(false);
             });
     }, []);
+
     const handleDelete = (recordId) => {
         setRecordToDelete(recordId);
     };

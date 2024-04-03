@@ -1,7 +1,7 @@
 import SideBar from "../../../components/SideBar";
 import React from "react";
 import Navbar from "../../../components/utility/Navbar";
-import EditCropInput from "../../../components/cropManagement_home/EditCropInput";
+import EditCropInput from "../../../components/cropManagement_home/CropInputComponents/EditCropInput";
 export default function UpdateCropInputPage() {
     return (
         <div className="">

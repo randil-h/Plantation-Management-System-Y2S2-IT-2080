@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import SideBar from "../../../components/SideBar";
 import Navbar from "../../../components/utility/Navbar";
 import CropNavigation from "../../../components/cropManagement_home/CropNavigation";
-import PlantingList from "../../../components/cropManagement_home/PlantingList";
-import ChemicalList from "../../../components/cropManagement_home/ChemicalList";
+import PlantingList from "../../../components/cropManagement_home/CropInputComponents/PlantingList";
+import ChemicalList from "../../../components/cropManagement_home/CropInputComponents/ChemicalList";
 import BackButton from "../../../components/utility/BackButton";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 

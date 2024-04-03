@@ -2,7 +2,7 @@ import React from "react";
 
 import SideBar from "../../../components/SideBar";
 import Navbar from "../../../components/utility/Navbar";
-import AddCropInputForm from "../../../components/cropManagement_home/AddCropInputForm";
+import AddCropInputForm from "../../../components/cropManagement_home/CropInputComponents/AddCropInputForm";
 import BackButton from "../../../components/utility/BackButton";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 
