@@ -14,7 +14,7 @@ export default function MyOrders() {
             {/* Navbar */}
             <div className="border-b sticky top-0 z-10">
                 <Navbar/>
-                <WholeSaleNavBar/>
+                {/*<WholeSaleNavBar/>*/}
             </div>
 
             <div class="bg-white p-8 rounded-md w-full">

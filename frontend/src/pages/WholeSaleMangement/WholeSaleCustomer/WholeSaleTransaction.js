@@ -15,7 +15,7 @@ export default function WholeSaleTransaction() {
             {/* Navbar */}
             <div className="border-b sticky top-0 z-10">
                 <Navbar/>
-                <WholeSaleNavBar/>
+                {/*<WholeSaleNavBar/>*/}
                 <OrderPlacingForm/>
             </div>
 
