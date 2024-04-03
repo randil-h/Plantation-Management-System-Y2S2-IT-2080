@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 export default function AddRecord() {
     const [date, setDate] = useState('');
@@ -9,13 +10,14 @@ export default function AddRecord() {
     const [quantity, setQuantity] = useState('');
     const [treesPicked, setTreesPicked] = useState('');
     const [remarks, setRemarks] = useState('');
-
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
+
             const data = {
                 date,
                 cropType,
@@ -25,13 +27,19 @@ export default function AddRecord() {
                 treesPicked,
                 remarks
             };
-            await axios.post('http://localhost:5555/record', data);
-            alert('Record submitted successfully!');
-
-        } catch (error) {
-            console.error('Error submitting record:', error);
-            alert('An error occurred while submitting the record. Please try again.');
-        }
+        setLoading(true);
+        axios
+            .post('http://localhost:5555/record', data)
+            .then(() => {
+                setLoading(false);
+                navigate('/harvest/harvestRecords');
+                window.alert("Record Added Successfully!");
+        })
+            .catch((error) => {
+                setLoading(false);
+                alert('An error happened. Please check console');
+                console.log(error);
+            });
     };
 
     const handleAgeOfYieldChange = (e) => {
