@@ -72,6 +72,7 @@ export default function AddInventoryRecords() {
         <div className="pt-2">
             <div className="flex flex-col ml-96 mt-6">
                 <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+
                     Inventory Records Form
                 </h1>
             </div>

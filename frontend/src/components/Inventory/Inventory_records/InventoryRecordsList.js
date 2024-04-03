@@ -77,6 +77,7 @@ const InventoryRecordList = () => {
             .then((canvas) => {
                 const imgData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF('p', 'mm', 'a4');
+
                 const imgWidth = pdf.internal.pageSize.getWidth() - 20;
                 const imgHeight = (canvas.height * imgWidth) / canvas.width;
                 let heightLeft = imgHeight;

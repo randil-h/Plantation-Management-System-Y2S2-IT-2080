@@ -42,6 +42,7 @@ const EditEqMain = () => {
             ref_loc,
             comment,
         };
+
         setLoading(true);
         axios
             .put(`http://localhost:5555/inventoryrecords/${id}`, data)

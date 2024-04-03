@@ -11,6 +11,7 @@ export default function AddInventoryRecordsPage() {
         { name: 'Inventory', href: '/inventory/home' },
         { name: 'Inventory Records', href: '/inventory/inventoryrecords' },
         { name: 'Edit inventory Records', href: '/inventory/inventoryrecords/editinventorypage' }
+
     ];
 
     return (

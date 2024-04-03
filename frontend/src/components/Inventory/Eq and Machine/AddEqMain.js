@@ -33,6 +33,7 @@ const AddEqMain = () => {
             date_received,
             ref_loc,
             comment,
+
         };
         try {
             await axios.post('http://localhost:5555/inventoryrecords', data);

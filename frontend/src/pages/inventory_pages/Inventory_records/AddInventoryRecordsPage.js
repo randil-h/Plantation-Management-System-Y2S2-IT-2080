@@ -7,6 +7,7 @@ import InventoryNavbar from "../../../components/Inventory/InventoryNavbar";
 import AddInventoryRecords from "../../../components/Inventory/Inventory_records/AddInventoryRecords";
 
 
+
 export default function AddInventoryRecordsPage() {
 
     const breadcrumbItems = [
