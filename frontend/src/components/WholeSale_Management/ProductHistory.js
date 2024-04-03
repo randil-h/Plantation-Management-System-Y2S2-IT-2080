@@ -19,24 +19,10 @@ const pdfStyles = StyleSheet.create({
     }
 });
 
-// const generatePDF = () => {
-//     const input = document.getElementById('product-table');
-//     if (input) {
-//         html2canvas(input)
-//             .then((canvas) => {
-//                 const imgData = canvas.toDataURL('image/png');
-//                 const pdf = new jsPDF('l', 'mm', 'a3');
-//                 pdf.addImage(imgData, 'PNG', 0, 0);
-//                 const tableWidth = input.offsetWidth - input.rows[0].cells[input.rows[0].cells.length - 1].offsetWidth;
-//                 const tableHeight = input.offsetHeight;
-//                 pdf.save('product-list.pdf');
-//             })
-//             .catch((error) => {
-//                 console.error('Error generating PDF:', error);
-//             });
-//     } else {
-//         console.error('Table element not found');
-//     }
+// const descriptionCellStyle = {
+//     overflow: "visible",
+//     maxWidth: "100px",
+//     wordWrap: "break-word",
 // };
 
 const ProductHistory = () =>{
@@ -139,7 +125,7 @@ const ProductHistory = () =>{
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
                             <table class="min-w-full">
-                                <thead class="bg-gray-200 border-b">
+                                <thead class="bg-gray-200 border-b" >
                                 <tr>
                                     <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     </th>
@@ -149,7 +135,9 @@ const ProductHistory = () =>{
                                     <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Product Name
                                     </th>
-                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                        // style={{ maxWidth: '100px', wordWrap: 'break-word' }}
+                                    >
                                         Product Description
                                     </th>
                                     <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -183,7 +171,9 @@ const ProductHistory = () =>{
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {record.productName}
                                         </td>
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                            style={{ maxWidth: '300px', wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
+                                            >
                                             {record.productDescription}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
