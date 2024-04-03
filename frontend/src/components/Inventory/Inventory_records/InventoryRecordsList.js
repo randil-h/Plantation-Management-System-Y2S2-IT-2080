@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from "react-router-dom";
 import axios from 'axios';
-import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
+import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
 
@@ -9,6 +9,7 @@ const InventoryRecordList = () => {
     const [inventoryInputs, setInventoryInputs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedFieldFilter, setSelectedFieldFilter] = useState('All Fields');
 
     useEffect(() => {
         setLoading(true);
@@ -35,14 +36,39 @@ const InventoryRecordList = () => {
                 // Handle error
             });
     };
-    const filteredRecords = inventoryInputs.filter((record) =>
-        Object.values(record).some((value) => {
-            if (typeof value === 'string' || typeof value === 'number') {
-                return String(value).toLowerCase().includes(searchQuery.toLowerCase());
-            }
-            return false;
-        })
-    );
+
+    useEffect(() => {
+        setFilteredRecords(
+            inventoryInputs.filter((record) =>
+                ((selectedFieldFilter === 'All Types' || record.type.toLowerCase() === selectedFieldFilter.toLowerCase()) &&
+                    (
+                        (record.type && record.type.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                        (record.record_ID && record.record_ID.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                        (record.record_name && record.record_name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                        (record.storage && record.storage.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                        (record.quantity && record.quantity.toString().toLowerCase().includes(searchQuery.toLowerCase())) ||
+                        (record.expire_date && record.expire_date.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                        (record.description && record.description.toLowerCase().includes(searchQuery.toLowerCase()))
+                    ))
+            )
+        );
+    }, [inventoryInputs, searchQuery, selectedFieldFilter]);
+
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const handleFieldFilterChange = (event) => {
+        setSelectedFieldFilter(event.target.value);
+    };
+
+    const fieldOptions = ['All Types', 'Planting', 'Agrochemical', 'Equipments', 'Fertilizer'];
+    const [filteredRecords, setFilteredRecords] = useState([]);
+
+    useEffect(() => {
+        setFilteredRecords(inventoryInputs);
+    }, [inventoryInputs]);
+
     const handlePrint = () => {
         const input = document.getElementById('print-area');
 
@@ -66,7 +92,6 @@ const InventoryRecordList = () => {
                     pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
                     heightLeft -= imgHeight;
                 }
-
                 pdf.save('inventory_records.pdf');
             });
     };
@@ -84,9 +109,19 @@ const InventoryRecordList = () => {
                             type="text"
                             placeholder="Search all maintenances records..."
                             value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="border border-gray-300 rounded-full px-3 py-1 w-full"
+                            onChange={handleSearch}
+                            className="border border-gray-300 rounded-full px-3 py-1 w-auto"
                         />
+
+                        <select
+                            value={selectedFieldFilter}
+                            onChange={handleFieldFilterChange}
+                            className="ml-3 border border-gray-300 rounded-full px-8 py-1"
+                        >
+                            {fieldOptions.map((field, index) => (
+                                <option key={index} value={field}>{field}</option>
+                            ))}
+                        </select>
                     </div>
                 </div>
                 <div>
@@ -103,96 +138,106 @@ const InventoryRecordList = () => {
             </div>
             <div>
                 <div id="print-area">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
-                    <thead
-                        className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
-                    <tr className=" ">
-                        <th></th>
-                        <th scope="col" className="px-6 py-3">
-                            No
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Type
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Record ID
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Name
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Storage Location
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Quantity
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Expire Date
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Description
-                        </th>
-                        <th scope="col" className=" py-3">
-                            <span className="sr-only">Edit</span>
-                        </th>
-                        <th scope="col" className=" py-3">
-                            <span className="sr-only">Delete</span>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody className="border-b border-green-400">
-
-                    {filteredRecords.map((record, index) => (
-                        <tr
-                            key={index}
-                            className={`divide-y ${
-                                record.type === 'Planting' ? 'border-l-4 border-green-400' : record.type === 'Equipments' ? 'border-l-4 border-red-400' : record.type === 'Agrochemical' ? 'border-l-4 border-blue-400' : 'border-l-4 border-yellow-900'}`}>
-                            <td></td>
-                            <td className="px-6 py-4">
-                                {index + 1}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.type}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.record_ID}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.record_name}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.storage}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.quantity}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.expire_date ? new Date(record.expire_date).toISOString().split('T')[0] : "N/A"}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.description}
-                            </td>
-                            <td className=" py-4 text-right">
-                                <Link to={`/inventory/inventoryrecords/editinventorypage/${record._id}`}
-                                      className="font-medium text-blue-600 hover:underline">
-                                    <PencilSquareIcon
-                                        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                        aria-hidden="true"/>
-                                </Link>
-                            </td>
-                            <td className=" ">
-                                <button
-                                    className="flex items-center"
-                                    onClick={() => handleDelete(record._id)}>
-                                    <TrashIcon
-                                        className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                        aria-hidden="true"/>
-                                </button>
-                            </td>
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
+                        <thead
+                            className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
+                        <tr className=" ">
+                            <th></th>
+                            <th scope="col" className="px-6 py-3">
+                                No
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Type
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Record ID
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Name
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Storage Location
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Quantity
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Expire Date
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Description
+                            </th>
+                            <th scope="col" className=" py-3">
+                                <span className="sr-only">Edit</span>
+                            </th>
+                            <th scope="col" className=" py-3">
+                                <span className="sr-only">Delete</span>
+                            </th>
                         </tr>
-                    ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody className="border-b border-green-400">
+
+                        {filteredRecords.map((record, index) => (
+                            <tr
+                                key={index}
+                                className={`divide-y ${
+                                    record.type === 'Planting' ? 'border-l-4 border-green-400' : record.type === 'Equipments' ? 'border-l-4 border-red-400' : record.type === 'Agrochemical' ? 'border-l-4 border-blue-400' : 'border-l-4 border-yellow-900'}`}>
+                                <td></td>
+                                <td className="px-6 py-4">
+                                    {index + 1}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {record.type}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {record.record_ID}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {record.record_name}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {record.storage}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {record.quantity}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {record.expire_date ? new Date(record.expire_date).toISOString().split('T')[0] : "N/A"}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {record.description}
+                                </td>
+
+                                <td className=" py-4 text-right">
+                                    <Link to={`/inventory/inventoryrecords/viewRecord/${record._id}`}
+                                          className="font-medium text-blue-600  hover:underline">
+                                        <InformationCircleIcon
+                                            className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                            aria-hidden="true"/>
+                                    </Link>
+                                </td>
+
+                                <td className=" py-4 text-right">
+                                    <Link to={`/inventory/inventoryrecords/editinventorypage/${record._id}`}
+                                          className="font-medium text-blue-600 hover:underline">
+                                        <PencilSquareIcon
+                                            className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                            aria-hidden="true"/>
+                                    </Link>
+                                </td>
+                                <td className=" ">
+                                    <button
+                                        className="flex items-center"
+                                        onClick={() => handleDelete(record._id)}>
+                                        <TrashIcon
+                                            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                            aria-hidden="true"/>
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

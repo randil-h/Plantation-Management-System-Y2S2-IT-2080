@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+
 const AddEqMain = () => {
     const [Eq_machine_main, setEq_machine_main] = useState('');
     const [Eq_id_main, setEq_id_main] = useState('');
@@ -12,10 +13,9 @@ const AddEqMain = () => {
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (new Date(date_received) <= new Date(date_referred)) {
-            window.alert('Received date must be after Date referred to');
             return;
         }
         const data = {
@@ -26,18 +26,16 @@ const AddEqMain = () => {
             ref_loc,
             comment,
         };
-        axios
-            .post('http://localhost:5555/inventoryrecords', data)
-            .then(() => {
-                window.alert('Record Created successfully');
-                enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                navigate('/inventory/maintenancelog', { state: { highlighted: true } });
-            })
-            .catch((error) => {
-                enqueueSnackbar('Error', { variant: 'error' });
-                console.log(error);
-            });
+        try {
+            await axios.post('http://localhost:5555/inventoryrecords', data);
+            enqueueSnackbar('Record Created successfully', { variant: 'success' });
+            navigate('/inventory/maintenancelog', { state: { highlighted: true } });
+        } catch (error) {
+            enqueueSnackbar('Error', { variant: 'error' });
+            console.log(error);
+        }
     };
+
     const handleCancel = () => {
         setEq_machine_main('');
         setEq_id_main('');

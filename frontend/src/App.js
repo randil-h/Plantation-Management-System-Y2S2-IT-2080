@@ -39,6 +39,7 @@ import Water from "./pages/inventory_pages/Water/Water";
 import InventoryRecordList from "./pages/inventory_pages/Inventory_records/InventoryRecordListpage";
 import AddInventoryRecordsPage from "./pages/inventory_pages/Inventory_records/AddInventoryRecordsPage";
 import EditInventoryRecords from "./components/Inventory/Inventory_records/EditInventoryRecords";
+import ViewOneRecord from "./pages/inventory_pages/Inventory_records/ViewOneRecord";
 
 import DiseaseTracking from "./pages/diseaseTracking_pages/DiseaseTracking";
 import ViewAllDiseases from "./pages/diseaseTracking_pages/records/ViewAllDiseases";
@@ -197,6 +198,7 @@ export default function App() {
                     <Route path= "/inventory/inventoryrecords" element={InventoryRecordList()}/>
                     <Route path= "/inventory/inventoryrecords/addinventoryrecordspage" element={(AddInventoryRecordsPage())}/>
                     <Route path= "/inventory/inventoryrecords/editinventorypage/:id" element={<EditInventoryRecords/>}/>
+                    <Route path ="/inventory/inventoryrecords/viewRecord/:id" element={<ViewOneRecord/>}/>
 
                     <Route path= "/employees/home" element= {Employee()}/>
                     <Route path="/employees/registration/addEmployee" element={AddEmployee()}/>

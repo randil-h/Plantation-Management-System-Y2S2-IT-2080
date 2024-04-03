@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {useSnackbar} from "notistack";
-import {useNavigate} from "react-router-dom";
+import { SnackbarProvider, useSnackbar } from "notistack"; // Import SnackbarProvider
+import { useNavigate } from "react-router-dom";
+
 export default function AddInventoryRecords() {
     const [formData, setFormData] = useState({
         type: "",
@@ -14,6 +15,7 @@ export default function AddInventoryRecords() {
     });
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -25,12 +27,13 @@ export default function AddInventoryRecords() {
         }
         setFormData({ ...formData, [name]: value });
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await axios.post("http://localhost:5555/inventoryinputs", formData);
             enqueueSnackbar('Record Created successfully', { variant: 'success' });
-            navigate('/inventory/inventoryrecords', { state: { highlighted: true } }); // Navigate to maintenance log and highlight it
+            navigate('/inventory/inventoryrecords', { state: { highlighted: true } });
             setFormData({
                 record_ID: "",
                 record_name: "",
@@ -42,9 +45,10 @@ export default function AddInventoryRecords() {
             });
         } catch (error) {
             console.log(error.message);
-            enqueueSnackbar('Error', { variant: 'error' });
+            alert('Error');
         }
     };
+
     const handleCancel = () => {
         setFormData({
             type: "",
@@ -56,6 +60,7 @@ export default function AddInventoryRecords() {
             description: ""
         });
     };
+
     return (
         <div className="pt-2">
             <div className="flex flex-col ml-96 mt-6">
