@@ -63,6 +63,7 @@ const InventoryRecordList = () => {
     };
 
     const fieldOptions = ['All Types', 'Planting', 'Agrochemical', 'Equipments', 'Fertilizer'];
+
     const [filteredRecords, setFilteredRecords] = useState([]);
 
     useEffect(() => {

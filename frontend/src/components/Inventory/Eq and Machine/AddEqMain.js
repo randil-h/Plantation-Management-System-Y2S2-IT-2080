@@ -16,6 +16,14 @@ const AddEqMain = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (new Date(date_received) <= new Date(date_referred)) {
+            enqueueSnackbar('Received date should be after the referred date', {
+                variant: 'error',
+                autoHideDuration: 6000,
+                anchorOrigin: {
+                    vertical: 'top', // Display the snackbar at the top
+                    horizontal: 'center', // Align the snackbar at the center horizontally
+                },
+            });
             return;
         }
         const data = {
@@ -28,7 +36,14 @@ const AddEqMain = () => {
         };
         try {
             await axios.post('http://localhost:5555/inventoryrecords', data);
-            enqueueSnackbar('Record Created successfully', { variant: 'success' });
+            enqueueSnackbar('Record Created Successfully!', {
+                variant: 'success',
+                autoHideDuration: 6000,
+                anchorOrigin: {
+                    vertical: 'top', // Display the snackbar at the top
+                    horizontal: 'center', // Align the snackbar at the center horizontally
+                },
+            });
             navigate('/inventory/maintenancelog', { state: { highlighted: true } });
         } catch (error) {
             enqueueSnackbar('Error', { variant: 'error' });

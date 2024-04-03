@@ -64,7 +64,14 @@ const EditInventoryRecords = () => {
             .put(`http://localhost:5555/inventoryinputs/${id}`, formData)
             .then(() => {
                 setLoading(false);
-                enqueueSnackbar('Record Edited successfully', { variant: 'success' });
+                enqueueSnackbar('Record Edited Successfully!', {
+                    variant: 'success',
+                    autoHideDuration: 6000,
+                    anchorOrigin: {
+                        vertical: 'top', // Display the snackbar at the top
+                        horizontal: 'center', // Align the snackbar at the center horizontally
+                    },
+                });
                 navigate('/inventory/inventoryrecords', { state: { highlighted: true } });
             })
             .catch((error) => {

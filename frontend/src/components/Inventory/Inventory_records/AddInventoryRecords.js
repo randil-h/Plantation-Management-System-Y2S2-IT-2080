@@ -32,7 +32,14 @@ export default function AddInventoryRecords() {
         e.preventDefault();
         try {
             await axios.post("http://localhost:5555/inventoryinputs", formData);
-            enqueueSnackbar('Record Created successfully', { variant: 'success' });
+            enqueueSnackbar('Record Created Successfully!', {
+                variant: 'success',
+                autoHideDuration: 6000,
+                anchorOrigin: {
+                    vertical: 'top', // Display the snackbar at the top
+                    horizontal: 'center', // Align the snackbar at the center horizontally
+                },
+            });
             navigate('/inventory/inventoryrecords', { state: { highlighted: true } });
             setFormData({
                 record_ID: "",
@@ -178,15 +185,18 @@ export default function AddInventoryRecords() {
                                             Plant Name
                                         </label>
                                         <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="record_name"
+                                            <select
                                                 name="record_name"
-                                                onChange={handleChange}
                                                 value={formData.record_name}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                                onChange={handleChange}
+                                                id="record_name"
+                                                autoComplete="record_name"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                <option>Select</option>
+                                                <option>Papaya</option>
+                                                <option>Apple Guava</option>
+                                                <option>Coconut</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1">

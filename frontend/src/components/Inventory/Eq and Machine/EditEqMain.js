@@ -47,9 +47,15 @@ const EditEqMain = () => {
             .put(`http://localhost:5555/inventoryrecords/${id}`, data)
             .then(() => {
                 setLoading(false);
-                enqueueSnackbar('Record Edited successfully', { variant: 'success' });
+                enqueueSnackbar('Record Created Successfully!', {
+                    variant: 'success',
+                    autoHideDuration: 6000,
+                    anchorOrigin: {
+                        vertical: 'top', // Display the snackbar at the top
+                        horizontal: 'center', // Align the snackbar at the center horizontally
+                    },
+                });
                 setTimeout(() => {
-                    window.alert('Record saved successfully');
                     navigate('/inventory/maintenancelog');
                 }, 100);
             })
