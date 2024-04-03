@@ -1,7 +1,7 @@
 import SideBar from "../../../components/SideBar";
 import React from "react";
 import Navbar from "../../../components/utility/Navbar";
-import EditRotation from "../../../components/cropManagement_home/EditRotation"
+import EditRotation from "../../../components/cropManagement_home/RotationComponents/EditRotation"
 export default function UpdateRotation() {
     return (
         <div className="Equipment">

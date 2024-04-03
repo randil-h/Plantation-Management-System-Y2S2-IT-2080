@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import SideBar from "../../components/SideBar";
 import Navbar from "../../components/utility/Navbar";
 import CropNavigation from "../../components/cropManagement_home/CropNavigation";
-import CropSummary from "../../components/cropManagement_home/CropSummary";
+import CropSummary from "../../components/cropManagement_home/CropSummary/CropSummary";
 import BackButton from "../../components/utility/BackButton";
 import Breadcrumb from "../../components/utility/Breadcrumbs";
 

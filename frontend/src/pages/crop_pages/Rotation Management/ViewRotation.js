@@ -6,7 +6,7 @@ import BackButton from "../../../components/utility/BackButton";
 import SideBar from "../../../components/SideBar";
 import Navbar from "../../../components/utility/Navbar";
 import CropNavigation from "../../../components/cropManagement_home/CropNavigation";
-import RotationList from "../../../components/cropManagement_home/RotationList";
+import RotationList from "../../../components/cropManagement_home/RotationComponents/RotationList";
 
 const breadcrumbItems = [
     { name: 'Crop', href: '/crop/home' },

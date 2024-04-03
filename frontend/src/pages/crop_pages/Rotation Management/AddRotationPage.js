@@ -2,7 +2,7 @@ import React from "react";
 
 import SideBar from "../../../components/SideBar";
 import Navbar from "../../../components/utility/Navbar";
-import Rotation from "../../../components/cropManagement_home/recordRotation"
+import Rotation from "../../../components/cropManagement_home/RotationComponents/recordRotation"
 import CropNavigation from "../../../components/cropManagement_home/CropNavigation";
 import BackButton from "../../../components/utility/BackButton";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
