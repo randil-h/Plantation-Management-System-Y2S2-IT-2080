@@ -10,6 +10,7 @@ import { StyleSheet } from '@react-pdf/renderer';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import {FaSearch} from "react-icons/fa";
+import {useSnackbar} from "notistack";
 
 const pdfStyles = StyleSheet.create({
     page: {
@@ -31,8 +32,6 @@ const generatePDF = () => {
                 const imgData = canvas.toDataURL('image/png');
                 const pdf = new jsPDF('l', 'mm', 'a3');
                 pdf.addImage(imgData, 'PNG', 0, 0);
-                const tableWidth = input.offsetWidth - input.rows[0].cells[input.rows[0].cells.length - 1].offsetWidth;
-                const tableHeight = input.offsetHeight;
                 pdf.save('rotation-list.pdf');
             })
             .catch((error) => {
@@ -44,6 +43,7 @@ const generatePDF = () => {
 };
 
 const RotationList = () => {
+    const { enqueueSnackbar } = useSnackbar();
     const [RotationRecords, setRotationRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -90,9 +90,11 @@ const RotationList = () => {
                         prevRecords.filter(record => record._id !== recordToDelete)
                     );
                     setRecordToDelete(null);
+                    enqueueSnackbar('Record deleted successfully', { variant: 'success' });
                 })
                 .catch((error) => {
                     console.log(error);
+                    enqueueSnackbar('Error deleting record', { variant: 'error' });
                 });
         }
     };

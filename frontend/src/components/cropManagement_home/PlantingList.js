@@ -5,8 +5,10 @@ import axios from 'axios';
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { html2canvas } from 'html2canvas'; // Updated import
 import jsPDF from 'jspdf';
+import {useSnackbar} from "notistack";
 
 const PlantingList = () => {
+    const { enqueueSnackbar } = useSnackbar();
     const [plantingRecords, setPlantingRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -61,9 +63,11 @@ const PlantingList = () => {
                         prevRecords.filter(record => record._id !== recordToDelete)
                     );
                     setRecordToDelete(null);
+                    enqueueSnackbar('Record deleted successfully', { variant: 'success' });
                 })
                 .catch((error) => {
                     console.log(error);
+                    enqueueSnackbar('Error deleting record', { variant: 'error' });
                 });
         }
     };
