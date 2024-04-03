@@ -19,12 +19,6 @@ const pdfStyles = StyleSheet.create({
     }
 });
 
-// const descriptionCellStyle = {
-//     overflow: "visible",
-//     maxWidth: "100px",
-//     wordWrap: "break-word",
-// };
-
 const ProductHistory = () =>{
     const [productRecords, setProductRecords] = useState([]);
     const [loading,setLoading] = useState(false);
@@ -149,12 +143,12 @@ const ProductHistory = () =>{
                                     <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Info
                                     </th>
-                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Edit
-                                    </th>
-                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Delete
-                                    </th>
+                                    {/*<th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">*/}
+                                    {/*    Edit*/}
+                                    {/*</th>*/}
+                                    {/*<th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">*/}
+                                    {/*    Delete*/}
+                                    {/*</th>*/}
                                 </tr>
                                 </thead>
 
@@ -182,33 +176,50 @@ const ProductHistory = () =>{
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {record.productPrice}
                                         </td>
-                                        <td className=" py-4 text-right">
+                                        <td className=" py-4 text-right flex flex-col items-center">
                                             <a href="#"
                                                className="font-medium text-blue-600  hover:underline">
                                                 <InformationCircleIcon
-                                                    className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                                    className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500 mt-2"
                                                     aria-hidden="true"/>
                                             </a>
-                                        </td>
-                                        <td className=" py-4 text-right">
+
                                             <Link to={`/editProduct/${record._id}`}
                                                   className="font-medium text-blue-600 hover:underline">
                                                 <PencilSquareIcon
-                                                    className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                                    className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500 mt-2"
                                                     aria-hidden="true"/>
                                             </Link>
-                                        </td>
-                                        <td className=" ">
+
                                             <button
                                                 className="flex items-center"
                                                 onClick={() => handleDelete(record._id)}
 
                                             >
                                                 <TrashIcon
-                                                    className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                                    className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500 mt-2"
                                                     aria-hidden="true"/>
                                             </button>
                                         </td>
+                                        {/*<td className=" py-4 text-right">*/}
+                                        {/*    <Link to={`/editProduct/${record._id}`}*/}
+                                        {/*          className="font-medium text-blue-600 hover:underline">*/}
+                                        {/*        <PencilSquareIcon*/}
+                                        {/*            className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"*/}
+                                        {/*            aria-hidden="true"/>*/}
+                                        {/*    </Link>*/}
+                                        {/*</td>*/}
+                                        {/*<td className=" ">*/}
+                                        {/*    <button*/}
+                                        {/*        className="flex items-center"*/}
+                                        {/*        onClick={() => handleDelete(record._id)}*/}
+
+                                        {/*    >*/}
+                                        {/*        <TrashIcon*/}
+                                        {/*            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"*/}
+                                        {/*            aria-hidden="true"/>*/}
+                                        {/*    </button>*/}
+                                        {/*</td>*/}
                                     </tr>
                                 ))}
 
