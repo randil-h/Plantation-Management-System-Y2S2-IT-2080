@@ -15,6 +15,7 @@ function AddNewMachineRecord() {
     const [rate, setRate] = useState('');
     const [description, setDescription] = useState('');
     const [payerPayee, setPayerPayee] = useState('');
+    const [paid, setPaid] = useState('false');
 
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -28,6 +29,7 @@ function AddNewMachineRecord() {
             rate,
             description,
             payer_payee: payerPayee,
+            paid,
         };
         setLoading(true);
         axios
@@ -72,9 +74,9 @@ function AddNewMachineRecord() {
                             </div>
 
                             <form className=" flex-col flex items-center justify-center">
-                                <div className="space-y-12 px-0 py-16 w-8/12 ">
+                                <div className="space-y-12 px-0 py-8 w-8/12 ">
                                     <div className="border-b border-gray-900/10 pb-12">
-                                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
                                             <div className="sm:col-span-2 sm:col-start-1">
                                                 <label htmlFor="type"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
@@ -133,7 +135,21 @@ function AddNewMachineRecord() {
                                                     required // Makes the field required
                                                 />
                                             </div>
-
+                                            <div className="sm:col-span-3 sm:col-start-1">
+                                                <label htmlFor="rate"
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Rate
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="rate"
+                                                    required
+                                                    value={rate}
+                                                    onChange={(e) => setRate(e.target.value)}
+                                                    id="rate"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                />
+                                            </div>
 
                                             {/* Description */}
                                             <div className="col-span-full">
@@ -171,21 +187,25 @@ function AddNewMachineRecord() {
                                             </div>
 
                                             {/* Payment Method */}
+
                                             <div className="sm:col-span-2 sm:col-start-1">
-                                                <label htmlFor="rate"
-                                                       className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Rate
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    name="rate"
-                                                    required
-                                                    value={rate}
-                                                    onChange={(e) => setRate(e.target.value)}
-                                                    id="rate"
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                />
+                                                <div className="relative flex gap-x-4 align-baseline items-center">
+                                                    <label htmlFor="paid"
+                                                           className="block text-sm font-medium leading-6 text-gray-900">
+                                                        Work is already paid
+                                                    </label>
+                                                    <input
+                                                        type="checkbox"
+                                                        name="paid"
+                                                        checked={paid === 'true'}
+                                                        onChange={(e) => setPaid(e.target.checked ? 'true' : 'false')}
+                                                        id="paid"
+                                                        className="h-5 w-5 rounded border-gray-300 text-lime-600 focus:ring-lime-600"
+                                                    />
+                                                </div>
                                             </div>
+
+
                                         </div>
                                         <div className="mt-6 flex items-center justify-end gap-x-6">
                                             <button type="button"

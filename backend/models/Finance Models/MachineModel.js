@@ -24,6 +24,9 @@ const FinanceSchema = mongoose.Schema(
         payer_payee: {
             type: String,
             required: true,
+        },
+        paid: {
+            type: String,
         }
     },
     {

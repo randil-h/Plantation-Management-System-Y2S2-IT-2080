@@ -12,7 +12,8 @@ router.post('/', async (request, response) => {
             !request.body.hours_nos ||
             !request.body.rate ||
             !request.body.description ||
-            !request.body.payer_payee
+            !request.body.payer_payee ||
+            !request.body.paid
         ) {
             return response.status(400).send({
                 message: 'Send all required fields: date, type, amount',
@@ -26,6 +27,7 @@ router.post('/', async (request, response) => {
             rate: request.body.rate,
             description: request.body.description,
             payer_payee: request.body.payer_payee,
+            paid: request.body.paid,
         };
 
         const MachineRecord = await MachinesRecord.create(NewMachinesRecord);
@@ -76,7 +78,8 @@ router.put('/:id', async (request, response) => {
             !request.body.hours_nos ||
             !request.body.rate ||
             !request.body.description ||
-            !request.body.payer_payee
+            !request.body.payer_payee ||
+            !request.body.paid
         ) {
             return response.status(400).send({
                 message: 'Send all required fields: title, author, publishYear',

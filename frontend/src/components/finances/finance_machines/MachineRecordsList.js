@@ -182,85 +182,6 @@ export default function MachineRecordsList() {
                                 </button>
                             )}
                         </div>
-                        {/*<div className="flex items-center space-x-4 relative px-4">
-                            <button
-                                className="flex items-center space-x-1 cursor-pointer bg-lime-200 px-4 py-1 rounded-full hover:bg-lime-400"
-                                onClick={() => handleSortBy('date')}
-                            >
-                                <span className="text-sm text-gray-600">Date</span>
-                                {sortBy === 'date' && (
-                                    sortOrder === 'asc' ? (
-                                        <ChevronUpIcon
-                                            className="w-4 h-4 bg-green-800 text-white stroke-2 rounded-full"/>
-                                    ) : (
-                                        <ChevronDownIcon
-                                            className="w-4 h-4 bg-green-800 text-white stroke-2 rounded-full"/>
-                                    )
-                                )}
-                            </button>
-                            <button
-                                className="flex items-center space-x-1 cursor-pointer bg-lime-200 px-4 py-1 rounded-full hover:bg-lime-400"
-                                onClick={() => handleSortBy('amount')}
-                            >
-                                <span className="text-sm text-gray-600">Amount</span>
-                                {sortBy === 'amount' && (
-                                    sortOrder === 'asc' ? (
-                                        <ChevronUpIcon
-                                            className="w-4 h-4 bg-green-800  text-white stroke-2 rounded-full"/>
-                                    ) : (
-                                        <ChevronDownIcon
-                                            className="w-4 h-4 bg-green-800 text-white stroke-2 rounded-full"/>
-                                    )
-                                )}
-                            </button>
-                            <button
-                                className="flex items-center space-x-1 bg-rose-200 rounded-full hover:bg-red-400 cursor-pointer p-1"
-                                onClick={handleClearSorting}
-                            >
-                                <XMarkIcon className="w-4 h-4 "/>
-                            </button>
-
-                            <div>
-                                <Button shape="round" className="font-semibold bg-amber-200 text-gray-700 hover:bg-amber-500 border-none"
-                                        onClick={() => setPopoverVisible(true)}>
-                                    Download PDF Report
-                                </Button>
-                                <Popover
-                                    content={
-                                        <div className="text-gray-600">
-                                            <DatePicker.RangePicker
-                                                onChange={(dates) => setSelectedDates(dates)}
-                                            />
-                                            <div className="flex flex-col space-y-4 py-4">
-                                                <span>Select sorting criteria:</span>
-                                                <Radio.Group
-                                                    onChange={(e) => setSortBy(e.target.value)}
-                                                    value={sortBy}
-                                                >
-                                                    <Radio value="date">Date</Radio>
-                                                    <Radio value="amount">Amount</Radio>
-                                                </Radio.Group>
-                                                <span>Select sorting order:</span>
-                                                <Radio.Group
-                                                    onChange={(e) => setSortOrder(e.target.value)}
-                                                    value={sortOrder}
-                                                >
-                                                    <Radio value="asc">Ascending</Radio>
-                                                    <Radio value="desc">Descending</Radio>
-                                                </Radio.Group>
-                                            </div>
-                                            <Button shape="round" className="bg-lime-600 border-none hover:text-lime-600 text-white"
-                                                    onClick={handleDownloadPDF}>Download</Button>
-                                        </div>
-                                    }
-                                    title="Select Date Range and Sorting"
-                                    trigger="click"
-                                    visible={popoverVisible}
-                                    onVisibleChange={setPopoverVisible}
-                                />
-                            </div>*/}
-
-
                     </div>
                 </div>
                 <div>
@@ -321,7 +242,7 @@ export default function MachineRecordsList() {
                         <tr
                             key={record._id}
                             className={` divide-y
-                                    ${record.type === 'expense' ? 'border-l-4 border-red-400 ' : 'border-l-4 border-green-400 '}`}
+                                    ${record.paid === 'expense' ? 'border-l-4 border-red-400 ' : 'border-l-4 border-green-400 '}`}
                         >
                             <td></td>
                             <td className="px-6 py-4">{record.date}</td>
@@ -330,11 +251,13 @@ export default function MachineRecordsList() {
                             <td className="px-6 py-4">{record.rate}</td>
                             <td className="px-6 py-4">{record.description}</td>
                             <td className="px-6 py-4">{record.payer_payee}</td>
-                            <td className="px-6 py-4 ">
-                                <div className="bg-lime-600 text-base font-semibold text-center text-white rounded-full hover:bg-lime-500">
+                            <td className="px-6 py-4">
+                                <div
+                                    className={record.paid === "true" ? "bg-lime-600 text-base font-semibold text-center text-white rounded-full hover:bg-lime-500" : "bg-red-600 text-base font-semibold text-center text-white rounded-full hover:bg-red-500"}>
                                     Rs.{record.hours_nos * record.rate}
                                 </div>
                             </td>
+
 
                             <td className=" py-4 text-right">
                                 <Link to={`/finances/transactions/viewTransactionDetails/${record._id}`}>
