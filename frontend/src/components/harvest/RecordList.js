@@ -142,7 +142,10 @@ export default function HarvestList() {
                     </thead>
                     <tbody className="border-b border-green-400">
                     {(filteredRecords.length > 0 ? filteredRecords : harvestRecords).map((record, index) => (
-                        <tr key={index} className="border border-gray-200">
+                        <tr key={index}
+                            className={`divide-y ${
+                                    record.cropType === 'coconut' ? 'bg-yellow-100' : record.cropType === 'guava' ? 'bg-blue-100' : record.cropType === 'papaya' ? 'bg-green-100' : 'border-l-4 border-yellow-900'}`}
+                        >
                             <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{new Date(record.date).toLocaleDateString()}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{record.cropType}</td>

@@ -112,7 +112,7 @@ function HarvestCalculator() {
                         </select>
                     </div>
                     <button
-                        onClick={calculateHarvest}
+                        /*onClick=>{calculateHarvest}*/
                         style={{
                             padding: "8px 20px",
                             backgroundColor: "#007bff",
