@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import {FaEdit, FaPrint, FaSearch, FaTrash} from "react-icons/fa";
 import axios from 'axios';
 import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const BookingList = () => {
     const [originalRecords, setOriginalRecords] = useState([]);
@@ -26,7 +28,8 @@ const BookingList = () => {
         axios
             .get(`http://localhost:5555/booking`)
             .then((response) => {
-                setBookingRecords(response.data.data);
+                setOriginalRecords(response.data.data); // Set original records here
+                setBookingRecords(response.data.data); // Also set booking records here initially
                 setLoading(false);
             })
             .catch((error) => {
@@ -34,28 +37,59 @@ const BookingList = () => {
                 setLoading(false);
             });
     }, []);
-    const handleSearch = () => {
-        // Convert the searchInput to lowercase for case-insensitive search
-        const searchQuery = searchInput.toLowerCase();
 
-        // Filter the bookingRecords array based on the searchInput value
-        const filteredRecords = bookingRecords.filter(record => {
-            // Check if any field in the record contains the search query
-            return Object.values(record).some(value => {
-                if (typeof value === 'string') {
-                    return value.toLowerCase().includes(searchQuery);
-                }
-                return false;
-            });
+    const handleSearch = (event) => {
+        const searchQuery = event.target.value.toLowerCase(); // Get the current value from the input field
+
+        setSearchInput(searchQuery); // Update the searchInput state with the current value
+
+        const filteredRecords = originalRecords.filter(record => {
+            return (
+                record.date.toLowerCase().includes(searchQuery) ||
+                record.name.toLowerCase().includes(searchQuery) ||
+                record.telNo.toLowerCase().includes(searchQuery) ||
+                record.nicNo.toLowerCase().includes(searchQuery) ||
+                record.email.toLowerCase().includes(searchQuery) ||
+                record.numberOfPeople.toString().includes(searchQuery) ||
+                mapPackageName(record.selectedPackage).toLowerCase().includes(searchQuery) ||
+                (record.selectedPackage === 'guidedFarmTour' && record.numberOfDays.toString().includes(searchQuery))
+            );
         });
 
-        // Update the bookingRecords state with the filtered result
         setBookingRecords(filteredRecords);
     };
-    const handleReset = () => {
-        setSearchInput('');
-        window.location.reload(); // Refreshes the page
+
+    const handlePrint = () => {
+        const input = document.getElementById('booking-table');
+
+        // Remove the Actions column from the table before capturing
+        const actionsColumn = input.querySelector('.actions-column');
+        if (actionsColumn) {
+            actionsColumn.style.display = 'none';
+        }
+
+        html2canvas(input, { scrollY: -window.scrollY })
+            .then((canvas) => {
+                // Restore the Actions column visibility after capturing
+                if (actionsColumn) {
+                    actionsColumn.style.display = '';
+                }
+
+                const imgData = canvas.toDataURL('image/png');
+
+                // Define PDF dimensions and orientation
+                const pdf = new jsPDF('l', 'mm', 'a4'); // 'l' for landscape orientation
+
+                // Add image to PDF
+                pdf.addImage(imgData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+
+                // Save PDF
+                pdf.save('booking-list.pdf');
+            });
     };
+
+
+
 
     const handleDelete = (recordId) => {
         axios
@@ -69,53 +103,53 @@ const BookingList = () => {
     };
 
     return (
-        <div>
-            <div className="flex items-center justify-center mb-4 mt-8">
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                    className="border rounded-md px-3 py-1 mr-3 focus:outline-none focus:border-blue-500 w-64" // Adjust the width as needed
-                />
-                <button
-                    className="bg-black text-white px-4 py-2 rounded-md hover:bg-emerald-700 focus:outline-none "
-                    onClick={handleSearch}>
-                    Search
-                </button>
-                <button
-                    onClick={handleReset}
-                    className="bg-black text-white px-4 py-2 rounded-md hover:bg-emerald-700 focus:outline-none ml-4"
-                >
-                    Reset
-                </button>
-            </div>
-            <div className="flex items-center justify-center mb-4">
-                <Link to="/booking">
+        <div className="mx-24">
+            <div className="flex items-center justify-between mb-4 mt-8">
+                <div className="relative">
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        value={searchInput}
+                        onChange={handleSearch}
+                        className="border rounded-full px-3 py-1 pl-10 focus:outline-none focus:border-blue-500" // Adjust the width as needed
+                    />
+                    <FaSearch className="absolute left-3 top-2 text-gray-400"/>
+                </div>
+
+                <div>
+                    <Link to="/booking">
+                        <button
+                            className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none mr-2"
+                        >
+                            Add Another Booking <span aria-hidden="true"> &rarr;</span>
+                        </button>
+                    </Link>
                     <button
-                        className="bg-black text-white px-4 py-2 rounded-md hover:bg-emerald-700 focus:outline-none "
+                        className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none ml-2"
+                        onClick={handlePrint}
                     >
-                        Add Another Booking
+                        Print
                     </button>
-                </Link>
+                </div>
             </div>
+
 
             <div className="overflow-x-auto flex justify-center">
                 <table id="booking-table"
                        className="w-10/12 bg-white shadow-md rounded-md overflow-hidden  top-1/3 mb-10">
                     <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
-                    <tr>
-                        <th className="px-6 py-3">No</th>
-                        <th className="px-6 py-3">Date</th>
-                        <th className="px-6 py-3">Name</th>
-                        <th className="px-6 py-3">Tel No</th>
-                        <th className="px-6 py-3">NIC No</th>
-                        <th className="px-6 py-3">Email</th>
-                        <th className="px-6 py-3">No Of People</th>
-                        <th className="px-6 py-3">Package</th>
-                        {/* Conditionally show the column based on the selected package */}
-                        {bookingRecords.some(record => record.selectedPackage === 'guidedFarmTour') && (
-                            <th className="px-6 py-3">Number of Days</th>
+            <tr>
+                <th className="px-6 py-3">No</th>
+                <th className="px-6 py-3">Date</th>
+                <th className="px-6 py-3">Name</th>
+                <th className="px-6 py-3">Tel No</th>
+                <th className="px-6 py-3">NIC No</th>
+                <th className="px-6 py-3">Email</th>
+                <th className="px-6 py-3">No Of People</th>
+                <th className="px-6 py-3">Package</th>
+                {/* Conditionally show the column based on the selected package */}
+                {bookingRecords.some(record => record.selectedPackage === 'guidedFarmTour') && (
+                    <th className="px-6 py-3">Number of Days</th>
                         )}
                         <th className="px-6 py-3">Actions</th>
                     </tr>
@@ -154,8 +188,8 @@ const BookingList = () => {
                         </tr>
                     ))}
                     </tbody>
-        </table>
-    </div>
+                </table>
+            </div>
         </div>
     );
 };
