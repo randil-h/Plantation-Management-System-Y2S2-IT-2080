@@ -9,6 +9,7 @@ import { SnackbarProvider } from 'notistack'; // Import SnackbarProvider
 
 export default function Water() {
     const breadcrumbItems = [
+        { name: 'Inventory', href: '/inventory/home' },
         { name: 'Water', href: '/inventory/water' },
     ];
 
