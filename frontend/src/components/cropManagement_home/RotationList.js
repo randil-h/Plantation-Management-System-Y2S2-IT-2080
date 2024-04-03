@@ -154,7 +154,7 @@ const RotationList = () => {
                 <button
                     className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-14 right-10 mt-10 mr-24"
                 >
-                    Add
+                    Add New Rotation Record <span aria-hidden="true">&rarr;</span>
                 </button>
             </Link>
 

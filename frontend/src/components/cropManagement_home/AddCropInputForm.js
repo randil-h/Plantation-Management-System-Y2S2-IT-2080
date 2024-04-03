@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate, useParams } from 'react-router-dom';
+import {enqueueSnackbar, useSnackbar} from "notistack";
 
 export default function AddCropInputForm() {
+    const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
     const [formData, setFormData] = useState({
         date: "",
         type: "",
@@ -109,8 +113,11 @@ export default function AddCropInputForm() {
                 unitCost: "",
                 remarks: ""
             });
+            enqueueSnackbar('Record Added successfully', { variant: 'success' });
+            navigate('/crop/input/view');
         } catch (error) {
             console.log(error.message);
+            enqueueSnackbar('Error', { variant: 'error' });
         }
     };
 
