@@ -42,7 +42,7 @@ import Inventory from "./pages/inventory_pages/Inventory";
 import Water from "./pages/inventory_pages/Water/Water";
 import InventoryRecordList from "./pages/inventory_pages/Inventory_records/InventoryRecordListpage";
 import AddInventoryRecordsPage from "./pages/inventory_pages/Inventory_records/AddInventoryRecordsPage";
-import EditInventoryPage from "./components/Inventory/Inventory_records/EditInventoryRecords";
+import EditInventoryPage from"./pages/inventory_pages/Inventory_records/EditInventoryPage";
 import ViewOneRecord from "./pages/inventory_pages/Inventory_records/ViewOneRecord";
 
 import DiseaseTracking from "./pages/diseaseTracking_pages/DiseaseTracking";
