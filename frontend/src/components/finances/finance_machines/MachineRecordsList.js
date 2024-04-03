@@ -261,9 +261,7 @@ export default function MachineRecordsList() {
                             </div>*/}
 
 
-                        </div>
                     </div>
-
                 </div>
                 <div>
                     <a
@@ -274,6 +272,8 @@ export default function MachineRecordsList() {
                     </a>
                 </div>
             </div>
+
+        </div>
 
 
             <div id="print-area">
