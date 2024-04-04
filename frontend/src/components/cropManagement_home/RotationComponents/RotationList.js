@@ -196,6 +196,12 @@ const RotationList = () => {
                             <td className="px-6 py-4">{record.remarks}</td>
                             <td className="px-6 py-4">
                                 <div className="flex justify-between">
+                                        <Link to={`/crop/rotation/record/${record._id}`}
+                                              className="font-medium text-blue-600  hover:underline">
+                                            <InformationCircleIcon
+                                                className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                                aria-hidden="true"/>
+                                        </Link>
                                     <Link to={`/crop/rotation/update/${record._id}`}>
                                         <PencilSquareIcon
                                             className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
