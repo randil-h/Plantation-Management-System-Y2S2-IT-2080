@@ -181,7 +181,7 @@ export default function App() {
                     <Route path = "/crop/input/chemical/record/:id" element = {<ViewChemicalRecord/>}/>
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
-                    <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
+                    <Route path="/WholeSale/transactions/:id" element={<WholeSaleTransaction />}/>
                     <Route path="/WholeSale/orders" element={MyOrders()}/>
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="OperationManager/AddingProduct" element={AddingProduct()}/>
