@@ -20,8 +20,8 @@ const AddEqMain = () => {
                 variant: 'error',
                 autoHideDuration: 6000,
                 anchorOrigin: {
-                    vertical: 'top', // Display the snackbar at the top
-                    horizontal: 'center', // Align the snackbar at the center horizontally
+                    vertical: 'bottom',
+                    horizontal: 'left',
                 },
             });
             return;
@@ -41,8 +41,8 @@ const AddEqMain = () => {
                 variant: 'success',
                 autoHideDuration: 6000,
                 anchorOrigin: {
-                    vertical: 'top', // Display the snackbar at the top
-                    horizontal: 'center', // Align the snackbar at the center horizontally
+                    vertical: 'bottom',
+                    horizontal: 'left',
                 },
             });
             navigate('/inventory/maintenancelog', { state: { highlighted: true } });

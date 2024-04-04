@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaTrash } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import {TrashIcon} from "@heroicons/react/24/outline";
 function PercentageRuler() {
     return (
         <div className="percentage-ruler absolute h-full top-0 left-0 flex flex-col justify-between items-center">
@@ -228,36 +228,46 @@ function WaterTank() {
                     </div>
                     <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Submit</button>
                 </form>
-                <table className="border-collapse border border-gray-400 mt-10 ">
-                    <thead>
+                <table className="border-collapse border border-gray-400 mt-10">
+                    <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
                     <tr>
-                        <th className="border border-gray-400 px-4 py-2">No</th>
-                        <th className="border border-gray-400 px-4 py-2">Water Level 1</th>
-                        <th className="border border-gray-400 px-4 py-2">Water Level 2</th>
-                        <th className="border border-gray-400 px-4 py-2">Date</th>
-                        <th className="border border-gray-400 px-4 py-2">Description</th>
-                        <th className="border border-gray-400 px-4 py-2">Action</th>
+                        <th></th>
+                        <th scope="col" className="px-6 py-3 border-r">No</th>
+                        <th scope="col" className="px-6 py-3 border-r">Water Level 1</th>
+                        <th scope="col" className="px-6 py-3 border-r">Water Level 2</th>
+                        <th scope="col" className="px-6 py-3 border-r">Date</th>
+                        <th scope="col" className="px-6 py-3 border-r">Description</th>
+                        <th scope="col" className="px-6 py-3">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     {waterRecords.map((record, index) => (
-                        <tr key={index} className="border border-gray-400">
-                            <td className="py-2 px-4 border border-gray-400">{index + 1}</td>
-                            <td className="border border-gray-400 px-4 py-2">{record.water_level1}</td>
-                            <td className="border border-gray-400 px-4 py-2">{record.water_level2}</td>
-                            <td className="py-2 px-4 border border-gray-400">{record.water_date.split("T")[0]}</td>
-                            <td className="border border-gray-400 px-4 py-2">{record.water_des}</td>
-                            <th className="border border-gray-400 px-4 py-2">
-                                <div className="flex">
-                                    <button
-                                        className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 cursor-pointer border-none flex items-center"
-                                        onClick={() => handleDelete(record._id)}>
-                                        <FaTrash className="mr-1"/>
-                                        <span>Delete</span>
-                                    </button>
-                                </div>
-                            </th>
-                        </tr>
+                        <React.Fragment key={index}>
+                            <tr>
+                                <td></td>
+                                <td className="px-6 py-4 border-r">{index + 1}</td>
+                                <td className="px-6 py-4 border-r">{record.water_level1}</td>
+                                <td className="px-6 py-4 border-r">{record.water_level2}</td>
+                                <td className="px-6 py-4 border-r whitespace-nowrap">{record.water_date.split("T")[0]}</td>
+                                <td className="px-6 py-4 border-r">{record.water_des}</td>
+                                <td className="px-6 py-4">
+                                    <div className="flex">
+                                        <button
+                                            className="flex items-center"
+                                            onClick={() => handleDelete(record._id)}>
+                                            <TrashIcon
+                                                className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                                aria-hidden="true"/>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {index !== waterRecords.length - 1 && (
+                                <tr>
+                                    <td colSpan="7" className="border-b border-gray-400"></td>
+                                </tr>
+                            )}
+                        </React.Fragment>
                     ))}
                     </tbody>
                 </table>
@@ -265,4 +275,5 @@ function WaterTank() {
         </div>
     );
 }
+
 export default WaterTank;

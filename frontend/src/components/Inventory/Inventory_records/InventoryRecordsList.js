@@ -4,8 +4,11 @@ import axios from 'axios';
 import { InformationCircleIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
+import { GoAlert } from "react-icons/go";
+import { useSnackbar } from 'notistack'; // Import useSnackbar hook
 
 const InventoryRecordList = () => {
+    const { enqueueSnackbar } = useSnackbar(); // Destructure enqueueSnackbar from useSnackbar hook
     const [inventoryInputs, setInventoryInputs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -39,10 +42,25 @@ const InventoryRecordList = () => {
             .then(() => {
                 setInventoryInputs((prevInputs) => prevInputs.filter((input) => input._id !== recordId));
                 setShowConfirmation(false);
+                enqueueSnackbar('Record Deleted Successfully!', {
+                    variant: 'success',
+                    autoHideDuration: 6000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    },
+                });
             })
             .catch((error) => {
                 console.log(error);
-                // Handle error if necessary
+                enqueueSnackbar('Error deleting record. Please try again later.', {
+                    variant: 'error',
+                    autoHideDuration: 6000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    },
+                });
             });
     };
 
@@ -257,18 +275,20 @@ const InventoryRecordList = () => {
                                 <div className="bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative shadow-lg">
                                     <div className="md:flex items-center">
                                         <div className="rounded-full border border-gray-300 flex items-center justify-center w-16 h-16 flex-shrink-0 mx-auto">
-                                            <i className="bx bx-error text-3xl">&#9888;</i>
+                                            <GoAlert className="w-10 h-10" />
                                         </div>
                                         <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
-                                            <p className="font-bold">Warning!</p>
-                                            <p className="text-sm text-gray-700 mt-1">You will lose all of your data by deleting this. This action cannot be undone.</p>
+                                            <p className="font-bold">Confirm Deletion</p>
+                                            <p className="text-sm text-gray-700 mt-1">Are you sure you want to delete this record?</p>
                                         </div>
                                     </div>
                                     <div className="text-center md:text-right mt-4 md:flex md:justify-end">
-                                        <button id="confirm-delete-btn" className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2" onClick={handleConfirmDelete}>
-                                            Delete
+                                        <button onClick={handleConfirmDelete}
+                                                className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-red-200 hover:bg-red-600 hover:text-white text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2">
+                                            Confirm
                                         </button>
-                                        <button id="confirm-cancel-btn" className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-gray-200 rounded-lg font-semibold text-sm mt-4 md:mt-0 md:order-1" onClick={handleCancelDelete}>
+                                        <button onClick={handleCancelDelete}
+                                                className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-gray-200 hover:bg-black hover:text-white rounded-lg font-semibold text-sm mt-4 md:mt-0 md:order-1">
                                             Cancel
                                         </button>
                                     </div>
