@@ -98,17 +98,26 @@ export default function DiseaseHomeContent(){
 
     return(
         <div className=" overflow-x-auto  ">
-            <div className="flex flex-row justify-between items-center px-8 py-4">
+            <div className="flex flex-row justify-between items-center px-8 py-4 text-center">
                 <div className="w-full">
-                    <h1 className=" text-lg font-semibold text-left">
+                    <h1 className=" text-2xl font-bold">
                         DISEASE MANAGEMENT
                     </h1>
-                    <p className=" mt-1 text-sm font-normal text-gray-500">
-                        Welcome to disease management....
+                    <p className=" mt-1 text-base font-normal text-gray-500">
+                        Hop on Aboard to the Disease Management Center!!<br/>
+                        Prioritize the health of your plants by monitoring them effectively.<br/>
+                        Explore insights, track disease trends and make your decision making more precise....
                     </p>
+                    {/*<div className="ml-6 items-center justify-between flex flex-col text-center font-medium text-lg mt-2 bg-green-300 rounded-lg shadow-lg hover:bg-green-400">
+                        <div className= "mt-3 mb-3">
+                            Hop on Aboard to the Disease Management Center!!<br/>
+                            Prioritize the health of your plants by monitoring them effectively.<br/>
+                            Explore insights, track disease trends and make your decision making more precise....
+                        </div>
+                    </div>*/}
                     <div className=" justify-between grid-cols-1 ml-6 w-full mt-8 flex flex-wrap items-center md:grid-cols-3">
                         <div
-                            className=" py-4 items-center justify-center rounded-lg flex-col flex-1 flex shadow-lg bg-green-300 max-w-2xl w-full mb-4 mr-4 hover:bg-green-400">
+                            className=" py-4 items-center justify-center rounded-lg flex-col flex-1 flex shadow-lg bg-lime-300 max-w-2xl w-full mb-4 mr-4 hover:bg-lime-400">
                             <div className= "mt-2 mb-3">
                                 <FaSunPlantWilt className="h-10 w-10 mx-auto"/>
                             </div>
@@ -120,7 +129,7 @@ export default function DiseaseHomeContent(){
                             </div>
                         </div>
                         <div
-                            className=" py-4 flex-col items-center justify-center rounded-lg flex-1 flex shadow-lg bg-green-300 w-full mb-4 mr-4 hover:bg-green-400">
+                            className=" py-4 flex-col items-center justify-center rounded-lg flex-1 flex shadow-lg bg-lime-300 w-full mb-4 mr-4 hover:bg-lime-400">
                             <div className=" mt-2 mb-3">
                                 <GiHealingShield className="h-10 w-10 mx-auto"/>
                             </div>
@@ -132,7 +141,7 @@ export default function DiseaseHomeContent(){
                             </div>
                         </div>
                         <div
-                            className=" py-4 flex-col items-center justify-center  rounded-lg flex-1 flex shadow-lg bg-green-300 w-full mb-4 mr-4 hover:bg-green-400">
+                            className=" py-4 flex-col items-center justify-center  rounded-lg flex-1 flex shadow-lg bg-lime-300 w-full mb-4 mr-4 hover:bg-lime-400">
                             <div className= " mt-2 mb-3">
                                 <GiMedicines className="h-10 w-10 mx-auto"/>
                             </div>
@@ -146,7 +155,7 @@ export default function DiseaseHomeContent(){
                     </div>
                     <div className=" justify-between ml-6 w-full mt-3 flex flex-wrap items-center">
                         <div
-                            className=" py-4 items-center justify-center  rounded-lg flex-1 flex-col  flex shadow-lg bg-green-300 max-w-2xl w-full mb-4 mr-4 hover:bg-green-400">
+                            className=" py-4 items-center justify-center  rounded-lg flex-1 flex-col  flex shadow-lg bg-lime-300 max-w-2xl w-full mb-4 mr-4 hover:bg-lime-400">
                             <div className="mt-2 mb-3">
                                 <GiField className="h-10 w-10 mx-auto"/>
                             </div>
@@ -166,12 +175,12 @@ export default function DiseaseHomeContent(){
                             </div>*/}
                         </div>
                         <div
-                            className=" py-4 items-center justify-center rounded-lg flex-1 flex flex-col shadow-lg bg-green-300 max-w-2xl w-full mb-4 mr-4 hover:bg-green-400">
+                            className=" py-4 items-center justify-center rounded-lg flex-1 flex flex-col shadow-lg bg-lime-300 max-w-2xl w-full mb-4 mr-4 hover:bg-lime-400">
                             <div className="mt-2 mb-3">
                                 <FaDisease className="h-10 w-10 mx-auto"/>
                             </div>
                             <div className=" text-center text-lg font-bold ">
-                                Most Trending Disease
+                                Most Trending Disease/s
                             </div>
                             <div className=" text-center text-base font-medium mt-2">
                                 {trendingDisease.map((disease_name, index) => (
@@ -186,12 +195,12 @@ export default function DiseaseHomeContent(){
                             </div>*/}
                         </div>
                         <div
-                            className=" py-4 items-center justify-center rounded-lg flex-1 flex flex-col shadow-lg bg-green-300 max-w-2xl w-full mb-4 mr-4 hover:bg-green-400">
+                            className=" py-4 items-center justify-center rounded-lg flex-1 flex flex-col shadow-lg bg-lime-300 max-w-2xl w-full mb-4 mr-4 hover:bg-lime-400">
                             <div className=" mt-2 mb-3">
                                 <GiFruitTree className="h-10 w-10 mx-auto"/>
                             </div>
                             <div className=" text-center text-lg font-bold ">
-                                Most Vulnerable Crop
+                                Most Vulnerable Crop/s
                             </div>
                             <div className=" text-center text-base font-medium mt-2">
                                 {mostVulnerableCrop.map((crop, index) => (

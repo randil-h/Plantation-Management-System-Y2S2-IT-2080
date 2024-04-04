@@ -69,7 +69,7 @@ export default function DiseaseList() {
         <div className=" overflow-x-auto  ">
             <div className="flex flex-row justify-between items-center px-8 py-4">
                 <div>
-                    <h1 className=" text-lg font-semibold text-left">Disease Records</h1>
+                    <h1 className=" text-lg font-semibold text-left">DISEASE RECORDS</h1>
                     <div className=" py-4 relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <MagnifyingGlassIcon className="text-gray-500 h-4 w-4"/>
@@ -93,10 +93,10 @@ export default function DiseaseList() {
                     </a>
                     &nbsp;
 
-                    {/*<a href="/diseases/records/generateReport"
-                       className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                    <a href="/diseases/records/generateReport"
+                       className=" ml-3 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                         Generate Report
-                    </a>*/}
+                    </a>
 
                 </div>
 

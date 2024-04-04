@@ -33,6 +33,8 @@ export default function GenerateGraphs() {
     }, [DiseaseRecords]);
 
     const renderBarChart = () => {
+        if (!chartContainer.current) return;
+
         const typesOfDiseases = new Map();
 
         DiseaseRecords.forEach((record) => {
@@ -141,6 +143,9 @@ export default function GenerateGraphs() {
     };
 
     const renderCropBarChart = () => {
+
+        if (!cropBarChartContainer.current) return;
+
         const typesOfCrops = new Map();
 
         DiseaseRecords.forEach((record) => {
@@ -247,6 +252,9 @@ export default function GenerateGraphs() {
     };
 
     const renderLineChart = () => {
+
+        if (!lineChartContainer.current) return;
+
         if (DiseaseRecords.length === 0) {
             return;
         }
@@ -383,30 +391,38 @@ export default function GenerateGraphs() {
                     </p>
                 </div>
             </div>
-            <div className="mx-auto px-8  w-fit border-2 rounded-xl border-green-400">
-                <h1 className=" mt-4 text-lg font-bold text-left flex justify-center items-center">
-                    Disease V Records
-                </h1>
-                <div className="  py-4 ">
-                    <svg ref={chartContainer} width="800" height="400"></svg>
+            {DiseaseRecords.length === 0 ? (
+                <div className=" text-base font-semibold text-left px-8">
+                    There is no data available to generate graphs.. <a href="/diseases/records/addDisease" className=" text-lime-400"> Click here</a>
                 </div>
-            </div>
-            <div className="mx-auto px-8 w-fit py-4 border-2 mt-6 rounded-xl border-green-400">
-                <h1 className="  text-lg font-bold text-left flex justify-center items-center">
-                    Number of Diseased Plants V Time
-                </h1>
-                <div className=" w-2/3 h-1/4  py-4 ">
-                    <svg ref={lineChartContainer} width="800" height="400"></svg>
-                </div>
-            </div>
-            <div className=" w-fit mx-auto px-8 py-4 border-2 mt-6 rounded-xl border-green-400">
-                <h1 className=" mb-2 text-lg font-bold text-left flex justify-center items-center">
-                    Amount of Diseased Plants V Crop Type
-                </h1>
-                <div className=" w-2/3 h-1/4 py-4 ">
-                    <svg ref={cropBarChartContainer} width="800" height="300" ></svg>
-                </div>
-            </div>
+            ) : (
+                <>
+                    <div className="mx-auto px-8  w-fit border-2 rounded-xl border-green-400">
+                        <h1 className=" mt-4 text-lg font-bold text-left flex justify-center items-center">
+                            Disease V Records
+                        </h1>
+                        <div className="  py-4 ">
+                            <svg ref={chartContainer} width="800" height="400"></svg>
+                        </div>
+                    </div>
+                    <div className="mx-auto px-8 w-fit py-4 border-2 mt-6 rounded-xl border-green-400">
+                        <h1 className="  text-lg font-bold text-left flex justify-center items-center">
+                            Number of Diseased Plants V Time
+                        </h1>
+                        <div className=" w-2/3 h-1/4  py-4 ">
+                            <svg ref={lineChartContainer} width="800" height="400"></svg>
+                        </div>
+                    </div>
+                    <div className=" w-fit mx-auto px-8 py-4 border-2 mt-6 rounded-xl border-green-400">
+                        <h1 className=" mb-2 text-lg font-bold text-left flex justify-center items-center">
+                            Amount of Diseased Plants V Crop Type
+                        </h1>
+                        <div className=" w-2/3 h-1/4 py-4 ">
+                            <svg ref={cropBarChartContainer} width="800" height="300"></svg>
+                        </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 }
