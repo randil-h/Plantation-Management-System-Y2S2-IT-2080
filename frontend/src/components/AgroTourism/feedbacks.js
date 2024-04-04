@@ -9,29 +9,38 @@ export default function Feedback() {
             <div className="p-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {/* Customer 1 Feedback */}
-                    <div className="bg-gray-200 p-4 mb-6 rounded-xl">
+                    <div className="bg-white border border-gray-600 p-4 mb-6 rounded-xl">
                         <p className="text-xl font-semibold mb-2">Anna</p>
                         <p>Great experience! Would highly recommend.</p>
                         <div><br/></div>
                         <div className="flex">
-                            <FaStar/> <FaStar/> <FaStar/> <FaStar/>
+                            <FaStar className="text-yellow-500"/>
+                            <FaStar className="text-yellow-500"/>
+                            <FaStar className="text-yellow-500"/>
+                            <FaStar className="text-yellow-500"/>
                         </div>
                     </div>
 
                     {/* Customer 2 Feedback */}
-                    <div className="bg-gray-200 p-4 mb-6 rounded-xl">
+                    <div className="bg-white border border-gray-600 p-4 mb-6 rounded-xl">
                         <p className="text-xl font-semibold mb-2">Eric</p>
                         <p>Good service. Enjoyed the visit.</p>
                         <div><br/></div>
                         <div className="flex">
-                            <FaStar/> <FaStar/> <FaStar/>
+                            <FaStar className="text-yellow-500"/>
+                            <FaStar className="text-yellow-500"/>
+                            <FaStar className="text-yellow-500"/>
                         </div>
                     </div>
-                    <div className="bg-gray-200 p-4 mb-6 rounded-xl">
+                    <div className="bg-white border border-gray-600 p-4 mb-6 rounded-xl">
                         <p className="text-xl font-semibold mb-2">James</p>
                         <p>It was a pleasant visit and amazing experience. I would totally recommend this to others.</p>
                         <div className="flex">
-                            <FaStar/> <FaStar/> <FaStar/><FaStar/><FaStar/>
+                            <FaStar className="text-yellow-500"/>
+                            <FaStar className="text-yellow-500"/>
+                            <FaStar className="text-yellow-500"/>
+                            <FaStar className="text-yellow-500"/>
+                            <FaStar className="text-yellow-500"/>
                         </div>
                     </div>
                 </div>

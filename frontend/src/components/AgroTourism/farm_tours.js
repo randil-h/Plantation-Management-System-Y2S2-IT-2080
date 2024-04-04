@@ -47,7 +47,7 @@ export default function FarmTour() {
                 <p className="text-lg mb-4">
                     Ready for a memorable farm experience? Book your tour now!
                 </p>
-                <button className="bg-black text-white px-4 py-2 rounded-xl mt-2 hover:bg-emerald-700">
+                <button className="bg-black text-white px-3 py-2 rounded-full hover:bg-emerald-700 focus:outline-none mr-2">
                     <Link to="/booking" className="text-white">
                         Book now
                     </Link>
