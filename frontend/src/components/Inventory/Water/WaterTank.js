@@ -50,12 +50,43 @@ function WaterTank() {
                 setWater_level2('');
                 setWater_date('');
                 setWater_des('');
+
+                // Calculate total percentage of water based on the latest record
+                const latestRecord = response.data;
+                const totalPercentage = ((latestRecord.water_level1 + latestRecord.water_level2) / (tank1Capacity + tank2Capacity)) * 100;
+
+                // Calculate the rate of decrease in water level per day
+                const decreaseRatePerDay = calculateDecreaseRate(latestRecord, waterRecords[waterRecords.length - 1]);
+
+                // Calculate the estimated number of days until water becomes 0%
+                const daysToEmpty = calculateDaysToEmpty(decreaseRatePerDay);
+
+                // Display the result
+                if (isFinite(daysToEmpty)) {
+                    enqueueSnackbar(`Water will be empty in approximately ${Math.ceil(daysToEmpty)} days.`, { variant: 'info' });
+                    enqueueSnackbar(`Water Percentage is ${totalPercentage.toFixed(2)}%`, { variant: 'info' });
+                }
             })
             .catch((error) => {
                 enqueueSnackbar('Error', { variant: 'error' });
                 console.log(error);
             });
     };
+
+    useEffect(() => {
+        // Display the result when waterRecords state changes
+        if (waterRecords.length > 0) {
+            const latestRecord = waterRecords[waterRecords.length - 1];
+            const totalPercentage = ((latestRecord.water_level1 + latestRecord.water_level2) / (tank1Capacity + tank2Capacity)) * 100;
+            const decreaseRatePerDay = calculateDecreaseRate(latestRecord, waterRecords[waterRecords.length - 2]);
+            const daysToEmpty = calculateDaysToEmpty(decreaseRatePerDay);
+
+            if (isFinite(daysToEmpty)) {
+                enqueueSnackbar(`Water will be empty in approximately ${Math.ceil(daysToEmpty)} days.`, { variant: 'info' });
+                enqueueSnackbar(`Water Percentage is ${totalPercentage.toFixed(2)}%`, { variant: 'info' });
+            }
+        }
+    }, [waterRecords]);
 
     useEffect(() => {
         setLoading(true);
@@ -127,12 +158,6 @@ function WaterTank() {
         const prevRecord = waterRecords[waterRecords.length - 2];
         decreaseRatePerDay = calculateDecreaseRate(latestRecord, prevRecord);
         daysToEmpty = calculateDaysToEmpty(decreaseRatePerDay);
-    }
-
-    // Display the result
-    if (isFinite(daysToEmpty)) {
-        enqueueSnackbar(`Water will be empty in approximately ${Math.ceil(daysToEmpty)} days.`, { variant: 'info' });
-        enqueueSnackbar(`Water Percentage is ${totalPercentage.toFixed(2)}%`, { variant: 'info' });
     }
 
     return (
