@@ -130,7 +130,7 @@ export default function HarvestList() {
                         <th></th>
                         <th scope="col" className="px-6 py-3">Date</th>
                         <th scope="col" className="px-6 py-3">Crop Type</th>
-                        <th scope="col" className="px-6 py-3">Age of Yield (months)</th>
+                        <th scope="col" className="px-6 py-3">Age of Yield (days)</th>
                         <th scope="col" className="px-6 py-3">Way Picked</th>
                         <th scope="col" className="px-6 py-3">Quantity (kg)</th>
                         <th scope="col" className="px-6 py-3">Trees Picked</th>
@@ -144,7 +144,7 @@ export default function HarvestList() {
                     {(filteredRecords.length > 0 ? filteredRecords : harvestRecords).map((record, index) => (
                         <tr key={index}
                             className={`divide-y ${
-                                    record.cropType === 'coconut' ? 'bg-yellow-100' : record.cropType === 'guava' ? 'bg-blue-100' : record.cropType === 'papaya' ? 'bg-green-100' : 'border-l-4 border-yellow-900'}`}
+                                    record.cropType === 'coconut' ? 'bg-yellow-100' : record.cropType === 'guava' ? 'bg-blue-100' : record.cropType === 'papaya' ? 'bg-green-100' : 'border-l-4 border-black-900'}`}
                         >
                             <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{new Date(record.date).toLocaleDateString()}</td>

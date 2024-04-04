@@ -93,7 +93,7 @@ export default function AddRecord() {
                         </select>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-sm font-semibold mb-1">Age of the Yield (months):</label>
+                        <label className="block text-sm font-semibold mb-1">Age of the Yield (days):</label>
                         <input
                             type="text"
                             value={ageOfYield}

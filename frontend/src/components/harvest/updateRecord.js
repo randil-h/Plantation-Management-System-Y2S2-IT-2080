@@ -95,7 +95,7 @@ const EditHarvest = () => {
                     </div>
                     <div>
                         <label htmlFor="ageOfYield" className="block text-sm font-medium text-gray-900">Age of the Yield
-                            (months)</label>
+                            (days)</label>
                         <input
                             type="text"
                             name="ageOfYield"
