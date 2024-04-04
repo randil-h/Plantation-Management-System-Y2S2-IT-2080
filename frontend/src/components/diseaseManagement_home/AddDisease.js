@@ -19,13 +19,13 @@ export default function AddDisease() {
         setName(selectedDisease); // Update diseaseName state
         // Set treatment based on selected disease
         if (selectedDisease === "Anthracnose") {
-            setTreatment("Daconil Chlorothalonil");
+            setTreatment("Daconil Chlorothalonil (500g/l)");
         } else if (selectedDisease === "Leaf Curling disease") {
-            setTreatment("Mitsu Abamectin");
+            setTreatment("Mitsu Abamectin (18g/l)");
         } else if (selectedDisease === "Fungal Disease") {
             setTreatment("Oasis Thiram");
         } else if (selectedDisease === "Plesispa") {
-            setTreatment("Marshal 20 SC");
+            setTreatment("Marshal 20 SC (200g/l)");
         } else {
             setTreatment(""); // Reset treatment if disease changes
         }
