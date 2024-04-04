@@ -19,7 +19,6 @@ export default function InventoryRecordList() {
                 <Navbar/>
             </div>
             <div className="">
-                {/* Fixed Sidebar */}
                 <div className="grid sm:grid-cols-6 ">
                     <div className="col-span-1 sticky left-0 top-0">
                         <SideBar/>

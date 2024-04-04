@@ -44,6 +44,7 @@ import InventoryRecordList from "./pages/inventory_pages/Inventory_records/Inven
 import AddInventoryRecordsPage from "./pages/inventory_pages/Inventory_records/AddInventoryRecordsPage";
 import EditInventoryPage from"./pages/inventory_pages/Inventory_records/EditInventoryPage";
 import ViewOneRecord from "./pages/inventory_pages/Inventory_records/ViewOneRecord";
+import ViewOneMain from "./pages/inventory_pages/Eq and Machines/ViewOneMain";
 
 import DiseaseTracking from "./pages/diseaseTracking_pages/DiseaseTracking";
 import ViewAllDiseases from "./pages/diseaseTracking_pages/records/ViewAllDiseases";
@@ -194,6 +195,7 @@ export default function App() {
                     <Route path= "/inventory/maintenancelog" element={MaintenanceLog()}/>
                     <Route path="/inventory/maintenancelog/addeqmainpage" element={(AddEqMainPage())}/>
                     <Route path="/inventory/maintenancelog/editeqmainpage/:id" element={<EditEqMainPage />} />
+                    <Route path ="/inventory/maintenancelog/viewmain/:id" element={<ViewOneMain/>}/>
                     <Route path= "/inventory/water" element={Water()}/>
                     <Route path= "/inventory/inventoryrecords" element={InventoryRecordList()}/>
                     <Route path= "/inventory/inventoryrecords/addinventoryrecordspage" element={(AddInventoryRecordsPage())}/>

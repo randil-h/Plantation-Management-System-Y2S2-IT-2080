@@ -47,12 +47,18 @@ const InHome = () => {
         <div className="bg-white py-24 sm:py-32 mt-[-96px]">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl lg:max-w-none">
-                    <div className="text-center">
-                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Welcome to Inventory</h2>
-
+                    <div className="w-full">
+                        <h1 className=" text-xl font-semibold text-left">
+                            INVENTORY MANAGEMENT
+                        </h1>
+                        <p className=" mt-1 text-lg font-normal text-gray-500">
+                            Welcome to inventory management....
+                        </p>
                     </div>
-                    <div className="mt-16 grid grid-cols-1 gap-5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
-                        <div className="flex flex-col bg-green-300 p-8 rounded-lg transition duration-300 ease-in-out hover:bg-green-400 hover:shadow-md">
+                    <div
+                        className="mt-16 grid grid-cols-1 gap-5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
+                        <div
+                            className="flex flex-col bg-green-300 p-8 rounded-lg transition duration-300 ease-in-out hover:bg-green-400 hover:shadow-md">
                             <div className="flex items-center justify-center">
                                 <IoIosLeaf className="text-5xl text-black mr-4"/>
                                 <dt className="text-xl font-semibold leading-6 text-black">Plants</dt>

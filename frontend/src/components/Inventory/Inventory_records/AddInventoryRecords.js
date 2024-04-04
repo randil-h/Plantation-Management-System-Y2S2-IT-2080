@@ -282,15 +282,25 @@ export default function AddInventoryRecords() {
                                             Chemical Name
                                         </label>
                                         <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="record_name"
+                                            <select
                                                 name="record_name"
-                                                onChange={handleChange}
                                                 value={formData.record_name}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                                onChange={handleChange}
+                                                id="record_name"
+                                                autoComplete="record_name"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                <option>Select</option>
+                                                <option>Booster K 45%</option>
+                                                <option>Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide
+                                                </option>
+                                                <option>Marshal 20 SC (carbosulfan 200g/l SC) insecticide</option>
+                                                <option>Mitsu Abamectin (abamectin 18g/l EC) insecticide</option>
+                                                <option>Alberts solution</option>
+                                                <option>Crop Master solution</option>
+                                                <option>Oasis Thiram (thiuram disulfide) fungicide</option>
+                                                <option>Glyphosate weedicide</option>
+                                                <option>Rootone</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1">
@@ -485,15 +495,20 @@ export default function AddInventoryRecords() {
                                             Fertilizer Name
                                         </label>
                                         <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="record_name"
+                                            <select
                                                 name="record_name"
-                                                onChange={handleChange}
                                                 value={formData.record_name}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                                onChange={handleChange}
+                                                id="record_name"
+                                                autoComplete="record_name"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                <option>Select</option>
+                                                <option>Urea 50kg packets</option>
+                                                <option>Dolomite 50kg</option>
+                                                <option>Muriate of potash 50kg</option>
+                                                <option>Papaya fertilizer</option>
+                                                <option>Guava fertilizer</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1">

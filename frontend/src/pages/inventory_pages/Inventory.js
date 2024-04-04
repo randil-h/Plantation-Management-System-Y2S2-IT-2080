@@ -12,6 +12,7 @@ export default function Equipment() {
 
     const breadcrumbItems = [
         { name: 'Inventory', href: '/inventory/home' },
+        { name: 'Inventory Records', href: '/inventory/inventoryrecords' },
     ];
 
     return (
@@ -21,7 +22,6 @@ export default function Equipment() {
                 <Navbar/>
             </div>
             <div className="">
-                {/* Fixed Sidebar */}
                 <div className="grid sm:grid-cols-6 ">
                     <div className="col-span-1 sticky left-0 top-0">
                         <SideBar/>
@@ -35,7 +35,6 @@ export default function Equipment() {
                         </div>
                         <InHome/>
                     </div>
-
                 </div>
             </div>
         </div>
