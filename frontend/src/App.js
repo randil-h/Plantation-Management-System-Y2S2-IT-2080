@@ -36,6 +36,7 @@ import ViewCropInputPage from "./pages/crop_pages/Crop Input/ViewCropInputPage";
 import UpdateCropInputPage from "./pages/crop_pages/Crop Input/UpdateCropInputPage";
 import ViewPlantingRecord from "./pages/crop_pages/Crop Input/ViewPlantingRecord";
 import ViewRotationRecord from "./pages/crop_pages/Rotation Management/ViewRotationRecord";
+import ViewChemicalRecord from "./pages/crop_pages/Crop Input/ViewChemicalRecord";
 
 import MaintenanceLog from "./pages/inventory_pages/Eq and Machines/MaintenanceLog"
 import AddEqMainPage from "./pages/inventory_pages/Eq and Machines/AddEqMainPage";
@@ -173,6 +174,7 @@ export default function App() {
                     <Route path = "/crop/input/update/:id" element = {UpdateCropInputPage()}/>
                     <Route path ="/crop/rotation/record/:id" element={<ViewRotationRecord/>}/>
                     <Route path = "/crop/input/planting/record/:id" element = {<ViewPlantingRecord/>}/>
+                    <Route path = "/crop/input/chemical/record/:id" element = {<ViewChemicalRecord/>}/>
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
