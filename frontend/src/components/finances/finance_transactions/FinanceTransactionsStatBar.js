@@ -225,7 +225,8 @@ export default function FinanceTransactionsStatBar() {
                                 value is increased compared to the previous<br/>
                                 week's value.</p>
                         </div>
-                    } title={<div className="text-base text-gray-500">Statistics Bar
+                    } title={
+                        <div className="text-base text-gray-500 flex flex-row gap-2"><InformationCircleIcon className="w-6 h-6 stroke-gray-500"/>Statistics Bar
                     </div>}>
                         <div className="pr-8">
                             <InformationCircleIcon className="w-6 h-6 stroke-gray-500"/>

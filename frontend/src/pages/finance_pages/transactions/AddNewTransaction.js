@@ -11,7 +11,7 @@ import BackButton from '../../../components/utility/BackButton';
 function AddNewTransaction() {
     const [date, setDate] = useState('');
     const [type, setType] = useState('income');
-    const [subtype, setSubType] = useState('Crop Selling');
+    const [subtype, setSubType] = useState('Papaya');
     const [amount, setAmount] = useState('');
     const [description, setDescription] = useState('');
     const [payerPayee, setPayerPayee] = useState('');
@@ -79,7 +79,7 @@ function AddNewTransaction() {
                             </div>
 
                             <form className=" flex-col flex items-center justify-center">
-                                <div className="space-y-12 px-0 py-16 w-8/12 ">
+                                <div className="space-y-8 px-0 py-2 w-8/12 ">
                                     <div className="border-b border-gray-900/10 pb-12">
                                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                             <fieldset className="sm:col-span-4 gap-y-8">
