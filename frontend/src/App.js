@@ -86,6 +86,7 @@ import FruitVegPicking from "./pages/tourism_pages/FruitVegPicking";
 import FarmChore from "./pages/tourism_pages/FarmChore";
 import EditBookingPg from "./pages/tourism_pages/EditBooking";
 import FeedbackDisplay from "./pages/tourism_pages/ViewFeedback";
+import FeedbackDashPg from "./pages/tourism_pages/FeedbackDashPg";
 
 import ViewEmpDetails from "./pages/employee_pages/emp_registation/ViewEmpDetails";
 import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
@@ -160,6 +161,7 @@ export default function App() {
                     <Route path="/farmchore" element={FarmChore()}/>
                     <Route path="/booking/edit/:id" element={EditBookingPg()} />
                     <Route path="/feedbacklist" element={FeedbackDisplay()}/>
+                    <Route path="/feedbackdash" element={FeedbackDashPg()}/>
 
                     <Route path = "/crop/home" element={CropManagement()}/>
                     <Route path = "/crop/rotation" element={CropRotation()}/>

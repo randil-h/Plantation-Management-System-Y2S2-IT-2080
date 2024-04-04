@@ -65,7 +65,7 @@ const FeedbackList = () => {
                     />
                     <FaSearch className="absolute left-3 top-2 text-gray-400"/>
                 </div>
-                <Link to="/dashboard">
+                <Link to="/feedbackdash">
                     <button
                         className="bg-blue-800 text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none ml-2"
                     >
