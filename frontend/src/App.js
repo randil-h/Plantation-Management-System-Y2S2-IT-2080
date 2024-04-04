@@ -170,7 +170,7 @@ export default function App() {
                     <Route path = "/crop/input/update/:id" element = {UpdateCropInputPage()}/>
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
-                    <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
+                    <Route path="/WholeSale/transactions/:id" element={<WholeSaleTransaction />}/>
                     <Route path="/WholeSale/orders" element={MyOrders()}/>
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="OperationManager/AddingProduct" element={AddingProduct()}/>
