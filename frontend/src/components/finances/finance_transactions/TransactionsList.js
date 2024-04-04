@@ -156,10 +156,11 @@ export default function TransactionsList() {
         // Display selected date range
         doc.text(`Date Range: ${dateRange}`, 10, 20);
 
-        const headers = [['Date', 'Type', 'Amount', 'Description', 'Payer/Payee', 'Payment Method']];
+        const headers = [['Date', 'Type','Sub Type', 'Amount', 'Description', 'Payer/Payee', 'Payment Method']];
         const data = filteredTransactions.map(transaction => [
             transaction.date,
             transaction.type,
+            transaction.subtype,
             transaction.amount,
             transaction.description,
             transaction.payer_payee,
@@ -337,6 +338,9 @@ export default function TransactionsList() {
                             Type
                         </th>
                         <th scope="col" className="px-6 py-3">
+                            Sub Type
+                        </th>
+                        <th scope="col" className="px-6 py-3">
                             Amount
                         </th>
                         <th scope="col" className="px-6 py-3">
@@ -369,6 +373,7 @@ export default function TransactionsList() {
                             <td></td>
                             <td className="px-6 py-4">{record.date}</td>
                             <td className="px-6 py-4">{record.type}</td>
+                            <td className="px-6 py-4">{record.subtype}</td>
                             <td className="px-6 py-4">{record.amount}</td>
                             <td className="px-6 py-4">{record.description}</td>
                             <td className="px-6 py-4">{record.payer_payee}</td>

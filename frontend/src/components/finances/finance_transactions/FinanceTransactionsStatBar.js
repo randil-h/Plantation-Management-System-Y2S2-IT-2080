@@ -213,12 +213,22 @@ export default function FinanceTransactionsStatBar() {
                             <br/>
                             <p className="text-sm text-gray-500 font-semibold">Profit/Loss this week</p>
                             <p className="text-gray-500">Displays the profit/loss that happened<br/>
-                                within this week. Calculated by<br/> subtracting expense from income</p>
+                                within this week. Calculated by<br/> subtracting expense from income.</p>
+                            <br/>
+                            <p className="text-sm text-gray-500 font-semibold">Percentages</p>
+                            <p className="text-gray-500">Calculated by comparing the current week's<br/> data to
+                                previous week's data.</p>
+
+                            <br/>
+                            <p className="text-sm text-gray-500 font-semibold">Arrow Icons</p>
+                            <p className="text-gray-500">Arrow points up if the current weeks<br/>
+                                value is increased compared to the previous<br/>
+                                week's value.</p>
                         </div>
-                    } title={<div className="text-md text-gray-500">Statistics Bar
+                    } title={<div className="text-base text-gray-500">Statistics Bar
                     </div>}>
                         <div className="pr-8">
-                            <InformationCircleIcon className="w-6 h-6 stroke-gray-500" />
+                            <InformationCircleIcon className="w-6 h-6 stroke-gray-500"/>
                         </div>
                     </Popover>
                 </div>
