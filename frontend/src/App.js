@@ -99,6 +99,7 @@ import EditTaskPage from "./pages/employee_pages/task_assigning/EditTaskPage";
 import ErrorPage from "./pages/ErrorPage";
 import ViewOneEmpDetails from "./pages/employee_pages/emp_registation/ViewOneEmpDetails";
 import ViewTaskDetails from "./pages/employee_pages/task_assigning/ViewTaskDetails";
+import ViewRotationRecord from "./pages/crop_pages/Rotation Management/ViewRotationRecord";
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -171,6 +172,7 @@ export default function App() {
                     <Route path = "/crop/input/add" element={AddCropInput()}/>
                     <Route path = "/crop/input/view" element={ViewCropInputPage()}/>
                     <Route path = "/crop/input/update/:id" element = {UpdateCropInputPage()}/>
+                    <Route path ="/crop/rotation/record/:id" element={<ViewRotationRecord/>}/>
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>
