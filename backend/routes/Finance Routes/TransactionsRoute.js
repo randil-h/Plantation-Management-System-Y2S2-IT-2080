@@ -9,6 +9,7 @@ router.post('/', async (request, response) => {
         if (
             !request.body.date ||
             !request.body.type ||
+            !request.body.subtype ||
             !request.body.amount ||
             !request.body.description ||
             !request.body.payer_payee ||
@@ -22,6 +23,7 @@ router.post('/', async (request, response) => {
         const NewTransactionsRecord = {
             date: request.body.date,
             type: request.body.type,
+            subtype: request.body.subtype,
             amount: request.body.amount,
             description: request.body.description,
             payer_payee: request.body.payer_payee,
@@ -73,6 +75,7 @@ router.put('/:id', async (request, response) => {
         if (
             !request.body.date ||
             !request.body.type ||
+            !request.body.subtype ||
             !request.body.amount ||
             !request.body.description ||
             !request.body.payer_payee ||

@@ -11,6 +11,7 @@ import BackButton from '../../../components/utility/BackButton';
 function AddNewTransaction() {
     const [date, setDate] = useState('');
     const [type, setType] = useState('income');
+    const [subtype, setSubType] = useState('Crop Selling');
     const [amount, setAmount] = useState('');
     const [description, setDescription] = useState('');
     const [payerPayee, setPayerPayee] = useState('');
@@ -23,6 +24,7 @@ function AddNewTransaction() {
         const data = {
             date,
             type,
+            subtype,
             amount,
             description,
             payer_payee: payerPayee,
@@ -53,6 +55,12 @@ function AddNewTransaction() {
             navigate(-1); // This will navigate back to the previous location in the history stack
         };
 
+    const handleTypeChange = (e) => {
+        setType(e.target.value);
+        // Reset subtype when type changes
+        setSubType('Electricity Bill');
+    };
+
     return (
         <SnackbarProvider>
             <div className="">
@@ -80,9 +88,7 @@ function AddNewTransaction() {
                                                     type
                                                 </legend>
                                                 <p className="mt-1 text-sm leading-6 text-gray-600">Specify whether this
-                                                    is
-                                                    an
-                                                    income or an expense</p>
+                                                    is an income or an expense</p>
                                                 <div className="mt-6 gap-4 flex flex-row items-center ">
                                                     <div className="flex items-center gap-x-3 ">
                                                         <input
@@ -91,7 +97,7 @@ function AddNewTransaction() {
                                                             type="radio"
                                                             value="income"
                                                             checked={type === 'income'}
-                                                            onChange={() => setType('income')}
+                                                            onChange={handleTypeChange}
                                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                         />
                                                         <label htmlFor="income"
@@ -106,7 +112,7 @@ function AddNewTransaction() {
                                                             type="radio"
                                                             value="expense"
                                                             checked={type === 'expense'}
-                                                            onChange={() => setType('expense')}
+                                                            onChange={handleTypeChange}
                                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                         />
                                                         <label htmlFor="expense"
@@ -116,6 +122,46 @@ function AddNewTransaction() {
                                                     </div>
                                                 </div>
                                             </fieldset>
+
+                                            <div className="sm:col-span-2 sm:col-start-1">
+                                                <label htmlFor="subtype"
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Sub Type
+                                                </label>
+                                                <div className="mt-2">
+                                                    <select
+                                                        name="subtype"
+                                                        value={subtype}
+                                                        onChange={(e) => setSubType(e.target.value)}
+                                                        id="subtype"
+                                                        autoComplete="subtype"
+                                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    >
+                                                        {type === 'income' ? (
+                                                            <>
+                                                                <option>Papaya</option>
+                                                                <option>Coconut</option>
+                                                                <option>Apple Guava</option>
+                                                                <option>Vegetables</option>
+                                                                <option>Bee Honey</option>
+                                                                <option>Visitor Payment</option>
+                                                                <option>Other</option>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <option>Electricity Bill</option>
+                                                                <option>Salary Payment</option>
+                                                                <option>Machine Purchase</option>
+                                                                <option>Transportation</option>
+                                                                <option>Land Purchase</option>
+                                                                <option>Machine Renting</option>
+                                                                <option>Other</option>
+                                                            </>
+
+                                                        )}
+                                                    </select>
+                                                </div>
+                                            </div>
 
                                             {/* Date */}
                                             <div className="sm:col-span-3">
