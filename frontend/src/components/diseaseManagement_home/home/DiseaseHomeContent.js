@@ -104,7 +104,7 @@ export default function DiseaseHomeContent(){
                         DISEASE MANAGEMENT
                     </h1>
                     <p className=" mt-1 text-base font-normal text-gray-500">
-                        Hop on Aboard to the Disease Management Center!!<br/>
+                        Hop on Board with the Disease Management Center!!<br/>
                         Prioritize the health of your plants by monitoring them effectively.<br/>
                         Explore insights, track disease trends and make your decision making more precise....
                     </p>
