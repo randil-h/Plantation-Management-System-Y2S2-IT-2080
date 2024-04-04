@@ -7,6 +7,7 @@ import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {enqueueSnackbar, useSnackbar} from "notistack";
+import {jsPDF} from "jspdf";
 
 
 
@@ -21,6 +22,9 @@ export default function DiseaseList() {
      const [diseaseChart, setDiseaseChart] = useState({});
      const { enqueueSnackbar } = useSnackbar();
    //const [showType, setShowType] = useState('table');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [location, setLocation] = useState('');
 
    useEffect(() => {
        setLoading(true);
@@ -65,9 +69,63 @@ export default function DiseaseList() {
         })
     );
 
+    const handleDownloadDiseaseReport = () => {
+
+        if (!startDate || !endDate || !location || location === "Select Location") {
+            // Show an error message if any of the required fields are empty
+            enqueueSnackbar('Please select start date, end date, and location to generate the report!', { variant: 'error' });
+            return;
+        }
+
+
+        const filteredDiseaseData = DiseaseRecords.filter(record => {
+            const recordDate = new Date(record.date);
+            const dateRange = recordDate >= new Date(startDate) && recordDate <= new Date(endDate);
+            const selectedLocation = location === "All Fields" || record.location === location;
+            return dateRange && selectedLocation;
+        });
+
+        const doc = new jsPDF();
+        doc.text(`Disease Report`, 10, 10);
+        doc.text(`From ${startDate} To ${endDate}`, 10, 20);
+        doc.text(`Location :  ${location}`, 10, 30);
+
+        const headers = ["Disease Name", "Crop Type", "Date", "Severity", "Treatment", "Status"];
+        if(location === "All Fields") {
+            headers.splice(3,0, "Location");
+        }
+        const tableData = [headers];
+
+        filteredDiseaseData.forEach(record => {
+            const rowData = [
+                record.disease_name,
+                record.crop,
+                record.date,
+                location === "All Fields" ? record.location : record.severity,
+                location === "All Fields" ? record.severity : record.treatment,
+                location === "All Fields" ? record.treatment : record.status,
+                record.status
+            ];
+            tableData.push(rowData);
+        });
+
+        const table = doc.autoTable({
+            head: [headers],
+            body: tableData.slice(1),
+            startY: 40,
+            styles: {overflow: 'linebreak', columnWidth: 'wrap'},
+            theme: 'striped'
+        });
+
+        const totalRecords = filteredDiseaseData.length;
+        doc.text(`Total Number of diseased plants detected : ${totalRecords}`, 10, table.lastAutoTable.finalY + 10);
+
+        doc.save('disease_report.pdf');
+    }
+
     return (
         <div className=" overflow-x-auto  ">
-            <div className="flex flex-row justify-between items-center px-8 py-4">
+            <div className="flex flex-row justify-between items-center px-8 mt-1 mb-0">
                 <div>
                     <h1 className=" text-lg font-semibold text-left">DISEASE RECORDS</h1>
                     <div className=" py-4 relative">
@@ -87,20 +145,53 @@ export default function DiseaseList() {
                 </div>
 
                 <div>
-                    <a href="/diseases/records/addDisease"
-                       className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
-                        Add New Disease Record <span aria-hidden="true">&rarr;</span>
-                    </a>
+                    <button
+                        className="flex-none rounded-full bg-gray-900 px-3.5 py-1 p-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                        <Link to="/diseases/records/addDisease" className="flex items-center">
+                            Add New Disease Record <span aria-hidden="true"  style={{ marginLeft: '0.5rem' }}>&rarr;</span>
+                        </Link>
+                    </button>
                     &nbsp;
 
-                    <a href="/diseases/records/generateReport"
-                       className=" ml-3 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
-                        Generate Report
-                    </a>
 
                 </div>
-
-
+            </div>
+            <div className="flex flex-row justify-between items-center px-8 py-4 text-base mb-2 text-gray-700">
+                <div>
+                    <label>Start Date : </label>
+                    <input className=' rounded-lg' type="date" value={startDate}
+                           onChange={(e) => setStartDate(e.target.value)}/>
+                </div>
+                <div>
+                    <label>End Date : </label>
+                    <input className=' rounded-lg' type="date" value={endDate}
+                           onChange={(e) => setEndDate(e.target.value)}/>
+                </div>
+                <div>
+                    <label className='text-md mr-2'>Location</label>
+                    <select
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        className=' rounded-lg'
+                    >
+                        <option>Select Location</option>
+                        <option value="All Fields">All Fields</option>
+                        <option value="Field A">Field A</option>
+                        <option value="Field B">Field B</option>
+                        <option value="Field C">Field C</option>
+                        <option value="Field D">Field D</option>
+                        <option value="Field E">Field E</option>
+                        <option value="Field F">Field F</option>
+                        <option value="Field G">Field G</option>
+                    </select>
+                </div>
+                <div>
+                    <button
+                        onClick={handleDownloadDiseaseReport}
+                        className=" ml-3 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                        Generate Report
+                    </button>
+                </div>
             </div>
             <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
                 <thead
