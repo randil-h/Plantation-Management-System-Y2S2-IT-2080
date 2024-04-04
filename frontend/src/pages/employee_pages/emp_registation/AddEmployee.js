@@ -11,7 +11,7 @@ import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
 export default function AddEmployee() {
 
     const breadcrumbItems = [
-        { name: 'Employees', href: '/employees' },
+        { name: 'Employee', href: '/employees/home' },
         { name: 'Registration', href: '/employees/registration' },
         { name: 'Add Employee', href: '/employees/registration/addEmployee' },
     ];
