@@ -114,6 +114,12 @@ export default function TransactionsList() {
     };
 
     const handleDownloadPDF = () => {
+        const startDate = new Date(selectedDates[0]);
+        const endDate = new Date(selectedDates[1]);
+
+        // Format date range
+        const dateRange = `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`;
+
         const sortedTransactions = transactions.sort((a, b) => {
             if (sortBy === 'date') {
                 return sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
@@ -122,13 +128,33 @@ export default function TransactionsList() {
             }
         });
 
+        // Adjust to include the full day of start and end dates
+        startDate.setHours(0, 0, 0, 0); // Set to start of the day
+        endDate.setHours(23, 59, 59, 999); // Set to end of the day
+
         const filteredTransactions = sortedTransactions.filter(transaction => {
             const transactionDate = new Date(transaction.date);
-            return transactionDate >= selectedDates[0] && transactionDate <= selectedDates[1];
+            return transactionDate >= startDate && transactionDate <= endDate;
         });
+
+        // Initialize and calculate summary variables
+        let totalIncome = 0;
+        let totalExpense = 0;
+        filteredTransactions.forEach(transaction => {
+            if (transaction.type === 'income') {
+                totalIncome += transaction.amount;
+            } else if (transaction.type === 'expense') {
+                totalExpense += transaction.amount;
+            }
+        });
+        const profitOrLoss = totalIncome - totalExpense;
+        const numberOfTransactions = filteredTransactions.length;
 
         const doc = new jsPDF();
         doc.text('Transaction Report', 10, 10);
+
+        // Display selected date range
+        doc.text(`Date Range: ${dateRange}`, 10, 20);
 
         const headers = [['Date', 'Type', 'Amount', 'Description', 'Payer/Payee', 'Payment Method']];
         const data = filteredTransactions.map(transaction => [
@@ -143,11 +169,34 @@ export default function TransactionsList() {
         doc.autoTable({
             head: headers,
             body: data,
-            startY: 20,
+            startY: 30,
+        });
+
+        // Ensure there is a gap between the transactions table and the summary table
+        let finalY = doc.lastAutoTable.finalY || 30;
+        const summaryHeaders = [['Number of Transactions', 'Total Income', 'Total Expense', 'Profit/Loss']];
+        const summaryData = [[
+            numberOfTransactions.toString(),
+            totalIncome.toFixed(2),
+            totalExpense.toFixed(2),
+            profitOrLoss.toFixed(2),
+
+        ]];
+
+        // Adding Summary Table
+        doc.autoTable({
+            head: summaryHeaders,
+            body: summaryData,
+            startY: finalY + 10, // Adjust this value as needed to control the gap
         });
 
         doc.save('transaction_report.pdf');
     };
+
+
+
+
+
 
 
     return (
