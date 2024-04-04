@@ -71,9 +71,9 @@ function HarvestCalculator() {
             {loading ? (
                 <p>Loading harvest records...</p>
             ) : (
-                <div >
-                    <div style={{marginBottom: "15px"}}>
-                        <label htmlFor="treesPicked" style={{marginRight: "10px"}}>
+                <div className="inline-block p-4 bg-green-200 rounded border border-green-700">
+                    <div className="mb-4">
+                        <label htmlFor="treesPicked" className="mr-4">
                             Enter Number of Trees:
                         </label>
                         <input
@@ -83,15 +83,11 @@ function HarvestCalculator() {
                             value={treesPicked}
                             onChange={handleChange}
                             placeholder="Enter number of trees"
-                            style={{
-                                padding: "10px",
-                                borderRadius: "5px",
-                                border: "1px solid #ccc"
-                            }}
+                            className="p-2 rounded border border-gray-300"
                         />
                     </div>
-                    <div style={{marginBottom: "15px"}}>
-                        <label htmlFor="cropType" style={{marginRight: "10px"}}>
+                    <div className="mb-4">
+                        <label htmlFor="cropType" className="mr-4">
                             Select Crop Type:
                         </label>
                         <select
@@ -99,12 +95,8 @@ function HarvestCalculator() {
                             name="cropType"
                             value={cropType}
                             onChange={handleChange}
-                            style={{
-                                padding: "5px",
-                                borderRadius: "5px",
-                                border: "1px solid #ccc"
-                            }}
-                         >
+                            className="p-1 rounded border border-gray-300"
+                        >
                             <option value="">Select Crop</option>
                             <option value="coconut">Coconut</option>
                             <option value="papaya">Papaya</option>
@@ -112,27 +104,21 @@ function HarvestCalculator() {
                         </select>
                     </div>
                     <button
-                        /*onClick=>{calculateHarvest}*/
-                        style={{
-                            padding: "8px 20px",
-                            backgroundColor: "#007bff",
-                            color: "#fff",
-                            border: "none",
-                            borderRadius: "5px",
-                            cursor: "pointer"
-                        }}
+                        /*onClick={calculateHarvest}*/
+                        className="py-2 px-4 bg-blue-500 text-white rounded border border-blue-500 hover:bg-blue-700 cursor-pointer"
                     >
                         Calculate Expected Harvest
                     </button>
-                    <div style={{marginTop: "20px"}}>
+                    <div className="py-2 px-4 mt-4 bg-amber-50 rounded border border-green-700">
                         {averageYield !== null ? (
-                            <p>Average Yield: {averageYield} kg/tree</p>
+                            <p className="text-green-950">Average Yield: {averageYield} kg/tree</p>
                         ) : (
                             <p>No data available for the selected crop type.</p>
                         )}
                         <p>Expected Harvest: {expectedHarvest} kg</p>
                     </div>
                 </div>
+
             )}
         </div>
     );

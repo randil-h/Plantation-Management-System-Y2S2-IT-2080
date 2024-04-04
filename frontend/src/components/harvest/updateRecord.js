@@ -52,7 +52,7 @@ const EditHarvest = () => {
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Edited successfully', { variant: 'success' });
-                navigate('/harvest/records');
+                navigate('/harvest/harvestRecords');
             })
             .catch((error) => {
                 setLoading(false);
