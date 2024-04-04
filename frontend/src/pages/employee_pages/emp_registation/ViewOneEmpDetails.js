@@ -14,7 +14,7 @@ export default function ViewOneEmpDetails() {
 
 
     const breadcrumbItems = [
-        { name: 'Employees', href: '/employees' },
+        { name: 'Employees', href: '/employees/home' },
         { name: 'Registration', href: 'employees/registration' },
         { name: 'View Employee Details', href: 'employees/registration/viewEmployee' },
 

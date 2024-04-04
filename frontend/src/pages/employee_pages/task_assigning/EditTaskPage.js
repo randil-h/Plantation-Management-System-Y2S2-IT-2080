@@ -9,7 +9,7 @@ import EditTask from "../../../components/Employee/Task_assign/EditTask";
 export default function EditTaskPage() {
 
     const breadcrumbItems = [
-        { name: 'Employee', href: '/employees' },
+        { name: 'Employees', href: '/employees/home' },
         { name: 'Task', href: '/employees/tasks' },
         { name: 'Edit Task Details', href: '/employees/tasks/editTasks' },
     ];
