@@ -100,7 +100,7 @@ export default function FinanceTransactionsStatBar() {
 
     const renderProfitLoss = (profitLoss) => {
         const colorClass = profitLoss >= 0 ? 'text-lime-500' : 'text-red-600';
-        return <span className={`${colorClass} text-xl font-semibold tracking-tight sm:text-3xl`}>{profitLoss}</span>;
+        return <span className={`${colorClass} text-xl font-semibold tracking-tight sm:text-3xl`}>Rs.{profitLoss}</span>;
     };
 
     function calculatePercentageChange(currentIncome, previousIncome) {

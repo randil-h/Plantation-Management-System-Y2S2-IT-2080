@@ -7,6 +7,7 @@ import SideBar from '../../../components/SideBar';
 import FinanceNavigation from '../../../components/finances/FinanceNavigation';
 import Breadcrumb from '../../../components/utility/Breadcrumbs';
 import BackButton from '../../../components/utility/BackButton';
+import {message} from "antd";
 
 function AddNewTransaction() {
     const [date, setDate] = useState('');
@@ -35,13 +36,14 @@ function AddNewTransaction() {
             .post('http://localhost:5555/transactions', data)
             .then(() => {
                 setLoading(false);
-                enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                navigate('/');
+                message.success('Record Created successfully');
+                navigate('/finances/transactions');
             })
             .catch((error) => {
                 setLoading(false);
-                enqueueSnackbar('Error', { variant: 'error' });
+                message.error('Error');
                 console.log(error);
+                navigate('/finances/transactions');
             });
     };
 
@@ -60,6 +62,8 @@ function AddNewTransaction() {
         // Reset subtype when type changes
         setSubType('Electricity Bill');
     };
+
+
 
     return (
         <SnackbarProvider>
@@ -262,12 +266,14 @@ function AddNewTransaction() {
                                                     onClick={handleCancel}>
                                                 Cancel
                                             </button>
+
                                             <button
-                                                onClick={handleSaveTransactionRecord}
+                                                onClick={handleSaveTransactionRecord }
                                                 className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                             >
                                                 Save
                                             </button>
+
                                         </div>
                                     </div>
                                 </div>

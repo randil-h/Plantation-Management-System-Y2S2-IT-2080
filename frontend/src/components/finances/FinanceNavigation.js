@@ -5,8 +5,8 @@ const menuItems = [
     { name: "HOME", path: "/finances/home" },
     { name: "TRANSACTIONS", path: "/finances/transactions" },
     { name: "VALUATION", path: "/finances/valuation" },
-    { name: "SALARY PAYMENTS", path: "/finances/salaryPayment" },
     { name: "MACHINE HOURS", path: "/finances/machineHours" },
+    { name: "SALARY PAYMENTS", path: "/finances/salaryPayment" },
 ];
 
 export default function Example() {
