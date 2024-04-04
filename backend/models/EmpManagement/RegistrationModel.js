@@ -46,6 +46,10 @@ const RegistrationSchema = mongoose.Schema(
             type: Date,
             required: true,
         },
+        h_rate: {
+            type: Number,
+            required: true,
+        },
     },
 
     {

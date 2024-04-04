@@ -167,6 +167,9 @@ const EmployeeList = () => {
                         <th scope="col" className="px-6 py-3">
                             Hired Date
                         </th>
+                        <th scope="col" className="px-6 py-3">
+                            Hourly Rate
+                        </th>
                         <th scope="col" className=" py-3">
                             <span className="sr-only">Info</span>
                         </th>
@@ -178,9 +181,9 @@ const EmployeeList = () => {
                         </th>
                     </tr>
                     </thead>
-                    <tbody className="border-b border-green-400">
+                        <tbody className="border-b border-green-400">
 
-                    {filteredRecords.map((record, index) => (
+                        {filteredRecords.map((record, index) => (
                             <tr key={index}>
                                 <td></td>
                                 <td className="px-6 py-4">
@@ -219,11 +222,14 @@ const EmployeeList = () => {
                                 <td className="px-6 py-4">
                                     {record.h_date.split("T")[0]}
                                 </td>
+                                <td className="px-6 py-4">
+                                    {record.h_rate}
+                                </td>
 
 
                                 <td className=" py-4 text-right">
                                     <Link to={`/employees/registration/viewEmployee/${record._id}`}
-                                       className="font-medium text-blue-600  hover:underline">
+                                          className="font-medium text-blue-600  hover:underline">
                                         <InformationCircleIcon
                                             className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
                                             aria-hidden="true"/>
@@ -252,9 +258,9 @@ const EmployeeList = () => {
                         ))}
 
 
-                         </tbody>
-                </table>
-            </div>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         )
 };
