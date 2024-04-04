@@ -4,8 +4,12 @@ import {
     ExclamationCircleIcon,
     CheckCircleIcon
 } from '@heroicons/react/24/solid';
+import {
+    InformationCircleIcon
+} from '@heroicons/react/24/outline';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {Popover} from "antd";
 
 const getWeekStartEnd = (date, startOfWeek) => {
     let weekStart = new Date(date);
@@ -99,6 +103,12 @@ export default function FinanceTransactionsStatBar() {
         return <span className={`${colorClass} text-xl font-semibold tracking-tight sm:text-3xl`}>{profitLoss}</span>;
     };
 
+    function calculatePercentageChange(currentIncome, previousIncome) {
+        const percentageChange = ((currentIncome - previousIncome) / previousIncome) * 100;
+        return percentageChange.toFixed(2); // Round to 2 decimal places
+    }
+
+
     return (
         <div className="relative py-8 sm:py-8 overflow-hidden ">
             {/* Additional divs and elements for styling omitted for brevity */}
@@ -127,51 +137,93 @@ export default function FinanceTransactionsStatBar() {
                     }}
                 />
             </div>
-            <div className="mx-auto max-w-7xl px-6 lg:px-8 relative flex flex-row ">
-                <div className="mx-auto flex max-w-xs flex-col gap-y-1">
-                    {/* Transactions this week */}
-                    <div className="flex flex-row items-center gap-4">
-                        <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
-                            {currentWeekData.transactions}
-                        </dd>
-                        {renderIcon(currentWeekData.transactions, previousWeekData.transactions)}
-                    </div>
-                    <dt className="text-base leading-7 text-gray-900">Transactions this week</dt>
-                </div>
 
-                <div className="mx-auto flex max-w-xs flex-col gap-y-1">
-                    {/* Income this week */}
-                    <div className="flex flex-row items-center gap-4">
-                        <dd className="text-xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
-                            Rs.{currentWeekData.income}
-                        </dd>
-                        {renderIcon(currentWeekData.income, previousWeekData.income)}
+            <div className="flex flex-row">
+                <div className="mx-auto w-full px-6 lg:px-8 relative flex flex-row ">
+                    <div className="mx-auto flex max-w-xs flex-col gap-y-1">
+                        {/* Transactions this week */}
+                        <div className="flex flex-row items-center gap-4">
+                            <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
+                                {currentWeekData.transactions}
+                            </dd>
+                            {renderIcon(currentWeekData.transactions, previousWeekData.transactions)}
+                        </div>
+                        <dt className="text-base leading-7 text-gray-900">Transactions this week</dt>
                     </div>
-                    <dt className="text-base leading-7 text-gray-900">Income this week</dt>
-                </div>
 
-                <div className="mx-auto flex max-w-xs flex-col gap-y-1">
-                    {/* Expense this week */}
-                    <div className="flex flex-row items-center gap-4">
-                        <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
-                            Rs.{currentWeekData.expense}
-                        </dd>
-                        {renderExpenseIcon(currentWeekData.expense, previousWeekData.expense)}
-                    </div>
-                    <dt className="text-base leading-7 text-gray-900">Expense this week</dt>
-                </div>
-                <div className="mx-auto flex max-w-xs flex-col gap-y-1">
-                    {/* Expense this week */}
-                    <div className="flex flex-row items-center gap-4">
-                        <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
-                            {renderProfitLoss(currentWeekData.profitLoss)}
+                    <div className="mx-auto flex  flex-col gap-y-1">
+                        {/* Income this week */}
+                        <div className="flex flex-row items-center gap-8">
+                            <dd className="text-xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
+                                Rs.{currentWeekData.income}
+                            </dd>
+                            {renderIcon(currentWeekData.income, previousWeekData.income)}
+                        </div>
+                        <div className="flex flex-row items-center gap-12 justify-between">
+                            <dt className="text-base leading-7 text-gray-900">Income this week</dt>
+                            <p className="text-sm text-gray-600 font-light">{calculatePercentageChange(currentWeekData.income, previousWeekData.income)}%</p>
 
-                        </dd>
-                        {renderProfitLossIcon(currentWeekData.profitLoss)}
+                        </div>
+
                     </div>
-                    <dt className="text-base leading-7 text-gray-900">Profit/Loss this week</dt>
+
+                    <div className="mx-auto flex max-w-xs flex-col gap-y-1">
+                        {/* Expense this week */}
+                        <div className="flex flex-row items-center gap-8">
+                            <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
+                                Rs.{currentWeekData.expense}
+                            </dd>
+                            {renderExpenseIcon(currentWeekData.expense, previousWeekData.expense)}
+                        </div>
+                        <div className="flex flex-row items-center gap-12">
+                            <dt className="text-base leading-7 text-gray-900">Expense this week</dt>
+                            <p className="text-sm text-gray-600 font-light">{calculatePercentageChange(currentWeekData.expense, previousWeekData.expense)}%</p>
+
+                        </div>
+
+                    </div>
+                    <div className="mx-auto flex max-w-xs flex-col gap-y-1">
+                        {/* Expense this week */}
+                        <div className="flex flex-row items-center gap-4">
+                            <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
+                                {renderProfitLoss(currentWeekData.profitLoss)}
+
+                            </dd>
+                            {renderProfitLossIcon(currentWeekData.profitLoss)}
+                        </div>
+                        <dt className="text-base leading-7 text-gray-900">Profit/Loss this week</dt>
+                    </div>
+                </div>
+                <div className="pr-8 text-gray-600">
+                    <Popover content={
+                        <div>
+                            <p className="text-sm text-gray-500 font-semibold">Transactions this week</p>
+                            <p className="text-gray-500">Displays the number of transactions that<br/>happened in the
+                                current week started<br/> from Monday and
+                                ending in Sunday.</p>
+                            <br/>
+                            <p className="text-sm text-gray-500 font-semibold">Income this week</p>
+                            <p className="text-gray-500">Displays the sum of income records that<br/>
+                                happened within this week.</p>
+                            <br/>
+                            <p className="text-sm text-gray-500 font-semibold">Expenses this week</p>
+                            <p className="text-gray-500">Displays the sum of expense records that<br/>
+                                happened within
+                                this week.</p>
+                            <br/>
+                            <p className="text-sm text-gray-500 font-semibold">Profit/Loss this week</p>
+                            <p className="text-gray-500">Displays the profit/loss that happened<br/>
+                                within this week. Calculated by<br/> subtracting expense from income</p>
+                        </div>
+                    } title={<div className="text-md text-gray-500">Statistics Bar
+                    </div>}>
+                        <div className="pr-8">
+                            <InformationCircleIcon className="w-6 h-6 stroke-gray-500" />
+                        </div>
+                    </Popover>
                 </div>
             </div>
+
         </div>
     )
 }
