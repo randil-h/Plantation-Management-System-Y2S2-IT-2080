@@ -15,6 +15,7 @@ const EditEmployee = () => {
     const [emp_type, setEmp_type] = useState('');
     const [qualifications, setQualifications] = useState('');
     const [h_date, setH_date] = useState('');
+    const [h_rate, setH_rate] = useState('');
     const [loading, setLoading] = useState(false);
     const {enqueueSnackbar} = useSnackbar();
     const navigate = useNavigate();
@@ -36,6 +37,7 @@ const EditEmployee = () => {
                 setEmp_type(response.data.emp_type);
                 setQualifications(response.data.qualifications);
                 setH_date(response.data.h_date.split("T")[0]);
+                setH_rate(response.data.h_rate);
                 setLoading(false);
 
             }).catch((error) => {
@@ -59,6 +61,7 @@ const EditEmployee = () => {
             emp_type,
             qualifications,
             h_date,
+            h_rate,
         };
         setLoading(true);
         axios
@@ -272,6 +275,23 @@ const EditEmployee = () => {
                                     />
                                 </div>
                             </div>
+                            <div className="col-span-full">
+                                <label htmlFor="h_rate"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Hourly Rate
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        name="h_rate"
+                                        value={h_rate}
+                                        onChange={(e) => setH_rate(e.target.value)}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div className="mt-6 flex items-center justify-end gap-x-6">
@@ -282,7 +302,7 @@ const EditEmployee = () => {
                             Update
                         </button>
 
-                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900" >
+                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
                             Cancel
                         </button>
 

@@ -19,7 +19,8 @@ router.post('/', async(request, response) => {
             !request.body.e_address||
             !request.body.emp_type||
             !request.body.qualifications||
-            !request.body.h_date
+            !request.body.h_date||
+            !request.body.h_rate
 
         ) {
             return response.status(400).send ({
@@ -40,6 +41,7 @@ router.post('/', async(request, response) => {
             emp_type: request.body.emp_type,
             qualifications: request.body.qualifications,
             h_date: request.body.h_date,
+            h_rate:request.body.h_rate,
 
         };
 
@@ -100,7 +102,8 @@ router.put('/:id', async (request, response) => {
             !request.body.e_address||
             !request.body.emp_type||
             !request.body.qualifications||
-            !request.body.h_date
+            !request.body.h_date||
+            !request.body.h_rate
 
         ) {
             return response.status(400).send({
