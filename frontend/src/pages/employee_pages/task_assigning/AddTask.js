@@ -8,7 +8,7 @@ import Breadcrumb from "../../../components/utility/Breadcrumbs";
 
 export default function AddTask(){
     const breadcrumbItems = [
-        { name: 'Employees', href: '/employees' },
+        { name: 'Employees', href: '/employees/home' },
         { name: 'Assign Tasks', href: '/employees/tasks' },
         { name: 'Add new task', href: '/employees/tasks/addTask' },
     ];

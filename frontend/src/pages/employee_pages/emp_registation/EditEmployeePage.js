@@ -9,7 +9,7 @@ import EditEmployee from "../../../components/Employee/Employee_register/EditEmp
 export default function EditEmployeePage() {
 
     const breadcrumbItems = [
-        { name: 'Employee', href: '/employees' },
+        { name: 'Employee', href: '/employees/home' },
         { name: 'Registration', href: '/employees/registration' },
         { name: 'Edit Employee Details', href: '/employees/registration/editEmployee' },
     ];

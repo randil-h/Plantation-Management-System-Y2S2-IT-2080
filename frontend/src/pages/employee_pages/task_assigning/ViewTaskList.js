@@ -5,17 +5,19 @@ import React from "react";
 import BackButton from "../../../components/utility/BackButton";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
 import TaskList from "../../../components/Employee/Task_assign/TaskList";
+import {SnackbarProvider} from "notistack";
 
 
 export default function ViewTaskList() {
 
     const breadcrumbItems = [
-        { name: 'Employees', href: '/employees' },
+        { name: 'Employees', href: '/employees/home' },
         { name: 'Assign Tasks', href: '/employees/tasks' },
     ];
 
 
     return (
+        <SnackbarProvider>
         <div className="">
             <div className=" sticky top-0 z-10">
                 <Navbar/>
@@ -41,5 +43,6 @@ export default function ViewTaskList() {
                 </div>
             </div>
         </div>
+        </SnackbarProvider>
     )
 }
