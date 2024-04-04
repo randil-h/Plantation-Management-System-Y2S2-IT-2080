@@ -36,8 +36,8 @@ export default function AddInventoryRecords() {
                 variant: 'success',
                 autoHideDuration: 6000,
                 anchorOrigin: {
-                    vertical: 'top', // Display the snackbar at the top
-                    horizontal: 'center', // Align the snackbar at the center horizontally
+                    vertical: 'bottom',
+                    horizontal: 'left',
                 },
             });
             navigate('/inventory/inventoryrecords', { state: { highlighted: true } });

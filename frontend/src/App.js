@@ -34,6 +34,8 @@ import UpdateRotation from "./pages/crop_pages/Rotation Management/UpdateRotatio
 import AddCropInput from "./pages/crop_pages/Crop Input/AddCropInput";
 import ViewCropInputPage from "./pages/crop_pages/Crop Input/ViewCropInputPage";
 import UpdateCropInputPage from "./pages/crop_pages/Crop Input/UpdateCropInputPage";
+import ViewPlantingRecord from "./pages/crop_pages/Crop Input/ViewPlantingRecord";
+import ViewRotationRecord from "./pages/crop_pages/Rotation Management/ViewRotationRecord";
 
 import MaintenanceLog from "./pages/inventory_pages/Eq and Machines/MaintenanceLog"
 import AddEqMainPage from "./pages/inventory_pages/Eq and Machines/AddEqMainPage";
@@ -98,7 +100,6 @@ import EditTaskPage from "./pages/employee_pages/task_assigning/EditTaskPage";
 import ErrorPage from "./pages/ErrorPage";
 import ViewOneEmpDetails from "./pages/employee_pages/emp_registation/ViewOneEmpDetails";
 import ViewTaskDetails from "./pages/employee_pages/task_assigning/ViewTaskDetails";
-import ViewRotationRecord from "./pages/crop_pages/Rotation Management/ViewRotationRecord";
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -171,6 +172,7 @@ export default function App() {
                     <Route path = "/crop/input/view" element={ViewCropInputPage()}/>
                     <Route path = "/crop/input/update/:id" element = {UpdateCropInputPage()}/>
                     <Route path ="/crop/rotation/record/:id" element={<ViewRotationRecord/>}/>
+                    <Route path = "/crop/input/planting/record/:id" element = {<ViewPlantingRecord/>}/>
 
                     <Route path= "/placeOrder" element={PlaceOrder()}/>
                     <Route path="/WholeSale/transactions" element={WholeSaleTransaction()}/>

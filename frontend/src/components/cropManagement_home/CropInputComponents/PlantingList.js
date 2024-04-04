@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import axios from 'axios';
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { InformationCircleIcon,PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { html2canvas } from 'html2canvas'; // Updated import
 import jsPDF from 'jspdf';
 import {useSnackbar} from "notistack";
@@ -165,6 +165,12 @@ const PlantingList = () => {
                             <td className="px-6 py-4">{record.remarks}</td>
                             <td className="px-6 py-4">
                                 <div className="flex justify-between">
+                                    <Link to={`/crop/input/planting/record/${record._id}`}
+                                          className="font-medium text-blue-600  hover:underline">
+                                        <InformationCircleIcon
+                                            className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                            aria-hidden="true"/>
+                                    </Link>
                                     <Link to={`/crop/input/update/${record._id}`}>
                                         <PencilSquareIcon
                                             className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
