@@ -1,6 +1,4 @@
 import React from "react";
-import { GiCoconuts, GiChemicalDrop, GiSandsOfTime } from "react-icons/gi";
-import { FaRotate} from 'react-icons/fa6';
 import RotationTile from "./CropSummaryTiles/RotationTile";
 import AgrochemicalTile from "./CropSummaryTiles/AgrochemicalTile";
 import UpcomingHarvestTile from "./CropSummaryTiles/UpcomingHarvestTile";
