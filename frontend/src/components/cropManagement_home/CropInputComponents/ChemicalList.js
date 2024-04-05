@@ -4,9 +4,11 @@ import axios from 'axios';
 import { PDFDownloadLink, PDFViewer, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import { FaSearch } from "react-icons/fa";
 import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 import {useSnackbar} from "notistack";
+import {FiDownload} from "react-icons/fi";
 
 const pdfStyles = StyleSheet.create({
     page: {
@@ -111,15 +113,33 @@ const ChemicalList = () => {
         setSearchQuery(event.target.value);
     };
 
-    const generatePDF = () => {
+    const generatePDF = (filteredRecords) => {
         const input = document.getElementById('chemical-table');
         if (input) {
+            const currentDate = new Date().toLocaleString('en-GB');
+
             html2canvas(input)
                 .then((canvas) => {
-                    const imgData = canvas.toDataURL('image/png');
-                    const pdf = new jsPDF('l', 'mm', 'b4');
-                    pdf.addImage(imgData, 'PNG', 0, 0);
-                    pdf.save('chemical-list.pdf');
+                    const pdf = new jsPDF('l', 'mm', 'a3');
+
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const textWidth = pdf.getStringUnitWidth('Planting Records') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                    const centerPosition = (pageWidth - textWidth) / 2;
+
+                    pdf.setFontSize(16);
+                    pdf.text('Agrochemical Records', centerPosition, 10);
+                    pdf.setFontSize(12);
+                    pdf.text(`As At: ${currentDate}`, centerPosition, 20);
+
+
+                    const yPos = 30;
+                    pdf.autoTable({
+                        html: '#chemical-table',
+                        startY: yPos + 10,
+                        theme: 'grid',
+                    });
+
+                    pdf.save(`chemical-records_generatedAt_${currentDate}.pdf`);
                 })
                 .catch((error) => {
                     console.error('Error generating PDF:', error);
@@ -153,7 +173,7 @@ const ChemicalList = () => {
 
             <Link to="/crop/input/add">
                 <button
-                    className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-14 right-10 mt-10 mr-24"
+                    className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-14 right-5 mt-10 "
                 >
                     Add New Agrochemical <span aria-hidden="true">&rarr;</span>
                 </button>
@@ -161,9 +181,9 @@ const ChemicalList = () => {
 
             <button
                 onClick={generatePDF}
-                className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-14 right-10 mt-10 mr-5"
+                className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-24 right-5 mt-20 "
             >
-                Print
+                Generate PDF <FiDownload className="mr-1 inline-block" />
             </button>
 
             <div className="overflow-x-auto">

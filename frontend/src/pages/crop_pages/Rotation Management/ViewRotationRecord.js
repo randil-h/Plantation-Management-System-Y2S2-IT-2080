@@ -58,31 +58,59 @@ export default function ViewRotationRecord() {
                                     <div className="divide-y divide-gray-200">
                                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                             <span className="text-sm font-medium leading-6 text-gray-900">Season:</span>
-                                            <span className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.season}</span>
+                                            <span
+                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.season}</span>
                                         </div>
                                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                            <span className="text-sm font-medium leading-6 text-gray-900">Field Name:</span>
-                                            <span className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.fieldName}</span>
+                                            <span
+                                                className="text-sm font-medium leading-6 text-gray-900">Field Name:</span>
+                                            <span
+                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.fieldName}</span>
                                         </div>
                                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                            <span className="text-sm font-medium leading-6 text-gray-900">Crop Type:</span>
-                                            <span className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.cropType}</span>
+                                            <span
+                                                className="text-sm font-medium leading-6 text-gray-900">Crop Type:</span>
+                                            <span
+                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.cropType}</span>
                                         </div>
                                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                            <span className="text-sm font-medium leading-6 text-gray-900">Variety:</span>
-                                            <span className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.variety}</span>
+                                            <span
+                                                className="text-sm font-medium leading-6 text-gray-900">Variety:</span>
+                                            <span
+                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.variety}</span>
                                         </div>
                                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                            <span className="text-sm font-medium leading-6 text-gray-900">Quantity:</span>
-                                            <span className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.quantity}</span>
+                                            <span
+                                                className="text-sm font-medium leading-6 text-gray-900">Quantity:</span>
+                                            <span
+                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.quantity}</span>
                                         </div>
                                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                             <span className="text-sm font-medium leading-6 text-gray-900">Yield:</span>
-                                            <span className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.yield}</span>
+                                            <span
+                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.yield}</span>
                                         </div>
                                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                            <span className="text-sm font-medium leading-6 text-gray-900">Remarks:</span>
-                                            <span className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.remarks}</span>
+                                            <span
+                                                className="text-sm font-medium leading-6 text-gray-900">Remarks:</span>
+                                            <span
+                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.remarks}</span>
+                                        </div>
+                                        <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                            <span
+                                                className="text-sm font-medium leading-6 text-gray-900">Created At:</span>
+                                            <span
+                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                                    {record.createdAt && new Date(record.createdAt).toLocaleString()}
+                                            </span>
+                                        </div>
+                                        <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                            <span
+                                                className="text-sm font-medium leading-6 text-gray-900">Last Updated At:</span>
+                                            <span
+                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                                    {record.updatedAt && new Date(record.updatedAt).toLocaleString()}
+                                            </span>
                                         </div>
                                     </div>
                                 )}

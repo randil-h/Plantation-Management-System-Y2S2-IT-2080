@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import axios from 'axios';
+import html2canvas from 'html2canvas';
 import { InformationCircleIcon,PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { html2canvas } from 'html2canvas'; // Updated import
 import jsPDF from 'jspdf';
 import {useSnackbar} from "notistack";
+import {FiDownload} from "react-icons/fi";
 
 const PlantingList = () => {
     const { enqueueSnackbar } = useSnackbar();
@@ -15,6 +16,16 @@ const PlantingList = () => {
     const [filteredRecords, setFilteredRecords] = useState([]);
     const [recordToDelete, setRecordToDelete] = useState(null);
     const [selectedFieldFilter, setSelectedFieldFilter] = useState('All Fields');
+
+    const fieldAreas = {
+        A: 2,
+        B: 2.5,
+        C: 1,
+        D: 2,
+        E: 1,
+        F: 0.5,
+        G: 1,
+    };
 
     useEffect(() => {
         setLoading(true);
@@ -80,15 +91,33 @@ const PlantingList = () => {
         setSelectedFieldFilter(event.target.value);
     };
 
-    const generatePDF = () => {
+    const generatePDF = (filteredRecords) => {
         const input = document.getElementById('planting-table');
         if (input) {
+            const currentDate = new Date().toLocaleString('en-GB');
+
             html2canvas(input)
                 .then((canvas) => {
-                    const imgData = canvas.toDataURL('image/png');
-                    const pdf = new jsPDF('l', 'mm', 'b4');
-                    pdf.addImage(imgData, 'PNG', 0, 0);
-                    pdf.save('planting-list.pdf');
+                    const pdf = new jsPDF('l', 'mm', 'a3');
+
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const textWidth = pdf.getStringUnitWidth('Planting Records') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                    const centerPosition = (pageWidth - textWidth) / 2;
+
+                    pdf.setFontSize(16);
+                    pdf.text('Planting Records', centerPosition, 10);
+                    pdf.setFontSize(12);
+                    pdf.text(`As At: ${currentDate}`, centerPosition, 20);
+
+
+                    const yPos = 30;
+                    pdf.autoTable({
+                        html: '#planting-table',
+                        startY: yPos + 10,
+                        theme: 'grid',
+                    });
+
+                    pdf.save(`planting-records_generatedAt_${currentDate}.pdf`);
                 })
                 .catch((error) => {
                     console.error('Error generating PDF:', error);
@@ -121,7 +150,7 @@ const PlantingList = () => {
             </div>
             <Link to="/crop/input/add">
                 <button
-                    className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-14 right-10 mt-10 mr-24"
+                    className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-14 right-5 mt-10"
                 >
                     Add New Planting <span aria-hidden="true">&rarr;</span>
                 </button>
@@ -129,9 +158,9 @@ const PlantingList = () => {
 
             <button
                 onClick={generatePDF}
-                className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-14 right-10 mt-10 mr-5"
+                className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-24 right-5 mt-20"
             >
-                Print
+                Generate PDF <FiDownload className="mr-1 inline-block" />
             </button>
 
             <div className="overflow-x-auto">

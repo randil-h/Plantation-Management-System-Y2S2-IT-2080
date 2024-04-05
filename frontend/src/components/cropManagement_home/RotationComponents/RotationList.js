@@ -12,6 +12,7 @@ import jsPDF from 'jspdf';
 import {FaSearch} from "react-icons/fa";
 import {useSnackbar} from "notistack";
 import {GoAlert} from "react-icons/go";
+import {FiDownload} from "react-icons/fi";
 
 const pdfStyles = StyleSheet.create({
     page: {
@@ -25,23 +26,6 @@ const pdfStyles = StyleSheet.create({
     }
 });
 
-const generatePDF = () => {
-    const input = document.getElementById('rotation-table');
-    if (input) {
-        html2canvas(input)
-            .then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('l', 'mm', 'a3');
-                pdf.addImage(imgData, 'PNG', 0, 0);
-                pdf.save('rotation-list.pdf');
-            })
-            .catch((error) => {
-                console.error('Error generating PDF:', error);
-            });
-    } else {
-        console.error('Table element not found');
-    }
-};
 
 const RotationList = () => {
     const { enqueueSnackbar } = useSnackbar();
@@ -123,6 +107,68 @@ const RotationList = () => {
         setSelectedFieldFilter(event.target.value);
     };
 
+    const generatePDF = () => {
+        const input = document.getElementById('rotation-table');
+        if (input) {
+            const currentDate = new Date().toLocaleString('en-GB');
+
+            html2canvas(input)
+                .then((canvas) => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF('l', 'mm', 'a3');
+
+                    const recordCount = filteredRecords.length;
+
+                    const crops = {};
+                    filteredRecords.forEach((record) => {
+                        crops[record.cropType] = crops[record.cropType] ? crops[record.cropType] + 1 : 1;
+                    });
+                    const mostCommonCrop = Object.keys(crops).reduce((a, b) => crops[a] > crops[b] ? a : b);
+
+                    const seasons = {};
+                    const cropYields = {};
+                    filteredRecords.forEach((record) => {
+                        seasons[record.season] = seasons[record.season] ? seasons[record.season] + record.yield : record.yield;
+                        cropYields[record.cropType] = cropYields[record.cropType] ? [...cropYields[record.cropType], record.yield] : [record.yield];
+                    });
+                    const highestYieldSeason = Object.keys(seasons).reduce((a, b) => seasons[a] > seasons[b] ? a : b);
+                    const highestAverageYieldCrop = Object.keys(cropYields).reduce((a, b) => {
+                        const averageA = cropYields[a].reduce((sum, val) => sum + val, 0) / cropYields[a].length;
+                        const averageB = cropYields[b].reduce((sum, val) => sum + val, 0) / cropYields[b].length;
+                        return averageA > averageB ? a : b;
+                    });
+
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const textWidth = pdf.getStringUnitWidth('Rotation Records') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                    const centerPosition = (pageWidth - textWidth) / 2;
+
+                    pdf.setFontSize(16);
+                    pdf.text('Rotation Records', centerPosition, 10);
+                    pdf.setFontSize(12);
+                    pdf.text(`As At: ${currentDate}`, centerPosition, 20);
+
+                    pdf.text(`Most Common Crop: ${mostCommonCrop}`, 10, 30);
+                    pdf.text(`Number of Records: ${recordCount}`, 10, 40);
+                    pdf.text(`Highest Yield Season: ${highestYieldSeason}`, 10, 50);
+                    pdf.text(`Highest Average Yield Crop: ${highestAverageYieldCrop}`, 10, 60);
+
+                    // Add the HTML content of the rotation-table
+                    pdf.autoTable({
+                        html: '#rotation-table',
+                        startY: 70, // Start below the text
+                        theme: 'grid',
+                    });
+
+                    pdf.save(`rotation-records_generatedAt_${currentDate}.pdf`);
+                })
+                .catch((error) => {
+                    console.error('Error generating PDF:', error);
+                });
+        } else {
+            console.error('Table element not found');
+        }
+    };
+
     const fieldOptions = ['All Fields', 'Field A', 'Field B', 'Field C', 'Field D', 'Field E', 'Field F', 'Field G'];
 
     const [filteredRecords, setFilteredRecords] = useState([]);
@@ -155,7 +201,7 @@ const RotationList = () => {
 
             <Link to="/crop/rotation/add">
                 <button
-                    className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-14 right-10 mt-10 mr-24"
+                    className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-14 right-5 mt-10"
                 >
                     Add New Rotation Record <span aria-hidden="true">&rarr;</span>
                 </button>
@@ -163,9 +209,9 @@ const RotationList = () => {
 
             <button
                 onClick={generatePDF}
-                className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-14 right-10 mt-10 mr-5"
+                className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 absolute top-24 right-5 mt-20"
             >
-                Print
+                Generate PDF <FiDownload className="mr-1 inline-block" />
             </button>
 
             <div className="overflow-x-auto">
@@ -179,9 +225,9 @@ const RotationList = () => {
                         <th className="px-6 py-3">Crop Type</th>
                         <th className="px-6 py-3">Variety</th>
                         <th className="px-6 py-3">Quantity</th>
-                        <th className="px-6 py-3">Yield</th>
+                        <th className="px-6 py-3">Yield (mt/ha)</th>
                         <th className="px-6 py-3">Remarks</th>
-                        <th className="px-6 py-3">Actions</th>
+                        <th className="px-6 py-3"></th>
                     </tr>
                     </thead>
                     <tbody>

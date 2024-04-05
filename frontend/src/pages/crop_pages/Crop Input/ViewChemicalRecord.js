@@ -59,7 +59,13 @@ export default function ViewChemicalRecord() {
                                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                             <span className="text-sm font-medium leading-6 text-gray-900">Date:</span>
                                             <span
-                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.date}</span>
+                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                                {new Date(record.date).toLocaleDateString('en-GB', {
+                                                    day: 'numeric',
+                                                    month: 'short',
+                                                    year: 'numeric',
+                                                })}
+                                            </span>
                                         </div>
                                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                                             <span className="text-sm font-medium leading-6 text-gray-900">Type:</span>
@@ -94,6 +100,22 @@ export default function ViewChemicalRecord() {
                                                 className="text-sm font-medium leading-6 text-gray-900">Remarks:</span>
                                             <span
                                                 className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.remarks}</span>
+                                        </div>
+                                        <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                            <span
+                                                className="text-sm font-medium leading-6 text-gray-900">Created At:</span>
+                                            <span
+                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                                    {record.createdAt && new Date(record.createdAt).toLocaleString()}
+                                            </span>
+                                        </div>
+                                        <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                            <span
+                                                className="text-sm font-medium leading-6 text-gray-900">Last Updated At:</span>
+                                            <span
+                                                className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                                                    {record.updatedAt && new Date(record.updatedAt).toLocaleString()}
+                                            </span>
                                         </div>
                                     </div>
                                 )}
