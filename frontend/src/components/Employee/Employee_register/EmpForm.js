@@ -200,7 +200,7 @@ const EmpForm = () => {
                                         onChange={(e) => setEmp_type(e.target.value)}
                                 >
 
-                                    <option value="">Select type</option>
+                                    <option value="Select_Type">Select type</option>
                                     <option value="permanent">Permanent</option>
                                     <option value="seasonal">Seasonal workers</option>
                                     <option value="casual">Casual Labours</option>

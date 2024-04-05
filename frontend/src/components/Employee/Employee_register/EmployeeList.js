@@ -17,6 +17,8 @@ const EmployeeList = () => {
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const {enqueueSnackbar } = useSnackbar();
+    const [selectedTypeFilter, setSelectedTypeFilter] = useState('All Types');
+
 
     useEffect(() => {
         setLoading(true);
@@ -52,6 +54,7 @@ const EmployeeList = () => {
         }
     };
 
+
     const filteredRecords = RegistrationRecords.filter((record) =>
         Object.values(record).some((value) => {
             if (typeof value === 'string' || typeof value === 'number') {
@@ -61,6 +64,7 @@ const EmployeeList = () => {
             return false;
         })
     );
+
 
 
     const handlePrint = () => {
@@ -92,6 +96,8 @@ const EmployeeList = () => {
     };
 
 
+
+
         return (
             <div className=" overflow-x-auto  ">
 
@@ -106,8 +112,10 @@ const EmployeeList = () => {
                                 placeholder="Search all employees..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="border border-gray-300 rounded-full px-3 py-1 w-full"
+                                className="border border-gray-300 rounded-full px-3 py-1 w-full "
                             />
+
+
                         </div>
 
                     </div>

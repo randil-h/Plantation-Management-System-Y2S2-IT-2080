@@ -5,6 +5,8 @@ const menuItems = [
     { name: "HOME", path: "/employees/home" },
     { name: "REGISTRATION", path: "/employees/registration" },
     { name: "ASSIGN TASKS", path: "/employees/tasks" },
+    { name: "ATTENDANCE MARKER", path: "/employees/attendance" },
+
 
 ];
 
