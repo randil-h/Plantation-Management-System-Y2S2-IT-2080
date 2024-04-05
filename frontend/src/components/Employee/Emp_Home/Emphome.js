@@ -1,7 +1,40 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { FaUsers, FaUserPlus, FaTasks, FaCalendarPlus } from "react-icons/fa";
+import axios from "axios";
 
 function Emphome() {
+
+    const [loading, setLoading] = useState(false);
+    const [totalRecords, setTotalRecords] = useState(0);
+    const [taskRecords, setTaskRecords] = useState(0);
+
+
+    useEffect(() => {
+        // Fetch total records from your API or set it from somewhere
+        axios.get('http://localhost:5555/employeeRecords')
+            .then(response => {
+                setTotalRecords(response.data.data);
+
+            })
+            .catch(error => {
+                console.error('Error fetching total records: ', error);
+            });
+    }, []);
+
+    useEffect(() => {
+        // Fetch total records from your API or set it from somewhere
+        axios.get('http://localhost:5555/taskRecords')
+            .then(response => {
+                setTaskRecords(response.data.data);
+
+            })
+            .catch(error => {
+                console.error('Error fetching total records: ', error);
+            });
+    }, []);
+
+
+
 
 
     return (
@@ -21,7 +54,7 @@ function Emphome() {
                     <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400  ">
                         <FaUsers className="icon text-black mb-2"/>
                         <h3 className="text-lg font-semibold text-black">Total Employees</h3>
-                        <p className="text-xl text-black">50</p>
+                        <p className="text-xl text-black">{totalRecords.length}</p>
                     </div>
                     <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400">
                         <FaUserPlus className="icon text-black mb-2"/>
@@ -41,7 +74,7 @@ function Emphome() {
                     <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400">
                         <FaTasks className="icon text-black mb-2"/>
                         <h3 className="text-lg font-semibold text-black">Total Tasks</h3>
-                        <p className="text-xl text-black">20</p>
+                        <p className="text-xl text-black">{taskRecords.length}</p>
                     </div>
                     <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400">
                         <FaCalendarPlus className="icon text-black mb-2"/>
