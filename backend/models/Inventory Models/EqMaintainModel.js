@@ -21,6 +21,10 @@ const InventoryMaintainSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        status: {
+            type: String,
+            required: true,
+        },
         comment: {
             type: String,
             required: true,

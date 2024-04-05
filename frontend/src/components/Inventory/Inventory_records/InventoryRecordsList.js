@@ -231,7 +231,7 @@ const InventoryRecordList = () => {
                                 <td className="px-6 py-4">
                                     {record.quantity}
                                 </td>
-                                <td className="px-6 py-4">
+                                <td className="px-6 py-4 whitespace-nowrap">
                                     {record.expire_date ? new Date(record.expire_date).toISOString().split('T')[0] : "N/A"}
                                 </td>
                                 <td className="px-6 py-4">

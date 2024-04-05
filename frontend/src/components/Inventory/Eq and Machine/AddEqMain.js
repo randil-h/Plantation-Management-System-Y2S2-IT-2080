@@ -9,6 +9,7 @@ const AddEqMain = () => {
     const [date_referred, setDate_referred] = useState('');
     const [date_received, setDate_received] = useState('');
     const [ref_loc, setRef_loc] = useState('');
+    const [status, setStatus] = useState('');
     const [comment, setComment] = useState('');
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
@@ -32,6 +33,7 @@ const AddEqMain = () => {
             date_referred,
             date_received,
             ref_loc,
+            status,
             comment,
 
         };
@@ -58,6 +60,7 @@ const AddEqMain = () => {
         setDate_referred('');
         setDate_received('');
         setRef_loc('');
+        setStatus('');
         setComment('');
     };
 
@@ -73,7 +76,8 @@ const AddEqMain = () => {
                     <div className="border-b border-gray-900/10 pb-12">
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="col-span-full">
-                                <label htmlFor="Eq_machine_main" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="Eq_machine_main"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
                                     Equipment / Machine Name
                                 </label>
                                 <div className="mt-2">
@@ -88,7 +92,8 @@ const AddEqMain = () => {
                                 </div>
                             </div>
                             <div className="col-span-full">
-                                <label htmlFor="Eq_id_main" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="Eq_id_main"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
                                     Equipment / Machine ID
                                 </label>
                                 <div className="mt-2">
@@ -103,7 +108,8 @@ const AddEqMain = () => {
                                 </div>
                             </div>
                             <div className="sm:col-span-3">
-                                <label htmlFor="date_referred" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="date_referred"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
                                     Date referred to
                                 </label>
                                 <div className="mt-2">
@@ -118,7 +124,8 @@ const AddEqMain = () => {
                                 </div>
                             </div>
                             <div className="sm:col-span-3">
-                                <label htmlFor="date_received" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="date_received"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
                                     Received date
                                 </label>
                                 <div className="mt-2">
@@ -148,6 +155,21 @@ const AddEqMain = () => {
                                 </div>
                             </div>
                             <div className="col-span-full">
+                                <label htmlFor="status" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Status
+                                </label>
+                                <select
+                                    name="status"
+                                    onChange={(e) => setStatus(e.target.value)}
+                                    id="status"
+                                    autoComplete="status"
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                    <option>Select</option>
+                                    <option>In Progress</option>
+                                    <option>Completed</option>
+                                </select>
+                            </div>
+                            <div className="col-span-full">
                                 <label htmlFor="comment" className="block text-sm font-medium leading-6 text-gray-900">
                                     Comment
                                 </label>
@@ -165,7 +187,8 @@ const AddEqMain = () => {
                         </div>
                     </div>
                     <div className="mt-6 flex items-center justify-end gap-x-6">
-                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900" onClick={handleCancel}>
+                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900"
+                                onClick={handleCancel}>
                             Cancel
                         </button>
                         <button

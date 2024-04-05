@@ -81,6 +81,14 @@ const EqMaintain = () => {
                 pdf.save('maintenances_records.pdf');
             });
     };
+    const getStatusBackgroundClass = (status) => {
+        if (status === 'In Progress') {
+            return 'bg-red-100 text-red-800 px-2 py-1 rounded-md text-xs'; // Red background for In Progress
+        } else if (status === 'Completed') {
+            return 'bg-green-100 text-green-800 px-2 py-1 rounded-md text-xs'; // Green background for Completed
+        }
+        return ''; // Default empty class for other statuses
+    };
 
     return (
         <div className="overflow-x-auto">
@@ -138,7 +146,13 @@ const EqMaintain = () => {
                             Referred location
                         </th>
                         <th scope="col" className="px-6 py-3">
+                            Status
+                        </th>
+                        <th scope="col" className="px-6 py-3">
                             Description
+                        </th>
+                        <th scope="col" className=" py-3">
+                            <span className="sr-only">Info</span>
                         </th>
                         <th scope="col" className=" py-3">
                             <span className="sr-only">Edit</span>
@@ -159,6 +173,9 @@ const EqMaintain = () => {
                                 <td className="px-6 py-4">{record.date_referred.split("T")[0]}</td>
                                 <td className="px-6 py-4">{record.date_received.split("T")[0]}</td>
                                 <td className="px-6 py-4">{record.ref_loc}</td>
+                                <td className={`px-6 ${getStatusBackgroundClass(record.status)}`}>
+                                    {record.status}
+                                </td>
                                 <td className="px-6 py-4">{record.comment}</td>
                                 <td className="px-6 py-4 text-right">
                                     <Link to={`/inventory/maintenancelog/viewmain/${record._id}`}

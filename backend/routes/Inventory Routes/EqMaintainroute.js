@@ -13,11 +13,12 @@ router.post('/', async (request, response) => {
             date_referred,
             date_received,
             ref_loc,
+            status,
             comment
         } = request.body;
 
         // Check if all required fields are present
-        if (!Eq_machine_main || !Eq_id_main || !date_referred || !date_received || !ref_loc || !comment) {
+        if (!Eq_machine_main || !Eq_id_main || !date_referred || !date_received || !ref_loc || !status || !comment) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });
@@ -30,6 +31,7 @@ router.post('/', async (request, response) => {
             date_referred,
             date_received,
             ref_loc,
+            status,
             comment
         });
 
@@ -86,11 +88,12 @@ router.put('/:id', async (request, response) => {
             date_referred,
             date_received,
             ref_loc,
+            status,
             comment
         } = request.body;
 
         // Check if all required fields are present
-        if (!Eq_machine_main || !Eq_id_main || !date_referred || !date_received || !ref_loc || !comment) {
+        if (!Eq_machine_main || !Eq_id_main || !date_referred || !date_received || !ref_loc || !status || !comment) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });

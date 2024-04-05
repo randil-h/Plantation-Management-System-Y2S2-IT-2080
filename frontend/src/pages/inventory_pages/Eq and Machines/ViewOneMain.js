@@ -95,28 +95,32 @@ export default function ViewOneMain() {
                                     <div className="mt-6 border-t border-gray-100">
                                         <dl className="divide-y divide-gray-200">
                                             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                <dt className="text-sm font-medium leading-6 text-gray-900">Type</dt>
+                                                <dt className="text-sm font-medium leading-6 text-gray-900">Equipment / Machine Name</dt>
                                                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.Eq_machine_main}</dd>
                                             </div>
 
                                             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                <dt className="text-sm font-medium leading-6 text-gray-900">Record ID</dt>
+                                                <dt className="text-sm font-medium leading-6 text-gray-900">Equipment / Machine ID</dt>
                                                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.Eq_id_main}</dd>
                                             </div>
                                             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                <dt className="text-sm font-medium leading-6 text-gray-900">Name</dt>
+                                                <dt className="text-sm font-medium leading-6 text-gray-900">Date referred to</dt>
                                                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.date_referred.split("T")[0]}</dd>
                                             </div>
                                             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                <dt className="text-sm font-medium leading-6 text-gray-900">Storage Location</dt>
+                                                <dt className="text-sm font-medium leading-6 text-gray-900">Date received</dt>
                                                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.date_received.split("T")[0]}</dd>
                                             </div>
                                             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                <dt className="text-sm font-medium leading-6 text-gray-900">Quantity</dt>
+                                                <dt className="text-sm font-medium leading-6 text-gray-900">Location</dt>
                                                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.ref_loc}</dd>
                                             </div>
                                             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                                                <dt className="text-sm font-medium leading-6 text-gray-900">Expire Date</dt>
+                                                <dt className="text-sm font-medium leading-6 text-gray-900">Status</dt>
+                                                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.status}</dd>
+                                            </div>
+                                            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                                                <dt className="text-sm font-medium leading-6 text-gray-900">Description</dt>
                                                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{record.comment}</dd>
                                             </div>
                                         </dl>
