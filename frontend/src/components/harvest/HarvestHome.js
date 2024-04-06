@@ -41,14 +41,26 @@ function LastMonthHarvestRecords() {
 
     return (
         <div>
+            <div>
+                <h1 className="px-6 py-6 text-2xl font-bold w-full ">
+                    HARVEST MANAGEMENT
+                </h1>
+                <p className="px-6 py-6 ">This month's summary</p>
+            </div>
+
             {loading ? (
                 <p>Loading last month's harvest records...</p>
             ) : (
-                <div className="section-content grid grid-cols-1 md:grid-cols-2 gap-8">
+
+
+                <div
+                    className="justify-between grid-cols-1 ml-6 w-full mt-8 flex flex-wrap items-center md:grid-cols-2">
+
                     {plantSummaries.map((summary, index) => (
-                        <div key={index} className="px-6 py-5 card bg-green-300 rounded-lg p-6 hover:bg-green-400"
-                             style={{margin: '0.5rem'}}>
-                            <h3>{summary.cropType}</h3>
+                        <div key={index}
+                             className=" py-4 items-center justify-center rounded-lg flex-col flex-1 flex shadow-lg bg-lime-300 max-w-2xl w-full mb-4 mr-4 hover:bg-lime-400"
+                        >
+                            <h3 className="text-2xl font-bold ">{summary.cropType}</h3>
                             <p>Sum of harvests: {summary.sum} kg</p>
                         </div>
                     ))}
