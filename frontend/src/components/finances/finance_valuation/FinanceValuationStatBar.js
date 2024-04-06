@@ -16,7 +16,7 @@ export default function FinanceValuationStatBar() {
     const [loading, setLoading] = useState(false);
     const [totalRecords, setTotalRecords] = useState(0);
     const [totalAssets, setTotalAssets] = useState(0);
-    const [totalLiabilitites, setTotalLiabilitites] = useState(0);
+    const [totalLiabilities, setTotalLiabilities] = useState(0);
     const [netValue, setNetValue] = useState(0);
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export default function FinanceValuationStatBar() {
                     }
                 });
                 setTotalAssets(assets);
-                setTotalLiabilitites(liabilities);
+                setTotalLiabilities(liabilities);
 
                 // Calculate profit or loss
                 setNetValue(assets - liabilities);
@@ -111,7 +111,7 @@ export default function FinanceValuationStatBar() {
                         {/* Expense this week */}
                         <div className="flex flex-row items-center gap-8">
                             <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
-                                Rs.{totalLiabilitites}
+                                Rs.{totalLiabilities}
                             </dd>
 
                         </div>
