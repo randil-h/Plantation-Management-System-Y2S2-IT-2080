@@ -9,6 +9,7 @@ const EditInventoryRecords = () => {
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
     const { id } = useParams();
+
     const [formData, setFormData] = useState({
         type: '',
         record_ID: '',
@@ -60,10 +61,25 @@ const EditInventoryRecords = () => {
             description: ""
         });
     };
-    const handleEdit = () => {
+    const handleEdit = (e) => {
+        e.preventDefault(); // Prevent default form submission behavior
         setLoading(true);
+
+        const { type, record_ID, record_name, storage, quantity, expire_date, description } = formData;
+
+        // Prepare the updated data object to send in the PUT request
+        const updatedData = {
+            type,
+            record_ID,
+            record_name,
+            storage,
+            quantity,
+            expire_date,
+            description
+        };
+
         axios
-            .put(`http://localhost:5555/inventoryinputs/${id}`, formData)
+            .put(`http://localhost:5555/inventoryinputs/${id}`, updatedData)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Edited Successfully!', {
@@ -74,14 +90,15 @@ const EditInventoryRecords = () => {
                         horizontal: 'center',
                     },
                 });
-                navigate('/inventory/inventoryrecords', { state: { highlighted: true } });
+                navigate('/inventory/inventoryrecords');
             })
             .catch((error) => {
                 setLoading(false);
-                enqueueSnackbar('Error', { variant: 'error' });
+                enqueueSnackbar('Error editing record', { variant: 'error' });
                 console.log(error);
             });
     };
+
     return (
         <div className="pt-2">
             <div className="flex flex-col ml-96 mt-6">
