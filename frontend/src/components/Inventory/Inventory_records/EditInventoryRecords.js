@@ -86,8 +86,8 @@ const EditInventoryRecords = () => {
                     variant: 'success',
                     autoHideDuration: 6000,
                     anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'center',
+                        vertical: 'bottom',
+                        horizontal: 'left',
                     },
                 });
                 navigate('/inventory/inventoryrecords');
