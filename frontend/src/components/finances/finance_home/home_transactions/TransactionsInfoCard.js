@@ -6,6 +6,7 @@ import { scaleTime, scaleLinear } from 'd3-scale';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { line, curveCardinal, area } from 'd3-shape';
 import { extent } from 'd3-array';
+import {curveBumpX} from "d3";
 
 export default function TransactionsInfoCard() {
     const [transactionsRecords, setTransactionsRecords] = useState([]);
@@ -119,12 +120,12 @@ export default function TransactionsInfoCard() {
             .x(d => x(new Date(d.date)))
             .y0(height + margin.top)
             .y1(d => y(d.amount))
-            .curve(curveCardinal); // Use a curve interpolation method for smoother lines
+            .curve(curveBumpX); // Use a curve interpolation method for smoother lines
 
         const lineGenerator = line()
             .x(d => x(new Date(d.date)))
             .y(d => y(d.amount))
-            .curve(curveCardinal); // Use a curve interpolation method for smoother lines
+            .curve(curveBumpX); // Use a curve interpolation method for smoother lines
 
         // Filter records based on transaction type
         const incomeRecords = sortedRecords.filter(record => record.type === 'income');

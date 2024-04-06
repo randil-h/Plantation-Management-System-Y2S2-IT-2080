@@ -3,6 +3,7 @@ import { Carousel, Radio } from "antd";
 import FinanceHomeStatBar from "./FinanceHomeStatBar";
 import FinanceTransactionsStatBar from "../finance_transactions/FinanceTransactionsStatBar";
 import TransactionsInfoCard from "./home_transactions/TransactionsInfoCard";
+import ProfitGraph from "./home_transactions/ProfitInfoCard";
 
 
 

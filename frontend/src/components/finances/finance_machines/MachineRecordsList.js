@@ -15,7 +15,7 @@ import {
     MagnifyingGlassIcon,
     ChevronDownIcon,
     ChevronUpIcon,
-    XMarkIcon
+    XMarkIcon, ArrowDownTrayIcon
 } from '@heroicons/react/24/outline';
 
 export default function MachineRecordsList() {
@@ -192,10 +192,11 @@ export default function MachineRecordsList() {
                             </button>
 
                             <div>
-                                <Button shape="round"
-                                        className="font-semibold bg-amber-200 text-gray-700 hover:bg-amber-500 border-none"
-                                        onClick={() => setPopoverVisible(true)}>
-                                    Download PDF Report
+                                <Button
+                                    shape="round"
+                                    className="flex flex-row gap-2 items-center font-semibold bg-amber-200 text-gray-700 hover:bg-amber-500 border-none"
+                                    onClick={() => setPopoverVisible(true)}>
+                                    Download PDF Report <ArrowDownTrayIcon className="w-4 h-4 self-center"/>
                                 </Button>
                                 <Popover
                                     content={
@@ -322,7 +323,7 @@ export default function MachineRecordsList() {
                                 </Link>
                             </td>
                             <td className=" py-4 text-right">
-                                <Link to={`/finances/transactions/editTransaction/${record._id}`}>
+                                <Link to={`/finances/machineHours/editMachineRecords/${record._id}`}>
                                     <PencilSquareIcon
                                         className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
                                         aria-hidden="true"

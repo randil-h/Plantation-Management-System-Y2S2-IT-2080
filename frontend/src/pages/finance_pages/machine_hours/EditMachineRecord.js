@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
 import {SnackbarProvider, useSnackbar} from 'notistack';
 import axios from 'axios';
 import Navbar from '../../../components/utility/Navbar';
@@ -8,14 +8,15 @@ import FinanceNavigation from '../../../components/finances/FinanceNavigation';
 import Breadcrumb from '../../../components/utility/Breadcrumbs';
 import BackButton from '../../../components/utility/BackButton';
 
-export default function EditTransaction() {
+function EditMachineRecord() {
     const [date, setDate] = useState('');
     const [type, setType] = useState('');
-    const [subtype, setSubType] = useState('');
-    const [amount, setAmount] = useState('');
+    const [hours_nos, setHours] = useState('');
+    const [rate, setRate] = useState('');
     const [description, setDescription] = useState('');
     const [payerPayee, setPayerPayee] = useState('');
-    const [method, setMethod] = useState('');
+    const [paid, setPaid] = useState('false');
+
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
@@ -25,41 +26,40 @@ export default function EditTransaction() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/transactions/${id}`)
+            .get(`http://localhost:5555/machines/${id}`)
             .then((response) => {
                 setDate(response.data.date);
                 setType(response.data.type);
-                setSubType(response.data.subtype);
-                setAmount(response.data.amount);
+                setHours(response.data.hours_nos);
+                setRate(response.data.rate);
                 setDescription(response.data.description);
                 setPayerPayee(response.data.payer_payee);
-                setMethod(response.data.method);
+                setPaid(response.data.paid);
                 setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
                 setLoading(false);
             });
-    }, [id]);
+    }, []);
 
-
-    const handleEditTransactionRecord = () => {
+    const handleEditMachineRecord = () => {
         const data = {
             date,
             type,
-            subtype,
-            amount,
+            hours_nos,
+            rate,
             description,
             payer_payee: payerPayee,
-            method,
+            paid,
         };
         setLoading(true);
         axios
-            .put(`http://localhost:5555/transactions/${id}`, data)
+            .put(`http://localhost:5555/machines/${id}`, data)
             .then(() => {
                 setLoading(false);
-                enqueueSnackbar('Record Updated successfully', { variant: 'success' });
-                navigate('/transactions');
+                enqueueSnackbar('Record Created successfully', { variant: 'success' });
+                navigate('/');
             })
             .catch((error) => {
                 setLoading(false);
@@ -68,20 +68,15 @@ export default function EditTransaction() {
             });
     };
 
-    const handleTypeChange = (e) => {
-        setType(e.target.value);
-        // Reset subtype when type changes
-        setSubType('Electricity Bill');
-    };
+    const breadcrumbItems = [
+        { name: 'Finance', href: '/finances' },
+        { name: 'Machine Records', href: '/finances/machineHours' },
+        { name: 'Add New Machine Record', href: '/finances/machineHours/addeqmainpage' },
+    ];
 
     const handleCancel = () => {
         navigate(-1); // This will navigate back to the previous location in the history stack
     };
-    const breadcrumbItems = [
-        { name: 'Finance', href: '/finances' },
-        { name: 'Transactions', href: '/finances/transactions' },
-        { name: 'Edit Transaction', href: '/finances/transactions/addTransaction' },
-    ];
 
     return (
         <SnackbarProvider>
@@ -101,86 +96,29 @@ export default function EditTransaction() {
                             </div>
 
                             <form className=" flex-col flex items-center justify-center">
-                                <div className="space-y-12 px-0 py-16 w-8/12 ">
+                                <div className="space-y-12 px-0 py-8 w-8/12 ">
                                     <div className="border-b border-gray-900/10 pb-12">
-                                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                            <fieldset className="sm:col-span-4 gap-y-8">
-                                                <legend
-                                                    className="text-sm font-semibold leading-6 text-gray-900">Transaction
-                                                    type
-                                                </legend>
-                                                <p className="mt-1 text-sm leading-6 text-gray-600">Specify whether this
-                                                    is an income or an expense</p>
-                                                <div className="mt-6 gap-4 flex flex-row items-center ">
-                                                    <div className="flex items-center gap-x-3 ">
-                                                        <input
-                                                            id="income"
-                                                            name="type"
-                                                            type="radio"
-                                                            value="income"
-                                                            checked={type === 'income'}
-                                                            onChange={handleTypeChange}
-                                                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                        />
-                                                        <label htmlFor="income"
-                                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                                            Income
-                                                        </label>
-                                                    </div>
-                                                    <div className="flex items-center gap-x-3 ">
-                                                        <input
-                                                            id="expense"
-                                                            name="type"
-                                                            type="radio"
-                                                            value="expense"
-                                                            checked={type === 'expense'}
-                                                            onChange={handleTypeChange}
-                                                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                                                        />
-                                                        <label htmlFor="expense"
-                                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                                            Expense
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-
+                                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
                                             <div className="sm:col-span-2 sm:col-start-1">
-                                                <label htmlFor="subtype"
+                                                <label htmlFor="type"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Sub Type
+                                                    Machine Type
                                                 </label>
-                                                <div className="mt-2">
+                                                <div className="">
                                                     <select
-                                                        name="subtype"
-                                                        value={subtype}
-                                                        onChange={(e) => setSubType(e.target.value)}
-                                                        id="subtype"
-                                                        autoComplete="subtype"
+                                                        name="type"
+                                                        value={type}
+                                                        onChange={(e) => setType(e.target.value)}
+                                                        id="type"
+                                                        autoComplete="type"
                                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                     >
-                                                        {type === 'income' ? (
-                                                            <>
-                                                                <option>Papaya</option>
-                                                                <option>Coconut</option>
-                                                                <option>Apple Guava</option>
-                                                                <option>Vegetables</option>
-                                                                <option>Bee Honey</option>
-                                                                <option>Visitor Payment</option>
-                                                                <option>Other</option>
-                                                            </>
-                                                        ) : (
-                                                            <>
-                                                                <option>Electricity Bill</option>
-                                                                <option>Salary Payment</option>
-                                                                <option>Machine Purchase</option>
-                                                                <option>Transportation</option>
-                                                                <option>Land Purchase</option>
-                                                                <option>Machine Renting</option>
-                                                                <option>Other</option>
-                                                            </>
-
-                                                        )}
+                                                        <option>Excavator small</option>
+                                                        <option>Excavator Large</option>
+                                                        <option>Dozer</option>
+                                                        <option>Tractor Rotary</option>
+                                                        <option>Tractor Disc</option>
+                                                        <option>Tractor Grass Cutter</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -196,22 +134,41 @@ export default function EditTransaction() {
                                                     value={date}
                                                     onChange={(e) => setDate(e.target.value)}
                                                     id="date"
+                                                    required
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 
                                             {/* Amount */}
                                             <div className="sm:col-span-3">
-                                                <label htmlFor="amount"
+                                                <label htmlFor="hours_nos"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Amount
+                                                    Hours/nos.
                                                 </label>
                                                 <input
-                                                    id="amount"
-                                                    name="amount"
-                                                    value={amount}
-                                                    onChange={(e) => setAmount(e.target.value)}
+                                                    id="hours_nos"
+                                                    name="hours_nos"
+                                                    value={hours_nos}
+                                                    onChange={(e) => setHours(e.target.value)}
                                                     type="text"
+                                                    pattern="[1-9]\d*" // Only allows positive integers
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    title="Please enter only numbers" // Error message if pattern doesn't match
+                                                    required // Makes the field required
+                                                />
+                                            </div>
+                                            <div className="sm:col-span-3 sm:col-start-1">
+                                                <label htmlFor="rate"
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Rate
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="rate"
+                                                    required
+                                                    value={rate}
+                                                    onChange={(e) => setRate(e.target.value)}
+                                                    id="rate"
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 />
                                             </div>
@@ -229,6 +186,7 @@ export default function EditTransaction() {
                                                     value={description}
                                                     onChange={(e) => setDescription(e.target.value)}
                                                     autoComplete="description"
+                                                    required
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                                 />
                                             </div>
@@ -242,6 +200,7 @@ export default function EditTransaction() {
                                                 <input
                                                     type="text"
                                                     name="payer_payee"
+                                                    required
                                                     value={payerPayee}
                                                     onChange={(e) => setPayerPayee(e.target.value)}
                                                     id="payer_payee"
@@ -250,26 +209,25 @@ export default function EditTransaction() {
                                             </div>
 
                                             {/* Payment Method */}
+
                                             <div className="sm:col-span-2 sm:col-start-1">
-                                                <label htmlFor="method"
-                                                       className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Payment Method
-                                                </label>
-                                                <div className="mt-2">
-                                                    <select
-                                                        name="method"
-                                                        value={method}
-                                                        onChange={(e) => setMethod(e.target.value)}
-                                                        id="method"
-                                                        autoComplete="method"
-                                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                    >
-                                                        <option>Cheque</option>
-                                                        <option>Cash</option>
-                                                        <option>Online Transfer</option>
-                                                    </select>
+                                                <div className="relative flex gap-x-4 align-baseline items-center">
+                                                    <label htmlFor="paid"
+                                                           className="block text-sm font-medium leading-6 text-gray-900">
+                                                        Work is already paid
+                                                    </label>
+                                                    <input
+                                                        type="checkbox"
+                                                        name="paid"
+                                                        checked={paid === 'true'}
+                                                        onChange={(e) => setPaid(e.target.checked ? 'true' : 'false')}
+                                                        id="paid"
+                                                        className="h-5 w-5 rounded border-gray-300 text-lime-600 focus:ring-lime-600"
+                                                    />
                                                 </div>
                                             </div>
+
+
                                         </div>
                                         <div className="mt-6 flex items-center justify-end gap-x-6">
                                             <button type="button"
@@ -278,7 +236,7 @@ export default function EditTransaction() {
                                                 Cancel
                                             </button>
                                             <button
-                                                onClick={handleEditTransactionRecord}
+                                                onClick={handleEditMachineRecord}
                                                 className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                             >
                                                 Save
@@ -293,5 +251,7 @@ export default function EditTransaction() {
             </div>
         </SnackbarProvider>
 
-    )
+    );
 }
+
+export default EditMachineRecord;

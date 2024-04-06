@@ -15,7 +15,8 @@ import {
     MagnifyingGlassIcon,
     ChevronDownIcon,
     ChevronUpIcon,
-    XMarkIcon
+    XMarkIcon,
+    ArrowDownTrayIcon
 } from '@heroicons/react/24/outline';
 
 export default function TransactionsList() {
@@ -270,10 +271,13 @@ export default function TransactionsList() {
                             </button>
 
                             <div>
-                                <Button shape="round" className="font-semibold bg-amber-200 text-gray-700 hover:bg-amber-500 border-none"
-                                        onClick={() => setPopoverVisible(true)}>
-                                    Download PDF Report
+                                <Button
+                                    shape="round"
+                                    className="flex flex-row gap-2 items-center font-semibold bg-amber-200 text-gray-700 hover:bg-amber-500 border-none"
+                                    onClick={() => setPopoverVisible(true)}>
+                                    Download PDF Report <ArrowDownTrayIcon className="w-4 h-4 self-center"/>
                                 </Button>
+
                                 <Popover
                                     content={
                                         <div className="text-gray-600">

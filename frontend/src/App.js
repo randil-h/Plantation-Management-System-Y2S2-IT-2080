@@ -25,6 +25,7 @@ import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments
 
 import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
 import AddNewMachineRecord from "./pages/finance_pages/machine_hours/AddNewMachineRecord";
+import EditMachineRecord from "./pages/finance_pages/machine_hours/EditMachineRecord";
 
 import CropManagement from "./pages/crop_pages/CropManagement";
 import CropRotation from "./pages/crop_pages/Rotation Management/CropRotation";
@@ -155,6 +156,7 @@ export default function App() {
 
                     <Route path="/finances/machineHours" element={<MachineHours />} />
                     <Route path="/finances/machineHours/addMachineRecords" element={<AddNewMachineRecord />} />
+                    <Route path="/finances/machineHours/editMachineRecords/:id" element={<EditMachineRecord />} />
 
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback" element={Feedback()}/>
