@@ -46,6 +46,31 @@ router.get('/', async (request,response) =>{
     }
 });
 
+router.put('/:id', async (request, response) =>{
+    try{
+        if(
+            !request.body.orderQuantity
+        ){
+            return response.status(400).send({
+                message: 'Send all required fields'
+            });
+        }
+
+        const {id} = request.params;
+
+        const result = await Orders.findByIdAndUpdate(id, request.body);
+
+        if(!result){
+            return response.status(404).json({message: 'Order Records not Founded'});
+        }
+
+        return response.status(200).send({ message: 'Order record updated successfully' });
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({message: error.message});
+    }
+});
+
 router.get('/:id', async (request, response) =>{
     try{
         const {id} =request.params;
