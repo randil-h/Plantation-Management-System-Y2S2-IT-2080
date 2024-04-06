@@ -26,6 +26,7 @@ import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments
 import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
 import AddNewMachineRecord from "./pages/finance_pages/machine_hours/AddNewMachineRecord";
 import EditMachineRecord from "./pages/finance_pages/machine_hours/EditMachineRecord";
+import ViewMachineRecord from "./pages/finance_pages/machine_hours/ViewMachineRecord";
 
 import CropManagement from "./pages/crop_pages/CropManagement";
 import CropRotation from "./pages/crop_pages/Rotation Management/CropRotation";
@@ -152,11 +153,12 @@ export default function App() {
                     <Route path="/finances/valuation" element={<Valuation />} />
                     <Route path="/finances/valuation/addValuation" element={<AddNewValuation/>} />
                     <Route path="/finances/valuation/editValuation" element={<Valuation />} />
-                    <Route path="/finances/valuation/deleteValuation" element={<Valuation />} />AddNewMachineRecord
+                    <Route path="/finances/valuation/deleteValuation" element={<Valuation />} />
 
                     <Route path="/finances/machineHours" element={<MachineHours />} />
                     <Route path="/finances/machineHours/addMachineRecords" element={<AddNewMachineRecord />} />
                     <Route path="/finances/machineHours/editMachineRecords/:id" element={<EditMachineRecord />} />
+                    <Route path="/finances/machineHours/viewMachineRecords/:id" element={<ViewMachineRecord />} />
 
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback" element={Feedback()}/>

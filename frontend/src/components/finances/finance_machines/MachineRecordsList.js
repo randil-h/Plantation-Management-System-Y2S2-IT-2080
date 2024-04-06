@@ -315,7 +315,7 @@ export default function MachineRecordsList() {
 
 
                             <td className=" py-4 text-right">
-                                <Link to={`/finances/transactions/viewTransactionDetails/${record._id}`}>
+                                <Link to={`/finances/machineHours/viewMachineRecords/${record._id}`}>
                                     <InformationCircleIcon
                                         className="h-6 w-6 flex-none bg-gray-200 p-1 rounded-full text-gray-800 hover:bg-gray-500"
                                         aria-hidden="true"
