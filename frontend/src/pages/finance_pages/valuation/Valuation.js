@@ -4,7 +4,7 @@ import Navbar from "../../../components/utility/Navbar";
 import FinanceNavigation from "../../../components/finances/FinanceNavigation";
 import BackButton from "../../../components/utility/BackButton";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
-import ValuationTiles from "../../../components/finances/finance_valuation/valuation_tiles";
+
 import {InformationCircleIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 import {Link, useParams} from "react-router-dom";
 import {useSnackbar} from "notistack";
