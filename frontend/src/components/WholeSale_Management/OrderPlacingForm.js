@@ -10,11 +10,9 @@ const OrderPlacingForm = () => {
     const { enqueueSnackbar } = useSnackbar();
     const { id } = useParams(); // Extracting id from route parameters
     const navigate = useNavigate();
-    const [quantity, setQuantity] = useState(1); // State to hold the quantity
-    const [orderProductName, setorderproductName]  = useState('');
+    //const [quantity, setQuantity] = useState(1); // State to hold the quantity
     const [orderDate, setorderDate] = useState('');
-    const [orderQuantity, setorderQuantity] = useState('');
-    const [orderPrice, setorderPrice] = useState('');
+    const [orderQuantity, setorderQuantity] = useState('1');
 
     useEffect(() => {
         setLoading(true);
@@ -31,13 +29,13 @@ const OrderPlacingForm = () => {
     }, [id]);
 
     const handleQuantityChange = (e) => {
-        const newQuantity = parseInt(e.target.value);
-        setQuantity(newQuantity);
+        const newOrderQuantity = parseInt(e.target.value);
+        setorderQuantity(newOrderQuantity);
     };
 
     const calculateTotalPrice = () => {
         if (product) {
-            return quantity * parseFloat(product.productPrice);
+            return orderQuantity * parseFloat(product.productPrice);
         }
         return 0;
     };
@@ -45,6 +43,24 @@ const OrderPlacingForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const totalPrice = calculateTotalPrice();
+        const  data = {
+            orderProductName: product.productName,
+            orderDate,
+            orderQuantity,
+            orderPrice: totalPrice,
+        };
+
+        axios
+            .post('http://localhost:5555/orderRecords', data)
+            .then(() => {
+                enqueueSnackbar('Record Create Successfully', {variant: 'success'});
+                navigate('/WholeSale/orders', {state:{highlighted: true}});
+            })
+            .catch((error) => {
+                enqueueSnackbar('Error', { variant: 'error' });
+                console.log(error);
+            });
     };
 
     if (loading) {
@@ -126,21 +142,21 @@ const OrderPlacingForm = () => {
                         <div>
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-9">
                                 <div className="sm:col-span-3">
-                                    <label
-                                        className="block text-sm font-medium leading-6 text-gray-900">
-                                        Enter the Quantity
-                                        1Kg
+                                    <label htmlFor="orderQuantity"
+                                           className="block text-sm font-medium leading-6 text-gray-900">
+                                        Enter the Quantity (1Kg)
                                     </label>
-                                    <div className="mt-4">
-                                        <input type="number"
-                                               name="productPrice"
-                                               id="productPrice"
-                                               onChange={handleQuantityChange}
-                                               value={quantity}
-                                               min="1"
-                                               className="block w-full rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-                                               placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                                    </div>
+                                    <input type="number"
+                                           name="orderQuantity"
+                                           id="orderQuantity"
+                                           min="1"
+                                           onChange={handleQuantityChange}
+                                           value={orderQuantity}
+                                           title="Enter the quantity"
+                                           placeholder="Enter quantity (1Kg)"
+                                           className="block w-full rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+
                                 </div>
                             </div>
                         </div>
@@ -152,19 +168,20 @@ const OrderPlacingForm = () => {
                         <div>
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-9">
                                 <div className="sm:col-span-3">
-                                    <label
-                                        className="block text-sm font-medium leading-6 text-gray-900">
+                                    <label htmlFor="orderDate"
+                                           className="block text-sm font-medium leading-6 text-gray-900">
                                         Enter the Order Date (Enter the Current Date)
                                     </label>
-                                    <div className="mt-4">
-                                        <input type="date"
-                                               name="orderDate"
-                                               id="orderDate"
-                                            // onChange={(e) => setproductPrice(e.target.value)}
-                                            // value={productPrice}
-                                               className="block w-full rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-                                               placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
-                                    </div>
+                                    <input type="date"
+                                           name="orderDate"
+                                           id="orderDate"
+                                           onChange={(e) => setorderDate(e.target.value)}
+                                           value={orderDate}
+                                           title="Select the order date"
+                                           placeholder="Select order date"
+                                           className="block w-full rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+
                                 </div>
                             </div>
                         </div>

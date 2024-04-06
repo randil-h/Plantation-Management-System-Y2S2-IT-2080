@@ -2,6 +2,14 @@ import mongoose from "mongoose"
 
 const OrderSchema = mongoose.Schema(
     {
+        orderId: {
+            type: String,
+            default: true,
+        },
+        orderProductName: {
+            type: String,
+            default: true,
+        },
         orderDate: {
             type: Date,
             default: Date.now,

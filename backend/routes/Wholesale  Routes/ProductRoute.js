@@ -61,7 +61,7 @@ router.get('/:id', async(request,response) =>{
 
         const  productRecords = await Products.findById(id);
 
-        return response.status(200).json(productRecords)
+        return response.status(200).json(productRecords);
         // if(!productRecords){
         //     return response.status(404).json({ message: 'Product Record not found' });
         // }
