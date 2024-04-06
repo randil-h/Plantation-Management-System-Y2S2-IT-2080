@@ -11,7 +11,7 @@ import BackButton from '../../../components/utility/BackButton';
 function AddNewValuation() {
     const [date, setDate] = useState('');
     const [type, setType] = useState('asset');
-    const [subType, setSubType] = useState('Land');
+    const [subtype, setSubType] = useState('Land');
     const [quantity, setQuantity] = useState('0');
     const [price, setPrice] = useState('0');
     const [description, setDescription] = useState('');
@@ -25,7 +25,7 @@ function AddNewValuation() {
         const data = {
             date,
             type,
-            subType,
+            subtype,
             quantity,
             price,
             description,
@@ -55,6 +55,12 @@ function AddNewValuation() {
 
     const handleCancel = () => {
         navigate(-1); // This will navigate back to the previous location in the history stack
+    };
+
+    const handleTypeChange = (e) => {
+        setType(e.target.value);
+        // Reset subtype when type changes
+        setSubType('Loans');
     };
 
     return (
@@ -95,7 +101,7 @@ function AddNewValuation() {
                                                             type="radio"
                                                             value="asset"
                                                             checked={type === 'asset'}
-                                                            onChange={() => setType('asset')}
+                                                            onChange={handleTypeChange}
                                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                         />
                                                         <label htmlFor="asset"
@@ -110,7 +116,7 @@ function AddNewValuation() {
                                                             type="radio"
                                                             value="liability"
                                                             checked={type === 'liability'}
-                                                            onChange={() => setType('liability')}
+                                                            onChange={handleTypeChange}
                                                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                                         />
                                                         <label htmlFor="liability"
@@ -121,29 +127,40 @@ function AddNewValuation() {
                                                 </div>
                                             </fieldset>
                                             <div className="sm:col-span-2 sm:col-start-1">
-                                                <label htmlFor="subType"
+                                                <label htmlFor="subtype"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
                                                     Sub Type
                                                 </label>
                                                 <div className="mt-2">
                                                     <select
-                                                        name="subType"
-                                                        value={subType}
+                                                        name="subtype"
+                                                        value={subtype}
                                                         onChange={(e) => setSubType(e.target.value)}
-                                                        id="subType"
-                                                        autoComplete="subType"
+                                                        id="subtype"
+                                                        autoComplete="subtype"
                                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                     >
-                                                        <option>Land</option>
-                                                        <option>Machinery</option>
-                                                        <option>Crops</option>
-                                                        <option>Infrastructure</option>
-                                                        <option>Utilities</option>
-                                                        <option>Water</option>
-                                                        <option>Loan</option>
-                                                        <option>Debts</option>
-                                                        <option>Leases</option>
-                                                        <option>Taxes</option>
+
+
+
+                                                        {type === 'asset' ? (
+                                                            <>
+                                                                <option>Land</option>
+                                                                <option>Machinery</option>
+                                                                <option>Crops</option>
+                                                                <option>Infrastructure</option>
+                                                                <option>Utilities</option>
+                                                                <option>Water</option>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <option>Loan</option>
+                                                                <option>Debts</option>
+                                                                <option>Leases</option>
+                                                                <option>Taxes</option>
+                                                            </>
+
+                                                        )}
                                                     </select>
                                                 </div>
                                             </div>

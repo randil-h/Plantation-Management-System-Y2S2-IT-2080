@@ -13,6 +13,7 @@ import {ChevronDownIcon, HomeModernIcon, RectangleGroupIcon, TruckIcon} from "@h
 import {GiFruitBowl, GiPayMoney, GiReceiveMoney, GiTwoCoins, GiWaterTank} from "react-icons/gi";
 import {MdElectricalServices} from "react-icons/md";
 import {FaMoneyCheck} from "react-icons/fa";
+import {Button, Popover} from "antd";
 
 
 export default function Valuation() {
@@ -124,7 +125,7 @@ export default function Valuation() {
                             </div>
                         </div>
 
-                        <div className="sticky top-20">
+                        <div className="">
                             <div className=" flex flex-row w-full bg-gray-200  h-72 ">
                                 <button value="Land" onClick={(e) => setSearchQuery(e.target.value)}
                                     className="w-full overflow-hidden h-full bg-lime-100 flex flex-col justify-between items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
@@ -358,14 +359,32 @@ export default function Valuation() {
                                 </Link>
                             </td>
                             <td className=" ">
-                                <button
-                                    className="flex items-center"
-                                    onClick={() => handleDeleteValuation(record._id)}
+                                <Popover
+                                    content={
+                                        <div>
+                                            <p>Are you sure you want to delete this record?</p>
+                                            <div className="mt-4 flex justify-start">
+                                                <button
+                                                    className="bg-red-600 rounded-full px-4 text-white hover:bg-red-400"
+                                                    onClick={() => {
+                                                        handleDeleteValuation(record._id);
+                                                    }}
+                                                >
+                                                    Yes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    }
+                                    title="Confirmation"
+                                    trigger="click"
                                 >
-                                    <TrashIcon
-                                        className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                        aria-hidden="true"/>
-                                </button>
+                                    <Button shape="circle" type="text">
+                                        <TrashIcon
+                                            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                            aria-hidden="true"
+                                        />
+                                    </Button>
+                                </Popover>
                             </td>
                         </tr>
                         ))}
