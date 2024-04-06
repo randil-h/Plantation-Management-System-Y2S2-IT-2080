@@ -55,31 +55,40 @@ const EqMaintain = () => {
             return false;
         })
     );
-    const handlePrint = () => {
-        const input = document.getElementById('print-area');
+    const handlePrint = (filteredRecords) => {
+        const input = document.getElementById('eq-main-table');
+        if (input) {
+            const currentDate = new Date().toLocaleString('en-GB');
 
-        html2canvas(input)
-            .then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const imgWidth = pdf.internal.pageSize.getWidth() - 20;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                let heightLeft = imgHeight;
-                let position = 10;
-                pdf.setFontSize(16);
-                pdf.text("Maintenance Record", 10, position);
-                heightLeft -= position + 10;
+            html2canvas(input)
+                .then((canvas) => {
+                    const pdf = new jsPDF('l', 'mm', 'a3');
 
-                pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
-                heightLeft -= imgHeight;
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
-                    heightLeft -= imgHeight;
-                }
-                pdf.save('maintenances_records.pdf');
-            });
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const textWidth = pdf.getStringUnitWidth('Equipment Maintenance Records') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                    const centerPosition = (pageWidth - textWidth) / 2;
+
+                    pdf.setFontSize(16);
+                    pdf.text('Equipment Maintenance Records', centerPosition, 10);
+                    pdf.setFontSize(12);
+                    pdf.text(`As At: ${currentDate}`, centerPosition, 20);
+
+
+                    const yPos = 30;
+                    pdf.autoTable({
+                        html: '#eq-main-table',
+                        startY: yPos + 10,
+                        theme: 'grid',
+                    });
+
+                    pdf.save(`Equipment-Maintenance-Records_generatedAt_${currentDate}.pdf`);
+                })
+                .catch((error) => {
+                    console.error('Error generating PDF:', error);
+                });
+        } else {
+            console.error('Table element not found');
+        }
     };
     const getStatusBackgroundClass = (status) => {
         if (status === 'In Progress') {
@@ -121,8 +130,11 @@ const EqMaintain = () => {
                     </div>
                 </div>
             </div>
-            <div id="print-area">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
+            <div>
+                <div id="print-area">
+                    <table
+                        id = "eq-main-table"
+                        className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
                     <thead
                         className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                     <tr className=" ">
@@ -208,6 +220,7 @@ const EqMaintain = () => {
                     ))}
                     </tbody>
                 </table>
+                </div>
                 {/* Confirmation Dialog */}
                 {showConfirmation && (
                     <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur confirm-dialog">

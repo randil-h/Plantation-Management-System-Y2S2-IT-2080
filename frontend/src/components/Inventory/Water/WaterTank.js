@@ -110,6 +110,14 @@ function WaterTank() {
             .delete(`http://localhost:5555/waterRecords/${recordId}`)
             .then(() => {
                 setWaterRecord(prevRecords => prevRecords.filter(record => record._id !== recordId));
+                enqueueSnackbar('Record Deleted Successfully!', {
+                    variant: 'success',
+                    autoHideDuration: 6000,
+                    anchorOrigin: {
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    },
+                });
             })
             .catch((error) => {
                 console.log(error);

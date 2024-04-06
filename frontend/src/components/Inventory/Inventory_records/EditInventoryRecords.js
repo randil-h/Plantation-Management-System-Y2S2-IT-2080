@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
-
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 const EditInventoryRecords = () => {
+    const location = useLocation();
+    const highlighted = location.state?.highlighted || false;
     const [loading, setLoading] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
@@ -69,8 +70,8 @@ const EditInventoryRecords = () => {
                     variant: 'success',
                     autoHideDuration: 6000,
                     anchorOrigin: {
-                        vertical: 'top', // Display the snackbar at the top
-                        horizontal: 'center', // Align the snackbar at the center horizontally
+                        vertical: 'top',
+                        horizontal: 'center',
                     },
                 });
                 navigate('/inventory/inventoryrecords', { state: { highlighted: true } });

@@ -101,32 +101,71 @@ const InventoryRecordList = () => {
     }, [inventoryInputs]);
 
     const handlePrint = () => {
-        const input = document.getElementById('print-area');
+        const input = document.getElementById('inventory-table');
+        if (input) {
+            const currentDate = new Date().toLocaleString('en-GB');
 
-        html2canvas(input)
-            .then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('p', 'mm', 'a4');
+            html2canvas(input)
+                .then((canvas) => {
+                    const pdf = new jsPDF('l', 'mm', 'a3');
 
-                const imgWidth = pdf.internal.pageSize.getWidth() - 20;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                let heightLeft = imgHeight;
-                let position = 10;
-                pdf.setFontSize(16);
-                pdf.text("Inventory Record", 10, position);
-                heightLeft -= position + 10;
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const textWidth = pdf.getStringUnitWidth('Inventory Records') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                    const centerPosition = (pageWidth - textWidth) / 2;
 
-                pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
-                heightLeft -= imgHeight;
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
-                    heightLeft -= imgHeight;
-                }
-                pdf.save('inventory_records.pdf');
-            });
+                    // Calculate total number of records
+                    const totalRecords = input.querySelectorAll('tbody > tr').length;
+
+                    pdf.setFontSize(16);
+                    pdf.text('Inventory Records', centerPosition, 10);
+                    pdf.setFontSize(12);
+                    pdf.text(`As At: ${currentDate}`, centerPosition, 20);
+
+                    // Display total records count
+                    pdf.text(`Total Number of Records: ${totalRecords}`, 10, 30);
+
+                    const yPos = 40;
+
+                    // Columns to include in PDF
+                    const includedColumns = ['No', 'Type', 'Record ID', 'Name', 'Storage Location', 'Quantity', 'Expire Date', 'Description'];
+
+                    const rows = input.querySelectorAll('tbody > tr');
+                    const columns = input.querySelectorAll('thead > tr > th');
+
+                    const data = [];
+                    rows.forEach((row) => {
+                        const rowData = [];
+                        const cells = row.querySelectorAll('td');
+                        cells.forEach((cell, index) => {
+                            const columnName = columns[index].textContent.trim();
+                            if (includedColumns.includes(columnName)) {
+                                rowData.push(cell.textContent.trim());
+                            }
+                        });
+                        data.push(rowData);
+                    });
+
+                    pdf.autoTable({
+                        head: [includedColumns], // Use included columns as header
+                        body: data, // Use filtered data for the body
+                        startY: yPos + 10,
+                        theme: 'grid',
+                    });
+
+                    pdf.save(`inventory-records_generatedAt_${currentDate}.pdf`);
+                })
+                .catch((error) => {
+                    console.error('Error generating PDF:', error);
+                });
+        } else {
+            console.error('Table element not found');
+        }
     };
+
+
+
+
+
 
     return (
         <div className=" overflow-x-auto  ">
@@ -168,7 +207,9 @@ const InventoryRecordList = () => {
             </div>
             <div>
                 <div id="print-area">
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
+                    <table
+                        id = "inventory-table"
+                        className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
                         <thead
                             className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                         <tr className=" ">
@@ -196,6 +237,9 @@ const InventoryRecordList = () => {
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Description
+                            </th>
+                            <th scope="col" className=" py-3">
+                                <span className="sr-only">Info</span>
                             </th>
                             <th scope="col" className=" py-3">
                                 <span className="sr-only">Edit</span>
