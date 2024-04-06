@@ -115,7 +115,9 @@ const BookingList = () => {
                     />
                     <FaSearch className="absolute left-3 top-2 text-gray-400"/>
                 </div>
-
+                <div>
+                    <p className="text-sm text-black border-2 rounded-md border-white bg-gradient-to-r from-blue-100 to-green-100 px-5 py-3">Total Bookings: {bookingRecords.length}</p>
+                </div>
                 <div>
                     <Link to="/booking">
                         <button
