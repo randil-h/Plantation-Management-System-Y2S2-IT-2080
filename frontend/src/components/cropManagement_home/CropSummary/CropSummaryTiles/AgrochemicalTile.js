@@ -6,7 +6,7 @@ export default function AgrochemicalTile({ cropType }) {
     const [upcomingAgrochemicalDate, setUpcomingAgrochemicalDate] = useState(null);
 
     const Fertilizers = {
-        Coconut: ["Fertilizers", "Urea", "YPM", "Dolomite", "Muriate of Potash"],
+        Coconut: ["Urea", "YPM", "Dolomite", "Muriate of Potash"],
         Papaya: ["NPK", "Rootone", "Booster K", "Albert Solution", "Crop Master Solution"],
         Guava: ["NPK", "Rootone", "Booster K", "Albert Solution", "Crop Master Solution"]
     };
@@ -43,6 +43,7 @@ export default function AgrochemicalTile({ cropType }) {
                         `Upcoming agrochemical application on ${upcomingAgrochemicalDate.toLocaleDateString()}`
                         : "No upcoming agrochemical application dates"}
                     <br />
+                    In Field
                 </p>
             </li>
         </div>

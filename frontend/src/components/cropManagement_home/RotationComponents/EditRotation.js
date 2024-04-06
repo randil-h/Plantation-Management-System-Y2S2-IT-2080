@@ -36,7 +36,8 @@ const EditRotation = () => {
         });
     }, [id]); // Adding id to dependency array
 
-    const handleEdit = () => {
+    const handleEdit = (e) => {
+        e.preventDefault();
         const data = {
             season,
             fieldName,
