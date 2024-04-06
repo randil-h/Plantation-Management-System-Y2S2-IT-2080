@@ -25,6 +25,7 @@ import RegistrationRoute from "./routes/Employee Routes/RegistrationRoute.js";
 import TaskRoute from "./routes/Employee Routes/TaskRoute.js";
 
 import ProductRoute from "./routes/Wholesale  Routes/ProductRoute.js";
+import OrderRoute from "./routes/Wholesale  Routes/OrderRoute.js";
 
 import recordRoute from "./routes/Harvest Routes/RecordRoute.js";
 
@@ -75,6 +76,9 @@ app.use('/employeeRecords',RegistrationRoute);
 app.use('/taskRecords',TaskRoute);
 
 app.use('/productRecords' ,ProductRoute);
+app.use('/orederRecords', OrderRoute);
+
+
 app.use('/record', recordRoute);
 mongoose
     .connect(mongoDBURL)
