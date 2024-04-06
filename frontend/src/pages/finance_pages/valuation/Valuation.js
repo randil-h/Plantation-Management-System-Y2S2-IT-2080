@@ -14,6 +14,7 @@ import {GiFruitBowl, GiPayMoney, GiReceiveMoney, GiTwoCoins, GiWaterTank} from "
 import {MdElectricalServices} from "react-icons/md";
 import {FaMoneyCheck} from "react-icons/fa";
 import {Button, Popover} from "antd";
+import FinanceValuationStatBar from "../../../components/finances/finance_valuation/FinanceValuationStatBar";
 
 
 export default function Valuation() {
@@ -107,6 +108,7 @@ export default function Valuation() {
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
+                        <FinanceValuationStatBar/>
 
                         <div>
                             <div className="flex flex-row justify-between items-center px-8 py-4">
