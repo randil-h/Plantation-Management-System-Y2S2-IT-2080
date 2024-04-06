@@ -345,14 +345,14 @@ export default function Valuation() {
                                 {record.appreciationOrDepreciation}
                             </td>
                             <td className=" py-4 text-right">
-                                <Link to={`/finances/transactions/viewValuationDetails/${record._id}`}>
+                                <Link to={`/finances/valuation/viewValuation/${record._id}`}>
                                     <InformationCircleIcon
                                         className="h-6 w-6 flex-none bg-gray-200 p-1 rounded-full text-gray-800 hover:bg-gray-500"
                                         aria-hidden="true"/>
                                 </Link>
                             </td>
                             <td className=" py-4 text-right">
-                                <Link to={`/finances/transactions/editValuation/${record._id}`}>
+                                <Link to={`/finances/valuation/editValuation/${record._id}`}>
                                     <PencilSquareIcon
                                         className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
                                         aria-hidden="true"/>
