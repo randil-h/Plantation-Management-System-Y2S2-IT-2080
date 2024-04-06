@@ -118,7 +118,7 @@ const EqMaintain = () => {
 
     const getStatusBackgroundClass = (status) => {
         if (status === 'In Progress') {
-            return 'bg-red-100 text-red-800 px-2 py-1 rounded-md text-xs'; // Red background for In Progress
+            return 'bg-red-300 text-red-800 px-2 py-1 rounded-md text-xs'; // Red background for In Progress
         } else if (status === 'Completed') {
             return 'text-green-800 px-2 py-1 rounded-md text-xs'; // Green background for Completed
         }

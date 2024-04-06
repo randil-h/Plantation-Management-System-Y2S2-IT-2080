@@ -192,21 +192,29 @@ const EditInventoryRecords = () => {
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="record_name"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                        <label htmlFor="record_name"
+                                               className="block text-sm font-medium leading-6 text-gray-900">
                                             Plant Name
                                         </label>
                                         <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="record_name"
+                                            <select
                                                 name="record_name"
-                                                onChange={handleChange}
                                                 value={formData.record_name}
+                                                onChange={handleChange}
+                                                id="record_name"
+                                                autoComplete="record_name"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 required
-                                            />
+                                            >
+                                                <option value="">Select</option>
+                                                <option value="Papaya">Papaya</option>
+                                                <option value="Apple Guava">Apple Guava</option>
+                                                <option value="Coconut">Coconut</option>
+
+                                                {!["Papaya", "Apple Guava", "Coconut"].includes(formData.record_name) && (
+                                                    <option value={formData.record_name}>{formData.record_name}</option>
+                                                )}
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1">
@@ -267,7 +275,7 @@ const EditInventoryRecords = () => {
                             {selectedType === "Agrochemical" && (
                                 <>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                    <label
+                                        <label
                                             htmlFor="record_ID"
                                             className="block text-sm font-medium leading-6 text-gray-900">
                                             Chemical ID
@@ -287,19 +295,46 @@ const EditInventoryRecords = () => {
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
                                             htmlFor="record_name"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                        >
                                             Chemical Name
                                         </label>
                                         <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="record_name"
+                                            <select
                                                 name="record_name"
-                                                onChange={handleChange}
                                                 value={formData.record_name}
+                                                onChange={handleChange}
+                                                id="record_name"
+                                                autoComplete="record_name"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                            >
+                                                <option>Select</option>
+                                                <option>Booster K 45%</option>
+                                                <option>Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide
+                                                </option>
+                                                <option>Marshal 20 SC (carbosulfan 200g/l SC) insecticide</option>
+                                                <option>Mitsu Abamectin (abamectin 18g/l EC) insecticide</option>
+                                                <option>Alberts solution</option>
+                                                <option>Crop Master solution</option>
+                                                <option>Oasis Thiram (thiuram disulfide) fungicide</option>
+                                                <option>Glyphosate weedicide</option>
+                                                <option>Rootone</option>
+
+
+                                                {![
+                                                    "Booster K 45%",
+                                                    "Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide",
+                                                    "Marshal 20 SC (carbosulfan 200g/l SC) insecticide",
+                                                    "Mitsu Abamectin (abamectin 18g/l EC) insecticide",
+                                                    "Alberts solution",
+                                                    "Crop Master solution",
+                                                    "Oasis Thiram (thiuram disulfide) fungicide",
+                                                    "Glyphosate weedicide",
+                                                    "Rootone",
+                                                ].includes(formData.record_name) && (
+                                                    <option value={formData.record_name}>{formData.record_name}</option>
+                                                )}
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1">
@@ -490,19 +525,37 @@ const EditInventoryRecords = () => {
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
                                             htmlFor="record_name"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                        >
                                             Fertilizer Name
                                         </label>
                                         <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="record_name"
+                                            <select
                                                 name="record_name"
-                                                onChange={handleChange}
                                                 value={formData.record_name}
+                                                onChange={handleChange}
+                                                id="record_name"
+                                                autoComplete="record_name"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 required
-                                            />
+                                            >
+                                                <option value="">Select</option>
+                                                <option value="Urea 50kg packets">Urea 50kg packets</option>
+                                                <option value="Dolomite 50kg">Dolomite 50kg</option>
+                                                <option value="Muriate of potash 50kg">Muriate of potash 50kg</option>
+                                                <option value="Papaya fertilizer">Papaya fertilizer</option>
+                                                <option value="Guava fertilizer">Guava fertilizer</option>
+
+                                                {![
+                                                    "Urea 50kg packets",
+                                                    "Dolomite 50kg",
+                                                    "Muriate of potash 50kg",
+                                                    "Papaya fertilizer",
+                                                    "Guava fertilizer",
+                                                ].includes(formData.record_name) && (
+                                                    <option value={formData.record_name}>{formData.record_name}</option>
+                                                )}
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1">
