@@ -35,7 +35,8 @@ const EditEqMain = () => {
         });
     }, [id]); // Adding id to dependency array
 
-    const handleEdit = () => {
+    const handleEdit = (e) => {
+        e.preventDefault();
         const data = {
             Eq_machine_main,
             Eq_id_main,
@@ -45,6 +46,7 @@ const EditEqMain = () => {
             status,
             comment,
         };
+
 
         setLoading(true);
         axios

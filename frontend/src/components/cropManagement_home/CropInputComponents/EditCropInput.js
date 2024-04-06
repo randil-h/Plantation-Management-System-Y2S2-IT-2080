@@ -5,13 +5,13 @@ import { useSnackbar } from 'notistack';
 
 const EditCropInput = () => {
     const { id } = useParams();
-    const [field, setField] = useState('');
-    const [cropType, setCropType] = useState('');
     const [formData, setFormData] = useState({
         date: "",
         type: "",
+        field: "",
         chemicalName: "",
         quantity: "",
+        cropType: "",
         variety: "",
         unitCost: "",
         remarks: ""
@@ -32,10 +32,9 @@ const EditCropInput = () => {
                 setFormData({
                     ...response.data,
                     date: formattedDate,
-
+                    field: response.data.field,
+                    cropType: response.data.cropType // Set cropType from API response
                 });
-                setField(response.data.field);
-                setCropType(response.data.cropType);
                 setLoading(false);
             } catch (error) {
                 console.log(error.message);
@@ -168,7 +167,7 @@ const EditCropInput = () => {
                                                 id="field"
                                                 name="field"
                                                 onChange={handleChange}
-                                                value={field}
+                                                value={formData.field}
                                                 autoComplete="field"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             >
@@ -195,7 +194,7 @@ const EditCropInput = () => {
                                                 id="cropType"
                                                 name="cropType"
                                                 onChange={handleChange}
-                                                value={cropType}
+                                                value={formData.cropType}
                                                 autoComplete="cropType"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             >
@@ -319,7 +318,7 @@ const EditCropInput = () => {
                                                 id="field"
                                                 name="field"
                                                 onChange={handleChange}
-                                                value={field}
+                                                value={formData.field}
                                                 autoComplete="field"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 required
@@ -372,6 +371,7 @@ const EditCropInput = () => {
                                                 required
                                             />
                                         </div>
+
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label

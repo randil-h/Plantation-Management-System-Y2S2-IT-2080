@@ -16,7 +16,6 @@ export default function EditEmployeePage() {
     ];
 
     return (
-        <SnackbarProvider>
         <div className="">
             <div className=" sticky top-0 z-10">
                 <Navbar/>
@@ -40,6 +39,6 @@ export default function EditEmployeePage() {
                 </div>
             </div>
         </div>
-        </SnackbarProvider>
+
     )
 }

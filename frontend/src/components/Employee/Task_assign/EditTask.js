@@ -36,7 +36,8 @@ const EditTask = () => {
     }, [id]); // Adding id to dependency array
 
 
-    const handleEdit = () => {
+    const handleEdit = (e) => {
+        e.preventDefault();
         const data = {
             emp_id,
             task,
@@ -50,8 +51,8 @@ const EditTask = () => {
             .put(`http://localhost:5555/taskRecords/${id}`, data)
             .then(() => {
                 setLoading(false);
-                enqueueSnackbar('Record Edited successfully', {variant: 'success'});
-                navigate('employees/tasks', {state: {highlighted: true}});
+                enqueueSnackbar('Record Update successfully', {variant: 'success'});
+                navigate('/employees/tasks');
             })
             .catch((error) => {
                 setLoading(false);
