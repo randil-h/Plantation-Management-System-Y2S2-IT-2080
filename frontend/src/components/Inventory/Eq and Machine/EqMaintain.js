@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
+import { InformationCircleIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { GoAlert } from "react-icons/go";
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
-import {GoAlert} from "react-icons/go";
+
 const EqMaintain = () => {
     const [inventoryRecords, setInventoryRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -25,12 +27,18 @@ const EqMaintain = () => {
             });
     }, []);
 
+    useEffect(() => {
+        const today = new Date().toISOString().split('T')[0];
+        const hasRecordToday = inventoryRecords.some(record => record.date_received.split('T')[0] === today);
+        setShowNotification(hasRecordToday);
+    }, [inventoryRecords]);
+
     const [selectedRecordId, setSelectedRecordId] = useState(null);
     const handleDelete = (recordId) => {
-        // Store the record id in state
         setSelectedRecordId(recordId);
         setShowConfirmation(true);
     };
+
     const handleConfirmDelete = () => {
         const recordId = selectedRecordId;
         axios
@@ -43,6 +51,7 @@ const EqMaintain = () => {
                 console.log(error);
             });
     };
+
     const handleCancelDelete = () => {
         setShowConfirmation(false);
     };
@@ -55,41 +64,58 @@ const EqMaintain = () => {
             return false;
         })
     );
-    const handlePrint = (filteredRecords) => {
+    const handlePrint = () => {
+        const currentDate = new Date().toLocaleString('en-GB');
+
+        // Filtered data for printing (excluding Info, Edit, Delete columns)
+        const printData = filteredRecords.map(record => {
+            const { Eq_machine_main, Eq_id_main, date_referred, date_received, ref_loc, status, comment } = record;
+            return { Eq_machine_main, Eq_id_main, date_referred, date_received, ref_loc, status, comment };
+        });
+
         const input = document.getElementById('eq-main-table');
+
         if (input) {
-            const currentDate = new Date().toLocaleString('en-GB');
+            html2canvas(input).then((canvas) => {
+                const pdf = new jsPDF('l', 'mm', 'a3');
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const textWidth = pdf.getStringUnitWidth('Equipment Maintenance Records') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                const centerPosition = (pageWidth - textWidth) / 2;
 
-            html2canvas(input)
-                .then((canvas) => {
-                    const pdf = new jsPDF('l', 'mm', 'a3');
+                pdf.setFontSize(16);
+                pdf.text('Equipment Maintenance Records', centerPosition, 10);
+                pdf.setFontSize(12);
+                pdf.text(`As At: ${currentDate}`, centerPosition, 20);
 
-                    const pageWidth = pdf.internal.pageSize.getWidth();
-                    const textWidth = pdf.getStringUnitWidth('Equipment Maintenance Records') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
-                    const centerPosition = (pageWidth - textWidth) / 2;
+                const yPos = 30;
 
-                    pdf.setFontSize(16);
-                    pdf.text('Equipment Maintenance Records', centerPosition, 10);
-                    pdf.setFontSize(12);
-                    pdf.text(`As At: ${currentDate}`, centerPosition, 20);
-
-
-                    const yPos = 30;
-                    pdf.autoTable({
-                        html: '#eq-main-table',
-                        startY: yPos + 10,
-                        theme: 'grid',
-                    });
-
-                    pdf.save(`Equipment-Maintenance-Records_generatedAt_${currentDate}.pdf`);
-                })
-                .catch((error) => {
-                    console.error('Error generating PDF:', error);
+                pdf.autoTable({
+                    head: [
+                        ['No', 'Equipment/Machine', 'Eq / Machine ID', 'Date referred to', 'Received date', 'Referred location', 'Status', 'Description']
+                    ],
+                    body: printData.map((record, index) => [
+                        index + 1,
+                        record.Eq_machine_main,
+                        record.Eq_id_main,
+                        record.date_referred.split("T")[0],
+                        record.date_received.split("T")[0],
+                        record.ref_loc,
+                        record.status,
+                        record.comment
+                    ]),
+                    startY: yPos + 10,
+                    theme: 'grid',
                 });
+
+                pdf.save(`Equipment-Maintenance-Records_generatedAt_${currentDate}.pdf`);
+            }).catch((error) => {
+                console.error('Error generating PDF:', error);
+            });
         } else {
             console.error('Table element not found');
         }
     };
+
     const getStatusBackgroundClass = (status) => {
         if (status === 'In Progress') {
             return 'bg-red-100 text-red-800 px-2 py-1 rounded-md text-xs'; // Red background for In Progress
@@ -133,93 +159,93 @@ const EqMaintain = () => {
             <div>
                 <div id="print-area">
                     <table
-                        id = "eq-main-table"
+                        id="eq-main-table"
                         className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
-                    <thead
-                        className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
-                    <tr className=" ">
-                        <th></th>
-                        <th scope="col" className="px-6 py-3">
-                            No
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Equipment/Machine
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Eq / Machine ID
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Date referred to
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Received date
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Referred location
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Status
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Description
-                        </th>
-                        <th scope="col" className=" py-3">
-                            <span className="sr-only">Info</span>
-                        </th>
-                        <th scope="col" className=" py-3">
-                            <span className="sr-only">Edit</span>
-                        </th>
-                        <th scope="col" className=" py-3">
-                            <span className="sr-only">Delete</span>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {filteredRecords.map((record, index) => (
-                        <React.Fragment key={index}>
-                            <tr>
-                                <td></td>
-                                <td className="px-6 py-4">{index + 1}</td>
-                                <td className="px-6 py-4">{record.Eq_machine_main}</td>
-                                <td className="px-6 py-4">{record.Eq_id_main}</td>
-                                <td className="px-6 py-4">{record.date_referred.split("T")[0]}</td>
-                                <td className="px-6 py-4">{record.date_received.split("T")[0]}</td>
-                                <td className="px-6 py-4">{record.ref_loc}</td>
-                                <td className={`px-6 ${getStatusBackgroundClass(record.status)}`}>
-                                    {record.status}
-                                </td>
-                                <td className="px-6 py-4">{record.comment}</td>
-                                <td className="px-6 py-4 text-right">
-                                    <Link to={`/inventory/maintenancelog/viewmain/${record._id}`}
-                                          className="font-medium text-blue-600 hover:underline">
-                                        <InformationCircleIcon
-                                            className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
-                                            aria-hidden="true"/>
-                                    </Link>
-                                </td>
-                                <td className="px-6 py-4 text-right">
-                                    <Link to={`/inventory/maintenancelog/editeqmainpage/${record._id}`}
-                                          className="font-medium text-blue-600 hover:underline">
-                                        <PencilSquareIcon
-                                            className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                            aria-hidden="true"/>
-                                    </Link>
-                                </td>
-                                <td className="px-6 py-4">
-                                    <button className="flex items-center" onClick={() => handleDelete(record._id)}>
-                                        <TrashIcon
-                                            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                            aria-hidden="true"/>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colSpan="10" className="border-b border-gray-400"></td>
-                            </tr>
-                        </React.Fragment>
-                    ))}
-                    </tbody>
-                </table>
+                        <thead
+                            className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
+                        <tr className=" ">
+                            <th></th>
+                            <th scope="col" className="px-6 py-3">
+                                No
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Equipment/Machine
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Eq / Machine ID
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Date referred to
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Received date
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Referred location
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Status
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Description
+                            </th>
+                            <th scope="col" className=" py-3">
+                                <span className="sr-only">Info</span>
+                            </th>
+                            <th scope="col" className=" py-3">
+                                <span className="sr-only">Edit</span>
+                            </th>
+                            <th scope="col" className=" py-3">
+                                <span className="sr-only">Delete</span>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {filteredRecords.map((record, index) => (
+                            <React.Fragment key={index}>
+                                <tr>
+                                    <td></td>
+                                    <td className="px-6 py-4">{index + 1}</td>
+                                    <td className="px-6 py-4">{record.Eq_machine_main}</td>
+                                    <td className="px-6 py-4">{record.Eq_id_main}</td>
+                                    <td className="px-6 py-4">{record.date_referred.split("T")[0]}</td>
+                                    <td className="px-6 py-4">{record.date_received.split("T")[0]}</td>
+                                    <td className="px-6 py-4">{record.ref_loc}</td>
+                                    <td className={`px-6 ${getStatusBackgroundClass(record.status)}`}>
+                                        {record.status}
+                                    </td>
+                                    <td className="px-6 py-4">{record.comment}</td>
+                                    <td className="px-6 py-4 text-right">
+                                        <Link to={`/inventory/maintenancelog/viewmain/${record._id}`}
+                                              className="font-medium text-blue-600 hover:underline">
+                                            <InformationCircleIcon
+                                                className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                                aria-hidden="true"/>
+                                        </Link>
+                                    </td>
+                                    <td className="px-3 py-4 text-right">
+                                        <Link to={`/inventory/maintenancelog/editeqmainpage/${record._id}`}
+                                              className="font-medium text-blue-600 hover:underline">
+                                            <PencilSquareIcon
+                                                className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                                aria-hidden="true"/>
+                                        </Link>
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <button className="flex items-center" onClick={() => handleDelete(record._id)}>
+                                            <TrashIcon
+                                                className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                                aria-hidden="true"/>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colSpan="10" className="border-b border-gray-400"></td>
+                                </tr>
+                            </React.Fragment>
+                        ))}
+                        </tbody>
+                    </table>
                 </div>
                 {/* Confirmation Dialog */}
                 {showConfirmation && (
@@ -252,6 +278,13 @@ const EqMaintain = () => {
                         </div>
                     </div>
                 )}
+                <div
+                    className={`bg-green-500 py-2 px-4 rounded-md text-white text-center fixed bottom-4 right-4 flex gap-4 ${showNotification ? 'visible' : 'hidden'}`}>
+                    <p>You have machine(s) to receive today.</p>
+                    <span className="cursor-pointer font-bold" onClick={() => setShowNotification(false)}>
+                        <sup>X</sup>
+                    </span>
+                </div>
             </div>
         </div>
     );
