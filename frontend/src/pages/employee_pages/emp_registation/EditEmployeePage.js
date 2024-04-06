@@ -5,6 +5,7 @@ import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import React from "react";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
 import EditEmployee from "../../../components/Employee/Employee_register/EditEmployee";
+import {SnackbarProvider} from "notistack";
 
 export default function EditEmployeePage() {
 
@@ -15,6 +16,7 @@ export default function EditEmployeePage() {
     ];
 
     return (
+        <SnackbarProvider>
         <div className="">
             <div className=" sticky top-0 z-10">
                 <Navbar/>
@@ -30,11 +32,14 @@ export default function EditEmployeePage() {
                         <Breadcrumb items={breadcrumbItems}/>
 
                         <div>
-                            <EditEmployee/>
+                                <EditEmployee/>
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </SnackbarProvider>
     )
 }
