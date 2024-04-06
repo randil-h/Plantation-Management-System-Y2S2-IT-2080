@@ -62,9 +62,10 @@ const EmployeeList = () => {
                 return String(value).toLowerCase().includes(searchQuery.toLowerCase());
             }
             return false;
-        })
+        })  && (selectedTypeFilter === 'All Types' || record.emp_type === selectedTypeFilter)
     );
 
+    const employeeTypes = [...new Set(RegistrationRecords.map(record => record.emp_type))];
 
 
     const handlePrint = () => {
@@ -119,8 +120,23 @@ const EmployeeList = () => {
                         </div>
 
                     </div>
+                    <div className="mt-2">
+                        <select
+                            value={selectedTypeFilter}
+                            onChange={(e) => setSelectedTypeFilter(e.target.value)}
+                            className="appearance-none rounded-full bg-white px-7 py-1.5 text-sm text-gray-900 shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 mt-11"
+                            style={{marginLeft: "-175px"}}
+                        >
+                            <option value="All Types">All Types</option>
+                            {employeeTypes.map((type) => (
+                                <option key={type} value={type}>{type}</option>
+                            ))}
+                        </select>
+                    </div>
+
 
                     <div>
+
                         <a href="/employees/registration/addEmployee"
                            className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                             Add new employee <span aria-hidden="true">&rarr;</span>
@@ -128,24 +144,24 @@ const EmployeeList = () => {
                         <button
                             onClick={handlePrint}
                             className="ml-4 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
-                            Print
+                            Generate Report
                         </button>
                     </div>
                 </div>
 
                 <div id="print-area">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
-                    <thead
-                        className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
-                    <tr className=" ">
-                        <th></th>
-                        <th scope="col" className="px-6 py-3">
-                            No
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            First Name
-                        </th>
-                        <th scope="col" className="px-6 py-3">
+                        <thead
+                            className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
+                        <tr className=" ">
+                            <th></th>
+                            <th scope="col" className="px-6 py-3">
+                                No
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                First Name
+                            </th>
+                            <th scope="col" className="px-6 py-3">
                             Last Name
                         </th>
                         <th scope="col" className="px-6 py-3">

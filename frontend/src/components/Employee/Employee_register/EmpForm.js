@@ -48,6 +48,21 @@ const EmpForm = () => {
             });
     };
 
+    // Validation functions
+    const validateContactNo = (value) => {
+        return /^\d{10}$/.test(value); // Checks if value consists of exactly 10 digits
+    };
+
+    const validateNIC = (value) => {
+        return /^\d{12}$/.test(value); // Checks if value consists of exactly 12 digits
+    };
+
+    const validateEmail = (value) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value); // Basic email format validation
+    };
+
+
+
     return (
         <div className="pt-2">
             <div className="flex flex-col ml-96 mt-6">
@@ -135,10 +150,15 @@ const EmpForm = () => {
                                         name="contact_no"
                                         value={contact_no}
                                         onChange={(e) => setContact_no(e.target.value)}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                                            !validateContactNo(contact_no) ? 'border-red-500' : '' // Add red border if validation fails
+                                        }`}
                                         required
                                     />
                                 </div>
+                                {!validateContactNo(contact_no) && (
+                                        <p className="text-red-500 text-xs mt-1">Please enter a valid 10-digit phone number</p>
+                                    )}
                             </div>
                             <div className="sm:col-span-3">
                                 <label htmlFor="emp_email"
@@ -151,10 +171,16 @@ const EmpForm = () => {
                                         name="emp_email"
                                         value={emp_email}
                                         onChange={(e) => setEmp_email(e.target.value)}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                                            !validateEmail(emp_email) ? 'border-red-500' : '' // Add red border if validation fails
+                                        }`}
                                         required
                                     />
                                 </div>
+                                {!validateEmail(emp_email) && (
+                                    <p className="text-red-500 text-xs mt-1">Please enter a valid email address</p>
+                                )}
+
                             </div>
                             <div className="col-span-full">
                                 <label htmlFor="nic"
@@ -167,10 +193,15 @@ const EmpForm = () => {
                                         name="nic"
                                         value={nic}
                                         onChange={(e) => setNic(e.target.value)}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                                            !validateNIC(nic) ? 'border-red-500' : '' // Add red border if validation fails
+                                        }`}
                                         required
                                     />
                                 </div>
+                                {!validateNIC(nic) && (
+                                    <p className="text-red-500 text-xs mt-1">Please enter a valid 12-digit NIC number</p>
+                                )}
                             </div>
                             <div className="col-span-full">
                                 <label htmlFor="e_address"
