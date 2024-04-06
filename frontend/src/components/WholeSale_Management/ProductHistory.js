@@ -53,13 +53,15 @@ const ProductHistory = () =>{
     };
 
     const handleSearch = (event) => {
-        setSearchQuery(event.target.value);
+        const query = event.target.value.toLowerCase();
+        setSearchQuery(query);
         const filteredRecords = productRecords.filter(record =>
-            record.productName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            record.productID.toLowerCase().includes(searchQuery.toLowerCase())
+            record.productName.toLowerCase().includes(query) ||
+            record.productID.toLowerCase().includes(query)
         );
         setFilteredRecords(filteredRecords);
     };
+
 
     const generatePDF = () => {
         const input = document.getElementById('product-table');
@@ -119,7 +121,7 @@ const ProductHistory = () =>{
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
                             <table class="min-w-full">
-                                <thead class="bg-gray-200 border-b" >
+                                <thead class="bg-gray-200 border-b">
                                 <tr>
                                     <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     </th>
@@ -153,76 +155,39 @@ const ProductHistory = () =>{
                                 </thead>
 
                                 <tbody>
-                                {productRecords.map((record, index) => (
+                                {(searchQuery ? filteredRecords : productRecords).map((record, index) => (
                                     <tr key={index}
-                                        class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {index + 1}
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {record.productID}
-                                        </td>
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {record.productName}
-                                        </td>
+                                        className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{index + 1}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{record.productID}</td>
+                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productName}</td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                                            style={{ maxWidth: '300px', wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}
-                                            >
+                                            style={{maxWidth: '300px', wordWrap: 'break-word', whiteSpace: 'pre-wrap'}}>
                                             {record.productDescription}
                                         </td>
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {record.productQuantity}
-                                        </td>
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {record.productPrice}
-                                        </td>
+                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productQuantity}</td>
+                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productPrice}</td>
                                         <td className=" py-4 text-right flex flex-col items-center">
-                                            <a href="#"
-                                               className="font-medium text-blue-600  hover:underline">
+                                            <a href="#" className="font-medium text-blue-600 hover:underline">
                                                 <InformationCircleIcon
                                                     className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500 mt-2"
                                                     aria-hidden="true"/>
                                             </a>
-
                                             <Link to={`/editProduct/${record._id}`}
                                                   className="font-medium text-blue-600 hover:underline">
                                                 <PencilSquareIcon
                                                     className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500 mt-2"
                                                     aria-hidden="true"/>
                                             </Link>
-
-                                            <button
-                                                className="flex items-center"
-                                                onClick={() => handleDelete(record._id)}
-
-                                            >
+                                            <button className="flex items-center"
+                                                    onClick={() => handleDelete(record._id)}>
                                                 <TrashIcon
                                                     className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500 mt-2"
                                                     aria-hidden="true"/>
                                             </button>
                                         </td>
-                                        {/*<td className=" py-4 text-right">*/}
-                                        {/*    <Link to={`/editProduct/${record._id}`}*/}
-                                        {/*          className="font-medium text-blue-600 hover:underline">*/}
-                                        {/*        <PencilSquareIcon*/}
-                                        {/*            className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"*/}
-                                        {/*            aria-hidden="true"/>*/}
-                                        {/*    </Link>*/}
-                                        {/*</td>*/}
-                                        {/*<td className=" ">*/}
-                                        {/*    <button*/}
-                                        {/*        className="flex items-center"*/}
-                                        {/*        onClick={() => handleDelete(record._id)}*/}
-
-                                        {/*    >*/}
-                                        {/*        <TrashIcon*/}
-                                        {/*            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"*/}
-                                        {/*            aria-hidden="true"/>*/}
-                                        {/*    </button>*/}
-                                        {/*</td>*/}
                                     </tr>
                                 ))}
-
                                 </tbody>
                             </table>
                         </div>

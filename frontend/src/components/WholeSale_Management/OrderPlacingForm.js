@@ -54,8 +54,6 @@ const OrderPlacingForm = () => {
 
     return (
 
-
-
         <div>
             <form onSubmit={handleSubmit}>
                 <div className="mx-auto max-w-7xl px-10 lg:px-8 flex justify-center">
@@ -153,7 +151,7 @@ const OrderPlacingForm = () => {
                                 <div className="sm:col-span-3">
                                     <label
                                         className="block text-sm font-medium leading-6 text-gray-900">
-                                        Enter the Order Date
+                                        Enter the Order Date (Enter the Current Date)
                                     </label>
                                     <div className="mt-4">
                                         <input type="date"
