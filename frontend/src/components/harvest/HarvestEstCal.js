@@ -36,7 +36,7 @@ function HarvestCalculator() {
         if (cropType && treesPicked) {
             const averageYieldFromDB = calculateAverageYieldFromRecords(cropType);
             setAverageYield(averageYieldFromDB);
-            calculateHarvest(averageYieldFromDB);
+            /*calculateHarvest(averageYieldFromDB);*/
         }
     }, [cropType, treesPicked, harvestRecords]);
 
@@ -104,7 +104,7 @@ function HarvestCalculator() {
                         </select>
                     </div>
                     <button
-                        /*onClick={calculateHarvest}*/
+                        onClick={() => calculateHarvest(averageYield)}
                         className="py-2 px-4 bg-blue-500 text-white rounded border border-blue-500 hover:bg-blue-700 cursor-pointer"
                     >
                         Calculate Expected Harvest
