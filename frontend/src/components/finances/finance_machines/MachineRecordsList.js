@@ -113,7 +113,7 @@ export default function MachineRecordsList() {
         const doc = new jsPDF();
         doc.text('Machine Records Report', 10, 10);
 
-        const headers = [['Date', 'Type', 'Hours/nos.', 'Rate', 'Description', 'Payer/Payee', 'Paid']];
+        const headers = [['Date', 'Type', 'Hours/nos.', 'Rate', 'Description', 'Payer/Payee', 'Paid', 'Total']];
         const data = filteredRecords.map(machine => [
             machine.date,
             machine.type,
@@ -121,7 +121,8 @@ export default function MachineRecordsList() {
             machine.rate,
             machine.description,
             machine.payer_payee,
-            machine.paid
+            machine.paid,
+            machine.hours_nos * machine.rate
         ]);
 
         doc.autoTable({

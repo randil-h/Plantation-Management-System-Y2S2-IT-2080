@@ -5,7 +5,13 @@ import FinanceNavigation from "../../../components/finances/FinanceNavigation";
 import BackButton from "../../../components/utility/BackButton";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 
-import {InformationCircleIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
+import {
+    ArrowDownTrayIcon, ChevronUpIcon,
+    InformationCircleIcon,
+    MagnifyingGlassIcon,
+    PencilSquareIcon,
+    TrashIcon, XMarkIcon
+} from "@heroicons/react/24/outline";
 import {Link, useParams} from "react-router-dom";
 import {useSnackbar} from "notistack";
 import axios from "axios";
@@ -13,8 +19,12 @@ import {ChevronDownIcon, HomeModernIcon, RectangleGroupIcon, TruckIcon} from "@h
 import {GiFruitBowl, GiPayMoney, GiReceiveMoney, GiTwoCoins, GiWaterTank} from "react-icons/gi";
 import {MdElectricalServices} from "react-icons/md";
 import {FaMoneyCheck} from "react-icons/fa";
-import {Button, Popover} from "antd";
+import {Button, DatePicker, Popover, Radio} from "antd";
 import FinanceValuationStatBar from "../../../components/finances/finance_valuation/FinanceValuationStatBar";
+
+
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
 
 
 export default function Valuation() {
@@ -24,6 +34,14 @@ export default function Valuation() {
     const [ValuationRecords, setValuationRecords] = useState([]);
     let [searchQuery, setSearchQuery] = useState('');
     const { enqueueSnackbar } = useSnackbar();
+
+    const [machineRecords, setMachineRecords] = useState([]);
+
+    const [sortBy, setSortBy] = useState('date');
+    const [sortOrder, setSortOrder] = useState('asc');
+
+    const [selectedDates, setSelectedDates] = useState([]);
+    const [popoverVisible, setPopoverVisible] = useState(false);
 
     const breadcrumbItems = [
         { name: 'Finance', href: '/finances' },
@@ -89,6 +107,93 @@ export default function Valuation() {
     function getBorderColorClass(subtype) {
         return subtypeBorderColorMap[subtype] || "border-gray-200"; // Default color
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const sortedRecords = [...ValuationRecords].sort((a, b) => {
+        if (sortBy === 'date') {
+            return sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
+        }
+    });
+
+    const filteredValuationRecords = sortedRecords.filter(record => {
+        // Convert all values to lowercase for case-insensitive search
+        const searchTerm = searchQuery.toLowerCase();
+
+        // Check if any field in the record contains the search query
+        return Object.values(record).some(value =>
+            typeof value === 'string' && value.toLowerCase().includes(searchTerm)
+        );
+    });
+
+    const handleSortBy = (criteria) => {
+        if (criteria === sortBy) {
+            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortBy(criteria);
+            setSortOrder('asc');
+        }
+    };
+
+    const handleClearFilters = () => {
+        setSearchQuery('');
+        setSortBy('date');
+        setSortOrder('asc');
+    };
+
+    const handleClearSorting = () => {
+        setSearchQuery(''); // Reset search query
+        setSortBy('');
+        setSortOrder('asc');
+    };
+
+    const handleDownloadPDF = () => {
+        const sortedRecords = ValuationRecords.sort((a, b) => {
+            if (sortBy === 'date') {
+                return sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
+            }
+        });
+
+        const filteredRecords = sortedRecords.filter(valuation => {
+            const transactionDate = new Date(valuation.date);
+            return transactionDate >= selectedDates[0] && transactionDate <= selectedDates[1];
+        });
+
+        const doc = new jsPDF();
+        doc.text('Valuation Records Report', 10, 10);
+
+        const headers = [['Date', 'Type', 'Subtype', 'Quantity', 'Price', 'Description', 'Payer Payee', 'Percentage %','Value']];
+        const data = filteredRecords.map(valuation => [
+            valuation.date,
+            valuation.type,
+            valuation.subtype,
+            valuation.quantity,
+            valuation.price,
+            valuation.description,
+            valuation.payer_payee,
+            valuation.appreciationOrDepreciation,
+            valuation.quantity * valuation.price
+        ]);
+
+        doc.autoTable({
+            head: headers,
+            body: data,
+            startY: 20,
+        });
+
+        doc.save('valuation_records_report.pdf');
+    };
+
 
     return (
         <div className="">
@@ -267,10 +372,103 @@ export default function Valuation() {
 
                             </div>
 
-                            <div className="flex justify-center align-middle w-full  py-4 ">
-                                <div className="w-6 h-6 ">
-                                    <ChevronDownIcon/>
+                            <div className="flex justify-start px-8 w-full  py-4 ">
+
+                                <div className="py-4  relative">
+                                    <div
+                                        className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <MagnifyingGlassIcon className="text-gray-500 h-4 w-4"/>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder="Search all records..."
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        className="border border-gray-300 rounded-full px-3 py-1 w-fit text-sm pl-10 pr-4"
+                                        style={{paddingRight: ''}}
+                                    />
+                                    {searchQuery && (
+                                        <button
+                                            className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                                            onClick={() => setSearchQuery('')}
+                                        >
+                                            <XMarkIcon
+                                                className="h-4 w-4 text-gray-500 hover:text-gray-700 cursor-pointer"/>
+                                        </button>
+                                    )}
                                 </div>
+
+                                <div className="flex items-center space-x-4 relative px-4">
+                                    <button
+                                        className="flex items-center space-x-1 cursor-pointer bg-lime-200 px-4 py-1 rounded-full hover:bg-lime-400"
+                                        onClick={() => handleSortBy('date')}
+                                    >
+                                        <span className="text-sm text-gray-600">Date</span>
+                                        {sortBy === 'date' && (
+                                            sortOrder === 'asc' ? (
+                                                <ChevronUpIcon
+                                                    className="w-4 h-4 bg-green-800 text-white stroke-2 rounded-full"/>
+                                            ) : (
+                                                <ChevronDownIcon
+                                                    className="w-4 h-4 bg-green-800 text-white stroke-2 rounded-full"/>
+                                            )
+                                        )}
+                                    </button>
+
+                                    <button
+                                        className="flex items-center space-x-1 bg-rose-200 rounded-full hover:bg-red-400 cursor-pointer p-1"
+                                        onClick={handleClearSorting}
+                                    >
+                                        <XMarkIcon className="w-4 h-4 "/>
+                                    </button>
+
+                                    <div>
+                                        <Button
+                                            shape="round"
+                                            className="flex flex-row gap-2 items-center font-semibold bg-amber-200 text-gray-700 hover:bg-amber-500 border-none"
+                                            onClick={() => setPopoverVisible(true)}>
+                                            Download PDF Report <ArrowDownTrayIcon className="w-4 h-4 self-center"/>
+                                        </Button>
+                                        <Popover
+                                            content={
+                                                <div className="text-gray-600">
+                                                    <DatePicker.RangePicker
+                                                        onChange={(dates) => setSelectedDates(dates)}
+                                                    />
+                                                    <div className="flex flex-col space-y-4 py-4">
+                                                        <span>Select sorting criteria:</span>
+                                                        <Radio.Group
+                                                            onChange={(e) => setSortBy(e.target.value)}
+                                                            value={sortBy}
+                                                        >
+                                                            <Radio value="date">Date</Radio>
+
+                                                        </Radio.Group>
+                                                        <span>Select sorting order:</span>
+                                                        <Radio.Group
+                                                            onChange={(e) => setSortOrder(e.target.value)}
+                                                            value={sortOrder}
+                                                        >
+                                                            <Radio value="asc">Ascending</Radio>
+                                                            <Radio value="desc">Descending</Radio>
+                                                        </Radio.Group>
+                                                    </div>
+                                                    <Button shape="round"
+                                                            className="bg-lime-600 border-none hover:text-lime-600 text-white"
+                                                            onClick={handleDownloadPDF}>Download</Button>
+                                                </div>
+                                            }
+                                            title="Select Date Range and Sorting"
+                                            trigger="click"
+                                            visible={popoverVisible}
+                                            onVisibleChange={setPopoverVisible}
+                                        />
+                                    </div>
+
+
+                                </div>
+
+
                             </div>
 
                         </div>
@@ -304,6 +502,9 @@ export default function Valuation() {
                                 <th scope="col" className="px-6 py-3">
                                     Percentage
                                 </th>
+                                <th scope="col" className="px-6 py-3">
+                                    Value
+                                </th>
                                 <th scope="col" className=" py-3">
                                     <span className="sr-only">Info</span>
                                 </th>
@@ -317,89 +518,96 @@ export default function Valuation() {
                             </thead>
                             <tbody className="border-b border-gray-200">
 
-                            {filteredRecords.map((record, index) => (
+                            {filteredValuationRecords.map((record, index) => (
                                 <tr key={record._id}
                                     className={`divide-y border-l-4 ${getBorderColorClass(record.subtype)}`}
                                 >
-                                <td></td>
-                                <td className="px-6 py-4">
-                            {record.date}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.type}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.subtype}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.quantity}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.price}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.description}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.payer_payee}
-                            </td>
-                            <td className="px-6 py-4">
-                                {record.appreciationOrDepreciation}
-                            </td>
-                            <td className=" py-4 text-right">
-                                <Link to={`/finances/valuation/viewValuation/${record._id}`}>
-                                    <InformationCircleIcon
-                                        className="h-6 w-6 flex-none bg-gray-200 p-1 rounded-full text-gray-800 hover:bg-gray-500"
-                                        aria-hidden="true"/>
-                                </Link>
-                            </td>
-                            <td className=" py-4 text-right">
-                                <Link to={`/finances/valuation/editValuation/${record._id}`}>
-                                    <PencilSquareIcon
-                                        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                        aria-hidden="true"/>
-                                </Link>
-                            </td>
-                            <td className=" ">
-                                <Popover
-                                    content={
-                                        <div>
-                                            <p>Are you sure you want to delete this record?</p>
-                                            <div className="mt-4 flex justify-start">
-                                                <button
-                                                    className="bg-red-600 rounded-full px-4 text-white hover:bg-red-400"
-                                                    onClick={() => {
-                                                        handleDeleteValuation(record._id);
-                                                    }}
-                                                >
-                                                    Yes
-                                                </button>
-                                            </div>
+                                    <td></td>
+                                    <td className="px-6 py-4">
+                                        {record.date}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        {record.type}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        {record.subtype}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        {record.quantity}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        Rs.{record.price}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        {record.description}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        {record.payer_payee}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        {record.appreciationOrDepreciation}
+                                    </td>
+                                    <td className="px-4 py-4">
+                                        <div
+                                            className="py-1 bg-zinc-200 rounded-full text-black text-center hover:bg-zinc-400">
+                                            Rs.{record.quantity * record.price}
                                         </div>
-                                    }
-                                    title="Confirmation"
-                                    trigger="click"
-                                >
-                                    <Button shape="circle" type="text">
-                                        <TrashIcon
-                                            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                            aria-hidden="true"
-                                        />
-                                    </Button>
-                                </Popover>
-                            </td>
-                        </tr>
-                        ))}
+
+                                    </td>
+                                    <td className=" py-4 text-right">
+                                        <Link to={`/finances/valuation/viewValuation/${record._id}`}>
+                                            <InformationCircleIcon
+                                                className="h-6 w-6 flex-none bg-gray-200 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                                aria-hidden="true"/>
+                                        </Link>
+                                    </td>
+                                    <td className=" py-4 text-right">
+                                        <Link to={`/finances/valuation/editValuation/${record._id}`}>
+                                            <PencilSquareIcon
+                                                className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                                aria-hidden="true"/>
+                                        </Link>
+                                    </td>
+                                    <td className=" ">
+                                        <Popover
+                                            content={
+                                                <div>
+                                                    <p>Are you sure you want to delete this record?</p>
+                                                    <div className="mt-4 flex justify-start">
+                                                        <button
+                                                            className="bg-red-600 rounded-full px-4 text-white hover:bg-red-400"
+                                                            onClick={() => {
+                                                                handleDeleteValuation(record._id);
+                                                            }}
+                                                        >
+                                                            Yes
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            }
+                                            title="Confirmation"
+                                            trigger="click"
+                                        >
+                                            <Button shape="circle" type="text">
+                                                <TrashIcon
+                                                    className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                                    aria-hidden="true"
+                                                />
+                                            </Button>
+                                        </Popover>
+                                    </td>
+                                </tr>
+                            ))}
 
 
-                    </tbody>
-                </table>
+                            </tbody>
+                        </table>
 
+                    </div>
+                </div>
             </div>
-        </div>
-</div>
 
-</div>
+        </div>
 )
     ;
 }
