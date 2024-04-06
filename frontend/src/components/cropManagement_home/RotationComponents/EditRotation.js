@@ -52,7 +52,7 @@ const EditRotation = () => {
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Edited successfully', { variant: 'success' });
-                navigate('/crop/rotation/view', { state: { highlighted: true } });
+                navigate('/crop/rotation/view');
             })
             .catch((error) => {
                 setLoading(false);
@@ -89,7 +89,6 @@ const EditRotation = () => {
                 break;
         }
     };
-
 
     const handleCancel = () => {
         navigate('/crop/rotation/view');
@@ -133,9 +132,13 @@ const EditRotation = () => {
                                         value={fieldName}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     >
-                                        <option value="fieldA">Field A</option>
-                                        <option value="fieldB">Field B</option>
-                                        <option value="fieldC">Field C</option>
+                                        <option value="Field A">Field A</option>
+                                        <option value="Field B">Field B</option>
+                                        <option value="Field C">Field C</option>
+                                        <option value="Field D">Field D</option>
+                                        <option value="Field E">Field E</option>
+                                        <option value="Field F">Field F</option>
+                                        <option value="Field G">Field G</option>
                                     </select>
                                 </div>
                             </div>
@@ -153,9 +156,9 @@ const EditRotation = () => {
                                         value={cropType}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     >
-                                        <option value="coconut">Coconut</option>
-                                        <option value="guava">Guava</option>
-                                        <option value="papaw">Papaya</option>
+                                        <option value="Coconut">Coconut</option>
+                                        <option value="Apple Guava">Apple Guava</option>
+                                        <option value="Papaya">Papaya</option>
                                     </select>
                                 </div>
                             </div>
