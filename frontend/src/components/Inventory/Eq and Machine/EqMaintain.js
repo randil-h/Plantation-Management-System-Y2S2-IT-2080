@@ -120,10 +120,24 @@ const EqMaintain = () => {
         if (status === 'In Progress') {
             return 'bg-red-100 text-red-800 px-2 py-1 rounded-md text-xs'; // Red background for In Progress
         } else if (status === 'Completed') {
-            return 'bg-green-100 text-green-800 px-2 py-1 rounded-md text-xs'; // Green background for Completed
+            return 'text-green-800 px-2 py-1 rounded-md text-xs'; // Green background for Completed
         }
         return ''; // Default empty class for other statuses
     };
+
+    const getStatusRowBackgroundClass = (record) => {
+        const today = new Date().toISOString().split('T')[0];
+
+        // Check if the received date matches today's date or if status is 'In Progress'
+        if (record.date_received && record.date_received.split('T')[0] === today && record.status === 'In Progress') {
+            return 'bg-red-100 text-red-800'; // Red background for In Progress with today's date
+        } else if (record.status === 'Completed') {
+            return ''; // No background color for Completed status
+        }
+
+        return ''; // Default empty class for other statuses or conditions
+    };
+
 
     return (
         <div className="overflow-x-auto">
@@ -202,49 +216,46 @@ const EqMaintain = () => {
                         </thead>
                         <tbody>
                         {filteredRecords.map((record, index) => (
-                            <React.Fragment key={index}>
-                                <tr>
-                                    <td></td>
-                                    <td className="px-6 py-4">{index + 1}</td>
-                                    <td className="px-6 py-4">{record.Eq_machine_main}</td>
-                                    <td className="px-6 py-4">{record.Eq_id_main}</td>
-                                    <td className="px-6 py-4">{record.date_referred.split("T")[0]}</td>
-                                    <td className="px-6 py-4">{record.date_received.split("T")[0]}</td>
-                                    <td className="px-6 py-4">{record.ref_loc}</td>
-                                    <td className={`px-6 ${getStatusBackgroundClass(record.status)}`}>
-                                        {record.status}
-                                    </td>
-                                    <td className="px-6 py-4">{record.comment}</td>
-                                    <td className="px-6 py-4 text-right">
-                                        <Link to={`/inventory/maintenancelog/viewmain/${record._id}`}
-                                              className="font-medium text-blue-600 hover:underline">
-                                            <InformationCircleIcon
-                                                className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
-                                                aria-hidden="true"/>
-                                        </Link>
-                                    </td>
-                                    <td className="px-3 py-4 text-right">
-                                        <Link to={`/inventory/maintenancelog/editeqmainpage/${record._id}`}
-                                              className="font-medium text-blue-600 hover:underline">
-                                            <PencilSquareIcon
-                                                className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                                aria-hidden="true"/>
-                                        </Link>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <button className="flex items-center" onClick={() => handleDelete(record._id)}>
-                                            <TrashIcon
-                                                className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                                aria-hidden="true"/>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colSpan="10" className="border-b border-gray-400"></td>
-                                </tr>
-                            </React.Fragment>
+                            <tr key={record._id}
+                                className={`${getStatusRowBackgroundClass(record)} ${getStatusRowBackgroundClass(record) === '' ? '' : 'hover:bg-gray-100'}`}>
+                                <td></td>
+                                <td className="px-6 py-4">{index + 1}</td>
+                                <td className="px-6 py-4">{record.Eq_machine_main}</td>
+                                <td className="px-6 py-4">{record.Eq_id_main}</td>
+                                <td className="px-6 py-4">{record.date_referred.split("T")[0]}</td>
+                                <td className="px-6 py-4">{record.date_received.split("T")[0]}</td>
+                                <td className="px-6 py-4">{record.ref_loc}</td>
+                                <td className={`px-6 ${getStatusBackgroundClass(record.status)}`}>
+                                    {record.status}
+                                </td>
+                                <td className="px-6 py-4">{record.comment}</td>
+                                <td className="px-6 py-4 text-right">
+                                    <Link to={`/inventory/maintenancelog/viewmain/${record._id}`}
+                                          className="font-medium text-blue-600 hover:underline">
+                                        <InformationCircleIcon
+                                            className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                            aria-hidden="true"/>
+                                    </Link>
+                                </td>
+                                <td className="px-3 py-4 text-right">
+                                    <Link to={`/inventory/maintenancelog/editeqmainpage/${record._id}`}
+                                          className="font-medium text-blue-600 hover:underline">
+                                        <PencilSquareIcon
+                                            className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                            aria-hidden="true"/>
+                                    </Link>
+                                </td>
+                                <td className="px-6 py-4">
+                                    <button className="flex items-center" onClick={() => handleDelete(record._id)}>
+                                        <TrashIcon
+                                            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                            aria-hidden="true"/>
+                                    </button>
+                                </td>
+                            </tr>
                         ))}
                         </tbody>
+
                     </table>
                 </div>
                 {/* Confirmation Dialog */}

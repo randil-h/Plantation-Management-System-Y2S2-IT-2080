@@ -79,7 +79,9 @@ const InHome = () => {
                                     <React.Fragment key={index}>
                                         <div className="flex flex-row items-center gap-4 w-full justify-between ">
                                             <dd className="text-base tracking-tight sm:text-lg -ml-12">{record.record_name}</dd>
-                                            <div className="text-base tracking-tight sm:text-lg -mr-10">{record.quantity} plants</div>
+                                            <div
+                                                className="text-base tracking-tight sm:text-lg -mr-10">{record.quantity} plants
+                                            </div>
                                         </div>
                                         {index < Object.values(filteredRecords).length - 1 && (
                                             <hr className="my-4 -ml-12 -mr-10 border-black"/>
@@ -88,7 +90,8 @@ const InHome = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className="flex flex-col bg-blue-300 p-8 rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 hover:shadow-md">
+                        <div
+                            className="flex flex-col bg-blue-300 p-8 rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 hover:shadow-md">
                             <div className="flex items-center justify-center">
                                 <GiChemicalDrop className="text-5xl text-black mr-4"/>
                                 <dt className="text-xl font-semibold leading-6 text-black">Agro Chemicals</dt>
@@ -109,7 +112,8 @@ const InHome = () => {
                                     <React.Fragment key={index}>
                                         <div className="flex flex-row items-center gap-4 w-full justify-between ">
                                             <dd className="text-base tracking-tight sm:text-lg -ml-12">{record.record_name}</dd>
-                                            <div className="text-base tracking-tight sm:text-lg -mr-10">{record.quantity}</div>
+                                            <div
+                                                className="text-base tracking-tight sm:text-lg -mr-10">{record.quantity}</div>
                                         </div>
                                         {index < Object.values(filteredRecords).length - 1 && (
                                             <hr className="my-4 -ml-12 -mr-10 border-black "/>
@@ -141,7 +145,8 @@ const InHome = () => {
                                     <React.Fragment key={index}>
                                         <div className="flex flex-row items-center gap-4 w-full justify-between ">
                                             <dd className="text-base tracking-tight sm:text-lg -ml-12">{record.record_name}</dd>
-                                            <div className="text-base tracking-tight sm:text-lg -mr-10">{record.quantity}</div>
+                                            <div
+                                                className="text-base tracking-tight sm:text-lg -mr-10">{record.quantity}</div>
                                         </div>
                                         {index < Object.values(filteredRecords).length - 1 && (
                                             <hr className="my-4 -ml-12 -mr-10 border-black "/>
