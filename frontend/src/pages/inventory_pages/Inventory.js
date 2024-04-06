@@ -8,12 +8,12 @@ import BackButton from "../../components/utility/BackButton";
 import Breadcrumb from "../../components/utility/Breadcrumbs";
 import InHome from "../../components/Inventory/InHome";
 
-export default function Equipment() {
+export default function Inventory() {
 
     const breadcrumbItems = [
         { name: 'Inventory', href: '/inventory/home' },
-        { name: 'Inventory Records', href: '/inventory/inventoryrecords' },
     ];
+
 
     return (
         <div>
@@ -27,9 +27,9 @@ export default function Equipment() {
                         <SideBar/>
                     </div>
 
-                    <div className="w-full col-span-5 flex flex-col ">
+                    <div className="w-full col-span-5 flex flex-col">
                         <InventoryNavbar/>
-                        <div className="flex flex-row ">
+                        <div className="flex flex-row z-10">
                             <BackButton/>
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
