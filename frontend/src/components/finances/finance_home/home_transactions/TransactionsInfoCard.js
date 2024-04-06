@@ -6,7 +6,7 @@ import { scaleTime, scaleLinear } from 'd3-scale';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { line, curveCardinal, area } from 'd3-shape';
 import { extent } from 'd3-array';
-import {curveBumpX} from "d3";
+import { curveBumpX } from "d3";
 
 export default function TransactionsInfoCard() {
     const [transactionsRecords, setTransactionsRecords] = useState([]);
@@ -35,8 +35,8 @@ export default function TransactionsInfoCard() {
 
         const svg = select(svgRef.current);
         const margin = { top: 20, right: 20, bottom: 60, left: 50 }; // Increased bottom margin for labels
-        const width = svg.attr("width") - margin.left - margin.right;
-        const height = svg.attr("height") - margin.top - margin.bottom;
+        const width = svg.node().parentElement.clientWidth - margin.left - margin.right; // Calculate width based on parent element's width
+        const height = 340 - margin.top - margin.bottom; // Use a fixed height
 
         // Calculate the domain for the y-axis
         const maxAmount = Math.max(...sortedRecords.map(d => d.amount));
@@ -96,9 +96,6 @@ export default function TransactionsInfoCard() {
             .attr("y", 40) // Adjust position
             .attr("fill", "currentColor")
 
-
-
-
         svg.append("g")
             .attr("transform", `translate(${margin.left},0)`)
             .call(yAxis)
@@ -114,7 +111,6 @@ export default function TransactionsInfoCard() {
                 .style("font-size", "14px") // Adjust font size
                 .style("font-weight", "bold") // Make text bold
                 .text("↑ Amount"));
-
 
         const areaGenerator = area()
             .x(d => x(new Date(d.date)))
@@ -157,18 +153,14 @@ export default function TransactionsInfoCard() {
             .attr("fill", "none")
             .attr("d", lineGenerator);
 
-
-
     }, [transactionsRecords]);
 
     return (
         <div className="pt-12 flex flex-col items-center justify-center align-middle h-[26rem] w-full bg-orange-50">
-            <div className="text-base font-semibold  flex items-center justify-center">
+            <div className="text-base font-semibold  flex items-center justify-center ">
                 Transactions Amount vs. Date
             </div>
-            <svg className="" ref={svgRef} width={1300} height={340}></svg>
-
+            <svg className="" ref={svgRef} width="94%" height={340}></svg>
         </div>
-
     );
 }
