@@ -48,7 +48,8 @@ const EditEmployee = () => {
     }, [id]); // Adding id to dependency array
 
 
-    const handleEdit = () => {
+    const handleEdit = (e) => {
+        e.preventDefault();
         const data = {
             f_name,
             l_name,
@@ -68,10 +69,8 @@ const EditEmployee = () => {
             .put(`http://localhost:5555/employeeRecords/${id}`, data)
             .then(() => {
                 setLoading(false);
-                enqueueSnackbar('Record update successfully', {variant: 'success'});
+                enqueueSnackbar('Record Update successfully', {variant: 'success'});
                 navigate('/employees/registration');
-
-
             })
             .catch((error) => {
                 setLoading(false);
