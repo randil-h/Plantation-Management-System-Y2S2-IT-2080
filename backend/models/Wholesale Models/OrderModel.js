@@ -2,10 +2,6 @@ import mongoose from "mongoose"
 
 const OrderSchema = mongoose.Schema(
     {
-        orderID: {
-            type: String,
-            required: true,
-        },
         orderDate: {
             type: Date,
             default: Date.now,

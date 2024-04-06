@@ -11,6 +11,10 @@ const OrderPlacingForm = () => {
     const { id } = useParams(); // Extracting id from route parameters
     const navigate = useNavigate();
     const [quantity, setQuantity] = useState(1); // State to hold the quantity
+    const [orderProductName, setorderproductName]  = useState('');
+    const [orderDate, setorderDate] = useState('');
+    const [orderQuantity, setorderQuantity] = useState('');
+    const [orderPrice, setorderPrice] = useState('');
 
     useEffect(() => {
         setLoading(true);
@@ -41,7 +45,6 @@ const OrderPlacingForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission here
     };
 
     if (loading) {
@@ -155,8 +158,8 @@ const OrderPlacingForm = () => {
                                     </label>
                                     <div className="mt-4">
                                         <input type="date"
-                                               name="productPrice"
-                                               id="productPrice"
+                                               name="orderDate"
+                                               id="orderDate"
                                             // onChange={(e) => setproductPrice(e.target.value)}
                                             // value={productPrice}
                                                className="block w-full rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300

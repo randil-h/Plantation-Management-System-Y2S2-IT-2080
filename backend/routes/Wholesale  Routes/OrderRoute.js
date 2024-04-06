@@ -6,7 +6,6 @@ const router = express.Router();
 router.post('/', async(request, response) =>{
     try{
         if(
-            !request.body.orderID ||
             !request.body.orderDate ||
             !request.body.orderQuantity ||
             !request.body.orderPrice
@@ -16,9 +15,7 @@ router.post('/', async(request, response) =>{
         });
     }
         const newOrder = {
-            orderID: request.body.orderID,
             orderDate: request.body.orderDate,
-            productDescription: request.body.productDescription,
             orderQuantity: request.body.orderQuantity,
             orderPrice: request.body.orderPrice,
         };

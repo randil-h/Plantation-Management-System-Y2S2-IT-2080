@@ -2,12 +2,14 @@ import React, {useEffect, useState} from "react";
 import { TbShoppingCartCopy } from "react-icons/tb";
 import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 import axios from "axios";
+import {useId} from 'react';
 
 const OrderHistory = () => {
     const [orderRecords, setOrderRecords] = useState([]);
     const [loading,setLoading] = useState(false);
     const [filteredRecords, setFilteredRecords] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const id = useId();
 
     useEffect(() => {
         setLoading(true);
@@ -76,7 +78,7 @@ const OrderHistory = () => {
                                             </div>
                                             <div className="ml-2">
                                                 <p className="text-gray-900 whitespace-no-wrap">
-                                                    RD25045
+                                                    {id}
                                                 </p>
                                             </div>
                                         </div>
