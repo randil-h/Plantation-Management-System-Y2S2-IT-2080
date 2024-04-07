@@ -81,7 +81,7 @@ export default function AgroTourism() {
                     extraordinary experiences!
                 </p>
                 <button
-                    className="bg-green-600 text-white px-3 py-2 mt-5 rounded-full hover:bg-gray-500 focus:outline-none mr-2">
+                    className="bg-black text-white px-3 py-2 mt-5 rounded-full hover:bg-gray-500 focus:outline-none mr-2">
                     <Link to="/booking" className="text-white">
                         Book Your Package Now!
                     </Link>
