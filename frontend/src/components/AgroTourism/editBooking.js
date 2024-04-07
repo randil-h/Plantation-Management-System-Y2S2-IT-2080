@@ -52,7 +52,7 @@ const EditBooking = () => {
             await axios.put(`http://localhost:5555/booking/${id}`, data);
             console.log("Form submitted successfully");
             setLoading(false);
-            enqueueSnackbar('Record Edited successfully', { variant: 'success' });
+            enqueueSnackbar('Record Edited successfully', { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' } });
             navigate('/confirmation', { state: { highlighted: true } }); // Redirect after successful save
         } catch (error) {
             console.error("Error submitting form:", error);

@@ -36,7 +36,7 @@ const EditFeedback = () => {
                 feedback,
                 rating: parseInt(rating) // Parse rating to a number
             });
-            enqueueSnackbar('Feedback updated successfully', { variant: 'success' });
+            enqueueSnackbar('Feedback updated successfully',{ variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' } });
             navigate('/feedbacklist');
         } catch (error) {
             enqueueSnackbar('Error updating feedback', { variant: 'error' });
