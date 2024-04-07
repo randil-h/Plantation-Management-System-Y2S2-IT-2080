@@ -3,8 +3,6 @@ import Tomato from "../WholeSale_Management/pictuers/tomato.jpeg";
 import {Link} from "react-router-dom"
 import axios from "axios";
 
-
-
 const WholeSaleProduct = () => {
     const [productRecords, setProductRecords] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -92,9 +90,9 @@ const WholeSaleProduct = () => {
                                                 <img src={Tomato} alt="tomato"/>
                                             </div>
                                             <div>
-                                                {/* Your other JSX content */}
                                                 <Link to={`/WholeSale/transactions/${record._id}`}>
-                                                    <button className="block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                                    <button className="block w-full mt-5 rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
+                                                    focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                                         Order Now
                                                     </button>
                                                 </Link>
