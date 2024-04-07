@@ -154,11 +154,11 @@ export default function FeedbackDashboard() {
                     </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-blue-100 rounded-lg p-4 mb-4">
-                        <div className="text-center text-blue-900 font-semibold text-6xl" ref={totalFeedbacksRef}></div>
+                    <div className="bg-blue-900 rounded-lg p-4 mb-4">
+                        <div className="text-center text-white font-semibold text-6xl" ref={totalFeedbacksRef}></div>
                     </div>
-                    <div className="bg-blue-100 rounded-lg p-4 mb-4">
-                        <div className="text-center text-blue-900 font-semibold text-6xl" ref={avgRatingRef}></div>
+                    <div className="bg-blue-900 rounded-lg p-4 mb-4">
+                        <div className="text-center text-white font-semibold text-6xl" ref={avgRatingRef}></div>
                     </div>
                 </div>
 

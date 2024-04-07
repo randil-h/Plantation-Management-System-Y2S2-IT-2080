@@ -5,6 +5,7 @@ import axios from 'axios';
 import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import {HiOutlineDownload} from "react-icons/hi";
 
 const BookingList = () => {
     const [originalRecords, setOriginalRecords] = useState([]);
@@ -115,10 +116,10 @@ const BookingList = () => {
                     />
                     <FaSearch className="absolute left-3 top-2 text-gray-400"/>
                 </div>
-                <div>
-                    <p className="text-sm text-black border-2 rounded-md border-white bg-gradient-to-r from-blue-100 to-green-100 px-5 py-3">Total Bookings: {bookingRecords.length}</p>
+                <div className="bg-black rounded-lg px-5 py-3 mb-4 items">
+                    <p className="text-center text-white font-semibold">Total Bookings: {bookingRecords.length}</p>
                 </div>
-                <div>
+                <div className="flex">
                     <Link to="/booking">
                         <button
                             className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none mr-2"
@@ -127,12 +128,13 @@ const BookingList = () => {
                         </button>
                     </Link>
                     <button
-                        className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none ml-2"
+                        className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none ml-2 flex items-center"
                         onClick={handlePrint}
                     >
-                        Print
+                        Print <HiOutlineDownload className="ml-1"/>
                     </button>
                 </div>
+
             </div>
 
 
@@ -140,11 +142,11 @@ const BookingList = () => {
                 <table id="booking-table"
                        className="w-10/12 bg-white shadow-md rounded-md overflow-hidden  top-1/3 mb-10">
                     <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
-            <tr>
-                <th className="px-6 py-3">No</th>
-                <th className="px-6 py-3">Date</th>
-                <th className="px-6 py-3">Name</th>
-                <th className="px-6 py-3">Tel No</th>
+                    <tr>
+                        <th className="px-6 py-3">No</th>
+                        <th className="px-6 py-3">Date</th>
+                        <th className="px-6 py-3">Name</th>
+                        <th className="px-6 py-3">Tel No</th>
                 <th className="px-6 py-3">NIC No</th>
                 <th className="px-6 py-3">Email</th>
                 <th className="px-6 py-3">No Of People</th>

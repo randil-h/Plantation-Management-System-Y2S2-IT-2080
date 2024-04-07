@@ -1,4 +1,3 @@
-// ProgressStepper.js
 import React from 'react';
 import { FaUser, FaMoneyBill, FaCheck } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
@@ -28,11 +27,11 @@ const ProgressStepper = () => {
     ];
 
     return (
-        <div className="flex items-center justify-center space-x-8">
+        <div className="flex items-center justify-center space-x-8 p-4">
             {steps.map((step, index) => (
                 <div key={index} className="flex flex-col items-center">
                     <div
-                        className={`w-12 h-12 flex items-center justify-center rounded-full border-4 mb-3 mt-8 mx-20 ${
+                        className={`w-12 h-12 flex items-center justify-center rounded-full border-4 mb-3 ${
                             index + 1 === currentStep
                                 ? 'border-black bg-black text-white'
                                 : 'border-gray-300 bg-white text-gray-500 '

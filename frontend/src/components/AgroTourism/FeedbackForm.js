@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { SlActionUndo } from "react-icons/sl";
 
 const FeedbackForm = () => {
     const [name, setName] = useState("");
@@ -121,7 +121,7 @@ const FeedbackForm = () => {
                     </div>
                     <p className="mt-4 text-lg flex items-center">
                         <Link to="/tourism" className="text-black flex items-center">
-                            <IoMdArrowRoundBack className="mr-2"/> Go back
+                            <SlActionUndo className="mr-2"/> Go back
                         </Link>
                     </p>
                 </form>
