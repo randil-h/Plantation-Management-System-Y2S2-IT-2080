@@ -46,7 +46,7 @@ export default function FarmChoreExperience() {
                 <p className="text-lg mb-4">
                     Ready to experience farm life firsthand? Book your Farm Chore Experience now!
                 </p>
-                <button className="bg-black text-white px-3 py-2 rounded-full hover:bg-emerald-700 focus:outline-none mr-2">
+                <button className="bg-black text-white px-4 py-2 rounded-full hover:bg-emerald-700 focus:outline-none mr-2">
                     <Link to="/booking" className="text-white">
                         Book now
                     </Link>
