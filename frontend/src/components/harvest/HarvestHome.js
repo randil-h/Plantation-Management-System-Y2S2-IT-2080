@@ -60,7 +60,7 @@ function LastMonthHarvestRecords() {
                         <div key={index}
                              className=" py-4 items-center justify-center rounded-lg flex-col flex-1 flex shadow-lg bg-green-300 max-w-2xl w-full mb-4 mr-4 hover:bg-green-400"
                         >
-                            <h3 className="text-2xl font-bold ">{summary.cropType}</h3>
+                            <h3 className="text-2xl font-bold capitalize">{summary.cropType}</h3>
                             <p>Sum of harvests: {summary.sum} kg</p>
                         </div>
                     ))}

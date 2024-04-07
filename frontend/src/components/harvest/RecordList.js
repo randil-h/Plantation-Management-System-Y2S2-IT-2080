@@ -144,7 +144,7 @@ export default function HarvestList() {
                     {(filteredRecords.length > 0 ? filteredRecords : harvestRecords).map((record, index) => (
                         <tr key={index}
                             className={`divide-y ${
-                                    record.cropType === 'coconut' ? 'bg-yellow-100' : record.cropType === 'guava' ? 'bg-blue-100' : record.cropType === 'papaya' ? 'bg-green-100' : 'border-l-4 border-black-900'}`}
+                                    record.cropType === 'coconut' ? 'bg-yellow-100 text-black border-l-4 border-yellow-200' : record.cropType === 'guava' ? 'bg-blue-100 text-black border-l-4 border-blue-200' : record.cropType === 'papaya' ? 'bg-green-100 text-black border-l-4 border-green-200' : 'border-l-4 border-black-900'}`}
                         >
                             <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{new Date(record.date).toLocaleDateString()}</td>
