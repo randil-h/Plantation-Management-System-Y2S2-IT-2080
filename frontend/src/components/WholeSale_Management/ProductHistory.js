@@ -86,18 +86,21 @@ const ProductHistory = () =>{
         <div>
             <div className="flex justify-between items-center">
                 <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-                    <div className="flex justify-between">
-                        <a href="/OperationManager/AddingProduct"
-                           className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
-                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"> Add
-                            a Product
-                        </a>
+                    <div className="flex justify-betwee">
+                        <div className="px-6">
+                            <a href="/OperationManager/AddingProduct"
+                               className="mt-10 block rounded-md bg-black px-8 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
+                                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 left-2"> Add
+                                a Product
+                            </a>
+                        </div>
+
                         <button
                             onClick={generatePDF}
-                            className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
-                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+                            focus-visible:outline-gray-900 absolute top-24 right-5"
                         >
-                            Print
+                            Print PDF
                         </button>
                     </div>
                 </div>

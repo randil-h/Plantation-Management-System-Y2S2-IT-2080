@@ -8,6 +8,8 @@ import WholeSaleNavBar from "../../../components/WholeSale_Management/WholeSaleN
 import WholeSaleProduct from "../../../components/WholeSale_Management/WholeSaleProduct";
 import {dividerClasses} from "@mui/material";
 import {TbShoppingCartCopy} from "react-icons/tb";
+import MyOrderIcon from "../../../components/WholeSale_Management/MyOrderIcon";
+import Footer from "../../../components/utility/Footer";
 
 
 export default function PlaceOrder() {
@@ -18,12 +20,16 @@ export default function PlaceOrder() {
                 <Navbar/>
                 {/*<WholeSaleNavBar/>*/}
 
-                <a href="/WholeSale/orders"
-                   className="font-medium text-blue-600  hover:underline">
-                    <TbShoppingCartCopy
-                        className="h-10 w-10 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500 mt-2"
-                        aria-hidden="true"/>
-                </a>
+                <div>
+                    <MyOrderIcon/>
+                </div>
+
+                {/*<a href="/WholeSale/orders"*/}
+                {/*   className="font-medium text-blue-600  hover:underline">*/}
+                {/*    <TbShoppingCartCopy*/}
+                {/*        className="h-10 w-10 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500 mt-2"*/}
+                {/*        aria-hidden="true"/>*/}
+                {/*</a>*/}
 
                 <div className="mx-auto max-w-3xl sm:text-center sm:py-20">
                     <h2 className="text-3xl font-bold tracking-tight text-gray-800 sm:text-6xl">OUR PRODUCTS</h2>
@@ -43,10 +49,10 @@ export default function PlaceOrder() {
                 </div>
             </div>
             <div>
-
+                <Footer/>
             </div>
-
         </div>
+
     );
 }
 

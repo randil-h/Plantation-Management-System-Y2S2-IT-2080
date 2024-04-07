@@ -22,6 +22,7 @@ export default function Feedback() {
                             <FaStar className="h-5 w-5 text-yellow-500"/>
                             <FaStar className="h-5 w-5 text-yellow-500"/>
                             <FaStar className="h-5 w-5 text-yellow-500"/>
+                            <FaStar className="h-5 w-5 text-yellow-500"/>
                         </div>
                     </div>
 
@@ -29,10 +30,12 @@ export default function Feedback() {
                     <div className="bg-white border border-gray-600 p-4 mb-6 rounded-xl">
                         {/* Profile picture */}
                         <img src="/oprofile2.jpg" alt="Eric" className="rounded-full h-20 w-20 mx-auto mb-2" />
-                        <p className="text-xl font-semibold mb-2">Eric</p>
+                        <p className="text-xl font-semibold mb-2">Henry</p>
                         <p>I had a great time during my visit. The atmosphere was welcoming, and the service was top-notch. I will definitely be returning in the future.</p>
                         <div><br/><br/></div>
                         <div className="flex justify-center">
+                            <FaStar className="h-5 w-5 text-yellow-500"/>
+                            <FaStar className="h-5 w-5 text-yellow-500"/>
                             <FaStar className="h-5 w-5 text-yellow-500"/>
                             <FaStar className="h-5 w-5 text-yellow-500"/>
                             <FaStar className="h-5 w-5 text-yellow-500"/>
@@ -42,7 +45,7 @@ export default function Feedback() {
                     <div className="bg-white border border-gray-600 p-4 mb-6 rounded-xl">
                         {/* Profile picture */}
                         <img src="/profile3.jpg" alt="Michelle" className="rounded-full h-20 w-20 mx-auto mb-2" />
-                        <p className="text-xl font-semibold mb-2">James</p>
+                        <p className="text-xl font-semibold mb-2">Eliana</p>
                         <p>I can't say enough good things about my experience here. From the moment I walked in, I felt valued and well taken care of. The facilities were clean, and the staff went above and beyond to ensure my comfort. I will be recommending this place to all my friends and family.</p>
                         <div className="flex justify-center">
                             <FaStar className="h-5 w-5 text-yellow-500"/>

@@ -3,7 +3,7 @@ import Navbar from '../../components/utility/Navbar';
 import SubscribeNewsletter from '../../components/landingPage/subscribe_newsletter';
 import Footer from '../../components/utility/Footer';
 import {useLocation} from "react-router-dom";
-
+import FeedbackSideNav from "../../components/AgroTourism/FeedbackSideNav";
 import EditFeedback from "../../components/AgroTourism/editFeedback";
 export default function EditFeedbackPg() {
     const location = useLocation();
@@ -15,7 +15,10 @@ export default function EditFeedbackPg() {
             <div className="border-b sticky top-0 z-10">
                 <Navbar />
             </div>
+            <div className="flex">
+            <FeedbackSideNav/>
             <EditFeedback/>
+            </div>
             <SubscribeNewsletter />
             <Footer />
         </div>

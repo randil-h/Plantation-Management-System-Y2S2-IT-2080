@@ -6,6 +6,7 @@ import StepIndicator from "../../components/AgroTourism/StepIndicator";
 import PaymentPortal from "../../components/AgroTourism/payment";
 import { SnackbarProvider } from 'notistack'; // Import SnackbarProvider
 import {PaymentConfirmation} from "../../components/AgroTourism/payment";
+
 export default function PaymentPg() {
     return (
         <SnackbarProvider maxSnack={3}> {/* Wrap the component hierarchy with SnackbarProvider */}

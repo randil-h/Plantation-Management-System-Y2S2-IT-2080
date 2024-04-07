@@ -52,7 +52,7 @@ const EditBooking = () => {
             await axios.put(`http://localhost:5555/booking/${id}`, data);
             console.log("Form submitted successfully");
             setLoading(false);
-            enqueueSnackbar('Record Edited successfully', { variant: 'success' });
+            enqueueSnackbar('Record Edited successfully', { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' } });
             navigate('/confirmation', { state: { highlighted: true } }); // Redirect after successful save
         } catch (error) {
             console.error("Error submitting form:", error);
@@ -165,7 +165,7 @@ const EditBooking = () => {
                     </button>
                     <button
                         type="submit"
-                        className="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         Save
                     </button>

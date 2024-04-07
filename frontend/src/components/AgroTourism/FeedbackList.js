@@ -67,7 +67,7 @@ const FeedbackList = () => {
                 </div>
                 <Link to="/feedbackdash">
                     <button
-                        className="bg-blue-800 text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none ml-2"
+                        className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none ml-2"
                     >
                         View Feedback Summary
                     </button>
