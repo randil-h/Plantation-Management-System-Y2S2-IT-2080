@@ -557,7 +557,7 @@ const EditInventoryRecords = () => {
                                             >
                                                 <option value="">Select</option>
                                                 <option>Urea 50kg packets</option>
-                                                <option>Coconut fertilizer</option>
+                                                <option>Coconut fertilizer - 50Kg</option>
                                                 <option>Dolomite 50kg</option>
                                                 <option>YPM 50kg packets</option>
                                                 <option>Muriate of potash 50kg</option>
