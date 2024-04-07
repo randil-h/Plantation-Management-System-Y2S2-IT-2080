@@ -57,7 +57,7 @@ function HarvestCalculator() {
         const trees = parseInt(treesPicked);
         if (!isNaN(trees) && trees > 0 && averageYieldFromDB) {
             // Calculate estimated harvest
-            const harvest = trees * averageYieldFromDB;
+            const harvest = Math.round((trees * averageYieldFromDB) * 100) / 100;
             setExpectedHarvest(harvest);
         } else {
             // Handle invalid input
