@@ -95,7 +95,7 @@ function HarvestCalculator() {
                             name="cropType"
                             value={cropType}
                             onChange={handleChange}
-                            className="p-1 rounded border border-gray-300"
+                            className="p-1 rounded border border-gray-300 w-32"
                         >
                             <option value="">Select Crop</option>
                             <option value="coconut">Coconut</option>
@@ -111,11 +111,11 @@ function HarvestCalculator() {
                     </button>*/}
                     <div className="py-2 px-4 mt-4 bg-amber-50 rounded border border-green-700">
                         {averageYield !== null ? (
-                            <p className="text-green-950">Average Yield: {averageYield} kg/tree</p>
+                            <p>Average Yield: {averageYield} kg/tree</p>
                         ) : (
-                            <p>No data available for the selected crop type.</p>
+                            <p>Select a crop type</p>
                         )}
-                        <p>Expected Harvest: {expectedHarvest} kg</p>
+                        <p className="font-semibold">Expected Harvest: {expectedHarvest} kg</p>
                     </div>
                 </div>
 
