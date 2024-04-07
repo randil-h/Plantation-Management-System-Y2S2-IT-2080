@@ -53,12 +53,12 @@ const EditEqMain = () => {
             .put(`http://localhost:5555/inventoryrecords/${id}`, data)
             .then(() => {
                 setLoading(false);
-                enqueueSnackbar('Record Created Successfully!', {
+                enqueueSnackbar('Record Edited Successfully!', {
                     variant: 'success',
                     autoHideDuration: 6000,
                     anchorOrigin: {
-                        vertical: 'top', // Display the snackbar at the top
-                        horizontal: 'center', // Align the snackbar at the center horizontally
+                        vertical: 'bottom',
+                        horizontal: 'left',
                     },
                 });
                 setTimeout(() => {
