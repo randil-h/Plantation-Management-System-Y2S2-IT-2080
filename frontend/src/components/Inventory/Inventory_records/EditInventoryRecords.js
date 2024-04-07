@@ -86,8 +86,8 @@ const EditInventoryRecords = () => {
                     variant: 'success',
                     autoHideDuration: 6000,
                     anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'center',
+                        vertical: 'bottom',
+                        horizontal: 'left',
                     },
                 });
                 navigate('/inventory/inventoryrecords');
@@ -326,28 +326,27 @@ const EditInventoryRecords = () => {
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             >
                                                 <option>Select</option>
-                                                <option>Booster K 45%</option>
-                                                <option>Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide
-                                                </option>
-                                                <option>Marshal 20 SC (carbosulfan 200g/l SC) insecticide</option>
-                                                <option>Mitsu Abamectin (abamectin 18g/l EC) insecticide</option>
-                                                <option>Alberts solution</option>
-                                                <option>Crop Master solution</option>
-                                                <option>Oasis Thiram (thiuram disulfide) fungicide</option>
-                                                <option>Glyphosate weedicide</option>
-                                                <option>Rootone</option>
+                                                <option>Booster K 45% - 400ml bottle</option>
+                                                <option>Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide - 400ml bottle</option>
+                                                <option>Marshal 20 SC (carbosulfan 200g/l SC) insecticide - 400ml bottle</option>
+                                                <option>Mitsu Abamectin (abamectin 18g/l EC) insecticide - 50ml bottle</option>
+                                                <option>Alberts solution - 1kg packet</option>
+                                                <option>Crop Master solution - 1l bottle</option>
+                                                <option>Oasis Thiram (thiuram disulfide) fungicide - 1kg packet</option>
+                                                <option>Glyphosate weedicide - 4l bottle</option>
+                                                <option>Rootone - 500ml bottle</option>
 
 
                                                 {![
-                                                    "Booster K 45%",
-                                                    "Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide",
-                                                    "Marshal 20 SC (carbosulfan 200g/l SC) insecticide",
-                                                    "Mitsu Abamectin (abamectin 18g/l EC) insecticide",
-                                                    "Alberts solution",
-                                                    "Crop Master solution",
-                                                    "Oasis Thiram (thiuram disulfide) fungicide",
-                                                    "Glyphosate weedicide",
-                                                    "Rootone",
+                                                    "Booster K 45% - 400ml bottle",
+                                                    "Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide - 400ml bottle",
+                                                    "Marshal 20 SC (carbosulfan 200g/l SC) insecticide - 400ml bottle",
+                                                    "Mitsu Abamectin (abamectin 18g/l EC) insecticide - 50ml bottle",
+                                                    "Alberts solution - 1kg packet",
+                                                    "Crop Master solution - 1l bottle",
+                                                    "Oasis Thiram (thiuram disulfide) fungicide - 1kg packet",
+                                                    "Glyphosate weedicide - 4l bottle",
+                                                    "Rootone - 500ml bottle",
                                                 ].includes(formData.record_name) && (
                                                     <option value={formData.record_name}>{formData.record_name}</option>
                                                 )}
@@ -557,18 +556,22 @@ const EditInventoryRecords = () => {
                                                 required
                                             >
                                                 <option value="">Select</option>
-                                                <option value="Urea 50kg packets">Urea 50kg packets</option>
-                                                <option value="Dolomite 50kg">Dolomite 50kg</option>
-                                                <option value="Muriate of potash 50kg">Muriate of potash 50kg</option>
-                                                <option value="Papaya fertilizer">Papaya fertilizer</option>
-                                                <option value="Guava fertilizer">Guava fertilizer</option>
+                                                <option>Urea 50kg packets</option>
+                                                <option>Coconut fertilizer</option>
+                                                <option>Dolomite 50kg</option>
+                                                <option>YPM 50kg packets</option>
+                                                <option>Muriate of potash 50kg</option>
+                                                <option>Papaya fertilizer - NPK 25kg</option>
+                                                <option>Guava fertilizer - NPK 25kg</option>
 
                                                 {![
                                                     "Urea 50kg packets",
+                                                    "Coconut fertilizer",
                                                     "Dolomite 50kg",
+                                                    "YPM 50kg packets",
                                                     "Muriate of potash 50kg",
-                                                    "Papaya fertilizer",
-                                                    "Guava fertilizer",
+                                                    "Papaya fertilizer - NPK 25kg",
+                                                    "Guava fertilizer - NPK 25kg",
                                                 ].includes(formData.record_name) && (
                                                     <option value={formData.record_name}>{formData.record_name}</option>
                                                 )}
@@ -581,7 +584,7 @@ const EditInventoryRecords = () => {
                                             Storage Location
                                         </label>
                                         <div className="mt-2">
-                                            <select
+                                        <select
                                                 name="storage"
                                                 value={formData.storage}
                                                 onChange={handleChange}

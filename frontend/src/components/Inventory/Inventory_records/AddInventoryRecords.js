@@ -290,16 +290,15 @@ export default function AddInventoryRecords() {
                                                 autoComplete="record_name"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                 <option>Select</option>
-                                                <option>Booster K 45%</option>
-                                                <option>Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide
-                                                </option>
-                                                <option>Marshal 20 SC (carbosulfan 200g/l SC) insecticide</option>
-                                                <option>Mitsu Abamectin (abamectin 18g/l EC) insecticide</option>
-                                                <option>Alberts solution</option>
-                                                <option>Crop Master solution</option>
-                                                <option>Oasis Thiram (thiuram disulfide) fungicide</option>
-                                                <option>Glyphosate weedicide</option>
-                                                <option>Rootone</option>
+                                                <option>Booster K 45% - 400ml bottle</option>
+                                                <option>Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide - 400ml bottle</option>
+                                                <option>Marshal 20 SC (carbosulfan 200g/l SC) insecticide - 400ml bottle</option>
+                                                <option>Mitsu Abamectin (abamectin 18g/l EC) insecticide - 50ml bottle</option>
+                                                <option>Alberts solution - 1kg packet</option>
+                                                <option>Crop Master solution - 1l bottle</option>
+                                                <option>Oasis Thiram (thiuram disulfide) fungicide - 1kg packet</option>
+                                                <option>Glyphosate weedicide - 4l bottle </option>
+                                                <option>Rootone - 500ml bottle</option>
                                             </select>
                                         </div>
                                     </div>
@@ -504,10 +503,12 @@ export default function AddInventoryRecords() {
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                                 <option>Select</option>
                                                 <option>Urea 50kg packets</option>
+                                                <option>Coconut fertilizer</option>
                                                 <option>Dolomite 50kg</option>
+                                                <option>YPM 50kg packets</option>
                                                 <option>Muriate of potash 50kg</option>
-                                                <option>Papaya fertilizer</option>
-                                                <option>Guava fertilizer</option>
+                                                <option>Papaya fertilizer - NPK 25kg</option>
+                                                <option>Guava fertilizer - NPK 25kg</option>
                                             </select>
                                         </div>
                                     </div>

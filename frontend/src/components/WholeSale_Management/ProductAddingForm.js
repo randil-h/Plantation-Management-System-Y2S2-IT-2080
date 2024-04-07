@@ -45,20 +45,6 @@ const ProductAddingForm = () => {
                 enqueueSnackbar('Error', { variant: 'error' });
                 console.log(error);
             });
-
-        // try {
-        //     const response = await axios.post('http://localhost:5555/product', formData);
-        //     console.log(response.data);
-        //     setFormData({
-        //         productID: '',
-        //         productName: '',
-        //         productDescription: '',
-        //         productQuantity: '',
-        //         productPrice: ''
-        //     });
-        // }catch (error) {
-        //     console.log(error.message);
-        // }
     };
     return (
         <div>

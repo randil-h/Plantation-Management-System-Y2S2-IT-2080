@@ -6,7 +6,8 @@ const router = express.Router();
 router.post('/', async(request, response) =>{
     try{
         if(
-            !request.body.orderID ||
+            !request.body.orderId ||
+            !request.body.orderProductName ||
             !request.body.orderDate ||
             !request.body.orderQuantity ||
             !request.body.orderPrice
@@ -16,9 +17,9 @@ router.post('/', async(request, response) =>{
         });
     }
         const newOrder = {
-            orderID: request.body.orderID,
+            orderId: request.body.orderId,
+            orderProductName: request.body.orderProductName,
             orderDate: request.body.orderDate,
-            productDescription: request.body.productDescription,
             orderQuantity: request.body.orderQuantity,
             orderPrice: request.body.orderPrice,
         };
@@ -39,6 +40,61 @@ router.get('/', async (request,response) =>{
             count: orderrecords.length,
             data: orderrecords
         });
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+router.put('/:id', async (request, response) =>{
+    try{
+        if(
+            !request.body.orderQuantity
+        ){
+            return response.status(400).send({
+                message: 'Send all required fields'
+            });
+        }
+
+        const {id} = request.params;
+
+        const result = await Orders.findByIdAndUpdate(id, request.body);
+
+        if(!result){
+            return response.status(404).json({message: 'Order Records not Founded'});
+        }
+
+        return response.status(200).send({ message: 'Order record updated successfully' });
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({message: error.message});
+    }
+});
+
+router.get('/:id', async (request, response) =>{
+    try{
+        const {id} =request.params;
+
+        const orderRecords = await Orders.findById(id);
+
+        return response.status(200).json(orderRecords);
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+router.delete('/:id', async(request, response) =>{
+    try{
+        const {id} = request.params;
+
+        const result = await Orders.findByIdAndDelete(id);
+
+        if(!result){
+            return response.status(404).json({message: 'Order Record not found'});
+        }
+
+        return response.status(200).send({message: 'Order Record delete Successfully'});
     }catch(error){
         console.log(error.message);
         response.status(500).send({ message: error.message });

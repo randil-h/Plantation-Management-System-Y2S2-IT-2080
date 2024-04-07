@@ -152,10 +152,9 @@ const RotationList = () => {
                     pdf.text(`Highest Yield Season: ${highestYieldSeason}`, 10, 50);
                     pdf.text(`Highest Average Yield Crop: ${highestAverageYieldCrop}`, 10, 60);
 
-                    // Add the HTML content of the rotation-table
                     pdf.autoTable({
                         html: '#rotation-table',
-                        startY: 70, // Start below the text
+                        startY: 70,
                         theme: 'grid',
                     });
 
@@ -216,7 +215,7 @@ const RotationList = () => {
 
             <div className="overflow-x-auto">
                 <table id="rotation-table"
-                       className="w-10/12 bg-white shadow-md rounded-md overflow-hidden absolute top-1/3 left-64">
+                       className="w-10/12 bg-white shadow-md rounded-md overflow-hidden absolute top-1/3 left-1/6">
                     <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
                     <tr>
                         <th className="px-6 py-3">No</th>
