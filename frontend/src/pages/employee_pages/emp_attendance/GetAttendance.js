@@ -5,21 +5,19 @@ import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import React from "react";
 import BackButton from "../../../components/utility/BackButton";
 import EmployeeNavbar from "../../../components/Employee/EmployeeNavbar";
-import AttendanceList from "../../../components/Employee/Emp_attendance/AttendanceList";
+import GetEmpAttendance from "../../../components/Employee/Emp_attendance/GetEmpAttendance";
 
 
-
-export default function ViewAllAttendance() {
+export default function GetAttendance() {
 
     const breadcrumbItems = [
         { name: 'Employee', href: '/employees/home' },
         { name: 'Attendance Marker', href: '/employees/attendance' },
-
+        { name: 'Get Attendance', href: '/employees/attendance/getAttendance' },
     ];
 
 
     return (
-
         <div className="">
             <div className=" sticky top-0 z-10">
                 <Navbar/>
@@ -38,13 +36,12 @@ export default function ViewAllAttendance() {
 
                         </div>
                         <div>
-                            <AttendanceList/>
+                            <GetEmpAttendance/>
                         </div>
 
                     </div>
                 </div>
             </div>
         </div>
-
     )
 }
