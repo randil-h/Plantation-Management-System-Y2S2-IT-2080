@@ -22,6 +22,7 @@ export default function Feedback() {
                             <FaStar className="h-5 w-5 text-yellow-500"/>
                             <FaStar className="h-5 w-5 text-yellow-500"/>
                             <FaStar className="h-5 w-5 text-yellow-500"/>
+                            <FaStar className="h-5 w-5 text-yellow-500"/>
                         </div>
                     </div>
 
@@ -33,6 +34,8 @@ export default function Feedback() {
                         <p>I had a great time during my visit. The atmosphere was welcoming, and the service was top-notch. I will definitely be returning in the future.</p>
                         <div><br/><br/></div>
                         <div className="flex justify-center">
+                            <FaStar className="h-5 w-5 text-yellow-500"/>
+                            <FaStar className="h-5 w-5 text-yellow-500"/>
                             <FaStar className="h-5 w-5 text-yellow-500"/>
                             <FaStar className="h-5 w-5 text-yellow-500"/>
                             <FaStar className="h-5 w-5 text-yellow-500"/>
