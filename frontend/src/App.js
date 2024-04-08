@@ -165,6 +165,7 @@ export default function App() {
                     <Route path="/finances/machineHours/editMachineRecords/:id" element={<EditMachineRecord />} />
                     <Route path="/finances/machineHours/viewMachineRecords/:id" element={<ViewMachineRecord />} />
 
+
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback" element={Feedback()}/>
                     <Route path="/booking" element={BookingPg()}/>

@@ -11,6 +11,7 @@ import FeedbackRoute from "./routes/AgroTourism Routes/FeedbackRoute.js";
 import TransactionsRoute from "./routes/Finance Routes/TransactionsRoute.js";
 import ValuationRoute from "./routes/Finance Routes/ValuationRoute.js";
 import MachineRoute from "./routes/Finance Routes/MachineRoute.js";
+import WeatherAPI from "./routes/Weather Route/WeatherAPI.js";
 
 import DiseaseRoute from "./routes/Disease Tracking Routes/DiseaseRoute.js";
 
@@ -56,6 +57,7 @@ app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
 app.use('/valuation', ValuationRoute);
 app.use('/machines', MachineRoute);
+app.use('/weather', WeatherAPI)
 
 app.use('/booking', BookingRoute);
 app.use('/confirmation', BookingRoute);
@@ -76,7 +78,7 @@ app.use('/employeeRecords',RegistrationRoute);
 app.use('/taskRecords',TaskRoute);
 
 app.use('/productRecords' ,ProductRoute);
-app.use('/orederRecords', OrderRoute);
+app.use('/orderRecords', OrderRoute);
 
 
 app.use('/record', recordRoute);
