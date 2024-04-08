@@ -15,6 +15,8 @@ const EditInventoryRecords = () => {
         record_ID: '',
         record_name: '',
         storage: '',
+        size: '',
+        unit: '',
         quantity: '',
         expire_date: '',
         description: ''
@@ -31,6 +33,8 @@ const EditInventoryRecords = () => {
                     record_ID: data.record_ID,
                     record_name: data.record_name,
                     storage: data.storage,
+                    size: data.size,
+                    unit: data.unit,
                     quantity: data.quantity,
                     expire_date: data.expire_date ? data.expire_date.split("T")[0] : '',
                     description: data.description
@@ -56,6 +60,8 @@ const EditInventoryRecords = () => {
             record_ID: "",
             record_name: "",
             storage: "",
+            size: "",
+            unit: "",
             quantity: "",
             expire_date: "",
             description: ""
@@ -65,7 +71,7 @@ const EditInventoryRecords = () => {
         e.preventDefault(); // Prevent default form submission behavior
         setLoading(true);
 
-        const { type, record_ID, record_name, storage, quantity, expire_date, description } = formData;
+        const { type, record_ID, record_name, storage, size, unit, quantity, expire_date, description } = formData;
 
         // Prepare the updated data object to send in the PUT request
         const updatedData = {
@@ -73,6 +79,8 @@ const EditInventoryRecords = () => {
             record_ID,
             record_name,
             storage,
+            size,
+            unit,
             quantity,
             expire_date,
             description
@@ -326,27 +334,26 @@ const EditInventoryRecords = () => {
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                             >
                                                 <option>Select</option>
-                                                <option>Booster K 45% - 400ml bottle</option>
-                                                <option>Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide - 400ml bottle</option>
-                                                <option>Marshal 20 SC (carbosulfan 200g/l SC) insecticide - 400ml bottle</option>
-                                                <option>Mitsu Abamectin (abamectin 18g/l EC) insecticide - 50ml bottle</option>
-                                                <option>Alberts solution - 1kg packet</option>
-                                                <option>Crop Master solution - 1l bottle</option>
-                                                <option>Oasis Thiram (thiuram disulfide) fungicide - 1kg packet</option>
-                                                <option>Glyphosate weedicide - 4l bottle</option>
-                                                <option>Rootone - 500ml bottle</option>
-
-
+                                                <option>Booster K 45%</option>
+                                                <option>Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide
+                                                </option>
+                                                <option>Marshal 20 SC (carbosulfan 200g/l SC) insecticide</option>
+                                                <option>Mitsu Abamectin (abamectin 18g/l EC) insecticide</option>
+                                                <option>Alberts solution</option>
+                                                <option>Crop Master solution</option>
+                                                <option>Oasis Thiram (thiuram disulfide) fungicide</option>
+                                                <option>Glyphosate weedicide</option>
+                                                <option>Rootone</option>
                                                 {![
-                                                    "Booster K 45% - 400ml bottle",
-                                                    "Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide - 400ml bottle",
-                                                    "Marshal 20 SC (carbosulfan 200g/l SC) insecticide - 400ml bottle",
-                                                    "Mitsu Abamectin (abamectin 18g/l EC) insecticide - 50ml bottle",
-                                                    "Alberts solution - 1kg packet",
-                                                    "Crop Master solution - 1l bottle",
-                                                    "Oasis Thiram (thiuram disulfide) fungicide - 1kg packet",
-                                                    "Glyphosate weedicide - 4l bottle",
-                                                    "Rootone - 500ml bottle",
+                                                    "Booster K 45%",
+                                                    "Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide",
+                                                    "Marshal 20 SC (carbosulfan 200g/l SC) insecticide",
+                                                    "Mitsu Abamectin (abamectin 18g/l EC) insecticide",
+                                                    "Alberts solution",
+                                                    "Crop Master solution",
+                                                    "Oasis Thiram (thiuram disulfide) fungicide",
+                                                    "Glyphosate weedicide",
+                                                    "Rootone",
                                                 ].includes(formData.record_name) && (
                                                     <option value={formData.record_name}>{formData.record_name}</option>
                                                 )}
@@ -369,6 +376,43 @@ const EditInventoryRecords = () => {
                                                 <option>Select</option>
                                                 <option>Warehouse 1</option>
                                                 <option>Warehouse 2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1">
+                                        <label htmlFor="size"
+                                               className="block text-sm font-medium leading-6 text-gray-900">
+                                            Size
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="number"
+                                                name="size"
+                                                value={formData.size}
+                                                onChange={handleChange}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-3">
+                                        <label htmlFor="unit"
+                                               className="block text-sm font-medium leading-6 text-gray-900">
+                                            Unit
+                                        </label>
+                                        <div className="mt-2">
+                                            <select
+                                                name="unit"
+                                                value={formData.unit}
+                                                onChange={handleChange}
+                                                id="unit"
+                                                autoComplete="unit"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                <option>Select</option>
+                                                <option>ml</option>
+                                                <option>l</option>
+                                                <option>KG</option>
+                                                <option>g</option>
                                             </select>
                                         </div>
                                     </div>
@@ -555,23 +599,23 @@ const EditInventoryRecords = () => {
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 required
                                             >
-                                                <option value="">Select</option>
-                                                <option>Urea 50kg packets</option>
-                                                <option>Coconut fertilizer - 50Kg</option>
-                                                <option>Dolomite 50kg</option>
-                                                <option>YPM 50kg packets</option>
-                                                <option>Muriate of potash 50kg</option>
-                                                <option>Papaya fertilizer - NPK 25kg</option>
-                                                <option>Guava fertilizer - NPK 25kg</option>
+                                                <option>Select</option>
+                                                <option>Urea</option>
+                                                <option>Coconut fertilizer</option>
+                                                <option>Dolomite</option>
+                                                <option>YPM</option>
+                                                <option>Muriate of potash</option>
+                                                <option>Papaya fertilizer</option>
+                                                <option>Guava fertilizer</option>
 
                                                 {![
-                                                    "Urea 50kg packets",
+                                                    "Urea",
                                                     "Coconut fertilizer",
-                                                    "Dolomite 50kg",
-                                                    "YPM 50kg packets",
-                                                    "Muriate of potash 50kg",
-                                                    "Papaya fertilizer - NPK 25kg",
-                                                    "Guava fertilizer - NPK 25kg",
+                                                    "Dolomite",
+                                                    "YPM",
+                                                    "Muriate of potash",
+                                                    "Papaya fertilizer",
+                                                    "Guava fertilizer",
                                                 ].includes(formData.record_name) && (
                                                     <option value={formData.record_name}>{formData.record_name}</option>
                                                 )}
@@ -584,7 +628,7 @@ const EditInventoryRecords = () => {
                                             Storage Location
                                         </label>
                                         <div className="mt-2">
-                                        <select
+                                            <select
                                                 name="storage"
                                                 value={formData.storage}
                                                 onChange={handleChange}
@@ -594,6 +638,43 @@ const EditInventoryRecords = () => {
                                                 <option>Select</option>
                                                 <option>Warehouse 1</option>
                                                 <option>Warehouse 2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1">
+                                        <label htmlFor="size"
+                                               className="block text-sm font-medium leading-6 text-gray-900">
+                                            Size
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="number"
+                                                name="size"
+                                                value={formData.size}
+                                                onChange={handleChange}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-3">
+                                        <label htmlFor="unit"
+                                               className="block text-sm font-medium leading-6 text-gray-900">
+                                            Unit
+                                        </label>
+                                        <div className="mt-2">
+                                            <select
+                                                name="unit"
+                                                value={formData.unit}
+                                                onChange={handleChange}
+                                                id="unit"
+                                                autoComplete="unit"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                                <option>Select</option>
+                                                <option>ml</option>
+                                                <option>l</option>
+                                                <option>KG</option>
+                                                <option>g</option>
                                             </select>
                                         </div>
                                     </div>
