@@ -58,7 +58,11 @@ const EditCropInput = () => {
             await axios.put(`http://localhost:5555/cropinput/${id}`, formData);
             setLoading(false);
             enqueueSnackbar('Record Updated successfully', { variant: 'success' });
-            navigate('/crop/input/view');
+            if (formData.type === 'Planting') {
+                navigate('/crop/input/planting/view');
+            } else if (formData.type === 'Agrochemical') {
+                navigate('/crop/input/chemical/view');
+            }
         } catch (error) {
             setLoading(false);
             enqueueSnackbar('Error', { variant: 'error' });

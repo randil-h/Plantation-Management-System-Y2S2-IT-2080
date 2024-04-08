@@ -36,7 +36,8 @@ import AddRotationPage from "./pages/crop_pages/Rotation Management/AddRotationP
 import ViewRotation from "./pages/crop_pages/Rotation Management/ViewRotation";
 import UpdateRotation from "./pages/crop_pages/Rotation Management/UpdateRotation"
 import AddCropInput from "./pages/crop_pages/Crop Input/AddCropInput";
-import ViewCropInputPage from "./pages/crop_pages/Crop Input/ViewCropInputPage";
+import ViewPlantingPage from "./pages/crop_pages/Crop Input/ViewPlantingPage";
+import ViewChemicalPage from "./pages/crop_pages/Crop Input/ViewChemicalPage";
 import UpdateCropInputPage from "./pages/crop_pages/Crop Input/UpdateCropInputPage";
 import ViewPlantingRecord from "./pages/crop_pages/Crop Input/ViewPlantingRecord";
 import ViewRotationRecord from "./pages/crop_pages/Rotation Management/ViewRotationRecord";
@@ -183,7 +184,9 @@ export default function App() {
                     <Route path = "/crop/rotation/view" element={ViewRotation()}/>
                     <Route path = "/crop/rotation/update/:id" element={UpdateRotation()}/>
                     <Route path = "/crop/input/add" element={AddCropInput()}/>
-                    <Route path = "/crop/input/view" element={ViewCropInputPage()}/>
+                    <Route path = "/crop/input" element={ViewPlantingPage()}/>
+                    <Route path = "/crop/input/planting/view" element={ViewPlantingPage()}/>
+                    <Route path = "/crop/input/chemical/view" element={ViewChemicalPage()}/>
                     <Route path = "/crop/input/update/:id" element = {UpdateCropInputPage()}/>
                     <Route path ="/crop/rotation/record/:id" element={<ViewRotationRecord/>}/>
                     <Route path = "/crop/input/planting/record/:id" element = {<ViewPlantingRecord/>}/>

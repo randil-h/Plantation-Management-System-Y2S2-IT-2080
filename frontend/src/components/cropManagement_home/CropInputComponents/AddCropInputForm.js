@@ -114,7 +114,11 @@ export default function AddCropInputForm() {
                 remarks: ""
             });
             enqueueSnackbar('Record Added successfully', { variant: 'success' });
-            navigate('/crop/input/view');
+            if (formData.type === 'Planting') {
+                navigate('/crop/input/planting/view');
+            } else if (formData.type === 'Agrochemical') {
+                navigate('/crop/input/chemical/view');
+            }
         } catch (error) {
             console.log(error.message);
             enqueueSnackbar('Error', { variant: 'error' });

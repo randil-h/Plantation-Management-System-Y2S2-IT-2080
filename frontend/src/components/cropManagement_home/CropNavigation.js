@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 const menuItems = [
     { name: "HOME", path: "/crop/home" },
     { name: "ROTATION", path: "/crop/rotation/view" },
-    { name: "CROP INPUT", path: "/crop/input/view" },
+    { name: "CROP INPUT", path: "/crop/input/" },
 ];
 
 export default function CropNavigation() {

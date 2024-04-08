@@ -151,7 +151,7 @@ const ChemicalList = () => {
 
     return (
         <div className="z-0">
-            <div className="absolute left-80">
+            <div className="absolute left-80 top-1/4 pb-30 mb-30">
                 <input
                     type="text"
                     placeholder="Search Agrochemical"
