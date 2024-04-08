@@ -26,7 +26,7 @@ function HarvestCalculator() {
     }, []);
 
     const updateRecentHarvestResults = () => {
-        if (expectedHarvest > 0 && cropType && treesPicked) {
+        if (expectedHarvest && cropType && treesPicked) {
             const recentResult = {
                 cropType: cropType,
                 treesPicked: treesPicked,
@@ -35,6 +35,7 @@ function HarvestCalculator() {
             setRecentHarvestResults(prevResults => [recentResult, ...prevResults.slice(0, 9)]);
         }
     };
+
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -50,11 +51,13 @@ function HarvestCalculator() {
             const averageYieldFromDB = calculateAverageYieldFromRecords(cropType);
             setAverageYield(averageYieldFromDB);
             calculateHarvest(averageYieldFromDB);
-            updateRecentHarvestResults(); // Call function to update recent harvest results
+            /*setRecentHarvestResults([]); // Reset recentHarvestResults array
             setButtonClicked(true); // Set buttonClicked to true
-
+            updateRecentHarvestResults(); // Call function to update recent harvest results*/
         }
     };
+
+
 
     const calculateAverageYieldFromRecords = (cropType) => {
         // Filter records based on selected crop type
@@ -136,9 +139,10 @@ function HarvestCalculator() {
                 </div>
             )}
             {/* Division for Recent Harvest Results */}
-            {buttonClicked && (
-                <div style={{ marginTop: "20px" }}>
+
+            {/* <div style={{ marginTop: "20px" }}>
                     <h2 className="text-lg font-semibold">Recent Harvest Results</h2>
+                    {buttonClicked && (
                     <ul>
                         {recentHarvestResults.map((result, index) => (
                             <li key={index}>
@@ -146,8 +150,9 @@ function HarvestCalculator() {
                             </li>
                         ))}
                     </ul>
-                </div>
-            )}
+                    )}
+                </div> */}
+
         </div>
     );
 }
