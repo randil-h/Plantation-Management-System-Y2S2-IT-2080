@@ -111,7 +111,7 @@ import ViewTaskDetails from "./pages/employee_pages/task_assigning/ViewTaskDetai
 import ViewAllAttendance from "./pages/employee_pages/emp_attendance/ViewAllAttendance";
 import GetAttendance from "./pages/employee_pages/emp_attendance/GetAttendance";
 
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -125,7 +125,7 @@ export default function App() {
     }, []);
 
     return (
-        <SpeedInsights>
+
             <KindeProvider
                 clientId="398e8a2c8e8744c492bc437b4890c8c7"
                 domain="https://elemahana.kinde.com"
@@ -253,8 +253,9 @@ export default function App() {
                         </Routes>
                     )}
                 </div>
+                <SpeedInsights/>
             </KindeProvider>
-        </SpeedInsights>
+
 
     );
 }
