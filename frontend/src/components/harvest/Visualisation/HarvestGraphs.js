@@ -13,7 +13,7 @@ export default function HarvestGraphs() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get("http://elemahana-mern-8d9r.vercel.app/record")
+            .get("https://elemahana-mern-8d9r.vercel.app/record")
             .then((response) => {
                 setHarvestRecords(response.data.data);
                 console.log("HarvestRecords:", response.data.data);

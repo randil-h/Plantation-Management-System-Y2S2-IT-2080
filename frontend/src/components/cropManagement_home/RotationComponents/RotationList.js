@@ -38,7 +38,7 @@ const RotationList = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://elemahana-mern-8d9r.vercel.app/rotation`)
+            .get(`https://elemahana-mern-8d9r.vercel.app/rotation`)
             .then((response) => {
                 setRotationRecords(response.data.data);
                 setLoading(false);
@@ -69,7 +69,7 @@ const RotationList = () => {
     const confirmDelete = () => {
         if (recordToDelete) {
             axios
-                .delete(`http://elemahana-mern-8d9r.vercel.app/rotation/${recordToDelete}`)
+                .delete(`https://elemahana-mern-8d9r.vercel.app/rotation/${recordToDelete}`)
                 .then(() => {
                     setRotationRecords(prevRecords =>
                         prevRecords.filter(record => record._id !== recordToDelete)
@@ -86,7 +86,7 @@ const RotationList = () => {
 
     const confirmDeleteAction = () => {
         axios
-            .delete(`http://elemahana-mern-8d9r.vercel.app/rotation/${recordToDelete}`)
+            .delete(`https://elemahana-mern-8d9r.vercel.app/rotation/${recordToDelete}`)
             .then(() => {
                 setRotationRecords(prevRecords => prevRecords.filter(record => record._id !== recordToDelete));
             })

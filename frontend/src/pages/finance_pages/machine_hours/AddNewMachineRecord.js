@@ -33,7 +33,7 @@ function AddNewMachineRecord() {
         };
         setLoading(true);
         axios
-            .post('http://elemahana-mern-8d9r.vercel.app/machines', data)
+            .post('https://elemahana-mern-8d9r.vercel.app/machines', data)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });

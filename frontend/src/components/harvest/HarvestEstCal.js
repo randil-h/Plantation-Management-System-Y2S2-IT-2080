@@ -14,7 +14,7 @@ function HarvestCalculator() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://elemahana-mern-8d9r.vercel.app/record')
+            .get('https://elemahana-mern-8d9r.vercel.app/record')
             .then((response) => {
                 setHarvestRecords(response.data.data);
                 setLoading(false);

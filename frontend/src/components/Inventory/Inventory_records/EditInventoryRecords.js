@@ -25,7 +25,7 @@ const EditInventoryRecords = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://elemahana-mern-8d9r.vercel.app/inventoryinputs/${id}`)
+        axios.get(`https://elemahana-mern-8d9r.vercel.app/inventoryinputs/${id}`)
             .then((response) => {
                 const data = response.data;
                 setFormData({
@@ -87,7 +87,7 @@ const EditInventoryRecords = () => {
         };
 
         axios
-            .put(`http://elemahana-mern-8d9r.vercel.app/inventoryinputs/${id}`, updatedData)
+            .put(`https://elemahana-mern-8d9r.vercel.app/inventoryinputs/${id}`, updatedData)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Edited Successfully!', {

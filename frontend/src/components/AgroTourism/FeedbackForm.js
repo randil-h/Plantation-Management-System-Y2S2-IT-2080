@@ -16,7 +16,7 @@ const FeedbackForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://elemahana-mern-8d9r.vercel.app/feedback", {
+            const response = await fetch("https://elemahana-mern-8d9r.vercel.app/feedback", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

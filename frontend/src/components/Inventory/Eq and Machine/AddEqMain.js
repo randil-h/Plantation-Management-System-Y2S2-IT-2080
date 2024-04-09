@@ -38,7 +38,7 @@ const AddEqMain = () => {
 
         };
         try {
-            await axios.post('http://elemahana-mern-8d9r.vercel.app/inventoryrecords', data);
+            await axios.post('https://elemahana-mern-8d9r.vercel.app/inventoryrecords', data);
             enqueueSnackbar('Record Created Successfully!', {
                 variant: 'success',
                 autoHideDuration: 6000,

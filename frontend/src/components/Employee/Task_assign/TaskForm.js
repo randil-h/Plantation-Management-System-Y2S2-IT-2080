@@ -25,7 +25,7 @@ const TaskForm = () => {
             task_status,
         };
         axios
-            .post('http://elemahana-mern-8d9r.vercel.app/taskRecords', data)
+            .post('https://elemahana-mern-8d9r.vercel.app/taskRecords', data)
             .then(() => {
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });
                 navigate('/employees/tasks', { state: { highlighted: true } }); // Navigate to maintenance log and highlight it

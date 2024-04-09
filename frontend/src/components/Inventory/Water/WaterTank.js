@@ -42,7 +42,7 @@ function WaterTank() {
             water_des
         };
         axios
-            .post('http://elemahana-mern-8d9r.vercel.app/waterRecords', data)
+            .post('https://elemahana-mern-8d9r.vercel.app/waterRecords', data)
             .then((response) => {
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });
                 setWaterRecord(prevRecords => [...prevRecords, response.data]);
@@ -91,7 +91,7 @@ function WaterTank() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://elemahana-mern-8d9r.vercel.app/waterRecords`)
+            .get(`https://elemahana-mern-8d9r.vercel.app/waterRecords`)
             .then((response) => {
                 setWaterRecord(response.data.data);
                 setLoading(false);
@@ -107,7 +107,7 @@ function WaterTank() {
 
     const handleDelete = (recordId) => {
         axios
-            .delete(`http://elemahana-mern-8d9r.vercel.app/waterRecords/${recordId}`)
+            .delete(`https://elemahana-mern-8d9r.vercel.app/waterRecords/${recordId}`)
             .then(() => {
                 setWaterRecord(prevRecords => prevRecords.filter(record => record._id !== recordId));
                 enqueueSnackbar('Record Deleted Successfully!', {

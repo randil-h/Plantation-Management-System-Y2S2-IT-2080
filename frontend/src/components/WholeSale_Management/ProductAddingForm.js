@@ -36,7 +36,7 @@ const ProductAddingForm = () => {
         };
 
         axios
-            .post('http://elemahana-mern-8d9r.vercel.app/productRecords', data)
+            .post('https://elemahana-mern-8d9r.vercel.app/productRecords', data)
             .then(() => {
                 enqueueSnackbar('Record Create Successfully', {variant: 'success'});
                 navigate('/wholesaleDashboard', {state:{highlighted: true}}); //

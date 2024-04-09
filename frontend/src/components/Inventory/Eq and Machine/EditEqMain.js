@@ -18,7 +18,7 @@ const EditEqMain = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://elemahana-mern-8d9r.vercel.app/inventoryrecords/${id}`)
+        axios.get(`https://elemahana-mern-8d9r.vercel.app/inventoryrecords/${id}`)
             .then((response) => {
                 setEq_machine_main(response.data.Eq_machine_main);
                 setEq_id_main(response.data.Eq_id_main);
@@ -50,7 +50,7 @@ const EditEqMain = () => {
 
         setLoading(true);
         axios
-            .put(`http://elemahana-mern-8d9r.vercel.app/inventoryrecords/${id}`, data)
+            .put(`https://elemahana-mern-8d9r.vercel.app/inventoryrecords/${id}`, data)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Edited Successfully!', {

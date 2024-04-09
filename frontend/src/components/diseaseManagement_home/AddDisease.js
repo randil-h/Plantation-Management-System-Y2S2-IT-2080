@@ -45,7 +45,7 @@ export default function AddDisease() {
         };
         setLoading(true);
         axios
-            .post(`http://elemahana-mern-8d9r.vercel.app/diseases`, data)
+            .post(`https://elemahana-mern-8d9r.vercel.app/diseases`, data)
             .then(() => {
                 setLoading(false);
                 navigate('/diseases/records');

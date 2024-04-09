@@ -18,7 +18,7 @@ const InventoryRecordList = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://elemahana-mern-8d9r.vercel.app/inventoryinputs`)
+            .get(`https://elemahana-mern-8d9r.vercel.app/inventoryinputs`)
             .then((response) => {
                 setInventoryInputs(response.data.data);
                 setLoading(false);
@@ -38,7 +38,7 @@ const InventoryRecordList = () => {
     const handleConfirmDelete = () => {
         const recordId = selectedRecordId;
         axios
-            .delete(`http://elemahana-mern-8d9r.vercel.app/inventoryinputs/${recordId}`)
+            .delete(`https://elemahana-mern-8d9r.vercel.app/inventoryinputs/${recordId}`)
             .then(() => {
                 setInventoryInputs((prevInputs) => prevInputs.filter((input) => input._id !== recordId));
                 setShowConfirmation(false);

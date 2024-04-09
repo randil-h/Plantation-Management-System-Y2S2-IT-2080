@@ -19,7 +19,7 @@ export default function UpdateDisease() {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://elemahana-mern-8d9r.vercel.app/diseases/${id}`)
+        axios.get(`https://elemahana-mern-8d9r.vercel.app/diseases/${id}`)
             .then((response) => {
                 setName(response.data.disease_name);
                 setId(response.data.plant_id);
@@ -70,7 +70,7 @@ export default function UpdateDisease() {
         };
         setLoading(true);
         axios
-            .put(`http://elemahana-mern-8d9r.vercel.app/diseases/${id}`, data)
+            .put(`https://elemahana-mern-8d9r.vercel.app/diseases/${id}`, data)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Updated successfully', { variant: 'success' });

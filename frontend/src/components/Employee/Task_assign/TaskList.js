@@ -23,7 +23,7 @@ const TaskList = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://elemahana-mern-8d9r.vercel.app/taskRecords`)
+            .get(`https://elemahana-mern-8d9r.vercel.app/taskRecords`)
             .then((response) => {
                 setTaskRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
                 setLoading(false);
@@ -39,7 +39,7 @@ const TaskList = () => {
         if (confirmDelete) {
             setLoading(true);
             axios
-                .delete(`http://elemahana-mern-8d9r.vercel.app/taskRecords/${recordId}`)
+                .delete(`https://elemahana-mern-8d9r.vercel.app/taskRecords/${recordId}`)
                 .then(() => {
                     setTaskRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
                     setLoading(false);

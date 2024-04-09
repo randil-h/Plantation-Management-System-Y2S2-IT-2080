@@ -29,7 +29,7 @@ export default function EditTransaction() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://elemahana-mern-8d9r.vercel.app/transactions/${id}`)
+            .get(`https://elemahana-mern-8d9r.vercel.app/transactions/${id}`)
             .then((response) => {
                 setDate(response.data.date);
                 setType(response.data.type);
@@ -67,7 +67,7 @@ export default function EditTransaction() {
         };
         setLoading(true);
         axios
-            .put(`http://elemahana-mern-8d9r.vercel.app/transactions/${id}`, data)
+            .put(`https://elemahana-mern-8d9r.vercel.app/transactions/${id}`, data)
             .then(() => {
                 setLoading(false);
                 message.success('Transaction record has successfully updated.');

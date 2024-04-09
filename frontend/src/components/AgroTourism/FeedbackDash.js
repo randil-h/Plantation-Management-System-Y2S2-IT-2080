@@ -13,7 +13,7 @@ export default function FeedbackDashboard() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get("http://elemahana-mern-8d9r.vercel.app/feedback")
+            .get("https://elemahana-mern-8d9r.vercel.app/feedback")
             .then((response) => {
                 setFeedbackData(response.data.data);
                 setLoading(false);

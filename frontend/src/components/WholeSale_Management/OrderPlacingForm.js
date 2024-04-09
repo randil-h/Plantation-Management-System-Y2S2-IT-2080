@@ -19,7 +19,7 @@ const OrderPlacingForm = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://elemahana-mern-8d9r.vercel.app/productRecords/${id}`)
+            .get(`https://elemahana-mern-8d9r.vercel.app/productRecords/${id}`)
             .then((response) => {
                 setProduct(response.data);
                 setLoading(false);
@@ -59,7 +59,7 @@ const OrderPlacingForm = () => {
         };
 
         axios
-            .post('http://elemahana-mern-8d9r.vercel.app/orderRecords', data)
+            .post('https://elemahana-mern-8d9r.vercel.app/orderRecords', data)
             .then(() => {
                 enqueueSnackbar('Record Create Successfully', {variant: 'success'});
                 navigate('/WholeSale/orders', {state:{highlighted: true}});

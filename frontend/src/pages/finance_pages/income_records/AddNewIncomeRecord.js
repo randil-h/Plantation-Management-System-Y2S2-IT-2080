@@ -35,7 +35,7 @@ export default function AddNewIncomeRecord() {
     };
     setLoading(true);
     axios
-        .post('http://elemahana-mern-8d9r.vercel.app/financeincome', data)
+        .post('https://elemahana-mern-8d9r.vercel.app/financeincome', data)
         .then(() => {
             setLoading(false);
             enqueueSnackbar('Record Created successfully', { variant: 'success' });

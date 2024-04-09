@@ -33,7 +33,7 @@ export default function AddInventoryRecords() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("http://elemahana-mern-8d9r.vercel.app/inventoryinputs", formData);
+            await axios.post("https://elemahana-mern-8d9r.vercel.app/inventoryinputs", formData);
             enqueueSnackbar('Record Created Successfully!', {
                 variant: 'success',
                 autoHideDuration: 6000,

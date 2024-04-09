@@ -105,7 +105,7 @@ export default function TransactionsList() {
     }, []);
 
     const fetchTransactions = () => {
-        axios.get('http://elemahana-mern-8d9r.vercel.app/transactions')
+        axios.get('https://elemahana-mern-8d9r.vercel.app/transactions')
             .then(response => {
                 setTransactions(response.data.data);
             })

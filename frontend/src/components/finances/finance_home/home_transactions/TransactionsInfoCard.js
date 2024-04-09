@@ -16,7 +16,7 @@ export default function TransactionsInfoCard() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get("http://elemahana-mern-8d9r.vercel.app/transactions")
+            .get("https://elemahana-mern-8d9r.vercel.app/transactions")
             .then((response) => {
                 setTransactionsRecords(response.data.data);
                 setLoading(false);

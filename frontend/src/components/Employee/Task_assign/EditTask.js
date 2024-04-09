@@ -17,7 +17,7 @@ const EditTask = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://elemahana-mern-8d9r.vercel.app/taskRecords/${id}`)
+        axios.get(`https://elemahana-mern-8d9r.vercel.app/taskRecords/${id}`)
             .then((response) => {
 
                 setEmp_id(response.data.emp_id);
@@ -48,7 +48,7 @@ const EditTask = () => {
         };
         setLoading(true);
         axios
-            .put(`http://elemahana-mern-8d9r.vercel.app/taskRecords/${id}`, data)
+            .put(`https://elemahana-mern-8d9r.vercel.app/taskRecords/${id}`, data)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Update successfully', {variant: 'success'});

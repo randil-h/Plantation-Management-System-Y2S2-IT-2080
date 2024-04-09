@@ -29,7 +29,7 @@ export default function AddRecord() {
             };
         setLoading(true);
         axios
-            .post('http://elemahana-mern-8d9r.vercel.app/record', data)
+            .post('https://elemahana-mern-8d9r.vercel.app/record', data)
             .then(() => {
                 setLoading(false);
                 navigate('/harvest/harvestRecords');

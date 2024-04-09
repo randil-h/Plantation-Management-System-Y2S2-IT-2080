@@ -24,7 +24,7 @@ const EditCropInput = () => {
         setLoading(true);
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://elemahana-mern-8d9r.vercel.app/cropinput/${id}`);
+                const response = await axios.get(`https://elemahana-mern-8d9r.vercel.app/cropinput/${id}`);
                 console.log("API Response: ", response.data);
 
                 const formattedDate = new Date(response.data.date).toISOString().split('T')[0];
@@ -55,7 +55,7 @@ const EditCropInput = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await axios.put(`http://elemahana-mern-8d9r.vercel.app/cropinput/${id}`, formData);
+            await axios.put(`https://elemahana-mern-8d9r.vercel.app/cropinput/${id}`, formData);
             setLoading(false);
             enqueueSnackbar('Record Updated successfully', { variant: 'success' });
             if (formData.type === 'Planting') {

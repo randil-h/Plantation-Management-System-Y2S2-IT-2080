@@ -10,7 +10,7 @@ function LastMonthHarvestRecords() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://elemahana-mern-8d9r.vercel.app/record')
+            .get('https://elemahana-mern-8d9r.vercel.app/record')
             .then((response) => {
                 const currentDate = new Date();
                 const lastMonth = currentDate.getMonth() === 0 ? 11 : currentDate.getMonth() - 1; // Adjusting for January

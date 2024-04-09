@@ -17,7 +17,7 @@ const ProductEdtingForm =() =>{
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://elemahana-mern-8d9r.vercel.app/productRecords/${id}`)
+            .get(`https://elemahana-mern-8d9r.vercel.app/productRecords/${id}`)
             .then((response) => {
                 setproductID(response.data.productID);
                 setproductName(response.data.productName);
@@ -43,7 +43,7 @@ const ProductEdtingForm =() =>{
         };
         setLoading(true);
         axios
-            .put(`http://elemahana-mern-8d9r.vercel.app/productRecords/${id}`, data)
+            .put(`https://elemahana-mern-8d9r.vercel.app/productRecords/${id}`, data)
             .then(() =>{
                 setLoading(false);
                 enqueueSnackbar('Record Edited successfully', {variant: 'success'});
