@@ -99,8 +99,8 @@ export default function WeatherComponent() {
                                             <th className="w-0 py-1.5"></th>
                                             {/* Adjust the width as needed */}
                                             <th className="w-2/12 py-1.5 text-center">Date</th>
-                                            <th className="w-1/12 py-1.5 text-center">Weather</th>
-                                            <th className="w-3/12 py-1.5 text-center">Temperature Range</th>
+                                            <th className="w-2/12 py-1.5 text-center">Weather</th>
+                                            <th className="w-2/12 py-1.5 text-center">Temperature Range</th>
                                             <th className="w-2/12 py-1.5 text-center">Feels Like</th>
                                             <th className="w-1/12 py-1.5 text-center">Humidity</th>
                                             <th className="w-1/12 py-1.5 text-center">Pressure</th>
@@ -111,25 +111,29 @@ export default function WeatherComponent() {
                                         <tbody>
                                         {group.map((forecast, idx) => (
                                             <tr key={idx}
-                                                className="divide-y divide-gray-100 hover:bg-black hover:bg-opacity-5">
+                                                className="divide-y divide-gray-100 hover:bg-black hover:bg-opacity-5 transition-all duration-200">
                                                 <td className="w-0"></td>
-                                                <td className="w-2/12 py-1 text-center">{formatDate(forecast.dt)}</td>
-                                                <td className="w-1/12 py-1 text-center">
+                                                <td className="w-2/12 py-1 text-center text-sky-950">{formatDate(forecast.dt)}</td>
+                                                <td className="w-2/12 py-1 text-center">
                                                     <div className="flex justify-center">
                                                         <img
                                                             src={getWeatherIconUrl(forecast.weather[0].icon)}
                                                             alt="Weather Icon"
                                                             className="w-10 h-10"
                                                         />
+                                                        <div className="sup text-xs text-gray-600 flex items-center font-extralight">
+                                                            {forecast.weather[0].description}
+                                                        </div>
                                                     </div>
                                                 </td>
 
-                                                <td className="w-3/12 py-1 text-center">
+                                                <td className="w-2/12 py-1 text-center">
                                                     <p className="flex flex-row justify-center items-center">
                                                         {forecast.temp.min}°
                                                         <div
                                                             className="bg-gradient-to-r from-blue-500 to-orange-300 w-24 h-1 rounded-full mx-4"></div>
-                                                        {forecast.temp.max}°
+                                                            {forecast.temp.max}°
+
                                                     </p>
                                                 </td>
                                                 <td className="w-2/12 py-1 text-center">{forecast.feels_like.day}°C</td>
