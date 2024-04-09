@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import GenerateGraphs from "../diseaseManagement_home/visualization/GenerateGraphs";
+import HarvestGraphs from "./Visualisation/HarvestGraphs";
 
 function LastMonthHarvestRecords() {
     const [plantSummaries, setPlantSummaries] = useState([]);
@@ -48,17 +50,14 @@ function LastMonthHarvestRecords() {
                 <p className="px-6 py-6 ">This month's summary</p>
             </div>
 
-            {loading ? (
-                <p>Loading last month's harvest records...</p>
-            ) : (
 
 
-                <div
-                    className="justify-between grid-cols-1 ml-6 w-full mt-8 flex flex-wrap items-center md:grid-cols-2">
 
+                <div className="flex flex-row">
                     {plantSummaries.map((summary, index) => (
                         <div key={index}
-                             className=" py-4 items-center justify-center rounded-lg flex-col flex-1 flex shadow-lg bg-green-300 max-w-2xl w-full mb-4 mr-4 hover:bg-green-400"
+                             className="flex flex-col items-center justify-center rounded-lg shadow-lg bg-green-300 max-w-2xl w-full mb-4 mr-4 hover:bg-green-400"
+                             style={{minWidth: "300px"}} // Optional: Set a minimum width for each item
                         >
                             <h3 className="text-2xl font-bold capitalize">{summary.cropType}</h3>
                             <p>Sum of harvests: {summary.sum} kg</p>
@@ -67,7 +66,10 @@ function LastMonthHarvestRecords() {
                 </div>
 
 
-            )}
+            )
+            <div>
+                <HarvestGraphs/>
+            </div>
         </div>
     );
 }
