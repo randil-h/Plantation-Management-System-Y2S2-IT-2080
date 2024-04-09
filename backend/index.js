@@ -39,13 +39,13 @@ app.use(express.json());
 //app.use(cors());
 
 
-/*app.use(
+app.use(
   cors({
-     origin: 'https://elemahana-mern-7zou.vercel.app/',
+     origin: 'https://elemahana-mern-7zou.vercel.app',
      methods: ['GET', 'POST', 'PUT', 'DELETE'],
      allowedHeaders: ['Content-Type'],
    })
- );*/
+ );
 
 app.get('/', (request, response) => {
     console.log(request);

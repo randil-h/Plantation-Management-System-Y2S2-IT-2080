@@ -188,13 +188,13 @@ export default function Navbar() {
                                     Marketplace
                                 </a>
                                 <a
-                                    href="/src/pages/Dashboard"
+                                    href="/dashboard"
                                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 >
                                     Dashboard
                                 </a>
                                 <a
-                                    href="/booking"
+                                    href="/tourism"
                                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 >
                                     Visit Us
