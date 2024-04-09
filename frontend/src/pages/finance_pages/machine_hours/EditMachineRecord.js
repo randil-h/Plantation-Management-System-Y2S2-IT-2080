@@ -26,7 +26,7 @@ function EditMachineRecord() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://elemahana-mern-8d9r.vercel.app/machines/${id}`)
+            .get(`https://elemahana-mern-8d9r.vercel.app/machines/${id}`)
             .then((response) => {
                 setDate(response.data.date);
                 setType(response.data.type);

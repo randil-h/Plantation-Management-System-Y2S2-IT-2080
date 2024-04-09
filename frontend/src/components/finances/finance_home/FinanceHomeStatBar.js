@@ -21,7 +21,7 @@ export default function FinanceHomeStatBar() {
 
     useEffect(() => {
         // Fetch total records from your API or set it from somewhere
-        axios.get('http://elemahana-mern-8d9r.vercel.app/transactions')
+        axios.get('https://elemahana-mern-8d9r.vercel.app/transactions')
             .then(response => {
                 setTotalRecords(response.data.data);
 

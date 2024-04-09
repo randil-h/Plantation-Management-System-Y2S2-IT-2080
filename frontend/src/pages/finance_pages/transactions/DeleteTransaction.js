@@ -26,7 +26,7 @@ export default function DeleteTransaction() {
     const handleDeleteTransaction = () => {
         setLoading(true);
         axios
-            .delete(`http://elemahana-mern-8d9r.vercel.app/transactions/${id}`)
+            .delete(`https://elemahana-mern-8d9r.vercel.app/transactions/${id}`)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Deleted successfully', { variant: 'success' });
