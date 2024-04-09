@@ -86,44 +86,45 @@ export default function WeatherComponent() {
         `}
             </style>
             <div className="flex flex-col bg-gradient-to-br from-blue-200 to-rose-200 rounded-3xl ">
-                <div className="overflow-x-auto">
-                    <table
-                        className="mx-auto w-full divide-y divide-gray-400 bg-black rounded-t-3xl bg-opacity-10 overflow-hidden">
-                        <thead className="text-gray-700 ">
-                        <tr>
-                            <th className="w-0"></th>
-                            <th className="w-12 px-6 py-1.5">Date</th>
-                            <th className="w-12 px-6 py-1.5">Weather</th>
-                            <th className="w-12 px-6 py-1.5">Temperature Range</th>
-                            <th className="w-12 px-6 py-1.5">Feels Like</th>
-                            <th className="w-12 px-6 py-1.5">Humidity</th>
-                            <th className="w-12 px-6 py-1.5">Pressure</th>
-                            <th className="w-12 px-6 py-1.5">Wind Speed</th>
-                            <th className="w-12 px-6 py-1.5">Cloudiness</th>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
+
                 <Carousel dots={{className: "custom-dot-style"}} prevArrow={prevArrow} nextArrow={nextArrow}>
                     {groups.map((group, index) => (
                         <div key={index}>
                             <div className="flex flex-col">
                                 <div className="overflow-x-auto">
-                                    <table className="mx-auto w-full divide-y divide-gray-400 overflow-hidden text-gray-800">
+                                    <table
+                                        className="mx-auto w-full divide-y divide-gray-100 overflow-hidden text-gray-800">
+                                        <thead className="text-gray-700">
+                                        <tr>
+                                            <th className="w-0 py-1.5"></th>
+                                            {/* Adjust the width as needed */}
+                                            <th className="w-2/12 py-1.5 text-center">Date</th>
+                                            <th className="w-1/12 py-1.5 text-center">Weather</th>
+                                            <th className="w-3/12 py-1.5 text-center">Temperature Range</th>
+                                            <th className="w-2/12 py-1.5 text-center">Feels Like</th>
+                                            <th className="w-1/12 py-1.5 text-center">Humidity</th>
+                                            <th className="w-1/12 py-1.5 text-center">Pressure</th>
+                                            <th className="w-1/12 py-1.5 text-center">Wind Speed</th>
+                                            <th className="w-1/12 py-1.5 text-center">Cloudiness</th>
+                                        </tr>
+                                        </thead>
                                         <tbody>
                                         {group.map((forecast, idx) => (
                                             <tr key={idx}
                                                 className="divide-y divide-gray-100 hover:bg-black hover:bg-opacity-5">
                                                 <td className="w-0"></td>
-                                                <td className="w-12 px-6 py-1 text-center">{formatDate(forecast.dt)}</td>
-                                                <td className="w-12 px-6 py-1 text-center">
-                                                    <img
-                                                        src={getWeatherIconUrl(forecast.weather[0].icon)}
-                                                        alt="Weather Icon"
-                                                        className="w-10 h-10"
-                                                    />
+                                                <td className="w-2/12 py-1 text-center">{formatDate(forecast.dt)}</td>
+                                                <td className="w-1/12 py-1 text-center">
+                                                    <div className="flex justify-center">
+                                                        <img
+                                                            src={getWeatherIconUrl(forecast.weather[0].icon)}
+                                                            alt="Weather Icon"
+                                                            className="w-10 h-10"
+                                                        />
+                                                    </div>
                                                 </td>
-                                                <td className="w-12  py-1 text-center">
+
+                                                <td className="w-3/12 py-1 text-center">
                                                     <p className="flex flex-row justify-center items-center">
                                                         {forecast.temp.min}°
                                                         <div
@@ -131,15 +132,16 @@ export default function WeatherComponent() {
                                                         {forecast.temp.max}°
                                                     </p>
                                                 </td>
-                                                <td className="w-12 pr-6 py-1 text-center">{forecast.feels_like.day}°C</td>
-                                                <td className="w-12 px-6 py-1 text-center">{forecast.humidity}%</td>
-                                                <td className="w-12 px-6 py-1 text-center">{forecast.pressure} hPa</td>
-                                                <td className="w-12 px-6 py-1 text-center">{forecast.speed} m/s</td>
-                                                <td className="w-12 px-6 py-1 text-center">{forecast.clouds}%</td>
+                                                <td className="w-2/12 py-1 text-center">{forecast.feels_like.day}°C</td>
+                                                <td className="w-1/12 py-1 text-center">{forecast.humidity}%</td>
+                                                <td className="w-1/12 py-1 text-center">{forecast.pressure} hPa</td>
+                                                <td className="w-1/12 py-1 text-center">{forecast.speed} m/s</td>
+                                                <td className="w-1/12 py-1 text-center">{forecast.clouds}%</td>
                                             </tr>
                                         ))}
                                         </tbody>
                                     </table>
+
                                 </div>
                             </div>
                         </div>
