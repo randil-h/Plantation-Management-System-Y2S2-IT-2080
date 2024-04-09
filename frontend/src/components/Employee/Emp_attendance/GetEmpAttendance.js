@@ -3,13 +3,17 @@ import React, { useState } from 'react';
 const GetEmpAttendance = () => {
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [attendanceData, setAttendanceData] = useState({});
+    const [loading, setLoading] = useState(false); // State for loading indicator
 
     // Dummy employee data
     const employees = [
-        { id: 1, name: 'Amal Subasinghe' },
-        { id: 2, name: 'Hemapala Kuruvita' },
-        { id: 3, name: 'Kamani Hewage' },
-        // Add more employees as needed
+        { id: 1, e_name: 'Amal Subasinghe' },
+        { id: 2, e_name: 'Hemapala Kuruvita' },
+        { id: 3, e_name: 'Kamani Hewage' },
+        { id: 4, e_name: 'Chatura Pahathgama' },
+        { id: 5, e_name: 'Thushari Liyanagama' },
+        { id: 6, e_name: 'Senanai Rathnapitiya' },
+        { id: 7, e_name: 'Ajith Nanayakkara' },
     ];
 
     // Handle employee selection
@@ -19,25 +23,16 @@ const GetEmpAttendance = () => {
         setAttendanceData({});
     };
 
-    // Handle attendance radio button change
-    const handleAttendanceChange = (date, value) => {
-        setAttendanceData({
-            ...attendanceData,
-            [date]: value,
-        });
-    };
-
     // Generate calendar for the month
     const generateCalendar = () => {
-        // You can customize the range of dates as per your requirement
-        const startDate = new Date(2024, 3, 1); // April 1, 2024
-        const endDate = new Date(2024, 3, 30); // April 30, 2024
-
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth();
+        const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get total days in the month
         const calendar = [];
-        let currentDate = new Date(startDate);
 
-        while (currentDate <= endDate) {
-            const dateString = currentDate.toISOString().split('T')[0];
+        for (let i = 1; i <= daysInMonth; i++) {
+            const dateString = new Date(year, month, i).toISOString().split('T')[0];
             const attendance = attendanceData[dateString] || '';
 
             calendar.push(
@@ -71,32 +66,40 @@ const GetEmpAttendance = () => {
                     </div>
                 </div>
             );
-
-            // Move to the next day
-            currentDate.setDate(currentDate.getDate() + 1);
         }
 
         return calendar;
     };
 
+    // Handle attendance change
+    const handleAttendanceChange = (date, value) => {
+        setAttendanceData({
+            ...attendanceData,
+            [date]: value,
+        });
+    };
+
+    // Save attendance data to MongoDB
+
+
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center ">
             {/* Sidebar for employee selection */}
-            <div className="w-1/4 bg-gray-100 p-4">
+            <div className="w-1/4 bg-gray-100 p-4 ">
                 <h2 className="text-lg font-semibold mb-4">Employee List</h2>
                 <ul>
                     {employees.map((employee) => (
                         <li key={employee.id} onClick={() => handleEmployeeSelect(employee)} className="cursor-pointer hover:bg-gray-200 p-2 rounded">
-                            {employee.name}
+                            {employee.e_name}
                         </li>
                     ))}
                 </ul>
             </div>
             {/* Attendance Display */}
-            <div className="w-3/4 p-4">
+            <div className="w-3/4 p-4 ">
                 {selectedEmployee && (
                     <div>
-                        <h2 className="text-lg font-semibold mb-4">{`Attendance for ${selectedEmployee.name}`}</h2>
+                        <h2 className="text-lg font-semibold mb-4">{`Attendance for ${selectedEmployee.e_name}`}</h2>
                         <div className="overflow-x-auto">
                             <table className="min-w-full divide-y divide-gray-200">
                                 <thead className="bg-gray-50">
@@ -110,6 +113,9 @@ const GetEmpAttendance = () => {
                                 </tbody>
                             </table>
                         </div>
+                        <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            {loading ? 'Saving...' : 'Save Attendance'}
+                        </button>
                     </div>
                 )}
             </div>

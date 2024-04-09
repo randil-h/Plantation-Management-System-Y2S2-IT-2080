@@ -29,6 +29,7 @@ import ProductRoute from "./routes/Wholesale  Routes/ProductRoute.js";
 import OrderRoute from "./routes/Wholesale  Routes/OrderRoute.js";
 
 import recordRoute from "./routes/Harvest Routes/RecordRoute.js";
+import AttendanceRoute from "./routes/Employee Routes/AttendanceRoute.js";
 
 
 const app = express();
@@ -76,6 +77,7 @@ app.use('/inventoryinputs', InventoryRecordRoute);
 
 app.use('/employeeRecords',RegistrationRoute);
 app.use('/taskRecords',TaskRoute);
+app.use('/attendanceRecords',AttendanceRoute);
 
 app.use('/productRecords' ,ProductRoute);
 app.use('/orderRecords', OrderRoute);
