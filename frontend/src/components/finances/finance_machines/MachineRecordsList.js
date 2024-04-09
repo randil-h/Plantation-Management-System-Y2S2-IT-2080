@@ -34,7 +34,7 @@ export default function MachineRecordsList() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://elemahana-mern-8d9r.vercel.app/machines')
+            .get('https://elemahana-mern-8d9r.vercel.app/machines')
             .then((response) => {
                 setMachineRecords(response.data.data);
                 setLoading(false);
@@ -48,7 +48,7 @@ export default function MachineRecordsList() {
     const handleDeleteMachineRecord = (id) => {
         setLoading(true);
         axios
-            .delete(`http://elemahana-mern-8d9r.vercel.app/machines/${id}`)
+            .delete(`https://elemahana-mern-8d9r.vercel.app/machines/${id}`)
             .then(() => {
                 setMachineRecords((prevRecords) => prevRecords.filter((record) => record._id !== id));
                 enqueueSnackbar('Record Deleted successfully', { variant: 'success' });
