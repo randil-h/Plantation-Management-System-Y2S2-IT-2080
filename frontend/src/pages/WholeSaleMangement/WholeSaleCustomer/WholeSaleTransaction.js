@@ -33,9 +33,9 @@ export default function WholeSaleTransaction() {
                 <OrderPlacingForm/>
             </div>
 
-            <div>
-                <Footer/>
-            </div>
+            {/*<div>*/}
+            {/*    <Footer/>*/}
+            {/*</div>*/}
 
         </div>
     );

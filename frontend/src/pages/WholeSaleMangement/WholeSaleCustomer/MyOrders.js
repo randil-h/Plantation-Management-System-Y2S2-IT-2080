@@ -43,9 +43,9 @@ export default function MyOrders() {
                 <div>
                 <OrderHistory/>
                 </div>
-                <div>
-                    <Footer/>
-                </div>
+                {/*<div>*/}
+                {/*    <Footer/>*/}
+                {/*</div>*/}
             </div>
         </div>
     );
