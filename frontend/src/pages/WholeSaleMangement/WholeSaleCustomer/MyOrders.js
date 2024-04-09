@@ -8,6 +8,7 @@ import WholeSaleProduct from "../../../components/WholeSale_Management/WholeSale
 import {dividerClasses} from "@mui/material";
 import OrderHistory from "../../../components/WholeSale_Management/OrderHistory";
 import {TbShoppingCartCopy} from "react-icons/tb";
+import Footer from "../../../components/utility/Footer";
 
 
 export default function MyOrders() {
@@ -41,6 +42,9 @@ export default function MyOrders() {
 
                 <div>
                 <OrderHistory/>
+                </div>
+                <div>
+                    <Footer/>
                 </div>
             </div>
         </div>

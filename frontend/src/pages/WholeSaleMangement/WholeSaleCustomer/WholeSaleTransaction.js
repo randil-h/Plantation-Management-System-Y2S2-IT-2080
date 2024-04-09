@@ -9,6 +9,7 @@ import WholeSaleProduct from "../../../components/WholeSale_Management/WholeSale
 import {dividerClasses} from "@mui/material";
 import {TbShoppingCartCopy} from "react-icons/tb";
 import MyOrderIcon from "../../../components/WholeSale_Management/MyOrderIcon";
+import Footer from "../../../components/utility/Footer";
 
 
 export default function WholeSaleTransaction() {
@@ -33,7 +34,7 @@ export default function WholeSaleTransaction() {
             </div>
 
             <div>
-
+                <Footer/>
             </div>
 
         </div>
