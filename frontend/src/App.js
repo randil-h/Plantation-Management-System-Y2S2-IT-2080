@@ -111,7 +111,7 @@ import ViewTaskDetails from "./pages/employee_pages/task_assigning/ViewTaskDetai
 import ViewAllAttendance from "./pages/employee_pages/emp_attendance/ViewAllAttendance";
 import GetAttendance from "./pages/employee_pages/emp_attendance/GetAttendance";
 
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SpeedInsights, Analytics } from "@vercel/speed-insights/react"
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -254,6 +254,7 @@ export default function App() {
                     )}
                 </div>
                 <SpeedInsights/>
+                <Analytics/>
             </KindeProvider>
 
 
