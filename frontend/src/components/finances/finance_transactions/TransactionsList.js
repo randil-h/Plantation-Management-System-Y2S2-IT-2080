@@ -35,7 +35,7 @@ export default function TransactionsList() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/transactions')
+            .get('https://elemahana-mern-8d9r-ln13abxz2-scheffel333s-projects.vercel.app/transactions')
             .then((response) => {
                 setTransactionsRecords(response.data.data);
                 setLoading(false);
