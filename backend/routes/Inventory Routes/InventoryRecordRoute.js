@@ -12,13 +12,15 @@ router.post('/', async (request, response) => {
             record_ID,
             record_name,
             storage,
+            size,
+            unit,
             quantity,
             expire_date,
             description
         } = request.body;
 
         // Check if all required fields are present
-        if (!type || !record_ID || !record_name || !storage || !quantity || !description) {
+        if (!type || !record_ID || !record_name || !storage || !size || !unit || !quantity || !description) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });
@@ -37,6 +39,8 @@ router.post('/', async (request, response) => {
             record_ID,
             record_name,
             storage,
+            size,
+            unit,
             quantity,
             expire_date,
             description
@@ -95,13 +99,15 @@ router.put('/:id', async (request, response) => {
             record_ID,
             record_name,
             storage,
+            size,
+            unit,
             quantity,
             expire_date,
             description
         } = request.body;
 
         // Check if all required fields are present
-        if (!type || !record_ID || !record_name || !storage || !quantity || !description) {
+        if (!type || !record_ID || !record_name || !storage || !size || !unit || !quantity || !description) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });
@@ -127,6 +133,8 @@ router.put('/:id', async (request, response) => {
         inventoryInput.record_ID = record_ID;
         inventoryInput.record_name = record_name;
         inventoryInput.storage = storage;
+        inventoryInput.size = size;
+        inventoryInput.unit = unit;
         inventoryInput.quantity = quantity;
         inventoryInput.expire_date = expire_date;
         inventoryInput.description = description;

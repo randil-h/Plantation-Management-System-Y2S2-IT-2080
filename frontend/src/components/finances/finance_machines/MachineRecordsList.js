@@ -304,7 +304,7 @@ export default function MachineRecordsList() {
                             <td className="px-6 py-4">{record.date}</td>
                             <td className="px-6 py-4">{record.type}</td>
                             <td className="px-6 py-4">{record.hours_nos}</td>
-                            <td className="px-6 py-4">{record.rate}</td>
+                            <td className="px-6 py-4">Rs.{record.rate}</td>
                             <td className="px-6 py-4">{record.description}</td>
                             <td className="px-6 py-4">{record.payer_payee}</td>
                             <td className="px-6 py-4">

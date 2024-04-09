@@ -12,11 +12,11 @@ function AddNewValuation() {
     const [date, setDate] = useState('');
     const [type, setType] = useState('asset');
     const [subtype, setSubType] = useState('Land');
-    const [quantity, setQuantity] = useState('0');
-    const [price, setPrice] = useState('0');
+    const [quantity, setQuantity] = useState('');
+    const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [payerPayee, setPayerPayee] = useState('');
-    const [appreciationOrDepreciation, setAppreciationOrDepreciation] = useState('0');
+    const [appreciationOrDepreciation, setAppreciationOrDepreciation] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
@@ -38,7 +38,8 @@ function AddNewValuation() {
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                navigate('/');
+                window.alert("Record Added Successfully!");
+                navigate('/finances/valuation');
             })
             .catch((error) => {
                 setLoading(false);

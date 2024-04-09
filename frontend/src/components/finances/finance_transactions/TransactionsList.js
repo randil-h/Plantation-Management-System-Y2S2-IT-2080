@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 
-import { DatePicker, Button, Popover, Radio } from 'antd';
+import {DatePicker, Button, Popover, Radio, message} from 'antd';
 
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
@@ -52,12 +52,12 @@ export default function TransactionsList() {
             .delete(`http://localhost:5555/transactions/${id}`)
             .then(() => {
                 setTransactionsRecords((prevRecords) => prevRecords.filter((record) => record._id !== id));
-                enqueueSnackbar('Record Deleted successfully', { variant: 'success' });
+                message.success('Transaction record has successfully deleted.');
                 setLoading(false);
             })
             .catch((error) => {
                 setLoading(false);
-                enqueueSnackbar('Record Deletion failed', { variant: 'error' });
+                message.error('Transaction record saving failed.');
                 console.log(error);
             });
     };
@@ -378,7 +378,7 @@ export default function TransactionsList() {
                             <td className="px-6 py-4">{record.date}</td>
                             <td className="px-6 py-4">{record.type}</td>
                             <td className="px-6 py-4">{record.subtype}</td>
-                            <td className="px-6 py-4">{record.amount}</td>
+                            <td className="px-6 py-4">Rs.{record.amount}</td>
                             <td className="px-6 py-4">{record.description}</td>
                             <td className="px-6 py-4">{record.payer_payee}</td>
                             <td className="px-6 py-4">{record.method}</td>

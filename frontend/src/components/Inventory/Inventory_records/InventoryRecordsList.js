@@ -77,6 +77,8 @@ const InventoryRecordList = () => {
                         (record.record_ID && record.record_ID.toLowerCase().includes(searchQuery.toLowerCase())) ||
                         (record.record_name && record.record_name.toLowerCase().includes(searchQuery.toLowerCase())) ||
                         (record.storage && record.storage.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                        (record.size && record.size.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                        (record.unit && record.unit.toLowerCase().includes(searchQuery.toLowerCase())) ||
                         (record.quantity && record.quantity.toString().toLowerCase().includes(searchQuery.toLowerCase())) ||
                         (record.expire_date && record.expire_date.toLowerCase().includes(searchQuery.toLowerCase())) ||
                         (record.description && record.description.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -162,11 +164,6 @@ const InventoryRecordList = () => {
         }
     };
 
-
-
-
-
-
     return (
         <div className=" overflow-x-auto  ">
             <div className="flex flex-row justify-between items-center px-8 py-4">
@@ -230,6 +227,12 @@ const InventoryRecordList = () => {
                                 Storage Location
                             </th>
                             <th scope="col" className="px-6 py-3">
+                                Size
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Unit
+                            </th>
+                            <th scope="col" className="px-6 py-3">
                                 Quantity
                             </th>
                             <th scope="col" className="px-6 py-3">
@@ -271,6 +274,12 @@ const InventoryRecordList = () => {
                                 </td>
                                 <td className="px-6 py-4">
                                     {record.storage}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {record.size ? record.size : "N/A"}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {record.unit ? record.unit : "N/A"}
                                 </td>
                                 <td className="px-6 py-4">
                                     {record.quantity}

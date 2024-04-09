@@ -97,31 +97,40 @@ const InHome = () => {
                                 <dt className="text-xl font-semibold leading-6 text-black">Agro Chemicals</dt>
                             </div>
                             <div className="p-8">
+                                {/* Use reduce to aggregate records by record_name, size, and unit */}
                                 {Object.values(
                                     filteredRecords
                                         .filter((record) => record.type === "Agrochemical")
                                         .reduce((acc, record) => {
-                                            if (!acc[record.record_name]) {
-                                                acc[record.record_name] = {...record};
+                                            const {record_name, size, quantity, unit} = record;
+                                            const key = `${record_name}_${size}_${unit}`;
+
+                                            if (!acc[key]) {
+                                                // Initialize new entry in accumulator with original record data
+                                                acc[key] = {...record, quantity: size * quantity};
                                             } else {
-                                                acc[record.record_name].quantity += record.quantity;
+                                                // Accumulate quantity by adding size * quantity to existing entry
+                                                acc[key].quantity += size * quantity;
                                             }
+
                                             return acc;
                                         }, {})
                                 ).map((record, index) => (
                                     <React.Fragment key={index}>
-                                        <div className="flex flex-row items-center gap-4 w-full justify-between ">
+                                        <div className="flex flex-row items-center gap-4 w-full justify-between">
                                             <dd className="text-base tracking-tight sm:text-lg -ml-12">{record.record_name}</dd>
-                                            <div
-                                                className="text-base tracking-tight sm:text-lg -mr-10">{record.quantity}</div>
+                                            <div className="text-base tracking-tight sm:text-lg -mr-10">
+                                                {`${record.quantity} ${record.unit}`} {/* Display total quantity for the record */}
+                                            </div>
                                         </div>
                                         {index < Object.values(filteredRecords).length - 1 && (
-                                            <hr className="my-4 -ml-12 -mr-10 border-black "/>
+                                            <hr className="my-4 -ml-12 -mr-10 border-black"/>
                                         )}
                                     </React.Fragment>
                                 ))}
                             </div>
                         </div>
+
 
                         <div
                             className="flex flex-col bg-yellow-300 p-8 rounded-lg transition duration-300 ease-in-out hover:bg-yellow-400 hover:shadow-md">

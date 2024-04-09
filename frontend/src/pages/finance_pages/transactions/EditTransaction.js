@@ -7,6 +7,7 @@ import SideBar from '../../../components/SideBar';
 import FinanceNavigation from '../../../components/finances/FinanceNavigation';
 import Breadcrumb from '../../../components/utility/Breadcrumbs';
 import BackButton from '../../../components/utility/BackButton';
+import {message} from "antd";
 
 export default function EditTransaction() {
     const [date, setDate] = useState('');
@@ -19,6 +20,9 @@ export default function EditTransaction() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
+    const [validation, setValidation] = useState({
+        amount: true, // Assuming true means the input is valid
+    });
 
     const {id} = useParams();
 
@@ -43,7 +47,15 @@ export default function EditTransaction() {
     }, [id]);
 
 
-    const handleEditTransactionRecord = () => {
+    const handleEditTransactionRecord = async (e) => {
+        e.preventDefault();
+        if (!validation.amount) {
+            alert('Please correct the errors before saving.');
+            return;
+        }
+
+        // Placeholder for actual save logic
+        console.log('Saving transaction record...');
         const data = {
             date,
             type,
@@ -58,13 +70,14 @@ export default function EditTransaction() {
             .put(`http://localhost:5555/transactions/${id}`, data)
             .then(() => {
                 setLoading(false);
-                enqueueSnackbar('Record Updated successfully', { variant: 'success' });
-                navigate('/transactions');
+                message.success('Transaction record has successfully updated.');
+                navigate('/finances/transactions');
             })
             .catch((error) => {
                 setLoading(false);
-                enqueueSnackbar('Error', { variant: 'error' });
+                message.error('Transaction record editing failed.');
                 console.log(error);
+                navigate('/finances/transactions');
             });
     };
 
@@ -72,6 +85,17 @@ export default function EditTransaction() {
         setType(e.target.value);
         // Reset subtype when type changes
         setSubType('Electricity Bill');
+    };
+
+    const validateAmount = (value) => {
+        const regex = /^(?=.+)(?:[1-9]\d*|0)?(?:\.\d+)?$/; // Allows positive decimals or integers, not starting with zero
+        return regex.test(value) && value.trim() !== '';
+    };
+
+    const handleAmountChange = (event) => {
+        const { value } = event.target;
+        setAmount(value);
+        setValidation({ ...validation, amount: validateAmount(value) });
     };
 
     const handleCancel = () => {
@@ -203,17 +227,22 @@ export default function EditTransaction() {
                                             {/* Amount */}
                                             <div className="sm:col-span-3">
                                                 <label htmlFor="amount"
-                                                       className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Amount
-                                                </label>
+                                                       className="block text-sm font-medium leading-6 text-gray-900">Amount</label>
                                                 <input
                                                     id="amount"
                                                     name="amount"
                                                     value={amount}
-                                                    onChange={(e) => setAmount(e.target.value)}
+                                                    onChange={handleAmountChange}
                                                     type="text"
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${
+                                                        validation.amount ? 'ring-gray-300' : 'ring-red-500'
+                                                    } focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
                                                 />
+                                                {!validation.amount && (
+                                                    <p className="mt-2 text-sm text-red-600" id="amount-error">
+                                                        Amount must be a positive number.
+                                                    </p>
+                                                )}
                                             </div>
 
                                             {/* Description */}

@@ -17,6 +17,14 @@ const InventoryRecordSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        size: {
+            type: Number,
+            required: true,
+        },
+        unit: {
+            type: String,
+            required: true,
+        },
         quantity: {
             type: Number,
             required: true,

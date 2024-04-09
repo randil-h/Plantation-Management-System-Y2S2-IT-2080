@@ -10,7 +10,7 @@ import BackButton from '../../../components/utility/BackButton';
 
 function AddNewMachineRecord() {
     const [date, setDate] = useState('');
-    const [type, setType] = useState('');
+    const [type, setType] = useState('Excavator small');
     const [hours_nos, setHours] = useState('');
     const [rate, setRate] = useState('');
     const [description, setDescription] = useState('');
@@ -37,7 +37,8 @@ function AddNewMachineRecord() {
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                navigate('/');
+                window.alert("Record Added Successfully!");
+                navigate('/finances/machineHours');
             })
             .catch((error) => {
                 setLoading(false);
