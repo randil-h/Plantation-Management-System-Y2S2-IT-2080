@@ -48,9 +48,9 @@ export default function PlaceOrder() {
                     </div>
                 </div>
             </div>
-            <div>
-                <Footer/>
-            </div>
+            {/*<div>*/}
+            {/*    <Footer/>*/}
+            {/*</div>*/}
         </div>
 
     );
