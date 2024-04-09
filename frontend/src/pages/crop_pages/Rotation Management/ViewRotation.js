@@ -10,7 +10,7 @@ import RotationList from "../../../components/cropManagement_home/RotationCompon
 
 const breadcrumbItems = [
     { name: 'Crop', href: '/crop/home' },
-    { name: 'Rotation Records', href: '/crop/rotation/view' },
+    { name: 'Rotation Records', href: '/crop/rotation' },
 ];
 
 export default function ViewRotation() {
