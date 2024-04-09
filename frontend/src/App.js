@@ -111,6 +111,8 @@ import ViewTaskDetails from "./pages/employee_pages/task_assigning/ViewTaskDetai
 import ViewAllAttendance from "./pages/employee_pages/emp_attendance/ViewAllAttendance";
 import GetAttendance from "./pages/employee_pages/emp_attendance/GetAttendance";
 
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 export default function App() {
     const [loading, setLoading] = useState(true);
 
@@ -123,132 +125,136 @@ export default function App() {
     }, []);
 
     return (
-        <KindeProvider
-            clientId="398e8a2c8e8744c492bc437b4890c8c7"
-            domain="https://elemahana.kinde.com"
-            redirectUri="http://localhost:3000"
-            logoutUri="http://localhost:3000"
-        >
-        <div className="App">
-            {loading ? (
-                <LoadingAnimation />
-            ) : (
-                <Routes>
-                    <Route path="/" element={<LandingPage />} />
-                    <Route path="/login" element={<SigninPage />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
+        <SpeedInsights>
+            <KindeProvider
+                clientId="398e8a2c8e8744c492bc437b4890c8c7"
+                domain="https://elemahana.kinde.com"
+                redirectUri="http://localhost:3000"
+                logoutUri="http://localhost:3000"
+            >
+
+                <div className="App">
+                    {loading ? (
+                        <LoadingAnimation />
+                    ) : (
+                        <Routes>
+                            <Route path="/" element={<LandingPage />} />
+                            <Route path="/login" element={<SigninPage />} />
+                            <Route path="/dashboard" element={<Dashboard />} />
 
 
-                    <Route path="/finances/home" element={<Finances />} />
-                    <Route path="/finances/financeincome" element={<FinanceIncome />} />
-                    <Route path="/finances/financeincome/addnewrecord" element={<AddNewIncomeRecord />} />
-                    <Route path="/finances/financeincome/viewrecord" element={<FinanceIncome />} />
-                    <Route path="/finances/financeincome/updaterecord" element={<FinanceIncome />} />
-                    <Route path="/finances/financeincome/deleterecord" element={<FinanceIncome />} />
+                            <Route path="/finances/home" element={<Finances />} />
+                            <Route path="/finances/financeincome" element={<FinanceIncome />} />
+                            <Route path="/finances/financeincome/addnewrecord" element={<AddNewIncomeRecord />} />
+                            <Route path="/finances/financeincome/viewrecord" element={<FinanceIncome />} />
+                            <Route path="/finances/financeincome/updaterecord" element={<FinanceIncome />} />
+                            <Route path="/finances/financeincome/deleterecord" element={<FinanceIncome />} />
 
-                    <Route path="/finances/transactions" element={<ViewAllTransactions />} />
-                    <Route path="/finances/transactions/addTransaction" element={<AddNewTransaction />} />
-                    <Route path="/finances/transactions/viewTransactionDetails/:id" element={<ViewTransactionDetails />} />
-                    <Route path="/finances/transactions/editTransaction/:id" element={<EditTransaction />} />
-                    <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
+                            <Route path="/finances/transactions" element={<ViewAllTransactions />} />
+                            <Route path="/finances/transactions/addTransaction" element={<AddNewTransaction />} />
+                            <Route path="/finances/transactions/viewTransactionDetails/:id" element={<ViewTransactionDetails />} />
+                            <Route path="/finances/transactions/editTransaction/:id" element={<EditTransaction />} />
+                            <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
 
-                    <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
+                            <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
 
-                    <Route path="/finances/valuation" element={<Valuation />} />
-                    <Route path="/finances/valuation/addValuation" element={<AddNewValuation/>} />
-                    <Route path="/finances/valuation/editValuation/:id" element={<EditValuation />} />
-                    <Route path="/finances/valuation/viewValuation/:id" element={<ViewValuationDetails />} />
-                    <Route path="/finances/valuation/deleteValuation" element={<Valuation />} />
+                            <Route path="/finances/valuation" element={<Valuation />} />
+                            <Route path="/finances/valuation/addValuation" element={<AddNewValuation/>} />
+                            <Route path="/finances/valuation/editValuation/:id" element={<EditValuation />} />
+                            <Route path="/finances/valuation/viewValuation/:id" element={<ViewValuationDetails />} />
+                            <Route path="/finances/valuation/deleteValuation" element={<Valuation />} />
 
-                    <Route path="/finances/machineHours" element={<MachineHours />} />
-                    <Route path="/finances/machineHours/addMachineRecords" element={<AddNewMachineRecord />} />
-                    <Route path="/finances/machineHours/editMachineRecords/:id" element={<EditMachineRecord />} />
-                    <Route path="/finances/machineHours/viewMachineRecords/:id" element={<ViewMachineRecord />} />
-
-
-                    <Route path="/tourism" element={AgroTourism()}/>
-                    <Route path="/feedback" element={Feedback()}/>
-                    <Route path="/booking" element={BookingPg()}/>
-                    <Route path="/payment" element={PaymentPg()}/>
-                    <Route path="/confirmation" element={ConfirmationPg()}/>
-                    <Route path="/farmtour" element={FarmTourPg()}/>
-                    <Route path="/fruitvegpick" element={FruitVegPicking()}/>
-                    <Route path="/farmchore" element={FarmChore()}/>
-                    <Route path="/booking/edit/:id" element={EditBookingPg()} />
-                    <Route path="/feedbacklist" element={FeedbackDisplay()}/>
-                    <Route path="/feedbackdash" element={FeedbackDashPg()}/>
-                    <Route path="/feedback/:id" element={EditFeedbackPg()}/>
-
-                    <Route path = "/crop/home" element={CropManagement()}/>
-                    <Route path = "/crop/rotation/add" element={AddRotationPage()}/>
-                    <Route path = "/crop/rotation" element={ViewRotation()}/>
-                    <Route path = "/crop/rotation/update/:id" element={UpdateRotation()}/>
-                    <Route path = "/crop/input/add" element={AddCropInput()}/>
-                    <Route path = "/crop/input" element={ViewPlantingPage()}/>
-                    <Route path = "/crop/input/planting/view" element={ViewPlantingPage()}/>
-                    <Route path = "/crop/input/chemical/view" element={ViewChemicalPage()}/>
-                    <Route path = "/crop/input/update/:id" element = {UpdateCropInputPage()}/>
-                    <Route path ="/crop/rotation/record/:id" element={<ViewRotationRecord/>}/>
-                    <Route path = "/crop/input/planting/record/:id" element = {<ViewPlantingRecord/>}/>
-                    <Route path = "/crop/input/chemical/record/:id" element = {<ViewChemicalRecord/>}/>
-
-                    <Route path= "/placeOrder" element={PlaceOrder()}/>
-                    <Route path="/WholeSale/transactions/:id" element={<WholeSaleTransaction />}/>
-                    <Route path="/WholeSale/orders" element={MyOrders()}/>
-                    <Route path= "/placeOrder" element={PlaceOrder()}/>
-                    <Route path="OperationManager/AddingProduct" element={AddingProduct()}/>
-                    <Route path="/wholesaleDashboard" element={WholeSaleDashBoard()}/>
-                    <Route path="/editProduct/:id" element={<EditProduct />}/>
+                            <Route path="/finances/machineHours" element={<MachineHours />} />
+                            <Route path="/finances/machineHours/addMachineRecords" element={<AddNewMachineRecord />} />
+                            <Route path="/finances/machineHours/editMachineRecords/:id" element={<EditMachineRecord />} />
+                            <Route path="/finances/machineHours/viewMachineRecords/:id" element={<ViewMachineRecord />} />
 
 
-                    <Route path = "diseases/home" element={DiseaseTracking()}/>
+                            <Route path="/tourism" element={AgroTourism()}/>
+                            <Route path="/feedback" element={Feedback()}/>
+                            <Route path="/booking" element={BookingPg()}/>
+                            <Route path="/payment" element={PaymentPg()}/>
+                            <Route path="/confirmation" element={ConfirmationPg()}/>
+                            <Route path="/farmtour" element={FarmTourPg()}/>
+                            <Route path="/fruitvegpick" element={FruitVegPicking()}/>
+                            <Route path="/farmchore" element={FarmChore()}/>
+                            <Route path="/booking/edit/:id" element={EditBookingPg()} />
+                            <Route path="/feedbacklist" element={FeedbackDisplay()}/>
+                            <Route path="/feedbackdash" element={FeedbackDashPg()}/>
+                            <Route path="/feedback/:id" element={EditFeedbackPg()}/>
 
-                    <Route path = "/diseases/records/addDisease" element={AddDiseaseRecord()}/>
-                    <Route path = "/diseases/records/updateDisease/:id" element={UpdateDiseaseRecord()}/>
-                    <Route path = "/diseases/records/generateReport" element={ViewReport()}/>
-                    <Route path = "/diseases/records/viewDisease/:id" element={ViewDiseaseRecord()}/>
-                    <Route path = "/diseases/records" element={ViewAllDiseases()}/>
-                    <Route path = "/diseases/visualization" element={DiseaseVisualization()}/>
+                            <Route path = "/crop/home" element={CropManagement()}/>
+                            <Route path = "/crop/rotation/add" element={AddRotationPage()}/>
+                            <Route path = "/crop/rotation" element={ViewRotation()}/>
+                            <Route path = "/crop/rotation/update/:id" element={UpdateRotation()}/>
+                            <Route path = "/crop/input/add" element={AddCropInput()}/>
+                            <Route path = "/crop/input" element={ViewPlantingPage()}/>
+                            <Route path = "/crop/input/planting/view" element={ViewPlantingPage()}/>
+                            <Route path = "/crop/input/chemical/view" element={ViewChemicalPage()}/>
+                            <Route path = "/crop/input/update/:id" element = {UpdateCropInputPage()}/>
+                            <Route path ="/crop/rotation/record/:id" element={<ViewRotationRecord/>}/>
+                            <Route path = "/crop/input/planting/record/:id" element = {<ViewPlantingRecord/>}/>
+                            <Route path = "/crop/input/chemical/record/:id" element = {<ViewChemicalRecord/>}/>
 
-                    <Route path= "/insights/home" element={Insights()}/>
-                    <Route path= "/insights/marketprice" element={MarketPrice()}/>
-
-                    <Route path= "/inventory/home" element={Inventory()}/>
-                    <Route path= "/inventory/maintenancelog" element={MaintenanceLog()}/>
-                    <Route path="/inventory/maintenancelog/addeqmainpage" element={(AddEqMainPage())}/>
-                    <Route path="/inventory/maintenancelog/editeqmainpage/:id" element={<EditEqMainPage />} />
-                    <Route path ="/inventory/maintenancelog/viewmain/:id" element={<ViewOneMain/>}/>
-                    <Route path= "/inventory/water" element={Water()}/>
-                    <Route path= "/inventory/inventoryrecords" element={InventoryRecordList()}/>
-                    <Route path= "/inventory/inventoryrecords/addinventoryrecordspage" element={(AddInventoryRecordsPage())}/>
-                    <Route path= "/inventory/inventoryrecords/editinventorypage/:id" element={<EditInventoryPage/>}/>
-                    <Route path ="/inventory/inventoryrecords/viewRecord/:id" element={<ViewOneRecord/>}/>
-
-                    <Route path= "/employees/home" element= {Employee()}/>
-                    <Route path="/employees/registration/addEmployee" element={AddEmployee()}/>
-                    <Route path="/employees/tasks/addTask" element={AddTask()}/>
-                    <Route path="/employees/registration" element={ViewEmpDetails()}/>
-                    <Route path="/employees/tasks" element={ViewTaskList()}/>
-                    <Route path="/employees/registration/editEmployee/:id" element={<EditEmployeePage />}/>
-                    <Route path ="/employees/tasks/editTasks/:id" element ={<EditTaskPage/>}/>
-                    <Route path ="/employees/registration/viewEmployee/:id" element={<ViewOneEmpDetails/>}/>
-                    <Route path ="/employees/tasks/viewTask/:id" element={<ViewTaskDetails/>}/>
-                    <Route path= "/employees/attendance" element= {ViewAllAttendance()}/>
-                    <Route path="/employees/attendance/getAttendance" element={GetAttendance()}/>
+                            <Route path= "/placeOrder" element={PlaceOrder()}/>
+                            <Route path="/WholeSale/transactions/:id" element={<WholeSaleTransaction />}/>
+                            <Route path="/WholeSale/orders" element={MyOrders()}/>
+                            <Route path= "/placeOrder" element={PlaceOrder()}/>
+                            <Route path="OperationManager/AddingProduct" element={AddingProduct()}/>
+                            <Route path="/wholesaleDashboard" element={WholeSaleDashBoard()}/>
+                            <Route path="/editProduct/:id" element={<EditProduct />}/>
 
 
-                    <Route path="/harvest/home"  element={harvest()}/>
-                    <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>
-                    <Route path="/harvest/harvestRecords"  element={harvestRec()}/>
+                            <Route path = "diseases/home" element={DiseaseTracking()}/>
 
-                    <Route path="/harvest/records/addRecord" element={<AddRecord />} />
-                    <Route path="/harvest/records/updateRecord/:id" element={<EditHarvest />} />
-                    <Route path="/harvest/records" element={<HarvestList />} />
+                            <Route path = "/diseases/records/addDisease" element={AddDiseaseRecord()}/>
+                            <Route path = "/diseases/records/updateDisease/:id" element={UpdateDiseaseRecord()}/>
+                            <Route path = "/diseases/records/generateReport" element={ViewReport()}/>
+                            <Route path = "/diseases/records/viewDisease/:id" element={ViewDiseaseRecord()}/>
+                            <Route path = "/diseases/records" element={ViewAllDiseases()}/>
+                            <Route path = "/diseases/visualization" element={DiseaseVisualization()}/>
 
-                    <Route path = "*" element={<ErrorPage/>} />
-                </Routes>
-            )}
-        </div>
-        </KindeProvider>
+                            <Route path= "/insights/home" element={Insights()}/>
+                            <Route path= "/insights/marketprice" element={MarketPrice()}/>
+
+                            <Route path= "/inventory/home" element={Inventory()}/>
+                            <Route path= "/inventory/maintenancelog" element={MaintenanceLog()}/>
+                            <Route path="/inventory/maintenancelog/addeqmainpage" element={(AddEqMainPage())}/>
+                            <Route path="/inventory/maintenancelog/editeqmainpage/:id" element={<EditEqMainPage />} />
+                            <Route path ="/inventory/maintenancelog/viewmain/:id" element={<ViewOneMain/>}/>
+                            <Route path= "/inventory/water" element={Water()}/>
+                            <Route path= "/inventory/inventoryrecords" element={InventoryRecordList()}/>
+                            <Route path= "/inventory/inventoryrecords/addinventoryrecordspage" element={(AddInventoryRecordsPage())}/>
+                            <Route path= "/inventory/inventoryrecords/editinventorypage/:id" element={<EditInventoryPage/>}/>
+                            <Route path ="/inventory/inventoryrecords/viewRecord/:id" element={<ViewOneRecord/>}/>
+
+                            <Route path= "/employees/home" element= {Employee()}/>
+                            <Route path="/employees/registration/addEmployee" element={AddEmployee()}/>
+                            <Route path="/employees/tasks/addTask" element={AddTask()}/>
+                            <Route path="/employees/registration" element={ViewEmpDetails()}/>
+                            <Route path="/employees/tasks" element={ViewTaskList()}/>
+                            <Route path="/employees/registration/editEmployee/:id" element={<EditEmployeePage />}/>
+                            <Route path ="/employees/tasks/editTasks/:id" element ={<EditTaskPage/>}/>
+                            <Route path ="/employees/registration/viewEmployee/:id" element={<ViewOneEmpDetails/>}/>
+                            <Route path ="/employees/tasks/viewTask/:id" element={<ViewTaskDetails/>}/>
+                            <Route path= "/employees/attendance" element= {ViewAllAttendance()}/>
+                            <Route path="/employees/attendance/getAttendance" element={GetAttendance()}/>
+
+
+                            <Route path="/harvest/home"  element={harvest()}/>
+                            <Route path="/harvest/calculateHarvest"  element={harvestCal()}/>
+                            <Route path="/harvest/harvestRecords"  element={harvestRec()}/>
+
+                            <Route path="/harvest/records/addRecord" element={<AddRecord />} />
+                            <Route path="/harvest/records/updateRecord/:id" element={<EditHarvest />} />
+                            <Route path="/harvest/records" element={<HarvestList />} />
+
+                            <Route path = "*" element={<ErrorPage/>} />
+                        </Routes>
+                    )}
+                </div>
+            </KindeProvider>
+        </SpeedInsights>
+
     );
 }
