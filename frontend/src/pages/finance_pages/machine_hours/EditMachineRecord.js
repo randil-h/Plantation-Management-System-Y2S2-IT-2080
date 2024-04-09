@@ -26,7 +26,7 @@ function EditMachineRecord() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/machines/${id}`)
+            .get(`http://elemahana-mern-8d9r.vercel.app/machines/${id}`)
             .then((response) => {
                 setDate(response.data.date);
                 setType(response.data.type);
@@ -55,7 +55,7 @@ function EditMachineRecord() {
         };
         setLoading(true);
         axios
-            .put(`http://localhost:5555/machines/${id}`, data)
+            .put(`http://elemahana-mern-8d9r.vercel.app/machines/${id}`, data)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });

@@ -49,7 +49,7 @@ export default function TransactionsList() {
     const handleDeleteTransaction = (id) => {
         setLoading(true);
         axios
-            .delete(`http://localhost:5555/transactions/${id}`)
+            .delete(`http://elemahana-mern-8d9r.vercel.app/transactions/${id}`)
             .then(() => {
                 setTransactionsRecords((prevRecords) => prevRecords.filter((record) => record._id !== id));
                 message.success('Transaction record has successfully deleted.');
@@ -105,7 +105,7 @@ export default function TransactionsList() {
     }, []);
 
     const fetchTransactions = () => {
-        axios.get('http://localhost:5555/transactions')
+        axios.get('http://elemahana-mern-8d9r.vercel.app/transactions')
             .then(response => {
                 setTransactions(response.data.data);
             })

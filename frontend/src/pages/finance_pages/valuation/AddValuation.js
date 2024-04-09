@@ -34,7 +34,7 @@ function AddNewValuation() {
         };
         setLoading(true);
         axios
-            .post('http://localhost:5555/valuation', data)
+            .post('http://elemahana-mern-8d9r.vercel.app/valuation', data)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });

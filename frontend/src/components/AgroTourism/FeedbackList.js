@@ -13,7 +13,7 @@ const FeedbackList = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/feedback`)
+            .get(`http://elemahana-mern-8d9r.vercel.app/feedback`)
             .then((response) => {
                 setFeedbackRecords(response.data.data);
                 setLoading(false);
@@ -43,7 +43,7 @@ const FeedbackList = () => {
     };
     const handleDelete = (recordId) => {
         axios
-            .delete(`http://localhost:5555/feedback/${recordId}`)
+            .delete(`http://elemahana-mern-8d9r.vercel.app/feedback/${recordId}`)
             .then(() => {
                 setFeedbackRecords((prevRecords) => prevRecords.filter((record) => record._id !== recordId));
             })

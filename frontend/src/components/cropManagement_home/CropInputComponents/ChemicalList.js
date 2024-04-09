@@ -34,7 +34,7 @@ const ChemicalList = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/cropinput`)
+            .get(`http://elemahana-mern-8d9r.vercel.app/cropinput`)
             .then((response) => {
                 const formattedRecords = response.data.data
                     .filter(record => record.type === "Agrochemical")
@@ -59,7 +59,7 @@ const ChemicalList = () => {
     const confirmDelete = () => {
         if (recordToDelete) {
             axios
-                .delete(`http://localhost:5555/cropinput/${recordToDelete}`)
+                .delete(`http://elemahana-mern-8d9r.vercel.app/cropinput/${recordToDelete}`)
                 .then(() => {
                     setChemicalRecords(prevRecords =>
                         prevRecords.filter(record => record._id !== recordToDelete)
@@ -77,7 +77,7 @@ const ChemicalList = () => {
 
     const confirmDeleteAction = () => {
         axios
-            .delete(`http://localhost:5555/cropinput/${recordToDelete}`)
+            .delete(`http://elemahana-mern-8d9r.vercel.app/cropinput/${recordToDelete}`)
             .then(() => {
                 setChemicalRecords(prevRecords =>
                     prevRecords.filter(record => record._id !== recordToDelete)

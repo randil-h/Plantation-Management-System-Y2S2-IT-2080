@@ -14,7 +14,7 @@ const OrderHistory = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/orederRecords')
+            .get('http://elemahana-mern-8d9r.vercel.app/orederRecords')
             .then((response) =>{
                 setOrderRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
                 setLoading(false);

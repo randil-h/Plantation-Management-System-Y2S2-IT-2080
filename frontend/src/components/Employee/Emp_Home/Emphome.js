@@ -11,7 +11,7 @@ function Emphome() {
 
     useEffect(() => {
         // Fetch total records from your API or set it from somewhere
-        axios.get('http://localhost:5555/employeeRecords')
+        axios.get('http://elemahana-mern-8d9r.vercel.app/employeeRecords')
             .then(response => {
                 setTotalRecords(response.data.data);
 
@@ -23,7 +23,7 @@ function Emphome() {
 
     useEffect(() => {
         // Fetch total records from your API or set it from somewhere
-        axios.get('http://localhost:5555/taskRecords')
+        axios.get('http://elemahana-mern-8d9r.vercel.app/taskRecords')
             .then(response => {
                 setTaskRecords(response.data.data);
 

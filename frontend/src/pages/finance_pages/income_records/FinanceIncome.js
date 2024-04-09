@@ -15,7 +15,7 @@ export default function FinanceIncome() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/financeincome')
+            .get('http://elemahana-mern-8d9r.vercel.app/financeincome')
             .then((response) => {
                 setTestRecords(response.data.data);
                 setLoading(false);

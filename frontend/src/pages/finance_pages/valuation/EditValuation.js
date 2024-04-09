@@ -26,7 +26,7 @@ function EditValuation() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/valuation/${id}`)
+            .get(`http://elemahana-mern-8d9r.vercel.app/valuation/${id}`)
             .then((response) => {
                 setDate(response.data.date);
                 setType(response.data.type);
@@ -57,7 +57,7 @@ function EditValuation() {
         };
         setLoading(true);
         axios
-            .put(`http://localhost:5555/valuation/${id}`, data)
+            .put(`http://elemahana-mern-8d9r.vercel.app/valuation/${id}`, data)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });

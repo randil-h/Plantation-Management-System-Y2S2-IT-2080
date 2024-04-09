@@ -24,7 +24,7 @@ export default function ViewValuationDetails() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/valuation/${id}`)
+            .get(`http://elemahana-mern-8d9r.vercel.app/valuation/${id}`)
             .then((response) => {
                 setValuationRecord(response.data);
                 setLoading(false);

@@ -51,7 +51,7 @@ export default function Valuation() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/valuation')
+            .get('http://elemahana-mern-8d9r.vercel.app/valuation')
             .then((response) => {
                 setValuationRecords(response.data.data);
                 setLoading(false);
@@ -78,7 +78,7 @@ export default function Valuation() {
     const handleDeleteValuation = (id) => {
         setLoading(true);
         axios
-            .delete(`http://localhost:5555/valuation/${id}`)
+            .delete(`http://elemahana-mern-8d9r.vercel.app/valuation/${id}`)
             .then(() => {
                 setValuationRecords(prevRecords => prevRecords.filter(record => record._id !== id));
                 enqueueSnackbar('Record Deleted successfully', { variant: 'success' });

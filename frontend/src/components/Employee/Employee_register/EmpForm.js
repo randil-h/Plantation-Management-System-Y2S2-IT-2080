@@ -37,7 +37,7 @@ const EmpForm = () => {
             h_rate,
         };
         axios
-            .post('http://localhost:5555/employeeRecords', data)
+            .post('http://elemahana-mern-8d9r.vercel.app/employeeRecords', data)
             .then(() => {
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });
                 navigate('/employees/registration', { state: { highlighted: true } }); // Navigate to maintenance log and highlight it

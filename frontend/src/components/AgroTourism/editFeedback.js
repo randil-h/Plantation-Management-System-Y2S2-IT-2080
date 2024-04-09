@@ -13,7 +13,7 @@ const EditFeedback = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        axios.get(`http://localhost:5555/feedback/${id}`)
+        axios.get(`http://elemahana-mern-8d9r.vercel.app/feedback/${id}`)
             .then((response) => {
                 const { name, email, feedback, rating } = response.data;
                 setName(name);
@@ -30,7 +30,7 @@ const EditFeedback = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:5555/feedback/${id}`, {
+            const response = await axios.put(`http://elemahana-mern-8d9r.vercel.app/feedback/${id}`, {
                 name,
                 email,
                 feedback,

@@ -23,7 +23,7 @@ const EmployeeList = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/employeeRecords`)
+            .get(`http://elemahana-mern-8d9r.vercel.app/employeeRecords`)
             .then((response) => {
                 setRegistrationRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
                 setLoading(false);
@@ -39,7 +39,7 @@ const EmployeeList = () => {
         if (confirmDelete) {
             setLoading(true);
             axios
-                .delete(`http://localhost:5555/employeeRecords/${id}`)
+                .delete(`http://elemahana-mern-8d9r.vercel.app/employeeRecords/${id}`)
                 .then(() => {
                     
                     setRegistrationRecords(prevRecords => prevRecords.filter(record => record._id !== id));

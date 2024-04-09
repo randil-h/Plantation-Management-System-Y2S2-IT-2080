@@ -11,7 +11,7 @@ const InHome = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/inventoryinputs`)
+            .get(`http://elemahana-mern-8d9r.vercel.app/inventoryinputs`)
             .then((response) => {
                 setInventoryInputs(response.data.data);
                 setLoading(false);
@@ -24,7 +24,7 @@ const InHome = () => {
 
     const handleDelete = (recordId) => {
         axios
-            .delete(`http://localhost:5555/inventoryinputs/${recordId}`)
+            .delete(`http://elemahana-mern-8d9r.vercel.app/inventoryinputs/${recordId}`)
             .then(() => {
                 setInventoryInputs(prevRecords => prevRecords.filter(record => record._id !== recordId));
             })

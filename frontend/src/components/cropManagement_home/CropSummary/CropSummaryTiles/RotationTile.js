@@ -10,7 +10,7 @@ export default function RotationTile() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/cropinput`)
+            .get(`http://elemahana-mern-8d9r.vercel.app/cropinput`)
             .then((response) => {
                 const formattedRecords = response.data.data
                     .filter(record => record.type === "Planting")
@@ -19,7 +19,7 @@ export default function RotationTile() {
                 const plantedCrops = new Set(formattedRecords); // Remove duplicates
 
                 axios
-                    .get('http://localhost:5555/rotation')
+                    .get('http://elemahana-mern-8d9r.vercel.app/rotation')
                     .then((response) => {
                         const rotationRecords = response.data.data;
                         const cropFrequencyMap = calculateCropFrequency(rotationRecords, plantedCrops);

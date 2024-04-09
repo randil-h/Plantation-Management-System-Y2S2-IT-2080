@@ -24,7 +24,7 @@ export default function ViewOneMain() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/inventoryrecords/${id}`)
+            .get(`http://elemahana-mern-8d9r.vercel.app/inventoryrecords/${id}`)
             .then((response) => {
                 setRecord(response.data);
                 setLoading(false);

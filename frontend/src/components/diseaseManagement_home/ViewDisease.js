@@ -11,7 +11,7 @@ export default function ViewDisease() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/diseases/${id}`)
+            .get(`http://elemahana-mern-8d9r.vercel.app/diseases/${id}`)
             .then((response) => {
                 setDiseaseRecord(response.data);
                 setLoading(false);
