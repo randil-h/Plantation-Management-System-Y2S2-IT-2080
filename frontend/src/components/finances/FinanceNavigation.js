@@ -28,7 +28,7 @@ export default function Example() {
                 <nav aria-label="Top" className="">
                     <div className="border-gray-200">
                         <div className="flex items-center justify-center">
-                            <ul className="flex flex-row items-center w-full gap-2 text-gray-800 px-2 text-xs font-medium h-10 overflow-x-auto">
+                            <ul className="flex flex-row items-center w-full gap-2 text-gray-800 px-4 text-xs font-medium h-10 overflow-x-auto">
                                 {menuItems.map((item) => (
                                     <li
                                         key={item.name}

@@ -8,7 +8,7 @@ import {
     FingerPrintIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import { ChevronDownIcon, PhoneIcon, PlayCircleIcon, UserCircleIcon } from '@heroicons/react/20/solid'
 
 const products = [
     { name: 'Assign a Task', description: 'Assign tasks to your employees', href: '#', icon: ChartPieIcon },
@@ -30,14 +30,15 @@ export default function Navbar() {
     const { login, register } = useKindeAuth();
 
     return (
-        <header className="bg-white bg-opacity-50 backdrop-blur text-emerald-950 sticky top-0 w-screen z-50 shadow-md">
+        <header className="bg-white bg-opacity-70  backdrop-blur text-emerald-950 sticky top-0 w-screen z-50 shadow-md">
             <nav
                 className="text-lg mx-auto flex max-w-7xl items-center relative justify-between p-6 lg:px-8 pt-2 pb-2 ">
-                <div className="flex lg:flex-1 ">
-                    <a href="/" className="-m-1.5 p-1.5  ">
-                        <span className="text-2xl font-bold flex flex-row">ELEMAHANA</span>
+                <div className="flex lg:flex-1">
+                    <a href="/" className="-m-1.5 p-1.5">
+                        <span className="text-2xl font-bold flex flex-row">ELEMAHANA <span className="font-light text-base">&trade;</span></span>
                     </a>
                 </div>
+
                 <div className="flex lg:hidden">
                     <button
                         type="button"
@@ -117,12 +118,13 @@ export default function Navbar() {
                     </a>
 
                 </Popover.Group>
-                <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 font-medium">
+                <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 font-medium content-center items-center align-middle">
                     <button onClick={register} type="button"
                             className="border-black border px-4 rounded-full hover:border-lime-600 hover:text-lime-600">Register
                     </button>
                     |
                     <button onClick={login} type="button" className="hover:text-lime-600">Log In</button>
+                    <UserCircleIcon className="w-6 h-6"/>
                 </div>
 
             </nav>
