@@ -127,13 +127,13 @@ const AttendanceList = () => {
                     >
                         <option>Select Employee</option>
                         <option value="All Employees">All Employees</option>
-                        <option value="Field A">Field A</option>
-                        <option value="Field B">Field B</option>
-                        <option value="Field C">Field C</option>
-                        <option value="Field D">Field D</option>
-                        <option value="Field E">Field E</option>
-                        <option value="Field F">Field F</option>
-                        <option value="Field G">Field G</option>
+                        <option value="Amal Subasinghe">Amal Subasinghe</option>
+                        <option value="Hemapala Kuruvita">Hemapala Kuruvita</option>
+                        <option value="Kamani Hewage">Kamani Hewage</option>
+                        <option value="Chatura Pahathgama">Chatura Pahathgama</option>
+                        <option value="Thushari Liyanagama">Thushari Liyanagama</option>
+                        <option value="Senanai Rathnapitiya">Senanai Rathnapitiya</option>
+                        <option value="Ajith Nanayakkara">Ajith Nanayakkara</option>
                     </select>
                 </div>
 

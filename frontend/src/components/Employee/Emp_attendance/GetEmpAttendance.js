@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
+import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
+
 
 const GetEmpAttendance = () => {
     const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [attendanceData, setAttendanceData] = useState({});
-    const [loading, setLoading] = useState(false); // State for loading indicator
+    const [loading, setLoading] = useState(false);
+    const { enqueueSnackbar } = useSnackbar(); // Snackbar hook for displaying notifications
+    const navigate = useNavigate();
 
     // Dummy employee data
     const employees = [
@@ -80,7 +86,32 @@ const GetEmpAttendance = () => {
     };
 
     // Save attendance data to MongoDB
+    useEffect(() => {
+        const saveAttendanceToDatabase = async () => {
+            if (selectedEmployee) {
+                setLoading(true);
+                try {
+                    const attendanceRecords = Object.keys(attendanceData).map(date => ({
+                        e_name: selectedEmployee.e_name,
+                        e_date: new Date(date),
+                        att_status: attendanceData[date],
+                    }));
 
+                    await axios.post('http://localhost:5555/attendanceRecords', attendanceRecords);
+
+                    enqueueSnackbar('Records created successfully', { variant: 'success' });
+                    navigate('/employees/attendance', { state: { highlighted: true } });
+                } catch (error) {
+                    enqueueSnackbar('Error', { variant: 'error' });
+                    console.error('Error saving attendance:', error);
+                } finally {
+                    setLoading(false);
+                }
+            }
+        };
+
+        saveAttendanceToDatabase();
+    }, [attendanceData, selectedEmployee, enqueueSnackbar, navigate]);
 
     return (
         <div className="flex justify-center ">
@@ -113,9 +144,7 @@ const GetEmpAttendance = () => {
                                 </tbody>
                             </table>
                         </div>
-                        <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            {loading ? 'Saving...' : 'Save Attendance'}
-                        </button>
+
                     </div>
                 )}
             </div>
