@@ -1,82 +1,214 @@
 import React, { useState, useEffect } from 'react';
-
 import axios from 'axios';
-import {
-    PencilSquareIcon,
-    TrashIcon,
-    InformationCircleIcon
-} from '@heroicons/react/24/outline'
-import {Link} from "react-router-dom";
-import html2canvas from "html2canvas";
-import {jsPDF} from "jspdf";
-import {enqueueSnackbar, useSnackbar} from "notistack";
+import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from '@heroicons/react/24/outline';
+import { Link } from "react-router-dom";
+import { jsPDF } from "jspdf";
+import { useSnackbar } from "notistack";
 
 const AttendanceList = () => {
+    const [attendanceRecords, setAttendanceRecords] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [employeeName, setEmployeeName] = useState('');
+    const { enqueueSnackbar } = useSnackbar();
 
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(`http://localhost:5555/attendanceRecords`)
+            .then((response) => {
+                setAttendanceRecords(response.data.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
 
+    const handleDelete = (recordId) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this attendance record?");
+        if (confirmDelete) {
+            setLoading(true);
+            axios
+                .delete(`http://localhost:5555/attendanceRecords/${recordId}`)
+                .then(() => {
+                    setAttendanceRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
+                    setLoading(false);
+                    enqueueSnackbar('Record Deleted successfully', { variant: 'success' });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    };
 
+    const handleDownloadPDF = () => {
+        if (!startDate || !endDate || !employeeName || employeeName === "Select Employee") {
+            enqueueSnackbar(' Please select all required fields', { variant: 'error' });
+            return;
+        }
+
+        const filteredRecords = attendanceRecords.filter(record => {
+            const recordDate = new Date(record.e_date);
+            const dateRange = recordDate >= new Date(startDate) && recordDate <= new Date(endDate);
+            const selectedEmployee = employeeName === "All Employees" || record.e_name === employeeName;
+            return dateRange && selectedEmployee;
+        });
+
+        const doc = new jsPDF();
+        doc.text(`Attendance Report`, 10, 10);
+        doc.text(`From ${startDate} To ${endDate}`, 10, 20);
+        doc.text(`Employee :  ${employeeName}`, 10, 30);
+
+        const headers = ["Employee Name", "Date", "Status"];
+        const tableData = [headers];
+
+        filteredRecords.forEach(record => {
+            const rowData = [
+                record.e_name,
+                record.e_date,
+                record.att_status
+            ];
+            tableData.push(rowData);
+        });
+
+        doc.autoTable({
+            head: [headers],
+            body: tableData.slice(1),
+            startY: 40,
+            styles: { overflow: 'linebreak', columnWidth: 'wrap' },
+            theme: 'striped'
+        });
+
+        doc.save('Attendance_report.pdf');
+    }
+
+    const filteredRecords = attendanceRecords.filter((record) =>
+        Object.values(record).some((value) => {
+            if (typeof value === 'string' || typeof value === 'number') {
+                return String(value).toLowerCase().includes((searchQuery || '').toLowerCase());
+            }
+            return false;
+        })
+    );
 
     return (
-        <div className=" overflow-x-auto  ">
+        <div className="overflow-x-auto">
+            <div className="px-8 py-4">
+                <h1 className="text-lg font-semibold">Attendance Details</h1>
+                <p className="text-sm text-gray-500">Quickly access employee attendance data for valuable insights and analysis</p>
+            </div>
 
-            <div className="flex flex-row justify-between items-center px-8 py-4">
-                <div>
-                    <h1 className=" text-lg font-semibold text-left">Attendance Details</h1>
-                    <p className="mt-1 text-sm font-normal text-gray-500 0">Quickly access employee attendance data for valuable insights and analysis</p>
-                    <div className=" py-4">
-                        <input
-                            type="text"
-                            placeholder="Search employee attendance..."
-                            className="border border-gray-300 rounded-full px-3 py-1 w-full "
-                        />
+            <div className="flex flex-row justify-between  px-8 py-2 mb-3">
+                <input
+                    type="text"
+                    placeholder="Search attendance..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="border border-gray-300 rounded-full px-6 py-1.5 "
+                />
 
-
-                    </div>
-
+                <div className="flex items-center space-x-2">
+                    <button onClick={handleDownloadPDF} className="rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-opacity-50">Generate Report</button>
+                    <a href="/employees/attendance/getAttendance" className="rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-opacity-50">Get Attendance <span aria-hidden="true">&rarr;</span></a>
                 </div>
-                <div>
+            </div>
 
-                    <a href="/employees/attendance/getAttendance"
-                       className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
-                        Get Attendance <span aria-hidden="true">&rarr;</span>
-                    </a>
-                    <button
-                        className="ml-4 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
-                        Generate Report
-                    </button>
+            <div className="flex flex-row justify-between items-center px-8 py-2 mb-4 ">
+                <div>
+                    <label className="text-sm mr-2">Employee Name:</label>
+                    <select
+                        value={employeeName}
+                        onChange={(e) => setEmployeeName(e.target.value)}
+                        className="rounded-lg border border-gray-300 px-6.5 py-1"
+                    >
+                        <option>Select Employee</option>
+                        <option value="All Employees">All Employees</option>
+                        <option value="Field A">Field A</option>
+                        <option value="Field B">Field B</option>
+                        <option value="Field C">Field C</option>
+                        <option value="Field D">Field D</option>
+                        <option value="Field E">Field E</option>
+                        <option value="Field F">Field F</option>
+                        <option value="Field G">Field G</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label className="text-sm mr-2">Start Date:</label>
+                    <input
+                        className="rounded-lg border border-gray-300 px-3 py-1"
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
+                </div>
+
+                <div>
+                    <label className="text-sm mr-2">End Date:</label>
+                    <input
+                        className="rounded-lg border border-gray-300 px-3 py-1"
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                    />
                 </div>
             </div>
 
             <div id="print-area">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
-                    <thead
-                        className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
-                    <tr className=" ">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
+                    <tr>
                         <th></th>
-                        <th scope="col" className="px-6 py-3">
-                            No
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Employee Name
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Date
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Status
-                        </th>
-                        <th scope="col" className=" py-3">
-                            <span className="sr-only">Info</span>
-                        </th>
-                        <th scope="col" className=" py-3">
-                            <span className="sr-only">Delete</span>
-                        </th>
+                        <th scope="col" className="px-6 py-3">No</th>
+                        <th scope="col" className="px-6 py-3">Employee Name</th>
+                        <th scope="col" className="px-6 py-3">Date</th>
+                        <th scope="col" className="px-6 py-3">Status</th>
+                        <th scope="col" className="py-3"><span className="sr-only">Info</span></th>
+                        <th scope="col" className="py-3"><span className="sr-only">Delete</span></th>
                     </tr>
                     </thead>
 
+                    <tbody className="border-b border-green-400">
+                    {filteredRecords.map((record, index) => (
+                        <tr key={index} className="divide-y border-l-4">
+                            <td></td>
+                            <td className="px-6 py-4">{index + 1}</td>
+                            <td className="px-6 py-4">{record.e_name}</td>
+                            <td className="px-6 py-4">{record.e_date.split("T")[0]}</td>
+                            <td className="px-6 py-4">{record.att_status}</td>
+                            <td className=" py-4 text-right">
+                                <Link to={`#`}
+                                      className="font-medium text-blue-600  hover:underline">
+                                    <InformationCircleIcon
+                                        className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                        aria-hidden="true"/>
+                                </Link>
+                            </td>
+                            <td className="py-4 text-right">
+                                <Link to={`#`} className="font-medium text-blue-600 hover:underline">
+                                    <PencilSquareIcon
+                                        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                        aria-hidden="true"/>
+                                </Link>
+                            </td>
+                            <td className="py-4 text-right">
+                                <button className="flex items-center" onClick={() => handleDelete(record._id)}>
+                                    <TrashIcon
+                                        className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                        aria-hidden="true"/>
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
                 </table>
+            </div>
         </div>
-        </div>
-    )
+    );
 };
+
 export default AttendanceList;
