@@ -7,6 +7,7 @@ import SideBar from '../../../components/SideBar';
 import FinanceNavigation from '../../../components/finances/FinanceNavigation';
 import Breadcrumb from '../../../components/utility/Breadcrumbs';
 import BackButton from '../../../components/utility/BackButton';
+import {message} from "antd";
 
 function AddNewValuation() {
     const [date, setDate] = useState('');
@@ -21,7 +22,8 @@ function AddNewValuation() {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
 
-    const handleSaveValuationRecord = () => {
+    const handleSaveValuationRecord = async (e) => {
+        e.preventDefault();
         const data = {
             date,
             type,
@@ -37,14 +39,14 @@ function AddNewValuation() {
             .post('http://localhost:5555/valuation', data)
             .then(() => {
                 setLoading(false);
-                enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                window.alert("Record Added Successfully!");
+                message.success('Valuation record has successfully saved.');
                 navigate('/finances/valuation');
             })
             .catch((error) => {
                 setLoading(false);
-                enqueueSnackbar('Error', { variant: 'error' });
+                message.error('Valuation record saving failed.');
                 console.log(error);
+                navigate('/finances/valuation');
             });
     };
 

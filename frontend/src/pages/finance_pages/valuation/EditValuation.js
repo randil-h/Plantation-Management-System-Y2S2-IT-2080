@@ -7,6 +7,7 @@ import SideBar from '../../../components/SideBar';
 import FinanceNavigation from '../../../components/finances/FinanceNavigation';
 import Breadcrumb from '../../../components/utility/Breadcrumbs';
 import BackButton from '../../../components/utility/BackButton';
+import {message} from "antd";
 
 function EditValuation() {
     const [date, setDate] = useState('');
@@ -44,7 +45,8 @@ function EditValuation() {
             });
     }, [id]);
 
-    const handleEditValuationRecord = () => {
+    const handleEditValuationRecord = async (e) => {
+        e.preventDefault();
         const data = {
             date,
             type,
@@ -60,13 +62,14 @@ function EditValuation() {
             .put(`http://localhost:5555/valuation/${id}`, data)
             .then(() => {
                 setLoading(false);
-                enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                navigate('/');
+                message.success('Valuation record has successfully updated.');
+                navigate('/finances/valuation');
             })
             .catch((error) => {
                 setLoading(false);
-                enqueueSnackbar('Error', { variant: 'error' });
+                message.error('Valuation record updating failed.');
                 console.log(error);
+                navigate('/finances/valuation');
             });
     };
 

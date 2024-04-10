@@ -108,12 +108,14 @@ export default function Navbar() {
 
                         Marketplace
                     </a>
+                    <a href="/tourism" className=" font-medium leading-6 hover:text-lime-600">
+                        Visit Us
+                    </a>
+
                     <a href="/dashboard" className=" font-medium leading-6 hover:text-lime-600">
                         Dashboard
                     </a>
-                    <a href="/tourism" className=" font-medium leading-6 hover:text-lime-600">
-                        Visit us
-                    </a>
+
                 </Popover.Group>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 font-medium">
                     <button onClick={register} type="button"
@@ -187,18 +189,21 @@ export default function Navbar() {
                                 >
                                     Marketplace
                                 </a>
-                                <a
-                                    href="/src/pages/Dashboard"
-                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                >
-                                    Dashboard
-                                </a>
+
                                 <a
                                     href="/booking"
                                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                 >
                                     Visit Us
                                 </a>
+
+                                <a
+                                    href="/src/pages/Dashboard"
+                                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                >
+                                    Dashboard
+                                </a>
+
                             </div>
                             <div className="py-6">
                                 <a
