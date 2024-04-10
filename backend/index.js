@@ -49,7 +49,7 @@ app.use(
 
 app.get('/', (request, response) => {
     console.log(request);
-    return response.status(234).send('welcome to');
+    return response.status(234).send('welcome to Elemahana');
 });
 
 
