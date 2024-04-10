@@ -41,7 +41,7 @@ app.use(express.json());
 
 app.use(
   cors({
-     origin: 'https://elemahana-mern-7zou.vercel.app',
+     origin: 'https://elemahana.vercel.app',
      methods: ['GET', 'POST', 'PUT', 'DELETE'],
      allowedHeaders: ['Content-Type'],
    })
