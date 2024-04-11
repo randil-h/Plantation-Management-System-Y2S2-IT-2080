@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import axios from 'axios';
 import html2canvas from 'html2canvas';
-import { InformationCircleIcon,PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { InformationCircleIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import jsPDF from 'jspdf';
-import {useSnackbar} from "notistack";
-import {FiDownload} from "react-icons/fi";
+import { useSnackbar } from "notistack";
+import { FiDownload } from "react-icons/fi";
 
 const PlantingList = () => {
     const { enqueueSnackbar } = useSnackbar();
@@ -17,15 +17,15 @@ const PlantingList = () => {
     const [recordToDelete, setRecordToDelete] = useState(null);
     const [selectedFieldFilter, setSelectedFieldFilter] = useState('All Fields');
 
-    const fieldAreas = {
-        A: 2,
-        B: 2.5,
-        C: 1,
-        D: 2,
-        E: 1,
-        F: 0.5,
-        G: 1,
-    };
+    const fieldAcreageData = [
+        { Field: 'Field A', Area: 2 },
+        { Field: 'Field B', Area: 2.5 },
+        { Field: 'Field C', Area: 1 },
+        { Field: 'Field D', Area: 2 },
+        { Field: 'Field E', Area: 1 },
+        { Field: 'Field F', Area: 0.5 },
+        { Field: 'Field G', Area: 1 },
+    ];
 
     useEffect(() => {
         setLoading(true);
@@ -83,23 +83,15 @@ const PlantingList = () => {
         }
     };
 
-    const handleSearch = (event) => {
-        setSearchQuery(event.target.value);
-    };
-
-    const handleFieldFilterChange = (event) => {
-        setSelectedFieldFilter(event.target.value);
-    };
-
-    const generatePDF = (filteredRecords) => {
+    const generatePDF = () => {
+        const currentDate = new Date().toLocaleString('en-GB');
+        const acreagePerCrop = calculateAcreagePerCrop(filteredRecords);
         const input = document.getElementById('planting-table');
-        if (input) {
-            const currentDate = new Date().toLocaleString('en-GB');
 
+        if (input) {
             html2canvas(input)
                 .then((canvas) => {
                     const pdf = new jsPDF('l', 'mm', 'a3');
-
                     const pageWidth = pdf.internal.pageSize.getWidth();
                     const textWidth = pdf.getStringUnitWidth('Planting Records') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
                     const centerPosition = (pageWidth - textWidth) / 2;
@@ -109,12 +101,18 @@ const PlantingList = () => {
                     pdf.setFontSize(12);
                     pdf.text(`As At: ${currentDate}`, centerPosition, 20);
 
-
                     const yPos = 30;
                     pdf.autoTable({
                         html: '#planting-table',
                         startY: yPos + 10,
                         theme: 'grid',
+                    });
+
+                    pdf.text('Acreage per Crop:', 10, 115);
+                    let y = 30;
+                    Object.entries(acreagePerCrop).forEach(([cropType, acreage]) => {
+                        pdf.text(`${cropType}: ${acreage} acres`, 20, pdf.autoTable.previous.finalY + y);
+                        y = y + 10;
                     });
 
                     pdf.save(`planting-records_generatedAt_${currentDate}.pdf`);
@@ -125,6 +123,27 @@ const PlantingList = () => {
         } else {
             console.error('Table element not found');
         }
+    };
+
+    const calculateAcreagePerCrop = (plantingRecords) => {
+        const acreagePerCrop = {};
+        plantingRecords.forEach((record) => {
+            const { field, cropType } = record;
+            const acreage = fieldAcreageData.find((item) => item.Field === field)?.Area || 0;
+            if (!acreagePerCrop[cropType]) {
+                acreagePerCrop[cropType] = 0;
+            }
+            acreagePerCrop[cropType] += acreage;
+        });
+        return acreagePerCrop;
+    };
+
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const handleFieldFilterChange = (event) => {
+        setSelectedFieldFilter(event.target.value);
     };
 
     return (
@@ -176,7 +195,7 @@ const PlantingList = () => {
                         <th className="px-6 py-3">Crop Type</th>
                         <th className="px-6 py-3">Variety</th>
                         <th className="px-6 py-3">Quantity</th>
-                        <th className="px-6 py-3">Unit Cost</th>
+                        <th className="px-6 py-3">Unit Cost(Rs.)</th>
                         <th className="px-6 py-3">Remarks</th>
                         <th className="px-6 py-3"></th>
                     </tr>
