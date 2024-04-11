@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
 import {enqueueSnackbar, useSnackbar} from "notistack";
@@ -16,6 +16,15 @@ export default function AddCropInputForm() {
         unitCost: "",
         remarks: ""
     });
+
+    useEffect(() => {
+        const prevPath = localStorage.getItem('prevPath');
+        if (prevPath === "/crop/input") {
+            setFormData({ ...formData, type: "Planting" });
+        } else if (prevPath === "/crop/input/chemical/view") {
+            setFormData({ ...formData, type: "Agrochemical" });
+        }
+    }, []);
 
     const [agrochemicals, setAgrochemicals] = useState({
         Coconut: [

@@ -4,7 +4,8 @@ import { GiSandsOfTime } from 'react-icons/gi';
 
 const BASE_URL = 'http://localhost:5555';
 
-export default function UpcomingHarvestTile() {
+const UpcomingHarvestTile = ({ setHarvestTileBg }) => {
+    const [loading, setLoading] = useState(true);
     const [closestHarvest, setClosestHarvest] = useState(null);
 
     useEffect(() => {
@@ -16,11 +17,14 @@ export default function UpcomingHarvestTile() {
                     const harvestDates = calculateHarvestDates(plantingRecords);
                     const closestHarvest = getClosestUpcomingHarvest(harvestDates);
                     setClosestHarvest(closestHarvest);
+                    setLoading(false);
                 } else {
                     console.log('Error fetching field data:', response.data.message || 'Unknown error');
+                    setLoading(false);
                 }
             } catch (error) {
                 console.error('Error fetching field data:', error.message);
+                setLoading(false);
             }
         };
 
@@ -52,7 +56,7 @@ export default function UpcomingHarvestTile() {
             // Calculate harvest date by adding duration to planting date
             const plantingDateObj = new Date(date);
             const harvestDateObj = new Date(plantingDateObj.setMonth(plantingDateObj.getMonth() + duration));
-            const harvestDate = harvestDateObj.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+            const harvestDate = harvestDateObj.toLocaleDateString(); // Format as locale date string
 
             // Store harvest date and crop type for the field
             if (!harvestDates[field]) {
@@ -81,17 +85,30 @@ export default function UpcomingHarvestTile() {
         return closestHarvest;
     };
 
+    const harvestTileBg = closestHarvest && closestHarvest.daysLeft < 14 ? 'bg-amber-300' : 'bg-lime-100';
+
+    // Pass harvestTileBg back to parent component
+    useEffect(() => {
+        setHarvestTileBg(harvestTileBg);
+    }, [harvestTileBg, setHarvestTileBg]);
+
     return (
         <div>
             {closestHarvest && (
-                <li className="rounded-xl bg-lime-100 px-6 py-8 shadow-sm hover:transform hover:scale-110 transition-transform duration-300">
+                <li className={`rounded-xl px-6 py-8 hover:transform hover:scale-110 transition-transform duration-300 ${harvestTileBg}`}>
                     <GiSandsOfTime className="mx-auto h-10 w-10" />
-                    <h3 className="my-3 font-display font-medium">Next Harvest in</h3>
-                    <p className="mt-1.5 text-sm leading-6 text-secondary-500">
-                        {closestHarvest.daysLeft} days <br /> {closestHarvest.field} - {closestHarvest.cropType}
-                    </p>
+                    <h3 className="my-3 font-display font-medium">Ready to harvest in</h3>
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        <p className="mt-1.5 text-sm leading-6 text-secondary-500">
+                            {closestHarvest.daysLeft} days <br /> {closestHarvest.field} - {closestHarvest.cropType}
+                        </p>
+                    )}
                 </li>
             )}
         </div>
     );
-}
+};
+
+export default UpcomingHarvestTile;

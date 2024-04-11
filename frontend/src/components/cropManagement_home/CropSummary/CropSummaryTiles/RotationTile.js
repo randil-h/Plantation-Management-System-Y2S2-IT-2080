@@ -3,35 +3,21 @@ import axios from 'axios';
 import { FaRotate } from 'react-icons/fa6';
 
 export default function RotationTile() {
-    const [loading, setLoading] = useState(true);
-    const [cropFrequency, setCropFrequency] = useState({});
-    const [suitableCrops, setSuitableCrops] = useState([]);
+    const [plantingRecords, setPlantingRecords] = useState([]);
+    const [rotationRecords, setRotationRecords] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [joinedRecords, setJoinedRecords] = useState([]);
+    const [possibleCrops, setPossibleCrops] = useState([]);
 
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/cropinput`)
+            .get('http://localhost:5555/cropinput')
             .then((response) => {
-                const formattedRecords = response.data.data
-                    .filter(record => record.type === "Planting")
-                    .map(record => record.cropType);
-
-                const plantedCrops = new Set(formattedRecords); // Remove duplicates
-
-                axios
-                    .get('http://localhost:5555/rotation')
-                    .then((response) => {
-                        const rotationRecords = response.data.data;
-                        const cropFrequencyMap = calculateCropFrequency(rotationRecords, plantedCrops);
-                        setCropFrequency(cropFrequencyMap);
-                        const crops = calculateSuitableCrops(cropFrequencyMap);
-                        setSuitableCrops(crops);
-                        setLoading(false);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        setLoading(false);
-                    });
+                const plantingRecordsData = response.data.data;
+                const filteredPlantingRecords = plantingRecordsData.filter(record => record.type === 'Planting' && record.cropType !== 'Coconut');
+                setPlantingRecords(filteredPlantingRecords);
+                setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -39,66 +25,83 @@ export default function RotationTile() {
             });
     }, []);
 
-    const calculateCropFrequency = (rotationRecords, plantedCrops) => {
-        const cropFrequencyMap = {};
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get('http://localhost:5555/rotation')
+            .then((response) => {
+                const rotationRecordsData = response.data.data;
+                const filteredRotationRecords = rotationRecordsData.filter(record => record.season === '1 Season Ago' || record.season === '2 Seasons Ago');
+                setRotationRecords(filteredRotationRecords);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
 
-        rotationRecords.forEach(record => {
-            const { fieldName, cropType } = record;
-
-            if (!plantedCrops.has(cropType)) { // Exclude currently planted crops
-                if (!cropFrequencyMap[fieldName]) {
-                    cropFrequencyMap[fieldName] = {};
+    useEffect(() => {
+        if (plantingRecords.length > 0 && rotationRecords.length > 0) {
+            const joined = plantingRecords.reduce((acc, plantingRecord) => {
+                const matchingRotationRecords = rotationRecords.filter(rotationRecord => rotationRecord.fieldName === plantingRecord.field);
+                if (matchingRotationRecords.length > 0) {
+                    acc.push({
+                        field: plantingRecord.field,
+                        plantingRecord: plantingRecord,
+                        rotationRecords: matchingRotationRecords,
+                    });
                 }
-
-                if (!cropFrequencyMap[fieldName][cropType]) {
-                    cropFrequencyMap[fieldName][cropType] = 1;
-                } else {
-                    if (cropType === 'Apple Guava') {
-                        cropFrequencyMap[fieldName][cropType] = 'Cannot be planted again';
-                    } else if (cropType === 'Papaya' && cropFrequencyMap[fieldName][cropType] < 2) {
-                        cropFrequencyMap[fieldName][cropType]++;
-                    }
-                }
-            }
-        });
-
-        return cropFrequencyMap;
-    };
-
-    const calculateSuitableCrops = (cropFrequencyMap) => {
-        const suitableCropsList = [];
-
-        for (const field in cropFrequencyMap) {
-            const crops = cropFrequencyMap[field];
-            for (const crop in crops) {
-                if (crops[crop] !== 'Cannot be planted again' && crops[crop] < 2) {
-                    suitableCropsList.push(`${crop} - ${field}`);
-                }
-            }
+                return acc;
+            }, []);
+            setJoinedRecords(joined);
         }
+    }, [plantingRecords, rotationRecords]);
 
-        return suitableCropsList;
-    };
+    useEffect(() => {
+        if (joinedRecords.length > 0) {
+            const possibleCropsForFields = joinedRecords.map(record => {
+                let possibleCropsForField = ['Apple Guava', 'Papaya', 'Sesame'];
+
+                // Check if Apple Guava is ruled out
+                if (record.plantingRecord.cropType === 'Apple Guava') {
+                    possibleCropsForField = possibleCropsForField.filter(crop => crop !== 'Apple Guava');
+                }
+
+                // Check if Papaya is ruled out
+                if (record.plantingRecord.cropType === 'Papaya' && record.rotationRecords.some(rotation => rotation.season === '1 Season Ago')) {
+                    possibleCropsForField = possibleCropsForField.filter(crop => crop !== 'Papaya');
+                }
+
+                return {
+                    field: record.field,
+                    possibleCrops: possibleCropsForField,
+                };
+            });
+
+            possibleCropsForFields.sort((a, b) => a.field.localeCompare(b.field));
+
+            setPossibleCrops(possibleCropsForFields);
+        }
+    }, [joinedRecords]);
 
     return (
         <div>
-            <li className="rounded-xl bg-lime-100 px-6 py-8 shadow-sm hover:transform hover:scale-110 transition-transform duration-300">
-                <a href="/pricing" className="group">
-                    <FaRotate className="mx-auto h-10 w-10"/>
-                    <h3 className="my-3 font-display font-medium group-hover:text-primary-500">Rotation</h3>
-                    {loading ? (
-                        <p>Loading...</p>
-                    ) : (
-                        <div>
-                            <p className="mt-1.5 text-sm leading-6 text-secondary-500">Possible crops for upcoming season</p>
-                            <ul>
-                                {suitableCrops.map((crop, index) => (
-                                    <li key={index}>{crop}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-                </a>
+            <li className="rounded-xl bg-lime-100 px-6 py-8  hover:transform hover:scale-110 transition-transform duration-300">
+                <FaRotate className="mx-auto h-10 w-10" />
+                <h3 className="my-3 font-display font-medium group-hover:text-primary-500">Rotation</h3>
+                {loading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <div>
+                        <p className = "my-2">Possible crops for upcoming season:</p>
+                        {possibleCrops.map((crop, index) => (
+                            <div key={index} className = "">
+                                <h4 className = "">{`${crop.field}`} - {crop.possibleCrops.join(', ')}</h4>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </li>
         </div>
     );

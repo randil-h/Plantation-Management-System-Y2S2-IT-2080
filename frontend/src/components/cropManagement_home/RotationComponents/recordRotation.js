@@ -83,9 +83,8 @@ export default function RecordRotation() {
                                         value={formData.season}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     >
-                                        <option value="2023 Oct - 2024 May">2023 Oct - 2024 May</option>
-                                        <option value="2023 May - 2023 Oct">2023 May - 2023 Oct</option>
-                                        <option value="2022 Oct - 2023 May">2022 Oct - 2023 May</option>
+                                        <option value="1 Season Ago">1 Season Ago</option>
+                                        <option value="2 Seasons Ago">2 Seasons Ago</option>
                                     </select>
                                 </div>
                             </div>
