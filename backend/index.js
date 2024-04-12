@@ -31,12 +31,16 @@ import OrderRoute from "./routes/Wholesale  Routes/OrderRoute.js";
 import recordRoute from "./routes/Harvest Routes/RecordRoute.js";
 import AttendanceRoute from "./routes/Employee Routes/AttendanceRoute.js";
 
+//import productModel from "./models/Wholesale Models/ProductModel.js";
+
 
 const app = express();
 
 app.use(express.json());
  
 //app.use(cors());
+
+//const Images = mongoose.model("productModel");
 
 
 app.use(
