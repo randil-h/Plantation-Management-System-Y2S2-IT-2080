@@ -1,12 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { GiChemicalDrop, GiFertilizerBag } from "react-icons/gi";
+import { FaTractor } from "react-icons/fa";
 import { IoIosLeaf } from "react-icons/io";
 import axios from "axios";
+import Wave from 'react-wavify';
+import NewBox from './newBox';
 
 const InHome = () => {
     const [inventoryInputs, setInventoryInputs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [inventoryRecords, setInventoryRecords] = useState([]);
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(`http://localhost:5555/inventoryrecords`)
+            .then((response) => {
+                setInventoryRecords(response.data.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
+
 
     useEffect(() => {
         setLoading(true);
@@ -22,17 +41,9 @@ const InHome = () => {
             });
     }, []);
 
-    const handleDelete = (recordId) => {
-        axios
-            .delete(`http://localhost:5555/inventoryinputs/${recordId}`)
-            .then(() => {
-                setInventoryInputs(prevRecords => prevRecords.filter(record => record._id !== recordId));
-            })
-            .catch((error) => {
-                console.log(error);
-                // Handle error
-            });
-    };
+    const getInProgressCount = inventoryRecords.filter(
+        (record) => record.status === "In Progress"
+    ).length;
 
     const filteredRecords = inventoryInputs.filter((record) =>
         Object.values(record).some((value) => {
@@ -55,8 +66,28 @@ const InHome = () => {
                             Welcome to inventory management....
                         </p>
                     </div>
+
+
+                    <div className="flex justify-between items-center mt-10">
+                        {/* Maintenance Box */}
+                        <div
+                            className="py-10 flex flex-col items-center justify-center rounded-lg shadow-lg bg-gray-300 max-w-xs w-full mb-4 hover:bg-gray-200 mt-2 ml-20">
+                            <div className="mt-2 mb-3">
+                                <FaTractor className="h-10 w-10 mx-auto"/>
+                            </div>
+                            <div className="text-center text-lg font-bold">No of Maintenance In Progress</div>
+                            <div className="text-center text-xl font-medium mt-2">
+                                {getInProgressCount}
+                            </div>
+                        </div>
+
+                        {/* New Box with Water Wave */}
+                        <NewBox/>
+                    </div>
+
+
                     <div
-                        className="mt-16 grid grid-cols-1 gap-5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
+                        className="mt-10 grid grid-cols-1 gap-5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-3">
                         <div
                             className="flex flex-col bg-green-300 p-8 rounded-lg transition duration-300 ease-in-out hover:bg-green-400 hover:shadow-md">
                             <div className="flex items-center justify-center">
@@ -91,7 +122,7 @@ const InHome = () => {
                             </div>
                         </div>
                         <div
-                            className="flex flex-col bg-blue-300 p-8 rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 hover:shadow-md ">
+                            className="flex flex-col bg-blue-300 p-8 rounded-lg transition duration-300 ease-in-out hover:bg-blue-400 hover:shadow-md">
                             <div className="flex items-center justify-center">
                                 <GiChemicalDrop className="text-5xl text-black mr-4"/>
                                 <dt className="text-xl font-semibold leading-6 text-black">Agro Chemicals</dt>
@@ -115,8 +146,8 @@ const InHome = () => {
                                 ).map((record, index) => (
                                     <React.Fragment key={index}>
                                         <div className="flex flex-row items-center gap-4 w-full justify-between">
-                                            <dd className="text-base tracking-tight sm:text-lg -ml-12">{record.record_name}</dd>
-                                            <div className="text-base tracking-tight sm:text-lg -mr-10">
+                                            <dd className="text-base tracking-tight sm:text-lg -ml-12 text-left">{record.record_name}</dd>
+                                            <div className="text-base tracking-tight sm:text-lg">
                                                 {`${record.quantity} ${record.unit}`}
                                             </div>
                                         </div>
@@ -127,6 +158,7 @@ const InHome = () => {
                                 ))}
                             </div>
                         </div>
+
 
                         <div
                             className="flex flex-col bg-yellow-300 p-8 rounded-lg transition duration-300 ease-in-out hover:bg-yellow-400 hover:shadow-md">
