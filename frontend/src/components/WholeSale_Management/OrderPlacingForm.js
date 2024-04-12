@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import tomato from '../WholeSale_Management/pictuers/tomato.jpeg';
 import { useNavigate, useParams } from 'react-router-dom';
+import tomato from '../WholeSale_Management/pictuers/tomato.jpeg';
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import { v4 as uuidv4 } from 'uuid';
 
 const OrderPlacingForm = () => {
+    const { id } = useParams(); // Extracting id from route parameters
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
-    const { id } = useParams(); // Extracting id from route parameters
     const navigate = useNavigate();
-    //const [quantity, setQuantity] = useState(1); // State to hold the quantity
     const [orderDate, setorderDate] = useState('');
     const [orderQuantity, setorderQuantity] = useState('1');
-    //const [orderId, setorderId] = useState('');
 
     useEffect(() => {
         setLoading(true);
@@ -52,6 +50,7 @@ const OrderPlacingForm = () => {
         const orderId = generateOrderId();
         const totalPrice = calculateTotalPrice();
         const  data = {
+            orderId: orderId,
             orderProductName: product.productName,
             orderDate,
             orderQuantity,
