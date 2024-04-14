@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Wave from 'react-wavify';
 function PercentageRuler() {
     return (
         <div className="percentage-ruler absolute h-full top-0 left-0 flex flex-col justify-between items-center">
