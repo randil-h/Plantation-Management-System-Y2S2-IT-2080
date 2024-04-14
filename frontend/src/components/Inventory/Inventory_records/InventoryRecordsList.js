@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import { InformationCircleIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import {InformationCircleIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import { GoAlert } from "react-icons/go";
@@ -70,22 +70,32 @@ const InventoryRecordList = () => {
 
     useEffect(() => {
         setFilteredRecords(
-            inventoryInputs.filter((record) =>
-                ((selectedFieldFilter === 'All Types' || record.type.toLowerCase() === selectedFieldFilter.toLowerCase()) &&
-                    (
-                        (record.type && record.type.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                        (record.record_ID && record.record_ID.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                        (record.record_name && record.record_name.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                        (record.storage && record.storage.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                        (record.size && record.size.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                        (record.unit && record.unit.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                        (record.quantity && record.quantity.toString().toLowerCase().includes(searchQuery.toLowerCase())) ||
-                        (record.expire_date && record.expire_date.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                        (record.description && record.description.toLowerCase().includes(searchQuery.toLowerCase()))
-                    ))
-            )
+            inventoryInputs.filter((record) => {
+                const sizeString = String(record.size); // Convert size to string
+
+                const matchesSearchQuery =
+                    (record.type && record.type.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    (record.record_ID && record.record_ID.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    (record.record_name && record.record_name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    (record.storage && record.storage.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    (sizeString && sizeString.toLowerCase().includes(searchQuery.toLowerCase())) || // Check sizeString
+                    (record.unit && record.unit.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    (record.quantity && record.quantity.toString().toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    (record.expire_date && record.expire_date.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    (record.description && record.description.toLowerCase().includes(searchQuery.toLowerCase()));
+
+                console.log('Record:', record);
+                console.log('Search Query:', searchQuery);
+                console.log('Matches Search Query:', matchesSearchQuery);
+
+                return (
+                    (selectedFieldFilter === 'All Types' || record.type.toLowerCase() === selectedFieldFilter.toLowerCase()) &&
+                    matchesSearchQuery
+                );
+            })
         );
     }, [inventoryInputs, searchQuery, selectedFieldFilter]);
+
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
@@ -171,13 +181,17 @@ const InventoryRecordList = () => {
                     <h1 className=" text-lg font-semibold text-left">Inventory Records</h1>
                     <p className="mt-1 text-sm font-normal text-gray-500 0">Easily access stored Inventory Records
                         within the system for thorough insights.</p>
-                    <div className=" py-4">
+                    <div className=" py-4 relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <MagnifyingGlassIcon className="text-gray-500 h-4 w-4"/>
+                        </div>
                         <input
                             type="text"
                             placeholder="Search all maintenances records..."
                             value={searchQuery}
                             onChange={handleSearch}
-                            className="border border-gray-300 rounded-full px-3 py-1 w-auto"
+                            className="border border-gray-300 rounded-full px-10 py-1 w-auto"
+                            style={{paddingRight: '2.5rem'}}
                         />
                         <select
                             value={selectedFieldFilter}

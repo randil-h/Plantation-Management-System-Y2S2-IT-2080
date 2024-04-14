@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import { InformationCircleIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import {InformationCircleIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 import { GoAlert } from "react-icons/go";
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
@@ -146,13 +146,17 @@ const EqMaintain = () => {
                     <h1 className="text-lg font-semibold text-left">Maintenances Records</h1>
                     <p className="mt-1 text-sm font-normal text-gray-500 0">Easily access stored Maintenances Records
                         within the system for thorough insights.</p>
-                    <div className="py-4">
+                    <div className="py-4 relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <MagnifyingGlassIcon className="text-gray-500 h-4 w-4"/>
+                        </div>
                         <input
                             type="text"
                             placeholder="Search all maintenances records..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="border border-gray-300 rounded-full px-3 py-1 w-full"
+                            className="border border-gray-300 rounded-full px-3 py-1 w-full text-sm pl-10"
+                            style={{paddingRight: '2.5rem'}}
                         />
                     </div>
                 </div>

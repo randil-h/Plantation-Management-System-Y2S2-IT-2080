@@ -3,7 +3,6 @@ import { GiChemicalDrop, GiFertilizerBag } from "react-icons/gi";
 import { FaTractor } from "react-icons/fa";
 import { IoIosLeaf } from "react-icons/io";
 import axios from "axios";
-import Wave from 'react-wavify';
 import NewBox from './newBox';
 
 const InHome = () => {
@@ -25,7 +24,6 @@ const InHome = () => {
                 setLoading(false);
             });
     }, []);
-
 
     useEffect(() => {
         setLoading(true);
@@ -67,9 +65,7 @@ const InHome = () => {
                         </p>
                     </div>
 
-
                     <div className="flex justify-between items-center mt-10">
-                        {/* Maintenance Box */}
                         <div
                             className="py-10 flex flex-col items-center justify-center rounded-lg shadow-lg bg-gray-300 max-w-xs w-full mb-4 hover:bg-gray-200 mt-2 ml-20">
                             <div className="mt-2 mb-3">
@@ -140,7 +136,6 @@ const InHome = () => {
                                             } else {
                                                 acc[key].quantity += size * quantity;
                                             }
-
                                             return acc;
                                         }, {})
                                 ).map((record, index) => (
@@ -158,7 +153,6 @@ const InHome = () => {
                                 ))}
                             </div>
                         </div>
-
 
                         <div
                             className="flex flex-col bg-yellow-300 p-8 rounded-lg transition duration-300 ease-in-out hover:bg-yellow-400 hover:shadow-md">
@@ -179,7 +173,6 @@ const InHome = () => {
                                             } else {
                                                 acc[key].quantity += size * quantity;
                                             }
-
                                             return acc;
                                         }, {})
                                 ).map((record, index) => (
@@ -203,5 +196,4 @@ const InHome = () => {
         </div>
     );
 };
-
 export default InHome;
