@@ -110,6 +110,7 @@ import ViewOneEmpDetails from "./pages/employee_pages/emp_registation/ViewOneEmp
 import ViewTaskDetails from "./pages/employee_pages/task_assigning/ViewTaskDetails";
 import ViewAllAttendance from "./pages/employee_pages/emp_attendance/ViewAllAttendance";
 import GetAttendance from "./pages/employee_pages/emp_attendance/GetAttendance";
+import ViewOneAttendance from "./pages/employee_pages/emp_attendance/ViewOneAttendance";
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -235,6 +236,7 @@ export default function App() {
                     <Route path ="/employees/tasks/viewTask/:id" element={<ViewTaskDetails/>}/>
                     <Route path= "/employees/attendance" element= {ViewAllAttendance()}/>
                     <Route path="/employees/attendance/getAttendance" element={GetAttendance()}/>
+                    <Route path="/employees/attendance/viewAttendance/:id" element={<ViewOneAttendance/>}/>
 
 
                     <Route path="/harvest/home"  element={harvest()}/>

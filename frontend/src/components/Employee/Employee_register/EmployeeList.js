@@ -96,7 +96,17 @@ const EmployeeList = () => {
             });
     };
 
+    function getBorderColorClass(emp_type) {
+        return subtypeBorderColorMap[emp_type] || "border-gray-200";
+    }
 
+    const subtypeBorderColorMap = {
+        permanent: "border-cyan-400",
+        contract: "border-yellow-400",
+        trainee: "border-red-400",
+        seasonal: "border-purple-400",
+        casual: "border-lime-400",
+    };
 
 
         return (
@@ -212,7 +222,10 @@ const EmployeeList = () => {
                         <tbody className="border-b border-green-400">
 
                         {filteredRecords.map((record, index) => (
-                            <tr key={index}>
+
+                            <tr key={index}
+                                className={`divide-y border-l-4 ${getBorderColorClass(record.emp_type)}`}
+                            >
                                 <td></td>
                                 <td className="px-6 py-4">
                                     {index + 1}

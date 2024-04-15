@@ -20,6 +20,7 @@ const GetEmpAttendance = () => {
         { id: 5, e_name: 'Thushari Liyanagama' },
         { id: 6, e_name: 'Senanai Rathnapitiya' },
         { id: 7, e_name: 'Ajith Nanayakkara' },
+        { id: 8, e_name: 'Sumeda Pathirana' },
     ];
 
     // Handle employee selection

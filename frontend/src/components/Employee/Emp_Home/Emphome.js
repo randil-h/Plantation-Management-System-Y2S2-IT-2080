@@ -1,20 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { FaUsers, FaUserPlus, FaTasks, FaCalendarPlus } from "react-icons/fa";
 import axios from "axios";
 
 function Emphome() {
-
     const [loading, setLoading] = useState(false);
     const [totalRecords, setTotalRecords] = useState(0);
-    const [taskRecords, setTaskRecords] = useState(0);
-
+    const [taskRecords, setTaskRecords] = useState([]);
 
     useEffect(() => {
         // Fetch total records from your API or set it from somewhere
         axios.get('http://localhost:5555/employeeRecords')
             .then(response => {
                 setTotalRecords(response.data.data);
-
             })
             .catch(error => {
                 console.error('Error fetching total records: ', error);
@@ -26,19 +23,19 @@ function Emphome() {
         axios.get('http://localhost:5555/taskRecords')
             .then(response => {
                 setTaskRecords(response.data.data);
-
+                setLoading(false);
             })
             .catch(error => {
-                console.error('Error fetching total records: ', error);
+                console.error('Error fetching task records: ', error);
             });
     }, []);
 
-
-
-
+    const getOngoingTaskCount = taskRecords.filter(
+        (record) => record.task_status === "inprogress"
+    ).length;
 
     return (
-        <div className="container mx-auto px-4 py-6"> {/* Adjusted py-10 instead of py-20 */}
+        <div className="container mx-auto px-4 py-6">
             <h1 className="text-3xl text-center mb-4">
                 <span className="text-black font-semibold">Employee Management System</span>
             </h1>
@@ -78,8 +75,8 @@ function Emphome() {
                     </div>
                     <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400">
                         <FaCalendarPlus className="icon text-black mb-2"/>
-                        <h3 className="text-lg font-semibold text-black">Assigned Today</h3>
-                        <p className="text-xl text-black">3</p>
+                        <h3 className="text-lg font-semibold text-black">In progress tasks</h3>
+                        <p className="text-xl text-black" > {getOngoingTaskCount} </p>
                     </div>
                 </div>
             </div>

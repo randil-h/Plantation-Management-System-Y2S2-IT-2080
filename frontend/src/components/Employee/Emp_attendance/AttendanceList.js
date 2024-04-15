@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from '@heroicons/react/24/outline';
+import { InformationCircleIcon, PencilSquareIcon, TrashIcon,MagnifyingGlassIcon} from '@heroicons/react/24/outline'; // Import SearchIcon
 import { Link } from "react-router-dom";
 import { jsPDF } from "jspdf";
 import { useSnackbar } from "notistack";
@@ -103,17 +103,25 @@ const AttendanceList = () => {
             </div>
 
             <div className="flex flex-row justify-between  px-8 py-2 mb-3">
-                <input
-                    type="text"
-                    placeholder="Search attendance..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="border border-gray-300 rounded-full px-6 py-1.5 "
-                />
+                <div className="relative">
+                    <input
+                        type="text"
+                        placeholder="Search attendance..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="border border-gray-300 rounded-full px-6 py-1.5 pl-10" // Adjust padding to accommodate icon
+                    />
+                    <MagnifyingGlassIcon className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400 h-5 w-5"/>
+                </div>
 
                 <div className="flex items-center space-x-2">
-                    <button onClick={handleDownloadPDF} className="rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-opacity-50">Generate Report</button>
-                    <a href="/employees/attendance/getAttendance" className="rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-opacity-50">Get Attendance <span aria-hidden="true">&rarr;</span></a>
+                    <button onClick={handleDownloadPDF}
+                            className="rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-opacity-50">Generate
+                        Report
+                    </button>
+                    <a href="/employees/attendance/getAttendance"
+                       className="rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-opacity-50">Get
+                        Attendance <span aria-hidden="true">&rarr;</span></a>
                 </div>
             </div>
 
@@ -134,11 +142,12 @@ const AttendanceList = () => {
                         <option value="Thushari Liyanagama">Thushari Liyanagama</option>
                         <option value="Senanai Rathnapitiya">Senanai Rathnapitiya</option>
                         <option value="Ajith Nanayakkara">Ajith Nanayakkara</option>
+                        <option value="Ajith Nanayakkara">Sumeda Pathirana</option>
                     </select>
                 </div>
 
                 <div>
-                    <label className="text-sm mr-2">Start Date:</label>
+                <label className="text-sm mr-2">Start Date:</label>
                     <input
                         className="rounded-lg border border-gray-300 px-3 py-1"
                         type="date"
@@ -180,8 +189,9 @@ const AttendanceList = () => {
                             <td className="px-6 py-4">{record.e_name}</td>
                             <td className="px-6 py-4">{record.e_date.split("T")[0]}</td>
                             <td className="px-6 py-4">{record.att_status}</td>
+
                             <td className=" py-4 text-right">
-                                <Link to={`#`}
+                                <Link to={`/employees/attendance/viewAttendance/${record._id}`}
                                       className="font-medium text-blue-600  hover:underline">
                                     <InformationCircleIcon
                                         className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
