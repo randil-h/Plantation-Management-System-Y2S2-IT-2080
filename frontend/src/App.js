@@ -30,6 +30,8 @@ import AddNewMachineRecord from "./pages/finance_pages/machine_hours/AddNewMachi
 import EditMachineRecord from "./pages/finance_pages/machine_hours/EditMachineRecord";
 import ViewMachineRecord from "./pages/finance_pages/machine_hours/ViewMachineRecord";
 
+import Settings from "./pages/settings/Settings";
+
 import CropManagement from "./pages/crop_pages/CropManagement";
 import CropRotation from "./pages/crop_pages/Rotation Management/CropRotation";
 import AddRotationPage from "./pages/crop_pages/Rotation Management/AddRotationPage";
@@ -166,6 +168,7 @@ export default function App() {
                     <Route path="/finances/machineHours/editMachineRecords/:id" element={<EditMachineRecord />} />
                     <Route path="/finances/machineHours/viewMachineRecords/:id" element={<ViewMachineRecord />} />
 
+                    <Route path="/settings" element={Settings()}/>
 
                     <Route path="/tourism" element={AgroTourism()}/>
                     <Route path="/feedback" element={Feedback()}/>
