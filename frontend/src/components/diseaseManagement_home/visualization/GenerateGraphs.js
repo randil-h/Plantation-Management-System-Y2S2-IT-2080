@@ -311,17 +311,17 @@ export default function GenerateGraphs() {
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         g.selectAll("circle")
-            .data(counts)
+            .data(sortedDates.map((date, i) => ({ date, value: counts[i]})))
             .enter()
             .append("circle")
-            .attr("cx", (d, i) => x(new Date(sortedDates[i])))
-            .attr("cy", (d) => y(d))
+            .attr("cx", (d, i) => x(new Date(d.date)))
+            .attr("cy", (d) => y(d.value))
             .attr("r", 5)
             .attr("fill", "rgba(0, 226, 29, 0.28)")
-            .on("mouseover", (event, d, i) => {
-
+            .on("mouseover", (event, d) => {
+                const {date, value} = d;
                 tooltip.style("opacity", 1);
-                tooltip.html(`Value: ${d}`)
+                tooltip.html(`Date : ${date} <br> Plants: ${value}`)
                     .style("left", `${event.pageX}px`)
                     .style("top", `${event.pageY}px`);
             })
