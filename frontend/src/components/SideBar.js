@@ -108,14 +108,14 @@ export default function SideBar() {
 
 
     return (
-        <div className="bg-gray-100  bottom-0 top-12 fixed w-1/6  border-r  z-0 flex flex-col justify-between divide-y divide-gray-300">
+        <div className="bg-gray-100  bottom-0 top-12 fixed w-1/6  border-r  flex flex-col justify-between divide-y divide-gray-300">
             {/* First ul */}
             <ul className="flex flex-col items-center text-gray-800 font-medium text-base py-4 px-3">
                 {menuItems.map((item) => (
                     <Link key={item.name} to={item.path} className="w-full flex flex-row">
                         <li
                             className={`flex flex-row w-full h-12 my-1 focus:outline-none focus:ring focus:ring-lime-500 transition-all duration-200 px-1 ${
-                                isActive(item.path) ? "bg-gray-200 text-black rounded-xl px-3 shadow-xl" : "hover:bg-gray-200 hover:rounded-xl hover:shadow-xl"
+                                isActive(item.path) ? "bg-gray-200 text-lime-700  rounded-xl px-3 shadow-xl" : "hover:bg-gray-200 hover:rounded-xl hover:shadow-xl"
                             }`}
                         >
                             <div className="flex items-center justify-between w-full">
@@ -160,7 +160,7 @@ export default function SideBar() {
                     </Link>
                 ))}
                 {/* Add cog icon here */}
-                <li className="flex w-14 h-12 transition-all duration-200  bg-gray-200 hover:bg-gray-300 rounded-full">
+                <li className="flex w-16 h-12 transition-all duration-200  bg-gray-200 hover:bg-gray-300 rounded-full">
                     <Link to="/settings" className="flex items-center justify-center w-full">
                         <Cog8ToothIcon className="w-6 h-6"/>
                     </Link>
