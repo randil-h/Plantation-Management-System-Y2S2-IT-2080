@@ -132,10 +132,10 @@ const EqMaintain = () => {
         if (record.date_received && record.date_received.split('T')[0] === today && record.status === 'In Progress') {
             return 'bg-red-100 text-red-800'; // Red background for In Progress with today's date
         } else if (record.status === 'Completed') {
-            return ''; // No background color for Completed status
+            return '';
         }
 
-        return ''; // Default empty class for other statuses or conditions
+        return '';
     };
 
 

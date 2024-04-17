@@ -8,7 +8,6 @@ import {
 import {
     FaCannabis,
     FaDisease,
-    FaBoxOpen,
     FaTrailer,
 } from "react-icons/fa";
 import { FaMoneyCheck } from "react-icons/fa6";
@@ -24,6 +23,7 @@ import {
 
     Cog6ToothIcon,
 } from '@heroicons/react/24/solid';
+import { MdOutlineInventory2 } from "react-icons/md";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -97,7 +97,7 @@ export default function SideBar() {
         { name: "Finances", path: "/finances/home", icon: BanknotesIcon, count: currentWeekData.transactions },
         { name: "Crops", path: "/crop/home", icon: FaCannabis },
         { name: "Employees", path: "/employees/home", icon: HiUsers },
-        { name: "Inventory", path: "/inventory/home", icon: FaBoxOpen },
+        { name: "Inventory", path: "/inventory/home", icon: MdOutlineInventory2 },
         { name: "Insights", path: "/insights/home", icon: PresentationChartLineIcon },
         { name: "Disease Tracking", path: "/diseases/home", icon: PiVirus },
         { name: "Harvest", path: "/harvest/home", icon: PiTree },

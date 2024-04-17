@@ -142,7 +142,7 @@ const InHome = () => {
                                     <React.Fragment key={index}>
                                         <div className="flex flex-row items-center gap-4 w-full justify-between">
                                             <dd className="text-base tracking-tight sm:text-lg -ml-12 text-left">{record.record_name}</dd>
-                                            <div className="text-base tracking-tight sm:text-lg">
+                                            <div className="text-base tracking-tight sm:text-lg whitespace-nowrap">
                                                 {`${record.quantity} ${record.unit}`}
                                             </div>
                                         </div>
