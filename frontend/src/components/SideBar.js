@@ -28,7 +28,7 @@ import { MdOutlineInventory2 } from "react-icons/md";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { PiCrop, PiTree, PiVirus } from "react-icons/pi";
+import { PiCrop, PiTree, PiVirus,PiUsers } from "react-icons/pi";
 
 const getWeekStartEnd = (date, startOfWeek) => {
     let weekStart = new Date(date);
@@ -97,7 +97,7 @@ export default function SideBar() {
         { name: "Home", path: "/dashboard", icon: HomeIcon },
         { name: "Finances", path: "/finances/home", icon: BanknotesIcon, count: currentWeekData.transactions },
         { name: "Crops", path: "/crop/home", icon: PiPlant },
-        { name: "Employees", path: "/employees/home", icon: HiUsers },
+        { name: "Employees", path: "/employees/home", icon: PiUsers },
         { name: "Inventory", path: "/inventory/home", icon: MdOutlineInventory2 },
         { name: "Insights", path: "/insights/home", icon: PresentationChartLineIcon },
         { name: "Disease Tracking", path: "/diseases/home", icon: PiVirus },
