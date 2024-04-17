@@ -9,7 +9,7 @@ import {
     FaCannabis,
     FaDisease,
     FaBoxOpen,
-    FaTrailer
+    FaTrailer,
 } from "react-icons/fa";
 import {FaMoneyCheck} from "react-icons/fa6";
 
@@ -23,6 +23,8 @@ import {
 
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {PiVirus} from "react-icons/pi";
+
 
 const getWeekStartEnd = (date, startOfWeek) => {
     let weekStart = new Date(date);
@@ -96,7 +98,7 @@ export default function SideBar() {
         {name: "Employees", path: "/employees/home", icon: HiUsers},
         {name: "Inventory", path: "/inventory/home", icon: FaBoxOpen},
         {name: "Insights", path: "/insights/home", icon: HiPresentationChartLine},
-        {name: "Disease Tracking", path: "/diseases/home", icon: FaDisease},
+        {name: "Disease Tracking", path: "/diseases/home", icon: PiVirus},
         {name: "Harvest", path: "/harvest/home", icon: FaTrailer},
     ];
 
