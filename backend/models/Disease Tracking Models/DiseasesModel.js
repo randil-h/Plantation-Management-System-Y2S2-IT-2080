@@ -6,10 +6,16 @@ const DiseaseSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        /*plant_id: {
+        plant_id: {
             type: String,
             required: true,
-        },*/
+            validate: {
+                validator: function(value) {
+                    return /^D\d{3}$/.test(value); // Regex to match 'D' followed by 3 digits
+                },
+                message: props => `${props.value} is not a valid plant ID. Plant ID should start with 'D' followed by 3 digits.`
+            }
+        },
         crop: {
             type: String,
             required: true,
@@ -21,6 +27,15 @@ const DiseaseSchema = mongoose.Schema(
         location: {
             type: String,
             required: true,
+        },
+        plant_count: {
+            type: Number,
+            required: true,
+            validate: {
+                validator: Number.isInteger,
+                message: '{VALUE} is not an integer value'
+            },
+            min: 1,
         },
         treatment: {
             type: String,

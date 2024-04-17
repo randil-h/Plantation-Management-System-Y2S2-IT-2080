@@ -1,25 +1,57 @@
 import React, {useEffect, useRef, useState} from "react";
 import {FaCrop, FaDisease, FaTractor} from "react-icons/fa";
-import {ArrowDownCircleIcon, ArrowUpCircleIcon} from "@heroicons/react/24/outline";
 import axios from "axios";
 import {
     GiField, GiFruitTree,
-    GiHealing,
     GiHealingShield,
-    GiHealthCapsule,
-    GiHealthIncrease, GiHealthNormal, GiHealthPotion,
-    GiMedicalDrip,
     GiMedicines
 } from "react-icons/gi";
-import {FaPlantWilt, FaSunPlantWilt} from "react-icons/fa6";
+import { FaSunPlantWilt} from "react-icons/fa6";
+import moment from "moment";
 
 export default function DiseaseHomeContent(){
 
     const [DiseaseRecords, setDiseaseRecords] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [untreatedPlantsCount, setUntreatedPlantsCount] = useState(0);
+    const [recoveredPlantsCount, setRecoveredPlantsCount] = useState(0);
+    const [underTreatmentPlantsCount, setUnderTreatmentPlantsCount] = useState(0);
 
     useEffect(() => {
         setLoading(true);
+        axios
+            .get("http://localhost:5555/count/untreatedPlants")
+            .then((response) => {
+                setUntreatedPlantsCount(response.data.totalTreesAffected);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+
+        axios
+            .get("http://localhost:5555/count/recoveredPlants")
+            .then((response) => {
+                setRecoveredPlantsCount(response.data.totalTreesAffected);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+
+        axios
+            .get("http://localhost:5555/count/underTreatmentPlants")
+            .then((response) => {
+                setUnderTreatmentPlantsCount(response.data.totalTreesAffected);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+
         axios
             .get("http://localhost:5555/diseases")
             .then((response) => {
@@ -31,9 +63,10 @@ export default function DiseaseHomeContent(){
                 console.log(error);
                 setLoading(false);
             });
+
     }, []);
 
-    const getUntreatedPlantsCount = DiseaseRecords.filter(
+    /*const getUntreatedPlantsCount = DiseaseRecords.filter(
         (record) => record.status === "Not Treated"
     ).length;
 
@@ -43,11 +76,21 @@ export default function DiseaseHomeContent(){
 
     const getUnderTreatmentPlantsCount = DiseaseRecords.filter(
         (record) => record.status === "Under Treatment"
-    ).length
+    ).length*/
+
+    const monthAgo = moment().subtract(31, 'days').format('YYYY-MM-DD');
 
     const getFieldCounts = {};
     DiseaseRecords.forEach((record) => {
-        getFieldCounts[record.location] = (getFieldCounts[record.location] || 0) + 1;
+        /*getFieldCounts[record.location] = (getFieldCounts[record.location] || 0) + 1;*/
+        if(moment(record.date, 'YYYY-MM-DD').isSameOrAfter(monthAgo)) {
+            if(getFieldCounts[record.location]) {
+                getFieldCounts[record.location] += record.plant_count;
+            }
+            else {
+                getFieldCounts[record.location] = record.plant_count;
+            }
+        }
     });
 
     let mostVulnerableField = [];
@@ -61,9 +104,18 @@ export default function DiseaseHomeContent(){
         }
     }
 
+
     const getDiseaseCounts = {};
     DiseaseRecords.forEach((record) => {
-        getDiseaseCounts[record.disease_name] = (getDiseaseCounts[record.disease_name] || 0) + 1;
+        /*getDiseaseCounts[record.disease_name] = (getDiseaseCounts[record.disease_name] || 0) + 1;*/
+        if(moment(record.date, 'YYYY-MM-DD').isSameOrAfter(monthAgo)) {
+            if(getDiseaseCounts[record.disease_name]) {
+                getDiseaseCounts[record.disease_name] += record.plant_count;
+            }
+            else {
+                getDiseaseCounts[record.disease_name] = record.plant_count;
+            }
+        }
     });
 
     let trendingDisease = [];
@@ -79,7 +131,15 @@ export default function DiseaseHomeContent(){
 
     const getCropCount = {};
     DiseaseRecords.forEach((record) => {
-        getCropCount[record.crop] = (getCropCount[record.crop] || 0) + 1;
+        /*getCropCount[record.crop] = (getCropCount[record.crop] || 0) + 1;*/
+        if(moment(record.date, 'YYYY-MM-DD').isSameOrAfter(monthAgo)) {
+            if(getCropCount[record.crop]) {
+                getCropCount[record.crop] += record.plant_count;
+            }
+            else {
+                getCropCount[record.crop] = record.plant_count;
+            }
+        }
     });
 
     let mostVulnerableCrop = [];
@@ -108,13 +168,6 @@ export default function DiseaseHomeContent(){
                         Prioritize the health of your plants by monitoring them effectively.<br/>
                         Explore insights, track disease trends and make your decision making more precise....
                     </p>
-                    {/*<div className="ml-6 items-center justify-between flex flex-col text-center font-medium text-lg mt-2 bg-green-300 rounded-lg shadow-lg hover:bg-green-400">
-                        <div className= "mt-3 mb-3">
-                            Hop on Aboard to the Disease Management Center!!<br/>
-                            Prioritize the health of your plants by monitoring them effectively.<br/>
-                            Explore insights, track disease trends and make your decision making more precise....
-                        </div>
-                    </div>*/}
                     <div className=" justify-between grid-cols-1 ml-6 w-full mt-8 flex flex-wrap items-center md:grid-cols-3">
                         <div
                             className=" py-4 items-center justify-center rounded-lg flex-col flex-1 flex shadow-lg bg-lime-300 max-w-2xl w-full mb-4 mr-4 hover:bg-lime-400">
@@ -125,7 +178,7 @@ export default function DiseaseHomeContent(){
                                 Number of Untreated Plants
                             </div>
                             <div className= " text-center text-lg font-medium">
-                                {getUntreatedPlantsCount}
+                                {untreatedPlantsCount}
                             </div>
                         </div>
                         <div
@@ -137,7 +190,7 @@ export default function DiseaseHomeContent(){
                                 Number of Recovered Plants
                             </div>
                             <div className=" text-center text-lg font-medium">
-                                {getRecoveredPlantsCount}
+                                {recoveredPlantsCount}
                             </div>
                         </div>
                         <div
@@ -149,7 +202,7 @@ export default function DiseaseHomeContent(){
                                 Number of Plants Under Treatment
                             </div>
                             <div className= "text-center text-lg font-medium">
-                                {getUnderTreatmentPlantsCount}
+                                {underTreatmentPlantsCount}
                             </div>
                         </div>
                     </div>

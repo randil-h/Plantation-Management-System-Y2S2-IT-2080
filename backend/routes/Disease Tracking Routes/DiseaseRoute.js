@@ -9,9 +9,11 @@ router.post('/', async (request, response) => {
         console.log('Request Body:', request.body);
         if (
             !request.body.disease_name ||
+            !request.body.plant_id||
             !request.body.crop ||
             !request.body.date ||
             !request.body.location ||
+            !request.body.plant_count ||
             !request.body.treatment ||
             !request.body.severity ||
             !request.body.status
@@ -22,9 +24,11 @@ router.post('/', async (request, response) => {
         }
         const newDiseaseRecord = {
             disease_name: request.body.disease_name,
+            plant_id: request.body.plant_id,
             crop: request.body.crop,
             date: request.body.date,
             location: request.body.location,
+            plant_count: request.body.plant_count,
             treatment: request.body.treatment,
             severity: request.body.severity,
             status: request.body.status,
@@ -74,9 +78,11 @@ router.put('/:id', async (request, response) => {
     try{
         if (
             !request.body.disease_name ||
+            !request.body.plant_id||
             !request.body.crop ||
             !request.body.date ||
             !request.body.location ||
+            !request.body.plant_count ||
             !request.body.treatment ||
             !request.body.severity ||
             !request.body.status

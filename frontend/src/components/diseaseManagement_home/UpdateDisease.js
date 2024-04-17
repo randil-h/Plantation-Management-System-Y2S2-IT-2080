@@ -10,12 +10,14 @@ export default function UpdateDisease() {
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
     const [treatment, setTreatment] = useState('');
+    const [plant_count, setPlantCount] = useState('');
     const [severity, setSeverity] = useState('');
     const [status, setStatus] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const {id} = useParams();
     const { enqueueSnackbar } = useSnackbar();
+    const [diseaseIdError, setDiseaseIdError] = useState('');
 
     useEffect(() => {
         setLoading(true);
@@ -26,6 +28,7 @@ export default function UpdateDisease() {
                 setType(response.data.crop);
                 setDate(response.data.date);
                 setLocation(response.data.location);
+                setPlantCount(response.data.plant_count);
                 setTreatment(response.data.treatment);
                 setSeverity(response.data.severity);
                 setStatus(response.data.status);
@@ -56,6 +59,19 @@ export default function UpdateDisease() {
         }
     };
 
+    const handleDiseaseIdChange = (e) => {
+        const enteredDiseaseId = e.target.value;
+        setId(enteredDiseaseId); // Update plant_id state
+
+        // Validate disease ID format
+        const diseaseIdRegex = /^D\d{3}$/;
+        if (!diseaseIdRegex.test(enteredDiseaseId)) {
+            setDiseaseIdError("Disease ID should start with 'D' followed by 3 digits");
+        } else {
+            setDiseaseIdError("");
+        }
+    };
+
     const handleUpdateDisease = (e) => {
         e.preventDefault()
         const data = {
@@ -64,10 +80,16 @@ export default function UpdateDisease() {
             crop,
             date,
             location,
+            plant_count,
             treatment,
             severity,
             status,
         };
+
+        if (diseaseIdError) {
+            return; // Don't proceed if there's an error
+        }
+
         setLoading(true);
         axios
             .put(`http://localhost:5555/diseases/${id}`, data)
@@ -89,6 +111,16 @@ export default function UpdateDisease() {
                 onSubmit={handleUpdateDisease}
                 className="max-w-md ml-1/3 mt-16 p-4 bg-gray-200 rounded-lg items-center justify-center flex flex-col">
                 <legend className='text-x font-bold mb-2 '>Update Disease Record</legend>
+                <label className='text-md mr-4 text-gray-500 mb-1'>Plant ID</label>
+                <input
+                    type='text'
+                    required
+                    value={plant_id}
+                    onChange={handleDiseaseIdChange}
+                    placeholder="Enter Disease ID"
+                    className='border-2 rounded-md mb-1 border-gray-500 px-4 py-2 w-full'
+                />
+                {diseaseIdError && <span className="text-red-500 text-sm mb-2">{diseaseIdError}</span>}
                 <label className='text-md mr-4 text-gray-500 mb-1'>Disease Name</label>
                 <select
                     value={disease_name}
@@ -104,14 +136,6 @@ export default function UpdateDisease() {
                     <option value="Leaf Curling disease">Leaf Curling Disease</option>
                     <option value="Other">Other</option>
                 </select>
-               {/* <label className='text-md mr-4 text-gray-500 mb-1'>Plant ID</label>
-                <input
-                    type='text'
-                    required
-                    value={plant_id}
-                    onChange={(e) => setId(e.target.value)}
-                    className='border-2 rounded-md mb-5 border-gray-500 px-4 py-2 w-full'
-                />*/}
                 <label className='text-md mr-4 text-gray-500 mb-1'>Crop Type</label>
                 <select
                     value={crop}
@@ -144,6 +168,16 @@ export default function UpdateDisease() {
                     <option value="Field F">Field F</option>
                     <option value="Field G">Field G</option>
                 </select>
+                <label className='text-md mb-1 mr-4 text-gray-500'>Trees Affected</label>
+                <input
+                    type='number'
+                    required
+                    value={plant_count}
+                    onChange={(e) => setPlantCount(e.target.value)}
+                    placeholder= "Enter number of trees affected"
+                    min={1}
+                    className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
+                />
                 <label className='text-md mr-4 mb-1 text-gray-500'>Treatment</label>
                 <input
                     type='text'
@@ -158,6 +192,7 @@ export default function UpdateDisease() {
                     required
                     value={severity}
                     onChange={(e) => setSeverity(e.target.value)}
+                    placeholder="Comment on severity"
                     className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                 />
                 <label className='text-md mr-4 mb-1 text-gray-500'>Status</label>

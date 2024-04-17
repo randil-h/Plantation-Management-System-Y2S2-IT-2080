@@ -38,10 +38,19 @@ export default function GenerateGraphs() {
         const typesOfDiseases = new Map();
 
         DiseaseRecords.forEach((record) => {
-            typesOfDiseases.set(
+            /*typesOfDiseases.set(
                 record.disease_name,
                 (typesOfDiseases.get(record.disease_name) || 0) + 1
-            );
+            );*/
+            if(typesOfDiseases.has(record.disease_name)) {
+                typesOfDiseases.set(
+                    record.disease_name,
+                    typesOfDiseases.get(record.disease_name) + record.plant_count
+                );
+            }
+            else {
+                typesOfDiseases.set(record.disease_name, record.plant_count);
+            }
         });
 
         const labels = [...typesOfDiseases.keys()];
@@ -51,18 +60,18 @@ export default function GenerateGraphs() {
 
         svg.selectAll("*").remove();
 
-        const margin = { top: 20, right: 20, bottom: 60, left: 60 };
-        const width = svg.attr("width") - margin.left - margin.right;
-        const height = svg.attr("height") - margin.top - margin.bottom;
+        const margin = { top: 20, right: 20, bottom: 60, left: 60 };   //set the margins for the graph
+        const width = svg.attr("width") - margin.left - margin.right;   //set width of the graph
+        const height = svg.attr("height") - margin.top - margin.bottom; //set height of the graph
 
         const x = scaleBand()
-            .range([0, width])
-            .padding(0.3)
-            .domain(labels);
+            .range([0, width])          //set x-axis range
+            .padding(0.3)           //set padding between bars
+            .domain(labels);        //x -axis label
 
         const y = scaleLinear()
-            .range([height, 0])
-            .domain([0, Math.max(...data)]);
+            .range([height, 0])        //set y-axis height
+            .domain([0, Math.max(...data)]);    //set y-axis label
 
         const g = svg
             .append("g")
@@ -149,7 +158,16 @@ export default function GenerateGraphs() {
         const typesOfCrops = new Map();
 
         DiseaseRecords.forEach((record) => {
-            typesOfCrops.set(record.crop, (typesOfCrops.get(record.crop) || 0) + 1);
+            /*typesOfCrops.set(record.crop, (typesOfCrops.get(record.crop) || 0) + 1);*/
+            if(typesOfCrops.has(record.crop)) {
+                typesOfCrops.set(
+                    record.crop,
+                    typesOfCrops.get(record.crop) + record.plant_count
+                );
+            }
+            else {
+                typesOfCrops.set(record.crop, record.plant_count);
+            }
         });
 
         const labels1 = [...typesOfCrops.keys()];
@@ -266,7 +284,7 @@ export default function GenerateGraphs() {
             if (!accumulatedCounts.has(date)) {
                 accumulatedCounts.set(date, 0);
             }
-            accumulatedCounts.set(date, accumulatedCounts.get(date) + 1);
+            accumulatedCounts.set(date, accumulatedCounts.get(date) + record.plant_count);
         });
 
         const sortedDates = Array.from(accumulatedCounts.keys()).sort(
