@@ -10,6 +10,7 @@ import {
     FaDisease,
     FaTrailer,
 } from "react-icons/fa";
+import { PiPlant } from "react-icons/pi";
 import { FaMoneyCheck } from "react-icons/fa6";
 
 import {
@@ -95,7 +96,7 @@ export default function SideBar() {
     const menuItems = [
         { name: "Home", path: "/dashboard", icon: HomeIcon },
         { name: "Finances", path: "/finances/home", icon: BanknotesIcon, count: currentWeekData.transactions },
-        { name: "Crops", path: "/crop/home", icon: FaCannabis },
+        { name: "Crops", path: "/crop/home", icon: PiPlant },
         { name: "Employees", path: "/employees/home", icon: HiUsers },
         { name: "Inventory", path: "/inventory/home", icon: MdOutlineInventory2 },
         { name: "Insights", path: "/insights/home", icon: PresentationChartLineIcon },
