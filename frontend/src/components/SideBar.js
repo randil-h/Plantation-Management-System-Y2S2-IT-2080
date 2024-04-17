@@ -17,7 +17,7 @@ import {
  ArrowLeftStartOnRectangleIcon,
     HomeIcon,
     Cog8ToothIcon,
-
+BanknotesIcon
 } from '@heroicons/react/24/outline';
 
 
@@ -93,7 +93,7 @@ export default function SideBar() {
 
     const menuItems = [
         {name: "Home", path: "/dashboard", icon: HomeIcon},
-        {name: "Finances", path: "/finances/home", icon: FaMoneyCheck, count: currentWeekData.transactions},
+        {name: "Finances", path: "/finances/home", icon: BanknotesIcon, count: currentWeekData.transactions},
         {name: "Crops", path: "/crop/home", icon: FaCannabis},
         {name: "Employees", path: "/employees/home", icon: HiUsers},
         {name: "Inventory", path: "/inventory/home", icon: FaBoxOpen},
@@ -103,20 +103,19 @@ export default function SideBar() {
     ];
 
     const systemItems = [
-        {name: "Settings", path: "/harvest/home", icon: Cog8ToothIcon},
-        {name: "Logout", path: "/harvest/home", icon: ArrowLeftStartOnRectangleIcon},
+        {name: "Logout", path: "/", icon: ArrowLeftStartOnRectangleIcon},
     ];
 
 
     return (
-        <div className="bg-gray-100 h-full fixed w-1/6 top-12 border-r z-0 flex flex-col justify-between">
+        <div className="bg-gray-100  bottom-0 top-12 fixed w-1/6  border-r  z-0 flex flex-col justify-between divide-y divide-gray-300">
             {/* First ul */}
             <ul className="flex flex-col items-center text-gray-800 font-medium text-base py-4 px-3">
                 {menuItems.map((item) => (
-                    <Link key={item.name} to={item.path} className="w-full">
+                    <Link key={item.name} to={item.path} className="w-full flex flex-row">
                         <li
-                            className={`flex w-full h-12 my-1 focus:outline-none focus:ring focus:ring-lime-500 transition-all duration-200 px-1 ${
-                                isActive(item.path) ? "bg-gray-200 text-black rounded-xl px-3 shadow-xl" : "hover:bg-gray-200 hover:rounded-xl"
+                            className={`flex flex-row w-full h-12 my-1 focus:outline-none focus:ring focus:ring-lime-500 transition-all duration-200 px-1 ${
+                                isActive(item.path) ? "bg-gray-200 text-black rounded-xl px-3 shadow-xl" : "hover:bg-gray-200 hover:rounded-xl hover:shadow-xl"
                             }`}
                         >
                             <div className="flex items-center justify-between w-full">
@@ -137,11 +136,11 @@ export default function SideBar() {
             </ul>
 
             {/* Second ul */}
-            <ul className="flex flex-col items-center text-gray-800 font-medium text-base py-4 px-3">
+            <ul className="flex flex-row items-center gap-2  font-medium text-base py-4 px-4">
                 {systemItems.map((item) => (
                     <Link key={item.name} to={item.path} className="w-full">
                         <li
-                            className={`flex w-full h-12 my-1 focus:outline-none focus:ring focus:ring-lime-500 transition-all duration-200 px-1 ${
+                            className={`flex text-red-700 w-full h-12 my-1 focus:outline-none focus:ring focus:ring-lime-500 transition-all duration-200 px-1 ${
                                 isActive(item.path) ? "bg-gray-200 text-black rounded-xl px-3" : "hover:bg-gray-200 hover:rounded-xl"
                             }`}
                         >
@@ -160,7 +159,14 @@ export default function SideBar() {
                         </li>
                     </Link>
                 ))}
+                {/* Add cog icon here */}
+                <li className="flex w-14 h-12 transition-all duration-200  bg-gray-200 hover:bg-gray-300 rounded-full">
+                    <Link to="/settings" className="flex items-center justify-center w-full">
+                        <Cog8ToothIcon className="w-6 h-6"/>
+                    </Link>
+                </li>
             </ul>
+
         </div>
 
 
