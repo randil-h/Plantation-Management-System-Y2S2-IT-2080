@@ -8,10 +8,7 @@ import {Link} from "react-router-dom";
 import FinanceTransactionsStatBar from "../../components/finances/finance_transactions/FinanceTransactionsStatBar";
 
 export default function Settings() {
-    const breadcrumbItems = [
-        { name: 'Finance', href: '/finances' },
-        { name: 'Transactions', href: '/finances/transactions' },
-    ];
+
 
     return (
         <div className="">
@@ -24,12 +21,9 @@ export default function Settings() {
                         <SideBar />
                     </div>
                     <div className="w-full col-span-5 flex flex-col relative"> {/* Added relative positioning */}
-                        <div className="flex flex-row ">
-                            <BackButton/>
-                            <Breadcrumb items={breadcrumbItems}/>
-                        </div>
+
                         <div className="flex-grow"> {/* Added flex-grow to take up remaining space */}
-                            <div className="pl-8 py-4">
+                            <div className="pl-8 py-8">
                                 <div className="text-xl font-semibold">
                                     System Settings
                                 </div>
