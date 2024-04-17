@@ -376,9 +376,7 @@ export default function HarvestGraphs() {
                     <h1 className=" text-lg font-semibold text-left">
                         GRAPH VISUALIZATION
                     </h1>
-                    <p className="mt-1 text-sm font-normal text-gray-500 0">
-                        Visualize trends of diseases that escalate throughout the farm...
-                    </p>
+
                 </div>
             </div>
             {HarvestRecords.length === 0 ? (
@@ -389,7 +387,6 @@ export default function HarvestGraphs() {
                 <>
                     <div className="mx-auto px-8  w-fit border-2 rounded-xl border-green-400">
                         <h1 className=" mt-4 text-lg font-bold text-left flex justify-center items-center">
-                            Disease V Records
                         </h1>
                         <div className="  py-4 ">
                             <svg ref={chartContainer} width="800" height="400"></svg>
