@@ -140,8 +140,8 @@ export default function SideBar() {
                 {systemItems.map((item) => (
                     <Link key={item.name} to={item.path} className="w-full">
                         <li
-                            className={`flex text-red-700 w-full h-12 my-1 focus:outline-none focus:ring focus:ring-lime-500 transition-all duration-200 px-1 ${
-                                isActive(item.path) ? "bg-gray-200 text-black rounded-xl px-3" : "hover:bg-red-100 hover:shadow-xl hover:rounded-xl"
+                            className={`flex text-gray-700 w-full h-12 my-1 focus:outline-none focus:ring focus:ring-lime-500 transition-all duration-200 px-1 ${
+                                isActive(item.path) ? "bg-gray-200 text-black rounded-xl px-3" : "hover:bg-red-100 hover:text-red-700 hover:shadow-xl hover:rounded-xl"
                             }`}
                         >
                             <div className="flex items-center justify-between w-full">
