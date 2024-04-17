@@ -23,7 +23,7 @@ import {
 
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {PiVirus} from "react-icons/pi";
+import {PiCrop, PiTree, PiVirus} from "react-icons/pi";
 
 
 const getWeekStartEnd = (date, startOfWeek) => {
@@ -99,7 +99,7 @@ export default function SideBar() {
         {name: "Inventory", path: "/inventory/home", icon: FaBoxOpen},
         {name: "Insights", path: "/insights/home", icon: HiPresentationChartLine},
         {name: "Disease Tracking", path: "/diseases/home", icon: PiVirus},
-        {name: "Harvest", path: "/harvest/home", icon: FaTrailer},
+        {name: "Harvest", path: "/harvest/home", icon: PiTree},
     ];
 
     const systemItems = [
