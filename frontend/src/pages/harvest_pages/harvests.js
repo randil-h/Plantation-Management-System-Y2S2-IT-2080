@@ -41,9 +41,7 @@ export default function harvest() {
                          </div>
                      </div>
 
-                     <div>
-                         <LastMonthHarvestRecords/>
-                     </div>
+
                  </div>
 
              </div>

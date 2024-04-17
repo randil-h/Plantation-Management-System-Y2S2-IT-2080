@@ -66,7 +66,7 @@ function LastMonthHarvestRecords() {
                 </div>
 
 
-            )
+
             <div>
                 <HarvestGraphs/>
             </div>

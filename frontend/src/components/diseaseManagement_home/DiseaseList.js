@@ -9,9 +9,6 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {enqueueSnackbar, useSnackbar} from "notistack";
 import {jsPDF} from "jspdf";
 
-
-
-
 export default function DiseaseList() {
 
      const [DiseaseRecords, setDiseaseRecords] = useState([]);
@@ -77,7 +74,6 @@ export default function DiseaseList() {
             return;
         }
 
-
         const filteredDiseaseData = DiseaseRecords.filter(record => {
             const recordDate = new Date(record.date);
             const dateRange = recordDate >= new Date(startDate) && recordDate <= new Date(endDate);
@@ -85,40 +81,62 @@ export default function DiseaseList() {
             return dateRange && selectedLocation;
         });
 
-        const doc = new jsPDF();
-        doc.text(`Disease Report`, 10, 10);
-        doc.text(`From ${startDate} To ${endDate}`, 10, 20);
-        doc.text(`Location :  ${location}`, 10, 30);
+        const doc = new jsPDF({orientation: 'landscape'});
 
-        const headers = ["Disease Name", "Crop Type", "Date", "Severity", "Treatment", "Status"];
+        doc.text(`DISEASE REPORT`, 10, 10);
+        doc.text(`From ${startDate} To ${endDate}`, 10,  20);
+        doc.text(`Location :  ${location}`, 10,  30);
+
+        const headers = ["Disease Name", "Crop Type", "Date","Trees Affected", "Severity", "Treatment", "Status"];
         if(location === "All Fields") {
             headers.splice(3,0, "Location");
         }
         const tableData = [headers];
+
+        let totalAffectedTrees = 0;
+        let totalRecoveredTrees = 0;
 
         filteredDiseaseData.forEach(record => {
             const rowData = [
                 record.disease_name,
                 record.crop,
                 record.date,
-                location === "All Fields" ? record.location : record.severity,
+                location === "All Fields" ? record.location : record.plant_count,
+                location === "All Fields" ? record.plant_count : record.severity,
                 location === "All Fields" ? record.severity : record.treatment,
                 location === "All Fields" ? record.treatment : record.status,
                 record.status
             ];
+
             tableData.push(rowData);
+
+            totalAffectedTrees += record.plant_count;
+
+            if(record.status === "Recovered")
+            {
+                totalRecoveredTrees += record.plant_count;
+            }
+
         });
 
+        const leftMargin = 10;
         const table = doc.autoTable({
             head: [headers],
             body: tableData.slice(1),
             startY: 40,
             styles: {overflow: 'linebreak', columnWidth: 'wrap'},
-            theme: 'striped'
+            theme: 'striped',
+            columnStyles: {
+                6: {columnWidth: 70}
+            }
         });
 
+        const recPercentage = ((totalRecoveredTrees / totalAffectedTrees) * 100).toFixed(3);
+
         const totalRecords = filteredDiseaseData.length;
-        doc.text(`Total Number of diseased plants detected : ${totalRecords}`, 10, table.lastAutoTable.finalY + 10);
+        doc.text(`Total Number of diseased plants detected : ${totalAffectedTrees}`, 10, table.lastAutoTable.finalY + 10);
+        doc.text(`Total Number of plants recovered : ${totalRecoveredTrees}`, 10, table.lastAutoTable.finalY + 20);
+        doc.text(`Recovery Percentage : ${recPercentage} %`, 10, table.lastAutoTable.finalY + 30);
 
         doc.save('disease_report.pdf');
     }
@@ -152,8 +170,6 @@ export default function DiseaseList() {
                         </Link>
                     </button>
                     &nbsp;
-
-
                 </div>
             </div>
             <div className="flex flex-row justify-between items-center px-8 py-4 text-base mb-2 text-gray-700">
@@ -198,11 +214,12 @@ export default function DiseaseList() {
                     className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                 <tr className=" ">
                     <th></th>
+                    <th scope="col" className="px-6 py-3"> Disease ID</th>
                     <th scope="col" className="px-6 py-3">Disease Name</th>
-                    {/*<th scope="col" className="px-6 py-3"> Plant ID</th>*/}
                     <th scope="col" className="px-6 py-3">Crop Type</th>
                     <th scope="col" className="px-6 py-3">Date</th>
                     <th scope="col" className="px-6 py-3">Location</th>
+                    <th scope="col" className="px-6 py-3">Trees Affected</th>
                     <th scope="col" className="px-6 py-3">Severity</th>
                     <th scope="col" className="px-6 py-3">Treatment</th>
                     <th scope="col" className="px-6 py-3">Status</th>
@@ -218,11 +235,11 @@ export default function DiseaseList() {
                     <tr key={drecord._id} className='divide-y'>
                         <td></td>
                         <td className='px-6 py-4'>
+                            {drecord.plant_id}
+                        </td>
+                        <td className='px-6 py-4'>
                             {drecord.disease_name}
                         </td>
-                        {/*<td className='px-6 py-4'>
-                            {drecord.plant_id}
-                        </td>*/}
                         <td className='px-6 py-4'>
                             {drecord.crop}
                         </td>
@@ -231,6 +248,9 @@ export default function DiseaseList() {
                         </td>
                         <td className='px-6 py-4'>
                             {drecord.location}
+                        </td>
+                        <td className='px-6 py-4'>
+                            {drecord.plant_count}
                         </td>
                         <td className='px-6 py-4'>
                             {drecord.severity}
@@ -267,8 +287,6 @@ export default function DiseaseList() {
                         </td>
                     </tr>
                 ))}
-
-
                 </tbody>
             </table>
         </div>
