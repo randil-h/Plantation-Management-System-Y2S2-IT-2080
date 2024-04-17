@@ -23,6 +23,12 @@ import {
 
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {TreeSelect} from "antd";
+import Tree from "antd/lib/tree/Tree";
+import {GiFruitTree} from "react-icons/gi";
+import {GrTree} from "react-icons/gr";
+import {BsTree} from "react-icons/bs";
+import {RiTreeLine} from "react-icons/ri";
 
 const getWeekStartEnd = (date, startOfWeek) => {
     let weekStart = new Date(date);
@@ -97,7 +103,7 @@ export default function SideBar() {
         {name: "Inventory", path: "/inventory/home", icon: FaBoxOpen},
         {name: "Insights", path: "/insights/home", icon: HiPresentationChartLine},
         {name: "Disease Tracking", path: "/diseases/home", icon: FaDisease},
-        {name: "Harvest", path: "/harvest/home", icon: FaTrailer},
+        {name: "Harvest", path: "/harvest/home", icon: RiTreeLine},
     ];
 
     const systemItems = [
