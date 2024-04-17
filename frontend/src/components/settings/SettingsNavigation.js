@@ -2,14 +2,13 @@ import React, { Fragment, useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
-    { name: "HOME", path: "/finances/home" },
-    { name: "TRANSACTIONS", path: "/finances/transactions" },
-    { name: "VALUATION", path: "/finances/valuation" },
-    { name: "MACHINE HOURS", path: "/finances/machineHours" },
-    { name: "SALARY PAYMENTS", path: "/finances/salaryPayment" },
+    { name: "GENERAL", path: "/settings" },
+    { name: "CROPS", path: "/settings/crops" },
+    { name: "INVENTORY", path: "/settings/inventory" },
+    { name: "PESTICIDES", path: "/settings/pesticides" },
 ];
 
-export default function FinanceNavigation() {
+export default function SettingsNavigation() {
     const [open, setOpen] = useState(false);
     const location = useLocation();
     const [activeTab, setActiveTab] = useState(null);

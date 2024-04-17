@@ -97,8 +97,14 @@ function EditMachineRecord() {
 
                             <form className=" flex-col flex items-center justify-center">
                                 <div className="space-y-12 px-0 py-8 w-8/12 ">
-                                    <div className="border-b border-gray-900/10 pb-12">
-                                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
+                                    <div className="">
+                                        <legend
+                                            className="text-sm font-semibold leading-6 text-gray-900">Machine
+                                            type
+                                        </legend>
+                                        <p className="mt-1 text-sm leading-6 text-gray-600">Specify the type of the
+                                            rented machine.</p>
+                                        <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
                                             <div className="sm:col-span-2 sm:col-start-1">
                                                 <label htmlFor="type"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
@@ -111,7 +117,7 @@ function EditMachineRecord() {
                                                         onChange={(e) => setType(e.target.value)}
                                                         id="type"
                                                         autoComplete="type"
-                                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                     >
                                                         <option>Excavator small</option>
                                                         <option>Excavator Large</option>
@@ -135,7 +141,7 @@ function EditMachineRecord() {
                                                     onChange={(e) => setDate(e.target.value)}
                                                     id="date"
                                                     required
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 
@@ -152,7 +158,7 @@ function EditMachineRecord() {
                                                     onChange={(e) => setHours(e.target.value)}
                                                     type="text"
                                                     pattern="[1-9]\d*" // Only allows positive integers
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                     title="Please enter only numbers" // Error message if pattern doesn't match
                                                     required // Makes the field required
                                                 />
@@ -169,7 +175,7 @@ function EditMachineRecord() {
                                                     value={rate}
                                                     onChange={(e) => setRate(e.target.value)}
                                                     id="rate"
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 
@@ -187,7 +193,7 @@ function EditMachineRecord() {
                                                     onChange={(e) => setDescription(e.target.value)}
                                                     autoComplete="description"
                                                     required
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 
@@ -204,7 +210,7 @@ function EditMachineRecord() {
                                                     value={payerPayee}
                                                     onChange={(e) => setPayerPayee(e.target.value)}
                                                     id="payer_payee"
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 
@@ -229,22 +235,30 @@ function EditMachineRecord() {
 
 
                                         </div>
-                                        <div className="mt-6 flex items-center justify-end gap-x-6">
-                                            <button type="button"
-                                                    className="text-sm font-semibold leading-6 text-gray-900"
-                                                    onClick={handleCancel}>
-                                                Cancel
-                                            </button>
-                                            <button
-                                                onClick={handleEditMachineRecord}
-                                                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                            >
-                                                Save
-                                            </button>
-                                        </div>
+
                                     </div>
                                 </div>
                             </form>
+                            <div
+                                className="h-14  sticky border-b z-10 bottom-0 left-0 right-0 bg-gray-100 bg-opacity-50 backdrop-blur border-t"
+                                id="savebar">
+                                <div
+                                    className="flex justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
+                                    <button type="button"
+                                            className="rounded-full bg-gray-300 px-4 py-1 hover:bg-gray-400 text-sm font-semibold  text-gray-900"
+                                            onClick={handleCancel}>
+                                        Cancel
+                                    </button>
+
+                                    <button
+                                        onClick={handleEditMachineRecord}
+                                        className="rounded-full bg-lime-200 px-4 py-1 text-sm font-semibold text-gray-900 shadow-sm hover:bg-lime-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600"
+                                    >
+                                        Save
+                                    </button>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

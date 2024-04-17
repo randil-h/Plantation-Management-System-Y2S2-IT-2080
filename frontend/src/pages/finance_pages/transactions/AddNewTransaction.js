@@ -105,9 +105,9 @@ function AddNewTransaction() {
                             </div>
 
                             <form className=" flex-col flex items-center justify-center">
-                                <div className="space-y-8 px-0 py-2 w-8/12 ">
-                                    <div className="border-b border-gray-900/10 pb-12">
-                                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                <div className="space-y-8 px-0  w-8/12 ">
+                                    <div className=" relative">
+                                        <div className="pb-12 mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                             <fieldset className="sm:col-span-4 gap-y-8">
                                                 <legend
                                                     className="text-sm font-semibold leading-6 text-gray-900">Transaction
@@ -124,7 +124,7 @@ function AddNewTransaction() {
                                                             value="income"
                                                             checked={type === 'income'}
                                                             onChange={handleTypeChange}
-                                                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                            className="h-4 w-4 border-gray-300 text-lime-600 focus:ring-lime-600"
                                                         />
                                                         <label htmlFor="income"
                                                                className="block text-sm font-medium leading-6 text-gray-900">
@@ -139,7 +139,7 @@ function AddNewTransaction() {
                                                             value="expense"
                                                             checked={type === 'expense'}
                                                             onChange={handleTypeChange}
-                                                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                                            className="h-4 w-4 border-gray-300 text-lime-600 focus:ring-lime-600"
                                                         />
                                                         <label htmlFor="expense"
                                                                className="block text-sm font-medium leading-6 text-gray-900">
@@ -161,7 +161,7 @@ function AddNewTransaction() {
                                                         onChange={(e) => setSubType(e.target.value)}
                                                         id="subtype"
                                                         autoComplete="subtype"
-                                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                     >
                                                         {type === 'income' ? (
                                                             <>
@@ -201,7 +201,7 @@ function AddNewTransaction() {
                                                     onChange={(e) => setDate(e.target.value)}
                                                     id="date"
                                                     required
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 
@@ -213,11 +213,12 @@ function AddNewTransaction() {
                                                     id="amount"
                                                     name="amount"
                                                     value={amount}
+                                                    required={true}
                                                     onChange={handleAmountChange}
                                                     type="text"
                                                     className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${
                                                         validation.amount ? 'ring-gray-300' : 'ring-red-500'
-                                                    } focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
+                                                    } focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6`}
                                                 />
                                                 {!validation.amount && (
                                                     <p className="mt-2 text-sm text-red-600" id="amount-error">
@@ -241,7 +242,7 @@ function AddNewTransaction() {
                                                     onChange={(e) => setDescription(e.target.value)}
                                                     autoComplete="description"
                                                     required
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 
@@ -258,7 +259,7 @@ function AddNewTransaction() {
                                                     value={payerPayee}
                                                     onChange={(e) => setPayerPayee(e.target.value)}
                                                     id="payer_payee"
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 
@@ -275,7 +276,7 @@ function AddNewTransaction() {
                                                         onChange={(e) => setMethod(e.target.value)}
                                                         id="method"
                                                         autoComplete="method"
-                                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                     >
                                                         <option>Cheque</option>
                                                         <option>Cash</option>
@@ -284,24 +285,32 @@ function AddNewTransaction() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="mt-6 flex items-center justify-end gap-x-6">
-                                            <button type="button"
-                                                    className="text-sm font-semibold leading-6 text-gray-900"
-                                                    onClick={handleCancel}>
-                                                Cancel
-                                            </button>
 
-                                            <button
-                                                onClick={handleSaveTransactionRecord}
-                                                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                            >
-                                                Save
-                                            </button>
 
-                                        </div>
                                     </div>
                                 </div>
                             </form>
+
+                            <div
+                                className="h-14  sticky border-b z-10 bottom-0 left-0 right-0 bg-gray-100 bg-opacity-50 backdrop-blur border-t"
+                                id="savebar">
+                                <div
+                                    className="flex justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
+                                    <button type="button"
+                                            className="rounded-full bg-gray-300 px-4 py-1 hover:bg-gray-400 text-sm font-semibold  text-gray-900"
+                                            onClick={handleCancel}>
+                                        Cancel
+                                    </button>
+
+                                    <button
+                                        onClick={handleSaveTransactionRecord}
+                                        className="rounded-full bg-lime-200 px-4 py-1 text-sm font-semibold text-gray-900 shadow-sm hover:bg-lime-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600"
+                                    >
+                                        Save
+                                    </button>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

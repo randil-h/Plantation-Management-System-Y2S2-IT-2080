@@ -75,9 +75,15 @@ function AddNewMachineRecord() {
                             </div>
 
                             <form className=" flex-col flex items-center justify-center">
-                                <div className="space-y-12 px-0 py-8 w-8/12 ">
-                                    <div className="border-b border-gray-900/10 pb-12">
-                                        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
+                                <div className="space-y-12 pt-4 px-0 pb-16 w-8/12 ">
+                                    <div className="">
+                                        <legend
+                                            className="text-sm font-semibold leading-6 text-gray-900">Machine
+                                            type
+                                        </legend>
+                                        <p className="mt-1 text-sm leading-6 text-gray-600">Specify the type of the rented machine.</p>
+                                        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
+
                                             <div className="sm:col-span-2 sm:col-start-1">
                                                 <label htmlFor="type"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
@@ -208,22 +214,32 @@ function AddNewMachineRecord() {
 
 
                                         </div>
-                                        <div className="mt-6 flex items-center justify-end gap-x-6">
-                                            <button type="button"
-                                                    className="text-sm font-semibold leading-6 text-gray-900"
-                                                    onClick={handleCancel}>
-                                                Cancel
-                                            </button>
-                                            <button
-                                                onClick={handleSaveMachineRecord}
-                                                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                            >
-                                                Save
-                                            </button>
-                                        </div>
+
                                     </div>
+
                                 </div>
                             </form>
+
+                            <div
+                                className="h-14  sticky border-b z-10 bottom-0 left-0 right-0 bg-gray-100 bg-opacity-50 backdrop-blur border-t"
+                                id="savebar">
+                                <div
+                                    className="flex justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
+                                    <button type="button"
+                                            className="rounded-full bg-gray-300 px-4 py-1 hover:bg-gray-400 text-sm font-semibold  text-gray-900"
+                                            onClick={handleCancel}>
+                                        Cancel
+                                    </button>
+
+                                    <button
+                                        onClick={handleSaveMachineRecord}
+                                        className="rounded-full bg-lime-200 px-4 py-1 text-sm font-semibold text-gray-900 shadow-sm hover:bg-lime-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600"
+                                    >
+                                        Save
+                                    </button>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
