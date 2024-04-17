@@ -33,6 +33,9 @@ import AttendanceRoute from "./routes/Employee Routes/AttendanceRoute.js";
 
 //import productModel from "./models/Wholesale Models/ProductModel.js";
 
+import MarketPriceRoute from "./routes/FarmAnalysis Routes/MarketPriceRoute.js";
+import DiseaseCountRoute from "./routes/Disease Tracking Routes/DiseaseCountRoute.js";
+import TreatmentSelectionRoute from "./routes/Disease Tracking Routes/TreatmentSelectionRoute.js";
 
 const app = express();
 
@@ -70,6 +73,7 @@ app.use('/feedbacklist',FeedbackRoute);
 app.use('/feedback',FeedbackRoute);
 
 app.use('/diseases', DiseaseRoute);
+app.use('/marketprice', MarketPriceRoute);
 
 app.use('/rotation', RotationRoute);
 
@@ -88,6 +92,10 @@ app.use('/orderRecords', OrderRoute);
 
 
 app.use('/record', recordRoute);
+
+app.use('/checkTreatment',TreatmentSelectionRoute);
+app.use('/count', DiseaseCountRoute);
+
 mongoose
     .connect(mongoDBURL)
     .then(() => {
