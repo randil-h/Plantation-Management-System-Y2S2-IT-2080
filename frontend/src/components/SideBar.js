@@ -107,9 +107,36 @@ export default function SideBar() {
 
 
     return (
-        <div className="bg-gray-100 h-screen fixed w-1/6 top-12 border-r z-0">
+        <div className="bg-gray-100 h-full fixed w-1/6 top-12 border-r z-0 flex flex-col justify-between">
+            {/* First ul */}
             <ul className="flex flex-col items-center text-gray-800 font-medium text-base py-4 px-3">
                 {menuItems.map((item) => (
+                    <Link key={item.name} to={item.path} className="w-full">
+                        <li
+                            className={`flex w-full h-12 my-1 focus:outline-none focus:ring focus:ring-lime-500 transition-all duration-200 px-1 ${
+                                isActive(item.path) ? "bg-gray-200 text-black rounded-xl px-3 shadow-xl" : "hover:bg-gray-200 hover:rounded-xl"
+                            }`}
+                        >
+                            <div className="flex items-center justify-between w-full">
+                                <div className="pl-3 flex items-center">
+                                    {item.icon && <item.icon className="mr-4 h-5 w-5"/>}
+                                    {item.name}
+                                </div>
+                                {isActive(item.path) && item.count && (
+                                    <span
+                                        className="bg-gray-600 rounded-full w-5 h-5 mr-2 flex items-center justify-center text-xs text-gray-100">
+                            {item.count}
+                        </span>
+                                )}
+                            </div>
+                        </li>
+                    </Link>
+                ))}
+            </ul>
+
+            {/* Second ul */}
+            <ul className="flex flex-col items-center text-gray-800 font-medium text-base py-4 px-3">
+                {systemItems.map((item) => (
                     <Link key={item.name} to={item.path} className="w-full">
                         <li
                             className={`flex w-full h-12 my-1 focus:outline-none focus:ring focus:ring-lime-500 transition-all duration-200 px-1 ${
@@ -124,15 +151,14 @@ export default function SideBar() {
                                 {isActive(item.path) && item.count && (
                                     <span
                                         className="bg-gray-600 rounded-full w-5 h-5 mr-2 flex items-center justify-center text-xs text-gray-100">
-                                {item.count}
-                            </span>
+                            {item.count}
+                        </span>
                                 )}
                             </div>
                         </li>
                     </Link>
                 ))}
             </ul>
-
         </div>
 
 
