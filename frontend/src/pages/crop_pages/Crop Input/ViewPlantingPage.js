@@ -21,10 +21,10 @@ export default function ViewPlantingPage() {
             </div>
             <div className="flex-grow flex flex-col items-center justify-center">
                 <div className="grid sm:grid-cols-6 w-full">
-                    <div className="col-span-1 sticky left-0 top-0 z-50">
+                    <div className="  col-span-1 sticky top-0">
                         <SideBar/>
                     </div>
-                    <div className="col-span-5">
+                    <div className="col-span-5 flex flex-col">
                         <CropNavigation/>
                         <div className="flex flex-row ">
                             <BackButton/>
