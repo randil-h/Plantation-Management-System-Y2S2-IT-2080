@@ -7,6 +7,7 @@ import WholeSaleProduct from "../../../components/WholeSale_Management/WholeSale
 import { TbShoppingCartCopy } from "react-icons/tb";
 import MyOrderIcon from "../../../components/WholeSale_Management/MyOrderIcon";
 import Footer from "../../../components/utility/Footer";
+import Subscribe_newsletter from "../../../components/landingPage/subscribe_newsletter";
 
 export default function WholeSaleTransaction() {
     return (
@@ -18,6 +19,9 @@ export default function WholeSaleTransaction() {
                     <MyOrderIcon />
                 </div>
                 <OrderPlacingForm />
+
+                <Subscribe_newsletter/>
+                <Footer/>
             </div>
         </div>
     );

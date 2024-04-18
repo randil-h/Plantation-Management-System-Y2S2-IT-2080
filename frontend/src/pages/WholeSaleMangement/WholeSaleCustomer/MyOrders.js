@@ -9,6 +9,7 @@ import {dividerClasses} from "@mui/material";
 import OrderHistory from "../../../components/WholeSale_Management/OrderHistory";
 import {TbShoppingCartCopy} from "react-icons/tb";
 import Footer from "../../../components/utility/Footer";
+import Subscribe_newsletter from "../../../components/landingPage/subscribe_newsletter";
 
 
 export default function MyOrders() {
@@ -40,12 +41,11 @@ export default function MyOrders() {
                     </div>
                 </div>
 
-                <div>
                 <OrderHistory/>
-                </div>
-                {/*<div>*/}
-                {/*    <Footer/>*/}
-                {/*</div>*/}
+
+                <Subscribe_newsletter/>
+                <Footer/>
+
             </div>
         </div>
     );
