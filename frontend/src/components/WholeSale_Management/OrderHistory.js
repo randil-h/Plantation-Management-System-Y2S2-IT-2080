@@ -25,6 +25,17 @@ const OrderHistory = () => {
             });
     }, []);
 
+    const handleDelete = (recordId) => {
+        axios
+            .delete(`http://localhost:5555/orderRecords/${recordId}`)
+            .then(() => {
+                setOrderRecords(prevRecord => prevRecord.filter(record => record._id !== recordId));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
 
     return (
 
@@ -130,8 +141,7 @@ const OrderHistory = () => {
                                     <td className=" ">
                                         <button
                                             className="flex items-center"
-                                            //onClick={() => handleDelete(record._id)}
-
+                                            onClick={() => handleDelete(record._id)}
                                         >
                                             <TrashIcon
                                                 className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
