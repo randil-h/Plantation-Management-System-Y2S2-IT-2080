@@ -23,6 +23,9 @@ export default function SalaryProcessingSection() {
     const [otRate, setOtRate] = useState(0);
     const [epfEtf, setEpfEtf] = useState(6);
 
+    const [id, setID] = useState('');
+
+
 
 
     const [loading, setLoading] = useState(false);
@@ -78,10 +81,10 @@ export default function SalaryProcessingSection() {
             });
     }, []);
 
-    const [selectedNIC, setSelectedNIC] = useState('882003456781');
+    const [selectedID, setSelectedID] = useState(null);
 
-    const handleRadioChange = (nic) => {
-        setSelectedNIC(nic);
+    const handleRadioChange = (id) => {
+        setSelectedID(id);
     };
 
     const handleDateChange = (dates) => {
@@ -91,6 +94,23 @@ export default function SalaryProcessingSection() {
         }
     };
 
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(`http://localhost:5555/employeeRecords/${id}`)
+            .then((response) => {
+                setEmpName(response.data.f_name);
+                setType(response.data.emp_type);
+                setBasicRate(response.data.h_rate);
+                setNIC(response.data.nic);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
+
 
     return (
         <div className="border-t ">
@@ -99,14 +119,14 @@ export default function SalaryProcessingSection() {
                 <div className="w-1/3 bg-gray-50 h-fit mb-14 overscroll-auto border-r  bottom-14" id="employeelist">
                     <ul role="list" className="divide-y divide-gray-300">
                         {RegistrationRecords.map((person) => (
-                            <li key={person.nic}
+                            <li key={person._id}
                                 className={``}>
-                                <label htmlFor={person.nic}
-                                       className={`py-5 px-4 flex hover:bg-lime-50 transition-all hover:shadow-xl duration-200  justify-between gap-x-4 ${selectedNIC === person.nic ? 'bg-lime-100 border-l-4 border-lime-600 shadow-xl' : ''}`}>
+                                <label htmlFor={person._id}
+                                       className={`py-5 px-4 flex hover:bg-lime-50 transition-all hover:shadow-xl duration-200  justify-between gap-x-4 ${selectedID === person._id ? 'bg-lime-100 border-l-4 border-lime-600 shadow-xl' : ''}`}>
                                     <div className="flex min-w-0 gap-x-4">
                                         <div className="min-w-0 flex-auto">
                                             <p className="text-sm font-semibold leading-6 text-gray-900">{person.f_name} {person.l_name}</p>
-                                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person.nic}</p>
+                                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person._id}</p>
                                         </div>
                                     </div>
                                     <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
@@ -115,12 +135,12 @@ export default function SalaryProcessingSection() {
                                     </div>
                                     <input
                                         type="radio"
-                                        id={person.nic}
+                                        id={person._id}
                                         name="employee"
                                         className="size-0 invisible"
                                         value={person.nic}
-                                        checked={selectedNIC === person.nic}
-                                        onChange={() => handleRadioChange(person.nic)}
+                                        checked={selectedID === person._id}
+                                        onChange={() => handleRadioChange(person._id)}
                                     />
                                 </label>
                             </li>
@@ -133,7 +153,7 @@ export default function SalaryProcessingSection() {
                     <form className="flex-col flex items-center justify-center">
                         <div className="space-y-12 px-0 py-8 w-8/12">
                             <div className="">
-                                <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                <div className="mt-4  grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
 
                                     {/* EPM Name */}
                                     <div className="sm:col-span-2 sm:col-start-1">
@@ -302,17 +322,36 @@ export default function SalaryProcessingSection() {
                                         </div>
                                     </div>
 
-                                    {/* Salary Date Range */}
+                                    {/* start Date */}
                                     <div className="sm:col-span-2">
-                                        <label htmlFor="salary_dates"
+                                        <label htmlFor="payment_date"
                                                className="block text-sm font-medium leading-6 text-gray-900">
-                                            Salary Date Range
+                                            Salary Start Date
                                         </label>
                                         <div className="mt-2">
-                                            <DatePicker.RangePicker
-                                                value={[moment(salaryStartDate), moment(salaryEndDate)]}
-                                                onChange={handleDateChange}
-                                                className="w-full"
+                                            <input
+                                                type="date"
+                                                value={paymentDate}
+                                                onChange={(e) => setPaymentDate(e.target.value)}
+                                                id="payment_date"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* end Date */}
+                                    <div className="sm:col-span-2">
+                                        <label htmlFor="payment_date"
+                                               className="block text-sm font-medium leading-6 text-gray-900">
+                                            Salary End Date
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="date"
+                                                value={paymentDate}
+                                                onChange={(e) => setPaymentDate(e.target.value)}
+                                                id="payment_date"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                             />
                                         </div>
                                     </div>
@@ -355,7 +394,7 @@ export default function SalaryProcessingSection() {
                               to="/dashboard">
                             Cancel
                         </Link>
-                        <Link className="bg-blue-200 rounded-full py-1 px-4 hover:bg-blue-300"
+                        <Link className="bg-amber-200 rounded-full py-1 px-4 hover:bg-amber-300"
                               to="/dashboard">
                             Generate Receipt
                         </Link>
