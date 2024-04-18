@@ -1,35 +1,51 @@
 import mongoose from 'mongoose';
 const FinanceSchema = mongoose.Schema(
     {
-        date: {
+        payment_date: {
             type: String,
-            required: false,
+            required: true,
+        },
+        epm_name: {
+            type: String,
+            required: true,
+        },
+        salary_start_date: {
+            type: String,
+            required: true,
+        },
+        salary_end_date: {
+            type: String,
+            required: true,
+        },
+        nic: {
+            type: String,
+            required: true,
         },
         type: {
             type: String,
             required: false,
         },
-        subtype: {
-            type: String,
-            required: false,
-        },
-        quantity: {
+        basic_days: {
             type: Number,
             required: false,
         },
-        price: {
+        basic_rate: {
             type: Number,
             required: false,
         },
-        description: {
-            type: String,
+        bonus_salary: {
+            type: Number,
             required: false,
         },
-        payer_payee: {
-            type: String,
+        ot_hours: {
+            type: Number,
             required: false,
         },
-        appreciationOrDepreciation: {
+        ot_rate: {
+            type: Number,
+            required: false,
+        },
+        epf_etf: {
             type: Number,
             required: false,
         }
@@ -39,7 +55,7 @@ const FinanceSchema = mongoose.Schema(
     }
 );
 
-export const ValuationsRecord = mongoose.model('ValuationsRecord', FinanceSchema);
+export const SalaryRecord = mongoose.model('SalaryRecord', FinanceSchema);
 
 
 

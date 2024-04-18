@@ -5,6 +5,7 @@ import Navbar from "../../../components/utility/Navbar";
 import FinanceNavigation from "../../../components/finances/FinanceNavigation";
 import BackButton from "../../../components/utility/BackButton";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
+import SalaryProcessingSection from "../../../components/finances/finance_salary/SalaryProcessingSection";
 
 
 export default function SalaryPayments() {
@@ -22,7 +23,7 @@ export default function SalaryPayments() {
             </div>
             <div className="">
                 <div className="grid sm:grid-cols-6 ">
-                    <div className="  col-span-1 sticky left-0 top-0">
+                    <div className="z-10  col-span-1 sticky left-0 top-0">
                         <SideBar/>
                     </div>
 
@@ -46,6 +47,10 @@ export default function SalaryPayments() {
                                     </a>
                                 </div>
                             </div>
+                            <div>
+                                <SalaryProcessingSection/>
+                            </div>
+
                         </div>
                     </div>
                 </div>
