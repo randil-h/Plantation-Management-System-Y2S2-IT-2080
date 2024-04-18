@@ -11,7 +11,6 @@ import {TbShoppingCartCopy} from "react-icons/tb";
 import MyOrderIcon from "../../../components/WholeSale_Management/MyOrderIcon";
 import Footer from "../../../components/utility/Footer";
 
-
 export default function PlaceOrder() {
     return (
         <div className="">
@@ -38,6 +37,7 @@ export default function PlaceOrder() {
                 </div>
 
                 <WholeSaleProduct/>
+
                 <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
                     <div className="mx-auto max-w-xs px-8">
                         <a href="/wholesaleDashboard"
