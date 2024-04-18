@@ -11,6 +11,7 @@ const OrderHistory = () => {
     const [filteredRecords, setFilteredRecords] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     // const id = useId();
+    const [progress, setProgress] = useState(50);
 
     useEffect(() => {
         setLoading(true);
@@ -83,76 +84,78 @@ const OrderHistory = () => {
                             </thead>
                             <tbody>
                             {(searchQuery ? filteredRecords : orderRecords).map((record, index) => (
-                                <tr>
-                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <div className="flex items-center">
-                                            <div className="flex-shrink-0 w-3 h-10">
+                                <React.Fragment key={record._id}>
+                                    <tr>
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <div className="flex items-center">
+                                                <div className="flex-shrink-0 w-3 h-10">
+                                                </div>
+                                                <div className="ml-2">
+                                                    <p className="text-gray-900 whitespace-no-wrap">
+                                                        {record.orderId}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div className="ml-2">
-                                                <p className="text-gray-900 whitespace-no-wrap">
-                                                    {record.orderId}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <p className="text-gray-900 whitespace-no-wrap">{record.orderProductName}</p>
-                                    </td>
-                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <p className="text-gray-900 whitespace-no-wrap">
-                                            {record.orderDate}
-                                        </p>
-                                    </td>
-                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <p className="text-gray-900 whitespace-no-wrap">
-                                            {record.orderQuantity}
-                                        </p>
-                                    </td>
-                                    <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <p className="text-gray-900 whitespace-no-wrap">
-                                            {record.orderPrice}
-                                        </p>
-                                    </td>
-                                    {/*<td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">*/}
-                                    {/*    <p className="text-gray-900 whitespace-no-wrap">*/}
-                                    {/*        Wrapping*/}
-                                    {/*    </p>*/}
-                                    {/*</td>*/}
-                                    {/*<td className=" px-5 py-5 border-b border-gray-200 bg-white text-sm items-center">*/}
-                                    {/*    <a href="#"*/}
-                                    {/*       className="font-medium text-blue-600  hover:underline">*/}
-                                    {/*        <InformationCircleIcon*/}
-                                    {/*            className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500 mt-2"*/}
-                                    {/*            aria-hidden="true"/>*/}
-                                    {/*    </a>*/}
-                                    {/*</td>*/}
-                                    <td className=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        </td>
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <p className="text-gray-900 whitespace-no-wrap">{record.orderProductName}</p>
+                                        </td>
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <p className="text-gray-900 whitespace-no-wrap">
+                                                {record.orderDate}
+                                            </p>
+                                        </td>
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <p className="text-gray-900 whitespace-no-wrap">
+                                                {record.orderQuantity}
+                                            </p>
+                                        </td>
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <p className="text-gray-900 whitespace-no-wrap">
+                                                {record.orderPrice}
+                                            </p>
+                                        </td>
 
-                                        <PencilSquareIcon
-                                            className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                            aria-hidden="true"/>
-                                        {/*<Link*/}
-                                        {/*    //to={`/editProduct/${record._id}`}*/}
-                                        {/*      className="font-medium text-blue-600 hover:underline">*/}
-                                        {/*    <PencilSquareIcon*/}
-                                        {/*        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"*/}
-                                        {/*        aria-hidden="true"/>*/}
-                                        {/*</Link>*/}
-                                    </td>
-                                    <td className=" ">
-                                        <button
-                                            className="flex items-center"
-                                            onClick={() => handleDelete(record._id)}
-                                        >
-                                            <TrashIcon
-                                                className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                        {/*<td className=" px-5 py-5 border-b border-gray-200 bg-white text-sm items-center">*/}
+                                        {/*    <a href="#"*/}
+                                        {/*       className="font-medium text-blue-600  hover:underline">*/}
+                                        {/*        <InformationCircleIcon*/}
+                                        {/*            className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500 mt-2"*/}
+                                        {/*            aria-hidden="true"/>*/}
+                                        {/*    </a>*/}
+                                        {/*</td>*/}
+                                        <td className=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
+
+                                            <PencilSquareIcon
+                                                className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
                                                 aria-hidden="true"/>
-                                        </button>
-                                    </td>
-                                    <div className="mt-32 items-center">
-                                        <ProgressBar/>
-                                    </div>
-                                </tr>
+                                            {/*<Link*/}
+                                            {/*    //to={`/editProduct/${record._id}`}*/}
+                                            {/*      className="font-medium text-blue-600 hover:underline">*/}
+                                            {/*    <PencilSquareIcon*/}
+                                            {/*        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"*/}
+                                            {/*        aria-hidden="true"/>*/}
+                                            {/*</Link>*/}
+                                        </td>
+                                        <td className=" ">
+                                            <button
+                                                className="flex items-center"
+                                                onClick={() => handleDelete(record._id)}
+                                            >
+                                                <TrashIcon
+                                                    className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                                    aria-hidden="true"/>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colSpan="7">
+                                            <div className="mt-2">
+                                                <ProgressBar progress={progress}/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </React.Fragment>
                             ))}
                             </tbody>
                         </table>
