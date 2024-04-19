@@ -201,7 +201,7 @@ export default function SalaryProcessingSection() {
         <div className="border-t ">
 
             <div className="flex flex-row">
-                <div className="w-1/3 bg-gray-50 h-fit mb-14 overscroll-auto border-r  bottom-14" id="employeelist">
+                <div className="w-1/3 overflow-scroll h-screen bg-gray-50  mb-14 overscroll-auto border-r  bottom-14" id="employeelist">
                     <ul role="list" className="divide-y divide-gray-300">
                         {RegistrationRecords.map((person) => (
                             <li key={person._id}
