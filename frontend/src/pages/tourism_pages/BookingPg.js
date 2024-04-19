@@ -4,7 +4,8 @@ import Footer from "../../components/utility/Footer";
 import BookingForm from "../../components/AgroTourism/Booking";
 import BookingNavBar from "../../components/AgroTourism/BookingNavBar";
 import StepIndicator from "../../components/AgroTourism/StepIndicator";
-import Subscribe_newsletter from "../../components/landingPage/subscribe_newsletter";
+
+
 export default function BookingPg() {
     return (
         <div className="flex flex-col h-screen">
@@ -13,14 +14,14 @@ export default function BookingPg() {
             {/* Content */}
             <div className="flex flex-grow">
                 {/* SideNav */}
-                <div className="w-64 bg-gray-100 text-black">
-                    <BookingNavBar/>
+                <div className="fixed top-0 left-0 w-64 h-full bg-gray-100 text-black overflow-y-auto">
+                    <BookingNavBar />
                 </div>
                 {/* Main Content */}
-                <div className="flex flex-col flex-grow">
+                <div className="flex flex-col flex-grow overflow-y-auto">
                     {/* Centered Progress Stepper */}
                     <div className="flex items-center justify-center p-4">
-                        <StepIndicator/>
+                        <StepIndicator />
                     </div>
                     {/* BookingForm */}
                     <div className="flex-grow">
@@ -28,9 +29,7 @@ export default function BookingPg() {
                     </div>
                 </div>
             </div>
-            {/* Footer and Newsletter */}
-            <Subscribe_newsletter/>
-            <Footer />
+
         </div>
     );
 }
