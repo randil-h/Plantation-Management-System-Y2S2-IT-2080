@@ -23,35 +23,35 @@ const FinanceSchema = mongoose.Schema(
         },
         type: {
             type: String,
-            required: false,
+            required: true,
         },
         basic_days: {
             type: Number,
-            required: false,
+            required: true,
         },
         basic_rate: {
             type: Number,
-            required: false,
+            required: true,
         },
         bonus_salary: {
             type: Number,
-            required: false,
+            required: true,
         },
         ot_hours: {
             type: Number,
-            required: false,
+            required: true,
         },
         ot_rate: {
             type: Number,
-            required: false,
+            required: true,
         },
         epf_etf: {
             type: Number,
-            required: false,
+            required: true,
         },
         description: {
             type: String,
-            required: false,
+            required: true,
         }
     },
     {

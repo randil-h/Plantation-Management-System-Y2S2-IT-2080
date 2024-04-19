@@ -7,25 +7,22 @@ import moment from "moment";
 
 
 export default function SalaryProcessingSection() {
-    const [regEmpName, setRegEmpName] = useState('');
-    const [regNic, setRegNIC] = useState('');
-    const [regType, setRegType] = useState('');
-    const [regBasicRate, setRegBasicRate] = useState('');
 
-    const [empName, setEmpName] = useState(regEmpName);
+
+    const [empName, setEmpName] = useState('');
     const [nic, setNIC] = useState('');
-    const [paymentDate, setPaymentDate] = useState(regNic);
-    const [type, setType] = useState(regType);
+    const [paymentDate, setPaymentDate] = useState('');
+    const [type, setType] = useState('');
 
     const [salaryStartDate, setSalaryStartDate] = useState('');
     const [salaryEndDate, setSalaryEndDate] = useState('');
 
-    const [basicDays, setBasicDays] = useState('');
-    const [basicRate, setBasicRate] = useState(regBasicRate);
+    const [basicDays, setBasicDays] = useState(0);
+    const [basicRate, setBasicRate] = useState(0);
     const [bonusSalary, setBonusSalary] = useState(0);
     const [otHours, setOtHours] = useState(0);
     const [otRate, setOtRate] = useState(0);
-    const [epfEtf, setEpfEtf] = useState(6);
+    const [epfEtf, setEpfEtf] = useState(0);
     const [description, setDescription] = useState('');
 
     const [id, setID] = useState('');
@@ -62,13 +59,13 @@ export default function SalaryProcessingSection() {
             .then(() => {
                 setLoading(false);
                 message.success('Salary record has successfully saved.');
-                navigate('/finances/valuation');
+                navigate('/finances/salaryPayment');
             })
             .catch((error) => {
                 setLoading(false);
                 message.error('Salary record saving failed.');
                 console.log(error);
-                navigate('/finances/valuation');
+                navigate('/finances/salaryPayment');
             });
     };
 
@@ -92,24 +89,31 @@ export default function SalaryProcessingSection() {
 
     const handleRadioChange = (id) => {
         setSelectedID(id);
+
+        // Find the selected employee from the RegistrationRecords array
+        const selectedEmployee = RegistrationRecords.find(person => person._id === id);
+
+        // Concatenate the first name and last name to set the employee's full name
+        const fullName = selectedEmployee ? `${selectedEmployee.f_name} ${selectedEmployee.l_name}` : '';
+
+        // Update the state variables with the selected employee's data
+        setEmpName(fullName);
+        setNIC(selectedEmployee ? selectedEmployee.nic : '');
+        setType(selectedEmployee ? selectedEmployee.emp_type : '');
+        setBasicRate(selectedEmployee ? selectedEmployee.h_rate : '');
     };
 
-    const handleDateChange = (dates) => {
-        if (dates && dates.length === 2) {
-            setSalaryStartDate(dates[0].format('YYYY-MM-DD'));
-            setSalaryEndDate(dates[1].format('YYYY-MM-DD'));
-        }
-    };
 
     useEffect(() => {
         setLoading(true);
         axios
             .get(`http://localhost:5555/employeeRecords/${id}`)
             .then((response) => {
-                setRegEmpName(response.data.f_name);
-                setRegType(response.data.emp_type);
-                setRegBasicRate(response.data.h_rate);
-                setRegNIC(response.data.nic);
+
+                // Conditionally set EPF/ETF based on employee type
+                const defaultEpfEtf = response.data.emp_type === 'permanent' ? 6 : 0;
+                setEpfEtf(defaultEpfEtf);
+
                 setLoading(false);
             })
             .catch((error) => {
@@ -117,6 +121,44 @@ export default function SalaryProcessingSection() {
                 setLoading(false);
             });
     }, []);
+
+
+    const calculateTotalSalary = () => {
+        // Convert input values to numbers
+        const basicDaysValue = parseFloat(basicDays);
+        const basicRateValue = parseFloat(basicRate);
+        const bonusSalaryValue = parseFloat(bonusSalary);
+        const otHoursValue = parseFloat(otHours);
+        const otRateValue = parseFloat(otRate);
+        const epfEtfValue = parseFloat(epfEtf);
+
+        // Check if any input value is NaN and replace it with 0
+        const validBasicDays = isNaN(basicDaysValue) ? 0 : basicDaysValue;
+        const validBasicRate = isNaN(basicRateValue) ? 0 : basicRateValue;
+        const validBonusSalary = isNaN(bonusSalaryValue) ? 0 : bonusSalaryValue;
+        const validOtHours = isNaN(otHoursValue) ? 0 : otHoursValue;
+        const validOtRate = isNaN(otRateValue) ? 0 : otRateValue;
+        const validEpfEtf = isNaN(epfEtfValue) ? 0 : epfEtfValue;
+
+        // Calculate basic salary
+        const basicSalary = validBasicDays * validBasicRate;
+
+        // Calculate OT salary
+        const otSalary = validOtHours * validOtRate;
+
+        // Calculate total salary
+        const totalSalary = basicSalary + validBonusSalary + otSalary;
+
+        // Calculate EPF/ETF deduction
+        const epfEtfDeduction = (totalSalary * validEpfEtf) / 100;
+
+        // Calculate net salary
+        const netSalary = totalSalary - epfEtfDeduction;
+
+        return netSalary;
+    };
+
+
 
 
     return (
@@ -133,7 +175,7 @@ export default function SalaryProcessingSection() {
                                     <div className="flex min-w-0 gap-x-4">
                                         <div className="min-w-0 flex-auto">
                                             <p className="text-sm font-semibold leading-6 text-gray-900">{person.f_name} {person.l_name}</p>
-                                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person._id}</p>
+                                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person.nic}</p>
                                         </div>
                                     </div>
                                     <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
@@ -216,6 +258,7 @@ export default function SalaryProcessingSection() {
                                                 <option value="permanent">Permanent</option>
                                                 <option value="trainee">Trainee</option>
                                                 <option value="contract">Contract</option>
+                                                <option value="seasonal">Seasonal</option>
                                             </select>
                                         </div>
                                     </div>
@@ -330,35 +373,21 @@ export default function SalaryProcessingSection() {
                                     </div>
 
                                     {/* start Date */}
-                                    <div className="sm:col-span-2">
-                                        <label htmlFor="payment_date"
+                                    <div className="sm:col-span-4">
+                                        <label htmlFor="salary_range"
                                                className="block text-sm font-medium leading-6 text-gray-900">
-                                            Salary Start Date
+                                            Date Range
                                         </label>
                                         <div className="mt-2">
-                                            <input
-                                                type="date"
-                                                value={paymentDate}
-                                                onChange={(e) => setPaymentDate(e.target.value)}
-                                                id="payment_date"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    {/* end Date */}
-                                    <div className="sm:col-span-2">
-                                        <label htmlFor="payment_date"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Salary End Date
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="date"
-                                                value={paymentDate}
-                                                onChange={(e) => setPaymentDate(e.target.value)}
-                                                id="payment_date"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                            <DatePicker.RangePicker
+                                                value={[salaryStartDate, salaryEndDate]}
+                                                onChange={(dates) => {
+                                                    if (dates && dates.length === 2) {
+                                                        setSalaryStartDate(dates[0]);
+                                                        setSalaryEndDate(dates[1]);
+                                                    }
+                                                }}
+                                                className="flex flex-row w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                             />
                                         </div>
                                     </div>
@@ -411,6 +440,10 @@ export default function SalaryProcessingSection() {
                     id="savebar">
                     <div
                         className="flex justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
+                        <div className=" border-gray-500 border rounded-full py-1 px-6 mx-8 text-base font-semibold">
+                            Total Salary: <span className="text-lime-600 text-xl">
+                            Rs.{calculateTotalSalary()}</span>
+                        </div>
 
                         <Link className="bg-gray-300 rounded-full py-1 px-4 hover:bg-gray-400"
                               to="/dashboard">

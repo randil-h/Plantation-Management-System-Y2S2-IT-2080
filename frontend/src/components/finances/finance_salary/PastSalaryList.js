@@ -325,12 +325,6 @@ export default function PastSalaryList() {
                             <td className="px-6 py-4">Rs.{record.ot_rate}</td>
                             <td className="px-6 py-4">Rs.{record.epf_etf}</td>
                             <td className="px-6 py-4">{record.description}</td>
-                            <td className="px-6 py-4">
-                                <div
-                                    className={record.paid === "true" ? "bg-lime-600 text-base font-semibold text-center text-white rounded-full hover:bg-lime-500" : "bg-red-600 text-base font-semibold text-center text-white rounded-full hover:bg-red-500"}>
-                                    Rs.{record.hours_nos * record.rate}
-                                </div>
-                            </td>
 
 
                             <td className=" py-4 text-right">

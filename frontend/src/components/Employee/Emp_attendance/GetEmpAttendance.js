@@ -112,36 +112,6 @@ const GetEmpAttendance = () => {
     };
 
 
-
-    // Save attendance data to MongoDB
-    useEffect(() => {
-        const saveAttendanceToDatabase = async () => {
-            if (selectedEmployee && Object.keys(attendanceData).length > 0) { // Check if both employee and attendance data are present
-                setLoading(true);
-                try {
-                    const attendanceRecords = Object.keys(attendanceData).map(date => ({
-                        e_name: selectedEmployee.e_name,
-                        e_date: new Date(date),
-                        att_status: attendanceData[date],
-                    }));
-
-                    await axios.post('http://localhost:5555/attendanceRecords', attendanceRecords);
-
-                    enqueueSnackbar('Records created successfully', { variant: 'success' });
-                    navigate('/employees/attendance', { state: { highlighted: true } });
-                } catch (error) {
-                    enqueueSnackbar('Error', { variant: 'error' });
-                    console.error('Error saving attendance:', error);
-                } finally {
-                    setLoading(false);
-                }
-            }
-        };
-
-        saveAttendanceToDatabase();
-    }, [attendanceData, selectedEmployee, enqueueSnackbar, navigate]);
-
-
     return (
         <div className="flex justify-center ">
             {/* Sidebar for employee selection */}
