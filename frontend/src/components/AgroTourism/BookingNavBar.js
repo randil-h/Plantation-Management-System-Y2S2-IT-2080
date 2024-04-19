@@ -12,12 +12,12 @@ const SideNav = () => {
     };
 
     return (
-        <div className="flex flex-col bg-gray-100 text-black" style={{ width: "250px", minHeight: "100vh" }}>
+        <div className="flex flex-col bg-gray-100 text-black" style={{ width: "250px" }}>
             <div className="flex-1 overflow-y-auto">
                 <nav>
                     <ul className="space-y-4 pt-16">
                         <li className={`flex items-center ${isActive("/booking") ? "bg-gray-200 text-lime-700 rounded-xl px-3 shadow-md" : "hover:bg-gray-200 hover:rounded-xl hover:shadow-md hover:text-lime-700"}`}>
-                            <LuCalendarSearch className="mr-1 ml-4" />
+                            <LuCalendarSearch className="mr-2 ml-4" />
                             <Link to="/booking" className="block p-3">
                                 Book Now
                             </Link>

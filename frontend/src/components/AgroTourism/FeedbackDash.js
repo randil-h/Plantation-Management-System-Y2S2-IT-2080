@@ -145,11 +145,11 @@ export default function FeedbackDashboard() {
             <div className="overflow-x-auto">
                 <div className="flex flex-row justify-center items-center px-8 py-4">
                     <div className="text-center">
-                        <h1 className="text-2xl font-semibold">
-                            Feedback Ratings Analysis
+                        <h1 className="text-4xl font-semibold">
+                            Feedbacks
                         </h1>
-                        <p className="mt-1 text-xl font-normal text-gray-500">
-                            Visualization of feedback ratings given by users.
+                        <p className="mt-1 text-s font-normal text-black">
+                            Visualization of Rating Analysis
                         </p>
                     </div>
                 </div>
