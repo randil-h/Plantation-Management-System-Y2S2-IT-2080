@@ -139,6 +139,25 @@ export default function SalaryProcessingSection() {
             });
     }, []);
 
+    useEffect(() => {
+        if (attendanceRecords.length > 0 && empName) {
+            const filteredRecords = attendanceRecords.filter((record) =>
+                record.e_name === empName
+            );
+            let totalDays = 0;
+            filteredRecords.forEach((record) => {
+                if (record.att_status === "present") {
+                    totalDays += 1;
+                } else if (record.att_status === "halfday") {
+                    totalDays += 0.5;
+                }
+                // For "absent", don't add any days
+            });
+            setBasicDays(totalDays);
+        }
+    }, [attendanceRecords, empName]);
+
+
 
     const calculateTotalSalary = () => {
         // Convert input values to numbers
@@ -197,13 +216,13 @@ export default function SalaryProcessingSection() {
                                     </div>
                                     <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                                         <p className="text-sm leading-6 text-gray-900">{person.emp_type}</p>
-                                        <p className="mt-1 text-xs leading-5 text-gray-500">{person.h_rate.toLocaleString()}</p>
+                                        <p className="mt-1 text-xs leading-5 text-gray-500">Rs.{person.h_rate.toLocaleString()}</p>
                                     </div>
                                     <input
                                         type="radio"
                                         id={person._id}
                                         name="employee"
-                                        className="size-4 self-center focus:ring-white focus:ring-0 border border-gray-400 text-lime-500 checked:border-gray-500 checked:border checked::bg-lime-600"
+                                        className="size-4 self-center focus:ring-white focus:ring-0 border border-gray-400 text-lime-600 checked:border-gray-500 checked:border checked::bg-lime-700"
                                         value={person.nic}
                                         checked={selectedID === person._id}
                                         onChange={() => handleRadioChange(person._id)}
@@ -234,7 +253,8 @@ export default function SalaryProcessingSection() {
                                                 value={empName}
                                                 onChange={(e) => setEmpName(e.target.value)}
                                                 id="epm_name"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                disabled={true}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                             />
                                         </div>
                                     </div>
@@ -252,7 +272,8 @@ export default function SalaryProcessingSection() {
                                                 value={nic}
                                                 onChange={(e) => setNIC(e.target.value)}
                                                 id="nic"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                disabled={true}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                             />
                                         </div>
                                     </div>
@@ -264,19 +285,17 @@ export default function SalaryProcessingSection() {
                                             Type
                                         </label>
                                         <div className="mt-2">
-                                            <select
+                                            <input
+                                                type="text"
                                                 name="type"
                                                 value={type}
                                                 onChange={(e) => setType(e.target.value)}
                                                 id="type"
+                                                disabled={true}
                                                 autoComplete="type"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                            >
-                                                <option value="permanent">Permanent</option>
-                                                <option value="trainee">Trainee</option>
-                                                <option value="contract">Contract</option>
-                                                <option value="seasonal">Seasonal</option>
-                                            </select>
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                            />
+
                                         </div>
                                     </div>
 
