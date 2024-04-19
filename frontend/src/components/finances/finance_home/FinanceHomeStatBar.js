@@ -47,7 +47,9 @@ export default function FinanceHomeStatBar() {
     }, []);
 
     const renderProfitLoss = (profitOrLoss) => {
-        const colorClass = profitOrLoss >= 0 ? 'text-lime-500' : 'text-red-600';
+        // Convert the formatted string back to a number
+        const profitOrLossNumber = parseFloat(profitOrLoss.replace(/,/g, ''));
+        const colorClass = profitOrLossNumber >= 0 ? 'text-lime-500' : 'text-red-600';
         return <span className={`${colorClass} text-xl font-semibold tracking-tight sm:text-3xl`}>Rs.{profitOrLoss}</span>;
     };
     return (
@@ -96,7 +98,7 @@ export default function FinanceHomeStatBar() {
                         {/* Income this week */}
                         <div className="flex flex-row items-center gap-8">
                             <dd className="text-xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
-                                Rs.{totalIncome}
+                                Rs.{totalIncome.toLocaleString()}
                             </dd>
 
                         </div>
@@ -111,7 +113,7 @@ export default function FinanceHomeStatBar() {
                         {/* Expense this week */}
                         <div className="flex flex-row items-center gap-8">
                             <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
-                                Rs.{totalExpenses}
+                                Rs.{totalExpenses.toLocaleString()}
                             </dd>
 
                         </div>
@@ -125,7 +127,7 @@ export default function FinanceHomeStatBar() {
                         {/* Expense this week */}
                         <div className="flex flex-row items-center gap-4">
                             <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
-                                {renderProfitLoss(profitOrLoss)}
+                                {renderProfitLoss(profitOrLoss.toLocaleString())}
                             </dd>
                             {/*{renderProfitLossIcon(profitLoss)}*/}
                         </div>

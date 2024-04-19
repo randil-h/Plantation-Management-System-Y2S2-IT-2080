@@ -304,13 +304,13 @@ export default function MachineRecordsList() {
                             <td className="px-6 py-4">{record.date}</td>
                             <td className="px-6 py-4">{record.type}</td>
                             <td className="px-6 py-4">{record.hours_nos}</td>
-                            <td className="px-6 py-4">Rs.{record.rate}</td>
+                            <td className="px-6 py-4">Rs.{record.rate.toLocaleString()}</td>
                             <td className="px-6 py-4">{record.description}</td>
                             <td className="px-6 py-4">{record.payer_payee}</td>
                             <td className="px-6 py-4">
                                 <div
                                     className={record.paid === "true" ? "bg-lime-600 text-base font-semibold text-center text-white rounded-full hover:bg-lime-500" : "bg-red-600 text-base font-semibold text-center text-white rounded-full hover:bg-red-500"}>
-                                    Rs.{record.hours_nos * record.rate}
+                                    Rs.{(record.hours_nos * record.rate).toLocaleString()}
                                 </div>
                             </td>
 

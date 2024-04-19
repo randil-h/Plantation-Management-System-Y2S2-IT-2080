@@ -100,9 +100,11 @@ export default function FinanceTransactionsStatBar() {
         }
     };
 
-    const renderProfitLoss = (profitLoss) => {
-        const colorClass = profitLoss >= 0 ? 'text-lime-500' : 'text-red-600';
-        return <span className={`${colorClass} text-xl font-semibold tracking-tight sm:text-3xl`}>Rs.{profitLoss}</span>;
+    const renderProfitLoss = (profitOrLoss) => {
+        // Convert the formatted string back to a number
+        const profitOrLossNumber = parseFloat(profitOrLoss.replace(/,/g, ''));
+        const colorClass = profitOrLossNumber >= 0 ? 'text-lime-500' : 'text-red-600';
+        return <span className={`${colorClass} text-xl font-semibold tracking-tight sm:text-3xl`}>Rs.{profitOrLoss}</span>;
     };
 
     function calculatePercentageChange(currentIncome, previousIncome) {
@@ -157,8 +159,9 @@ export default function FinanceTransactionsStatBar() {
                         {/* Income this week */}
                         <div className="flex flex-row items-center gap-8">
                             <dd className="text-xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
-                                Rs.{currentWeekData.income}
+                                Rs. {currentWeekData.income.toLocaleString()}
                             </dd>
+
                             {renderIcon(currentWeekData.income, previousWeekData.income)}
                         </div>
                         <div className="flex flex-row items-center gap-12 justify-between">
@@ -173,7 +176,7 @@ export default function FinanceTransactionsStatBar() {
                         {/* Expense this week */}
                         <div className="flex flex-row items-center gap-8">
                             <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
-                                Rs.{currentWeekData.expense}
+                                Rs.{currentWeekData.expense.toLocaleString()}
                             </dd>
                             {renderExpenseIcon(currentWeekData.expense, previousWeekData.expense)}
                         </div>
@@ -188,7 +191,7 @@ export default function FinanceTransactionsStatBar() {
                         {/* Expense this week */}
                         <div className="flex flex-row items-center gap-4">
                             <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
-                                {renderProfitLoss(currentWeekData.profitLoss)}
+                                {renderProfitLoss(currentWeekData.profitLoss.toLocaleString())}
 
                             </dd>
                             {renderProfitLossIcon(currentWeekData.profitLoss)}

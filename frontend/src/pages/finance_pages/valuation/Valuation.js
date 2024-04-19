@@ -536,7 +536,7 @@ export default function Valuation() {
                                         {record.quantity}
                                     </td>
                                     <td className="px-6 py-4">
-                                        Rs.{record.price}
+                                        Rs.{record.price.toLocaleString()}
                                     </td>
                                     <td className="px-6 py-4">
                                         {record.description}
@@ -550,7 +550,7 @@ export default function Valuation() {
                                     <td className="px-4 py-4">
                                         <div
                                             className="py-1 bg-zinc-200 rounded-full text-black text-center hover:bg-zinc-400">
-                                            Rs.{record.quantity * record.price}
+                                            Rs.{(record.quantity * record.price).toLocaleString()}
                                         </div>
 
                                     </td>

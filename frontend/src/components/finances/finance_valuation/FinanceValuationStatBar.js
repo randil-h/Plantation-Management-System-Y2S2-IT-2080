@@ -47,9 +47,12 @@ export default function FinanceValuationStatBar() {
     }, []);
 
     const renderProfitLoss = (profitOrLoss) => {
-        const colorClass = profitOrLoss >= 0 ? 'text-lime-500' : 'text-red-600';
+        // Convert the formatted string back to a number
+        const profitOrLossNumber = parseFloat(profitOrLoss.replace(/,/g, ''));
+        const colorClass = profitOrLossNumber >= 0 ? 'text-lime-500' : 'text-red-600';
         return <span className={`${colorClass} text-xl font-semibold tracking-tight sm:text-3xl`}>Rs.{profitOrLoss}</span>;
     };
+
     return (
         <div className="relative py-8 sm:py-8 overflow-hidden ">
             {/* Additional divs and elements for styling omitted for brevity */}
@@ -96,7 +99,7 @@ export default function FinanceValuationStatBar() {
                         {/* Income this week */}
                         <div className="flex flex-row items-center gap-8">
                             <dd className="text-xl font-semibold tracking-tight text-gray-900 sm:text-3xl">
-                                Rs.{totalAssets}
+                                Rs.{totalAssets.toLocaleString()}
                             </dd>
 
                         </div>
@@ -111,7 +114,7 @@ export default function FinanceValuationStatBar() {
                         {/* Expense this week */}
                         <div className="flex flex-row items-center gap-8">
                             <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
-                                Rs.{totalLiabilities}
+                                Rs.{totalLiabilities.toLocaleString()}
                             </dd>
 
                         </div>
@@ -125,7 +128,7 @@ export default function FinanceValuationStatBar() {
                         {/* Expense this week */}
                         <div className="flex flex-row items-center gap-4">
                             <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
-                                {renderProfitLoss(netValue)}
+                                {renderProfitLoss(netValue.toLocaleString())}
                             </dd>
                             {/*{renderProfitLossIcon(profitLoss)}*/}
                         </div>

@@ -378,7 +378,7 @@ export default function TransactionsList() {
                             <td className="px-6 py-4">{record.date}</td>
                             <td className="px-6 py-4">{record.type}</td>
                             <td className="px-6 py-4">{record.subtype}</td>
-                            <td className="px-6 py-4">Rs.{record.amount}</td>
+                            <td className="px-6 py-4">Rs.{record.amount.toLocaleString()}</td>
                             <td className="px-6 py-4">{record.description}</td>
                             <td className="px-6 py-4">{record.payer_payee}</td>
                             <td className="px-6 py-4">{record.method}</td>
