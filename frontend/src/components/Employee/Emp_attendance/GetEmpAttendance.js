@@ -26,9 +26,10 @@ const GetEmpAttendance = () => {
     // Handle employee selection
     const handleEmployeeSelect = (employee) => {
         setSelectedEmployee(employee);
-        // Reset attendance data for selected employee if any
+        // Reset attendance data for selected employee
         setAttendanceData({});
     };
+
 
     // Generate calendar for the month
     const generateCalendar = () => {
@@ -79,17 +80,43 @@ const GetEmpAttendance = () => {
     };
 
     // Handle attendance change
-    const handleAttendanceChange = (date, value) => {
+    const handleAttendanceChange = async (date, value) => {
+        // Update local state
         setAttendanceData({
             ...attendanceData,
             [date]: value,
         });
+
+        // Save attendance data to MongoDB
+        if (selectedEmployee) {
+            setLoading(true);
+            try {
+                const attendanceRecord = {
+                    e_name: selectedEmployee.e_name,
+                    e_date: new Date(date),
+                    att_status: value,
+                };
+
+                await axios.post('http://localhost:5555/attendanceRecords', attendanceRecord);
+
+                // Display success notification only when records are successfully added
+                enqueueSnackbar('Attendance recorded successfully', { variant: 'success' });
+            } catch (error) {
+                // Display error notification only when an error occurs
+                enqueueSnackbar('Error recording attendance', { variant: 'error' });
+                console.error('Error recording attendance:', error);
+            } finally {
+                setLoading(false);
+            }
+        }
     };
+
+
 
     // Save attendance data to MongoDB
     useEffect(() => {
         const saveAttendanceToDatabase = async () => {
-            if (selectedEmployee) {
+            if (selectedEmployee && Object.keys(attendanceData).length > 0) { // Check if both employee and attendance data are present
                 setLoading(true);
                 try {
                     const attendanceRecords = Object.keys(attendanceData).map(date => ({
@@ -113,6 +140,7 @@ const GetEmpAttendance = () => {
 
         saveAttendanceToDatabase();
     }, [attendanceData, selectedEmployee, enqueueSnackbar, navigate]);
+
 
     return (
         <div className="flex justify-center ">
