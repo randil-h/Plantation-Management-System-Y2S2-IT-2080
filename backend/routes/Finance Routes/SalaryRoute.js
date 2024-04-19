@@ -1,4 +1,4 @@
-import {SalaryRecord} from "../../models/Finance Models/SalaryModel.js";
+import {SalariesRecord} from "../../models/Finance Models/SalaryModel.js";
 import express from "express";
 
 const router = express.Router();
@@ -7,31 +7,43 @@ const router = express.Router();
 router.post('/', async (request, response) => {
     try {
         if (
-            !request.body.date ||
+            !request.body.payment_date ||
+            !request.body.emp_name ||
+            !request.body.salary_start_date ||
+            !request.body.salary_end_date ||
+            !request.body.nic ||
             !request.body.type ||
-            !request.body.subtype ||
-            !request.body.amount ||
-            !request.body.description ||
-            !request.body.payer_payee ||
-            !request.body.method
+            !request.body.basic_days ||
+            !request.body.basic_rate ||
+            !request.body.bonus_salary ||
+            !request.body.ot_hours ||
+            !request.body.ot_rate ||
+            !request.body.epf_etf ||
+            !request.body.description
         ) {
             return response.status(400).send({
-                message: 'Send all required fields: date, type, amount',
+                message: 'Send all required fields',
             });
         }
 
-        const NewTransactionsRecord = {
-            date: request.body.date,
+        const NewSalaryRecord = {
+            payment_date: request.body.payment_date,
+            emp_name: request.body.emp_name,
+            salary_start_date: request.body.salary_start_date,
+            salary_end_date: request.body.salary_end_date,
+            nic: request.body.nic,
             type: request.body.type,
-            subtype: request.body.subtype,
-            amount: request.body.amount,
+            basic_days: request.body.basic_days,
+            basic_rate: request.body.basic_rate,
+            bonus_salary: request.body.bonus_salary,
+            ot_hours: request.body.ot_hours,
+            ot_rate: request.body.ot_rate,
+            epf_etf: request.body.epf_etf,
             description: request.body.description,
-            payer_payee: request.body.payer_payee,
-            method: request.body.method,
         };
 
-        const TransactionRecord = await SalaryRecord.create(NewTransactionsRecord);
-        return response.status(201).send(TransactionRecord);
+        const SalaryRecord = await SalariesRecord.create(NewSalaryRecord);
+        return response.status(201).send(SalaryRecord);
 
     }catch (error) {
         console.log(error.message);
@@ -43,11 +55,11 @@ router.post('/', async (request, response) => {
 
 router.get('/', async (request, response) => {
     try {
-        const TransactionRecord = await TransactionsRecord.find({});
+        const SalaryRecord = await SalariesRecord.find({});
 
         return response.status(200).json({
-            count: TransactionRecord.length,
-            data: TransactionRecord,
+            count: SalaryRecord.length,
+            data: SalaryRecord,
         });
     } catch (error) {
         console.log(error.message);
@@ -60,9 +72,9 @@ router.get('/:id', async (request, response) => {
     try {
         const { id } = request.params;
 
-        const TransactionRecord = await TransactionsRecord.findById(id);
+        const SalaryRecord = await SalariesRecord.findById(id);
 
-        return response.status(200).json(TransactionRecord);
+        return response.status(200).json(SalaryRecord);
     } catch (error) {
         console.log(error.message);
         response.status(500).send({ message: error.message });
@@ -73,13 +85,19 @@ router.get('/:id', async (request, response) => {
 router.put('/:id', async (request, response) => {
     try {
         if (
-            !request.body.date ||
+            !request.body.payment_date ||
+            !request.body.emp_name ||
+            !request.body.salary_start_date ||
+            !request.body.salary_end_date ||
+            !request.body.nic ||
             !request.body.type ||
-            !request.body.subtype ||
-            !request.body.amount ||
-            !request.body.description ||
-            !request.body.payer_payee ||
-            !request.body.method
+            !request.body.basic_days ||
+            !request.body.basic_rate ||
+            !request.body.bonus_salary ||
+            !request.body.ot_hours ||
+            !request.body.ot_rate ||
+            !request.body.epf_etf ||
+            !request.body.description
         ) {
             return response.status(400).send({
                 message: 'Send all required fields: title, author, publishYear',
@@ -88,7 +106,7 @@ router.put('/:id', async (request, response) => {
 
         const { id } = request.params;
 
-        const result = await TransactionsRecord.findByIdAndUpdate(id, request.body);
+        const result = await SalariesRecord.findByIdAndUpdate(id, request.body);
 
         if (!result) {
             return response.status(404).json({ message: 'Transaction record not found' });
@@ -106,7 +124,7 @@ router.delete('/:id', async (request, response) => {
     try {
         const { id } = request.params;
 
-        const result = await TransactionsRecord.findByIdAndDelete(id);
+        const result = await SalariesRecord.findByIdAndDelete(id);
 
         if (!result) {
             return response.status(404).json({ message: 'Transaction record not found' });

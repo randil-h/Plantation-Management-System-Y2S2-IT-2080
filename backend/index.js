@@ -11,6 +11,7 @@ import FeedbackRoute from "./routes/AgroTourism Routes/FeedbackRoute.js";
 import TransactionsRoute from "./routes/Finance Routes/TransactionsRoute.js";
 import ValuationRoute from "./routes/Finance Routes/ValuationRoute.js";
 import MachineRoute from "./routes/Finance Routes/MachineRoute.js";
+import SalaryRoute from "./routes/Finance Routes/SalaryRoute.js";
 import WeatherAPI from "./routes/Weather Route/WeatherAPI.js";
 
 import DiseaseRoute from "./routes/Disease Tracking Routes/DiseaseRoute.js";
@@ -36,6 +37,7 @@ import AttendanceRoute from "./routes/Employee Routes/AttendanceRoute.js";
 import MarketPriceRoute from "./routes/FarmAnalysis Routes/MarketPriceRoute.js";
 import DiseaseCountRoute from "./routes/Disease Tracking Routes/DiseaseCountRoute.js";
 import TreatmentSelectionRoute from "./routes/Disease Tracking Routes/TreatmentSelectionRoute.js";
+
 
 const app = express();
 
@@ -65,6 +67,7 @@ app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
 app.use('/valuation', ValuationRoute);
 app.use('/machines', MachineRoute);
+app.use('/salary', SalaryRoute);
 app.use('/weather', WeatherAPI)
 
 app.use('/booking', BookingRoute);

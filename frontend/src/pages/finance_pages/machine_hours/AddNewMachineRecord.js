@@ -96,7 +96,7 @@ function AddNewMachineRecord() {
                                                         onChange={(e) => setType(e.target.value)}
                                                         id="type"
                                                         autoComplete="type"
-                                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                     >
                                                         <option>Excavator small</option>
                                                         <option>Excavator Large</option>
@@ -120,7 +120,7 @@ function AddNewMachineRecord() {
                                                     onChange={(e) => setDate(e.target.value)}
                                                     id="date"
                                                     required
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 
@@ -137,7 +137,7 @@ function AddNewMachineRecord() {
                                                     onChange={(e) => setHours(e.target.value)}
                                                     type="text"
                                                     pattern="[1-9]\d*" // Only allows positive integers
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                     title="Please enter only numbers" // Error message if pattern doesn't match
                                                     required // Makes the field required
                                                 />
@@ -154,7 +154,7 @@ function AddNewMachineRecord() {
                                                     value={rate}
                                                     onChange={(e) => setRate(e.target.value)}
                                                     id="rate"
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 
@@ -172,7 +172,7 @@ function AddNewMachineRecord() {
                                                     onChange={(e) => setDescription(e.target.value)}
                                                     autoComplete="description"
                                                     required
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 
@@ -189,7 +189,7 @@ function AddNewMachineRecord() {
                                                     value={payerPayee}
                                                     onChange={(e) => setPayerPayee(e.target.value)}
                                                     id="payer_payee"
-                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 

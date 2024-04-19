@@ -5,7 +5,7 @@ const FinanceSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        epm_name: {
+        emp_name: {
             type: String,
             required: true,
         },
@@ -48,6 +48,10 @@ const FinanceSchema = mongoose.Schema(
         epf_etf: {
             type: Number,
             required: false,
+        },
+        description: {
+            type: String,
+            required: false,
         }
     },
     {
@@ -55,7 +59,7 @@ const FinanceSchema = mongoose.Schema(
     }
 );
 
-export const SalaryRecord = mongoose.model('SalaryRecord', FinanceSchema);
+export const SalariesRecord = mongoose.model('SalariesRecord', FinanceSchema);
 
 
 

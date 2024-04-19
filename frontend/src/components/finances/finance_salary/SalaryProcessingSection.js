@@ -7,21 +7,26 @@ import moment from "moment";
 
 
 export default function SalaryProcessingSection() {
+    const [regEmpName, setRegEmpName] = useState('');
+    const [regNic, setRegNIC] = useState('');
+    const [regType, setRegType] = useState('');
+    const [regBasicRate, setRegBasicRate] = useState('');
 
-    const [empName, setEmpName] = useState('');
+    const [empName, setEmpName] = useState(regEmpName);
     const [nic, setNIC] = useState('');
-    const [paymentDate, setPaymentDate] = useState('');
-    const [type, setType] = useState('permanent');
+    const [paymentDate, setPaymentDate] = useState(regNic);
+    const [type, setType] = useState(regType);
 
     const [salaryStartDate, setSalaryStartDate] = useState('');
     const [salaryEndDate, setSalaryEndDate] = useState('');
 
     const [basicDays, setBasicDays] = useState('');
-    const [basicRate, setBasicRate] = useState('');
+    const [basicRate, setBasicRate] = useState(regBasicRate);
     const [bonusSalary, setBonusSalary] = useState(0);
     const [otHours, setOtHours] = useState(0);
     const [otRate, setOtRate] = useState(0);
     const [epfEtf, setEpfEtf] = useState(6);
+    const [description, setDescription] = useState('');
 
     const [id, setID] = useState('');
 
@@ -36,9 +41,11 @@ export default function SalaryProcessingSection() {
     const handleSaveSalaryRecord = async (e) => {
         e.preventDefault();
         const data = {
-            empName,
-            nic,
             paymentDate,
+            empName,
+            salaryStartDate,
+            salaryEndDate,
+            nic,
             type,
             basicDays,
             basicRate,
@@ -46,20 +53,20 @@ export default function SalaryProcessingSection() {
             otHours,
             otRate,
             epfEtf,
-            salaryStartDate,
-            salaryEndDate,
+            description
+
         };
         setLoading(true);
         axios
             .post('http://localhost:5555/salary', data)
             .then(() => {
                 setLoading(false);
-                message.success('Valuation record has successfully saved.');
+                message.success('Salary record has successfully saved.');
                 navigate('/finances/valuation');
             })
             .catch((error) => {
                 setLoading(false);
-                message.error('Valuation record saving failed.');
+                message.error('Salary record saving failed.');
                 console.log(error);
                 navigate('/finances/valuation');
             });
@@ -99,10 +106,10 @@ export default function SalaryProcessingSection() {
         axios
             .get(`http://localhost:5555/employeeRecords/${id}`)
             .then((response) => {
-                setEmpName(response.data.f_name);
-                setType(response.data.emp_type);
-                setBasicRate(response.data.h_rate);
-                setNIC(response.data.nic);
+                setRegEmpName(response.data.f_name);
+                setRegType(response.data.emp_type);
+                setRegBasicRate(response.data.h_rate);
+                setRegNIC(response.data.nic);
                 setLoading(false);
             })
             .catch((error) => {
@@ -122,7 +129,7 @@ export default function SalaryProcessingSection() {
                             <li key={person._id}
                                 className={``}>
                                 <label htmlFor={person._id}
-                                       className={`py-5 px-4 flex hover:bg-lime-50 transition-all hover:shadow-xl duration-200  justify-between gap-x-4 ${selectedID === person._id ? 'bg-lime-100 border-l-4 border-lime-600 shadow-xl' : ''}`}>
+                                       className={`py-3 px-4 flex hover:bg-lime-50 transition-all hover:shadow-xl duration-200  justify-between gap-x-4 ${selectedID === person._id ? 'bg-lime-100 border-l-4 border-lime-600 shadow-xl' : ''}`}>
                                     <div className="flex min-w-0 gap-x-4">
                                         <div className="min-w-0 flex-auto">
                                             <p className="text-sm font-semibold leading-6 text-gray-900">{person.f_name} {person.l_name}</p>
@@ -372,6 +379,21 @@ export default function SalaryProcessingSection() {
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                             />
                                         </div>
+                                    </div>
+                                    <div className="col-span-full">
+                                        <label htmlFor="description"
+                                               className="block text-sm font-medium leading-6 text-gray-900">
+                                            Remarks
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="description"
+                                            required
+                                            value={description}
+                                            onChange={(e) => setDescription(e.target.value)}
+                                            id="description"
+                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        />
                                     </div>
 
                                 </div>

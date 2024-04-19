@@ -24,6 +24,7 @@ import EditValuation from "./pages/finance_pages/valuation/EditValuation";
 import ViewValuationDetails from "./pages/finance_pages/valuation/ViewValuationDetails";
 
 import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments";
+import ViewPastRecords from "./pages/finance_pages/salary_payments/ViewPastRecords";
 
 import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
 import AddNewMachineRecord from "./pages/finance_pages/machine_hours/AddNewMachineRecord";
@@ -156,6 +157,7 @@ export default function App() {
                     <Route path="/finances/transactions/deleteTransaction" element={<DeleteTransaction />} />
 
                     <Route path="/finances/salaryPayment" element={<SalaryPayments />} />
+                    <Route path="/finances/salaryPayment/pastRecords" element={<ViewPastRecords />} />
 
                     <Route path="/finances/valuation" element={<Valuation />} />
                     <Route path="/finances/valuation/addValuation" element={<AddNewValuation/>} />
