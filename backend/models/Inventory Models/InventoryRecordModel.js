@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
+
 const InventoryRecordSchema = mongoose.Schema(
     {
-        type:{
+        type: {
             type: String,
             required: true,
         },
@@ -19,11 +20,11 @@ const InventoryRecordSchema = mongoose.Schema(
         },
         size: {
             type: Number,
-            required: true,
+            required: false,
         },
         unit: {
             type: String,
-            required: true,
+            required: false,
         },
         quantity: {
             type: Number,
@@ -31,32 +32,16 @@ const InventoryRecordSchema = mongoose.Schema(
         },
         expire_date: {
             type: Date,
-            required: false,
+            required: false, // Make expire_date optional
         },
         description: {
             type: String,
             required: true,
         },
-
     },
     {
-        timestamps:true,
+        timestamps: true,
     }
 );
 
 export const InventoryInput = mongoose.model('InventoryInput', InventoryRecordSchema);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

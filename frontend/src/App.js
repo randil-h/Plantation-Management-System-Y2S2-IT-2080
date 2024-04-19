@@ -56,6 +56,7 @@ import AddInventoryRecordsPage from "./pages/inventory_pages/Inventory_records/A
 import EditInventoryPage from"./pages/inventory_pages/Inventory_records/EditInventoryPage";
 import ViewOneRecord from "./pages/inventory_pages/Inventory_records/ViewOneRecord";
 import ViewOneMain from "./pages/inventory_pages/Eq and Machines/ViewOneMain";
+import InSettingsPage from "./pages/inventory_pages/settings/InSettingsPage";
 
 import DiseaseTracking from "./pages/diseaseTracking_pages/DiseaseTracking";
 import ViewAllDiseases from "./pages/diseaseTracking_pages/records/ViewAllDiseases";
@@ -229,6 +230,7 @@ export default function App() {
                     <Route path= "/inventory/inventoryrecords/addinventoryrecordspage" element={(AddInventoryRecordsPage())}/>
                     <Route path= "/inventory/inventoryrecords/editinventorypage/:id" element={<EditInventoryPage/>}/>
                     <Route path ="/inventory/inventoryrecords/viewRecord/:id" element={<ViewOneRecord/>}/>
+                    <Route path= "/settings/inventory" element={InSettingsPage()}/>
 
                     <Route path= "/employees/home" element= {Employee()}/>
                     <Route path="/employees/registration/addEmployee" element={AddEmployee()}/>

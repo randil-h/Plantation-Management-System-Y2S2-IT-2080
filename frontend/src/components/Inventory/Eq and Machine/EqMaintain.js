@@ -66,12 +66,19 @@ const EqMaintain = () => {
     );
     const handlePrint = () => {
         const currentDate = new Date().toLocaleString('en-GB');
+        const past30Days = new Date();
+        past30Days.setDate(past30Days.getDate() - 30);
 
         // Filtered data for printing (excluding Info, Edit, Delete columns)
         const printData = filteredRecords.map(record => {
             const { Eq_machine_main, Eq_id_main, date_referred, date_received, ref_loc, status, comment } = record;
             return { Eq_machine_main, Eq_id_main, date_referred, date_received, ref_loc, status, comment };
         });
+
+        // Statistics
+        const totalRecords = printData.length;
+        const past30DaysRecords = printData.filter(record => new Date(record.date_received) >= past30Days).length;
+        const inProgressRecords = printData.filter(record => record.status === 'In Progress');
 
         const input = document.getElementById('eq-main-table');
 
@@ -87,7 +94,18 @@ const EqMaintain = () => {
                 pdf.setFontSize(12);
                 pdf.text(`As At: ${currentDate}`, centerPosition, 20);
 
-                const yPos = 30;
+                // Print Statistics
+                pdf.text(`Total Maintenance Records: ${totalRecords}`, 10, 30);
+                pdf.text(`Maintenance Records in Past 30 Days: ${past30DaysRecords}`, 10, 40);
+                pdf.text(`Maintenance Records In Progress: ${inProgressRecords.length}`, 10, 50);
+                if (inProgressRecords.length > 0) {
+                    pdf.text('In Progress Records:', 10, 60);
+                    inProgressRecords.forEach((record, index) => {
+                        pdf.text(`${index + 1}. ${record.Eq_machine_main}, Location: ${record.ref_loc}`, 20, 70 + (index * 10));
+                    });
+                }
+
+                const yPos = 80;
 
                 pdf.autoTable({
                     head: [
@@ -115,6 +133,7 @@ const EqMaintain = () => {
             console.error('Table element not found');
         }
     };
+
 
     const getStatusBackgroundClass = (status) => {
         if (status === 'In Progress') {

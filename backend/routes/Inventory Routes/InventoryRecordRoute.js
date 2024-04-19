@@ -12,22 +12,19 @@ router.post('/', async (request, response) => {
             record_ID,
             record_name,
             storage,
-            size,
-            unit,
             quantity,
-            expire_date,
             description
         } = request.body;
 
         // Check if all required fields are present
-        if (!type || !record_ID || !record_name || !storage || !size || !unit || !quantity || !description) {
+        if (!type || !record_ID || !record_name || !storage || !quantity || !description) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });
         }
 
         // If type is Agrochemical, require expire_date
-        if (type === 'Agrochemical' && !expire_date) {
+        if (type === 'Agrochemical' && !request.body.expire_date) {
             return response.status(400).send({
                 message: 'Expire date is required for agrochemical records',
             });
@@ -39,10 +36,7 @@ router.post('/', async (request, response) => {
             record_ID,
             record_name,
             storage,
-            size,
-            unit,
             quantity,
-            expire_date,
             description
         });
 
@@ -107,7 +101,7 @@ router.put('/:id', async (request, response) => {
         } = request.body;
 
         // Check if all required fields are present
-        if (!type || !record_ID || !record_name || !storage || !size || !unit || !quantity || !description) {
+        if (!type || !record_ID || !record_name || !storage  || !quantity || !description) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });

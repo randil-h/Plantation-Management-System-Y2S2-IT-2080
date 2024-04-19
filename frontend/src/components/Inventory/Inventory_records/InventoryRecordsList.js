@@ -187,7 +187,7 @@ const InventoryRecordList = () => {
                         </div>
                         <input
                             type="text"
-                            placeholder="Search all maintenances records..."
+                            placeholder="Search all records"
                             value={searchQuery}
                             onChange={handleSearch}
                             className="border border-gray-300 rounded-full px-10 py-1 w-auto"
@@ -225,31 +225,34 @@ const InventoryRecordList = () => {
                             className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                         <tr className=" ">
                             <th></th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-4 py-3">
                                 No
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-4 py-3">
+                                Added Date
+                            </th>
+                            <th scope="col" className="px-4 py-3">
                                 Type
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-4 py-3">
                                 Record ID
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-8 py-3">
                                 Name
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Storage Location
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-4 py-3">
                                 Size
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-4 py-3">
                                 Unit
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-4 py-3">
                                 Quantity
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-4 py-3">
                                 Expire Date
                             </th>
                             <th scope="col" className="px-6 py-3">
@@ -274,31 +277,34 @@ const InventoryRecordList = () => {
                                 className={`divide-y ${
                                     record.type === 'Planting' ? 'border-l-4 border-green-400' : record.type === 'Equipments' ? 'border-l-4 border-red-400' : record.type === 'Agrochemical' ? 'border-l-4 border-blue-400' : 'border-l-4 border-yellow-900'}`}>
                                 <td></td>
-                                <td className="px-6 py-4">
+                                <td className="px-4 py-4">
                                     {index + 1}
                                 </td>
-                                <td className="px-6 py-4">
+                                <td className="px-4 py-4">
+                                    {new Date(record.createdAt).toLocaleDateString()}
+                                </td>
+                                <td className="px-4 py-4">
                                     {record.type}
                                 </td>
-                                <td className="px-6 py-4">
+                                <td className="px-4 py-4">
                                     {record.record_ID}
                                 </td>
-                                <td className="px-6 py-4">
+                                <td className="px-8 py-4">
                                     {record.record_name}
                                 </td>
                                 <td className="px-6 py-4">
                                     {record.storage}
                                 </td>
-                                <td className="px-6 py-4">
+                                <td className="px-4 py-4">
                                     {record.size ? record.size : "N/A"}
                                 </td>
-                                <td className="px-6 py-4">
+                                <td className="px-4 py-4">
                                     {record.unit ? record.unit : "N/A"}
                                 </td>
-                                <td className="px-6 py-4">
+                                <td className="px-4 py-4">
                                     {record.quantity}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
+                                <td className="px-4 py-4 whitespace-nowrap">
                                     {record.expire_date ? new Date(record.expire_date).toISOString().split('T')[0] : "N/A"}
                                 </td>
                                 <td className="px-6 py-4">

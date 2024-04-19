@@ -235,8 +235,7 @@ const EditInventoryRecords = () => {
                                                 <option value="Papaya">Papaya</option>
                                                 <option value="Apple Guava">Apple Guava</option>
                                                 <option value="Coconut">Coconut</option>
-
-                                                {!["Papaya", "Apple Guava", "Coconut"].includes(formData.record_name) && (
+                                                {formData.record_name && !["Papaya", "Apple Guava", "Coconut"].includes(formData.record_name) && (
                                                     <option value={formData.record_name}>{formData.record_name}</option>
                                                 )}
                                             </select>
@@ -490,9 +489,8 @@ const EditInventoryRecords = () => {
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="record_name"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                        <label htmlFor="record_name"
+                                               className="block text-sm font-medium leading-6 text-gray-900">
                                             Equipment Name
                                         </label>
                                         <div className="mt-2">
