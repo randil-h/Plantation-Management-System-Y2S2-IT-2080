@@ -4,7 +4,7 @@ import {useSnackbar} from "notistack";
 import axios from "axios";
 import {message, DatePicker} from "antd";
 import moment from "moment";
-
+import jsPDF from 'jspdf';
 
 export default function SalaryProcessingSection() {
 
@@ -204,6 +204,94 @@ export default function SalaryProcessingSection() {
                 navigate('/finances/salaryPayment');
             });
     };
+
+
+
+    const generatePayslipPDF = () => {
+        // Calculate total pay
+        const basicDaysValue = parseFloat(basic_days);
+        const basicRateValue = parseFloat(basic_rate);
+        const bonusSalaryValue = parseFloat(bonus_salary);
+        const otHoursValue = parseFloat(ot_hours);
+        const otRateValue = parseFloat(ot_rate);
+        const epfEtfValue = parseFloat(epf_etf);
+
+        // Check if any input value is NaN and replace it with 0
+        const validBasicDays = isNaN(basicDaysValue) ? 0 : basicDaysValue;
+        const validBasicRate = isNaN(basicRateValue) ? 0 : basicRateValue;
+        const validBonusSalary = isNaN(bonusSalaryValue) ? 0 : bonusSalaryValue;
+        const validOtHours = isNaN(otHoursValue) ? 0 : otHoursValue;
+        const validOtRate = isNaN(otRateValue) ? 0 : otRateValue;
+        const validEpfEtf = isNaN(epfEtfValue) ? 0 : epfEtfValue;
+
+        // Calculate basic salary
+        const basicSalary = validBasicDays * validBasicRate;
+
+        // Calculate OT salary
+        const otSalary = validOtHours * validOtRate;
+
+        // Calculate total salary
+        const totalSalary = basicSalary + validBonusSalary + otSalary;
+
+        // Calculate EPF/ETF deduction
+        const epfEtfDeduction = (totalSalary * validEpfEtf) / 100;
+
+        // Calculate net salary
+        const netSalary = totalSalary - epfEtfDeduction;
+
+        // Create a new PDF document in landscape orientation
+        const doc = new jsPDF({});
+
+        // Set monospace font
+        doc.setFont('courier');
+
+        // Add company information
+        doc.setFontSize(18);
+        doc.text('Elemahana Plantations', 10, 10);
+        doc.text('Kotawehera, Nikaweratiya', 10, 20);
+
+        // Add title for the payslip
+        doc.setFontSize(12);
+        doc.text('Salary Payslip', 10, 40);
+
+        // Create table headers
+        const headers = [['Description', 'Amount']];
+        const data = [
+            ['Employee Name', emp_name],
+            ['NIC', nic],
+            ['Date Range', `${salary_start_date} - ${salary_end_date}`],
+            ['Basic Days', `${basic_days}`],
+            ['Payment Date', payment_date],
+            ['Type', type],
+            ['Basic Salary', basicSalary.toFixed(2)],
+            ['Bonus Salary', validBonusSalary.toFixed(2)],
+            ['OT Salary', otSalary.toFixed(2)],
+            ['Total Salary', totalSalary.toFixed(2)],
+            ['EPF/ETF Deduction', epfEtfDeduction.toFixed(2)],
+            // Set 'Net Salary' with different font color
+            [{ content: 'Net Salary', styles: { textColor: [0, 0, 255] } }, { content: netSalary.toFixed(2), styles: { textColor: [0, 0, 255] } }]
+        ];
+
+        // Set table width and align headers to center
+        const tableWidth = 170;
+        const cellWidth = tableWidth / 2;
+        doc.autoTable({
+            startY: 50,
+            head: headers,
+            body: data,
+            margin: { left: 10, right: 10 },
+            columnStyles: { 0: { cellWidth: cellWidth, fontStyle: 'bold' }, 1: { cellWidth: cellWidth } }
+        });
+
+        // Save the PDF
+        doc.save('payslip.pdf');
+        message.success('Pay slip generated.');
+    };
+
+
+
+
+
 
     return (
         <div className="border-t ">
@@ -511,10 +599,9 @@ export default function SalaryProcessingSection() {
                               to="/dashboard">
                             Cancel
                         </Link>
-                        <Link className="bg-amber-200 rounded-full py-1 px-4 hover:bg-amber-300"
-                              to="/dashboard">
+                        <button onClick={generatePayslipPDF} className="bg-amber-200 rounded-full py-1 px-4 hover:bg-amber-300">
                             Generate Receipt
-                        </Link>
+                        </button>
                         <button className="bg-lime-200 rounded-full py-1 px-4 hover:bg-lime-400"
                                 onClick={handleSaveSalaryRecord}>
                         Save
