@@ -142,7 +142,22 @@ const AttendanceList = () => {
                         <option value="Thushari Liyanagama">Thushari Liyanagama</option>
                         <option value="Senanai Rathnapitiya">Senanai Rathnapitiya</option>
                         <option value="Ajith Nanayakkara">Ajith Nanayakkara</option>
-                        <option value="Ajith Nanayakkara">Sumeda Pathirana</option>
+                        <option value="Sumeda Pathirana">Sumeda Pathirana</option>
+                        <option value="Nimal Anandha">Nimal Anandha</option>
+                        <option value="Priyantha Perera">Priyantha Perera</option>
+                        <option value="Sarath Jayasekara">Sarath Jayasekara</option>
+                        <option value="Sasiru Gamalath">Sasiru Gamalath</option>
+                        <option value="Jeewani Liyanage">Jeewani Liyanage</option>
+                        <option value="Nayanakantha Jayamaha">Nayanakantha Jayamaha</option>
+                        <option value="Muditha Ranasinghe">Muditha Ranasinghe</option>
+                        <option value="Rohitha Rathnayaka">Rohitha Rathnayaka</option>
+                        <option value="Manjula Sooriyaarachi">Manjula Sooriyaarachi</option>
+                        <option value="Wasantha Kalubowila">Wasantha Kalubowila</option>
+                        <option value="Nadeeka Wijethunga">Nadeeka Wijethunga</option>
+                        <option value="Praboth Athuraliya">Praboth Athuraliya</option>
+                        <option value="Lalith Karunasiri">Lalith Karunasiri</option>
+
+
                     </select>
                 </div>
 
