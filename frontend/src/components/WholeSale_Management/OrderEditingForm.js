@@ -9,7 +9,7 @@ const OrderEditingForm = () => {
     const [orderPrice, setOrderPrice] = useState('');
     const [orderQuantity, setOrderQuantity] = useState('');
     const [orderDate, setOrderDate] = useState('');
-    const [orderProductPricePerKilo, setorderProductPricePerKilo] = useState('');
+    const [orderProductPricePerKilo, setOrderProductPricePerKilo] = useState('');
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ const OrderEditingForm = () => {
                 setOrderID(response.data.orderId);
                 setOrderProductName(response.data.orderProductName);
                 setOrderPrice(response.data.orderPrice);
-                setorderProductPricePerKilo(response.data.orderProductPricePerKilo);
+                setOrderProductPricePerKilo(response.data.orderProductPricePerKilo);
                 setLoading(false);
 
             }).catch((error) => {
@@ -44,7 +44,22 @@ const OrderEditingForm = () => {
         return 0;
     };
 
-    const handleEdit = () => {
+    const handleEdit = (e) => {
+        e.preventDefault();
+
+        // Validate quantity
+        if (isNaN(orderQuantity) || orderQuantity <= 60) {
+            enqueueSnackbar('Quantity must be above 60.', { variant: 'error' });
+            return;
+        }
+
+        // Validate date
+        const currentDate = new Date().toISOString().slice(0, 10);
+        if (orderDate !== currentDate) {
+            enqueueSnackbar('Please select the current date.', { variant: 'error' });
+            return;
+        }
+
         const totalPrice = calculateTotalPrice();
         const data = {
             orderQuantity,
@@ -102,10 +117,8 @@ const OrderEditingForm = () => {
                                     </div>
                                 </div>
 
-
                                 <div className="sm:col-span-3">
-                                    <label
-                                        className="block text-sm font-medium leading-6 text-gray-900">Quantity</label>
+                                    <label className="block text-sm font-medium leading-6 text-gray-900">Quantity</label>
                                     <div className="mt-2">
                                         <input type="text"
                                                name="orderQuantity"
