@@ -41,6 +41,13 @@ function HarvestCalculator() {
         const { name, value } = event.target;
         if (name === 'treesPicked') {
             setTreesPicked(value);
+            if (!isNaN(value) && parseFloat(value) >= 0) {
+                setTreesPicked(value);
+            } else {
+
+                event.preventDefault();
+                alert("Enter positive number");
+            }
         } else if (name === 'cropType') {
             setCropType(value);
         }
@@ -103,6 +110,7 @@ function HarvestCalculator() {
                             onChange={handleChange}
                             placeholder="Enter number of trees"
                             className="p-2 rounded border border-gray-300"
+                            min="0"
                         />
                     </div>
                     <div className="mb-4">
