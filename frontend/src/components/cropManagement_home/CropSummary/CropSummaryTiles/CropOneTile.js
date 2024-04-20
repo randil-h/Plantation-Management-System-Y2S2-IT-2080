@@ -79,9 +79,9 @@ export default function CropOneTile() {
         <div>
             {plantingRecords.map((record) => (
                 <li key={record.id}
-                    className="rounded-xl bg-lime-100 px-6 py-8 shadow-sm items-center hover:transform hover:scale-110 transition-transform duration-300"
+                    className="rounded-xl text-center bg-lime-200 px-6 py-8 items-center hover:transform hover:scale-110 transition-transform duration-300"
                     onClick={handleTileClick}>
-                    <GiCoconuts className="mx-auto h-10 w-10"/>
+                    <GiCoconuts className="mx-auto h-10 w-10 "/>
                     <h3 className="my-3 font-display font-medium">Coconut</h3>
                     <p className="mt-1.5 text-sm leading-6 text-secondary-500">
                         Harvest Area - {calculateHarvestArea(record.field)} acres <br/>

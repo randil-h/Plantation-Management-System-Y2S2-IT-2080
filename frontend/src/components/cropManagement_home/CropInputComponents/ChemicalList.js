@@ -113,6 +113,29 @@ const ChemicalList = () => {
         setSearchQuery(event.target.value);
     };
 
+    function calculateTotalCostPerCrop(records) {
+        let totalCostPerCrop = {};
+
+        if (!Array.isArray(records)) {
+            console.error('Error: Records is not an array.');
+            return totalCostPerCrop; // Return an empty object or handle the error as needed
+        }
+
+        records.forEach(record => {
+            // Assuming each record has a field and unitCost property
+            const { field, unitCost, quantity } = record;
+            const totalCost = unitCost * quantity;
+
+            if (totalCostPerCrop.hasOwnProperty(field)) {
+                totalCostPerCrop[field] += totalCost;
+            } else {
+                totalCostPerCrop[field] = totalCost;
+            }
+        });
+
+        return totalCostPerCrop;
+    }
+
     const generatePDF = (filteredRecords) => {
         const input = document.getElementById('chemical-table');
         if (input) {
@@ -131,13 +154,20 @@ const ChemicalList = () => {
                     pdf.setFontSize(12);
                     pdf.text(`As At: ${currentDate}`, centerPosition, 20);
 
+                    let yPos = 30;
 
-                    const yPos = 30;
                     pdf.autoTable({
                         html: '#chemical-table',
                         startY: yPos + 10,
                         theme: 'grid',
                     });
+
+                    const totalCostPerCrop = calculateTotalCostPerCrop(filteredRecords);
+                    yPos = 30;
+                    Object.entries(totalCostPerCrop).forEach(([field, totalCost]) => {
+                        pdf.text(`Total Cost for ${field}: Rs. ${totalCost}`, 10, yPos);
+                        yPos += 10;
+                    })
 
                     pdf.save(`chemical-records_generatedAt_${currentDate}.pdf`);
                 })

@@ -85,29 +85,27 @@ const UpcomingHarvestTile = ({ setHarvestTileBg }) => {
         return closestHarvest;
     };
 
-    const harvestTileBg = closestHarvest && closestHarvest.daysLeft < 14 ? 'bg-amber-300' : 'bg-lime-100';
-
-    // Pass harvestTileBg back to parent component
-    useEffect(() => {
-        setHarvestTileBg(harvestTileBg);
-    }, [harvestTileBg, setHarvestTileBg]);
+    const harvestTileBg = closestHarvest && closestHarvest.daysLeft < 14 ? 'bg-amber-300' : 'bg-lime-200';
 
     return (
         <div>
             {closestHarvest && (
                 <li className={`rounded-xl px-6 py-8 hover:transform hover:scale-110 transition-transform duration-300 ${harvestTileBg}`}>
-                    <GiSandsOfTime className="mx-auto h-10 w-10" />
-                    <h3 className="my-3 font-display font-medium">Ready to harvest in</h3>
+                    <div className="flex justify-center">
+                        <GiSandsOfTime className="h-12 w-12 "/>
+                    </div>
+                    <h3 className="my-3 font-display font-medium text-center">Ready to harvest in</h3>
                     {loading ? (
                         <p>Loading...</p>
                     ) : (
-                        <p className="mt-1.5 text-sm leading-6 text-secondary-500">
-                            {closestHarvest.daysLeft} days <br /> {closestHarvest.field} - {closestHarvest.cropType}
+                        <p className="mt-1.5 text-sm leading-6 text-secondary-500 text-center">
+                            {closestHarvest.daysLeft} days <br/> {closestHarvest.field} - {closestHarvest.cropType}
                         </p>
                     )}
                 </li>
             )}
         </div>
+
     );
 };
 

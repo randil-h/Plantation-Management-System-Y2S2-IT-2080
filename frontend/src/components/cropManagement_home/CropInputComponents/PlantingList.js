@@ -27,6 +27,19 @@ const PlantingList = () => {
         { Field: 'Field G', Area: 1 },
     ];
 
+    const calculateTotalCostPerCrop = (plantingRecords) => {
+        const totalCostPerCrop = {};
+        plantingRecords.forEach((record) => {
+            const { cropType, unitCost, quantity } = record;
+            const cost = unitCost * quantity;
+            if (!totalCostPerCrop[cropType]) {
+                totalCostPerCrop[cropType] = 0;
+            }
+            totalCostPerCrop[cropType] += cost;
+        });
+        return totalCostPerCrop;
+    };
+
     useEffect(() => {
         setLoading(true);
         axios
@@ -86,6 +99,7 @@ const PlantingList = () => {
     const generatePDF = () => {
         const currentDate = new Date().toLocaleString('en-GB');
         const acreagePerCrop = calculateAcreagePerCrop(filteredRecords);
+        const totalCostPerCrop = calculateTotalCostPerCrop(filteredRecords);
         const input = document.getElementById('planting-table');
 
         if (input) {
@@ -112,6 +126,13 @@ const PlantingList = () => {
                     let y = 30;
                     Object.entries(acreagePerCrop).forEach(([cropType, acreage]) => {
                         pdf.text(`${cropType}: ${acreage} acres`, 20, pdf.autoTable.previous.finalY + y);
+                        y = y + 10;
+                    });
+
+                    pdf.text('Total Cost per Crop:', 200, pdf.autoTable.previous.finalY + 20);
+                    y = 30;
+                    Object.entries(totalCostPerCrop).forEach(([cropType, totalCost]) => {
+                        pdf.text(`${cropType}: Rs. ${totalCost} `, 200, pdf.autoTable.previous.finalY + y);
                         y = y + 10;
                     });
 
