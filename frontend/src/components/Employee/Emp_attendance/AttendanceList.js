@@ -142,6 +142,7 @@ const AttendanceList = () => {
                         <option value="Thushari Liyanagama">Thushari Liyanagama</option>
                         <option value="Senanai Rathnapitiya">Senanai Rathnapitiya</option>
                         <option value="Ajith Nanayakkara">Ajith Nanayakkara</option>
+                        <option value="Sumeda Pathirana">Sumeda Pathirana</option>
                         <option value="Nimal Anandha">Nimal Anandha</option>
                         <option value="Priyantha Perera">Priyantha Perera</option>
                         <option value="Sarath Jayasekara">Sarath Jayasekara</option>
@@ -161,7 +162,7 @@ const AttendanceList = () => {
                 </div>
 
                 <div>
-                    <label className="text-sm mr-2">Start Date:</label>
+                <label className="text-sm mr-2">Start Date:</label>
                     <input
                         className="rounded-lg border border-gray-300 px-3 py-1"
                         type="date"
