@@ -92,16 +92,18 @@ const UpcomingHarvestTile = ({ setHarvestTileBg }) => {
             {closestHarvest && (
                 <li className={`rounded-xl px-6 py-8 hover:transform hover:scale-110 transition-transform duration-300 ${harvestTileBg}`}>
                     <div className="flex justify-center">
-                        <GiSandsOfTime className="h-12 w-12 "/>
+                        <GiSandsOfTime className="h-12 w-12 mt-6 "/>
                     </div>
+                    <br/>
                     <h3 className="my-3 font-display font-medium text-center">Ready to harvest in</h3>
                     {loading ? (
                         <p>Loading...</p>
                     ) : (
-                        <p className="mt-1.5 text-sm leading-6 text-secondary-500 text-center">
+                        <p className="mt-1.5 text-sm leading-6 text-secondary-500 text-center font-display">
                             {closestHarvest.daysLeft} days <br/> {closestHarvest.field} - {closestHarvest.cropType}
                         </p>
                     )}
+                    <br/>
                 </li>
             )}
         </div>
