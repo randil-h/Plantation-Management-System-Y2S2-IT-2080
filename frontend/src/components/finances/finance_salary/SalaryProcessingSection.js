@@ -9,20 +9,20 @@ import moment from "moment";
 export default function SalaryProcessingSection() {
 
 
-    const [empName, setEmpName] = useState('');
+    const [emp_name, setEmpName] = useState('');
     const [nic, setNIC] = useState('');
-    const [paymentDate, setPaymentDate] = useState('');
-    const [type, setType] = useState('');
+    const [payment_date, setPaymentDate] = useState('');
+    const [type, setType] = useState('permanent');
 
-    const [salaryStartDate, setSalaryStartDate] = useState('');
-    const [salaryEndDate, setSalaryEndDate] = useState('');
+    const [salary_start_date, setSalaryStartDate] = useState(''); // Initialize with null
+    const [salary_end_date, setSalaryEndDate] = useState(''); // Initialize with null
 
-    const [basicDays, setBasicDays] = useState(0);
-    const [basicRate, setBasicRate] = useState(0);
-    const [bonusSalary, setBonusSalary] = useState(0);
-    const [otHours, setOtHours] = useState(0);
-    const [otRate, setOtRate] = useState(0);
-    const [epfEtf, setEpfEtf] = useState(0);
+    const [basic_days, setBasicDays] = useState(0);
+    const [basic_rate, setBasicRate] = useState(0);
+    const [bonus_salary, setBonusSalary] = useState('0');
+    const [ot_hours, setOtHours] = useState('0');
+    const [ot_rate, setOtRate] = useState('0');
+    const [epf_etf, setEpfEtf] = useState('0');
     const [description, setDescription] = useState('');
 
     const [id, setID] = useState('');
@@ -35,39 +35,7 @@ export default function SalaryProcessingSection() {
 
     const [RegistrationRecords, setRegistrationRecords] = useState([]);
 
-    const handleSaveSalaryRecord = async (e) => {
-        e.preventDefault();
-        const data = {
-            paymentDate,
-            empName,
-            salaryStartDate,
-            salaryEndDate,
-            nic,
-            type,
-            basicDays,
-            basicRate,
-            bonusSalary,
-            otHours,
-            otRate,
-            epfEtf,
-            description
 
-        };
-        setLoading(true);
-        axios
-            .post('http://localhost:5555/salary', data)
-            .then(() => {
-                setLoading(false);
-                message.success('Salary record has successfully saved.');
-                navigate('/finances/salaryPayment');
-            })
-            .catch((error) => {
-                setLoading(false);
-                message.error('Salary record saving failed.');
-                console.log(error);
-                navigate('/finances/salaryPayment');
-            });
-    };
 
 
 
@@ -111,7 +79,7 @@ export default function SalaryProcessingSection() {
             .then((response) => {
 
                 // Conditionally set EPF/ETF based on employee type
-                const defaultEpfEtf = response.data.emp_type === 'permanent' ? 6 : 0;
+                const defaultEpfEtf = response.data.emp_type === `permanent` ? 6 : 3;
                 setEpfEtf(defaultEpfEtf);
 
                 setLoading(false);
@@ -140,10 +108,12 @@ export default function SalaryProcessingSection() {
     }, []);
 
     useEffect(() => {
-        if (attendanceRecords.length > 0 && empName) {
+        if (attendanceRecords.length > 0 && emp_name && salary_start_date && salary_end_date) {
             const filteredRecords = attendanceRecords.filter((record) =>
-                record.e_name === empName
+                record.e_name === emp_name &&
+                moment(record.e_date).isBetween(salary_start_date, salary_end_date, null, '[]') // Filter records between salary start date and end date
             );
+            console.log("Filtered Records:", filteredRecords); // Log filtered records
             let totalDays = 0;
             filteredRecords.forEach((record) => {
                 if (record.att_status === "present") {
@@ -153,20 +123,23 @@ export default function SalaryProcessingSection() {
                 }
                 // For "absent", don't add any days
             });
+            console.log("Total Days:", totalDays); // Log total days
             setBasicDays(totalDays);
         }
-    }, [attendanceRecords, empName]);
+    }, [attendanceRecords, emp_name, salary_start_date, salary_end_date]);
+
+
 
 
 
     const calculateTotalSalary = () => {
         // Convert input values to numbers
-        const basicDaysValue = parseFloat(basicDays);
-        const basicRateValue = parseFloat(basicRate);
-        const bonusSalaryValue = parseFloat(bonusSalary);
-        const otHoursValue = parseFloat(otHours);
-        const otRateValue = parseFloat(otRate);
-        const epfEtfValue = parseFloat(epfEtf);
+        const basicDaysValue = parseFloat(basic_days);
+        const basicRateValue = parseFloat(basic_rate);
+        const bonusSalaryValue = parseFloat(bonus_salary);
+        const otHoursValue = parseFloat(ot_hours);
+        const otRateValue = parseFloat(ot_rate);
+        const epfEtfValue = parseFloat(epf_etf);
 
         // Check if any input value is NaN and replace it with 0
         const validBasicDays = isNaN(basicDaysValue) ? 0 : basicDaysValue;
@@ -195,7 +168,42 @@ export default function SalaryProcessingSection() {
     };
 
 
+    const [isInputFocused, setIsInputFocused] = useState(false);
 
+    const handleSaveSalaryRecord = async (e) => {
+        e.preventDefault();
+        const data = {
+            payment_date,
+            emp_name,
+            salary_start_date,
+            salary_end_date,
+            nic,
+            type,
+            basic_days,
+            basic_rate,
+            bonus_salary,
+            ot_hours,
+            ot_rate,
+            epf_etf,
+            description
+
+        };
+        setLoading(true);
+        axios
+            .post('http://localhost:5555/salary', data)
+            .then(() => {
+                setLoading(false);
+                message.success('Salary record has successfully saved.');
+                navigate('/finances/salaryPayment');
+            })
+            .catch((error) => {
+                setLoading(false);
+                message.error('Salary record saving failed.');
+                console.log(error);
+                console.error('Error occurred while saving salary record:', error);
+                navigate('/finances/salaryPayment');
+            });
+    };
 
     return (
         <div className="border-t ">
@@ -242,17 +250,17 @@ export default function SalaryProcessingSection() {
 
                                     {/* EPM Name */}
                                     <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="epm_name"
+                                        <label htmlFor="emp_name"
                                                className="block text-sm font-medium leading-6 text-gray-900">
                                             Employee Name
                                         </label>
                                         <div className="mt-2">
                                             <input
                                                 type="text"
-                                                name="epm_name"
-                                                value={empName}
+                                                name="emp_name"
+                                                value={emp_name}
                                                 onChange={(e) => setEmpName(e.target.value)}
-                                                id="epm_name"
+                                                id="emp_name"
                                                 disabled={true}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                             />
@@ -307,15 +315,27 @@ export default function SalaryProcessingSection() {
                                         </label>
                                         <div className="mt-2">
                                             <DatePicker.RangePicker
-                                                value={[salaryStartDate, salaryEndDate]}
+                                                value={salary_start_date && salary_end_date ? [moment(salary_start_date), moment(salary_end_date)] : null}
                                                 onChange={(dates) => {
                                                     if (dates && dates.length === 2) {
-                                                        setSalaryStartDate(dates[0]);
-                                                        setSalaryEndDate(dates[1]);
+                                                        // Format dates to yyyy-mm-dd before setting state variables
+                                                        const startDateFormatted = dates[0].format('YYYY-MM-DD');
+                                                        const endDateFormatted = dates[1].format('YYYY-MM-DD');
+                                                        // Set state variables with formatted dates
+                                                        setSalaryStartDate(startDateFormatted);
+                                                        setSalaryEndDate(endDateFormatted);
+                                                    } else {
+                                                        setSalaryStartDate(null);
+                                                        setSalaryEndDate(null);
                                                     }
                                                 }}
                                                 className="flex flex-row w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                             />
+
+                                            <p className="text-xs text-lime-600 mt-1">
+                                                Please select the range of dates for which you wish to find the present
+                                                days and half-days of the selected employee.
+                                            </p>
                                         </div>
                                     </div>
 
@@ -325,15 +345,21 @@ export default function SalaryProcessingSection() {
                                                className="block text-sm font-medium leading-6 text-gray-900">
                                             Basic Days
                                         </label>
-                                        <div className="mt-2">
+                                        <div className="mt-2 relative">
                                             <input
                                                 type="number"
                                                 name="basic_days"
-                                                value={basicDays}
+                                                value={basic_days}
                                                 onChange={(e) => setBasicDays(e.target.value)}
                                                 id="basic_days"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                             />
+                                            {/* Warning Message */}
+                                            <p className=" text-xs text-amber-600 mt-1">
+                                                Calculated by analyzing attendance records. Do not change unless the
+                                                employee failed to mark attendance on a present
+                                                day.
+                                            </p>
                                         </div>
                                     </div>
 
@@ -348,7 +374,7 @@ export default function SalaryProcessingSection() {
                                             <input
                                                 type="number"
                                                 name="basic_rate"
-                                                value={basicRate}
+                                                value={basic_rate}
                                                 onChange={(e) => setBasicRate(e.target.value)}
                                                 id="basic_rate"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
@@ -366,7 +392,7 @@ export default function SalaryProcessingSection() {
                                             <input
                                                 type="number"
                                                 name="bonus_salary"
-                                                value={bonusSalary}
+                                                value={bonus_salary}
                                                 onChange={(e) => setBonusSalary(e.target.value)}
                                                 id="bonus_salary"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
@@ -384,7 +410,7 @@ export default function SalaryProcessingSection() {
                                             <input
                                                 type="number"
                                                 name="ot_hours"
-                                                value={otHours}
+                                                value={ot_hours}
                                                 onChange={(e) => setOtHours(e.target.value)}
                                                 id="ot_hours"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
@@ -402,7 +428,7 @@ export default function SalaryProcessingSection() {
                                             <input
                                                 type="number"
                                                 name="ot_rate"
-                                                value={otRate}
+                                                value={ot_rate}
                                                 onChange={(e) => setOtRate(e.target.value)}
                                                 id="ot_rate"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
@@ -420,15 +446,13 @@ export default function SalaryProcessingSection() {
                                             <input
                                                 type="number"
                                                 name="epf_etf"
-                                                value={epfEtf}
+                                                value={epf_etf}
                                                 onChange={(e) => setEpfEtf(e.target.value)}
                                                 id="epf_etf"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                             />
                                         </div>
                                     </div>
-
-
 
 
                                     {/* Payment Date */}
@@ -440,7 +464,7 @@ export default function SalaryProcessingSection() {
                                         <div className="mt-2">
                                             <input
                                                 type="date"
-                                                value={paymentDate}
+                                                value={payment_date}
                                                 onChange={(e) => setPaymentDate(e.target.value)}
                                                 id="payment_date"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
@@ -493,7 +517,7 @@ export default function SalaryProcessingSection() {
                         </Link>
                         <button className="bg-lime-200 rounded-full py-1 px-4 hover:bg-lime-400"
                                 onClick={handleSaveSalaryRecord}>
-                            Save
+                        Save
                         </button>
                     </div>
                 </div>

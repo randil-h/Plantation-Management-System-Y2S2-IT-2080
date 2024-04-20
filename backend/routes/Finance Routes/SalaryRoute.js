@@ -6,23 +6,27 @@ const router = express.Router();
 // create a new record
 router.post('/', async (request, response) => {
     try {
-        if (
-            !request.body.payment_date ||
-            !request.body.emp_name ||
-            !request.body.salary_start_date ||
-            !request.body.salary_end_date ||
-            !request.body.nic ||
-            !request.body.type ||
-            !request.body.basic_days ||
-            !request.body.basic_rate ||
-            !request.body.bonus_salary ||
-            !request.body.ot_hours ||
-            !request.body.ot_rate ||
-            !request.body.epf_etf ||
-            !request.body.description
-        ) {
+        const requiredFields = [
+            'payment_date',
+            'emp_name',
+            'salary_start_date',
+            'salary_end_date',
+            'nic',
+            'type',
+            'basic_days',
+            'basic_rate',
+            'bonus_salary',
+            'ot_hours',
+            'ot_rate',
+            'epf_etf',
+            'description'
+        ];
+
+        const missingFields = requiredFields.filter(field => !request.body[field]);
+
+        if (missingFields.length > 0) {
             return response.status(400).send({
-                message: 'Send all required fields',
+                message: `Missing required fields: ${missingFields.join(', ')}`,
             });
         }
 
@@ -45,11 +49,12 @@ router.post('/', async (request, response) => {
         const SalaryRecord = await SalariesRecord.create(NewSalaryRecord);
         return response.status(201).send(SalaryRecord);
 
-    }catch (error) {
+    } catch (error) {
         console.log(error.message);
-        response.status(500).send({message: error.message});
+        response.status(500).send({ message: error.message });
     }
 });
+
 
 // Route for Get All from database
 

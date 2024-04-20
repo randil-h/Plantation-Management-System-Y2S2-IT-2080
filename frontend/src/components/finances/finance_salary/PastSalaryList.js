@@ -315,15 +315,15 @@ export default function PastSalaryList() {
                             <td className="px-6 py-4">{record.payment_date}</td>
                             <td className="px-6 py-4">{record.emp_name}</td>
                             <td className="px-6 py-4">{record.salary_start_date}</td>
-                            <td className="px-6 py-4">Rs.{record.salary_end_date}</td>
-                            <td className="px-6 py-4">Rs.{record.nic}</td>
-                            <td className="px-6 py-4">Rs.{record.type}</td>
-                            <td className="px-6 py-4">Rs.{record.basic_days}</td>
+                            <td className="px-6 py-4">{record.salary_end_date}</td>
+                            <td className="px-6 py-4">{record.nic}</td>
+                            <td className="px-6 py-4">{record.type}</td>
+                            <td className="px-6 py-4">{record.basic_days}</td>
                             <td className="px-6 py-4">Rs.{record.basic_rate}</td>
                             <td className="px-6 py-4">Rs.{record.bonus_salary}</td>
-                            <td className="px-6 py-4">Rs.{record.ot_hours}</td>
+                            <td className="px-6 py-4">{record.ot_hours}</td>
                             <td className="px-6 py-4">Rs.{record.ot_rate}</td>
-                            <td className="px-6 py-4">Rs.{record.epf_etf}</td>
+                            <td className="px-6 py-4">{record.epf_etf}%</td>
                             <td className="px-6 py-4">{record.description}</td>
 
 
