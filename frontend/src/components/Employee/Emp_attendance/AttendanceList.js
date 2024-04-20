@@ -198,13 +198,7 @@ const AttendanceList = () => {
                                         aria-hidden="true"/>
                                 </Link>
                             </td>
-                            <td className="py-4 text-right">
-                                <Link to={`#`} className="font-medium text-blue-600 hover:underline">
-                                    <PencilSquareIcon
-                                        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                        aria-hidden="true"/>
-                                </Link>
-                            </td>
+
                             <td className="py-4 text-right">
                                 <button className="flex items-center" onClick={() => handleDelete(record._id)}>
                                     <TrashIcon
