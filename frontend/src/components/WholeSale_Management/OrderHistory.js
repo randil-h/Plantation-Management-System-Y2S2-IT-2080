@@ -3,6 +3,7 @@ import { TbShoppingCartCopy } from "react-icons/tb";
 import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 import axios from "axios";
 //import {useId} from 'react';
+import { Link } from "react-router-dom";
 import ProgressBar from "../../components/WholeSale_Management/ProgressBar"
 
 const OrderHistory = () => {
@@ -115,27 +116,14 @@ const OrderHistory = () => {
                                                 {record.orderPrice}
                                             </p>
                                         </td>
-
-                                        {/*<td className=" px-5 py-5 border-b border-gray-200 bg-white text-sm items-center">*/}
-                                        {/*    <a href="#"*/}
-                                        {/*       className="font-medium text-blue-600  hover:underline">*/}
-                                        {/*        <InformationCircleIcon*/}
-                                        {/*            className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500 mt-2"*/}
-                                        {/*            aria-hidden="true"/>*/}
-                                        {/*    </a>*/}
-                                        {/*</td>*/}
                                         <td className=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
-
-                                            <PencilSquareIcon
-                                                className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                                aria-hidden="true"/>
-                                            {/*<Link*/}
-                                            {/*    //to={`/editProduct/${record._id}`}*/}
-                                            {/*      className="font-medium text-blue-600 hover:underline">*/}
-                                            {/*    <PencilSquareIcon*/}
-                                            {/*        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"*/}
-                                            {/*        aria-hidden="true"/>*/}
-                                            {/*</Link>*/}
+                                            <Link
+                                                to={`/editOrder/${record._id}`}
+                                                  className="font-medium text-blue-600 hover:underline">
+                                                <PencilSquareIcon
+                                                    className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                                    aria-hidden="true"/>
+                                            </Link>
                                         </td>
                                         <td className=" ">
                                             <button
