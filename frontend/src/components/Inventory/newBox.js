@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Wave from 'react-wavify';
+//import Wave from 'react-wavify';
 
 function NewBox() {
     const [waterRecords, setWaterRecords] = useState([]);
