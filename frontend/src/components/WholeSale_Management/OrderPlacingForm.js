@@ -13,6 +13,7 @@ const OrderPlacingForm = () => {
     const navigate = useNavigate();
     const [orderDate, setorderDate] = useState('');
     const [orderQuantity, setorderQuantity] = useState('1');
+    //const [orderProductPricePerKilo , setorderProductPricePerKilo]  = useState('');
 
     useEffect(() => {
         setLoading(true);
@@ -49,12 +50,14 @@ const OrderPlacingForm = () => {
         e.preventDefault();
         const orderId = generateOrderId();
         const totalPrice = calculateTotalPrice();
+        const orderProductPricePerKilo = product.productPrice;
         const  data = {
             orderId: orderId,
             orderProductName: product.productName,
             orderDate,
             orderQuantity,
             orderPrice: totalPrice,
+            orderProductPricePerKilo : orderProductPricePerKilo
         };
 
         axios

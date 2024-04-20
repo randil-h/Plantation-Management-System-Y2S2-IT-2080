@@ -7,9 +7,9 @@ const OrderEditingForm = () => {
     const [orderID, setOrderID] = useState('');
     const [orderProductName, setOrderProductName] = useState('');
     const [orderPrice, setOrderPrice] = useState('');
-    const [productPrice, setProductPrice] = useState(null); // Changed variable name
     const [orderQuantity, setOrderQuantity] = useState('');
     const [orderDate, setOrderDate] = useState('');
+    const [orderProductPricePerKilo, setorderProductPricePerKilo] = useState('');
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -27,22 +27,8 @@ const OrderEditingForm = () => {
                 setOrderID(response.data.orderId);
                 setOrderProductName(response.data.orderProductName);
                 setOrderPrice(response.data.orderPrice);
+                setorderProductPricePerKilo(response.data.orderProductPricePerKilo);
                 setLoading(false);
-
-                axios.get(`http://localhost:5555/productRecords/${response.data.productName}`)
-                    .then((productResponse) => {
-                        if (productResponse.data && productResponse.data.productPrice) {
-                            setProductPrice(productResponse.data.productPrice);
-                        } else {
-                            enqueueSnackbar('Invalid product data.', { variant: 'error' });
-                        }
-                        setLoading(false);
-                    })
-                    .catch((error) => {
-                        setLoading(false);
-                        enqueueSnackbar('An error occurred while fetching product details.', { variant: 'error' });
-                        console.log(error);
-                    });
 
             }).catch((error) => {
             setLoading(false);
@@ -51,10 +37,19 @@ const OrderEditingForm = () => {
         });
     }, [id]);
 
+    const calculateTotalPrice = () => {
+        if (orderQuantity) {
+            return orderQuantity * parseFloat(orderProductPricePerKilo);
+        }
+        return 0;
+    };
+
     const handleEdit = () => {
+        const totalPrice = calculateTotalPrice();
         const data = {
             orderQuantity,
             orderDate,
+            orderPrice: totalPrice,
         };
         setLoading(true);
         axios
@@ -69,13 +64,6 @@ const OrderEditingForm = () => {
                 enqueueSnackbar('Error', { variant: 'error' });
                 console.log(error);
             });
-    };
-
-    const calculateTotalPrice = () => {
-        if (productPrice) { // Changed variable name
-            return orderQuantity * parseFloat(productPrice);
-        }
-        return 0;
     };
 
     return (
@@ -130,7 +118,7 @@ const OrderEditingForm = () => {
 
                                 <div className="sm:col-span-3">
                                     <div className="mt-2">
-                                        <span>Price - {calculateTotalPrice}</span>
+                                        <span>Price - {calculateTotalPrice()}</span>
                                     </div>
                                 </div>
 

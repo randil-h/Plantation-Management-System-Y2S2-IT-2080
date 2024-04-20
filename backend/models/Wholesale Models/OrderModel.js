@@ -22,6 +22,10 @@ const OrderSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
+        orderProductPricePerKilo: {
+            type: Number,
+            required: true,
+        },
     },
 );
 
