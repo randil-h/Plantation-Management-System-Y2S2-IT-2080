@@ -63,15 +63,25 @@ const ProductHistory = () =>{
     };
 
 
-    const generatePDF = () => {
+    const generatePDF = (filteredRecords) => {
         const input = document.getElementById('product-table');
         if (input) {
+            const currentDate = new Date().toLocaleString('en-GB');
+
             html2canvas(input)
                 .then((canvas) => {
-                    const imgData = canvas.toDataURL('image/png');
-                    const pdf = new jsPDF('l', 'mm', 'b4');
-                    pdf.addImage(imgData, 'PNG', 0, 0);
-                    pdf.save('product-list.pdf');
+                    const pdf = new jsPDF('l', 'mm', 'a3');
+
+                    pdf.text('Product Records', 10, 10);
+
+                    pdf.autoTable({
+                        html: '#product-table',
+                        startY: 30,
+                        theme: 'striped',
+                    });
+
+                    pdf.save(`productRecords_generatedAt_${currentDate}.pdf`);
+
                 })
                 .catch((error) => {
                     console.error('Error generating PDF:', error);
@@ -123,7 +133,8 @@ const ProductHistory = () =>{
                 <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
-                            <table class="min-w-full">
+                            <table class="min-w-full"
+                            id = "product-table">
                                 <thead class="bg-gray-200 border-b">
                                 <tr>
                                     <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
