@@ -32,7 +32,7 @@ function NewBox() {
         <div className="relative">
             {/* Box content */}
             <div
-                className="py-16 flex flex-col items-center justify-center rounded-lg shadow-lg bg-gray-300 max-w-xs w-full mb-4 hover:bg-gray-100 mt-2 mr-80 ml-4">
+                className="py-16 flex flex-col items-center justify-center rounded-lg shadow-lg bg-lime-200 max-w-xs w-full mb-4 hover:bg-lime-100 mt-2 mr-80 ml-4">
                 <IoWater style={{ fontSize: '3rem', color: '#2C7CDD' }} />
                 <div className="text-lg font-bold">{totalPercentage.toFixed(2)}%</div>
                 <div className="text-sm">Total Water Quantity: {totalWaterQuantity} liters</div>

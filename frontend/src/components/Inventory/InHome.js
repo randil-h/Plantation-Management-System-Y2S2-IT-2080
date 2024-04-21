@@ -73,7 +73,7 @@ const InHome = () => {
 
                     <div className="flex justify-between items-center mt-10">
                         <div
-                            className="py-12 flex flex-col items-center justify-center rounded-lg shadow-lg bg-gray-300 max-w-xs w-full mb-4 hover:bg-gray-200 mt-2 ml-24">
+                            className="py-12 flex flex-col items-center justify-center rounded-lg shadow-lg bg-lime-200 max-w-xs w-full mb-4 hover:bg-lime-100 mt-2 ml-24">
                             <div className="mt-2 mb-3">
                                 <FaTractor className="h-10 w-10 mx-auto"/>
                             </div>
@@ -84,7 +84,7 @@ const InHome = () => {
                         </div>
 
                         <div
-                            className="py-12 flex flex-col items-center justify-center rounded-lg shadow-lg bg-gray-300 max-w-xs w-full mb-4 hover:bg-gray-200 mt-2 ml-5">
+                            className="py-12 flex flex-col items-center justify-center rounded-lg shadow-lg bg-lime-200 max-w-xs w-full mb-4 hover:bg-lime-100 mt-2 ml-5">
                             <div className="mt-2 mb-3">
                                 <BsTools className="h-10 w-10 mx-auto"/>
                             </div>
