@@ -10,7 +10,7 @@ export default function EditTaskPage() {
 
     const breadcrumbItems = [
         { name: 'Employees', href: '/employees/home' },
-        { name: 'Task', href: '/employees/tasks' },
+        { name: 'Assign Tasks', href: '/employees/tasks' },
         { name: 'Edit Task Details', href: '/employees/tasks/editTasks' },
     ];
 

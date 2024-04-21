@@ -10,6 +10,19 @@ import {Link} from "react-router-dom";
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
 import {enqueueSnackbar, useSnackbar} from "notistack";
+import {StyleSheet} from "@react-pdf/renderer";
+
+const pdfStyles = StyleSheet.create({
+    page: {
+        flexDirection: 'row',
+        backgroundColor: '#ffffff',
+    },
+    section: {
+        margin: 10,
+        padding: 10,
+        flexGrow: 1
+    }
+});
 
 const EmployeeList = () => {
 
@@ -68,32 +81,42 @@ const EmployeeList = () => {
     const employeeTypes = [...new Set(RegistrationRecords.map(record => record.emp_type))];
 
 
-    const handlePrint = () => {
-        const input = document.getElementById('print-area');
+    const generatePDF = () => {
+        const input = document.getElementById('registration-table');
+        if (input) {
+            const currentDate = new Date().toLocaleString('en-GB');
 
-        html2canvas(input)
-            .then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const imgWidth = pdf.internal.pageSize.getWidth() - 20;
-                const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                let heightLeft = imgHeight;
-                let position = 10;
-                pdf.setFontSize(16);
-                pdf.text("Employee Summary", 10, position);
-                heightLeft -= position + 10;
+            html2canvas(input)
+                .then((canvas) => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF('l', 'mm', 'a3');
 
-                pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
-                heightLeft -= imgHeight;
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
-                    pdf.addPage();
-                    pdf.addImage(imgData, 'PNG', 10, position + 10, imgWidth, imgHeight);
-                    heightLeft -= imgHeight;
-                }
+                    const recordCount = filteredRecords.length;
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const textWidth = pdf.getStringUnitWidth('Employee Details') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                    const centerPosition = (pageWidth - textWidth) / 2;
 
-                pdf.save('Employee_Details.pdf');
-            });
+                    pdf.setFontSize(16);
+                    pdf.text('Employee Details', centerPosition, 10);
+                    pdf.setFontSize(12);
+                    pdf.text(`As At: ${currentDate}`, centerPosition, 20);
+
+                    pdf.text(`Number of Employees: ${recordCount}`, 10, 40);
+
+                    pdf.autoTable({
+                        html: '#registration-table',
+                        startY: 70,
+                        theme: 'grid',
+                    });
+
+                    pdf.save(`Employee-details_generatedAt_${currentDate}.pdf`);
+                })
+                .catch((error) => {
+                    console.error('Error generating PDF:', error);
+                });
+        } else {
+            console.error('Table element not found');
+        }
     };
 
     function getBorderColorClass(emp_type) {
@@ -156,15 +179,17 @@ const EmployeeList = () => {
                             Add new employee <span aria-hidden="true">&rarr;</span>
                         </a>
                         <button
-                            onClick={handlePrint}
+                            onClick={generatePDF}
                             className="ml-4 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                             Generate Report
                         </button>
                     </div>
                 </div>
 
-                <div id="print-area">
-                    <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
+                <div className="overflow-x-auto">
+                    <table
+                        id="registration-table"
+                        className="w-full text-sm text-left rtl:text-right text-gray-500  ">
                         <thead
                             className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                         <tr className=" ">
@@ -209,13 +234,13 @@ const EmployeeList = () => {
                             Hourly Rate
                         </th>
                         <th scope="col" className=" py-3">
-                            <span className="sr-only">Info</span>
+                            <span className="sr-only"></span>
                         </th>
                         <th scope="col" className=" py-3">
-                            <span className="sr-only">Edit</span>
+                            <span className="sr-only"></span>
                         </th>
                         <th scope="col" className=" py-3">
-                            <span className="sr-only">Delete</span>
+                            <span className="sr-only"></span>
                         </th>
                     </tr>
                     </thead>
