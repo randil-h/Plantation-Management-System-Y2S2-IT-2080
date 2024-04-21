@@ -158,7 +158,7 @@ const InHome = () => {
                                 ).map((record, index) => (
                                     <React.Fragment key={index}>
                                         <div className="flex flex-row items-center gap-4 w-full justify-between">
-                                            <dd className="text-base tracking-tight sm:text-lg -ml-12 text-left">{record.record_name} - {record.size}{record.unit}</dd>
+                                            <dd className="text-base tracking-tight sm:text-lg -ml-12 text-left">{record.record_name} ({record.size}{record.unit})</dd>
                                             <div className="text-base tracking-tight sm:text-lg whitespace-nowrap">
                                                 {`${record.quantity} ${record.unit}`}
                                             </div>
@@ -195,7 +195,7 @@ const InHome = () => {
                                 ).map((record, index) => (
                                     <React.Fragment key={index}>
                                         <div className="flex flex-row items-center gap-4 w-full justify-between">
-                                            <dd className="text-base tracking-tight sm:text-lg -ml-12">{record.record_name} - {record.size}{record.unit}</dd>
+                                            <dd className="text-base tracking-tight sm:text-lg -ml-12">{record.record_name} ({record.size}{record.unit})</dd>
                                             <div className="text-base tracking-tight sm:text-lg -mr-10">
                                                 {`${record.quantity} ${record.unit}`}
                                             </div>

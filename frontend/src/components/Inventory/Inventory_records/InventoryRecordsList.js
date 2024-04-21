@@ -5,7 +5,8 @@ import {InformationCircleIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon}
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import { GoAlert } from "react-icons/go";
-import { useSnackbar } from 'notistack'; // Import useSnackbar hook
+import { useSnackbar } from 'notistack';
+import {FiDownload} from "react-icons/fi"; // Import useSnackbar hook
 
 const InventoryRecordList = () => {
     const { enqueueSnackbar } = useSnackbar(); // Destructure enqueueSnackbar from useSnackbar hook
@@ -212,7 +213,7 @@ const InventoryRecordList = () => {
                     <button
                         onClick={handlePrint}
                         className="ml-4 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
-                        Print
+                        Generate report <FiDownload className="mr-1 inline-block" />
                     </button>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import {InformationCircleIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon}
 import { GoAlert } from "react-icons/go";
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
+import {FiDownload} from "react-icons/fi";
 
 const EqMaintain = () => {
     const [inventoryRecords, setInventoryRecords] = useState([]);
@@ -188,7 +189,7 @@ const EqMaintain = () => {
                         <button
                             onClick={handlePrint}
                             className="ml-4 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
-                            Print
+                            Generate report <FiDownload className="mr-1 inline-block" />
                         </button>
                     </div>
                 </div>
