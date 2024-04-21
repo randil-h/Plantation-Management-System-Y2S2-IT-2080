@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-//import Wave from 'react-wavify';
+import { IoWater } from "react-icons/io5";
 
 function NewBox() {
     const [waterRecords, setWaterRecords] = useState([]);
@@ -31,7 +31,9 @@ function NewBox() {
     return (
         <div className="relative">
             {/* Box content */}
-            <div className="py-20 flex flex-col items-center justify-center rounded-lg shadow-lg bg-gray-300 max-w-xs w-full mb-4 hover:bg-gray-100 mt-2 mr-60 ml-4">
+            <div
+                className="py-16 flex flex-col items-center justify-center rounded-lg shadow-lg bg-gray-300 max-w-xs w-full mb-4 hover:bg-gray-100 mt-2 mr-80 ml-4">
+                <IoWater style={{ fontSize: '3rem', color: '#2C7CDD' }} />
                 <div className="text-lg font-bold">{totalPercentage.toFixed(2)}%</div>
                 <div className="text-sm">Total Water Quantity: {totalWaterQuantity} liters</div>
             </div>

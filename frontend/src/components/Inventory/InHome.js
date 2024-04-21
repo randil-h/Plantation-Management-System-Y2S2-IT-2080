@@ -4,6 +4,7 @@ import { FaTractor } from "react-icons/fa";
 import { IoIosLeaf } from "react-icons/io";
 import axios from "axios";
 import NewBox from './newBox';
+import { BsTools } from "react-icons/bs";
 
 const InHome = () => {
     const [inventoryInputs, setInventoryInputs] = useState([]);
@@ -43,6 +44,11 @@ const InHome = () => {
         (record) => record.status === "In Progress"
     ).length;
 
+    const equipmentCount = inventoryInputs
+        .filter(record => record.type === 'Equipments')
+        .reduce((total, record) => total + record.quantity, 0);
+
+
     const filteredRecords = inventoryInputs.filter((record) =>
         Object.values(record).some((value) => {
             if (typeof value === 'string' || typeof value === 'number') {
@@ -67,7 +73,7 @@ const InHome = () => {
 
                     <div className="flex justify-between items-center mt-10">
                         <div
-                            className="py-10 flex flex-col items-center justify-center rounded-lg shadow-lg bg-gray-300 max-w-xs w-full mb-4 hover:bg-gray-200 mt-2 ml-20">
+                            className="py-12 flex flex-col items-center justify-center rounded-lg shadow-lg bg-gray-300 max-w-xs w-full mb-4 hover:bg-gray-200 mt-2 ml-24">
                             <div className="mt-2 mb-3">
                                 <FaTractor className="h-10 w-10 mx-auto"/>
                             </div>
@@ -77,8 +83,19 @@ const InHome = () => {
                             </div>
                         </div>
 
-                        {/* New Box with Water Wave */}
+                        <div
+                            className="py-12 flex flex-col items-center justify-center rounded-lg shadow-lg bg-gray-300 max-w-xs w-full mb-4 hover:bg-gray-200 mt-2 ml-5">
+                            <div className="mt-2 mb-3">
+                                <BsTools className="h-10 w-10 mx-auto"/>
+                            </div>
+                            <div className="text-center text-lg font-bold">Total Equipments</div>
+                            <div className="text-center text-xl font-medium mt-2">
+                                {equipmentCount}
+                            </div>
+                        </div>
+
                         <NewBox/>
+
                     </div>
 
 
@@ -141,7 +158,7 @@ const InHome = () => {
                                 ).map((record, index) => (
                                     <React.Fragment key={index}>
                                         <div className="flex flex-row items-center gap-4 w-full justify-between">
-                                            <dd className="text-base tracking-tight sm:text-lg -ml-12 text-left">{record.record_name}</dd>
+                                            <dd className="text-base tracking-tight sm:text-lg -ml-12 text-left">{record.record_name} - {record.size}{record.unit}</dd>
                                             <div className="text-base tracking-tight sm:text-lg whitespace-nowrap">
                                                 {`${record.quantity} ${record.unit}`}
                                             </div>
@@ -178,7 +195,7 @@ const InHome = () => {
                                 ).map((record, index) => (
                                     <React.Fragment key={index}>
                                         <div className="flex flex-row items-center gap-4 w-full justify-between">
-                                            <dd className="text-base tracking-tight sm:text-lg -ml-12">{record.record_name}</dd>
+                                            <dd className="text-base tracking-tight sm:text-lg -ml-12">{record.record_name} - {record.size}{record.unit}</dd>
                                             <div className="text-base tracking-tight sm:text-lg -mr-10">
                                                 {`${record.quantity} ${record.unit}`}
                                             </div>

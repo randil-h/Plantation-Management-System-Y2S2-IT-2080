@@ -94,19 +94,8 @@ const EqMaintain = () => {
                 pdf.setFontSize(12);
                 pdf.text(`As At: ${currentDate}`, centerPosition, 20);
 
-                // Print Statistics
-                pdf.text(`Total Maintenance Records: ${totalRecords}`, 10, 30);
-                pdf.text(`Maintenance Records in Past 30 Days: ${past30DaysRecords}`, 10, 40);
-                pdf.text(`Maintenance Records In Progress: ${inProgressRecords.length}`, 10, 50);
-                if (inProgressRecords.length > 0) {
-                    pdf.text('In Progress Records:', 10, 60);
-                    inProgressRecords.forEach((record, index) => {
-                        pdf.text(`${index + 1}. ${record.Eq_machine_main}, Location: ${record.ref_loc}`, 20, 70 + (index * 10));
-                    });
-                }
-
-                const yPos = 80;
-
+                // Table Generation
+                const yPos = 60;
                 pdf.autoTable({
                     head: [
                         ['No', 'Equipment/Machine', 'Eq / Machine ID', 'Date referred to', 'Received date', 'Referred location', 'Status', 'Description']
@@ -121,9 +110,21 @@ const EqMaintain = () => {
                         record.status,
                         record.comment
                     ]),
-                    startY: yPos + 10,
+                    startY: yPos,
                     theme: 'grid',
                 });
+
+                // Print Statistics after the table
+                const statsYPos = yPos + 10 + (printData.length * 10); // Adjust the position based on the number of rows in the table
+                pdf.text(`Total Maintenance Records: ${totalRecords}`, 10, statsYPos);
+                pdf.text(`Maintenance Records in Past 30 Days: ${past30DaysRecords}`, 10, statsYPos + 10);
+                pdf.text(`Maintenance Records In Progress: ${inProgressRecords.length}`, 10, statsYPos + 20);
+                if (inProgressRecords.length > 0) {
+                    pdf.text('In Progress Records:', 10, statsYPos + 30);
+                    inProgressRecords.forEach((record, index) => {
+                        pdf.text(`${index + 1}. ${record.Eq_machine_main}, Location: ${record.ref_loc}`, 20, statsYPos + 40 + (index * 10));
+                    });
+                }
 
                 pdf.save(`Equipment-Maintenance-Records_generatedAt_${currentDate}.pdf`);
             }).catch((error) => {
@@ -133,7 +134,6 @@ const EqMaintain = () => {
             console.error('Table element not found');
         }
     };
-
 
     const getStatusBackgroundClass = (status) => {
         if (status === 'In Progress') {
