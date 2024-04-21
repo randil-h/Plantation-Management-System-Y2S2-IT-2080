@@ -16,19 +16,19 @@ const SideNav = () => {
             <nav className="flex-1">
                 <ul className="space-y-4 pt-4">
                     <li className={`flex items-center p-3 rounded-md ${isActive("/feedback") ? "bg-gray-200 text-lime-700 rounded-xl px-3 shadow-md" : "hover:bg-gray-200 hover:shadow-md hover:text-lime-700"}`}>
-                        <BiMessageRoundedDots className="mr-2 ml-3" />
+                        <BiMessageRoundedDots className="mr-3 ml-2" />
                         <Link to="/feedback" className="block">
                             Feedback Form
                         </Link>
                     </li>
                     <li className={`flex items-center p-3 rounded-md ${isActive("/feedbacklist") ? "bg-gray-200 text-lime-700 rounded-xl px-3 shadow-md" : "hover:bg-gray-200 hover:shadow-md hover:text-lime-700"}`}>
-                        <BiMessageRoundedDetail className="mr-2 ml-3" />
+                        <BiMessageRoundedDetail className="mr-3 ml-2" />
                         <Link to="/feedbacklist" className="block">
                             All Feedbacks
                         </Link>
                     </li>
                     <li className={`flex items-center p-3 rounded-md ${isActive("/feedbackdash") ? "bg-gray-200 text-lime-700 rounded-xl px-3 shadow-md" : "hover:bg-gray-200 hover:shadow-md hover:text-lime-700"}`}>
-                        <LuLineChart className="mr-2 ml-3" />
+                        <LuLineChart className="mr-3 ml-2" />
                         <Link to="/feedbackdash" className="block">
                             Feedback Dashboard
                         </Link>
