@@ -45,7 +45,7 @@ export default function AgrochemicalTile() {
 
     // Calculate agrochemical dates and filter upcoming dates within the next month
     const agrochemicalDates = plantingRecords.map(record => {
-        const { date, cropType, field } = record; // Include 'field' in destructuring
+        const { date, cropType, field } = record;
         const frequency = Frequency[cropType] || 0;
         const agrochemicalDate = new Date(date);
         agrochemicalDate.setDate(agrochemicalDate.getDate() + frequency);
@@ -67,7 +67,7 @@ export default function AgrochemicalTile() {
                 {agrochemicalDates.length > 0 && (
                     <div>
                         <h4>Upcoming Agrochemical Round: </h4>
-                        <p>{agrochemicalDates[0].field} - {agrochemicalDates[0].cropType} - In {agrochemicalDates[0].daysToNextDate} Days</p>
+                        <p>{agrochemicalDates[agrochemicalDates.length - 1].field} - {agrochemicalDates[agrochemicalDates.length - 1].cropType} - In {agrochemicalDates[agrochemicalDates.length - 1].daysToNextDate} Days</p>
                         <br/>
                         {agrochemicalDates[0].cropType === "Coconut" ? (
                             <p>{Fertilizers.Coconut.join(', ')}</p>
@@ -78,22 +78,28 @@ export default function AgrochemicalTile() {
                 )}
             </li>
             {showPopup && (
-            <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur bg-opacity-50">
-                <div className="shadow-lg bg-white rounded-lg p-8 max-w-sm relative border border-gray-300">
-                    <IoCloseCircle onClick={() => setShowPopup(false)}
-                                   className="absolute top-2 right-2 cursor-pointer"/>
-                    <GiChemicalDrop className="mx-auto h-10 w-10 "/>
-                    <h3 className="text-lg font-semibold mb-2">Agrochemicals</h3>
-                    <ul>
-                        {agrochemicalDates.map(({cropType, field, agrochemicalDate, daysToNextDate}, index) => (
-                            <li key={index}>
-                                <h3>{field} - {cropType} - In {daysToNextDate} Days</h3>
-                            </li>
-                        ))}
-                    </ul>
+                <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur bg-opacity-50">
+                    <div className="shadow-lg bg-white rounded-lg p-8 max-w-sm relative border border-gray-300">
+                        <IoCloseCircle onClick={() => setShowPopup(false)} className="absolute top-2 right-2 cursor-pointer"/>
+                        <GiChemicalDrop className="mx-auto h-10 w-10 "/>
+                        <h3 className="text-lg font-semibold mb-2">Agrochemicals</h3>
+                        <ul>
+                            {agrochemicalDates.slice().reverse().map(({cropType, field, agrochemicalDate, daysToNextDate}, index) => (
+                                <li key={index}>
+                                    <h3>{field} - {cropType} - In {daysToNextDate} Days</h3>
+                                    {agrochemicalDates[0].cropType === "Coconut" ? (
+                                        <p>{Fertilizers.Coconut.join(', ')}</p>
+                                    ) : (
+                                        <p>{Fertilizers.Common.join(', ')}</p>
+                                    )}
+                                    <br/>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        )}
+            )}
+
         </div>
     );
 }

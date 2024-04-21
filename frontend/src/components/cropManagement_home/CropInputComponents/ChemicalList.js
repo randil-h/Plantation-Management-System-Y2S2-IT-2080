@@ -9,6 +9,7 @@ import { FaSearch } from "react-icons/fa";
 import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 import {useSnackbar} from "notistack";
 import {FiDownload} from "react-icons/fi";
+import {GoAlert} from "react-icons/go";
 
 const pdfStyles = StyleSheet.create({
     page: {
@@ -235,7 +236,7 @@ const ChemicalList = () => {
                     </thead>
                     <tbody>
                     {filteredRecords.map((record, index) => (
-                        <tr className="hover:bg-gray-100 divide-y divide-gray-200" key={record._id}>
+                        <tr className="hover:bg-lime-100 divide-y divide-gray-200" key={record._id}>
                             <td className="px-6 py-4">{index + 1}</td>
                             <td className="px-6 py-4">{record.date}</td>
                             <td className="px-6 py-4">{record.field}</td>
@@ -268,24 +269,31 @@ const ChemicalList = () => {
                     </tbody>
                 </table>
                 {recordToDelete && (
-                    <div
-                        className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex items-center justify-center">
-                        <div className="bg-white p-5 rounded-md shadow-lg">
-                            <p className="text-lg font-semibold mb-3">Confirm Deletion</p>
-                            <p className="mb-5">Are you sure you want to delete this record?</p>
-                            <div className="flex justify-end">
-                                <button
-                                    onClick={confirmDelete}
-                                    className="px-4 py-2 bg-red-500 text-white rounded-md mr-2"
-                                >
-                                    Confirm
-                                </button>
-                                <button
-                                    onClick={() => setRecordToDelete(null)}
-                                    className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md"
-                                >
-                                    Cancel
-                                </button>
+                    <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur confirm-dialog">
+                        <div className="relative px-4 min-h-screen md:flex md:items-center md:justify-center">
+                            <div className="opacity-25 w-full h-full absolute z-10 inset-0"></div>
+                            <div
+                                className="bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative shadow-lg">
+                                <div className="md:flex items-center">
+                                    <div
+                                        className="rounded-full border border-gray-300 flex items-center justify-center w-16 h-16 flex-shrink-0 mx-auto">
+                                        <GoAlert className="w-10 h-10"/></div>
+                                    <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
+                                        <p className="font-bold">Confirm Deletion</p>
+                                        <p className="text-sm text-gray-700 mt-1">Are you sure you want to delete this
+                                            record?</p>
+                                    </div>
+                                </div>
+                                <div className="text-center md:text-right mt-4 md:flex md:justify-end">
+                                    <button onClick={confirmDelete}
+                                            className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-red-200 hover:bg-red-600 hover:text-white text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2">
+                                        Confirm
+                                    </button>
+                                    <button onClick={() => setRecordToDelete(null)}
+                                            className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-gray-200 hover:bg-black hover:text-white rounded-lg font-semibold text-sm mt-4 md:mt-0 md:order-1">
+                                        Cancel
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

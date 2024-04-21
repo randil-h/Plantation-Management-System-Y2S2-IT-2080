@@ -7,6 +7,7 @@ import { InformationCircleIcon, PencilSquareIcon, TrashIcon } from "@heroicons/r
 import jsPDF from 'jspdf';
 import { useSnackbar } from "notistack";
 import { FiDownload } from "react-icons/fi";
+import {GoAlert} from "react-icons/go";
 
 const PlantingList = () => {
     const { enqueueSnackbar } = useSnackbar();
@@ -223,7 +224,7 @@ const PlantingList = () => {
                     </thead>
                     <tbody>
                     {filteredRecords.map((record, index) => (
-                        <tr className="hover:bg-gray-100 divide-y divide-gray-200" key={index}>
+                        <tr className="hover:bg-lime-100 divide-y divide-gray-200" key={index}>
                             <td className="px-6 py-4">{index + 1}</td>
                             <td className="px-6 py-4">{record.date}</td>
                             <td className="px-6 py-4">{record.field}</td>
@@ -263,32 +264,33 @@ const PlantingList = () => {
             </div>
 
             {recordToDelete && (
-                <div
-                    className="fixed top-0 left-0 w-screen h-screen bg-gray-900 bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white rounded-lg p-6">
-                        <p className="text-lg font-semibold mb-4">Confirm Deletion</p>
-                        <p className="text-sm mb-4">Are you sure you want to delete this record?</p>
-                        <div className="flex justify-end">
-                            <button
-                                onClick={() => setRecordToDelete(null)}
-                                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded mr-2"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={confirmDelete}
-                                className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
-                            >
-                                Delete
-                            </button>
+                <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur confirm-dialog">
+                    <div className="relative px-4 min-h-screen md:flex md:items-center md:justify-center">
+                        <div className="opacity-25 w-full h-full absolute z-10 inset-0"></div>
+                        <div
+                            className="bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative shadow-lg">
+                            <div className="md:flex items-center">
+                                <div
+                                    className="rounded-full border border-gray-300 flex items-center justify-center w-16 h-16 flex-shrink-0 mx-auto">
+                                    <GoAlert className="w-10 h-10"/></div>
+                                <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
+                                    <p className="font-bold">Confirm Deletion</p>
+                                    <p className="text-sm text-gray-700 mt-1">Are you sure you want to delete this
+                                        record?</p>
+                                </div>
+                            </div>
+                            <div className="text-center md:text-right mt-4 md:flex md:justify-end">
+                                <button onClick={confirmDelete}
+                                        className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-red-200 hover:bg-red-600 hover:text-white text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2">
+                                    Confirm
+                                </button>
+                                <button onClick={() => setRecordToDelete(null)}
+                                        className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-gray-200 hover:bg-black hover:text-white rounded-lg font-semibold text-sm mt-4 md:mt-0 md:order-1">
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
-
-            {loading && (
-                <div className="fixed top-0 left-0 w-screen h-screen bg-gray-900 bg-opacity-50 flex justify-center items-center">
-                    <div className="text-white text-2xl">Loading...</div>
                 </div>
             )}
         </div>

@@ -35,12 +35,12 @@ export default function ViewPlantingPage() {
                         <div className="flex justify-center mt-4 left-16">
                             <button
                                 id="plantingButton"
-                                className="bg-emerald-500 text-white px-4 py-2 rounded-l-lg hover:bg-emerald-800 h-12 "> Planting
+                                className="bg-lime-500 text-black px-4 py-2 rounded-l-lg hover:bg-lime-400 h-12 "> Planting
                             </button>
                             <a href="/crop/input/chemical/view">
                                 <button
                                     id="chemicalButton"
-                                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded-r-lg hover:bg-gray-400 h-12">Agrochemical
+                                    className="bg-gray-300 text-black px-4 py-2 rounded-r-lg hover:bg-gray-400 h-12">Agrochemical
                                 </button>
                             </a>
                             <div id="plantingList">

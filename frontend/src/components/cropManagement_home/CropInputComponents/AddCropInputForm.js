@@ -176,7 +176,7 @@ export default function AddCropInputForm() {
                                             value="Planting"
                                             onChange={handleChange}
                                             checked={formData.type === "Planting"}
-                                            className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                            className="form-radio h-4 w-4 text-lime-600 transition duration-150 ease-in-out"
                                             required
                                         />
                                         <label
@@ -194,7 +194,7 @@ export default function AddCropInputForm() {
                                             value="Agrochemical"
                                             onChange={handleChange}
                                             checked={formData.type === "Agrochemical"}
-                                            className="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+                                            className="form-radio h-4 w-4 text-lime-600 transition duration-150 ease-in-out"
                                             required
                                         />
                                         <label
@@ -221,7 +221,7 @@ export default function AddCropInputForm() {
                                         name="date"
                                         onChange={handleChange}
                                         value={formData.date}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                         required
                                     />
                                 </div>
@@ -240,7 +240,7 @@ export default function AddCropInputForm() {
                                         onChange={handleChange}
                                         value={formData.field}
                                         autoComplete="field"
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                         required
                                     >
                                         <option value="">Select an option</option>
@@ -269,7 +269,7 @@ export default function AddCropInputForm() {
                                                 name="cropType"
                                                 onChange={handleChange}
                                                 value={formData.cropType}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 required
                                             >
                                                 <option value="">Select an option</option>
@@ -293,7 +293,7 @@ export default function AddCropInputForm() {
                                                 name="variety"
                                                 onChange={handleChange}
                                                 value={formData.variety}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 required
                                             />
                                         </div>
@@ -316,7 +316,7 @@ export default function AddCropInputForm() {
                                             name="chemicalName"
                                             onChange={handleChange}
                                             value={formData.chemicalName}
-                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                             required
                                         />
                                     </div>
@@ -336,7 +336,7 @@ export default function AddCropInputForm() {
                                         name="quantity"
                                         onChange={handleChange}
                                         value={formData.quantity}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                         required
                                     />
                                 </div>
@@ -355,7 +355,7 @@ export default function AddCropInputForm() {
                                         name="unitCost"
                                         onChange={handleChange}
                                         value={formData.unitCost}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                         required
                                     />
                                 </div>
@@ -374,7 +374,7 @@ export default function AddCropInputForm() {
                                         name="remarks"
                                         onChange={handleChange}
                                         value={formData.remarks}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                         placeholder="Type Here.."
                                         required
                                     />
@@ -393,7 +393,7 @@ export default function AddCropInputForm() {
                         </button>
                         <button
                             type="submit"
-                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="rounded-md bg-lime-300 px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-lime-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Save
                         </button>
