@@ -169,6 +169,7 @@ export default function SalaryProcessingSection() {
 
 
     const [isInputFocused, setIsInputFocused] = useState(false);
+    const [autoSaveTransaction, setAutoSaveTransaction] = useState(true);
 
     const handleSaveSalaryRecord = async (e) => {
         e.preventDefault();
@@ -188,12 +189,48 @@ export default function SalaryProcessingSection() {
             description
 
         };
+
+        const basicDaysValue = parseFloat(data.basic_days);
+        const basicRateValue = parseFloat(data.basic_rate);
+        const basicSalary = basicDaysValue * basicRateValue;
+
+        // Calculate OT salary
+        const otHoursValue = parseFloat(data.ot_hours);
+        const otRateValue = parseFloat(data.ot_rate);
+        const otSalary = otHoursValue * otRateValue;
+
+        // Calculate total salary
+        const bonusSalaryValue = parseFloat(data.bonus_salary);
+        const totalSalary = basicSalary + bonusSalaryValue + otSalary;
+
+        // Calculate EPF/ETF deduction
+        const epfEtfValue = parseFloat(data.epf_etf);
+        const epfEtfDeduction = (totalSalary * epfEtfValue) / 100;
+
+        // Calculate net salary
+        const netSalary = totalSalary - epfEtfDeduction;
         setLoading(true);
         axios
             .post('http://localhost:5555/salary', data)
             .then(() => {
                 setLoading(false);
                 message.success('Salary record has successfully saved.');
+
+                if (autoSaveTransaction) {
+                    // Construct the transaction data based on the saved machine fee data
+                    const transactionData = {
+                        date: data.payment_date,
+                        type: 'expense',
+                        subtype: `Salary ${data.emp_name}` ,
+                        amount:  netSalary,
+                        description: `Salary from ${data.salary_start_date} to ${data.salary_end_date}`,
+                        payer_payee: data.emp_name,
+                        method: 'Automated Entry',
+                    };
+
+                    // Save the transaction record
+                    handleSaveTransactionRecord(transactionData);
+                }
                 navigate('/finances/salaryPayment');
             })
             .catch((error) => {
@@ -205,6 +242,22 @@ export default function SalaryProcessingSection() {
             });
     };
 
+    const handleSaveTransactionRecord = (transactionData) => {
+        setLoading(true);
+        axios
+            .post('http://localhost:5555/transactions', transactionData)
+            .then(() => {
+                setLoading(false);
+                message.success('Transaction record has automatically saved.');
+
+            })
+            .catch((error) => {
+                setLoading(false);
+                message.error('Automatic Transaction record saving failed.');
+                console.log(error);
+
+            });
+    };
 
 
     const generatePayslipPDF = () => {
@@ -594,17 +647,28 @@ export default function SalaryProcessingSection() {
                             Total Salary: <span className="text-lime-600 text-xl">
                             Rs.{calculateTotalSalary()}</span>
                         </div>
-
+                        <button onClick={generatePayslipPDF}
+                                className="bg-amber-200 rounded-full py-1 px-4 hover:bg-amber-300">
+                            Generate Receipt
+                        </button>
                         <Link className="bg-gray-300 rounded-full py-1 px-4 hover:bg-gray-400"
                               to="/dashboard">
                             Cancel
                         </Link>
-                        <button onClick={generatePayslipPDF} className="bg-amber-200 rounded-full py-1 px-4 hover:bg-amber-300">
-                            Generate Receipt
-                        </button>
+
+                        <label className="bg-gray-200 py-1 pl-4 rounded-full">
+                            Automatically save to transactions
+                            <input
+                                className="size-6 ml-4 mr-1 form-checkbox text-lime-600 bg-white border-gray-300 rounded-full focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50 hover:bg-lime-100 checked:bg-lime-500"
+                                type="checkbox"
+                                checked={autoSaveTransaction}
+                                onChange={(e) => setAutoSaveTransaction(e.target.checked)}
+                            />
+
+                        </label>
                         <button className="bg-lime-200 rounded-full py-1 px-4 hover:bg-lime-400"
                                 onClick={handleSaveSalaryRecord}>
-                        Save
+                            Save
                         </button>
                     </div>
                 </div>
