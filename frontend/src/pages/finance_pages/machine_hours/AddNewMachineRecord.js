@@ -7,6 +7,7 @@ import SideBar from '../../../components/SideBar';
 import FinanceNavigation from '../../../components/finances/FinanceNavigation';
 import Breadcrumb from '../../../components/utility/Breadcrumbs';
 import BackButton from '../../../components/utility/BackButton';
+import {message} from "antd";
 
 function AddNewMachineRecord() {
     const [date, setDate] = useState('');
@@ -17,12 +18,14 @@ function AddNewMachineRecord() {
     const [payerPayee, setPayerPayee] = useState('');
     const [paid, setPaid] = useState('false');
 
+    const [autoSaveTransaction, setAutoSaveTransaction] = useState(true);
+
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
 
     const handleSaveMachineRecord = () => {
-        const data = {
+        const machineData = {
             date,
             type,
             hours_nos,
@@ -33,19 +36,56 @@ function AddNewMachineRecord() {
         };
         setLoading(true);
         axios
-            .post('http://localhost:5555/machines', data)
+            .post('http://localhost:5555/machines', machineData)
             .then(() => {
                 setLoading(false);
-                enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                window.alert("Record Added Successfully!");
+                message.success('Machine record has successfully saved.');
+
+                // Construct the transaction data based on the saved machine fee data
+                if (autoSaveTransaction) {
+                    // Construct the transaction data based on the saved machine fee data
+                    const transactionData = {
+                        date: machineData.date,
+                        type: 'expense',
+                        subtype: 'Machine Fee',
+                        amount: machineData.hours_nos * machineData.rate,
+                        description: machineData.description,
+                        payer_payee: machineData.payer_payee,
+                        method: 'Automated Entry',
+                    };
+
+                    // Save the transaction record
+                    handleSaveTransactionRecord(transactionData);
+                }
+
                 navigate('/finances/machineHours');
             })
             .catch((error) => {
                 setLoading(false);
-                enqueueSnackbar('Error', { variant: 'error' });
+                message.error('Machine record saving failed.');
                 console.log(error);
+                navigate('/finances/machineHours');
             });
     };
+
+// Adjust handleSaveTransactionRecord to accept data directly
+    const handleSaveTransactionRecord = (transactionData) => {
+        setLoading(true);
+        axios
+            .post('http://localhost:5555/transactions', transactionData)
+            .then(() => {
+                setLoading(false);
+                message.success('Transaction record has automatically saved.');
+
+            })
+            .catch((error) => {
+                setLoading(false);
+                message.error('Automatic Transaction record saving failed.');
+                console.log(error);
+
+            });
+    };
+
 
     const breadcrumbItems = [
         { name: 'Finance', href: '/finances' },
@@ -224,19 +264,32 @@ function AddNewMachineRecord() {
                                 className="h-14  sticky border-b z-10 bottom-0 left-0 right-0 bg-gray-100 bg-opacity-50 backdrop-blur border-t"
                                 id="savebar">
                                 <div
-                                    className="flex justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
-                                    <button type="button"
-                                            className="rounded-full bg-gray-300 px-4 py-1 hover:bg-gray-400 text-sm font-semibold  text-gray-900"
-                                            onClick={handleCancel}>
-                                        Cancel
-                                    </button>
+                                    className="flex  justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
+                                    <label className="bg-gray-200 py-1 pl-4 rounded-full">
+                                        Automatically save to transactions
+                                        <input
+                                            className="size-6 ml-4 mr-1 form-checkbox text-lime-600 bg-white border-gray-300 rounded-full focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50 hover:bg-lime-100 checked:bg-lime-500"
+                                            type="checkbox"
+                                            checked={autoSaveTransaction}
+                                            onChange={(e) => setAutoSaveTransaction(e.target.checked)}
+                                        />
 
-                                    <button
-                                        onClick={handleSaveMachineRecord}
-                                        className="rounded-full bg-lime-200 px-4 py-1 text-sm font-semibold text-gray-900 shadow-sm hover:bg-lime-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600"
-                                    >
-                                        Save
-                                    </button>
+                                    </label>
+
+                                    <div className="space-x-3 justify-center">
+                                        <button type="button"
+                                                className="rounded-full bg-gray-300 px-4 py-1 hover:bg-gray-400 text-sm font-semibold  text-gray-900"
+                                                onClick={handleCancel}>
+                                            Cancel
+                                        </button>
+                                        <button
+                                            onClick={handleSaveMachineRecord}
+                                            className="rounded-full bg-lime-200 px-4 py-1 text-sm font-semibold text-gray-900 shadow-sm hover:bg-lime-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime-600"
+                                        >
+                                            Save
+                                        </button>
+                                    </div>
+
 
                                 </div>
                             </div>

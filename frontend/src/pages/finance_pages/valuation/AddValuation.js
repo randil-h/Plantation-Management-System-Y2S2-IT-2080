@@ -21,6 +21,7 @@ function AddNewValuation() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
+    const [autoSaveTransaction, setAutoSaveTransaction] = useState(true);
 
     const handleSaveValuationRecord = async (e) => {
         e.preventDefault();
@@ -40,6 +41,23 @@ function AddNewValuation() {
             .then(() => {
                 setLoading(false);
                 message.success('Valuation record has successfully saved.');
+
+                if (autoSaveTransaction) {
+                    // Construct the transaction data based on the saved machine fee data
+                    const transactionData = {
+                        date: data.date,
+                        type: 'expense',
+                        subtype: `valuation ${data.type} ${data.subtype}` ,
+                        amount: data.quantity * data.price,
+                        description: data.description,
+                        payer_payee: data.payer_payee,
+                        method: 'Automated Entry',
+                    };
+
+                    // Save the transaction record
+                    handleSaveTransactionRecord(transactionData);
+                }
+
                 navigate('/finances/valuation');
             })
             .catch((error) => {
@@ -47,6 +65,23 @@ function AddNewValuation() {
                 message.error('Valuation record saving failed.');
                 console.log(error);
                 navigate('/finances/valuation');
+            });
+    };
+
+    const handleSaveTransactionRecord = (transactionData) => {
+        setLoading(true);
+        axios
+            .post('http://localhost:5555/transactions', transactionData)
+            .then(() => {
+                setLoading(false);
+                message.success('Transaction record has automatically saved.');
+
+            })
+            .catch((error) => {
+                setLoading(false);
+                message.error('Automatic Transaction record saving failed.');
+                console.log(error);
+
             });
     };
 
@@ -273,6 +308,18 @@ function AddNewValuation() {
                                 id="savebar">
                                 <div
                                     className="flex justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
+
+                                    <label className="bg-gray-200 py-1 pl-4 rounded-full">
+                                        Automatically save to transactions
+                                        <input
+                                            className="size-6 ml-4 mr-1 form-checkbox text-lime-600 bg-white border-gray-300 rounded-full focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50 hover:bg-lime-100 checked:bg-lime-500"
+                                            type="checkbox"
+                                            checked={autoSaveTransaction}
+                                            onChange={(e) => setAutoSaveTransaction(e.target.checked)}
+                                        />
+
+                                    </label>
+
                                     <button type="button"
                                             className="rounded-full bg-gray-300 px-4 py-1 hover:bg-gray-400 text-sm font-semibold  text-gray-900"
                                             onClick={handleCancel}>
