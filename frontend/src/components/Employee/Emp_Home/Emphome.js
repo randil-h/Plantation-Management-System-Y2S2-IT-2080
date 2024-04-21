@@ -8,7 +8,6 @@ function Emphome() {
     const [taskRecords, setTaskRecords] = useState([]);
 
     useEffect(() => {
-        // Fetch total records from your API or set it from somewhere
         axios.get('http://localhost:5555/employeeRecords')
             .then(response => {
                 setTotalRecords(response.data.data);
@@ -19,7 +18,6 @@ function Emphome() {
     }, []);
 
     useEffect(() => {
-        // Fetch total records from your API or set it from somewhere
         axios.get('http://localhost:5555/taskRecords')
             .then(response => {
                 setTaskRecords(response.data.data);
@@ -43,20 +41,20 @@ function Emphome() {
             <div className="section mb-8">
                 <div className="section-header flex justify-between items-center mb-4">
                     <h2 className="text-xl font-semibold">Employee Registration</h2>
-                    <a href="/employees/registration" className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800" >
+                    <a href="/employees/registration" className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800">
                         View All Employees
                     </a>
                 </div>
                 <div className="section-content grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400  ">
+                    <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400 shadow-lg transition-shadow duration-300 ease-in-out">
                         <FaUsers className="icon text-black mb-2"/>
                         <h3 className="text-lg font-semibold text-black">Total Employees</h3>
                         <p className="text-xl text-black">{totalRecords.length}</p>
                     </div>
-                    <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400">
+                    <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400 shadow-lg transition-shadow duration-300 ease-in-out">
                         <FaUserPlus className="icon text-black mb-2"/>
-                        <h3 className="text-lg font-semibold text-black">Registered Today</h3>
-                        <p className="text-xl text-black">5</p>
+                        <h3 className="text-lg font-semibold text-black">Registered in this week</h3>
+                        <p className="text-xl text-black">2</p>
                     </div>
                 </div>
             </div>
@@ -68,15 +66,15 @@ function Emphome() {
                     </a>
                 </div>
                 <div className="section-content grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400">
+                    <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400 shadow-lg transition-shadow duration-300 ease-in-out">
                         <FaTasks className="icon text-black mb-2"/>
                         <h3 className="text-lg font-semibold text-black">Total Tasks</h3>
                         <p className="text-xl text-black">{taskRecords.length}</p>
                     </div>
-                    <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400">
+                    <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400 shadow-lg transition-shadow duration-300 ease-in-out">
                         <FaCalendarPlus className="icon text-black mb-2"/>
                         <h3 className="text-lg font-semibold text-black">In progress tasks</h3>
-                        <p className="text-xl text-black" > {getOngoingTaskCount} </p>
+                        <p className="text-xl text-black">{getOngoingTaskCount}</p>
                     </div>
                 </div>
             </div>
