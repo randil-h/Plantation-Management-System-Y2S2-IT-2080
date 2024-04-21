@@ -9,7 +9,7 @@ export default function UpdateDisease() {
     const [crop, setType] = useState('');
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
-    const [treatment, setTreatment] = useState('');
+    const [treatment, setTreatment] = useState([]);
     const [plant_count, setPlantCount] = useState('');
     const [severity, setSeverity] = useState('');
     const [status, setStatus] = useState('');
@@ -19,43 +19,20 @@ export default function UpdateDisease() {
     const { enqueueSnackbar } = useSnackbar();
     const [diseaseIdError, setDiseaseIdError] = useState('');
 
-    useEffect(() => {
-        setLoading(true);
-        axios.get(`http://localhost:5555/diseases/${id}`)
-            .then((response) => {
-                setName(response.data.disease_name);
-                setId(response.data.plant_id);
-                setType(response.data.crop);
-                setDate(response.data.date);
-                setLocation(response.data.location);
-                setPlantCount(response.data.plant_count);
-                setTreatment(response.data.treatment);
-                setSeverity(response.data.severity);
-                setStatus(response.data.status);
-                setLoading(false);
-            }).catch((error) => {
-            setLoading(false);
-            alert('An error happened. Please check console.');
-            console.log(error);
-        });
-
-    }, [id]);
-
-
     const handleDiseaseChange = (e) => {
         const selectedDisease = e.target.value;
-        setName(selectedDisease); // Update diseaseName state with the value, not label
+        setName(selectedDisease); // Update diseaseName state
         // Set treatment based on selected disease
         if (selectedDisease === "Anthracnose") {
-            setTreatment("Daconil Chlorothalonil");
+            setTreatment(["Daconil Chlorothalonil (chlorothalonil 500g/l SC) fungicide"]);
         } else if (selectedDisease === "Leaf Curling disease") {
-            setTreatment("Mitsu Abamectin");
+            setTreatment(["Mitsu Abamectin (abamectin 18g/l EC) insecticide"]);
         } else if (selectedDisease === "Fungal Disease") {
-            setTreatment("Oasis Thiram");
+            setTreatment(["Oasis Thiram (thiuram disulfide) fungicide"]);
         } else if (selectedDisease === "Plesispa") {
-            setTreatment("Marshal 20 SC");
+            setTreatment(["Marshal 20 SC (carbosulfan 200g/l SC) insecticide"]);
         } else {
-            setTreatment(""); // Reset treatment if disease changes
+            setTreatment([" "]); // Reset treatment if disease changes
         }
     };
 
@@ -72,6 +49,30 @@ export default function UpdateDisease() {
         }
     };
 
+    useEffect(() => {
+        setLoading(true);
+        axios.get(`http://localhost:5555/diseases/${id}`)
+            .then((response) => {
+                setName(response.data.disease_name);
+                setId(response.data.plant_id);
+                setType(response.data.crop);
+                setDate(response.data.date);
+                setLocation(response.data.location);
+                setPlantCount(response.data.plant_count);
+                setTreatment(prevTreatment => [...prevTreatment, response.data.treatment]);
+                setSeverity(response.data.severity);
+                setStatus(response.data.status);
+                setLoading(false);
+            }).catch((error) => {
+            setLoading(false);
+            alert('An error happened. Please check console.');
+            console.log(error);
+        });
+
+    }, [id]);
+
+
+
     const handleUpdateDisease = (e) => {
         e.preventDefault()
         const data = {
@@ -81,7 +82,7 @@ export default function UpdateDisease() {
             date,
             location,
             plant_count,
-            treatment,
+            treatment: treatment.join(', '),
             severity,
             status,
         };
@@ -92,12 +93,27 @@ export default function UpdateDisease() {
 
         setLoading(true);
         axios
-            .put(`http://localhost:5555/diseases/${id}`, data)
-            .then(() => {
+            .post(`http://localhost:5555/checkTreatment`, {treatment}) //checking availability of treatment
+            .then((response) => {
                 setLoading(false);
-                enqueueSnackbar('Record Updated successfully', { variant: 'success' });
-                navigate('/diseases/records');
-                window.alert("Record Updated Successfully!");
+                //if treatment available
+                if(response.data.available) {
+                    axios
+                        .put(`http://localhost:5555/diseases/${id}`, data)
+                        .then(() => {
+                            setLoading(false);
+                            enqueueSnackbar('Record Updated successfully', { variant: 'success' });
+                            navigate('/diseases/records');
+                            window.alert("Record Updated Successfully!");
+                        })
+                        .catch((error) => {
+                            setLoading(false);
+                            alert('An error happened. Please check console');
+                            console.log(error);
+                        });
+                } else {
+                    window.alert("Treatment is not available in Inventory!!"); //if treatment is not found or unavailable
+                }
             })
             .catch((error) => {
                 setLoading(false);
@@ -127,9 +143,6 @@ export default function UpdateDisease() {
                     onChange={handleDiseaseChange}
                     className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                 >
-                    <option value="Wilt ">Wilt</option>
-                    <option value="Powdery Mildew">Powdery Mildew</option>
-                    <option value="Brown Spot">Brown Spot</option>
                     <option value="Anthracnose">Anthracnose Disease</option>
                     <option value="Plesispa">Plesispa (Coconut Bug)</option>
                     <option value="Fungal Disease">Fungal Disease</option>
@@ -168,23 +181,27 @@ export default function UpdateDisease() {
                     <option value="Field F">Field F</option>
                     <option value="Field G">Field G</option>
                 </select>
+                <label className='text-md mr-4 text-gray-500 mb-1'>Treatment</label>
+                <select
+                    required
+                    value={treatment}
+                    onChange={(e) => setTreatment(e.target.value)}
+                    className='border-2 mb-4 rounded-md border-gray-500 px-4 py-2 w-full'
+                >
+                    <option>Select Treatment</option>
+                    {Array.isArray(treatment) && treatment.map((treatmentOption, index) => (
+                        <option key={index} value={treatmentOption}>{treatmentOption}</option>
+                    ))}
+                </select>
                 <label className='text-md mb-1 mr-4 text-gray-500'>Trees Affected</label>
                 <input
                     type='number'
                     required
                     value={plant_count}
                     onChange={(e) => setPlantCount(e.target.value)}
-                    placeholder= "Enter number of trees affected"
+                    placeholder="Enter number of trees affected"
                     min={1}
                     className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
-                />
-                <label className='text-md mr-4 mb-1 text-gray-500'>Treatment</label>
-                <input
-                    type='text'
-                    required
-                    value={treatment}
-                    onChange={(e) => setTreatment(e.target.value)}
-                    className='border-2 mb-4 rounded-md border-gray-500 px-4 py-2 w-full'
                 />
                 <label className='text-md mb-1 mr-4 text-gray-500'>Severity</label>
                 <input

@@ -28,7 +28,8 @@ export default function DiseaseHome() {
             });
     }, []);
 
-    const checkUntreatedRecords = (records) => {
+    //generating notification for untreated and under treatment plants
+    const checkUntreatedRecords = (records) => {  //check for status and display relevant notification
         const untreatedRecords = records.filter(record =>  record.status === "Under Treatment");
         const untreatedRecords1 = records.filter(record =>  record.status === "Not Treated");
         if (untreatedRecords.length > 0) {

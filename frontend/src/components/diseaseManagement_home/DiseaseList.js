@@ -75,13 +75,15 @@ export default function DiseaseList() {
         }
 
         const filteredDiseaseData = DiseaseRecords.filter(record => {
-            const recordDate = new Date(record.date);
+            const recordDate = new Date(record.date);   //converts date string to JS Date object
+            //check whether date falls in date range
             const dateRange = recordDate >= new Date(startDate) && recordDate <= new Date(endDate);
+            //checks if record's location equal to the selected location
             const selectedLocation = location === "All Fields" || record.location === location;
             return dateRange && selectedLocation;
         });
 
-        const doc = new jsPDF({orientation: 'landscape'});
+        const doc = new jsPDF({orientation: 'landscape'}); //sets page orientation
 
         doc.text(`DISEASE REPORT`, 10, 10);
         doc.text(`From ${startDate} To ${endDate}`, 10,  20);
@@ -89,13 +91,14 @@ export default function DiseaseList() {
 
         const headers = ["Disease Name", "Crop Type", "Date","Trees Affected", "Severity", "Treatment", "Status"];
         if(location === "All Fields") {
-            headers.splice(3,0, "Location");
+            headers.splice(3,0, "Location"); //3rd heading is set to location if all fields selected
         }
-        const tableData = [headers];
+        const tableData = [headers];  //assigns headerto an array
 
         let totalAffectedTrees = 0;
         let totalRecoveredTrees = 0;
 
+        //for each record, data is added to the row
         filteredDiseaseData.forEach(record => {
             const rowData = [
                 record.disease_name,
@@ -110,30 +113,31 @@ export default function DiseaseList() {
 
             tableData.push(rowData);
 
-            totalAffectedTrees += record.plant_count;
+            totalAffectedTrees += record.plant_count;  //update total affected trees count
 
             if(record.status === "Recovered")
             {
-                totalRecoveredTrees += record.plant_count;
+                totalRecoveredTrees += record.plant_count;  //update recovered plants count
             }
 
         });
 
         const leftMargin = 10;
         const table = doc.autoTable({
-            head: [headers],
+            head: [headers],         //array strings assigned to headers
             body: tableData.slice(1),
-            startY: 40,
+            startY: 40,             //position of table start
             styles: {overflow: 'linebreak', columnWidth: 'wrap'},
-            theme: 'striped',
+            theme: 'striped',        //table theme
             columnStyles: {
-                6: {columnWidth: 70}
+                6: {columnWidth: 70}   //column 6 width
             }
         });
 
+        //calculate recovery percentage
         const recPercentage = ((totalRecoveredTrees / totalAffectedTrees) * 100).toFixed(3);
 
-        const totalRecords = filteredDiseaseData.length;
+        const totalRecords = filteredDiseaseData.length; //total no of records in array
         doc.text(`Total Number of diseased plants detected : ${totalAffectedTrees}`, 10, table.lastAutoTable.finalY + 10);
         doc.text(`Total Number of plants recovered : ${totalRecoveredTrees}`, 10, table.lastAutoTable.finalY + 20);
         doc.text(`Recovery Percentage : ${recPercentage} %`, 10, table.lastAutoTable.finalY + 30);
