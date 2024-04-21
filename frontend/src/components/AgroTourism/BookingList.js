@@ -63,51 +63,28 @@ const BookingList = () => {
     const handlePrint = () => {
         const input = document.getElementById('booking-table');
 
-        // Clone the table
-        const clonedTable = input.cloneNode(true);
-
-        // Remove the Actions column from the cloned table
-        const actionsColumn = clonedTable.querySelector('.actions-column');
-        if (actionsColumn) {
-            actionsColumn.remove();
-        }
-
-        // Remove the last column from the cloned table
-        const rows = clonedTable.querySelectorAll('tbody tr');
-        rows.forEach((row) => {
-            const lastCell = row.lastElementChild;
-            if (lastCell) {
-                lastCell.remove();
-            }
-        });
-
-        // Hide the Actions column in the original table
+        // Hide the Actions column
+        const actionsColumn = input.querySelector('.actions-column');
         if (actionsColumn) {
             actionsColumn.style.display = 'none';
         }
 
-        // Hide the entire last column in the original table
-        const originalRows = input.querySelectorAll('tbody tr');
-        originalRows.forEach((row) => {
-            const lastCell = row.lastElementChild;
-            if (lastCell) {
-                lastCell.style.display = 'none';
-            }
+        // Hide the entire last column
+        const lastColumnCells = input.querySelectorAll('tbody tr td:last-child');
+        lastColumnCells.forEach((cell) => {
+            cell.style.display = 'none';
         });
 
-        html2canvas(clonedTable, { scrollY: -window.scrollY })
+        html2canvas(input, { scrollY: -window.scrollY })
             .then((canvas) => {
-                // Restore the Actions column visibility in the original table
+                // Restore the Actions column
                 if (actionsColumn) {
                     actionsColumn.style.display = '';
                 }
 
-                // Restore the entire last column visibility in the original table
-                originalRows.forEach((row) => {
-                    const lastCell = row.lastElementChild;
-                    if (lastCell) {
-                        lastCell.style.display = '';
-                    }
+                // Restore the entire last column
+                lastColumnCells.forEach((cell) => {
+                    cell.style.display = '';
                 });
 
                 const imgData = canvas.toDataURL('image/png');
@@ -125,7 +102,6 @@ const BookingList = () => {
                 console.error('Error capturing screenshot:', error);
             });
     };
-
 
 
 
