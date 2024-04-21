@@ -221,7 +221,7 @@ export default function SalaryProcessingSection() {
                     const transactionData = {
                         date: data.payment_date,
                         type: 'expense',
-                        subtype: `Salary ${data.emp_name}` ,
+                        subtype: `Salary payment` ,
                         amount:  netSalary,
                         description: `Salary from ${data.salary_start_date} to ${data.salary_end_date}`,
                         payer_payee: data.emp_name,
