@@ -46,7 +46,7 @@ const FeedbackForm = () => {
 
     return (
         <div className="grid grid-cols-2 h-screen">
-            <div className="bg-gradient-to-r from-blue-200 to-purple-50 text-black flex justify-center items-center">
+            <div className="bg-gradient-to-r from-lime-200 to-white text-black flex justify-center items-center">
                 <p className="text-3xl font-bold px-5 text-center">
                     Your feedback helps us provide you with the best possible experience. We value your input and use it
                     to continually improve our services.<br/> Thank you for taking the time to share your thoughts with us!

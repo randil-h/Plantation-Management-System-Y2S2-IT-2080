@@ -63,18 +63,52 @@ const BookingList = () => {
     const handlePrint = () => {
         const input = document.getElementById('booking-table');
 
-        // Remove the Actions column from the table before capturing
-        const actionsColumn = input.querySelector('.actions-column');
+        // Clone the table
+        const clonedTable = input.cloneNode(true);
+
+        // Remove the Actions column from the cloned table
+        const actionsColumn = clonedTable.querySelector('.actions-column');
+        if (actionsColumn) {
+            actionsColumn.remove();
+        }
+
+        // Remove the last column from the cloned table
+        const rows = clonedTable.querySelectorAll('tbody tr');
+        rows.forEach((row) => {
+            const lastCell = row.lastElementChild;
+            if (lastCell) {
+                lastCell.remove();
+            }
+        });
+
+        // Hide the Actions column in the original table
         if (actionsColumn) {
             actionsColumn.style.display = 'none';
         }
 
-        html2canvas(input, { scrollY: -window.scrollY })
+        // Hide the entire last column in the original table
+        const originalRows = input.querySelectorAll('tbody tr');
+        originalRows.forEach((row) => {
+            const lastCell = row.lastElementChild;
+            if (lastCell) {
+                lastCell.style.display = 'none';
+            }
+        });
+
+        html2canvas(clonedTable, { scrollY: -window.scrollY })
             .then((canvas) => {
-                // Restore the Actions column visibility after capturing
+                // Restore the Actions column visibility in the original table
                 if (actionsColumn) {
                     actionsColumn.style.display = '';
                 }
+
+                // Restore the entire last column visibility in the original table
+                originalRows.forEach((row) => {
+                    const lastCell = row.lastElementChild;
+                    if (lastCell) {
+                        lastCell.style.display = '';
+                    }
+                });
 
                 const imgData = canvas.toDataURL('image/png');
 
@@ -86,8 +120,16 @@ const BookingList = () => {
 
                 // Save PDF
                 pdf.save('booking-list.pdf');
+            })
+            .catch((error) => {
+                console.error('Error capturing screenshot:', error);
             });
     };
+
+
+
+
+
 
 
 
@@ -116,7 +158,7 @@ const BookingList = () => {
                     />
                     <FaSearch className="absolute left-3 top-2 text-gray-400"/>
                 </div>
-                <div className="bg-gray-300 rounded-lg px-7 py-3 mb-4 items">
+                <div className="bg-lime-200 rounded-lg px-7 py-3 mb-4 items">
                     <p className="text-center text-black font-light">Total Bookings: {bookingRecords.length}</p>
                 </div>
                 <div className="flex">

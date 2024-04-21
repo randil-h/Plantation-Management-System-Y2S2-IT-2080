@@ -105,7 +105,7 @@ export default function FeedbackDashboard() {
             .attr("y", (d) => y(d[1]))
             .attr("width", x.bandwidth())
             .attr("height", (d) => height - y(d[1]))
-            .style("fill", "navy")
+            .style("fill", "#A8E6C7")
             .on("mouseover", (event, d) => {
                 const [rating, count] = d;
                 const tooltip = select(tooltipRef.current);
@@ -154,11 +154,11 @@ export default function FeedbackDashboard() {
                     </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-blue-900 rounded-lg p-4 mb-4">
-                        <div className="text-center text-white font-semibold text-6xl" ref={totalFeedbacksRef}></div>
+                    <div className="bg-green-200 rounded-lg p-4 mb-4">
+                        <div className="text-center text-black font-semibold " ref={totalFeedbacksRef}></div>
                     </div>
-                    <div className="bg-blue-900 rounded-lg p-4 mb-4">
-                        <div className="text-center text-white font-semibold text-6xl" ref={avgRatingRef}></div>
+                    <div className="bg-green-200 rounded-lg p-4 mb-4">
+                        <div className="text-center text-black font-semibold " ref={avgRatingRef}></div>
                     </div>
                 </div>
 
