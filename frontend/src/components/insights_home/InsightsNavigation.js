@@ -4,7 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 const menuItems = [
     { name: "HOME", path: "/insights/home" },
     { name: "MARKET PRICE", path: "/insights/marketprice" },
-    { name: "WEATHER", path: "/insights/weather" },
 
 ];
 

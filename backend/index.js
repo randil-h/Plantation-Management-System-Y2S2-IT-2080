@@ -37,6 +37,7 @@ import AttendanceRoute from "./routes/Employee Routes/AttendanceRoute.js";
 import MarketPriceRoute from "./routes/FarmAnalysis Routes/MarketPriceRoute.js";
 import DiseaseCountRoute from "./routes/Disease Tracking Routes/DiseaseCountRoute.js";
 import TreatmentSelectionRoute from "./routes/Disease Tracking Routes/TreatmentSelectionRoute.js";
+import PredictMarketPriceRoute from "./routes/FarmAnalysis Routes/PredictMarketPriceRoute.js";
 
 
 const app = express();
@@ -77,6 +78,7 @@ app.use('/feedback',FeedbackRoute);
 
 app.use('/diseases', DiseaseRoute);
 app.use('/marketprice', MarketPriceRoute);
+app.use('/generate_market_prices', PredictMarketPriceRoute);
 
 app.use('/rotation', RotationRoute);
 

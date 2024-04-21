@@ -7,7 +7,9 @@ router.post('/', async (request, response) => {
     try{
         console.log('Request Body:', request.body);
 
-        const existingRecord = await MarketPriceRecord.findOne({date: request.body.date});
+        const {name, date} = request.body;
+
+        const existingRecord = await MarketPriceRecord.findOne({name, date});
         if(existingRecord) {
             return response.status(400).send({
                 message: 'A Record already exists for this Given Date!',
@@ -50,6 +52,13 @@ router.post('/', async (request, response) => {
 
 router.get('/', async (request, response) => {
     try{
+        let filter = {};
+        // Check if a name filter is provided in the query parameters
+        if (request.query.name) {
+            // If a name filter is provided, construct the filter object accordingly
+            filter.name = request.query.name;
+        }
+
         const marketPrice = await MarketPriceRecord.find({});
 
         return response.status(200).json({
