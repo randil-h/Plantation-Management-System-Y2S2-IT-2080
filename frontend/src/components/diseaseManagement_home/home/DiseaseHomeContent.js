@@ -20,9 +20,9 @@ export default function DiseaseHomeContent(){
     useEffect(() => {
         setLoading(true);
         axios
-            .get("http://localhost:5555/count/untreatedPlants")
+            .get("http://localhost:5555/count/untreatedPlants")//fetches count of untreated plants from the endpoint
             .then((response) => {
-                setUntreatedPlantsCount(response.data.totalTreesAffected);
+                setUntreatedPlantsCount(response.data.totalTreesAffected); //assigns the count received to the variable
                 setLoading(false);
             })
             .catch((error) => {
@@ -31,9 +31,9 @@ export default function DiseaseHomeContent(){
             });
 
         axios
-            .get("http://localhost:5555/count/recoveredPlants")
+            .get("http://localhost:5555/count/recoveredPlants")//fetches count of recoveredplants from the endpoint
             .then((response) => {
-                setRecoveredPlantsCount(response.data.totalTreesAffected);
+                setRecoveredPlantsCount(response.data.totalTreesAffected);//assigns the count received to the variable
                 setLoading(false);
             })
             .catch((error) => {
@@ -42,9 +42,9 @@ export default function DiseaseHomeContent(){
             });
 
         axios
-            .get("http://localhost:5555/count/underTreatmentPlants")
+            .get("http://localhost:5555/count/underTreatmentPlants")//fetches count of plants under treatment from the endpoint
             .then((response) => {
-                setUnderTreatmentPlantsCount(response.data.totalTreesAffected);
+                setUnderTreatmentPlantsCount(response.data.totalTreesAffected);//assigns the count received to the variable
                 setLoading(false);
             })
             .catch((error) => {
@@ -53,9 +53,9 @@ export default function DiseaseHomeContent(){
             });
 
         axios
-            .get("http://localhost:5555/diseases")
+            .get("http://localhost:5555/diseases")//fetches information about records
             .then((response) => {
-                setDiseaseRecords(response.data.data);
+                setDiseaseRecords(response.data.data); //assigns values in the array of disease records
                 console.log("DiseaseRecords:", response.data.data);
                 setLoading(false);
             })
@@ -66,93 +66,85 @@ export default function DiseaseHomeContent(){
 
     }, []);
 
-    /*const getUntreatedPlantsCount = DiseaseRecords.filter(
-        (record) => record.status === "Not Treated"
-    ).length;
-
-    const getRecoveredPlantsCount = DiseaseRecords.filter(
-        (record) => record.status === "Recovered"
-    ).length
-
-    const getUnderTreatmentPlantsCount = DiseaseRecords.filter(
-        (record) => record.status === "Under Treatment"
-    ).length*/
-
+    //deducts 31 days from the value of the object used to store the current date
     const monthAgo = moment().subtract(31, 'days').format('YYYY-MM-DD');
 
+    //iterates over each record to get the total count of trees affected for each field within the last month
     const getFieldCounts = {};
     DiseaseRecords.forEach((record) => {
         /*getFieldCounts[record.location] = (getFieldCounts[record.location] || 0) + 1;*/
         if(moment(record.date, 'YYYY-MM-DD').isSameOrAfter(monthAgo)) {
             if(getFieldCounts[record.location]) {
-                getFieldCounts[record.location] += record.plant_count;
+                getFieldCounts[record.location] += record.plant_count;  //add count if location already available
             }
             else {
-                getFieldCounts[record.location] = record.plant_count;
+                getFieldCounts[record.location] = record.plant_count;  //add new count if location is not available
             }
         }
     });
 
-    let mostVulnerableField = [];
-    let maxCount = 0;
+    let mostVulnerableField = []; //assigning empty array to store most vulnerable field/s
+    let maxCount = 0;  //initializing max count of trees affected
     for(const location in getFieldCounts) {
         if(getFieldCounts[location] > maxCount) {
-            mostVulnerableField = [location];
-            maxCount = getFieldCounts[location];
-        }else if (getFieldCounts[location] === maxCount) {
-            mostVulnerableField.push(location);
+            mostVulnerableField = [location];    //if count is greater than current max, assign new location to array
+            maxCount = getFieldCounts[location];   //updates max count of affected trees
+        }else if (getFieldCounts[location] === maxCount) {  //checks if current count is equal to max count
+            mostVulnerableField.push(location);    //append location to array
         }
     }
 
-
+//iterates over each record to get the total count of trees affected for each disease within the last month
     const getDiseaseCounts = {};
     DiseaseRecords.forEach((record) => {
         /*getDiseaseCounts[record.disease_name] = (getDiseaseCounts[record.disease_name] || 0) + 1;*/
         if(moment(record.date, 'YYYY-MM-DD').isSameOrAfter(monthAgo)) {
             if(getDiseaseCounts[record.disease_name]) {
-                getDiseaseCounts[record.disease_name] += record.plant_count;
+                getDiseaseCounts[record.disease_name] += record.plant_count;  //add count if disease already available
             }
             else {
-                getDiseaseCounts[record.disease_name] = record.plant_count;
+                getDiseaseCounts[record.disease_name] = record.plant_count;  //add new count if disease unavailable
             }
         }
     });
 
-    let trendingDisease = [];
-    let maxDiseaseCount = 0;
+    let trendingDisease = [];  //assigning empty array to store most trending disease
+    let maxDiseaseCount = 0;  //initializing max count of trees affected
     for(const disease_name in getDiseaseCounts) {
         if(getDiseaseCounts[disease_name] > maxDiseaseCount) {
-            trendingDisease = [disease_name];
-            maxDiseaseCount = getDiseaseCounts[disease_name];
-        } else if (getDiseaseCounts[disease_name] === maxDiseaseCount) {
-            trendingDisease.push(disease_name);
+            trendingDisease = [disease_name];      //if count is greater than current max, assign new disease to array
+            maxDiseaseCount = getDiseaseCounts[disease_name];  //updates max count of affected trees
+        } else if (getDiseaseCounts[disease_name] === maxDiseaseCount) {  //checks if current count is equal to max count
+            trendingDisease.push(disease_name);    //append disease to array
         }
     }
 
+
+//iterates over each record to get the total count of trees affected for each crop within the last month
     const getCropCount = {};
     DiseaseRecords.forEach((record) => {
         /*getCropCount[record.crop] = (getCropCount[record.crop] || 0) + 1;*/
         if(moment(record.date, 'YYYY-MM-DD').isSameOrAfter(monthAgo)) {
             if(getCropCount[record.crop]) {
-                getCropCount[record.crop] += record.plant_count;
+                getCropCount[record.crop] += record.plant_count;  //add count if crop already available
             }
             else {
-                getCropCount[record.crop] = record.plant_count;
+                getCropCount[record.crop] = record.plant_count;  //add new count if crop unavailable
             }
         }
     });
 
-    let mostVulnerableCrop = [];
-    let maxCropCount = 0;
+    let mostVulnerableCrop = [];  //assigning empty array to store most vulnerable crop
+    let maxCropCount = 0;  //initializing max count of trees affected
     for(const crop in getCropCount)
     {
         if(getCropCount[crop] > maxCropCount)
         {
-            mostVulnerableCrop = [crop];
-            maxCropCount = getCropCount[crop];
-        } else if (getCropCount[crop] === maxCropCount)
+            mostVulnerableCrop = [crop];   //if count is greater than current max, assign new crop to array
+            maxCropCount = getCropCount[crop];    //updates max count of affected trees
+        } else if (getCropCount[crop] === maxCropCount)   //checks if current count is equal to max count
         {
-            mostVulnerableCrop.push(crop);
+            mostVulnerableCrop.push(crop);  //append crop to array
         }
     }
 
@@ -223,9 +215,6 @@ export default function DiseaseHomeContent(){
                                </span>
                                 ))}
                             </div>
-                           {/* <div>
-                                <img src="/agri4.jpg" alt="Field" className="w-fit h-fit mr-2 mt-4"/>
-                            </div>*/}
                         </div>
                         <div
                             className=" py-4 items-center justify-center rounded-lg flex-1 flex flex-col shadow-lg bg-lime-300 max-w-2xl w-full mb-4 mr-4 hover:bg-lime-400">
@@ -243,9 +232,6 @@ export default function DiseaseHomeContent(){
                                 </span>
                                 ))}
                             </div>
-                            {/*<div>
-                                <img src="/dis1.jpg" alt="Disease Image" className="w-auto h-auto mr-2 mt-4"/>
-                            </div>*/}
                         </div>
                         <div
                             className=" py-4 items-center justify-center rounded-lg flex-1 flex flex-col shadow-lg bg-lime-300 max-w-2xl w-full mb-4 mr-4 hover:bg-lime-400">
@@ -263,9 +249,6 @@ export default function DiseaseHomeContent(){
                                 </span>
                                 ))}
                             </div>
-                            {/*<div>
-                                 <img src="/agri7.jpg" alt="Apple Guava" className="w-auto mr-2 mt-4"/>
-                            </div>*/}
                         </div>
                     </div>
                 </div>

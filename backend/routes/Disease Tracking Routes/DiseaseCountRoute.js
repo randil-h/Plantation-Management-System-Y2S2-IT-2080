@@ -3,21 +3,12 @@ import {DiseasesRecord} from "../../models/Disease Tracking Models/DiseasesModel
 import moment from "moment";
 
 const router = express.Router();
+//assigning a value 31 days before to an object which stores current date
 const monthAgo = moment().subtract(31, 'days').format("YYYY-MM-DD");
-
-//get count of untreated plants
-/*router.get('/', async (request, response) => {
-    try{
-        const count = await DiseasesRecord.countDocuments({status: "Not Treated"});
-        return response.status(200).json({count});
-    }catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message});
-    }
-});*/
 
 router.get('/untreatedPlants', async (request, response) => {
     try {
+        //aggregates data from MongoDB
         const sumTreesAffected = await DiseasesRecord.aggregate([
             {
                 $match: {
@@ -26,6 +17,7 @@ router.get('/untreatedPlants', async (request, response) => {
                 } // Filter documents with status "Not Treated"
             },
             {
+                //groups filtered data and get the sum of plant count
                 $group: {
                     _id: null,
                     totalTreesAffected: { $sum: "$plant_count" } // Sum the plant_count field
@@ -47,6 +39,7 @@ router.get('/untreatedPlants', async (request, response) => {
 
 router.get('/recoveredPlants', async (request, response) => {
     try {
+        //aggregates data from MongoDB
         const sumTreesAffected = await DiseasesRecord.aggregate([
             {
                 $match: {
@@ -55,6 +48,7 @@ router.get('/recoveredPlants', async (request, response) => {
                 } // Filter documents with status "Recovered"
             },
             {
+                //groups filtered data and get the sum of plant count
                 $group: {
                     _id: null,
                     totalTreesAffected: { $sum: "$plant_count" } // Sum the plant_count field
@@ -76,6 +70,7 @@ router.get('/recoveredPlants', async (request, response) => {
 
 router.get('/underTreatmentPlants', async (request, response) => {
     try {
+        //aggregates data from MongoDB
         const sumTreesAffected = await DiseasesRecord.aggregate([
             {
                 $match: {
@@ -84,6 +79,7 @@ router.get('/underTreatmentPlants', async (request, response) => {
                 } // Filter documents with status "Under treatment"
             },
             {
+                //groups filtered data and get the sum of plant count
                 $group: {
                     _id: null,
                     totalTreesAffected: { $sum: "$plant_count" } // Sum the plant_count field
@@ -102,18 +98,5 @@ router.get('/underTreatmentPlants', async (request, response) => {
         response.status(500).send({ message: error.message });
     }
 });
-
-
-//get count of recovered plants
-/*router.get('/', async (request, response) => {
-    try{
-        const count = await DiseasesRecord.countDocuments({status : "Recovered"});
-        return response.status(200).json({ count});
-    }catch (error) {
-        console.log(error.message);
-        response.status(500).send({message : error.message});
-    }
-});*/
-
 
 export default router;
