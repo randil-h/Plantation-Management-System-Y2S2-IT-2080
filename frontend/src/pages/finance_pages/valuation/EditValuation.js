@@ -11,13 +11,13 @@ import {message} from "antd";
 
 function EditValuation() {
     const [date, setDate] = useState('');
-    const [type, setType] = useState('asset');
-    const [subtype, setSubType] = useState('Land');
-    const [quantity, setQuantity] = useState('0');
-    const [price, setPrice] = useState('0');
+    const [type, setType] = useState('');
+    const [subtype, setSubType] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [payerPayee, setPayerPayee] = useState('');
-    const [appreciationOrDepreciation, setAppreciationOrDepreciation] = useState('0');
+    const [appreciationOrDepreciation, setAppreciationOrDepreciation] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
@@ -47,6 +47,15 @@ function EditValuation() {
 
     const handleEditValuationRecord = async (e) => {
         e.preventDefault();
+
+        if (isNaN(quantity) || quantity <= 0 || isNaN(price) || price <= 0) {
+            message.error('Quantity and price must be positive numbers.');
+            return;
+        }
+        if (!date || !type || !subtype || !quantity || !price || !description || !payerPayee || !appreciationOrDepreciation) {
+            message.warning('Please fill in all fields. The record will not be saved with incomplete data');
+            return;
+        }
         const data = {
             date,
             type,

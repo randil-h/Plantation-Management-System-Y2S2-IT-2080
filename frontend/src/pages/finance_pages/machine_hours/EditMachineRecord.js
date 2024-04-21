@@ -7,6 +7,7 @@ import SideBar from '../../../components/SideBar';
 import FinanceNavigation from '../../../components/finances/FinanceNavigation';
 import Breadcrumb from '../../../components/utility/Breadcrumbs';
 import BackButton from '../../../components/utility/BackButton';
+import {message} from "antd";
 
 function EditMachineRecord() {
     const [date, setDate] = useState('');
@@ -44,6 +45,17 @@ function EditMachineRecord() {
     }, []);
 
     const handleEditMachineRecord = () => {
+
+        if (!date || !type || !hours_nos || !rate || !description || !payerPayee || paid === undefined) {
+            message.warning('Please fill in all fields.  The record will not be saved with incomplete data');
+            return;
+        }
+
+        // Validate numeric fields
+        if (isNaN(hours_nos) || isNaN(rate) || hours_nos <= 0 || rate <= 0) {
+            message.warning('Hours/Numbers and Rate must be positive numbers.');
+            return;
+        }
         const data = {
             date,
             type,
@@ -58,13 +70,14 @@ function EditMachineRecord() {
             .put(`http://localhost:5555/machines/${id}`, data)
             .then(() => {
                 setLoading(false);
-                enqueueSnackbar('Record Created successfully', { variant: 'success' });
-                navigate('/');
+                message.success('Machine record updated successfully');
+                navigate('/finances/machineHours');
             })
             .catch((error) => {
                 setLoading(false);
-                enqueueSnackbar('Error', { variant: 'error' });
+                message.error('Machine record update failed');
                 console.log(error);
+                navigate('/finances/machineHours');
             });
     };
 

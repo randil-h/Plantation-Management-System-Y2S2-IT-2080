@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 
-import { DatePicker, Button, Popover, Radio } from 'antd'; // Assuming you're using Ant Design for popover and date picker
+import {DatePicker, Button, Popover, Radio, message} from 'antd'; // Assuming you're using Ant Design for popover and date picker
 
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
@@ -45,19 +45,22 @@ export default function PastSalaryList() {
     }, []);
 
     const handleDeleteSalaryRecord = (id) => {
-        setLoading(true);
-        axios
-            .delete(`http://localhost:5555/salary/${id}`)
-            .then(() => {
-                setSalaryRecords((prevRecords) => prevRecords.filter((record) => record._id !== id));
-                enqueueSnackbar('Record Deleted successfully', { variant: 'success' });
-                setLoading(false);
-            })
-            .catch((error) => {
-                setLoading(false);
-                enqueueSnackbar('Record Deletion failed', { variant: 'error' });
-                console.log(error);
-            });
+        const confirmDelete = window.confirm("Are you sure you want to delete this salary record?");
+        if (confirmDelete) {
+            setLoading(true);
+            axios
+                .delete(`http://localhost:5555/salary/${id}`)
+                .then(() => {
+                    setSalaryRecords((prevRecords) => prevRecords.filter((record) => record._id !== id));
+                    message.success('Salary record successfully deleted.');
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    message.error('Salary record deletion failed.');
+                    console.log(error);
+                });
+        }
     };
 
     const sortedRecords = [...salaryRecords].sort((a, b) => {
@@ -168,7 +171,8 @@ export default function PastSalaryList() {
                             </div>
 
                             <div className="flex items-center space-x-4 relative px-4">
-                                <button
+
+                                {/*<button
                                     className="flex items-center space-x-1 cursor-pointer bg-lime-200 px-4 py-1 rounded-full hover:bg-lime-400"
                                     onClick={() => handleSortBy('date')}
                                 >
@@ -233,7 +237,7 @@ export default function PastSalaryList() {
                                         onVisibleChange={setPopoverVisible}
                                     />
                                 </div>
-
+*/}
 
                             </div>
                         </div>
@@ -344,33 +348,15 @@ export default function PastSalaryList() {
                                 </Link>
                             </td>
                             <td className=" ">
-                                <Popover
-                                    content={
-                                        <div>
-                                            <p>Are you sure you want to delete this record?</p>
-                                            <div className="mt-4 flex justify-start">
-                                                <button
-                                                    className="bg-red-600 rounded-full px-4 text-white hover:bg-red-400"
-                                                    onClick={() => {
-                                                        handleDeleteSalaryRecord(record._id);
-                                                    }}
-                                                >
-                                                    Yes
-                                                </button>
-                                            </div>
-                                        </div>
-                                    }
-                                    title="Confirmation"
-                                    trigger="click"
-                                >
-                                    <Button shape="circle" type="text">
+
+                                    <Button shape="circle" type="text" onClick={() => {
+                                        handleDeleteSalaryRecord(record._id);
+                                    }}>
                                         <TrashIcon
                                             className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
                                             aria-hidden="true"
                                         />
                                     </Button>
-                                </Popover>
-
                             </td>
                         </tr>
                     ))}
