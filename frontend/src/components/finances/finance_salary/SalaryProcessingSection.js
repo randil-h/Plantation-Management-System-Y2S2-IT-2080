@@ -173,6 +173,7 @@ export default function SalaryProcessingSection() {
 
     const handleSaveSalaryRecord = async (e) => {
         e.preventDefault();
+
         const data = {
             payment_date,
             emp_name,

@@ -30,8 +30,8 @@ function WaterTank() {
     const [waterRecords, setWaterRecord] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const tank1Capacity = 50000;
-    const tank2Capacity = 50000;
+    const tank1Capacity = 100000;
+    const tank2Capacity = 100000;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -139,7 +139,7 @@ function WaterTank() {
         }
 
         // Calculate the rate of decrease in water level per day
-        const decreaseRatePerDay = totalWaterRemaining / 7; // Assuming each record is 7 days apart
+        const decreaseRatePerDay = totalWaterRemaining / 3; // Assuming each record is 7 days apart
         return decreaseRatePerDay;
     };
 
@@ -257,7 +257,7 @@ function WaterTank() {
                                 <td className="px-6 py-4 border-r">{record.water_level1}</td>
                                 <td className="px-6 py-4 border-r">{record.water_level2}</td>
                                 <td className="px-6 py-4 border-r whitespace-nowrap">{record.water_date.split("T")[0]}</td>
-                                <td className="px-6 py-4 border-r">{record.water_des}</td>
+                                <td className="px-6 py-4 border-r">{record.water_des ? record.water_des : "N/A"}</td>
                                 <td className="px-6 py-4">
                                     <div className="flex">
                                         <button

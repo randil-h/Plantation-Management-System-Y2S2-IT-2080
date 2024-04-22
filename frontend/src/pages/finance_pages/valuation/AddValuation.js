@@ -25,6 +25,19 @@ function AddNewValuation() {
 
     const handleSaveValuationRecord = async (e) => {
         e.preventDefault();
+        if (!date || !type || !subtype || !quantity || !price || !description || !payerPayee || !appreciationOrDepreciation) {
+            message.warning('Please fill in all fields. The record will not be saved with incomplete data');
+            return;
+        }
+
+        if (isNaN(quantity) || quantity <= 0 || isNaN(price) || price <= 0) {
+            message.error('Quantity and price must be positive numbers.');
+            return;
+        }
+
+
+
+
         const data = {
             date,
             type,
@@ -243,6 +256,7 @@ function AddNewValuation() {
                                                     value={price}
                                                     onChange={(e) => setPrice(e.target.value)}
                                                     type="number"
+                                                    pattern="[0-9]*"
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
                                             </div>

@@ -15,7 +15,7 @@ const WaterSchema = mongoose.Schema(
         },
         water_des: {
             type: String,
-            required: true,
+            required: false,
         },
     },
     {

@@ -35,26 +35,22 @@ export default function GenerateGraphs() {
     const renderBarChart = () => {
         if (!chartContainer.current) return;
 
-        const typesOfDiseases = new Map();
+        const typesOfDiseases = new Map();  //initialising empty map
 
         DiseaseRecords.forEach((record) => {
-            /*typesOfDiseases.set(
-                record.disease_name,
-                (typesOfDiseases.get(record.disease_name) || 0) + 1
-            );*/
-            if(typesOfDiseases.has(record.disease_name)) {
+            if(typesOfDiseases.has(record.disease_name)) {   //checks whether map already contains key with the given disease name
                 typesOfDiseases.set(
                     record.disease_name,
-                    typesOfDiseases.get(record.disease_name) + record.plant_count
+                    typesOfDiseases.get(record.disease_name) + record.plant_count   //updates existing count
                 );
             }
             else {
-                typesOfDiseases.set(record.disease_name, record.plant_count);
+                typesOfDiseases.set(record.disease_name, record.plant_count);   //sets dname as key and appends to the map
             }
         });
 
-        const labels = [...typesOfDiseases.keys()];
-        const data = [...typesOfDiseases.values()];
+        const labels = [...typesOfDiseases.keys()];  //labels contains dnames
+        const data = [...typesOfDiseases.values()];  //data contain plant counts
 
         const svg = select(chartContainer.current);
 
@@ -73,7 +69,7 @@ export default function GenerateGraphs() {
             .range([height, 0])        //set y-axis height
             .domain([0, Math.max(...data)]);    //set y-axis label
 
-        const g = svg
+        const g = svg   //appends new group element to svg container
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -158,20 +154,20 @@ export default function GenerateGraphs() {
         const typesOfCrops = new Map();
 
         DiseaseRecords.forEach((record) => {
-            /*typesOfCrops.set(record.crop, (typesOfCrops.get(record.crop) || 0) + 1);*/
+            //checks for key with given crop name
             if(typesOfCrops.has(record.crop)) {
                 typesOfCrops.set(
                     record.crop,
-                    typesOfCrops.get(record.crop) + record.plant_count
+                    typesOfCrops.get(record.crop) + record.plant_count  //updates available plant count
                 );
             }
             else {
-                typesOfCrops.set(record.crop, record.plant_count);
+                typesOfCrops.set(record.crop, record.plant_count);  //append crop to map
             }
         });
 
-        const labels1 = [...typesOfCrops.keys()];
-        const data1 = [...typesOfCrops.values()];
+        const labels1 = [...typesOfCrops.keys()];    //crop name as labels
+        const data1 = [...typesOfCrops.values()];    //plant count as data
 
         const svg = select(cropBarChartContainer.current);
 
@@ -184,9 +180,9 @@ export default function GenerateGraphs() {
         const x = scaleBand()
             .range([0, width])
             .padding(0.5)
-            .domain(labels1);
+            .domain(labels1);  //labels assigned to x axis
 
-        const y = scaleLinear().range([height, 0]).domain([0, Math.max(...data1)]);
+        const y = scaleLinear().range([height, 0]).domain([0, Math.max(...data1)]);  //y range from 0 to y-max
 
         const g = svg
             .append("g")
@@ -209,7 +205,7 @@ export default function GenerateGraphs() {
             .text("Number of Diseased Plants");
 
         g.selectAll(".bar")
-            .data(typesOfCrops)
+            .data(typesOfCrops)    //bars represent plant count
             .enter()
             .append("rect")
             .attr("class", "bar")
@@ -249,7 +245,7 @@ export default function GenerateGraphs() {
             .style("border-radius", "5px")
             .style("border", "1px solid black");
 
-        svg.append("text")
+        svg.append("text")    //x axis label
             .attr("class", "axis-label")
             .attr("x", margin.left + (width / 2))
             .attr("y", height + margin.top + 50)
@@ -257,7 +253,7 @@ export default function GenerateGraphs() {
             .style("font-weight", "bold")
             .text("Crop Type");
 
-        svg.append("text")
+        svg.append("text")     //y axis label
             .attr("class", "axis-label")
             .attr("transform", "rotate(-90)")
             .attr("x", 0 - (height / 2))
@@ -280,16 +276,19 @@ export default function GenerateGraphs() {
         const accumulatedCounts = new Map();
 
         DiseaseRecords.forEach((record) => {
+            //check for key having similar to given date
             const date = record.date;
             if (!accumulatedCounts.has(date)) {
-                accumulatedCounts.set(date, 0);
+                accumulatedCounts.set(date, 0);    //update existing plant count
             }
-            accumulatedCounts.set(date, accumulatedCounts.get(date) + record.plant_count);
+            accumulatedCounts.set(date, accumulatedCounts.get(date) + record.plant_count);   //append date as key to map
         });
 
+        //sorts dates in ascending order
         const sortedDates = Array.from(accumulatedCounts.keys()).sort(
             (a, b) => new Date(a) - new Date(b)
         );
+        //maps each date to its count
         const counts = sortedDates.map((date) => accumulatedCounts.get(date));
 
         const svg = select(lineChartContainer.current);
@@ -302,9 +301,9 @@ export default function GenerateGraphs() {
 
         const x = scaleTime()
             .range([0, width])
-            .domain([new Date(sortedDates[0]), new Date(sortedDates[sortedDates.length - 1])]);
+            .domain([new Date(sortedDates[0]), new Date(sortedDates[sortedDates.length - 1])]); //date represents x axis
 
-        const y = scaleLinear().range([height, 0]).domain([0, Math.max(...counts)]);
+        const y = scaleLinear().range([height, 0]).domain([0, Math.max(...counts)]);  //counts represents y axis
 
         const g = svg
             .append("g")

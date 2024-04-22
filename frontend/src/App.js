@@ -106,7 +106,6 @@ import ViewEmpDetails from "./pages/employee_pages/emp_registation/ViewEmpDetail
 import ViewTaskList from "./pages/employee_pages/task_assigning/ViewTaskList";
 
 import EditEmployeePage from "./pages/employee_pages/emp_registation/EditEmployeePage";
-import ViewReport from "./pages/diseaseTracking_pages/records/ViewReport";
 import EditTask from "./components/Employee/Task_assign/EditTask";
 import EditTaskPage from "./pages/employee_pages/task_assigning/EditTaskPage";
 
@@ -214,7 +213,6 @@ export default function App() {
 
                     <Route path = "/diseases/records/addDisease" element={AddDiseaseRecord()}/>
                     <Route path = "/diseases/records/updateDisease/:id" element={UpdateDiseaseRecord()}/>
-                    <Route path = "/diseases/records/generateReport" element={ViewReport()}/>
                     <Route path = "/diseases/records/viewDisease/:id" element={ViewDiseaseRecord()}/>
                     <Route path = "/diseases/records" element={ViewAllDiseases()}/>
                     <Route path = "/diseases/visualization" element={DiseaseVisualization()}/>

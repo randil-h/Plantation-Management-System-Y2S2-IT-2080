@@ -2,10 +2,10 @@ import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {enqueueSnackbar, useSnackbar} from "notistack";
-import {jsPDF} from "jspdf";
-import {axisBottom, axisLeft, curveMonotoneX, line, scaleLinear, scaleTime, select} from "d3";
+import {axisBottom, axisLeft, line, scaleLinear, scaleTime, select} from "d3";
 import AddPrice from "./AddPrice";
 import * as d3 from "d3-array";
+import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
 
 export default function MarketPriceList() {
 
@@ -13,24 +13,23 @@ export default function MarketPriceList() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const {id} = useParams();
-    const [searchQuery, setSearchQuery] = useState('');
     const { enqueueSnackbar } = useSnackbar();
-    //const [showType, setShowType] = useState('table');
-    const papayaChartContainer = useRef(null);
+    const priceChartContainer = useRef(null);
     const futurePricesChartContainer = useRef(null);
     const [selectedFilter, setSelectedFilter] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const recordsPerPage = 100;
+    const [currentPageHistorical, setCurrentPageHistorical] = useState(1);
+    const [currentPagePredicted, setCurrentPagePredicted] = useState(1);
+    const recordsPerPage = 80;
     const recordsPerPage1 = 365;
     const [futurePrices, setFuturePrices] = useState([]);
     const [futurePricesTF, setFuturePricesTF] = useState([]);
     const [generateClicked, setGenerateClicked] = useState(false);
 
     const handleFilterChange = (e) => {
-        setSelectedFilter(e.target.value);
+        setSelectedFilter(e.target.value);   //update value to selected value
     };
     const handleGenerateClick = () => {
-        setGenerateClicked(true);
+        setGenerateClicked(true);  //set status upon click
     };
 
     useEffect(() => {
@@ -38,7 +37,7 @@ export default function MarketPriceList() {
         axios
             .get('http://localhost:5555/marketprice', {
                 params: {
-                    filter: selectedFilter // Pass the selected filter value
+                    filter: selectedFilter // Pass the selected filter value(name)
                 }
             })
             .then((response) => {
@@ -53,31 +52,45 @@ export default function MarketPriceList() {
     }, [selectedFilter]);
 
     useEffect(() => {
-        renderPapayaChart();
+        renderPriceChart();
         renderFuturePricesChart();
-    }, [currentPage, MarketPriceRecords, futurePrices, selectedFilter]);
+    }, [currentPageHistorical,currentPagePredicted, MarketPriceRecords, futurePrices, selectedFilter]);
 
+    // Function to navigate to the next page of a paginated data set
     const nextPage = () => {
+        // Calculate the total number of pages needed to display all records based on the records per page
         const totalPages = Math.ceil(MarketPriceRecords.length / recordsPerPage);
-        if(currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
+
+        // Check if there is a next page available to navigate to
+        if (currentPageHistorical < totalPages) {
+            // Increment the current page number to navigate to the next page
+            setCurrentPageHistorical(currentPageHistorical + 1);
         }
     };
 
     const nextPage1 = () => {
         const totalPages = Math.ceil(futurePrices.length / recordsPerPage1);
-        if(currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
+        if(currentPagePredicted < totalPages) {
+            setCurrentPagePredicted(currentPagePredicted + 1);
         }
     };
 
+    //Function to navigate to previous page of a paginated data set
     const prevPage = () => {
-        if(currentPage > 1) {
-            setCurrentPage(currentPage - 1);
+        //check whether previous page is available
+        if(currentPageHistorical > 1) {
+            //decrement current page no to navigate to prev page
+            setCurrentPageHistorical(currentPageHistorical - 1);
         }
     };
 
-    const renderPapayaChart = () => {
+    const prevPage1 = () => {
+        if(currentPagePredicted > 1) {
+            setCurrentPagePredicted(currentPagePredicted - 1);
+        }
+    };
+
+    const renderPriceChart = () => {
 
         if (!selectedFilter) {
             // If no filter is selected, return without rendering the graph
@@ -92,21 +105,22 @@ export default function MarketPriceList() {
             }
         });
 
-        const startIndex = (currentPage - 1) * recordsPerPage;
-        const endIndex = Math.min(startIndex + recordsPerPage, filteredRecords.length);
+        const startIndex = (currentPageHistorical - 1) * recordsPerPage; //calculate startindex to display current page
+        const endIndex = Math.min(startIndex + recordsPerPage, filteredRecords.length); //calculate endindex to display
+        // Extract the subset of records to be displayed on the current page
         const recordsToDisplay = filteredRecords.slice(startIndex, endIndex);
         const allMarketPriceRecords = [...filteredRecords];
 
-        if (!papayaChartContainer.current || recordsToDisplay.length === 0) return;
+        if (!priceChartContainer.current || recordsToDisplay.length === 0) return;
 
         if (MarketPriceRecords.length === 0) {
             return;
         }
 
+        //sort data in ascending order
         const sortedDates = allMarketPriceRecords.slice(startIndex, endIndex).sort((a, b) => new Date(a.date) - new Date(b.date));
 
-
-        const svg = select(papayaChartContainer.current);
+        const svg = select(priceChartContainer.current);
 
         svg.selectAll("*").remove();
 
@@ -114,16 +128,18 @@ export default function MarketPriceList() {
         const width = svg.attr("width") - margin.left - margin.right;
         const height = svg.attr("height") - margin.top - margin.bottom;
 
+        //x axis represents date
         const x = scaleTime()
             .range([0, width])
             .domain([new Date(sortedDates[0].date), new Date(sortedDates[recordsToDisplay.length - 1].date)]);
 
+        //y axis represents prices
         const y = scaleLinear()
             .range([height, 0])
             .domain([0, Math.max(
                 ...sortedDates.map(record => record.max_price),
                 ...sortedDates.map(record => record.min_price)
-                )]);
+                ) + 40]);
 
         const g = svg
             .append("g")
@@ -183,7 +199,6 @@ export default function MarketPriceList() {
                 tooltip.style("opacity", 0);
             });
 
-
         const tooltip = select("body")
             .append("div")
             .attr("class", "tooltip")
@@ -200,6 +215,7 @@ export default function MarketPriceList() {
             .attr("transform", "translate(0," + height + ")")
             .call(axisBottom(x).ticks(5));
 
+        //x axis label
         g.append("g")
             .attr("class", "axis axis--y")
             .call(axisLeft(y).ticks(10, "s"))
@@ -211,6 +227,7 @@ export default function MarketPriceList() {
             .attr("text-anchor", "end")
             .text("Price");
 
+        //y axis label
         g.append("path")
             .datum(sortedDates)
             .attr("fill", "none")
@@ -276,6 +293,7 @@ export default function MarketPriceList() {
             })
             .then((response) => {
                 const {futureMaxPrices, futureMinPrices, futureTensorFlowModel} = response.data;
+                // Combine the future predicted prices into a single array
                 const combinedFuturePrices = futureMaxPrices.map((maxPrice, index) => ({
                     date: maxPrice.date,
                     predictedMinPrice: futureMinPrices[index].price,
@@ -283,7 +301,8 @@ export default function MarketPriceList() {
                     tensorFlowMinPrice: futureTensorFlowModel[index].minPrice,
                     tensorFlowMaxPrice: futureTensorFlowModel[index].maxPrice
                 }));
-                setFuturePrices(combinedFuturePrices);
+                setFuturePrices(combinedFuturePrices);  //Set the combined future prices state variable
+                console.log(futurePrices.length);
                 enqueueSnackbar('Predictions generated successfully', { variant: 'success' });
             })
             .catch((error) => {
@@ -296,8 +315,9 @@ export default function MarketPriceList() {
 
         if (!futurePricesChartContainer.current || futurePrices.length === 0) return;
 
-        const startIndex = (currentPage - 1) * recordsPerPage1;
-        const endIndex = Math.min(startIndex + recordsPerPage1, futurePrices.length);
+        const startIndex = (currentPagePredicted - 1) * recordsPerPage1;  //calculating start index of displaying page
+        const endIndex = Math.min(startIndex + recordsPerPage1, futurePrices.length); //calculating end index
+        //extract subset of prices to display
         const futurePricesToDisplay = futurePrices.slice(startIndex, endIndex);
 
         const svg = select(futurePricesChartContainer.current);
@@ -308,26 +328,32 @@ export default function MarketPriceList() {
         const width = svg.attr("width") - margin.left - margin.right;
         const height = svg.attr("height") - margin.top - margin.bottom;
 
+        //x axis represents future dates
         const x = scaleTime()
             .range([0, width])
             .domain(d3.extent(futurePricesToDisplay, d => new Date(d.date)));
 
+        //y-axis represents future prices
         const y = scaleLinear()
             .range([height, 0])
             .domain([0, d3.max(futurePricesToDisplay, d => Math.max(d.predictedMaxPrice, d.predictedMinPrice, d.tensorFlowMaxPrice, d.tensorFlowMinPrice)) + 30]);
 
+        //max from linear reg
         const lineMax = line()
             .x(d => x(new Date(d.date)))
             .y(d => y(d.predictedMaxPrice));
 
+        //min from lin reg
         const lineMin = line()
             .x(d => x(new Date(d.date)))
             .y(d => y(d.predictedMinPrice));
 
+        //max from tensorflow
         const lineMax1 = line()
             .x(d => x(new Date(d.date)))
             .y(d => y(d.tensorFlowMaxPrice));
 
+        //min from tensorflow
         const lineMin1 = line()
             .x(d => x(new Date(d.date)))
             .y(d => y(d.tensorFlowMinPrice));
@@ -523,12 +549,12 @@ export default function MarketPriceList() {
             .attr("transform", `translate(${width - 40}, 5)`);
 
         legend1.append("text")
-            .attr("y", 50)
+            .attr("y", 10)
             .text("Max Price")
             .attr("fill", "red");
 
         legend1.append("text")
-            .attr("y", 70)
+            .attr("y", 30)
             .text("Min Price")
             .attr("fill", "blue");
 
@@ -582,11 +608,11 @@ export default function MarketPriceList() {
                         <svg ref={futurePricesChartContainer} width="1200" height="400"></svg>
                     </div>
                     <div className="flex justify-center mt-4 mb-3">
-                        <button onClick={prevPage} className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
-                            Previous
+                        <button onClick={prevPage1} className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
+                            <FaArrowLeft/>
                         </button>
-                        <button onClick={nextPage1} className="mr-2 px-4 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
-                            Next
+                        <button onClick={nextPage1} className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
+                            <FaArrowRight/>
                         </button>
                     </div>
                 </>
@@ -597,108 +623,19 @@ export default function MarketPriceList() {
                         <h4 className=" text-lg font-semibold text-center">HISTORICAL PRICES</h4>
                     </div>
                     <div className="bg-green-100 border-2 border-blue-600 px-2 py-2 mr-2 ml-2 rounded-lg">
-                        <svg ref={papayaChartContainer} width="1200" height="400"></svg>
+                        <svg ref={priceChartContainer} width="1200" height="400"></svg>
                     </div>
                     <div className="flex justify-center mt-4 mb-3">
                         <button onClick={prevPage} className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
-                            Previous
+                            <FaArrowLeft/>
                         </button>
-                        <button onClick={nextPage} className="mr-2 px-4 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
-                            Next
+                        <button onClick={nextPage} className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
+                            <FaArrowRight/>
                         </button>
                     </div>
                 </>
             )}
 
-            {/* <table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
-                <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
-                <tr>
-                    <th></th>
-                    <th scope="col" className="px-6 py-3">Date</th>
-                    <th scope="col" className="px-6 py-3">Predicted Min Price</th>
-                    <th scope="col" className="px-6 py-3">Predicted Max Price</th>
-                </tr>
-                </thead>
-                <tbody className="border-b border-green-400">
-                {futurePrices.map((price) => (
-                    <tr key={price.date} className='divide-y'>
-                        <td></td>
-                        <td className='px-6 py-4'>{price.date}</td>
-                        <td className='px-6 py-4'>{price.predictedMinPrice}</td>
-                        <td className='px-6 py-4'>{price.predictedMaxPrice}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>*/}
-
-            {/*<table className="w-full text-sm text-left rtl:text-right text-gray-500  ">
-                <thead
-                    className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
-                <tr className=" ">
-                    <th></th>
-                    <th scope="col" className="px-6 py-3"> Name</th>
-                    <th scope="col" className="px-6 py-3">Type</th>
-                    <th scope="col" className="px-6 py-3">Date</th>
-                    <th scope="col" className="px-6 py-3">Minimum Price</th>
-                    <th scope="col" className="px-6 py-3">Maximum Price</th>
-                    <th scope="col" className=" py-3"><span className="sr-only">Info</span></th>
-                    <th scope="col" className=" py-3"><span className="sr-only">Edit</span></th>
-                    <th scope="col" className=" py-3"><span className="sr-only">Delete</span></th>
-                </tr>
-                </thead>
-
-                <tbody className="border-b border-green-400">
-
-                {filteredRecords
-                    .sort((a, b) => new Date(a.date) - new Date(b.date))
-                    .map((drecord, index) => (
-                    <tr key={drecord._id} className='divide-y'>
-                        <td></td>
-                        <td className='px-6 py-4'>
-                            {drecord.name}
-                        </td>
-                        <td className='px-6 py-4'>
-                            {drecord.type}
-                        </td>
-                        <td className='px-6 py-4'>
-                            {drecord.date}
-                        </td>
-                        <td className='px-6 py-4'>
-                            {drecord.min_price}
-                        </td>
-                        <td className='px-6 py-4'>
-                            {drecord.max_price}
-                        </td>
-                        <td className=" py-4 text-right">
-                            <Link to={`/diseases/records/viewDisease/${drecord._id}`}>
-                                <InformationCircleIcon
-                                    className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
-                                    aria-hidden="true"/>
-                            </Link>
-                        </td>
-                        <td className=" py-4 text-right">
-                            <Link to={`/diseases/records/updateDisease/${drecord._id}`}>
-                                <PencilSquareIcon
-                                    className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                    aria-hidden="true"/>
-                            </Link>
-                        </td>
-                        <td className=" ">
-                            <button
-                                className="flex items-center"
-                                onClick={() => handleDeleteDisease(drecord._id)}
-                            >
-                                <TrashIcon
-                                    className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                    aria-hidden="true"/>
-                            </button>
-                        </td>
-                    </tr>
-                ))}
-
-
-                </tbody>
-            </table>*/}
         </div>
     )
 }

@@ -95,16 +95,25 @@ const ChemicalList = () => {
 
     useEffect(() => {
         setFilteredRecords(
-            ChemicalRecords.filter(record =>
-                (selectedFieldFilter === 'All Fields' || record.field.toLowerCase() === selectedFieldFilter.toLowerCase()) &&
-                (record.date.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    record.field.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    record.cropType.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    record.variety.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    record.remarks.toLowerCase().includes(searchQuery.toLowerCase()))
-            )
+            ChemicalRecords.filter(record => {
+                const lowerCaseField = record.field ? record.field.toLowerCase() : '';
+                const lowerCaseDate = record.date ? record.date.toLowerCase() : '';
+                const lowerCaseCropType = record.cropType ? record.cropType.toLowerCase() : '';
+                const lowerCaseVariety = record.variety ? record.variety.toLowerCase() : '';
+                const lowerCaseRemarks = record.remarks ? record.remarks.toLowerCase() : '';
+
+                return (
+                    (selectedFieldFilter === 'All Fields' || lowerCaseField === selectedFieldFilter.toLowerCase()) &&
+                    (lowerCaseDate.includes(searchQuery.toLowerCase()) ||
+                        lowerCaseField.includes(searchQuery.toLowerCase()) ||
+                        lowerCaseCropType.includes(searchQuery.toLowerCase()) ||
+                        lowerCaseVariety.includes(searchQuery.toLowerCase()) ||
+                        lowerCaseRemarks.includes(searchQuery.toLowerCase()))
+                );
+            })
         );
     }, [ChemicalRecords, searchQuery, selectedFieldFilter]);
+
 
     const handleFieldFilterChange = (event) => {
         setSelectedFieldFilter(event.target.value);

@@ -32,7 +32,7 @@ const InventoryRecordSchema = mongoose.Schema(
         },
         expire_date: {
             type: Date,
-            required: false, // Make expire_date optional
+            required: false,
         },
         description: {
             type: String,

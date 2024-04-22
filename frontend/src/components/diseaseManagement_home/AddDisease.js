@@ -80,9 +80,10 @@ export default function AddDisease() {
 
         setLoading(true);
         axios
-            .post(`http://localhost:5555/checkTreatment`, {treatment})
+            .post(`http://localhost:5555/checkTreatment`, {treatment}) //checking availability of treatment
             .then((response) => {
                 setLoading(false);
+                //if treatment available
                 if(response.data.available) {
                     axios
                         .post(`http://localhost:5555/diseases`, data)
@@ -97,7 +98,7 @@ export default function AddDisease() {
                             console.log(error);
                         });
                 } else {
-                    window.alert("Treatment is not available in Inventory!!");
+                    window.alert("Treatment is not available in Inventory!!"); //if treatment is not found or unavailable
                 }
             })
             .catch((error) => {
@@ -129,9 +130,6 @@ export default function AddDisease() {
                     className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                 >
                     <option>Select Disease</option>
-                    <option value="Wilt ">Wilt</option>
-                    <option value="Powdery Mildew">Powdery Mildew</option>
-                    <option value="Brown Spot">Brown Spot</option>
                     <option value="Anthracnose">Anthracnose Disease</option>
                     <option value="Plesispa">Plesispa (Coconut Bug)</option>
                     <option value="Fungal Disease">Fungal Disease</option>

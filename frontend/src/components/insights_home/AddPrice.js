@@ -16,6 +16,7 @@ export default function AddPrice() {
     const handleSavePrice = (e) => {
         e.preventDefault();
 
+        //check whether min > max
         if (Number(min_price) > Number(max_price)) {
             alert('Minimum Price cannot be greater than Maximum Price');
             return; // Exit function early if validation fails

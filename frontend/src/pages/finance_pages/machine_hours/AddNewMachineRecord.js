@@ -25,6 +25,19 @@ function AddNewMachineRecord() {
     const { enqueueSnackbar } = useSnackbar();
 
     const handleSaveMachineRecord = () => {
+        if (!date || !type || !hours_nos || !rate || !description || !payerPayee || paid === undefined) {
+            message.warning('Please fill in all fields.  The record will not be saved with incomplete data');
+            return;
+        }
+
+        // Validate numeric fields
+        if (isNaN(hours_nos) || isNaN(rate) || hours_nos <= 0 || rate <= 0) {
+            message.warning('Hours/Numbers and Rate must be positive numbers.');
+            return;
+        }
+
+
+
         const machineData = {
             date,
             type,
@@ -135,6 +148,7 @@ function AddNewMachineRecord() {
                                                         value={type}
                                                         onChange={(e) => setType(e.target.value)}
                                                         id="type"
+                                                        required
                                                         autoComplete="type"
                                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                     >
@@ -176,9 +190,9 @@ function AddNewMachineRecord() {
                                                     value={hours_nos}
                                                     onChange={(e) => setHours(e.target.value)}
                                                     type="text"
-                                                    pattern="[1-9]\d*" // Only allows positive integers
+                                                    pattern="\d+" // Only allows non-negative integers
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                    title="Please enter only numbers" // Error message if pattern doesn't match
+                                                    title="Please enter a non-negative number"// Error message if pattern doesn't match
                                                     required // Makes the field required
                                                 />
                                             </div>
