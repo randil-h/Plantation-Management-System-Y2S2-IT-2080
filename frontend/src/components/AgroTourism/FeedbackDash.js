@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { select, scaleBand, scaleLinear, axisBottom, axisLeft } from "d3";
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { BsDownload } from "react-icons/bs";
 export default function FeedbackDashboard() {
     const [feedbackData, setFeedbackData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -139,11 +141,56 @@ export default function FeedbackDashboard() {
             .attr("x", width / 2)
             .attr("y", 40); // Adjust the y position
     };
+    const [feedbackString, setFeedbackString] = useState('');
+
+    const handleGeneratePDF = () => {
+        const ratingsCount = new Map();
+
+        feedbackData.forEach((feedback) => {
+            const rating = feedback.rating;
+            ratingsCount.set(
+                rating,
+                (ratingsCount.get(rating) || 0) + 1
+            );
+        });
+
+        let dataString = 'Rating Analysis\n\n';
+
+        ratingsCount.forEach((count, rating) => {
+            dataString += `Rating: ${rating}, Number of Ratings: ${count}\n`;
+        });
+
+        let tempFeedbackString = 'Latest Feedbacks \n\n';
+
+        feedbackData.slice(-10).forEach((feedback, index) => {
+            tempFeedbackString += `Feedback ${index + 1}:\n`;
+            tempFeedbackString += `Email: ${feedback.email}\n`;
+            tempFeedbackString += `Rating: ${feedback.rating}\n\n`;
+        });
+
+        const pdf = new jsPDF();
+
+        // Add Title
+        pdf.setFontSize(20);
+        pdf.text('Feedback and Rating Analysis', pdf.internal.pageSize.getWidth() / 2, 10, 'center');
+
+        // Add the ratings data
+        pdf.setFontSize(12);
+        pdf.text(dataString, 10, 30);
+
+        // Add the feedback data below the ratings data with reduced spacing
+        pdf.setFontSize(12);
+        pdf.text(tempFeedbackString, 10, 80); // Adjusted vertical offset
+
+        pdf.save('feedback-analysis.pdf');
+    };
+
+
 
     return (
         <div className="flex flex-col items-end">
             <div className="overflow-x-auto">
-                <div className="flex flex-row justify-center items-center px-8 py-4">
+                <div className="flex flex-row justify-between items-center px-8 py-4"> {/* Changed justify-center to justify-between */}
                     <div className="text-center">
                         <h1 className="text-4xl font-semibold">
                             Feedbacks
@@ -152,12 +199,21 @@ export default function FeedbackDashboard() {
                             Visualization of Rating Analysis
                         </p>
                     </div>
+                    <button
+                        onClick={handleGeneratePDF}
+                        className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none ml-2 flex items-center"
+                    >
+                        Generate PDF<BsDownload style={{ marginLeft: '10px' }} />
+                    </button>
+
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-lime-200 rounded-lg p-4 mb-4">
-                        <div className="text-center text-black font-semibold " ref={totalFeedbacksRef}></div>
-                    </div>
-                    <div className="bg-lime-200 rounded-lg p-4 mb-4">
+
+
+            <div className="grid grid-cols-2 gap-4">
+                <div className="bg-lime-200 rounded-lg p-4 mb-4">
+                    <div className="text-center text-black font-semibold " ref={totalFeedbacksRef}></div>
+                </div>
+                <div className="bg-lime-200 rounded-lg p-4 mb-4">
                         <div className="text-center text-black font-semibold " ref={avgRatingRef}></div>
                     </div>
                 </div>
