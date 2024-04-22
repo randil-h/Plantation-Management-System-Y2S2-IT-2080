@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import tomato from '../WholeSale_Management/pictuers/tomato.jpeg';
+import guava from '../WholeSale_Management/pictuers/guava.jpg'
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import { v4 as uuidv4 } from 'uuid';
@@ -111,7 +112,7 @@ const OrderPlacingForm = () => {
                 {/* Product image */}
                 <div className="mx-auto max-w-7xl px-10 lg:px-8 flex justify-center">
                     <div className="space-y-12">
-                        <img className="h-auto max-w-lg rounded-lg mt-8" src={tomato} alt="tomato" />
+                        <img className="h-auto max-w-lg rounded-lg mt-8" src={guava} alt="guava" />
                     </div>
                 </div>
                 {/* Product description */}
