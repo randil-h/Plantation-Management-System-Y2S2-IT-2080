@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Tomato from "../WholeSale_Management/pictuers/tomato.jpeg";
+import Guava from "../WholeSale_Management/pictuers/guava.jpg"
+import Papaya from "../WholeSale_Management/pictuers/papaya.jpg"
 import {Link} from "react-router-dom"
 import axios from "axios";
 
@@ -87,7 +89,7 @@ const WholeSaleProduct = () => {
                                         className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
                                         <div className="mx-auto max-w-xs px-8">
                                             <div className="mx-auto w-full h-auto rounded-full">
-                                                <img src={Tomato} alt="tomato"/>
+                                                <img src={Guava} alt="tomato"/>
                                             </div>
                                             <div>
                                                 <Link to={`/WholeSale/transactions/${record._id}`}>

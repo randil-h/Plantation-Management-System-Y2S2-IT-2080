@@ -123,7 +123,7 @@ const PlantingList = () => {
                         theme: 'grid',
                     });
 
-                    pdf.text('Acreage per Crop:', 10, 115);
+                    pdf.text('Acreage per Crop:', 10, 105);
                     let y = 30;
                     Object.entries(acreagePerCrop).forEach(([cropType, acreage]) => {
                         pdf.text(`${cropType}: ${acreage} acres`, 20, pdf.autoTable.previous.finalY + y);
