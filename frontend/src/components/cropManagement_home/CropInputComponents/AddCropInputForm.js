@@ -5,6 +5,7 @@ import {enqueueSnackbar, useSnackbar} from "notistack";
 
 export default function AddCropInputForm() {
     const navigate = useNavigate();
+    const [dateError, setDateError] = useState("");
     const { enqueueSnackbar } = useSnackbar();
     const [formData, setFormData] = useState({
         date: "",
@@ -100,11 +101,28 @@ export default function AddCropInputForm() {
             }
         }
 
+        if (name === "date") {
+            const selectedDate = new Date(value);
+            const today = new Date();
+            const oneYearAgo = new Date();
+            oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+            if (selectedDate > today || selectedDate < oneYearAgo) {
+                setDateError("Please select a date between today and 1 year ago.");
+            } else {
+                setDateError("");
+            }
+        }
         setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (dateError) {
+            enqueueSnackbar('Please fix the date error before submitting.', { variant: 'error' });
+            return;
+        }
 
         try {
             const response = await axios.post(
@@ -224,6 +242,9 @@ export default function AddCropInputForm() {
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                         required
                                     />
+                                    {dateError && (
+                                        <p className="text-red-500 text-sm mt-1">{dateError}</p>
+                                    )}
                                 </div>
                             </div>
                             <div className="sm:col-span-2 sm:col-start-1 mt-4">
