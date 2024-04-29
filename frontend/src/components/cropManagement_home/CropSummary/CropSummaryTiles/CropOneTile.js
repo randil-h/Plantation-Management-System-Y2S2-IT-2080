@@ -77,18 +77,16 @@ export default function CropOneTile() {
 
     return (
         <div>
-            {plantingRecords.map((record) => (
-                <li key={record.id}
-                    className="rounded-xl text-center bg-lime-200 px-6 py-8 items-center hover:transform hover:scale-110 transition-transform duration-300"
+
+                <li className="rounded-xl text-center bg-lime-200 px-6 py-8 items-center hover:transform hover:scale-110 transition-transform duration-300"
                     onClick={handleTileClick}>
                     <GiCoconuts className="mx-auto h-10 w-10 "/>
                     <h3 className="my-3 font-display font-medium">Coconut</h3>
                     <p className="mt-1.5 text-sm leading-6 text-secondary-500">
-                        Harvest Area - {calculateHarvestArea(record.field)} acres <br/>
-                        Crop Age - {calculateCropAge(record.date)}
+                        Harvest Area - 3 acres <br/>
+                        Crop Age - 2 years
                     </p>
                 </li>
-            ))}
             {showPopup && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur bg-opacity-50">
                     <div className="shadow-lg bg-white rounded-lg p-8 max-w-sm relative border border-gray-300">
