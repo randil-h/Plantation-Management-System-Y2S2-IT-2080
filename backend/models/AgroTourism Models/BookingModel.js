@@ -33,6 +33,14 @@ const bookingSchema = mongoose.Schema(
         numberOfDays: {
             type: Number,
         },
+        visitorType: {
+            type: String,
+            required: true,
+        },
+        totalPayment: {
+            type: Number,
+            required: true,
+        },
     },
 
     {

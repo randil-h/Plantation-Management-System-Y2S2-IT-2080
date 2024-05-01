@@ -15,10 +15,12 @@ router.post('/', async (request, response) => {
             date,
             numberOfDays,
             numberOfPeople,
+            visitorType,
+            totalPayment,
         } = request.body;
 
         // Check if all required fields are provided
-        if (!name || !telNo || !nicNo || !email || !selectedPackage || !date) {
+        if (!name || !telNo || !nicNo || !email || !selectedPackage || !date || !numberOfPeople || !visitorType)  {
             return response.status(400).send({
                 message: 'All required fields must be provided: name, telNo, nicNo, email, selectedPackage, date',
             });
@@ -40,7 +42,8 @@ router.post('/', async (request, response) => {
             date,
             numberOfDays,
             numberOfPeople,
-
+            visitorType,
+            totalPayment,
         };
 
         const booking = await Booking.create(newBooking);
