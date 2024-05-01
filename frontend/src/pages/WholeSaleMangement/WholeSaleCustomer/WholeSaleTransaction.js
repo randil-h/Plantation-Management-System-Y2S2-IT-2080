@@ -19,9 +19,11 @@ export default function WholeSaleTransaction() {
                     <MyOrderIcon />
                 </div>
                 <OrderPlacingForm />
+                <div className="mt-16">
+                    <Subscribe_newsletter/>
+                    <Footer/>
+                </div>
 
-                <Subscribe_newsletter/>
-                <Footer/>
             </div>
         </div>
     );
