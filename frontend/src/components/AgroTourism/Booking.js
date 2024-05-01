@@ -140,6 +140,7 @@ export default function BookingForm() {
             }
         }
     };
+
     return (
         <div className="max-w-lg mx-auto mt-8 mb-8 p-4 rounded-md shadow-md">
             <h2 className="text-3xl font-bold mb-4 text-center">Join With Us to Explore the Farm</h2>

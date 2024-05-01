@@ -51,7 +51,7 @@ export default function UpdateDisease() {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:5555/diseases/${id}`)
+        axios.get(`https://elemahana-backend.vercel.app/diseases/${id}`)
             .then((response) => {
                 setName(response.data.disease_name);
                 setId(response.data.plant_id);
@@ -93,13 +93,13 @@ export default function UpdateDisease() {
 
         setLoading(true);
         axios
-            .post(`http://localhost:5555/checkTreatment`, {treatment}) //checking availability of treatment
+            .post(`https://elemahana-backend.vercel.app/checkTreatment`, {treatment}) //checking availability of treatment
             .then((response) => {
                 setLoading(false);
                 //if treatment available
                 if(response.data.available) {
                     axios
-                        .put(`http://localhost:5555/diseases/${id}`, data)
+                        .put(`https://elemahana-backend.vercel.app/diseases/${id}`, data)
                         .then(() => {
                             setLoading(false);
                             enqueueSnackbar('Record Updated successfully', { variant: 'success' });

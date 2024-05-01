@@ -38,7 +38,7 @@ export default function AddDisease() {
         const selectedDisease = e.target.value;
         setName(selectedDisease);
 
-        axios.post(`http://localhost:5555/checkTreatment/recommendTreatment`, {selectedDisease})
+        axios.post(`https://elemahana-backend.vercel.app/checkTreatment/recommendTreatment`, {selectedDisease})
             .then((response) => {
                 setTreatment(response.data.treatment);
             })
@@ -80,13 +80,13 @@ export default function AddDisease() {
 
         setLoading(true);
         axios
-            .post(`http://localhost:5555/checkTreatment`, {treatment}) //checking availability of treatment
+            .post(`https://elemahana-backend.vercel.app/checkTreatment`, {treatment}) //checking availability of treatment
             .then((response) => {
                 setLoading(false);
                 //if treatment available
                 if(response.data.available) {
                     axios
-                        .post(`http://localhost:5555/diseases`, data)
+                        .post(`https://elemahana-backend.vercel.app/diseases`, data)
                         .then(() => {
                             setLoading(false);
                             navigate('/diseases/records');

@@ -14,7 +14,7 @@ export default function HarvestList() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/record')
+            .get('https://elemahana-backend.vercel.app/record')
             .then((response) => {
                 setHarvestRecords(response.data.data);
                 setLoading(false);
@@ -30,7 +30,7 @@ export default function HarvestList() {
         if (confirmDelete) {
             setLoading(true);
             axios
-                .delete(`http://localhost:5555/record/${id}`)
+                .delete(`https://elemahana-backend.vercel.app/record/${id}`)
                 .then(() => {
                     setHarvestRecords(prevRecords => prevRecords.filter(record => record._id !== id));
                     setLoading(false);

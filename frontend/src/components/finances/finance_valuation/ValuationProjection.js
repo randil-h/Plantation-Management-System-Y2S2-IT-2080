@@ -14,7 +14,7 @@ export default function ValuationProjection() {
 
     useEffect(() => {
         // Fetch total records from your API or set it from somewhere
-        axios.get('http://localhost:5555/valuation')
+        axios.get('https://elemahana-backend.vercel.app/valuation')
             .then(response => {
                 setTotalRecords(response.data.data);
 

@@ -64,7 +64,7 @@ export default function SideBar() {
         const lastWeek = getWeekStartEnd(new Date(today.setDate(today.getDate() - 7)), 1);
 
         setLoading(true);
-        axios.get('http://localhost:5555/transactions')
+        axios.get('https://elemahana-backend.vercel.app/transactions')
             .then((response) => {
                 const records = response.data.data;
 

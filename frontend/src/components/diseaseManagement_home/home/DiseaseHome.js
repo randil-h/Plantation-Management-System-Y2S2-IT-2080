@@ -16,7 +16,7 @@ export default function DiseaseHome() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/diseases')
+            .get('https://elemahana-backend.vercel.app/diseases')
             .then((response) => {
                 setDiseaseRecords(response.data.data);
                 setLoading(false);

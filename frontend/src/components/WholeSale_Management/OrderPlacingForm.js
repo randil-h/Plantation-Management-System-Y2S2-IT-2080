@@ -18,7 +18,7 @@ const OrderPlacingForm = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/productRecords/${id}`)
+            .get(`https://elemahana-backend.vercel.app/productRecords/${id}`)
             .then((response) => {
                 setProduct(response.data);
                 setLoading(false);
@@ -81,7 +81,7 @@ const OrderPlacingForm = () => {
         };
 
         axios
-            .post('http://localhost:5555/orderRecords', data)
+            .post('https://elemahana-backend.vercel.app/orderRecords', data)
             .then(() => {
                 enqueueSnackbar('Record Created Successfully', { variant: 'success' });
                 navigate('/WholeSale/orders', { state: { highlighted: true } });

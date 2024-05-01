@@ -70,7 +70,7 @@ const GetEmpAttendance = () => {
                 att_status: value,
             };
 
-            await axios.post('http://localhost:5555/attendanceRecords', attendanceRecord);
+            await axios.post('https://elemahana-backend.vercel.app/attendanceRecords', attendanceRecord);
             enqueueSnackbar('Attendance recorded successfully', { variant: 'success' });
         } catch (error) {
             enqueueSnackbar('Error recording attendance', { variant: 'error' });

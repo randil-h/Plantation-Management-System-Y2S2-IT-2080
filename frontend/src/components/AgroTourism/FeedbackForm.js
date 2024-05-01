@@ -16,7 +16,7 @@ const FeedbackForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:5555/feedback", {
+            const response = await fetch("https://elemahana-backend.vercel.app/feedback", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

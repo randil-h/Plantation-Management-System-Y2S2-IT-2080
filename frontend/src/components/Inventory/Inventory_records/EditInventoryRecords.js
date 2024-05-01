@@ -19,13 +19,14 @@ const EditInventoryRecords = () => {
         unit: '',
         quantity: '',
         expire_date: '',
-        description: ''
+        description: '',
+        ava_status: 'in stock'
     });
     const [selectedType, setSelectedType] = useState('');
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:5555/inventoryinputs/${id}`)
+        axios.get(`https://elemahana-backend.vercel.app/inventoryinputs/${id}`)
             .then((response) => {
                 const data = response.data;
                 setFormData({
@@ -37,7 +38,8 @@ const EditInventoryRecords = () => {
                     unit: data.unit,
                     quantity: data.quantity,
                     expire_date: data.expire_date ? data.expire_date.split("T")[0] : '',
-                    description: data.description
+                    description: data.description,
+                    ava_status: data.ava_status
                 });
                 setSelectedType(data.type);
                 setLoading(false);
@@ -64,14 +66,15 @@ const EditInventoryRecords = () => {
             unit: "",
             quantity: "",
             expire_date: "",
-            description: ""
+            description: "",
+            ava_status: "in stock"
         });
     };
     const handleEdit = (e) => {
         e.preventDefault(); // Prevent default form submission behavior
         setLoading(true);
 
-        const { type, record_ID, record_name, storage, size, unit, quantity, expire_date, description } = formData;
+        const { type, record_ID, record_name, storage, size, unit, quantity, expire_date, description, ava_status} = formData;
 
         // Prepare the updated data object to send in the PUT request
         const updatedData = {
@@ -83,11 +86,12 @@ const EditInventoryRecords = () => {
             unit,
             quantity,
             expire_date,
-            description
+            description,
+            ava_status
         };
 
         axios
-            .put(`http://localhost:5555/inventoryinputs/${id}`, updatedData)
+            .put(`https://elemahana-backend.vercel.app/inventoryinputs/${id}`, updatedData)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('Record Edited Successfully!', {
@@ -295,6 +299,24 @@ const EditInventoryRecords = () => {
                                             />
                                         </div>
                                     </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="ava_status"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Status
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="ava_status"
+                                                name="ava_status"
+                                                value={formData.ava_status}
+                                                disabled // Disable user input
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                 </>
                             )}
                             {selectedType === "Agrochemical" && (
@@ -469,6 +491,24 @@ const EditInventoryRecords = () => {
                                             />
                                         </div>
                                     </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="ava_status"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Status
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="ava_status"
+                                                name="ava_status"
+                                                value={formData.ava_status}
+                                                disabled // Disable user input
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                 </>
                             )}
                             {selectedType === "Equipments" && (
@@ -559,6 +599,24 @@ const EditInventoryRecords = () => {
                                                 rows={3}
                                                 onChange={handleChange}
                                                 className="border border-gray-400 rounded-md p-2 w-80 focus:ring-2 focus:ring-inset focus:ring-lime-600"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="ava_status"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Status
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="ava_status"
+                                                name="ava_status"
+                                                value={formData.ava_status}
+                                                disabled // Disable user input
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                                required
                                             />
                                         </div>
                                     </div>
@@ -733,6 +791,25 @@ const EditInventoryRecords = () => {
                                             />
                                         </div>
                                     </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="ava_status"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Status
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="ava_status"
+                                                name="ava_status"
+                                                value={formData.ava_status}
+                                                disabled // Disable user input
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
                                 </>
                             )}
                         </div>

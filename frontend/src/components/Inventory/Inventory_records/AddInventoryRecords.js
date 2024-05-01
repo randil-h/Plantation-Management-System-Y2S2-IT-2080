@@ -13,7 +13,8 @@ export default function AddInventoryRecords() {
         unit: "",
         quantity: "",
         expire_date: "",
-        description: ""
+        description: "",
+        ava_status: "in stock"
     });
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function AddInventoryRecords() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("http://localhost:5555/inventoryinputs", formData);
+            await axios.post("https://elemahana-backend.vercel.app/inventoryinputs", formData);
             enqueueSnackbar('Record Created Successfully!', {
                 variant: 'success',
                 autoHideDuration: 6000,
@@ -52,6 +53,7 @@ export default function AddInventoryRecords() {
                 quantity: "",
                 expire_date: "",
                 description: "",
+                ava_status: "in stock",
                 type: "Planting"
             });
         } catch (error) {
@@ -70,7 +72,8 @@ export default function AddInventoryRecords() {
             unit: "",
             quantity: "",
             expire_date: "",
-            description: ""
+            description: "",
+            ava_status: "in stock"
         });
     };
 
@@ -259,6 +262,24 @@ export default function AddInventoryRecords() {
                                             />
                                         </div>
                                     </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="ava_status"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Status
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="ava_status"
+                                                name="ava_status"
+                                                value={formData.ava_status}
+                                                disabled // Disable user input
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                 </>
                             )}
                             {formData.type === "Agrochemical" && (
@@ -416,6 +437,24 @@ export default function AddInventoryRecords() {
                                             />
                                         </div>
                                     </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="ava_status"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Status
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="ava_status"
+                                                name="ava_status"
+                                                value={formData.ava_status}
+                                                disabled // Disable user input
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                 </>
                             )}
                             {formData.type === "Equipments" && (
@@ -506,6 +545,24 @@ export default function AddInventoryRecords() {
                                                 rows={3}
                                                 onChange={handleChange}
                                                 className="border border-gray-400 rounded-md p-2 w-80"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="ava_status"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Status
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="ava_status"
+                                                name="ava_status"
+                                                value={formData.ava_status}
+                                                disabled // Disable user input
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                                required
                                             />
                                         </div>
                                     </div>
@@ -661,6 +718,24 @@ export default function AddInventoryRecords() {
                                                 rows={3}
                                                 onChange={handleChange}
                                                 className="border border-gray-400 rounded-md p-2 w-80 focus:ring-2 focus:ring-inset focus:ring-lime-600"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="ava_status"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Status
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="ava_status"
+                                                name="ava_status"
+                                                value={formData.ava_status}
+                                                disabled // Disable user input
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                                required
                                             />
                                         </div>
                                     </div>

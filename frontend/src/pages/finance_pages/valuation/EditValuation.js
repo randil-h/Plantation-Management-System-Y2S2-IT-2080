@@ -27,7 +27,7 @@ function EditValuation() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/valuation/${id}`)
+            .get(`https://elemahana-backend.vercel.app/valuation/${id}`)
             .then((response) => {
                 setDate(response.data.date);
                 setType(response.data.type);
@@ -68,7 +68,7 @@ function EditValuation() {
         };
         setLoading(true);
         axios
-            .put(`http://localhost:5555/valuation/${id}`, data)
+            .put(`https://elemahana-backend.vercel.app/valuation/${id}`, data)
             .then(() => {
                 setLoading(false);
                 message.success('Valuation record has successfully updated.');

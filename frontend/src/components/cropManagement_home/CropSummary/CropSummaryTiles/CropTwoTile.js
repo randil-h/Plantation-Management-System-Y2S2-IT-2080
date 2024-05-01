@@ -24,7 +24,7 @@ export default function CropTwoTile() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/cropinput')
+            .get('https://elemahana-backend.vercel.app/cropinput')
             .then((response) => {
                 const plantingRecordsData = response.data.data;
                 const filteredPlantingRecords = plantingRecordsData.filter(record => record.type === 'Planting' && record.cropType === 'Papaya');

@@ -8,7 +8,7 @@ function Emphome() {
     const [taskRecords, setTaskRecords] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5555/employeeRecords')
+        axios.get('https://elemahana-backend.vercel.app/employeeRecords')
             .then(response => {
                 setTotalRecords(response.data.data);
             })
@@ -18,7 +18,7 @@ function Emphome() {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:5555/taskRecords')
+        axios.get('https://elemahana-backend.vercel.app/taskRecords')
             .then(response => {
                 setTaskRecords(response.data.data);
                 setLoading(false);

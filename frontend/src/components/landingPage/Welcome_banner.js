@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 
 export default function Welcome_banner(){
     return (
-        <div className="bg-cover bg-center "  style={{backgroundImage: "url('Home/home_bg.jpg')"}}>
+        <div className="bg-cover bg-center "  style={{backgroundImage: "url('home_bg.jpg')"}}>
 
             {/* Content container */}
             <div className="relative  flex flex-col items-center justify-center py-32 gap-3">

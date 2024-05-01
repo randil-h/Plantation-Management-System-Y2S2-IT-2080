@@ -49,17 +49,15 @@ app.use(express.json());
 //const Images = mongoose.model("productModel");
 
 
-app.use(
-  cors({
-     origin: 'http://localhost:3000',
-     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-     allowedHeaders: ['Content-Type'],
-   })
- );
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://elemahana.vercel.app'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
+}));
 
 app.get('/', (request, response) => {
     console.log(request);
-    return response.status(234).send('welcome to');
+    return response.status(234).send('welcome to Elemahana');
 });
 
 
