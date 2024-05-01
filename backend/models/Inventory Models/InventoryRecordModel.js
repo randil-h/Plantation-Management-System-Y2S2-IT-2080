@@ -38,6 +38,10 @@ const InventoryRecordSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        ava_status: {
+            type: String,
+            required: false,
+        },
     },
     {
         timestamps: true,

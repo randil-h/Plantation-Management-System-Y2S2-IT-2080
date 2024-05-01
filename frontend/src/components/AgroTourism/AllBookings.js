@@ -32,7 +32,7 @@ const mapVisitorType = (visitorType) => {
     }
 };
 
-const BookingList = () => {
+const AllBookings = () => {
     const [originalRecords, setOriginalRecords] = useState([]);
     const [bookingRecords, setBookingRecords] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -169,7 +169,9 @@ const BookingList = () => {
 
     return (
         <div className="mx-6">
+            <p className="text-center text-3xl font-bold mt-5">All Bookings</p>
             <div className="flex items-center justify-between mb-4 mt-8">
+
                 <div className="relative">
                     <input
                         type="text"
@@ -180,19 +182,13 @@ const BookingList = () => {
                     />
                     <FaSearch className="absolute left-3 top-2 text-gray-400 ml-5"/>
                 </div>
-                <div className="bg-lime-200 rounded-lg px-7 py-3 mb-4 items">
+                <div className="bg-lime-200 rounded-lg px-7 py-3 mb-4 mr-28">
                     <p className="text-center text-black font-light">Total Bookings: {bookingRecords.length}</p>
                     <p className="text-black font-light">Total Amount: {calculateTotalAmount()}/=</p>
 
                 </div>
+
                 <div className="flex">
-                    <Link to="/booking">
-                    <button
-                            className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none mr-2"
-                        >
-                            Add Another Booking <span aria-hidden="true"> &rarr;</span>
-                        </button>
-                    </Link>
                     <button
                         className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none mr-4 flex items-center"
                         onClick={handlePrint}
@@ -267,4 +263,4 @@ const BookingList = () => {
     );
 };
 
-export default BookingList;
+export default AllBookings;

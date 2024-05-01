@@ -115,6 +115,7 @@ import ViewTaskDetails from "./pages/employee_pages/task_assigning/ViewTaskDetai
 import ViewAllAttendance from "./pages/employee_pages/emp_attendance/ViewAllAttendance";
 import GetAttendance from "./pages/employee_pages/emp_attendance/GetAttendance";
 import ViewOneAttendance from "./pages/employee_pages/emp_attendance/ViewOneAttendance";
+import AllBookingsPg from "./pages/tourism_pages/AllBookingsPg";
 
 export default function App() {
     const [loading, setLoading] = useState(true);
@@ -185,6 +186,7 @@ export default function App() {
                     <Route path="/feedbacklist" element={FeedbackDisplay()}/>
                     <Route path="/feedbackdash" element={FeedbackDashPg()}/>
                     <Route path="/feedback/:id" element={EditFeedbackPg()}/>
+                    <Route path="/allBookings" element={AllBookingsPg()}/>
 
                     <Route path = "/crop/home" element={CropManagement()}/>
                     <Route path = "/crop/rotation/add" element={AddRotationPage()}/>
