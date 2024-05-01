@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import {FaEdit, FaPrint, FaSearch, FaTrash} from "react-icons/fa";
 import axios from 'axios';
 import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
-import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import {HiOutlineDownload} from "react-icons/hi";
 import { useLocation } from 'react-router-dom';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+
 
 const mapPackageName = (packageName) => {
     switch (packageName) {
@@ -84,46 +86,70 @@ const AllBookings = () => {
         setBookingRecords(filteredRecords);
     };
     const handlePrint = () => {
-        const input = document.getElementById('booking-table');
+        const doc = new jsPDF('l', 'pt', 'a4');
+        doc.setFontSize(12);
 
-        // Hide the Actions column
-        const actionsColumn = input.querySelector('.actions-column');
-        if (actionsColumn) {
-            actionsColumn.style.display = 'none';
-        }
+        const headers = [
+            'No',
+            'Date',
+            'Name',
+            'Tel No',
+            'NIC No',
+            'Email',
+            'Type',
+            'No Of People',
+            'Package',
+            bookingRecords.some(record => record.selectedPackage === 'guidedFarmTour') ? 'Number of Days' : '',
+            'Paid Amount',
+        ];
 
-        // Hide the entire last column
-        const lastColumnCells = input.querySelectorAll('tbody tr td:last-child');
-        lastColumnCells.forEach((cell) => {
-            cell.style.display = 'none';
+        const data = bookingRecords.map((record, index) => [
+            index + 1,
+            new Date(record.date).toLocaleDateString('en-GB'),
+            record.name,
+            record.telNo,
+            record.nicNo,
+            record.email,
+            mapVisitorType(record.visitorType),
+            record.numberOfPeople,
+            mapPackageName(record.selectedPackage),
+            record.selectedPackage === 'guidedFarmTour' ? record.numberOfDays : '',
+            calculateTotalPayment(record),
+        ]);
+
+        const styles = {
+            header: {
+                fillColor: [202, 202, 202],
+                textColor: [0, 0, 0],
+                fontStyle: 'bold',
+            },
+            alternateRow: {
+                fillColor: [240, 240, 240],
+            },
+        };
+
+        doc.autoTable({
+            head: [headers],
+            body: data,
+            styles: styles,
+            headStyles: { fillColor: [128, 128, 128] },
+            alternateRowStyles: { fillColor: [240, 240, 240] },
+            columnStyles: {
+                0: { halign: 'center' },
+                1: { halign: 'center' },
+                2: { halign: 'left' },
+                3: { halign: 'center' },
+                4: { halign: 'center' },
+                5: { halign: 'left' },
+                6: { halign: 'center' },
+                7: { halign: 'center' },
+                8: { halign: 'left' },
+                9: { halign: 'center' },
+                10: { halign: 'right' },
+            },
         });
 
-        html2canvas(input, { scrollY: -window.scrollY })
-            .then((canvas) => {
-                // Restore the Actions column
-                if (actionsColumn) {
-                    actionsColumn.style.display = '';
-                }
-
-                // Restore the entire last column
-                lastColumnCells.forEach((cell) => {
-                    cell.style.display = '';
-                });
-
-                const imgData = canvas.toDataURL('image/png');
-
-                // Define PDF dimensions and orientation
-                const pdf = new jsPDF('l', 'mm', 'a4'); // 'l' for landscape orientation
-
-                // Add image to PDF
-                pdf.addImage(imgData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
-
-                // Save PDF
-                pdf.save('booking-list.pdf');
-            })
-            .catch((error) => {
-                console.error('Error capturing screenshot:', error);
-            });
+        doc.save('booking-list.pdf');
     };
     const handleDelete = (recordId) => {
         axios
@@ -193,7 +219,7 @@ const AllBookings = () => {
                         className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none mr-4 flex items-center"
                         onClick={handlePrint}
                     >
-                        Print <HiOutlineDownload className="ml-1"/>
+                        Print Bookings <HiOutlineDownload className="ml-1"/>
                     </button>
                 </div>
 

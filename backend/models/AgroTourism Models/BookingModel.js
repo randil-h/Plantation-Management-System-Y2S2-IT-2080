@@ -37,7 +37,6 @@ const bookingSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-
     },
 
     {
