@@ -256,7 +256,7 @@ export default function App() {
                     <Route path="/harvest/records/updateRecord/:id" element={<EditHarvest />} />
                     <Route path="/harvest/records" element={<HarvestList />} />
 
-                    <Route path = "*" element={<ErrorPage/>} />
+                    <Route path = "*" element={<ErrorPage/>} />c
                 </Routes>
             )}
         </div>
