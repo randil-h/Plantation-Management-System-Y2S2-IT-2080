@@ -11,6 +11,7 @@ import {
     FaTrailer,
 } from "react-icons/fa";
 import { PiPlant } from "react-icons/pi";
+import { HiMiniCalendarDays } from "react-icons/hi2";
 import { FaMoneyCheck } from "react-icons/fa6";
 
 import {
@@ -102,6 +103,7 @@ export default function SideBar() {
         { name: "Insights", path: "/insights/home", icon: PresentationChartLineIcon },
         { name: "Disease Tracking", path: "/diseases/home", icon: PiVirus },
         { name: "Harvest", path: "/harvest/home", icon: PiTree },
+        { name: "Bookings", path: "/allBookings", icon: HiMiniCalendarDays},
     ];
 
     const systemItems = [
