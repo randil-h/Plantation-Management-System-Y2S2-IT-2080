@@ -34,7 +34,7 @@ export default function MachineRecordsList() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/machines')
+            .get('https://elemahana-backend.vercel.app/machines')
             .then((response) => {
                 setMachineRecords(response.data.data);
                 setLoading(false);
@@ -50,7 +50,7 @@ export default function MachineRecordsList() {
         if (confirmDelete) {
             setLoading(true);
             axios
-                .delete(`http://localhost:5555/machines/${id}`)
+                .delete(`https://elemahana-backend.vercel.app/machines/${id}`)
                 .then(() => {
                     setMachineRecords((prevRecords) => prevRecords.filter((record) => record._id !== id));
                     message.success('Machine record successfully deleted.');

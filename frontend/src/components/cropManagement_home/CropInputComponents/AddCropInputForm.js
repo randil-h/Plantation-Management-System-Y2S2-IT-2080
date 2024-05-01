@@ -126,7 +126,7 @@ export default function AddCropInputForm() {
 
         try {
             const response = await axios.post(
-                "http://localhost:5555/cropinput",
+                "https://elemahana-backend.vercel.app/cropinput",
                 formData
             );
             console.log(response.data);

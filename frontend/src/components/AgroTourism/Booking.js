@@ -113,7 +113,7 @@ export default function BookingForm() {
                 // Calculate total payment
                 const totalPayment = calculateTotalPayment();
                 // Post booking data
-                await axios.post(('http://localhost:5555/booking'), formData);
+                await axios.post(('https://elemahana-backend.vercel.app/booking'), formData);
                 // Reset form data
                 setFormData({
                     name: '',

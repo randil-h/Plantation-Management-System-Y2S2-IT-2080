@@ -32,7 +32,7 @@ export default function AddPrice() {
         };
         setLoading(true);
         axios
-            .post(`http://localhost:5555/marketprice`, data)
+            .post(`https://elemahana-backend.vercel.app/marketprice`, data)
             .then(() => {
                 setLoading(false);
                 navigate('/insights/marketprice');

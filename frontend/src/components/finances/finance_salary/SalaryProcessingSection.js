@@ -42,7 +42,7 @@ export default function SalaryProcessingSection() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/employeeRecords`)
+            .get(`https://elemahana-backend.vercel.app/employeeRecords`)
             .then((response) => {
                 setRegistrationRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
                 setLoading(false);
@@ -75,7 +75,7 @@ export default function SalaryProcessingSection() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/employeeRecords/${id}`)
+            .get(`https://elemahana-backend.vercel.app/employeeRecords/${id}`)
             .then((response) => {
 
                 // Conditionally set EPF/ETF based on employee type
@@ -96,7 +96,7 @@ export default function SalaryProcessingSection() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/attendanceRecords`)
+            .get(`https://elemahana-backend.vercel.app/attendanceRecords`)
             .then((response) => {
                 setAttendanceRecords(response.data.data);
                 setLoading(false);
@@ -212,7 +212,7 @@ export default function SalaryProcessingSection() {
         const netSalary = totalSalary - epfEtfDeduction;
         setLoading(true);
         axios
-            .post('http://localhost:5555/salary', data)
+            .post('https://elemahana-backend.vercel.app/salary', data)
             .then(() => {
                 setLoading(false);
                 message.success('Salary record has successfully saved.');
@@ -246,7 +246,7 @@ export default function SalaryProcessingSection() {
     const handleSaveTransactionRecord = (transactionData) => {
         setLoading(true);
         axios
-            .post('http://localhost:5555/transactions', transactionData)
+            .post('https://elemahana-backend.vercel.app/transactions', transactionData)
             .then(() => {
                 setLoading(false);
                 message.success('Transaction record has automatically saved.');

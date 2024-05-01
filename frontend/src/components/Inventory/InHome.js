@@ -15,7 +15,7 @@ const InHome = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/inventoryrecords`)
+            .get(`https://elemahana-backend.vercel.app/inventoryrecords`)
             .then((response) => {
                 setInventoryRecords(response.data.data);
                 setLoading(false);
@@ -29,7 +29,7 @@ const InHome = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/inventoryinputs`)
+            .get(`https://elemahana-backend.vercel.app/inventoryinputs`)
             .then((response) => {
                 setInventoryInputs(response.data.data);
                 setLoading(false);

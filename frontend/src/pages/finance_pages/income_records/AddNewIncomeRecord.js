@@ -35,7 +35,7 @@ export default function AddNewIncomeRecord() {
     };
     setLoading(true);
     axios
-        .post('http://localhost:5555/financeincome', data)
+        .post('https://elemahana-backend.vercel.app/financeincome', data)
         .then(() => {
             setLoading(false);
             enqueueSnackbar('Record Created successfully', { variant: 'success' });

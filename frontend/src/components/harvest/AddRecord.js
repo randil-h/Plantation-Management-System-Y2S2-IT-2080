@@ -29,7 +29,7 @@ export default function AddRecord() {
             };
         setLoading(true);
         axios
-            .post('http://localhost:5555/record', data)
+            .post('https://elemahana-backend.vercel.app/record', data)
             .then(() => {
                 setLoading(false);
                 navigate('/harvest/harvestRecords');

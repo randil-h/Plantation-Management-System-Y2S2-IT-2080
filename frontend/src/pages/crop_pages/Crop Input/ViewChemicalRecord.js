@@ -21,7 +21,7 @@ export default function ViewChemicalRecord() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/cropinput/${id}`)
+            .get(`https://elemahana-backend.vercel.app/cropinput/${id}`)
             .then((response) => {
                 setRecord(response.data);
                 setLoading(false);
