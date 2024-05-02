@@ -75,17 +75,17 @@ export default function Navbar() {
                         <>
                             <div className="text-sm text-gray-600">Welcome, {user.email}</div>
                             <button onClick={logout}
-                                    className="px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Logout
+                                    className="px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-full text-black bg-red-200 hover:bg-red-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Logout
                             </button>
                         </>
                     ) : (
                         <>
                             <button onClick={register} type="button"
-                                    className="px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Register
+                                    className="px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-full text-black bg-lime-200 transition-all duration-200  hover:bg-lime-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500">Register
                             </button>
                             <button onClick={() => login({authUrlParams: {login_hint: "john@exmail.com"}})}
                                     type="button"
-                                    className="px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Log
+                                    className="px-3 py-1 border border-lime-500 text-sm leading-4 font-medium rounded-full text-black transition-all duration-200 hover:bg-lime-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500">Log
                                 In
                             </button>
                         </>
