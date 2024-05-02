@@ -290,7 +290,7 @@ export default function MarketPriceList() {
         }
         setLoadingPrediction(true);
         axios
-            .get('http://localhost:5555/generate_market_prices', {
+            .get('https://elemahana-backend.vercel.app/generate_market_prices', {
                 params: {
                     name: selectedFilter // Pass the selected filter value
                 }
