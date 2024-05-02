@@ -107,7 +107,7 @@ async function predictFuturePricesTF(dates, minPrices, maxPrices) {
         // The resulting tensor will have two columns: one for normalized minimum prices and one for normalized maximum prices.
         const ys = tf.concat([normalizeMinPrices.data.reshape([-1, 1]), normalizeMaxPrices.data.reshape([-1, 1])], 1);
         // Train the model using the input (xs) and target (ys) data for a specified number of epochs
-        await model.fit(xs, ys, { epochs: 1000 }); //epochs(no of times data is passed back and forth through the neural network).
+        await model.fit(xs, ys, { epochs: 10 }); //epochs(no of times data is passed back and forth through the neural network).
 
         //calculate start date for future prices(day after last historical date)
         const startDate = new Date(dates[dates.length - 1].getTime() + 24 * 60 * 60 * 1000); // Start from the day after the last historical date
