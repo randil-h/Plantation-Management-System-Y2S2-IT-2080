@@ -12,6 +12,8 @@ export default function AddInventoryRecords() {
         size: "",
         unit: "",
         quantity: "",
+        unit_price: "",
+        payer: "",
         expire_date: "",
         description: "",
         ava_status: "in stock"
@@ -51,6 +53,8 @@ export default function AddInventoryRecords() {
                 size: "",
                 unit: "",
                 quantity: "",
+                unit_price: "",
+                payer: "",
                 expire_date: "",
                 description: "",
                 ava_status: "in stock",
@@ -71,6 +75,8 @@ export default function AddInventoryRecords() {
             size: "",
             unit: "",
             quantity: "",
+            unit_price: "",
+            payer: "",
             expire_date: "",
             description: "",
             ava_status: "in stock"
@@ -248,6 +254,42 @@ export default function AddInventoryRecords() {
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
+                                            htmlFor="unit_price"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Unit Price
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="number"
+                                                id="unit_price"
+                                                name="unit_price"
+                                                onChange={handleChange}
+                                                value={formData.unit_price}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="payer"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Payer / Payee
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="payer"
+                                                name="payer"
+                                                onChange={handleChange}
+                                                value={formData.payer}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
                                             htmlFor="description"
                                             className="block text-sm font-medium leading-6 text-gray-900">
                                             description
@@ -406,6 +448,42 @@ export default function AddInventoryRecords() {
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
+                                            htmlFor="unit_price"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Unit Price
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="number"
+                                                id="unit_price"
+                                                name="unit_price"
+                                                onChange={handleChange}
+                                                value={formData.unit_price}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="payer"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Payer / Payee
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="payer"
+                                                name="payer"
+                                                onChange={handleChange}
+                                                value={formData.payer}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
                                             htmlFor="expire_date"
                                             className="block text-sm font-medium leading-6 text-gray-900">
                                             Expire date
@@ -527,6 +605,42 @@ export default function AddInventoryRecords() {
                                                 name="quantity"
                                                 onChange={handleChange}
                                                 value={formData.quantity}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="unit_price"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Unit Price
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="number"
+                                                id="unit_price"
+                                                name="unit_price"
+                                                onChange={handleChange}
+                                                value={formData.unit_price}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="payer"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Payer / Payee
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="payer"
+                                                name="payer"
+                                                onChange={handleChange}
+                                                value={formData.payer}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 required
                                             />
@@ -687,7 +801,42 @@ export default function AddInventoryRecords() {
                                             />
                                         </div>
                                     </div>
-
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="unit_price"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Unit Price
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="number"
+                                                id="unit_price"
+                                                name="unit_price"
+                                                onChange={handleChange}
+                                                value={formData.unit_price}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="payer"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Payer / Payee
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="payer"
+                                                name="payer"
+                                                onChange={handleChange}
+                                                value={formData.payer}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
                                             htmlFor="expire_date"

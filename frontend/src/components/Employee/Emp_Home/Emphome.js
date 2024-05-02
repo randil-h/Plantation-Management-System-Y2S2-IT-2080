@@ -1,32 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { FaUsers, FaUserPlus, FaTasks, FaCalendarPlus } from "react-icons/fa";
+import { FaUsers, FaUserPlus, FaTasks, FaCalendarPlus, FaRegUser, FaCheckSquare } from "react-icons/fa";
 import axios from "axios";
 
 function Emphome() {
     const [loading, setLoading] = useState(false);
     const [totalRecords, setTotalRecords] = useState(0);
+    const [employeeRecords, setEmployeeRecords] = useState([]);
     const [taskRecords, setTaskRecords] = useState([]);
+    const [permanentEmployees, setPermanentEmployees] = useState(0);
+    const [completedTasks, setCompletedTasks] = useState(0);
 
     useEffect(() => {
+        setLoading(true);
         axios.get('https://elemahana-backend.vercel.app/employeeRecords')
             .then(response => {
                 setTotalRecords(response.data.data);
+                setEmployeeRecords(response.data.data)
+                setLoading(false);
             })
             .catch(error => {
                 console.error('Error fetching total records: ', error);
+                setLoading(false);
             });
     }, []);
 
     useEffect(() => {
+        setLoading(true);
         axios.get('https://elemahana-backend.vercel.app/taskRecords')
             .then(response => {
                 setTaskRecords(response.data.data);
+                setCompletedTasks(response.data.data.filter(task => task.task_status === "completed").length);
                 setLoading(false);
             })
             .catch(error => {
                 console.error('Error fetching task records: ', error);
+                setLoading(false);
             });
     }, []);
+
+    const getPermanentEmpCount = employeeRecords.filter(
+        (record) => record.emp_type === "permanent"
+    ).length;
 
     const getOngoingTaskCount = taskRecords.filter(
         (record) => record.task_status === "inprogress"
@@ -39,42 +53,55 @@ function Emphome() {
             </h1>
             <p className="text-center mb-12 mt-2 text-gray-500 font-semibold">Welcome to the Employee Management System.</p>
             <div className="section mb-8">
-                <div className="section-header flex justify-between items-center mb-4">
+                <div className="section-header flex justify-between items-center mb-8">
                     <h2 className="text-xl font-semibold">Employee Registration</h2>
-                    <a href="/employees/registration" className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800">
+                    <a href="/employees/registration" className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition duration-300">
                         View All Employees
                     </a>
                 </div>
-                <div className="section-content grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400 shadow-lg transition-shadow duration-300 ease-in-out">
-                        <FaUsers className="icon text-black mb-2"/>
-                        <h3 className="text-lg font-semibold text-black">Total Employees</h3>
+                <div className="section-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-between">
+                    <div className="card bg-lime-300 p-6 hover:bg-lime-400 shadow-lg transition-shadow duration-300 ease-in-out rounded-lg w-80 h-56 flex flex-col items-center justify-center space-y-3 ml-24">
+                        <FaUsers className="text-black text-3xl"/>
+                        <h3 className="text-lg font-semibold text-black">Total No of Employees</h3>
                         <p className="text-xl text-black">{totalRecords.length}</p>
                     </div>
-                    <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400 shadow-lg transition-shadow duration-300 ease-in-out">
-                        <FaUserPlus className="icon text-black mb-2"/>
+                    <div className="card bg-lime-300 p-6 hover:bg-lime-400 shadow-lg transition-shadow duration-300 ease-in-out rounded-lg w-80 h-56 flex flex-col items-center justify-center space-y-3 ml-36">
+                        <FaUserPlus className="text-black text-3xl"/>
                         <h3 className="text-lg font-semibold text-black">Registered in this week</h3>
                         <p className="text-xl text-black">2</p>
+                    </div>
+                    <div className="card bg-lime-300 p-6 hover:bg-lime-400 shadow-lg transition-shadow duration-300 ease-in-out rounded-lg w-80 h-56 flex flex-col items-center justify-center space-y-3 ml-48">
+                        <FaRegUser className="text-black text-3xl"/>
+                        <h3 className="text-lg font-semibold text-black">No of Permanent Employees</h3>
+                        <p className="text-xl text-black">{getPermanentEmpCount}</p>
                     </div>
                 </div>
             </div>
             <div className="section mb-8">
-                <div className="section-header flex justify-between items-center mb-4">
+                <div className="section-header flex justify-between items-center mb-8">
                     <h2 className="text-xl font-semibold">Assign Tasks</h2>
-                    <a href="/employees/tasks" className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800">
+                    <a href="/employees/tasks" className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition duration-300">
                         View All Tasks
                     </a>
                 </div>
-                <div className="section-content grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400 shadow-lg transition-shadow duration-300 ease-in-out">
-                        <FaTasks className="icon text-black mb-2"/>
-                        <h3 className="text-lg font-semibold text-black">Total Tasks</h3>
+                <div className="section-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-between">
+                    <div
+                        className="card bg-lime-300 p-6 hover:bg-lime-400 shadow-lg transition-shadow duration-300 ease-in-out rounded-lg w-80 h-56 flex flex-col items-center justify-center space-y-3 ml-24">
+                        <FaTasks className="text-black text-3xl"/>
+                        <h3 className="text-lg font-semibold text-black">Total No of Tasks</h3>
                         <p className="text-xl text-black">{taskRecords.length}</p>
                     </div>
-                    <div className="card bg-green-300 rounded-lg p-6 hover:bg-green-400 shadow-lg transition-shadow duration-300 ease-in-out">
-                        <FaCalendarPlus className="icon text-black mb-2"/>
+                    <div
+                        className="card bg-lime-300 p-6 hover:bg-lime-400 shadow-lg transition-shadow duration-300 ease-in-out rounded-lg w-80 h-56 flex flex-col items-center justify-center space-y-3 ml-36">
+                        <FaCalendarPlus className="text-black text-3xl"/>
                         <h3 className="text-lg font-semibold text-black">In progress tasks</h3>
                         <p className="text-xl text-black">{getOngoingTaskCount}</p>
+                    </div>
+                    <div
+                        className="card bg-lime-300 p-6 hover:bg-lime-400 shadow-lg transition-shadow duration-300 ease-in-out rounded-lg w-80 h-56 flex flex-col items-center justify-center space-y-3 ml-48">
+                        <FaCheckSquare className="text-black text-3xl"/>
+                        <h3 className="text-lg font-semibold text-black">No of Completed Tasks</h3>
+                        <p className="text-xl text-black">{completedTasks}</p>
                     </div>
                 </div>
             </div>
