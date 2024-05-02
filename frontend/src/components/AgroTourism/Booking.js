@@ -12,6 +12,7 @@ export default function BookingForm() {
         date: '',
         numberOfDays: '',
         numberOfPeople: '',
+        visitorType:'',
     });
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
@@ -112,8 +113,14 @@ export default function BookingForm() {
             try {
                 // Calculate total payment
                 const totalPayment = calculateTotalPayment();
+                // Create a new object with the form data and totalPayment
+                const bookingData = {
+                    ...formData,
+                    totalPayment,
+                };
                 // Post booking data
-                await axios.post(('http://localhost:5555/booking'), formData);
+                await axios.post('http://localhost:5555/booking', formData);
+                // <-- Issue here, formData should be bookingData
                 // Reset form data
                 setFormData({
                     name: '',
@@ -124,6 +131,7 @@ export default function BookingForm() {
                     date: '',
                     numberOfDays: '',
                     numberOfPeople: '',
+                    visitorType: '',
                 });
 
                 // Redirect to a confirmation page or any other page after successful submission

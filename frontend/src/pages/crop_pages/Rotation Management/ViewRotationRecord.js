@@ -21,7 +21,7 @@ export default function ViewRotationRecord() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/rotation/${id}`)
+            .get(`https://elemahana-backend.vercel.app/rotation/${id}`)
             .then((response) => {
                 setRecord(response.data);
                 setLoading(false);

@@ -12,19 +12,32 @@ router.post('/', async (request, response) => {
             record_ID,
             record_name,
             storage,
+            size,
+            unit,
             quantity,
-            description
+            unit_price,
+            payer,
+            expire_date,
+            description,
+            ava_status
         } = request.body;
 
         // Check if all required fields are present
-        if (!type || !record_ID || !record_name || !storage || !quantity || !description) {
+        if (!type || !record_ID || !record_name || !storage || !quantity || !unit_price || !payer || !description || !ava_status) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });
         }
 
+        // If type is Agrochemical or Fertilizer, require unit and size
+        if ((type === 'Agrochemical' || type === 'Fertilizer') && (!unit || !size)) {
+            return response.status(400).send({
+                message: 'Unit and size are required for agrochemical and fertilizer records',
+            });
+        }
+
         // If type is Agrochemical, require expire_date
-        if (type === 'Agrochemical' && !request.body.expire_date) {
+        if (type === 'Agrochemical' && !expire_date) {
             return response.status(400).send({
                 message: 'Expire date is required for agrochemical records',
             });
@@ -36,8 +49,14 @@ router.post('/', async (request, response) => {
             record_ID,
             record_name,
             storage,
+            size,
+            unit,
             quantity,
-            description
+            unit_price,
+            payer,
+            expire_date,
+            description,
+            ava_status
         });
 
         return response.status(201).send(newInventoryInput);
@@ -96,14 +115,24 @@ router.put('/:id', async (request, response) => {
             size,
             unit,
             quantity,
+            unit_price,
+            payer,
             expire_date,
-            description
+            description,
+            ava_status
         } = request.body;
 
         // Check if all required fields are present
-        if (!type || !record_ID || !record_name || !storage  || !quantity || !description) {
+        if (!type || !record_ID || !record_name || !storage || !quantity || !unit_price || !payer || !description || !ava_status) {
             return response.status(400).send({
                 message: 'All required data must be provided',
+            });
+        }
+
+        // If type is Agrochemical or Fertilizer, require unit and size
+        if ((type === 'Agrochemical' || type === 'Fertilizer') && (!unit || !size)) {
+            return response.status(400).send({
+                message: 'Unit and size are required for agrochemical and fertilizer records',
             });
         }
 
@@ -130,9 +159,11 @@ router.put('/:id', async (request, response) => {
         inventoryInput.size = size;
         inventoryInput.unit = unit;
         inventoryInput.quantity = quantity;
+        inventoryInput.unit_price = unit_price;
+        inventoryInput.payer = payer;
         inventoryInput.expire_date = expire_date;
         inventoryInput.description = description;
-
+        inventoryInput.ava_status = ava_status;
         // Save the updated inventory record
         const updatedRecord = await inventoryInput.save();
 

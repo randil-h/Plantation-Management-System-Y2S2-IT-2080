@@ -18,7 +18,7 @@ const EditBooking = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:5555/booking/${id}`)
+        axios.get(`https://elemahana-backend.vercel.app/booking/${id}`)
             .then((response) => {
                 const { name, telNo, nicNo, email, selectedPackage, numberOfDays,numberOfPeople } = response.data;
                 setFullName(name);
@@ -49,7 +49,7 @@ const EditBooking = () => {
         const data = { name, telNo, nicNo, email, selectedPackage, numberOfDays, numberOfPeople };
         setLoading(true);
         try {
-            await axios.put(`http://localhost:5555/booking/${id}`, data);
+            await axios.put(`https://elemahana-backend.vercel.app/booking/${id}`, data);
             console.log("Form submitted successfully");
             setLoading(false);
             enqueueSnackbar('Record Edited successfully', { variant: 'success', anchorOrigin: { vertical: 'top', horizontal: 'center' } });
@@ -115,46 +115,7 @@ const EditBooking = () => {
                             required
                         />
                     </div>
-                    <div>
-                        <label htmlFor="numberOfPeople" className="block text-sm font-medium text-gray-700">No Of People</label>
-                        <input
-                            type="number"
-                            name="numberOfPeople"
-                            value={numberOfPeople}
-                            onChange={(e) => setnumberOfPeople(e.target.value)}
-                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="selectedPackage" className="block text-sm font-medium text-gray-700">Package Type</label>
-                        <select
-                            name="selectedPackage"
-                            value={selectedPackage}
-                            onChange={(e) => setselectedPackage(e.target.value)}
-                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            required
-                        >
-                            <option value="">Select Package Type</option>
-                            <option value="fruitAndVegetablePicking">Fruit and Vegetable Picking</option>
-                            <option value="farmChoreExperience">Farm Chore Experience</option>
-                            <option value="guidedFarmTour">Guided Farm Tour</option>
-                        </select>
-                    </div>
-                    {selectedPackage === 'guidedFarmTour' && (
-                        <div>
-                            <label htmlFor="numberOfDays" className="block text-sm font-medium text-gray-700">Number of Days</label>
-                            <input
-                                type="text"
-                                name="numberOfDays"
-                                value={numberOfDays}
-                                onChange={(e) => setNumberOfDays(e.target.value)}
-                                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                required
-                            />
-                        </div>
-                    )}
-                </div>
+
                 <div className="mt-6 flex justify-end">
                     <button
                         type="button"
@@ -169,6 +130,7 @@ const EditBooking = () => {
                     >
                         Save
                     </button>
+                </div>
                 </div>
             </form>
         </div>

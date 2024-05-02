@@ -7,6 +7,8 @@ export default function CropOneTile() {
     const [loading, setLoading] = useState(true);
     const [plantingRecords, setPlantingRecords] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
+    const [averageCropAge, setAverageCropAge] = useState(null);
+    const [harvestArea, setHarvestArea] = useState(null);
 
     const handleTileClick = () => {
         setShowPopup(true);
@@ -25,12 +27,35 @@ export default function CropOneTile() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/cropinput')
+            .get('https://elemahana-backend.vercel.app/cropinput')
             .then((response) => {
                 const plantingRecordsData = response.data.data;
                 const filteredPlantingRecords = plantingRecordsData.filter(record => record.type === 'Planting' && record.cropType === 'Coconut');
                 setPlantingRecords(filteredPlantingRecords);
                 setLoading(false);
+
+                // Calculate average crop age
+                const totalAgeInDays = filteredPlantingRecords.reduce((total, record) => {
+                    const plantingDate = new Date(record.date);
+                    const currentDate = new Date();
+                    const diffTime = Math.abs(currentDate - plantingDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
+                    return total + diffDays;
+                }, 0);
+                const averageAgeInMonths = Math.floor(totalAgeInDays / 30);
+                const averageAgeInYears = Math.floor(totalAgeInDays / 365);
+
+                // Set average crop age based on duration
+                if (averageAgeInYears >= 1) {
+                    setAverageCropAge(`${averageAgeInYears} years`);
+                } else {
+                    setAverageCropAge(`${averageAgeInMonths} months`);
+                }
+
+                // Calculate and set harvest area
+                const fields = filteredPlantingRecords.map(record => record.field);
+                const totalArea = calculateHarvestArea(fields);
+                setHarvestArea(totalArea);
             })
             .catch((error) => {
                 console.log(error);
@@ -38,31 +63,6 @@ export default function CropOneTile() {
             });
     }, []);
 
-    const calculateCropAge = (plantingDate) => {
-        const currentDate = new Date();
-        const diffTime = Math.abs(currentDate - new Date(plantingDate));
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // Convert milliseconds to days
-
-        if (diffDays < 365) {
-            return Math.floor(diffDays / 30) + " months";
-        } else {
-            return Math.floor(diffDays / 365) + " years";
-        }
-    };
-
-
-    // Function to ensure fields is an array
-    const toArray = (fields) => {
-        if (Array.isArray(fields)) {
-            return fields;
-        } else if (typeof fields === 'string') {
-            return [fields];
-        } else {
-            return [];
-        }
-    };
-
-    // Function to calculate harvest area based on field acreage data
     const calculateHarvestArea = (fields) => {
         let totalArea = 0;
         const fieldsArray = toArray(fields);
@@ -75,25 +75,30 @@ export default function CropOneTile() {
         return totalArea;
     };
 
+    const toArray = (fields) => {
+        if (Array.isArray(fields)) {
+            return fields;
+        } else if (typeof fields === 'string') {
+            return [fields];
+        } else {
+            return [];
+        }
+    };
+
     return (
         <div>
-            {plantingRecords.map((record) => (
-                <li key={record.id}
-                    className="rounded-xl text-center bg-lime-200 px-6 py-8 items-center hover:transform hover:scale-110 transition-transform duration-300"
-                    onClick={handleTileClick}>
-                    <GiCoconuts className="mx-auto h-10 w-10 "/>
-                    <h3 className="my-3 font-display font-medium">Coconut</h3>
-                    <p className="mt-1.5 text-sm leading-6 text-secondary-500">
-                        Harvest Area - {calculateHarvestArea(record.field)} acres <br/>
-                        Crop Age - {calculateCropAge(record.date)}
-                    </p>
-                </li>
-            ))}
+            <li className="rounded-xl text-center bg-lime-200 px-6 py-8 items-center hover:transform hover:scale-110 transition-transform duration-300" onClick={handleTileClick}>
+                <GiCoconuts className="mx-auto h-10 w-10 "/>
+                <h3 className="my-3 font-display font-medium">Coconut</h3>
+                <p className="mt-1.5 text-sm leading-6 text-secondary-500">
+                    {loading ? 'Loading...' : `Harvest Area - ${harvestArea} acres`} <br/>
+                    {averageCropAge && `Crop Age - ${averageCropAge}`}
+                </p>
+            </li>
             {showPopup && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur bg-opacity-50">
                     <div className="shadow-lg bg-white rounded-lg p-8 max-w-sm relative border border-gray-300">
-                        <IoCloseCircle onClick={() => setShowPopup(false)}
-                                       className="absolute top-2 right-2 cursor-pointer"/>
+                        <IoCloseCircle onClick={() => setShowPopup(false)} className="absolute top-2 right-2 cursor-pointer"/>
                         <GiCoconuts className="mx-auto h-10 w-10"/>
                         <h3 className="text-lg font-semibold mb-2">Coconut</h3>
                         <p>Planted in: {plantingRecords.map((record) => (

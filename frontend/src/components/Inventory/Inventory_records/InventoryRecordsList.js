@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import {InformationCircleIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
+import { InformationCircleIcon, MagnifyingGlassIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import { GoAlert } from "react-icons/go";
 import { useSnackbar } from 'notistack';
-import {FiDownload} from "react-icons/fi"; // Import useSnackbar hook
+import { FiDownload } from "react-icons/fi";
 
 const InventoryRecordList = () => {
-    const { enqueueSnackbar } = useSnackbar(); // Destructure enqueueSnackbar from useSnackbar hook
+    const { enqueueSnackbar } = useSnackbar();
     const [inventoryInputs, setInventoryInputs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -19,7 +19,7 @@ const InventoryRecordList = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/inventoryinputs`)
+            .get(`https://elemahana-backend.vercel.app/inventoryinputs`)
             .then((response) => {
                 setInventoryInputs(response.data.data);
                 setLoading(false);
@@ -32,14 +32,13 @@ const InventoryRecordList = () => {
 
     const [selectedRecordId, setSelectedRecordId] = useState(null);
     const handleDelete = (recordId) => {
-        // Store the record id in state
         setSelectedRecordId(recordId);
         setShowConfirmation(true);
     };
     const handleConfirmDelete = () => {
         const recordId = selectedRecordId;
         axios
-            .delete(`http://localhost:5555/inventoryinputs/${recordId}`)
+            .delete(`https://elemahana-backend.vercel.app/inventoryinputs/${recordId}`)
             .then(() => {
                 setInventoryInputs((prevInputs) => prevInputs.filter((input) => input._id !== recordId));
                 setShowConfirmation(false);
@@ -72,22 +71,19 @@ const InventoryRecordList = () => {
     useEffect(() => {
         setFilteredRecords(
             inventoryInputs.filter((record) => {
-                const sizeString = String(record.size); // Convert size to string
+                const sizeString = String(record.size);
 
                 const matchesSearchQuery =
                     (record.type && record.type.toLowerCase().includes(searchQuery.toLowerCase())) ||
                     (record.record_ID && record.record_ID.toLowerCase().includes(searchQuery.toLowerCase())) ||
                     (record.record_name && record.record_name.toLowerCase().includes(searchQuery.toLowerCase())) ||
                     (record.storage && record.storage.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                    (sizeString && sizeString.toLowerCase().includes(searchQuery.toLowerCase())) || // Check sizeString
+                    (sizeString && sizeString.toLowerCase().includes(searchQuery.toLowerCase())) ||
                     (record.unit && record.unit.toLowerCase().includes(searchQuery.toLowerCase())) ||
                     (record.quantity && record.quantity.toString().toLowerCase().includes(searchQuery.toLowerCase())) ||
                     (record.expire_date && record.expire_date.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                    (record.description && record.description.toLowerCase().includes(searchQuery.toLowerCase()));
-
-                console.log('Record:', record);
-                console.log('Search Query:', searchQuery);
-                console.log('Matches Search Query:', matchesSearchQuery);
+                    (record.description && record.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    (record.ava_status && record.ava_status.toLowerCase().includes(searchQuery.toLowerCase()));
 
                 return (
                     (selectedFieldFilter === 'All Types' || record.type.toLowerCase() === selectedFieldFilter.toLowerCase()) &&
@@ -96,7 +92,6 @@ const InventoryRecordList = () => {
             })
         );
     }, [inventoryInputs, searchQuery, selectedFieldFilter]);
-
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
@@ -126,20 +121,16 @@ const InventoryRecordList = () => {
                     const textWidth = pdf.getStringUnitWidth('Inventory Records') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
                     const centerPosition = (pageWidth - textWidth) / 2;
 
-                    // Calculate total number of records
                     const totalRecords = input.querySelectorAll('tbody > tr').length;
 
                     pdf.setFontSize(16);
                     pdf.text('Inventory Records', centerPosition, 10);
                     pdf.setFontSize(12);
                     pdf.text(`As At: ${currentDate}`, centerPosition, 20);
-
-                    // Display total records count
                     pdf.text(`Total Number of Records: ${totalRecords}`, 10, 30);
 
                     const yPos = 40;
 
-                    // Columns to include in PDF
                     const includedColumns = ['No', 'Type', 'Record ID', 'Name', 'Storage Location', 'Quantity', 'Expire Date', 'Description'];
 
                     const rows = input.querySelectorAll('tbody > tr');
@@ -159,8 +150,8 @@ const InventoryRecordList = () => {
                     });
 
                     pdf.autoTable({
-                        head: [includedColumns], // Use included columns as header
-                        body: data, // Use filtered data for the body
+                        head: [includedColumns],
+                        body: data,
                         startY: yPos + 10,
                         theme: 'grid',
                     });
@@ -176,15 +167,14 @@ const InventoryRecordList = () => {
     };
 
     return (
-        <div className=" overflow-x-auto  ">
+        <div className="overflow-x-auto">
             <div className="flex flex-row justify-between items-center px-8 py-4">
                 <div>
-                    <h1 className=" text-lg font-semibold text-left">Inventory Records</h1>
-                    <p className="mt-1 text-sm font-normal text-gray-500 0">Easily access stored Inventory Records
-                        within the system for thorough insights.</p>
-                    <div className=" py-4 relative">
+                    <h1 className="text-lg font-semibold text-left">Inventory Records</h1>
+                    <p className="mt-1 text-sm font-normal text-gray-500">Easily access stored Inventory Records within the system for thorough insights.</p>
+                    <div className="py-4 relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <MagnifyingGlassIcon className="text-gray-500 h-4 w-4"/>
+                            <MagnifyingGlassIcon className="text-gray-500 h-4 w-4" />
                         </div>
                         <input
                             type="text"
@@ -192,7 +182,7 @@ const InventoryRecordList = () => {
                             value={searchQuery}
                             onChange={handleSearch}
                             className="border border-gray-300 rounded-full px-10 py-1 w-auto"
-                            style={{paddingRight: '2.5rem'}}
+                            style={{ paddingRight: '2.5rem' }}
                         />
                         <select
                             value={selectedFieldFilter}
@@ -206,25 +196,19 @@ const InventoryRecordList = () => {
                     </div>
                 </div>
                 <div>
-                    <a href="/inventory/inventoryrecords/addinventoryrecordspage"
-                       className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                    <a href="/inventory/inventoryrecords/addinventoryrecordspage" className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                         Add new inventory record <span aria-hidden="true">&rarr;</span>
                     </a>
-                    <button
-                        onClick={handlePrint}
-                        className="ml-4 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
+                    <button onClick={handlePrint} className="ml-4 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                         Generate report <FiDownload className="mr-1 inline-block" />
                     </button>
                 </div>
             </div>
             <div>
                 <div id="print-area">
-                    <table
-                        id = "inventory-table"
-                        className="w-full text-sm text-left rtl:text-right text-gray-500  mt-10">
-                        <thead
-                            className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
-                        <tr className=" ">
+                    <table id="inventory-table" className="w-full text-sm text-left rtl:text-right text-gray-500 mt-10">
+                        <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
+                        <tr className="">
                             <th></th>
                             <th scope="col" className="px-4 py-3">
                                 No
@@ -247,7 +231,7 @@ const InventoryRecordList = () => {
                             <th scope="col" className="px-4 py-3">
                                 Size
                             </th>
-                            <th scope="col" className="px-4 py-3">
+                            <th scope="col" className="px-3 py-3">
                                 Unit
                             </th>
                             <th scope="col" className="px-4 py-3">
@@ -259,78 +243,71 @@ const InventoryRecordList = () => {
                             <th scope="col" className="px-6 py-3">
                                 Description
                             </th>
-                            <th scope="col" className=" py-3">
+                            <th scope="col" className="px-6 py-3">
+                                Status
+                            </th>
+                            <th scope="col" className="py-3">
                                 <span className="sr-only">Info</span>
                             </th>
-                            <th scope="col" className=" py-3">
+                            <th scope="col" className="py-3">
                                 <span className="sr-only">Edit</span>
                             </th>
-                            <th scope="col" className=" py-3">
+                            <th scope="col" className="py-3">
                                 <span className="sr-only">Delete</span>
                             </th>
                         </tr>
                         </thead>
                         <tbody className="border-b border-green-400">
-
                         {filteredRecords.map((record, index) => (
                             <tr
                                 key={index}
                                 className={`divide-y ${
-                                    record.type === 'Planting' ? 'border-l-4 border-green-400' : record.type === 'Equipments' ? 'border-l-4 border-red-400' : record.type === 'Agrochemical' ? 'border-l-4 border-blue-400' : 'border-l-4 border-yellow-900'}`}>
+                                    record.type === 'Planting' ? 'border-l-4 border-green-400' : record.type === 'Equipments' ? 'border-l-4 border-red-400' : record.type === 'Agrochemical' ? 'border-l-4 border-blue-400' : 'border-l-4 border-yellow-900'
+                                }`}
+                            >
                                 <td></td>
-                                <td className="px-4 py-4">
-                                    {index + 1}
-                                </td>
-                                <td className="px-4 py-4">
-                                    {new Date(record.createdAt).toLocaleDateString()}
-                                </td>
-                                <td className="px-4 py-4">
-                                    {record.type}
-                                </td>
-                                <td className="px-4 py-4">
-                                    {record.record_ID}
-                                </td>
-                                <td className="px-8 py-4">
-                                    {record.record_name}
-                                </td>
+                                <td className="px-4 py-4">{index + 1}</td>
+                                <td className="px-4 py-4">{new Date(record.createdAt).toLocaleDateString()}</td>
+                                <td className="px-4 py-4">{record.type}</td>
+                                <td className="px-4 py-4">{record.record_ID}</td>
+                                <td className="px-8 py-4">{record.record_name}</td>
+                                <td className="px-3 py-4">{record.storage}</td>
+                                <td className="px-4 py-4">{record.size ? record.size : "N/A"}</td>
+                                <td className="px-3 py-4">{record.unit ? record.unit : "N/A"}</td>
+                                <td className="px-4 py-4">{record.quantity}</td>
+                                <td className="px-4 py-4 whitespace-nowrap">{record.expire_date ? new Date(record.expire_date).toISOString().split('T')[0] : "N/A"}</td>
+                                <td className="px-6 py-4">{record.description}</td>
                                 <td className="px-6 py-4">
-                                    {record.storage}
+                                    <div
+                                        className={record.quantity === 0 ? 'bg-red-600 text-base font-semibold text-white rounded-full hover:bg-red-500 text-center py-2' : 'bg-lime-600 text-base font-semibold text-center text-white rounded-full hover:bg-lime-500 w-full flex justify-center items-center  px-4'}>
+                                        {record.quantity === 0 ? 'Out of Stock' : record.ava_status}
+                                    </div>
                                 </td>
-                                <td className="px-4 py-4">
-                                    {record.size ? record.size : "N/A"}
-                                </td>
-                                <td className="px-4 py-4">
-                                    {record.unit ? record.unit : "N/A"}
-                                </td>
-                                <td className="px-4 py-4">
-                                    {record.quantity}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap">
-                                    {record.expire_date ? new Date(record.expire_date).toISOString().split('T')[0] : "N/A"}
-                                </td>
-                                <td className="px-6 py-4">
-                                    {record.description}
-                                </td>
-                                <td className=" py-4 text-right">
-                                    <Link to={`/inventory/inventoryrecords/viewRecord/${record._id}`}
-                                          className="font-medium text-blue-600  hover:underline">
+                                <td className="py-4 text-right">
+                                    <Link
+                                        to={`/inventory/inventoryrecords/viewRecord/${record._id}`}
+                                        className="font-medium text-blue-600 hover:underline"
+                                    >
                                         <InformationCircleIcon
                                             className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
                                             aria-hidden="true"/>
                                     </Link>
                                 </td>
-                                <td className=" py-4 text-right">
-                                    <Link to={`/inventory/inventoryrecords/editinventorypage/${record._id}`}
-                                          className="font-medium text-blue-600 hover:underline">
+                                <td className="py-4 text-right">
+                                    <Link
+                                        to={`/inventory/inventoryrecords/editinventorypage/${record._id}`}
+                                        className="font-medium text-blue-600 hover:underline"
+                                    >
                                         <PencilSquareIcon
                                             className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
                                             aria-hidden="true"/>
                                     </Link>
                                 </td>
-                                <td className=" ">
+                                <td className="">
                                     <button
                                         className="flex items-center"
-                                        onClick={() => handleDelete(record._id)}>
+                                        onClick={() => handleDelete(record._id)}
+                                    >
                                         <TrashIcon
                                             className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
                                             aria-hidden="true"/>
@@ -340,10 +317,9 @@ const InventoryRecordList = () => {
                         ))}
                         </tbody>
                     </table>
-
-                    {/* Confirmation Dialog */}
                     {showConfirmation && (
-                        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur confirm-dialog">
+                        <div
+                            className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur confirm-dialog">
                             <div className="relative px-4 min-h-screen md:flex md:items-center md:justify-center">
                                 <div className="opacity-25 w-full h-full absolute z-10 inset-0"></div>
                                 <div className="bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative shadow-lg">
@@ -357,12 +333,10 @@ const InventoryRecordList = () => {
                                         </div>
                                     </div>
                                     <div className="text-center md:text-right mt-4 md:flex md:justify-end">
-                                        <button onClick={handleConfirmDelete}
-                                                className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-red-200 hover:bg-red-600 hover:text-white text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2">
+                                        <button onClick={handleConfirmDelete} className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-red-200 hover:bg-red-600 hover:text-white text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2">
                                             Confirm
                                         </button>
-                                        <button onClick={handleCancelDelete}
-                                                className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-gray-200 hover:bg-black hover:text-white rounded-lg font-semibold text-sm mt-4 md:mt-0 md:order-1">
+                                        <button onClick={handleCancelDelete} className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-gray-200 hover:bg-black hover:text-white rounded-lg font-semibold text-sm mt-4 md:mt-0 md:order-1">
                                             Cancel
                                         </button>
                                     </div>
@@ -375,4 +349,5 @@ const InventoryRecordList = () => {
         </div>
     );
 };
+
 export default InventoryRecordList;

@@ -18,7 +18,7 @@ const OrderPlacingForm = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/productRecords/${id}`)
+            .get(`https://elemahana-backend.vercel.app/productRecords/${id}`)
             .then((response) => {
                 setProduct(response.data);
                 setLoading(false);
@@ -80,8 +80,10 @@ const OrderPlacingForm = () => {
             orderProductPricePerKilo: orderProductPricePerKilo
         };
 
+
         // Navigate to PaymentGateway with order data
         navigate('/wholesale/Payment', { state: { orderData: data } });
+
     };
 
 

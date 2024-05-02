@@ -6,38 +6,64 @@ import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import {HiOutlineDownload} from "react-icons/hi";
+import { useLocation } from 'react-router-dom';
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+const mapPackageName = (packageName) => {
+    switch (packageName) {
+        case 'guidedFarmTour':
+            return 'Guided Farm Tour';
+        case 'fruitAndVegetablePicking':
+            return 'Fruit and Vegetable Picking';
+        case 'farmChoreExperience':
+            return 'Farm Chore Experience';
+        default:
+            return packageName;
+    }
+};
+
+const mapVisitorType = (visitorType) => {
+    switch (visitorType) {
+        case 'local':
+            return 'Local';
+        case 'foreign':
+            return 'Foreign';
+        default:
+            return visitorType;
+    }
+};
 
 const BookingList = () => {
     const [originalRecords, setOriginalRecords] = useState([]);
     const [bookingRecords, setBookingRecords] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [searchInput, setSearchInput] = useState('');
-    const mapPackageName = (packageName) => {
-        switch (packageName) {
-            case 'guidedFarmTour':
-                return 'Guided Farm Tour';
-            case 'fruitAndVegetablePicking':
-                return 'Fruit and Vegetable Picking';
-            case 'farmChoreExperience':
-                return 'Farm Chore Experience';
-            default:
-                return packageName;
-        }
-    };
+    const [totalPayment, setTotalPayment] = useState(0);
+    const location = useLocation();
+    const { isAuthenticated, user } = useKindeAuth();
+
+    const authenticatedUserId = user?.userId || null;
+
     useEffect(() => {
-        setLoading(true);
-        axios
-            .get(`http://localhost:5555/booking`)
-            .then((response) => {
-                setOriginalRecords(response.data.data); // Set original records here
-                setBookingRecords(response.data.data); // Also set booking records here initially
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`https://elemahana-backend.vercel.app/booking`);
+                setBookingRecords(response.data.data);
                 setLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setLoading(false);
-            });
+            } catch (error) {
+                console.error('Error fetching bookings:', error);
+                setLoading(false); // Ensure loading state is set to false in case of error
+            }
+        };
+
+        fetchData();
     }, []);
+
+    useEffect(() => {
+        const totalPaymentFromPreviousPage = location.state?.totalPayment;
+        if (totalPaymentFromPreviousPage) {
+            setTotalPayment(totalPaymentFromPreviousPage);
+        }
+    }, [location.state?.totalPayment]);
 
     const handleSearch = (event) => {
         const searchQuery = event.target.value.toLowerCase(); // Get the current value from the input field
@@ -59,7 +85,6 @@ const BookingList = () => {
 
         setBookingRecords(filteredRecords);
     };
-
     const handlePrint = () => {
         const input = document.getElementById('booking-table');
 
@@ -102,17 +127,9 @@ const BookingList = () => {
                 console.error('Error capturing screenshot:', error);
             });
     };
-
-
-
-
-
-
-
-
     const handleDelete = (recordId) => {
         axios
-            .delete(`http://localhost:5555/booking/${recordId}`)
+            .delete(`https://elemahana-backend.vercel.app/booking/${recordId}`)
             .then(() => {
                 setBookingRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
             })
@@ -121,21 +138,60 @@ const BookingList = () => {
             });
     };
 
+
+    const calculateTotalPayment = (record) => {
+        const { selectedPackage, numberOfDays, numberOfPeople, visitorType } = record;
+        let price = 0;
+
+        switch (selectedPackage) {
+            case 'fruitAndVegetablePicking':
+                price = visitorType === 'foreign' ? 700 * parseInt(numberOfPeople) : 300 * parseInt(numberOfPeople);
+                break;
+            case 'farmChoreExperience':
+                price = visitorType === 'foreign' ? 2500 * parseInt(numberOfPeople) : 1200 * parseInt(numberOfPeople);
+                break;
+            case 'guidedFarmTour':
+                price = visitorType === 'foreign' ? 700 * parseInt(numberOfDays) * parseInt(numberOfPeople) : 700 * parseInt(numberOfDays) * parseInt(numberOfPeople);
+                break;
+            default:
+                price = 0;
+        }
+
+        return `${price}/=`;
+    };
+
+    const calculateTotalAmount = () => {
+        let total = 0;
+        bookingRecords.forEach(record => {
+            total += parseFloat(calculateTotalPayment(record));
+        });
+        return total.toFixed(2); // Format the total to display with two decimal places
+    };
+    // Render a loading state or a message while data is being fetched
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+
     return (
-        <div className="mx-24">
+        <div className="mx-6">
+            <p className="text-center text-3xl font-bold mt-5">My Bookings</p>
             <div className="flex items-center justify-between mb-4 mt-8">
+
                 <div className="relative">
                     <input
                         type="text"
                         placeholder="Search..."
                         value={searchInput}
                         onChange={handleSearch}
-                        className="border rounded-full px-3 py-1 pl-10 focus:outline-none focus:border-blue-500" // Adjust the width as needed
+                        className="border rounded-full px-3 py-1 pl-10 focus:outline-none focus:border-blue-500 ml-5" // Adjust the width as needed
                     />
-                    <FaSearch className="absolute left-3 top-2 text-gray-400"/>
+                    <FaSearch className="absolute left-3 top-2 text-gray-400 ml-5"/>
                 </div>
-                <div className="bg-lime-200 rounded-lg px-7 py-3 mb-4 items">
+                <div className="bg-lime-200 rounded-lg px-7 py-3 mb-4 items ml-12">
                     <p className="text-center text-black font-light">Total Bookings: {bookingRecords.length}</p>
+                    <p className="text-black font-light">Total Amount: {calculateTotalAmount()}/=</p>
+
                 </div>
                 <div className="flex">
                     <Link to="/booking">
@@ -146,7 +202,7 @@ const BookingList = () => {
                         </button>
                     </Link>
                     <button
-                        className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none ml-2 flex items-center"
+                        className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none mr-4 flex items-center"
                         onClick={handlePrint}
                     >
                         Print <HiOutlineDownload className="ml-1"/>
@@ -154,7 +210,6 @@ const BookingList = () => {
                 </div>
 
             </div>
-
 
             <div className="overflow-x-auto flex justify-center">
                 <table id="booking-table"
@@ -165,26 +220,29 @@ const BookingList = () => {
                         <th className="px-6 py-3">Date</th>
                         <th className="px-6 py-3">Name</th>
                         <th className="px-6 py-3">Tel No</th>
-                <th className="px-6 py-3">NIC No</th>
-                <th className="px-6 py-3">Email</th>
-                <th className="px-6 py-3">No Of People</th>
-                <th className="px-6 py-3">Package</th>
-                {/* Conditionally show the column based on the selected package */}
-                {bookingRecords.some(record => record.selectedPackage === 'guidedFarmTour') && (
-                    <th className="px-6 py-3">Number of Days</th>
+                        <th className="px-6 py-3">NIC No</th>
+                        <th className="px-6 py-3">Email</th>
+                        <th className="px-6 py-3">Type</th>
+                        <th className="px-6 py-3">No Of People</th>
+                        <th className="px-6 py-3">Package</th>
+                        {/* Conditionally show the column based on the selected package */}
+                        {bookingRecords.some(record => record.selectedPackage === 'guidedFarmTour') && (
+                            <th className="px-6 py-3">Number of Days</th>
                         )}
+                        <th className="px-6 py-3">Paid Amount</th>
                         <th className="px-6 py-3">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {bookingRecords.map((record, index) => (
-                        <tr className="hover:bg-gray-100 divide-y divide-gray-200" key={index}>
+                        <tr className="hover:bg-gray-100 divide-y divide-gray-200 text-sm" key={index}>
                             <td className="px-6 py-3">{index + 1}</td>
                             <td className="px-6 py-3">{new Date(record.date).toLocaleDateString('en-GB')}</td>
                             <td className="px-6 py-3">{record.name}</td>
                             <td className="px-6 py-3">{record.telNo}</td>
                             <td className="px-6 py-3">{record.nicNo}</td>
                             <td className="px-6 py-3">{record.email}</td>
+                            <th className="px-6 py-3">{mapVisitorType(record.visitorType)}</th>
                             <th className="px-6 py-3">{record.numberOfPeople}</th>
                             <td className="px-6 py-3">{mapPackageName(record.selectedPackage)}</td>
                             {/* Conditionally show the column based on the selected package */}
@@ -195,6 +253,7 @@ const BookingList = () => {
                             {['fruitAndVegetablePicking', 'farmChoreExperience'].includes(record.selectedPackage) && (
                                 <td className="py-2 px-4 border border-gray-400"></td>
                             )}
+                            <th className="px-6 py-3">{calculateTotalPayment(record)}</th>
                             <td className="py-2 px-4 border border-gray-400">
                                 <div className="flex">
                                     <Link to={`/booking/edit/${record._id}`}

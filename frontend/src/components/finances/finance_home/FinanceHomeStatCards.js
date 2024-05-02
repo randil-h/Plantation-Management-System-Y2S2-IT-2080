@@ -4,6 +4,7 @@ import FinanceHomeStatBar from "./FinanceHomeStatBar";
 import FinanceTransactionsStatBar from "../finance_transactions/FinanceTransactionsStatBar";
 import TransactionsInfoCard from "./home_transactions/TransactionsInfoCard";
 import ProfitGraph from "./home_transactions/ProfitInfoCard";
+import ValuationProjection from "../finance_valuation/ValuationProjection";
 
 
 
@@ -36,7 +37,7 @@ export default function FinanceHomeStatCards() {
             <div className="pt-8 h-96 align-middle justify-center content-center">
                 <Carousel dotPosition={"bottom"}>
                     <div className="">
-                        <TransactionsInfoCard/>
+                        <ValuationProjection/>
                     </div>
                     <div>
                         <TransactionsInfoCard/>

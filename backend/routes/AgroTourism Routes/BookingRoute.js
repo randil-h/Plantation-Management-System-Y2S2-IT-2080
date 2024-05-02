@@ -1,7 +1,24 @@
 import express from 'express';
 import Booking from '../../models/AgroTourism Models/BookingModel.js';
-
+import cors from 'cors';
 const router = express.Router();
+
+router.use(cors()); // Enable CORS for all routes
+
+// Route to get bookings by user ID
+router.get('/booking', async (req, res) => {
+    const userId = req.query.userId;
+    if (!userId) {
+        return res.status(400).json({ error: 'User ID is required' });
+    }
+    try {
+        const bookings = await Booking.find({ userId });
+        res.json({ data: bookings });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
 
 // Route to save a new booking
 router.post('/', async (request, response) => {
@@ -15,10 +32,12 @@ router.post('/', async (request, response) => {
             date,
             numberOfDays,
             numberOfPeople,
+            visitorType,
+            totalPayment,
         } = request.body;
 
         // Check if all required fields are provided
-        if (!name || !telNo || !nicNo || !email || !selectedPackage || !date) {
+        if (!name || !telNo || !nicNo || !email || !selectedPackage || !date || !numberOfPeople || !visitorType)  {
             return response.status(400).send({
                 message: 'All required fields must be provided: name, telNo, nicNo, email, selectedPackage, date',
             });
@@ -40,15 +59,16 @@ router.post('/', async (request, response) => {
             date,
             numberOfDays,
             numberOfPeople,
-
+            visitorType,
+            totalPayment,
         };
 
         const booking = await Booking.create(newBooking);
 
         return response.status(201).send(booking);
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: 'An error occurred while processing the request' });
+        console.error(error); // Log the entire error object
+        response.status(500).json({ error: 'An error occurred while processing the request' });
     }
 });
 
@@ -62,8 +82,8 @@ router.get('/', async (request, response) => {
             data: bookings,
         });
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: 'An error occurred while processing the request' });
+        console.error(error); // Log the entire error object
+        response.status(500).json({ error: 'An error occurred while processing the request' });
     }
 });
 
@@ -80,8 +100,8 @@ router.get('/:id', async (request, response) => {
 
         return response.status(200).json(booking);
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: 'An error occurred while processing the request' });
+        console.error(error); // Log the entire error object
+        response.status(500).json({ error: 'An error occurred while processing the request' });
     }
 });
 
@@ -96,10 +116,10 @@ router.put('/:id', async (request, response) => {
             return response.status(404).json({ message: 'Booking not found' });
         }
 
-        return response.status(200).send({ message: 'Booking updated successfully' });
+        return response.status(200).json({ message: 'Booking updated successfully' });
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: 'An error occurred while processing the request' });
+        console.error(error); // Log the entire error object
+        response.status(500).json({ error: 'An error occurred while processing the request' });
     }
 });
 
@@ -114,10 +134,10 @@ router.delete('/:id', async (request, response) => {
             return response.status(404).json({ message: 'Booking not found' });
         }
 
-        return response.status(200).send({ message: 'Booking deleted successfully' });
+        return response.status(200).json({ message: 'Booking deleted successfully' });
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: 'An error occurred while processing the request' });
+        console.error(error); // Log the entire error object
+        response.status(500).json({ error: 'An error occurred while processing the request' });
     }
 });
 

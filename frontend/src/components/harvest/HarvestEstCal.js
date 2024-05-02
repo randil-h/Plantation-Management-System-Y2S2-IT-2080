@@ -14,7 +14,7 @@ function HarvestCalculator() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/record')
+            .get('https://elemahana-backend.vercel.app/record')
             .then((response) => {
                 setHarvestRecords(response.data.data);
                 setLoading(false);
@@ -25,29 +25,10 @@ function HarvestCalculator() {
             });
     }, []);
 
-    const updateRecentHarvestResults = () => {
-        if (expectedHarvest && cropType && treesPicked) {
-            const recentResult = {
-                cropType: cropType,
-                treesPicked: treesPicked,
-                result: expectedHarvest
-            };
-            setRecentHarvestResults(prevResults => [recentResult, ...prevResults.slice(0, 9)]);
-        }
-    };
-
-
     const handleChange = (event) => {
         const { name, value } = event.target;
         if (name === 'treesPicked') {
             setTreesPicked(value);
-            if (!isNaN(value) && parseFloat(value) >= 0) {
-                setTreesPicked(value);
-            } else {
-
-                event.preventDefault();
-                alert("Enter positive number");
-            }
         } else if (name === 'cropType') {
             setCropType(value);
         }
@@ -58,44 +39,43 @@ function HarvestCalculator() {
             const averageYieldFromDB = calculateAverageYieldFromRecords(cropType);
             setAverageYield(averageYieldFromDB);
             calculateHarvest(averageYieldFromDB);
-            /*setRecentHarvestResults([]); // Reset recentHarvestResults array
-            setButtonClicked(true); // Set buttonClicked to true
-            updateRecentHarvestResults(); // Call function to update recent harvest results*/
+            setButtonClicked(true);
         }
     };
 
-
-
     const calculateAverageYieldFromRecords = (cropType) => {
-        // Filter records based on selected crop type
         const filteredRecords = harvestRecords.filter(record => record.cropType === cropType);
-
         const totalTrees = filteredRecords.reduce((accumulator, record) => accumulator + record.treesPicked, 0);
-
-        // Calculate total yield for the selected crop type
         const totalYield = filteredRecords.reduce((accumulator, record) => accumulator + record.quantity, 0);
-
-        // Calculate average yield
-        return Math.round((totalYield / totalTrees) * 100) /100;
+        return Math.round((totalYield / totalTrees) * 100) / 100;
     };
 
     const calculateHarvest = (averageYieldFromDB) => {
         const trees = parseInt(treesPicked);
         if (!isNaN(trees) && trees > 0 && averageYieldFromDB) {
-            // Calculate estimated harvest
             const harvest = Math.round((trees * averageYieldFromDB) * 100) / 100;
             setExpectedHarvest(harvest);
+            updateRecentHarvestResults(cropType, treesPicked, harvest);
         } else {
-            // Handle invalid input
             setExpectedHarvest(0);
         }
     };
 
-    return (
+    const updateRecentHarvestResults = (cropType, treesPicked, result) => {
+        if (buttonClicked) {
+            const newResult = {
+                cropType: cropType,
+                treesPicked: treesPicked,
+                result: result
+            };
+            setRecentHarvestResults(prevResults => [newResult, ...prevResults.slice(0, 9)]);
+        }
+    };
 
+    return (
         <div style={{fontFamily: "Arial, sans-serif", padding: "20px"}} >
             <div className="flex justify-center py-6">
-            <h1 className="text-3xl font-semibold text-left ">Harvest Calculator</h1>
+                <h1 className="text-3xl font-semibold text-left ">Harvest Calculator</h1>
             </div>
             {loading ? (
                 <p>Loading harvest records...</p>
@@ -148,24 +128,21 @@ function HarvestCalculator() {
 
                         <div className="py-2 px-4 mt-4 bg-amber-50 rounded border border-green-700">
                             <div className="flex">
-                            {averageYield !== null ? (
-                                <p className="px-16">Average Yield: {averageYield} kg/tree</p>
-                            ) : (
-                                <p className="px-16">Select a crop type</p>
-                            )}
-                            <p className="font-semibold px-16">Expected Harvest: {expectedHarvest} kg</p>
-                                </div>
+                                {averageYield !== null ? (
+                                    <p className="px-16">Average Yield: {averageYield} kg/tree</p>
+                                ) : (
+                                    <p className="px-16">Select a crop type</p>
+                                )}
+                                <p className="font-semibold px-16">Expected Harvest: {expectedHarvest} kg</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
             )}
             {/* Division for Recent Harvest Results */}
-
-            {/* <div style={{ marginTop: "20px" }}>
-                    <h2 className="text-lg font-semibold">Recent Harvest Results</h2>
-                    {buttonClicked && (
+            <div style={{ marginTop: "20px" }}>
+                <h2 className="text-lg font-semibold">Recent Harvest Results</h2>
+                {recentHarvestResults.length > 0 && (
                     <ul>
                         {recentHarvestResults.map((result, index) => (
                             <li key={index}>
@@ -173,14 +150,10 @@ function HarvestCalculator() {
                             </li>
                         ))}
                     </ul>
-                    )}
-                </div> */}
-
+                )}
+            </div>
         </div>
     );
 }
 
 export default HarvestCalculator;
-
-
-

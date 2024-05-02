@@ -24,7 +24,7 @@ export default function ViewMachineRecord() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/machines/${id}`)
+            .get(`https://elemahana-backend.vercel.app/machines/${id}`)
             .then((response) => {
                 setMachineRecord(response.data);
                 setLoading(false);

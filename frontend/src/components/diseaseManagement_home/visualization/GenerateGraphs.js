@@ -14,7 +14,7 @@ export default function GenerateGraphs() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get("http://localhost:5555/diseases")
+            .get("https://elemahana-backend.vercel.app/diseases")
             .then((response) => {
                 setDiseaseRecords(response.data.data);
                 console.log("DiseaseRecords:", response.data.data);
@@ -316,7 +316,7 @@ export default function GenerateGraphs() {
             .attr("cx", (d, i) => x(new Date(d.date)))
             .attr("cy", (d) => y(d.value))
             .attr("r", 5)
-            .attr("fill", "rgba(0, 226, 29, 0.28)")
+            .attr("fill", "rgb(13, 128, 0)")
             .on("mouseover", (event, d) => {
                 const {date, value} = d;
                 tooltip.style("opacity", 1);
@@ -341,7 +341,7 @@ export default function GenerateGraphs() {
             .style("opacity", 0)
             .style("position", "absolute")
             .style("pointer-events", "none")
-            .style("background-color", "rgba(0, 226, 29, 0.28")
+            .style("background-color", "rgb(69, 201, 53)")
             .style("padding", "5px")
             .style("border-radius", "5px")
             .style("border", "1px solid black");
@@ -370,7 +370,7 @@ export default function GenerateGraphs() {
         g.append("path")
             .datum(counts)
             .attr("fill", "none")
-            .attr("stroke", "rgba(0, 226, 29, 0.28)")
+            .attr("stroke", "rgb(13, 128, 0)")
             .attr("stroke-linejoin", "round")
             .attr("stroke-linecap", "round")
             .attr("stroke-width", 1.5)

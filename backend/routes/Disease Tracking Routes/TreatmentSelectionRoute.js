@@ -4,24 +4,28 @@ import {InventoryInput} from "../../models/Inventory Models/InventoryRecordModel
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-    try{
-        const {treatment} = req.body;
+    try {
+        const { treatment } = req.body;
 
-        //find records with passed treatment
-        const inventoryRecord = await InventoryInput.findOne({record_name: treatment});
+        // Find all records with the specified treatment name
+        const inventoryRecords = await InventoryInput.find({ record_name: treatment });
+        console.log('Inventory Records:', inventoryRecords);
 
-        if (inventoryRecord && inventoryRecord.quantity > 0) {
-            // Treatment is available if inventory item exists and quantity is greater than 0
+        // Check if any record has status "in stock"
+        const hasInStockRecord = inventoryRecords.some(record => record.ava_status === "in stock");
+
+        console.log('Has In Stock Record:', hasInStockRecord);
+
+        // If at least one record with status "in stock" is found, treatment is available
+        if (hasInStockRecord) {
             res.json({ available: true });
         } else {
-            // Treatment is not available
             res.json({ available: false });
         }
-    }catch (error){
+    } catch (error) {
         console.error('An error occurred: ', error);
-        return res.status(500).json({message: 'An error occured please try again'});
+        return res.status(500).json({ message: 'An error occurred, please try again' });
     }
-
 });
 
 router.post('/recommendTreatment', (req, res) => {
@@ -58,34 +62,6 @@ function recommendTreatment(disease_name) {
     return treatment;
 }
 
-/*
-router.post('/recommendTreatment', (req, res) => {
-    const selectedDisease = req.body.disease_name;
 
-    const treatmentData = getTreatmentData(selectedDisease);
-
-    if(treatmentData) {
-        res.status(200).json({treatment : treatmentData});
-    }
-    else {
-        res.status(404).json({error: 'Treatment data not found for the selected disease'});
-    }
-});
-
-async function getTreatmentData(selectedDisease) {
-    try {
-        const disease = await Disease.findOne({disease_name: selectedDisease});
-
-        if (disease) {
-            return disease.treatment;
-        }
-        else {
-            return null;
-        }
-    }catch(error) {
-        console.error('Error fetching treatment data: ', error);
-        return null;
-    }
-}*/
 
 export default router;

@@ -12,11 +12,15 @@ export default function AddInventoryRecords() {
         size: "",
         unit: "",
         quantity: "",
+        unit_price: "",
+        payer: "",
         expire_date: "",
-        description: ""
+        description: "",
+        ava_status: "in stock"
     });
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
+    const [autoSaveTransaction, setAutoSaveTransaction] = useState(true);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,7 +37,7 @@ export default function AddInventoryRecords() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("http://localhost:5555/inventoryinputs", formData);
+            await axios.post("https://elemahana-backend.vercel.app/inventoryinputs", formData);
             enqueueSnackbar('Record Created Successfully!', {
                 variant: 'success',
                 autoHideDuration: 6000,
@@ -50,10 +54,27 @@ export default function AddInventoryRecords() {
                 size: "",
                 unit: "",
                 quantity: "",
+                unit_price: "",
+                payer: "",
                 expire_date: "",
                 description: "",
+                ava_status: "in stock",
                 type: "Planting"
             });
+
+            if (autoSaveTransaction) {
+                const transactionData = {
+                    date: new Date().toISOString().slice(0, 10), // Convert date to YYYY-MM-DD format
+                    type: 'expense',
+                    subtype: 'Inventory Fee',
+                    amount: formData.quantity * formData.unit_price,
+                    description: formData.description,
+                    payer_payee: formData.payer,
+                    method: 'Automated Entry',
+                };
+
+                await axios.post('https://elemahana-backend.vercel.app/transactions', transactionData);
+            }
         } catch (error) {
             console.log(error.message);
             alert('Error');
@@ -69,18 +90,18 @@ export default function AddInventoryRecords() {
             size: "",
             unit: "",
             quantity: "",
+            unit_price: "",
+            payer: "",
             expire_date: "",
-            description: ""
+            description: "",
+            ava_status: "in stock"
         });
     };
 
     return (
         <div className="pt-2">
             <div className="flex flex-col ml-96 mt-6">
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-
-                    Inventory Records Form
-                </h1>
+                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Inventory Records Form</h1>
             </div>
             <form
                 className="flex flex-col items-center justify-center"
@@ -104,8 +125,7 @@ export default function AddInventoryRecords() {
                                             onChange={handleChange}
                                             checked={formData.type === "Planting"}
                                             className="form-radio h-4 w-4 text-lime-600 transition duration-150 ease-in-out"
-                                            required
-                                        />
+                                            required/>
                                         <label
                                             htmlFor="Planting"
                                             className="ml-2 text-sm leading-5 text-gray-900">
@@ -121,8 +141,7 @@ export default function AddInventoryRecords() {
                                             onChange={handleChange}
                                             checked={formData.type === "Agrochemical"}
                                             className="form-radio h-4 w-4 text-lime-600 transition duration-150 ease-in-out"
-                                            required
-                                        />
+                                            required/>
                                         <label
                                             htmlFor="Agrochemical"
                                             className="ml-2 text-sm leading-5 text-gray-900">
@@ -138,8 +157,7 @@ export default function AddInventoryRecords() {
                                             onChange={handleChange}
                                             checked={formData.type === "Equipments"}
                                             className="form-radio h-4 w-4 text-lime-600 transition duration-150 ease-in-out"
-                                            required
-                                        />
+                                            required/>
                                         <label
                                             htmlFor="Equipments"
                                             className="ml-2 text-sm leading-5 text-gray-900">
@@ -155,8 +173,7 @@ export default function AddInventoryRecords() {
                                             onChange={handleChange}
                                             checked={formData.type === "Fertilizer"}
                                             className="form-radio h-4 w-4 text-lime-600 transition duration-150 ease-in-out ml-6"
-                                            required
-                                        />
+                                            required/>
                                         <label
                                             htmlFor="Fertilizer"
                                             className="ml-2 text-sm leading-5 text-gray-900">
@@ -181,8 +198,7 @@ export default function AddInventoryRecords() {
                                                 onChange={handleChange}
                                                 value={formData.record_ID}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                                required/>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
@@ -206,59 +222,6 @@ export default function AddInventoryRecords() {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="method"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Storage Location
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                name="storage"
-                                                value={formData.storage}
-                                                onChange={handleChange}
-                                                id="storage"
-                                                autoComplete="storage"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
-                                                <option>Select</option>
-                                                <option>Warehouse 1</option>
-                                                <option>Warehouse 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="quantity"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Stocked Quantity
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="quantity"
-                                                name="quantity"
-                                                onChange={handleChange}
-                                                value={formData.quantity}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="description"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            description
-                                        </label>
-                                        <div className="mt-2">
-                                            <textarea
-                                                name="description"
-                                                value={formData.description}
-                                                rows={3}
-                                                onChange={handleChange}
-                                                className="border border-gray-400 rounded-md p-2 w-80 focus:ring-2 focus:ring-inset focus:ring-lime-600"
-                                            />
-                                        </div>
-                                    </div>
                                 </>
                             )}
                             {formData.type === "Agrochemical" && (
@@ -277,8 +240,7 @@ export default function AddInventoryRecords() {
                                                 onChange={handleChange}
                                                 value={formData.record_ID}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                                required/>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
@@ -309,113 +271,6 @@ export default function AddInventoryRecords() {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="method"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Storage Location
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                name="storage"
-                                                value={formData.storage}
-                                                onChange={handleChange}
-                                                id="storage"
-                                                autoComplete="storage"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
-                                                <option>Select</option>
-                                                <option>Warehouse 1</option>
-                                                <option>Warehouse 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="size"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Size
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                name="size"
-                                                value={formData.size}
-                                                onChange={handleChange}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-3">
-                                        <label htmlFor="unit"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Unit
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                name="unit"
-                                                value={formData.unit}
-                                                onChange={handleChange}
-                                                id="unit"
-                                                autoComplete="unit"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
-                                                <option>Select</option>
-                                                <option>ml</option>
-                                                <option>l</option>
-                                                <option>KG</option>
-                                                <option>g</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="quantity"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Stocked Quantity
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="quantity"
-                                                name="quantity"
-                                                onChange={handleChange}
-                                                value={formData.quantity}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="expire_date"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Expire date
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="date"
-                                                id="expire_date"
-                                                name="expire_date"
-                                                onChange={handleChange}
-                                                value={formData.expire_date}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="description"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            description
-                                        </label>
-                                        <div className="mt-2">
-                                            <textarea
-                                                name="description"
-                                                value={formData.description}
-                                                rows={3}
-                                                onChange={handleChange}
-                                                className="border border-gray-400 rounded-md p-2 w-80 focus:ring-2 focus:ring-inset focus:ring-lime-600"
-                                            />
-                                        </div>
-                                    </div>
                                 </>
                             )}
                             {formData.type === "Equipments" && (
@@ -434,8 +289,7 @@ export default function AddInventoryRecords() {
                                                 onChange={handleChange}
                                                 value={formData.record_ID}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                                required/>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
@@ -452,61 +306,7 @@ export default function AddInventoryRecords() {
                                                 onChange={handleChange}
                                                 value={formData.record_name}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="method"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Storage Location
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                name="storage"
-                                                value={formData.storage}
-                                                onChange={handleChange}
-                                                id="storage"
-                                                autoComplete="storage"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
-                                                <option>Select</option>
-                                                <option>Warehouse 1</option>
-                                                <option>Warehouse 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="quantity"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Stocked Quantity
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="quantity"
-                                                name="quantity"
-                                                onChange={handleChange}
-                                                value={formData.quantity}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="description"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            description
-                                        </label>
-                                        <div className="mt-2">
-                                            <textarea
-                                                name="description"
-                                                value={formData.description}
-                                                rows={3}
-                                                onChange={handleChange}
-                                                className="border border-gray-400 rounded-md p-2 w-80"
-                                            />
+                                                required/>
                                         </div>
                                     </div>
                                 </>
@@ -527,8 +327,7 @@ export default function AddInventoryRecords() {
                                                 onChange={handleChange}
                                                 value={formData.record_ID}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                                required/>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
@@ -556,25 +355,29 @@ export default function AddInventoryRecords() {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="method"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Storage Location
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                name="storage"
-                                                value={formData.storage}
-                                                onChange={handleChange}
-                                                id="storage"
-                                                autoComplete="storage"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
-                                                <option>Select</option>
-                                                <option>Warehouse 1</option>
-                                                <option>Warehouse 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                </>
+                            )}
+                            <div className="sm:col-span-2 sm:col-start-1">
+                                <label htmlFor="method"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Storage Location
+                                </label>
+                                <div className="mt-2">
+                                    <select
+                                        name="storage"
+                                        value={formData.storage}
+                                        onChange={handleChange}
+                                        id="storage"
+                                        autoComplete="storage"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
+                                        <option>Select</option>
+                                        <option>Warehouse 1</option>
+                                        <option>Warehouse 2</option>
+                                    </select>
+                                </div>
+                            </div>
+                            {(formData.type === "Agrochemical" || formData.type === "Fertilizer") && (
+                                <>
                                     <div className="sm:col-span-2 sm:col-start-1">
                                         <label htmlFor="size"
                                                className="block text-sm font-medium leading-6 text-gray-900">
@@ -587,8 +390,7 @@ export default function AddInventoryRecords() {
                                                 value={formData.size}
                                                 onChange={handleChange}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                                required/>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-3">
@@ -603,7 +405,7 @@ export default function AddInventoryRecords() {
                                                 onChange={handleChange}
                                                 id="unit"
                                                 autoComplete="unit"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600focus:ring-lime-600 sm:text-sm sm:leading-6">
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
                                                 <option>Select</option>
                                                 <option>ml</option>
                                                 <option>l</option>
@@ -612,25 +414,57 @@ export default function AddInventoryRecords() {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="quantity"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Stocked Quantity
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="quantity"
-                                                name="quantity"
-                                                onChange={handleChange}
-                                                value={formData.quantity}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-
+                                </>
+                            )}
+                            <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                <label
+                                    htmlFor="quantity"
+                                    className="block text-sm font-medium leading-6 text-gray-900">
+                                    Stocked Quantity
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="number"
+                                        id="quantity"
+                                        name="quantity"
+                                        onChange={handleChange}
+                                        value={formData.quantity}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        required/>
+                                </div>
+                            </div>
+                            <div className="sm:col-span-2 sm:col-start-1">
+                                <label htmlFor="unit_price"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Unit Price
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="number"
+                                        name="unit_price"
+                                        value={formData.unit_price}
+                                        onChange={handleChange}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        required/>
+                                </div>
+                            </div>
+                            <div className="sm:col-span-3">
+                                <label htmlFor="payer"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Payer
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        name="payer"
+                                        value={formData.payer}
+                                        onChange={handleChange}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        required/>
+                                </div>
+                            </div>
+                            {(formData.type === "Agrochemical" || formData.type === "Fertilizer") && (
+                                <>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
                                             htmlFor="expire_date"
@@ -644,31 +478,58 @@ export default function AddInventoryRecords() {
                                                 name="expire_date"
                                                 onChange={handleChange}
                                                 value={formData.expire_date}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                            />
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"/>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="description"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            description
-                                        </label>
-                                        <div className="mt-2">
+                                </>
+                            )}
+                            <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                <label
+                                    htmlFor="description"
+                                    className="block text-sm font-medium leading-6 text-gray-900">
+                                    description
+                                </label>
+                                <div className="mt-2">
                                             <textarea
                                                 name="description"
                                                 value={formData.description}
                                                 rows={3}
                                                 onChange={handleChange}
-                                                className="border border-gray-400 rounded-md p-2 w-80 focus:ring-2 focus:ring-inset focus:ring-lime-600"
-                                            />
-                                        </div>
-                                    </div>
-                                </>
-                            )}
+                                                className="border border-gray-400 rounded-md p-2 w-80 focus:ring-2 focus:ring-inset focus:ring-lime-600"/>
+                                </div>
+                            </div>
+                            <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                <label
+                                    htmlFor="ava_status"
+                                    className="block text-sm font-medium leading-6 text-gray-900">
+                                    Status
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        id="ava_status"
+                                        name="ava_status"
+                                        value={formData.ava_status}
+                                        disabled // Disable user input
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                        required/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="mt-6 flex items-center justify-end space-x-4">
+                        <div
+                            className="flex  justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
+                            <label className="bg-gray-200 py-1 pl-4 rounded-full">
+                                Automatically save to transactions
+                                <input
+                                    className="size-6 ml-4 mr-1 form-checkbox text-lime-600 bg-white border-gray-300 rounded-full focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50 hover:bg-lime-100 checked:bg-lime-500"
+                                    type="checkbox"
+                                    checked={autoSaveTransaction}
+                                    onChange={(e) => setAutoSaveTransaction(e.target.checked)}/>
+
+                            </label>
+                        </div>
                         <button
                             type="button"
                             onClick={handleCancel}

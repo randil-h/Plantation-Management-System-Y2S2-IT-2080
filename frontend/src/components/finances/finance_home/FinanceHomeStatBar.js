@@ -1,9 +1,4 @@
-import {
-    ArrowUpCircleIcon,
-    ArrowDownCircleIcon,
-    ExclamationCircleIcon,
-    CheckCircleIcon
-} from '@heroicons/react/24/solid';
+
 import {
     InformationCircleIcon
 } from '@heroicons/react/24/outline';
@@ -21,7 +16,7 @@ export default function FinanceHomeStatBar() {
 
     useEffect(() => {
         // Fetch total records from your API or set it from somewhere
-        axios.get('http://localhost:5555/transactions')
+        axios.get('https://elemahana-backend.vercel.app/transactions')
             .then(response => {
                 setTotalRecords(response.data.data);
 

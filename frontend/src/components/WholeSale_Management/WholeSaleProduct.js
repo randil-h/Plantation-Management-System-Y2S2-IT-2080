@@ -14,7 +14,7 @@ const WholeSaleProduct = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/productRecords')
+            .get('https://elemahana-backend.vercel.app/productRecords')
             .then((response) => {
                 setProductRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
                 setLoading(false);
