@@ -12,9 +12,15 @@ export default function AddPrice() {
     const [max_price, setMaxPrice] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [dateError, setDateError] = useState('');
 
     const handleSavePrice = (e) => {
         e.preventDefault();
+
+        //check for future dates
+        if(dateError) {
+            return;  //if future date selected don't proceed
+        }
 
         //check whether min > max
         if (Number(min_price) > Number(max_price)) {
@@ -54,6 +60,19 @@ export default function AddPrice() {
             });
     };
 
+    const getNamesByType = () => {
+        switch (type) {
+            case 'Fruit':
+                return ['Papaya', 'Apple Guava'];
+            case 'Vegetable' :
+                return ['Cabbage', 'Carrot'];
+            case 'Other' :
+                return ['Coconut'];
+            default:
+                return [];
+        }
+    }
+
     return (
         <div className= " flex justify-center items-center mb-2">
             <form
@@ -61,7 +80,7 @@ export default function AddPrice() {
                 onSubmit={handleSavePrice}
                 className=" mr-2 ml-2 bg-lime-300 border-2 border-black rounded-lg px-4 py-4"
             >
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap mb-3">
                     <div className="w-full md:w-1/5 pr-2">
                         <label className='text-md mr-4 text-gray-500 mb-1'>Type</label>
                         <select
@@ -71,8 +90,9 @@ export default function AddPrice() {
                             className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                         >
                             <option>Select Type</option>
-                            <option value="Fruit ">Fruit</option>
+                            <option value="Fruit">Fruit</option>
                             <option value="Vegetable">Vegetable</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                     <div className="w-full md:w-1/5 pr-2">
@@ -84,8 +104,9 @@ export default function AddPrice() {
                             className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                         >
                             <option>Select Name</option>
-                            <option value="Papaya">Papaya</option>
-                            <option value="Apple Guava">Apple Guava</option>
+                            {getNamesByType().map((nameOption) => (
+                                <option key={nameOption} value={nameOption}>{nameOption}</option>
+                            ))}
                         </select>
                     </div>
                     <div className="w-full md:w-1/5 pr-2">
@@ -94,9 +115,20 @@ export default function AddPrice() {
                             type='date'
                             required
                             value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                            className='border-2 rounded-md mb-5 border-gray-500 px-4 py-2 w-full'
+                            onChange={(e) => {
+                                const selectedDate = new Date(e.target.value);
+                                const currentDate = new Date();
+                                if(selectedDate > currentDate) {
+                                    setDate(e.target.value);
+                                    setDateError("Future Dates cannot be selected");
+                                } else {
+                                    setDate(e.target.value);
+                                    setDateError("");
+                                }
+                            }}
+                            className='border-2 rounded-md mb-1 border-gray-500 px-4 py-2 w-full'
                         />
+                        {dateError && <span className=" text-center text-red-500 text-sm mb-4">{dateError}</span>}
                     </div>
                     <div className="w-full md:w-1/5 pr-2">
                         <label className='text-md mr-4 text-gray-500 mb-1'>Min Price</label>

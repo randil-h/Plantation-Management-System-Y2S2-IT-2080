@@ -1,5 +1,7 @@
 import {DiseasesRecord} from "../../models/Disease Tracking Models/DiseasesModel.js";
 import express, {request, response} from "express";
+import {InventoryRecord} from "../../models/Inventory Models/EqMaintainModel.js";
+import {InventoryInput} from "../../models/Inventory Models/InventoryRecordModel.js";
 
 const router = express.Router();
 
@@ -22,6 +24,41 @@ router.post('/', async (request, response) => {
                 message: 'Send all required fields',
             });
         }
+
+        if(request.body.status === "Under Treatment") {
+            const {treatment} = request.body;
+            const {plant_count} = request.body;
+            const amountUsedPerTree = 50;
+            const totalAmountNeeded = amountUsedPerTree * plant_count;
+
+            let foundSufficientInventory = false;
+            let insufficientInventoryMessage = "Insufficient Quantity in the Inventory!!";
+            let treatmentNotFoundMessage = "Treatment not Available in Inventory!!";
+
+            // Find all records with the specified treatment name
+            const inventoryRecords = await InventoryInput.find({ record_name: treatment });
+
+            if (inventoryRecords.length === 0) {
+                return response.status(400).json({ message: treatmentNotFoundMessage });
+            }
+
+            for (const inventoryRecord of inventoryRecords) {
+                // Calculate the remaining amount after deducting the total amount needed
+                const remainingAmount = inventoryRecord.quantity * inventoryRecord.size - totalAmountNeeded;
+                // If remaining amount is sufficient or equal to zero, update the record and break the loop
+                if (remainingAmount >= 0) {
+                    inventoryRecord.quantity = remainingAmount / inventoryRecord.size;
+                    await inventoryRecord.save();
+                    foundSufficientInventory = true;
+                    break;
+                }
+            }
+            // If no record had sufficient quantity, return a message
+            if (!foundSufficientInventory) {
+                return response.status(400).json({ message: insufficientInventoryMessage });
+            }
+        }
+
         const newDiseaseRecord = {
             disease_name: request.body.disease_name,
             plant_id: request.body.plant_id,

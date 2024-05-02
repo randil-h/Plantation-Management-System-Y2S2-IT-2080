@@ -6,6 +6,8 @@ import {axisBottom, axisLeft, line, scaleLinear, scaleTime, select} from "d3";
 import AddPrice from "./AddPrice";
 import * as d3 from "d3-array";
 import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
+import LoadingAnimation from "../utility/LoadingAnimation";
+import LoadingMessage from "../utility/LoadingMessage";
 
 export default function MarketPriceList() {
 
@@ -19,11 +21,12 @@ export default function MarketPriceList() {
     const [selectedFilter, setSelectedFilter] = useState("");
     const [currentPageHistorical, setCurrentPageHistorical] = useState(1);
     const [currentPagePredicted, setCurrentPagePredicted] = useState(1);
-    const recordsPerPage = 80;
+    const recordsPerPage = 400;
     const recordsPerPage1 = 365;
     const [futurePrices, setFuturePrices] = useState([]);
     const [futurePricesTF, setFuturePricesTF] = useState([]);
     const [generateClicked, setGenerateClicked] = useState(false);
+    const [loadingPrediction, setLoadingPrediction] = useState(false);
 
     const handleFilterChange = (e) => {
         setSelectedFilter(e.target.value);   //update value to selected value
@@ -285,8 +288,9 @@ export default function MarketPriceList() {
             enqueueSnackbar('Please select a type to generate predictions!!!', { variant: 'error' });
             return;
         }
+        setLoadingPrediction(true);
         axios
-            .get('https://elemahana-backend.vercel.app/generate_market_prices', {
+            .get('http://localhost:5555/generate_market_prices', {
                 params: {
                     name: selectedFilter // Pass the selected filter value
                 }
@@ -308,6 +312,9 @@ export default function MarketPriceList() {
             .catch((error) => {
                 console.log(error);
                 enqueueSnackbar('Error generating future market prices', {variant: 'error'});
+            })
+            .finally(() => {
+                setLoadingPrediction(false);
             })
     }
 
@@ -563,79 +570,92 @@ export default function MarketPriceList() {
     const fruitTypes = [...new Set(MarketPriceRecords.map(record => record.name))];
 
     return (
-        <div className=" overflow-x-auto  ">
-            <div className="flex flex-row justify-between items-center px-8 mt-1 mb-4">
-                <div>
-                    <h1 className=" text-lg font-semibold text-left">MARKET PRICES</h1>
-                </div>
-            </div>
-            <div>
-                <AddPrice/>
-            </div>
-            <div className=" flex flex-wrap items-center justify-center mt-4 mb-4">
-                <div className= "mr-2">
-                    <button
-                        onClick={() => {
-                            generatePrediction();
-                            handleGenerateClick();
-                        }}
-                        className=" className='mx-auto rounded-md bg-lime-700 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-lime-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Generate Prices
-                    </button>
-                </div>
-                <div className= "ml-2 w-auto">
-                    <select
-                        value={selectedFilter}
-                        onChange={handleFilterChange}
-                        className="rounded-full px-2 py-1 w-fit">
-                        <option value="All Types">All Types</option>
-                        {fruitTypes.map((name) => (
-                            <option key={name} value={name}>{name}</option>
-                        ))}
-                    </select>
-                </div>
-            </div>
-            <div>
-
-            </div>
-
-            {generateClicked && futurePrices.length > 0 && (
+        <div>
+            {loadingPrediction ? ( // Conditionally render the loading spinner
                 <>
-                    <div className=" flex flex-wrap items-center justify-center mb-3 mt-3">
-                        <h4 className=" text-lg font-semibold text-center">PREDICTED PRICES</h4>
-                    </div>
-                    <div className="bg-green-100 border-2 border-blue-600 px-2 py-2 mr-2 ml-2 rounded-lg mb-4">
-                        <svg ref={futurePricesChartContainer} width="1200" height="400"></svg>
-                    </div>
-                    <div className="flex justify-center mt-4 mb-3">
-                        <button onClick={prevPage1} className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
-                            <FaArrowLeft/>
-                        </button>
-                        <button onClick={nextPage1} className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
-                            <FaArrowRight/>
-                        </button>
+                    <LoadingMessage/>
+                </>
+            ) : (
+                <>
+                    <div className=" overflow-x-auto  ">
+                        <div className="flex flex-row justify-between items-center px-8 mt-1 mb-4">
+                            <div>
+                                <h1 className=" text-lg font-semibold text-left">MARKET PRICES</h1>
+                            </div>
+                        </div>
+                        <div>
+                            <AddPrice/>
+                        </div>
+                        <div className=" flex flex-wrap items-center justify-center mt-4 mb-4">
+                            <div className="mr-2">
+                                <button
+                                    onClick={() => {
+                                        generatePrediction();
+                                        handleGenerateClick();
+                                    }}
+                                    className=" className='mx-auto rounded-md bg-lime-700 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-lime-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                    Generate Prices
+                                </button>
+                            </div>
+                            <div className="ml-2 w-auto">
+                                <select
+                                    value={selectedFilter}
+                                    onChange={handleFilterChange}
+                                    className="rounded-full px-auto py-1 w-auto">
+                                    <option value="All Types">All Types</option>
+                                    {fruitTypes.map((name) => (
+                                        <option key={name} value={name}>{name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                        </div>
+                        {generateClicked && futurePrices.length > 0 && (
+                            <>
+                                <div className=" flex flex-wrap items-center justify-center mb-3 mt-3">
+                                    <h4 className=" text-lg font-semibold text-center">PREDICTED PRICES</h4>
+                                </div>
+                                <div
+                                    className="bg-green-100 border-2 border-blue-600 px-2 py-2 mr-2 ml-2 rounded-lg mb-4">
+                                    <svg ref={futurePricesChartContainer} width="1200" height="400"></svg>
+                                </div>
+                                <div className="flex justify-center mt-4 mb-3">
+                                    <button onClick={prevPage1}
+                                            className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
+                                        <FaArrowLeft/>
+                                    </button>
+                                    <button onClick={nextPage1}
+                                            className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
+                                        <FaArrowRight/>
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                        {selectedFilter && (
+                            <>
+                                <div className=" flex flex-wrap items-center justify-center mb-3 mt-3">
+                                    <h4 className=" text-lg font-semibold text-center">HISTORICAL PRICES</h4>
+                                </div>
+                                <div className="bg-green-100 border-2 border-blue-600 px-2 py-2 mr-2 ml-2 rounded-lg">
+                                    <svg ref={priceChartContainer} width="1200" height="400"></svg>
+                                </div>
+                                <div className="flex justify-center mt-4 mb-3">
+                                    <button onClick={prevPage}
+                                            className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
+                                        <FaArrowLeft/>
+                                    </button>
+                                    <button onClick={nextPage}
+                                            className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
+                                        <FaArrowRight/>
+                                    </button>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </>
             )}
-            {selectedFilter && (
-                <>
-                    <div className=" flex flex-wrap items-center justify-center mb-3 mt-3">
-                        <h4 className=" text-lg font-semibold text-center">HISTORICAL PRICES</h4>
-                    </div>
-                    <div className="bg-green-100 border-2 border-blue-600 px-2 py-2 mr-2 ml-2 rounded-lg">
-                        <svg ref={priceChartContainer} width="1200" height="400"></svg>
-                    </div>
-                    <div className="flex justify-center mt-4 mb-3">
-                        <button onClick={prevPage} className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
-                            <FaArrowLeft/>
-                        </button>
-                        <button onClick={nextPage} className="mr-2 px-3 py-2 font-medium bg-lime-300 hover:bg-lime-400 rounded-md">
-                            <FaArrowRight/>
-                        </button>
-                    </div>
-                </>
-            )}
-
         </div>
+
     )
 }
