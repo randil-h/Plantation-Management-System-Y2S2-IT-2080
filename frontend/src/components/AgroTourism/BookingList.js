@@ -7,7 +7,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import {HiOutlineDownload} from "react-icons/hi";
 import { useLocation } from 'react-router-dom';
-
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 const mapPackageName = (packageName) => {
     switch (packageName) {
         case 'guidedFarmTour':
@@ -39,24 +39,27 @@ const BookingList = () => {
     const [searchInput, setSearchInput] = useState('');
     const [totalPayment, setTotalPayment] = useState(0);
     const location = useLocation();
+    const { isAuthenticated, isLoading, user } = useKindeAuth(); // Destructure useKindeAuth inside the component
+
+    const authenticatedUserId = user ? user.userId : null; // Define authenticatedUserId inside the component
 
     useEffect(() => {
-        setLoading(true);
-        axios
-            .get(`https://elemahana-backend.vercel.app/booking`)
-            .then((response) => {
-                setOriginalRecords(response.data.data); // Set original records here
-                setBookingRecords(response.data.data); // Also set booking records here initially
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setLoading(false);
-            });
-    }, []);
+        if (isAuthenticated && authenticatedUserId) {
+            axios
+                .get(`https://elemahana-backend.vercel.app/booking?userId=${authenticatedUserId}`)
+                .then((response) => {
+                    setOriginalRecords(response.data.data);
+                    setBookingRecords(response.data.data);
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    setLoading(false);
+                });
+        }
+    }, [isAuthenticated, authenticatedUserId]);
 
     useEffect(() => {
-        // Fetch total payment from the previous page if available
         const totalPaymentFromPreviousPage = location.state?.totalPayment;
         if (totalPaymentFromPreviousPage) {
             setTotalPayment(totalPaymentFromPreviousPage);
@@ -165,11 +168,17 @@ const BookingList = () => {
         });
         return total.toFixed(2); // Format the total to display with two decimal places
     };
+// Render nothing if user is not authenticated or authentication state is still loading
+    if (!isAuthenticated || isLoading) {
+        return null;
+    }
 
 
     return (
         <div className="mx-6">
+            <p className="text-center text-3xl font-bold mt-5">My Bookings</p>
             <div className="flex items-center justify-between mb-4 mt-8">
+
                 <div className="relative">
                     <input
                         type="text"
@@ -180,14 +189,14 @@ const BookingList = () => {
                     />
                     <FaSearch className="absolute left-3 top-2 text-gray-400 ml-5"/>
                 </div>
-                <div className="bg-lime-200 rounded-lg px-7 py-3 mb-4 items">
+                <div className="bg-lime-200 rounded-lg px-7 py-3 mb-4 items ml-12">
                     <p className="text-center text-black font-light">Total Bookings: {bookingRecords.length}</p>
                     <p className="text-black font-light">Total Amount: {calculateTotalAmount()}/=</p>
 
                 </div>
                 <div className="flex">
                     <Link to="/booking">
-                    <button
+                        <button
                             className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none mr-2"
                         >
                             Add Another Booking <span aria-hidden="true"> &rarr;</span>

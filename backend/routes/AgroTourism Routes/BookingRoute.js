@@ -2,7 +2,17 @@ import express from 'express';
 import Booking from '../../models/AgroTourism Models/BookingModel.js';
 
 const router = express.Router();
-
+// Route to get bookings by user ID
+router.get('/booking', async (req, res) => {
+    const userId = req.query.userId;
+    try {
+        const bookings = await Booking.find({ userId });
+        res.json({ data: bookings });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
 // Route to save a new booking
 router.post('/', async (request, response) => {
     try {
@@ -123,5 +133,7 @@ router.delete('/:id', async (request, response) => {
         response.status(500).send({ message: 'An error occurred while processing the request' });
     }
 });
+
+
 
 export default router;
