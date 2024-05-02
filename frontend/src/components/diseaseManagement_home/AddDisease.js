@@ -16,6 +16,7 @@ export default function AddDisease() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [diseaseIdError, setDiseaseIdError] = useState('');
+    const [dateError, setDateError] = useState('');
 
     const handleDiseaseChange = (e) => {
         const selectedDisease = e.target.value;
@@ -62,6 +63,11 @@ export default function AddDisease() {
 
     const handleSaveDisease = (e) => {
         e.preventDefault();
+
+        if(dateError) {
+            return;  //don't proceed if there is an error
+        }
+
         const data = {
             disease_name,
             plant_id,
@@ -79,14 +85,14 @@ export default function AddDisease() {
         }
 
         setLoading(true);
-        axios
+       /* axios
             .post(`https://elemahana-backend.vercel.app/checkTreatment`, {treatment}) //checking availability of treatment
             .then((response) => {
                 setLoading(false);
                 //if treatment available
-                if(response.data.available) {
+                if(response.data.available) {*/
                     axios
-                        .post(`https://elemahana-backend.vercel.app/diseases`, data)
+                        .post(`https://elemahana-backend.vercel.app`, data)
                         .then(() => {
                             setLoading(false);
                             navigate('/diseases/records');
@@ -94,10 +100,10 @@ export default function AddDisease() {
                         })
                         .catch((error) => {
                             setLoading(false);
-                            alert('An error happened. Please check console');
+                            alert(`${error.response.data.message}`);
                             console.log(error);
                         });
-                } else {
+               /* } else {
                     window.alert("Treatment is not available in Inventory!!"); //if treatment is not found or unavailable
                 }
             })
@@ -105,7 +111,7 @@ export default function AddDisease() {
                 setLoading(false);
                 alert('An error happened. Please check console');
                 console.log(error);
-            });
+            });*/
     };
     return (
         <div className='items-center justify-center ml-96'>
@@ -152,9 +158,20 @@ export default function AddDisease() {
                     type='date'
                     required
                     value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    className='border-2 rounded-md mb-5 border-gray-500 px-4 py-2 w-full'
+                    onChange={(e) => {
+                        const selectedDate = new Date(e.target.value);
+                        const currentDate = new Date();
+                        if(selectedDate > currentDate) {
+                            setDate(e.target.value);
+                            setDateError("Future Dates cannot be selected");
+                        }else {
+                            setDate(e.target.value);
+                            setDateError("");
+                        }
+                    }}
+                    className='border-2 rounded-md mb-1 border-gray-500 px-4 py-2 w-full'
                 />
+                {dateError && <span className="text-red-500 text-sm mb-2">{dateError}</span>}
                 <label className='text-md mr-4 mb-1 text-gray-500'>Location</label>
                 <select
                     value={location}

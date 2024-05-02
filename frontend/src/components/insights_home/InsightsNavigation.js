@@ -26,7 +26,7 @@ export default function InsightsNavigation() {
                                     <li
                                         key={item.name}
                                         className={`flex focus:outline-none focus:ring focus:ring-lime-500 ${
-                                            isActive(item.path) ? " text-gray-100 px-2 py-0.5 bg-gradient-to-tr from-emerald-500 via-green-500 to-lime-400 rounded-full " : "hover:text-gray-600"
+                                            isActive(item.path) ? " text-gray-100 px-2 py-1 bg-gradient-to-tr from-emerald-500 via-green-500 to-lime-400 rounded-full hover:bg-lime-600" : " hover:bg-lime-200 rounded-full  hover:py-1 transition-all duration-200"
                                         }`}
                                     >
                                         <Link to={item.path} className="px-2 flex items-center ">

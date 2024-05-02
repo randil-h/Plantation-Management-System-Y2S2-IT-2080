@@ -23,6 +23,15 @@ const DiseaseSchema = mongoose.Schema(
         date: {
             type: String,
             required: true,
+            validate: {
+                validator : function (value) {
+                    const selectedDate = new Date(value);
+                    const currentDate = new Date();
+
+                    return selectedDate <= currentDate;
+                },
+                message: props => `${props.value} cannot be a future date!`,
+            },
         },
         location: {
             type: String,
