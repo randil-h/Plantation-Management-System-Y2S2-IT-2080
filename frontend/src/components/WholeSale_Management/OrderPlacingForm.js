@@ -13,7 +13,7 @@ const OrderPlacingForm = () => {
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
     const [orderDate, setOrderDate] = useState(''); 
-    const [orderQuantity, setOrderQuantity] = useState('1');
+    const [orderQuantity, setOrderQuantity] = useState('60');
 
     useEffect(() => {
         setLoading(true);
@@ -80,17 +80,12 @@ const OrderPlacingForm = () => {
             orderProductPricePerKilo: orderProductPricePerKilo
         };
 
-        axios
-            .post('https://elemahana-backend.vercel.app/orderRecords', data)
-            .then(() => {
-                enqueueSnackbar('Record Created Successfully', { variant: 'success' });
-                navigate('/WholeSale/orders', { state: { highlighted: true } });
-            })
-            .catch((error) => {
-                enqueueSnackbar('Error', { variant: 'error' });
-                console.log(error);
-            });
+
+        // Navigate to PaymentGateway with order data
+        navigate('/wholesale/Payment', { state: { orderData: data } });
+
     };
+
 
     if (loading) {
         return <div>Loading...</div>;
@@ -106,7 +101,7 @@ const OrderPlacingForm = () => {
                 {/* Product details */}
                 <div className="flex justify-start">
                     <div className="space-y-12">
-                        <h2 className="text-3xl font-semibold leading-7 text-gray-900 mt-4">{product.productName}</h2>
+                        <h2 className="text-4xl font-semibold leading-7 text-gray-900 mt-4">{product.productName}</h2>
                     </div>
                 </div>
                 {/* Product image and description */}
@@ -225,8 +220,6 @@ const OrderPlacingForm = () => {
                         </div>
                     </div>
                 </div>
-
-
             </form>
         </div>
     );

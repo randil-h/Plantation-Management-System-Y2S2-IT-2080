@@ -37,16 +37,15 @@ export default function MyOrders() {
             <div class="bg-white p-8 rounded-md w-full">
                 <div class=" flex items-center justify-between pb-6">
                     <div>
-                        <h1 class="text-gray-700 text-lg font-semibold">My Orders</h1>
+                        <h1 class="text-gray-700 text-3xl font-semibold ml-32 mt-2">My Orders</h1>
                     </div>
                 </div>
 
                 <OrderHistory/>
-
-                <Subscribe_newsletter/>
-                <Footer/>
-
             </div>
+
+            <Subscribe_newsletter/>
+            <Footer/>
         </div>
     );
 }

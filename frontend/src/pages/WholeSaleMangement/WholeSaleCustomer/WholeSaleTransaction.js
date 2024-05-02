@@ -1,13 +1,10 @@
 import React from "react";
-import SideBar from "../../../components/SideBar";
 import Navbar from "../../../components/utility/Navbar";
 import OrderPlacingForm from "../../../components/WholeSale_Management/OrderPlacingForm";
-import WholeSaleNavBar from "../../../components/WholeSale_Management/WholeSaleNavBar";
-import WholeSaleProduct from "../../../components/WholeSale_Management/WholeSaleProduct";
-import { TbShoppingCartCopy } from "react-icons/tb";
 import MyOrderIcon from "../../../components/WholeSale_Management/MyOrderIcon";
 import Footer from "../../../components/utility/Footer";
 import Subscribe_newsletter from "../../../components/landingPage/subscribe_newsletter";
+
 
 export default function WholeSaleTransaction() {
     return (
