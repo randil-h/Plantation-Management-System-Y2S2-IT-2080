@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from 'react';
 import axios from "axios";
 import { SnackbarProvider, useSnackbar } from "notistack"; // Import SnackbarProvider
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,33 @@ export default function AddInventoryRecords() {
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
     const [autoSaveTransaction, setAutoSaveTransaction] = useState(true);
+
+    useEffect(() => {
+        const fetchLatestRecordID = async () => {
+            try {
+                let latestRecordID = '';
+                const response = await axios.get(`https://elemahana-backend.vercel.app/inventoryinputs/latest/${formData.type}`);
+                if (response.data && response.data.latestRecordID) {
+                    latestRecordID = response.data.latestRecordID;
+                }
+                const prefix = formData.type.charAt(0);
+                const numericPart = latestRecordID.slice(1) || '0000';
+                const nextRecordID = `${prefix}${String(parseInt(numericPart.slice(1)) + 1).padStart(3, '0')}`;
+                setFormData((prevData) => ({ ...prevData, record_ID: nextRecordID }));
+            } catch (error) {
+                console.error('Error fetching latest record ID:', error);
+                // Handle error, e.g., set a default record ID
+                const prefix = formData.type.charAt(0);
+                const defaultRecordID = `${prefix}001`;
+                setFormData((prevData) => ({ ...prevData, record_ID: defaultRecordID }));
+            }
+        };
+
+        if (formData.type) {
+            fetchLatestRecordID();
+        }
+    }, [formData.type]);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -68,13 +95,14 @@ export default function AddInventoryRecords() {
                     type: 'expense',
                     subtype: 'Inventory Fee',
                     amount: formData.quantity * formData.unit_price,
-                    description: formData.description,
+                    description: `Quantity purchased - ${formData.quantity}\n${formData.description}`, // Added line break
                     payer_payee: formData.payer,
                     method: 'Automated Entry',
                 };
 
                 await axios.post('https://elemahana-backend.vercel.app/transactions', transactionData);
             }
+
         } catch (error) {
             console.log(error.message);
             alert('Error');
@@ -184,24 +212,27 @@ export default function AddInventoryRecords() {
                             </div>
                             {formData.type === "Planting" && (
                                 <>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-2 sm:col-start-1">
                                         <label
                                             htmlFor="record_ID"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Plant ID
+                                            className="block text-sm font-medium leading-6 text-gray-900"
+                                        >
+                                            Record ID
                                         </label>
                                         <div className="mt-2">
                                             <input
                                                 type="text"
                                                 id="record_ID"
                                                 name="record_ID"
-                                                onChange={handleChange}
                                                 value={formData.record_ID}
+                                                disabled
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required/>
+                                                required
+                                            />
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+
+                                    <div className="sm:col-span-3">
                                         <label
                                             htmlFor="record_name"
                                             className="block text-sm font-medium leading-6 text-gray-900">
@@ -226,7 +257,7 @@ export default function AddInventoryRecords() {
                             )}
                             {formData.type === "Agrochemical" && (
                                 <>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-2 sm:col-start-1">
                                         <label
                                             htmlFor="record_ID"
                                             className="block text-sm font-medium leading-6 text-gray-900">
@@ -243,7 +274,7 @@ export default function AddInventoryRecords() {
                                                 required/>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-3">
                                         <label
                                             htmlFor="record_name"
                                             className="block text-sm font-medium leading-6 text-gray-900">
@@ -275,7 +306,7 @@ export default function AddInventoryRecords() {
                             )}
                             {formData.type === "Equipments" && (
                                 <>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-2 sm:col-start-1">
                                         <label
                                             htmlFor="record_ID"
                                             className="block text-sm font-medium leading-6 text-gray-900">
@@ -292,7 +323,7 @@ export default function AddInventoryRecords() {
                                                 required/>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-3">
                                         <label
                                             htmlFor="record_name"
                                             className="block text-sm font-medium leading-6 text-gray-900">
@@ -313,7 +344,7 @@ export default function AddInventoryRecords() {
                             )}
                             {formData.type === "Fertilizer" && (
                                 <>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-2 sm:col-start-1">
                                         <label
                                             htmlFor="record_ID"
                                             className="block text-sm font-medium leading-6 text-gray-900">
@@ -330,7 +361,7 @@ export default function AddInventoryRecords() {
                                                 required/>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-3">
                                         <label
                                             htmlFor="record_name"
                                             className="block text-sm font-medium leading-6 text-gray-900">
@@ -376,6 +407,23 @@ export default function AddInventoryRecords() {
                                     </select>
                                 </div>
                             </div>
+                            <div className="sm:col-span-3">
+                                <label
+                                    htmlFor="quantity"
+                                    className="block text-sm font-medium leading-6 text-gray-900">
+                                    Stocked Quantity
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="number"
+                                        id="quantity"
+                                        name="quantity"
+                                        onChange={handleChange}
+                                        value={formData.quantity}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        required/>
+                                </div>
+                            </div>
                             {(formData.type === "Agrochemical" || formData.type === "Fertilizer") && (
                                 <>
                                     <div className="sm:col-span-2 sm:col-start-1">
@@ -416,23 +464,6 @@ export default function AddInventoryRecords() {
                                     </div>
                                 </>
                             )}
-                            <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                <label
-                                    htmlFor="quantity"
-                                    className="block text-sm font-medium leading-6 text-gray-900">
-                                    Stocked Quantity
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        type="number"
-                                        id="quantity"
-                                        name="quantity"
-                                        onChange={handleChange}
-                                        value={formData.quantity}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                        required/>
-                                </div>
-                            </div>
                             <div className="sm:col-span-2 sm:col-start-1">
                                 <label htmlFor="unit_price"
                                        className="block text-sm font-medium leading-6 text-gray-900">
