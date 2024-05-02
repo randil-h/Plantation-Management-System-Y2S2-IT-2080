@@ -253,117 +253,9 @@ const EditInventoryRecords = () => {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="method"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Storage Location
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                name="storage"
-                                                value={formData.storage}
-                                                onChange={handleChange}
-                                                id="storage"
-                                                autoComplete="storage"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
-                                                <option>Select</option>
-                                                <option>Warehouse 1</option>
-                                                <option>Warehouse 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="quantity"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Stocked Quantity
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="quantity"
-                                                name="quantity"
-                                                onChange={handleChange}
-                                                min="0"
-                                                value={formData.quantity}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="unit_price"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Unit Price
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="unit_price"
-                                                name="unit_price"
-                                                onChange={handleChange}
-                                                value={formData.unit_price}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="payer"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Payer / Payee
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="payer"
-                                                name="payer"
-                                                onChange={handleChange}
-                                                value={formData.payer}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="description"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            description
-                                        </label>
-                                        <div className="mt-2">
-                                            <textarea
-                                                name="description"
-                                                value={formData.description}
-                                                rows={3}
-                                                onChange={handleChange}
-                                                className="border border-gray-400 rounded-md p-2 w-80 focus:ring-2 focus:ring-inset focus:ring-lime-600"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="ava_status"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Status
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="ava_status"
-                                                name="ava_status"
-                                                value={formData.ava_status}
-                                                disabled // Disable user input
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
                                 </>
                             )}
-                            {selectedType === "Agrochemical" && (
+                            {selectedType.type === "Agrochemical" && (
                                 <>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
@@ -426,172 +318,10 @@ const EditInventoryRecords = () => {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="method"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Storage Location
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                name="storage"
-                                                value={formData.storage}
-                                                onChange={handleChange}
-                                                id="storage"
-                                                autoComplete="storage"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
-                                                <option>Select</option>
-                                                <option>Warehouse 1</option>
-                                                <option>Warehouse 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="size"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Size
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                name="size"
-                                                value={formData.size}
-                                                onChange={handleChange}
-                                                min="0"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-3">
-                                        <label htmlFor="unit"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Unit
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                name="unit"
-                                                value={formData.unit}
-                                                onChange={handleChange}
-                                                id="unit"
-                                                autoComplete="unit"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
-                                                <option>Select</option>
-                                                <option>ml</option>
-                                                <option>l</option>
-                                                <option>KG</option>
-                                                <option>g</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="quantity"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Stocked Quantity
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="quantity"
-                                                name="quantity"
-                                                onChange={handleChange}
-                                                min="0"
-                                                value={formData.quantity}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="unit_price"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Unit Price
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="unit_price"
-                                                name="unit_price"
-                                                onChange={handleChange}
-                                                value={formData.unit_price}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="payer"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Payer / Payee
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="payer"
-                                                name="payer"
-                                                onChange={handleChange}
-                                                value={formData.payer}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="expire_date"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Expire date
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="date"
-                                                id="expire_date"
-                                                name="expire_date"
-                                                onChange={handleChange}
-                                                value={formData.expire_date}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="description"
-                                            className="block text-sm font-medium leading-6 text-gray-900 focus:ring-2 focus:ring-inset focus:ring-lime-600">
-                                            description
-                                        </label>
-                                        <div className="mt-2">
-                                            <textarea
-                                                name="description"
-                                                value={formData.description}
-                                                rows={3}
-                                                onChange={handleChange}
-                                                className="border border-gray-400 rounded-md p-2 w-80"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="ava_status"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Status
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="ava_status"
-                                                name="ava_status"
-                                                value={formData.ava_status}
-                                                disabled // Disable user input
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
+
                                 </>
                             )}
-                            {selectedType === "Equipments" && (
+                            {selectedType.type === "Equipments" && (
                                 <>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
@@ -607,13 +337,13 @@ const EditInventoryRecords = () => {
                                                 onChange={handleChange}
                                                 value={formData.record_ID}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                                required/>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label htmlFor="record_name"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
+                                        <label
+                                            htmlFor="record_name"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
                                             Equipment Name
                                         </label>
                                         <div className="mt-2">
@@ -624,116 +354,7 @@ const EditInventoryRecords = () => {
                                                 onChange={handleChange}
                                                 value={formData.record_name}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="method"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Storage Location
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                name="storage"
-                                                value={formData.storage}
-                                                onChange={handleChange}
-                                                id="storage"
-                                                autoComplete="storage"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
-                                                <option>Select</option>
-                                                <option>Warehouse 1</option>
-                                                <option>Warehouse 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="quantity"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Stocked Quantity
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="quantity"
-                                                name="quantity"
-                                                min="0"
-                                                onChange={handleChange}
-                                                value={formData.quantity}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="unit_price"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Unit Price
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="unit_price"
-                                                name="unit_price"
-                                                onChange={handleChange}
-                                                value={formData.unit_price}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="payer"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Payer / Payee
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="payer"
-                                                name="payer"
-                                                onChange={handleChange}
-                                                value={formData.payer}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="description"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            description
-                                        </label>
-                                        <div className="mt-2">
-                                            <textarea
-                                                name="description"
-                                                value={formData.description}
-                                                rows={3}
-                                                onChange={handleChange}
-                                                className="border border-gray-400 rounded-md p-2 w-80 focus:ring-2 focus:ring-inset focus:ring-lime-600"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="ava_status"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Status
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="ava_status"
-                                                name="ava_status"
-                                                value={formData.ava_status}
-                                                disabled // Disable user input
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                                required/>
                                         </div>
                                     </div>
                                 </>
@@ -798,25 +419,30 @@ const EditInventoryRecords = () => {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="method"
-                                               className="block text-sm font-medium leading-6 text-gray-900">
-                                            Storage Location
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                name="storage"
-                                                value={formData.storage}
-                                                onChange={handleChange}
-                                                id="storage"
-                                                autoComplete="storage"
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
-                                                <option>Select</option>
-                                                <option>Warehouse 1</option>
-                                                <option>Warehouse 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
+
+                                </>
+                            )}
+                            <div className="sm:col-span-2 sm:col-start-1">
+                                <label htmlFor="method"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Storage Location
+                                </label>
+                                <div className="mt-2">
+                                    <select
+                                        name="storage"
+                                        value={formData.storage}
+                                        onChange={handleChange}
+                                        id="storage"
+                                        autoComplete="storage"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6">
+                                        <option>Select</option>
+                                        <option>Warehouse 1</option>
+                                        <option>Warehouse 2</option>
+                                    </select>
+                                </div>
+                            </div>
+                            {(formData.type === "Agrochemical" || formData.type === "Fertilizer") && (
+                                <>
                                     <div className="sm:col-span-2 sm:col-start-1">
                                         <label htmlFor="size"
                                                className="block text-sm font-medium leading-6 text-gray-900">
@@ -827,11 +453,9 @@ const EditInventoryRecords = () => {
                                                 type="number"
                                                 name="size"
                                                 value={formData.size}
-                                                min="0"
                                                 onChange={handleChange}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
+                                                required/>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-3">
@@ -855,61 +479,57 @@ const EditInventoryRecords = () => {
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="quantity"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Stocked Quantity
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="quantity"
-                                                name="quantity"
-                                                min="0"
-                                                onChange={handleChange}
-                                                value={formData.quantity}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="unit_price"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Unit Price
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="number"
-                                                id="unit_price"
-                                                name="unit_price"
-                                                onChange={handleChange}
-                                                value={formData.unit_price}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="payer"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Payer / Payee
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="payer"
-                                                name="payer"
-                                                onChange={handleChange}
-                                                value={formData.payer}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
+                                </>
+                            )}
+                            <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                <label
+                                    htmlFor="quantity"
+                                    className="block text-sm font-medium leading-6 text-gray-900">
+                                    Stocked Quantity
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="number"
+                                        id="quantity"
+                                        name="quantity"
+                                        onChange={handleChange}
+                                        value={formData.quantity}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        required/>
+                                </div>
+                            </div>
+                            <div className="sm:col-span-2 sm:col-start-1">
+                                <label htmlFor="unit_price"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Unit Price
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="number"
+                                        name="unit_price"
+                                        value={formData.unit_price}
+                                        onChange={handleChange}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        required/>
+                                </div>
+                            </div>
+                            <div className="sm:col-span-3">
+                                <label htmlFor="payer"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Payer
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        name="payer"
+                                        value={formData.payer}
+                                        onChange={handleChange}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        required/>
+                                </div>
+                            </div>
+                            {(formData.type === "Agrochemical" || formData.type === "Fertilizer") && (
+                                <>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
                                             htmlFor="expire_date"
@@ -923,47 +543,43 @@ const EditInventoryRecords = () => {
                                                 name="expire_date"
                                                 onChange={handleChange}
                                                 value={formData.expire_date}
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                            />
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"/>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="description"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            description
-                                        </label>
-                                        <div className="mt-2">
+                                </>
+                            )}
+                            <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                <label
+                                    htmlFor="description"
+                                    className="block text-sm font-medium leading-6 text-gray-900">
+                                    description
+                                </label>
+                                <div className="mt-2">
                                             <textarea
                                                 name="description"
                                                 value={formData.description}
                                                 rows={3}
                                                 onChange={handleChange}
-                                                className="border border-gray-400 rounded-md p-2 w-80"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                        <label
-                                            htmlFor="ava_status"
-                                            className="block text-sm font-medium leading-6 text-gray-900">
-                                            Status
-                                        </label>
-                                        <div className="mt-2">
-                                            <input
-                                                type="text"
-                                                id="ava_status"
-                                                name="ava_status"
-                                                value={formData.ava_status}
-                                                disabled // Disable user input
-                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-
-                                </>
-                            )}
+                                                className="border border-gray-400 rounded-md p-2 w-80 focus:ring-2 focus:ring-inset focus:ring-lime-600"/>
+                                </div>
+                            </div>
+                            <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                <label
+                                    htmlFor="ava_status"
+                                    className="block text-sm font-medium leading-6 text-gray-900">
+                                    Status
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        id="ava_status"
+                                        name="ava_status"
+                                        value={formData.ava_status}
+                                        disabled // Disable user input
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                                        required/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="mt-6 flex items-center justify-end space-x-4">
