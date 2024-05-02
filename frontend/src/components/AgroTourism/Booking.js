@@ -119,7 +119,8 @@ export default function BookingForm() {
                     totalPayment,
                 };
                 // Post booking data
-                await axios.post(('http://localhost:5555/booking'), formData); // <-- Issue here, formData should be bookingData
+                await axios.post('http://localhost:5555/booking', formData);
+                // <-- Issue here, formData should be bookingData
                 // Reset form data
                 setFormData({
                     name: '',

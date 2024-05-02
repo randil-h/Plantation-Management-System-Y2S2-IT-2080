@@ -35,29 +35,28 @@ const mapVisitorType = (visitorType) => {
 const BookingList = () => {
     const [originalRecords, setOriginalRecords] = useState([]);
     const [bookingRecords, setBookingRecords] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [searchInput, setSearchInput] = useState('');
     const [totalPayment, setTotalPayment] = useState(0);
     const location = useLocation();
-    const { isAuthenticated, isLoading, user } = useKindeAuth(); // Destructure useKindeAuth inside the component
+    const { isAuthenticated, user } = useKindeAuth();
 
-    const authenticatedUserId = user ? user.userId : null; // Define authenticatedUserId inside the component
+    const authenticatedUserId = user?.userId || null;
 
     useEffect(() => {
-        if (isAuthenticated && authenticatedUserId) {
-            axios
-                .get(`https://elemahana-backend.vercel.app/booking?userId=${authenticatedUserId}`)
-                .then((response) => {
-                    setOriginalRecords(response.data.data);
-                    setBookingRecords(response.data.data);
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    console.log(error);
-                    setLoading(false);
-                });
-        }
-    }, [isAuthenticated, authenticatedUserId]);
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`https://elemahana-backend.vercel.app/booking`);
+                setBookingRecords(response.data.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching bookings:', error);
+                setLoading(false); // Ensure loading state is set to false in case of error
+            }
+        };
+
+        fetchData();
+    }, []);
 
     useEffect(() => {
         const totalPaymentFromPreviousPage = location.state?.totalPayment;
@@ -168,9 +167,9 @@ const BookingList = () => {
         });
         return total.toFixed(2); // Format the total to display with two decimal places
     };
-// Render nothing if user is not authenticated or authentication state is still loading
-    if (!isAuthenticated || isLoading) {
-        return null;
+    // Render a loading state or a message while data is being fetched
+    if (loading) {
+        return <div>Loading...</div>;
     }
 
 
