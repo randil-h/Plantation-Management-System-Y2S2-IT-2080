@@ -18,6 +18,8 @@ const EditInventoryRecords = () => {
         size: '',
         unit: '',
         quantity: '',
+        unit_price: '',
+        payer: '',
         expire_date: '',
         description: '',
         ava_status: 'in stock'
@@ -37,6 +39,8 @@ const EditInventoryRecords = () => {
                     size: data.size,
                     unit: data.unit,
                     quantity: data.quantity,
+                    unit_price: data.unit_price,
+                    payer: data.payer,
                     expire_date: data.expire_date ? data.expire_date.split("T")[0] : '',
                     description: data.description,
                     ava_status: data.ava_status
@@ -65,6 +69,8 @@ const EditInventoryRecords = () => {
             size: "",
             unit: "",
             quantity: "",
+            unit_price: "",
+            payer: "",
             expire_date: "",
             description: "",
             ava_status: "in stock"
@@ -74,7 +80,7 @@ const EditInventoryRecords = () => {
         e.preventDefault(); // Prevent default form submission behavior
         setLoading(true);
 
-        const { type, record_ID, record_name, storage, size, unit, quantity, expire_date, description, ava_status} = formData;
+        const { type, record_ID, record_name, storage, size, unit, quantity,unit_price,payer, expire_date, description, ava_status} = formData;
 
         // Prepare the updated data object to send in the PUT request
         const updatedData = {
@@ -85,6 +91,8 @@ const EditInventoryRecords = () => {
             size,
             unit,
             quantity,
+            unit_price,
+            payer,
             expire_date,
             description,
             ava_status
@@ -285,6 +293,42 @@ const EditInventoryRecords = () => {
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
+                                            htmlFor="unit_price"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Unit Price
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="number"
+                                                id="unit_price"
+                                                name="unit_price"
+                                                onChange={handleChange}
+                                                value={formData.unit_price}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="payer"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Payer / Payee
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="payer"
+                                                name="payer"
+                                                onChange={handleChange}
+                                                value={formData.payer}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
                                             htmlFor="description"
                                             className="block text-sm font-medium leading-6 text-gray-900">
                                             description
@@ -460,6 +504,42 @@ const EditInventoryRecords = () => {
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
                                         <label
+                                            htmlFor="unit_price"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Unit Price
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="number"
+                                                id="unit_price"
+                                                name="unit_price"
+                                                onChange={handleChange}
+                                                value={formData.unit_price}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="payer"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Payer / Payee
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="payer"
+                                                name="payer"
+                                                onChange={handleChange}
+                                                value={formData.payer}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
                                             htmlFor="expire_date"
                                             className="block text-sm font-medium leading-6 text-gray-900">
                                             Expire date
@@ -581,6 +661,42 @@ const EditInventoryRecords = () => {
                                                 min="0"
                                                 onChange={handleChange}
                                                 value={formData.quantity}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="unit_price"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Unit Price
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="number"
+                                                id="unit_price"
+                                                name="unit_price"
+                                                onChange={handleChange}
+                                                value={formData.unit_price}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="payer"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Payer / Payee
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="payer"
+                                                name="payer"
+                                                onChange={handleChange}
+                                                value={formData.payer}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 required
                                             />
@@ -753,6 +869,42 @@ const EditInventoryRecords = () => {
                                                 min="0"
                                                 onChange={handleChange}
                                                 value={formData.quantity}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="unit_price"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Unit Price
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="number"
+                                                id="unit_price"
+                                                name="unit_price"
+                                                onChange={handleChange}
+                                                value={formData.unit_price}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                        <label
+                                            htmlFor="payer"
+                                            className="block text-sm font-medium leading-6 text-gray-900">
+                                            Payer / Payee
+                                        </label>
+                                        <div className="mt-2">
+                                            <input
+                                                type="text"
+                                                id="payer"
+                                                name="payer"
+                                                onChange={handleChange}
+                                                value={formData.payer}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 required
                                             />
