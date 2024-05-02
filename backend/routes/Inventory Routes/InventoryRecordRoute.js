@@ -15,13 +15,15 @@ router.post('/', async (request, response) => {
             size,
             unit,
             quantity,
+            unit_price,
+            payer,
             expire_date,
             description,
             ava_status
         } = request.body;
 
         // Check if all required fields are present
-        if (!type || !record_ID || !record_name || !storage || !quantity || !description || !ava_status) {
+        if (!type || !record_ID || !record_name || !storage || !quantity || !unit_price || !payer || !description || !ava_status) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });
@@ -50,6 +52,8 @@ router.post('/', async (request, response) => {
             size,
             unit,
             quantity,
+            unit_price,
+            payer,
             expire_date,
             description,
             ava_status
@@ -111,13 +115,15 @@ router.put('/:id', async (request, response) => {
             size,
             unit,
             quantity,
+            unit_price,
+            payer,
             expire_date,
             description,
             ava_status
         } = request.body;
 
         // Check if all required fields are present
-        if (!type || !record_ID || !record_name || !storage || !quantity || !description || !ava_status) {
+        if (!type || !record_ID || !record_name || !storage || !quantity || !unit_price || !payer || !description || !ava_status) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });
@@ -153,6 +159,8 @@ router.put('/:id', async (request, response) => {
         inventoryInput.size = size;
         inventoryInput.unit = unit;
         inventoryInput.quantity = quantity;
+        inventoryInput.unit_price = unit_price;
+        inventoryInput.payer = payer;
         inventoryInput.expire_date = expire_date;
         inventoryInput.description = description;
         inventoryInput.ava_status = ava_status;

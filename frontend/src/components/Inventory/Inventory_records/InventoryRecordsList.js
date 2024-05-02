@@ -231,7 +231,7 @@ const InventoryRecordList = () => {
                             <th scope="col" className="px-4 py-3">
                                 Size
                             </th>
-                            <th scope="col" className="px-4 py-3">
+                            <th scope="col" className="px-3 py-3">
                                 Unit
                             </th>
                             <th scope="col" className="px-4 py-3">
@@ -271,9 +271,9 @@ const InventoryRecordList = () => {
                                 <td className="px-4 py-4">{record.type}</td>
                                 <td className="px-4 py-4">{record.record_ID}</td>
                                 <td className="px-8 py-4">{record.record_name}</td>
-                                <td className="px-6 py-4">{record.storage}</td>
+                                <td className="px-3 py-4">{record.storage}</td>
                                 <td className="px-4 py-4">{record.size ? record.size : "N/A"}</td>
-                                <td className="px-4 py-4">{record.unit ? record.unit : "N/A"}</td>
+                                <td className="px-3 py-4">{record.unit ? record.unit : "N/A"}</td>
                                 <td className="px-4 py-4">{record.quantity}</td>
                                 <td className="px-4 py-4 whitespace-nowrap">{record.expire_date ? new Date(record.expire_date).toISOString().split('T')[0] : "N/A"}</td>
                                 <td className="px-6 py-4">{record.description}</td>

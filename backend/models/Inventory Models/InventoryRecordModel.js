@@ -30,6 +30,14 @@ const InventoryRecordSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
+        unit_price: {
+            type: Number,
+            required: true,
+        },
+        payer: {
+            type: String,
+            required: true,
+        },
         expire_date: {
             type: Date,
             required: false,
