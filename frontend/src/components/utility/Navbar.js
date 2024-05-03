@@ -10,6 +10,7 @@ import {
     UserCircleIcon
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
+import {Link} from "react-router-dom";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -58,36 +59,36 @@ export default function Navbar() {
                 className="text-lg h-full mx-auto flex max-w-7xl items-center relative justify-between p-6 lg:px-8 py-2 gap-4">
                 {/* Navbar content */}
                 <div className="flex lg:flex-1">
-                    <a href="/" className="-m-1.5 p-1.5">
+                    <Link to="/" className="-m-1.5 p-1.5">
                         <span className="text-2xl font-bold flex flex-row">ELEMAHANA <span
                             className="font-light text-base">&trade;</span></span>
-                    </a>
+                    </Link>
                 </div>
-                <a href="/" className="nav-item">
+                <Link to="/" className="nav-item">
                     <div
                         className="h-full font-medium px-6 rounded-full transition-all duration-200 hover:bg-lime-200">Home
                     </div>
-                </a>
-                <a href="/placeOrder" className="nav-item">
+                </Link>
+                <Link to="/placeOrder" className="nav-item">
                     <div
                         className="h-full font-medium px-6 rounded-full transition-all duration-200 hover:bg-lime-200">Marketplace
                     </div>
-                </a>
-                <a href="/tourism" className="nav-item">
+                </Link>
+                <Link to="/tourism" className="nav-item">
                     <div
                         className="h-full font-medium px-6 rounded-full transition-all duration-200 hover:bg-lime-200">Visit
                         Us
                     </div>
-                </a>
+                </Link>
 
-                <a href="/dashboard" className="nav-item">
+                <Link to="/dashboard" className="nav-item">
                     {isAuthenticated && (
                         <div
                             className="h-full font-medium px-6 rounded-full transition-all duration-200 hover:bg-lime-200">
                             Dashboard
                         </div>
                     )}
-                </a>
+                </Link>
 
                 <div
                     className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 font-medium content-center items-center align-middle">
