@@ -98,7 +98,7 @@ export default function Navbar() {
                     className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 font-medium content-center items-center align-middle">
                     {isAuthenticated ? (
                         <>
-                            <div className="text-sm text-gray-600">Welcome, {user.email}</div>
+                            <div className="text-xs text-gray-400">{user.email}</div>
                             <button onClick={logout}
                                     className="px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-full text-black bg-red-200 hover:bg-red-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Logout
                             </button>
