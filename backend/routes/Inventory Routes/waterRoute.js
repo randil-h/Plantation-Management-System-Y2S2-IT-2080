@@ -13,6 +13,8 @@ router.post('/', async (request, response) => {
             water_date,
             water_des
         } = request.body;
+
+        // Check if all required fields are present - validation
         if (!water_level1 || !water_level2 || !water_date || !water_des) {
             return response.status(400).send({
                 message: 'All required data must be provided',

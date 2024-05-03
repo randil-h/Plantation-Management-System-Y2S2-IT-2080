@@ -17,7 +17,7 @@ router.post('/', async (request, response) => {
             comment
         } = request.body;
 
-        // Check if all required fields are present
+        // Check if all required fields are present - validation
         if (!Eq_machine_main || !Eq_id_main || !date_referred || !date_received || !ref_loc || !status || !comment) {
             return response.status(400).send({
                 message: 'All required data must be provided',
@@ -38,8 +38,8 @@ router.post('/', async (request, response) => {
         return response.status(201).send(newInventoryRecord);
 
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
+        console.log('Error:', error);
+        response.status(500).send({ message: 'Internal Server Error' });
     }
 });
 
@@ -52,8 +52,8 @@ router.get('/', async (request, response) => {
             data: inventoryrecords
         });
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
+        console.log('Error:', error);
+        response.status(500).send({ message: 'Internal Server Error' });
     }
 });
 
@@ -73,8 +73,8 @@ router.get('/:id', async (request, response) => {
         }
         return response.status(200).json(inventoryrecord);
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
+        console.log('Error:', error);
+        response.status(500).send({ message: 'Internal Server Error' });
     }
 });
 
@@ -108,8 +108,8 @@ router.put('/:id', async (request, response) => {
 
         return response.status(200).send(updatedRecord);
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
+        console.log('Error:', error);
+        response.status(500).send({ message: 'Internal Server Error' });
     }
 });
 
@@ -124,8 +124,8 @@ router.delete('/:id', async (request, response) => {
         }
         return response.status(200).send({ message: 'Inventory record deleted successfully' });
     } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
+        console.log('Error:', error);
+        response.status(500).send({ message: 'Internal Server Error' });
     }
 });
 
