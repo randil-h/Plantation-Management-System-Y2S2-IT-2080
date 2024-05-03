@@ -453,6 +453,7 @@ const EditInventoryRecords = () => {
                                         id="quantity"
                                         name="quantity"
                                         onChange={handleChange}
+                                        min="1"
                                         value={formData.quantity}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                         required/>
@@ -470,6 +471,7 @@ const EditInventoryRecords = () => {
                                                 type="number"
                                                 name="size"
                                                 value={formData.size}
+                                                min="1"
                                                 onChange={handleChange}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 required/>
@@ -508,6 +510,7 @@ const EditInventoryRecords = () => {
                                         type="number"
                                         name="unit_price"
                                         value={formData.unit_price}
+                                        min="1"
                                         onChange={handleChange}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                         required/>
