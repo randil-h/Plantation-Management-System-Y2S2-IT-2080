@@ -99,20 +99,20 @@ const OrderPlacingForm = () => {
         <div className="mx-auto max-w-9xl px-4 lg:px-20">
             <form onSubmit={handleSubmit}>
                 {/* Product details */}
-                <div className="flex justify-start">
+                <div className="flex justify-center">
                     <div className="space-y-12">
-                        <h2 className="text-4xl font-semibold leading-7 text-gray-900 mt-4">{product.productName}</h2>
+                        <h2 className="text-5xl font-semibold leading-7 text-gray-900 mt-1">{product.productName}</h2>
                     </div>
                 </div>
                 {/* Product image and description */}
                 <div className="flex justify-start">
                     {/* Product image */}
                     <div className="space-y-12">
-                        <img className="h-auto max-w-lg rounded-lg mt-8" src={guava} alt="guava"/>
+                        <img className="h-auto max-w-lg rounded-lg mt-16" src={guava} alt="guava" width="450" height="450"/>
                     </div>
                     {/* Product description */}
                     <div className="space-y-12 ">
-                        <p className="text-[18px] ml-4 mt-16">{product.productDescription}</p>
+                        <p className="text-[18px] ml-4 mt-20">{product.productDescription}</p>
 
                         <div className="mt-4 ml-28">
                             <ul role="list"
