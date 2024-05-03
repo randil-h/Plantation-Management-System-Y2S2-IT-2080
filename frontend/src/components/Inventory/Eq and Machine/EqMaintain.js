@@ -176,8 +176,7 @@ const EqMaintain = () => {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="border border-gray-300 rounded-full px-3 py-1 w-full text-sm pl-10"
-                            style={{paddingRight: '2.5rem'}}
-                        />
+                            style={{paddingRight: '2.5rem'}}/>
                     </div>
                 </div>
                 <div>

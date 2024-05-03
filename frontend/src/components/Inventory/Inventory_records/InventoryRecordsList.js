@@ -182,8 +182,7 @@ const InventoryRecordList = () => {
                             value={searchQuery}
                             onChange={handleSearch}
                             className="border border-gray-300 rounded-full px-10 py-1 w-auto"
-                            style={{ paddingRight: '2.5rem' }}
-                        />
+                            style={{ paddingRight: '2.5rem' }}/>
                         <select
                             value={selectedFieldFilter}
                             onChange={handleFieldFilterChange}
