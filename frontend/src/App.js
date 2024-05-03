@@ -27,7 +27,7 @@ import SalaryPayments from "./pages/finance_pages/salary_payments/SalaryPayments
 import ViewPastRecords from "./pages/finance_pages/salary_payments/ViewPastRecords";
 
 import MachineHours from "./pages/finance_pages/machine_hours/MachineHours";
-import AddNewMachineRecord from "./pages/finance_pages/machine_hours/AddNewMachineRecord";
+import AddNewMachineTask from "./pages/finance_pages/machine_hours/AddNewMachineTask";
 import EditMachineRecord from "./pages/finance_pages/machine_hours/EditMachineRecord";
 import ViewMachineRecord from "./pages/finance_pages/machine_hours/ViewMachineRecord";
 
@@ -133,8 +133,8 @@ export default function App() {
         <KindeProvider
             clientId="398e8a2c8e8744c492bc437b4890c8c7"
             domain="https://elemahana.kinde.com"
-            redirectUri="http://localhost:3000"
-            logoutUri="http://localhost:3000"
+            redirectUri="https://elemahana.vercel.app"
+            logoutUri="https://elemahana.vercel.app"
         >
         <div className="App">
             {loading ? (
@@ -169,7 +169,7 @@ export default function App() {
                     <Route path="/finances/valuation/deleteValuation" element={<Valuation />} />
 
                     <Route path="/finances/machineHours" element={<MachineHours />} />
-                    <Route path="/finances/machineHours/addMachineRecords" element={<AddNewMachineRecord />} />
+                    <Route path="/finances/machineHours/addMachineRecords" element={<AddNewMachineTask />} />
                     <Route path="/finances/machineHours/editMachineRecords/:id" element={<EditMachineRecord />} />
                     <Route path="/finances/machineHours/viewMachineRecords/:id" element={<ViewMachineRecord />} />
 
