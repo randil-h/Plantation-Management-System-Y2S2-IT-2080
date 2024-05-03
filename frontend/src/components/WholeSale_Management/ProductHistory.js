@@ -98,15 +98,9 @@ const ProductHistory = () =>{
                 <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
                     <div className="flex justify-betwee">
                         <div className="space-y-12">
-                            <h2 className="py-1 px-10 text-xl font-semibold leading-7 right-3 text-gray-900 mt-4">Product
-                                Management</h2>
-                            <div className="px-6">
-                                <a href="/OperationManager/AddingProduct"
-                                   className="mt-10 block rounded-md bg-black px-8 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
-                                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 left-2"> Add
-                                    a Product
-                                </a>
-                            </div>
+                            <h1 className="py-1 px-10 text-3xl font-semibold leading-7 right-3 text-gray-900 mt-4">Product
+                                Management</h1>
+
                             <button
                                 onClick={generatePDF}
                                 className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
@@ -116,6 +110,13 @@ const ProductHistory = () =>{
                             </button>
                         </div>
 
+                    </div>
+                    <div className="px-6">
+                        <a href="/OperationManager/AddingProduct"
+                           className="mt-10 block rounded-md bg-black px-8 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-black-300
+                                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black-300 left-2"> Add
+                            a Product
+                        </a>
                     </div>
                 </div>
                 <div className="mt-10">

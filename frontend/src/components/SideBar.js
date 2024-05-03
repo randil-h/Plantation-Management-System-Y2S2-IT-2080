@@ -105,7 +105,7 @@ export default function SideBar() {
         { name: "Disease Tracking", path: "/diseases/home", icon: PiVirus },
         { name: "Harvest", path: "/harvest/home", icon: PiTree },
         { name: "Bookings", path: "/allBookings", icon: HiMiniCalendarDays},
-        { name: "Products", path: "/wholesale/dashboard/home", icon: GiFruitTree},
+        { name: "Products", path: "/wholesaleDashboard", icon: GiFruitTree},
 
     ];
 
