@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
-import {useSnackbar} from "notistack";
+import {enqueueSnackbar,useSnackbar} from "notistack";
 
 export default function UpdateDisease() {
     const [disease_name, setName] = useState('');
@@ -99,7 +99,7 @@ export default function UpdateDisease() {
                 //if treatment available
                 if(response.data.available) {
                     axios
-                        .put(`https://elemahana-backend.vercel.app/diseases/${id}`, data)
+                        .put(`http://localhost:5555/diseases/${id}`, data)
                         .then(() => {
                             setLoading(false);
                             enqueueSnackbar('Record Updated successfully', { variant: 'success' });
