@@ -125,7 +125,6 @@ export default function Navbar() {
                             <UserCircleIcon className="w-6 h-6"/>
                         </>
                     )}
-                    <UserCircleIcon className="w-6 h-6"/>
                 </div>
 
             </nav>
