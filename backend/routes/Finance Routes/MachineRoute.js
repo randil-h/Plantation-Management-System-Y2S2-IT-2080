@@ -7,27 +7,29 @@ const router = express.Router();
 router.post('/', async (request, response) => {
     try {
         if (
-            !request.body.date ||
+            !request.body.start_date ||
+            !request.body.name ||
             !request.body.type ||
-            !request.body.hours_nos ||
             !request.body.rate ||
+            !request.body.payee ||
             !request.body.description ||
-            !request.body.payer_payee ||
-            !request.body.paid
+            !request.body.total_amount ||
+            !request.body.paid_amount
         ) {
             return response.status(400).send({
-                message: 'Send all required fields: date, type, amount',
+                message: 'Send all required fields',
             });
         }
 
         const NewMachinesRecord = {
-            date: request.body.date,
+            start_date: request.body.start_date,
+            name: request.body.name,
             type: request.body.type,
-            hours_nos: request.body.hours_nos,
             rate: request.body.rate,
+            payee: request.body.payee,
             description: request.body.description,
-            payer_payee: request.body.payer_payee,
-            paid: request.body.paid,
+            total_amount: request.body.total_amount,
+            paid_amount: request.body.paid_amount,
         };
 
         const MachineRecord = await MachinesRecord.create(NewMachinesRecord);
@@ -73,16 +75,17 @@ router.get('/:id', async (request, response) => {
 router.put('/:id', async (request, response) => {
     try {
         if (
-            !request.body.date ||
+            !request.body.start_date ||
+            !request.body.name ||
             !request.body.type ||
-            !request.body.hours_nos ||
             !request.body.rate ||
+            !request.body.payee ||
             !request.body.description ||
-            !request.body.payer_payee ||
-            !request.body.paid
+            !request.body.total_amount ||
+            !request.body.paid_amount
         ) {
             return response.status(400).send({
-                message: 'Send all required fields: title, author, publishYear',
+                message: 'Send all required fields',
             });
         }
 
