@@ -22,10 +22,10 @@ function Breadcrumb({ items }) {
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
                             </svg>
                         </div>
-                        <a href={item.href} className="inline-flex items-center text-sm font-normal text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500">
+                        <Link to={item.href} className="inline-flex items-center text-sm font-normal text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500">
                             {/* Render the name of the breadcrumb item */}
                             {item.name}
-                        </a>
+                        </Link>
                     </li>
                 ))}
             </ol>

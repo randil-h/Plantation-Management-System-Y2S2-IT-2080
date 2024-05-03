@@ -26,6 +26,7 @@ import {
     Cog6ToothIcon,
 } from '@heroicons/react/24/solid';
 import { MdOutlineInventory2 } from "react-icons/md";
+import { GiFruitTree } from "react-icons/gi";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -104,6 +105,8 @@ export default function SideBar() {
         { name: "Disease Tracking", path: "/diseases/home", icon: PiVirus },
         { name: "Harvest", path: "/harvest/home", icon: PiTree },
         { name: "Bookings", path: "/allBookings", icon: HiMiniCalendarDays},
+        { name: "Products", path: "/wholesaleDashboard", icon: GiFruitTree},
+
     ];
 
     const systemItems = [

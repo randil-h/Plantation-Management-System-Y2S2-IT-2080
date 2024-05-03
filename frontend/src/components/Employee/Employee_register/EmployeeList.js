@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-
 import axios from 'axios';
 import {
     PencilSquareIcon,
     TrashIcon,
-    InformationCircleIcon, MagnifyingGlassIcon
-} from '@heroicons/react/24/outline'
-import {Link} from "react-router-dom";
-import html2canvas from "html2canvas";
-import {jsPDF} from "jspdf";
-import {enqueueSnackbar, useSnackbar} from "notistack";
-import {StyleSheet} from "@react-pdf/renderer";
+    InformationCircleIcon,
+    MagnifyingGlassIcon,
+} from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
+import { enqueueSnackbar, useSnackbar } from 'notistack';
+import { StyleSheet } from '@react-pdf/renderer';
 
 const pdfStyles = StyleSheet.create({
     page: {
@@ -20,25 +20,24 @@ const pdfStyles = StyleSheet.create({
     section: {
         margin: 10,
         padding: 10,
-        flexGrow: 1
-    }
+        flexGrow: 1,
+    },
 });
 
 const EmployeeList = () => {
-
     const [RegistrationRecords, setRegistrationRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
-    const {enqueueSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const [selectedTypeFilter, setSelectedTypeFilter] = useState('All Types');
-
+    const [filteredEmployeeRecords, setFilteredEmployeeRecords] = useState([]);
 
     useEffect(() => {
         setLoading(true);
         axios
             .get(`https://elemahana-backend.vercel.app/employeeRecords`)
             .then((response) => {
-                setRegistrationRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
+                setRegistrationRecords(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -47,18 +46,32 @@ const EmployeeList = () => {
             });
     }, []);
 
+    const getFilteredEmployeeRecords = (searchQuery, selectedTypeFilter) => {
+        const filtered = RegistrationRecords.filter((record) => {
+            const fullName = `${record.f_name} ${record.l_name}`.toLowerCase();
+            return (
+                fullName.includes(searchQuery.toLowerCase()) &&
+                (selectedTypeFilter === 'All Types' || record.emp_type === selectedTypeFilter)
+            );
+        });
+        setFilteredEmployeeRecords(filtered);
+    };
+
+    useEffect(() => {
+        getFilteredEmployeeRecords(searchQuery, selectedTypeFilter);
+    }, [searchQuery, selectedTypeFilter]);
+
+
     const handleDelete = (id) => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this registration record?");
+        const confirmDelete = window.confirm('Are you sure you want to delete this registration record?');
         if (confirmDelete) {
             setLoading(true);
             axios
                 .delete(`https://elemahana-backend.vercel.app/employeeRecords/${id}`)
                 .then(() => {
-                    
-                    setRegistrationRecords(prevRecords => prevRecords.filter(record => record._id !== id));
+                    setRegistrationRecords((prevRecords) => prevRecords.filter((record) => record._id !== id));
                     setLoading(false);
                     enqueueSnackbar('Record Deleted successfully', { variant: 'success' });
-
                 })
                 .catch((error) => {
                     console.log(error);
@@ -67,7 +80,6 @@ const EmployeeList = () => {
         }
     };
 
-
     const filteredRecords = RegistrationRecords.filter((record) =>
         Object.values(record).some((value) => {
             if (typeof value === 'string' || typeof value === 'number') {
@@ -75,11 +87,10 @@ const EmployeeList = () => {
                 return String(value).toLowerCase().includes(searchQuery.toLowerCase());
             }
             return false;
-        })  && (selectedTypeFilter === 'All Types' || record.emp_type === selectedTypeFilter)
+        }) && (selectedTypeFilter === 'All Types' || record.emp_type === selectedTypeFilter)
     );
 
-    const employeeTypes = [...new Set(RegistrationRecords.map(record => record.emp_type))];
-
+    const employeeTypes = [...new Set(RegistrationRecords.map((record) => record.emp_type))];
 
     const generatePDF = () => {
         const input = document.getElementById('registration-table');
@@ -93,7 +104,8 @@ const EmployeeList = () => {
 
                     const recordCount = filteredRecords.length;
                     const pageWidth = pdf.internal.pageSize.getWidth();
-                    const textWidth = pdf.getStringUnitWidth('Employee Details') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                    const textWidth =
+                        pdf.getStringUnitWidth('Employee Details') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
                     const centerPosition = (pageWidth - textWidth) / 2;
 
                     pdf.setFontSize(16);
@@ -120,18 +132,16 @@ const EmployeeList = () => {
     };
 
     function getBorderColorClass(emp_type) {
-        return subtypeBorderColorMap[emp_type] || "border-gray-200";
+        return subtypeBorderColorMap[emp_type] || 'border-gray-200';
     }
 
     const subtypeBorderColorMap = {
-        permanent: "border-cyan-400",
-        contract: "border-yellow-400",
-        trainee: "border-red-400",
-        seasonal: "border-purple-400",
-        casual: "border-lime-400",
+        permanent: 'border-cyan-400',
+        contract: 'border-yellow-400',
+        trainee: 'border-red-400',
+        seasonal: 'border-purple-400',
+        casual: 'border-lime-400',
     };
-
-
         return (
             <div className=" overflow-x-auto  ">
 

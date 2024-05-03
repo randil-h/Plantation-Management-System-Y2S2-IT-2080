@@ -86,7 +86,7 @@ const AllBookings = () => {
         setBookingRecords(filteredRecords);
     };
     const handlePrint = () => {
-        const doc = new jsPDF('l', 'pt', 'a4');
+        const doc = new jsPDF('l', 'mm', 'a4'); // Change units to 'mm' and paper size to 'a4'
         doc.setFontSize(12);
 
         const headers = [
@@ -117,40 +117,28 @@ const AllBookings = () => {
             calculateTotalPayment(record),
         ]);
 
-        const styles = {
-            header: {
-                fillColor: [202, 202, 202],
-                textColor: [0, 0, 0],
-                fontStyle: 'bold',
-            },
-            alternateRow: {
-                fillColor: [240, 240, 240],
-            },
-        };
+        const currentDate = new Date().toLocaleString('en-GB');
+        const recordCount = bookingRecords.length;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const textWidth = doc.getStringUnitWidth('Booking Details') * doc.internal.getFontSize() / doc.internal.scaleFactor;
+        const centerPosition = (pageWidth - textWidth) / 2;
+
+        doc.setFontSize(16);
+        doc.text('All Bookings', centerPosition, 10); // Add topic text centered
+        doc.setFontSize(12);
+        doc.text(`As At: ${currentDate}`, centerPosition, 20); // Add current date centered
+        doc.text(`Number of Bookings: ${recordCount}`, 10, 40); // Add total bookings count
 
         doc.autoTable({
             head: [headers],
             body: data,
-            styles: styles,
-            headStyles: { fillColor: [128, 128, 128] },
-            alternateRowStyles: { fillColor: [240, 240, 240] },
-            columnStyles: {
-                0: { halign: 'center' },
-                1: { halign: 'center' },
-                2: { halign: 'left' },
-                3: { halign: 'center' },
-                4: { halign: 'center' },
-                5: { halign: 'left' },
-                6: { halign: 'center' },
-                7: { halign: 'center' },
-                8: { halign: 'left' },
-                9: { halign: 'center' },
-                10: { halign: 'right' },
-            },
+            startY: 50, // Adjust start Y position if needed
+            theme: 'grid', // Add grid theme for table borders
         });
 
-        doc.save('booking-list.pdf');
+        doc.save(`Booking-list_generatedAt_${currentDate}.pdf`);
     };
+
     const handleDelete = (recordId) => {
         axios
             .delete(`https://elemahana-backend.vercel.app/booking/${recordId}`)
@@ -230,15 +218,15 @@ const AllBookings = () => {
                        className="w-10/12 bg-white shadow-md rounded-md overflow-hidden  top-1/3 mb-10">
                     <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
                     <tr>
-                        <th className="px-6 py-3">No</th>
-                        <th className="px-6 py-3">Date</th>
-                        <th className="px-6 py-3">Name</th>
-                        <th className="px-6 py-3">Tel No</th>
-                        <th className="px-6 py-3">NIC No</th>
-                        <th className="px-6 py-3">Email</th>
-                        <th className="px-6 py-3">Type</th>
-                        <th className="px-6 py-3">No Of People</th>
-                        <th className="px-6 py-3">Package</th>
+                        <th className="px-0.5 py-1">No</th>
+                        <th className="px-0.5 py-1">Date</th>
+                        <th className="px-0.5 py-1">Name</th>
+                        <th className="px-0.5 py-1">Tel No</th>
+                        <th className="px-0.5 py-1">NIC No</th>
+                        <th className="px-0.5 py-1">Email</th>
+                        <th className="px-0.5 py-1">Type</th>
+                        <th className="px-0.5 py-1">No Of People</th>
+                        <th className="px-0.5 py-1">Package</th>
                         {/* Conditionally show the column based on the selected package */}
                         {bookingRecords.some(record => record.selectedPackage === 'guidedFarmTour') && (
                             <th className="px-6 py-3">Number of Days</th>
@@ -250,15 +238,15 @@ const AllBookings = () => {
                     <tbody>
                     {bookingRecords.map((record, index) => (
                         <tr className="hover:bg-gray-100 divide-y divide-gray-200 text-sm" key={index}>
-                            <td className="px-6 py-3">{index + 1}</td>
-                            <td className="px-6 py-3">{new Date(record.date).toLocaleDateString('en-GB')}</td>
-                            <td className="px-6 py-3">{record.name}</td>
-                            <td className="px-6 py-3">{record.telNo}</td>
-                            <td className="px-6 py-3">{record.nicNo}</td>
-                            <td className="px-6 py-3">{record.email}</td>
-                            <th className="px-6 py-3">{mapVisitorType(record.visitorType)}</th>
-                            <th className="px-6 py-3">{record.numberOfPeople}</th>
-                            <td className="px-6 py-3">{mapPackageName(record.selectedPackage)}</td>
+                            <td className="px-3 py-1">{index + 1}</td>
+                            <td className="px-3 py-1">{new Date(record.date).toLocaleDateString('en-GB')}</td>
+                            <td className="px-3 py-1">{record.name}</td>
+                            <td className="px-3 py-1">{record.telNo}</td>
+                            <td className="px-3 py-1">{record.nicNo}</td>
+                            <td className="px-3 py-1">{record.email}</td>
+                            <th className="px-3 py-1">{mapVisitorType(record.visitorType)}</th>
+                            <th className="px-3 py-1">{record.numberOfPeople}</th>
+                            <td className="px-3 py-1">{mapPackageName(record.selectedPackage)}</td>
                             {/* Conditionally show the column based on the selected package */}
                             {record.selectedPackage === 'guidedFarmTour' && (
                                 <td className="py-2 px-4 border border-gray-400">{record.numberOfDays}</td>

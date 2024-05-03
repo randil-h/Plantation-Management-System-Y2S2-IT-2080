@@ -86,46 +86,57 @@ const BookingList = () => {
         setBookingRecords(filteredRecords);
     };
     const handlePrint = () => {
-        const input = document.getElementById('booking-table');
+        const doc = new jsPDF('l', 'mm', 'a4'); // Change units to 'mm' and paper size to 'a4'
+        doc.setFontSize(12);
 
-        // Hide the Actions column
-        const actionsColumn = input.querySelector('.actions-column');
-        if (actionsColumn) {
-            actionsColumn.style.display = 'none';
-        }
+        const headers = [
+            'No',
+            'Date',
+            'Name',
+            'Tel No',
+            'NIC No',
+            'Email',
+            'Type',
+            'No Of People',
+            'Package',
+            bookingRecords.some(record => record.selectedPackage === 'guidedFarmTour') ? 'Number of Days' : '',
+            'Paid Amount',
+        ];
 
-        // Hide the entire last column
-        const lastColumnCells = input.querySelectorAll('tbody tr td:last-child');
-        lastColumnCells.forEach((cell) => {
-            cell.style.display = 'none';
+        const data = bookingRecords.map((record, index) => [
+            index + 1,
+            new Date(record.date).toLocaleDateString('en-GB'),
+            record.name,
+            record.telNo,
+            record.nicNo,
+            record.email,
+            mapVisitorType(record.visitorType),
+            record.numberOfPeople,
+            mapPackageName(record.selectedPackage),
+            record.selectedPackage === 'guidedFarmTour' ? record.numberOfDays : '',
+            calculateTotalPayment(record),
+        ]);
+
+        const currentDate = new Date().toLocaleString('en-GB');
+        const recordCount = bookingRecords.length;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const textWidth = doc.getStringUnitWidth('Booking Details') * doc.internal.getFontSize() / doc.internal.scaleFactor;
+        const centerPosition = (pageWidth - textWidth) / 2;
+
+        doc.setFontSize(16);
+        doc.text('My Booking Details', centerPosition, 10); // Add topic text centered
+        doc.setFontSize(12);
+        doc.text(`As At: ${currentDate}`, centerPosition, 20); // Add current date centered
+        doc.text(`Number of Bookings: ${recordCount}`, 10, 40); // Add total bookings count
+
+        doc.autoTable({
+            head: [headers],
+            body: data,
+            startY: 50, // Adjust start Y position if needed
+            theme: 'grid', // Add grid theme for table borders
         });
 
-        html2canvas(input, { scrollY: -window.scrollY })
-            .then((canvas) => {
-                // Restore the Actions column
-                if (actionsColumn) {
-                    actionsColumn.style.display = '';
-                }
-
-                // Restore the entire last column
-                lastColumnCells.forEach((cell) => {
-                    cell.style.display = '';
-                });
-
-                const imgData = canvas.toDataURL('image/png');
-
-                // Define PDF dimensions and orientation
-                const pdf = new jsPDF('l', 'mm', 'a4'); // 'l' for landscape orientation
-
-                // Add image to PDF
-                pdf.addImage(imgData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
-
-                // Save PDF
-                pdf.save('booking-list.pdf');
-            })
-            .catch((error) => {
-                console.error('Error capturing screenshot:', error);
-            });
+        doc.save(`Booking-list_generatedAt_${currentDate}.pdf`);
     };
     const handleDelete = (recordId) => {
         axios
