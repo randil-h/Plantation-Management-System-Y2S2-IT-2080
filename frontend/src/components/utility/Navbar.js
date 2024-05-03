@@ -115,12 +115,6 @@ export default function Navbar() {
 
             </nav>
 
-            {/* Include your additional code here */}
-            {/* For example, you can add a div to display additional content */}
-            <div className="bg-gray-100 p-4">
-                <h1 className="text-lg font-semibold">Additional Content</h1>
-                <p>This is some additional content you want to include in the Navbar.</p>
-            </div>
         </header>
     );
 }
