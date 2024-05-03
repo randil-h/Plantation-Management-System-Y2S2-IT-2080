@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaUsers, FaUserPlus, FaTasks, FaCalendarPlus, FaRegUser, FaCheckSquare } from "react-icons/fa";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 function Emphome() {
     const [loading, setLoading] = useState(false);
@@ -55,9 +56,9 @@ function Emphome() {
             <div className="section mb-8">
                 <div className="section-header flex justify-between items-center mb-8">
                     <h2 className="text-xl font-semibold">Employee Registration</h2>
-                    <a href="/employees/registration" className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition duration-300">
+                    <Link to="/employees/registration" className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition duration-300">
                         View All Employees
-                    </a>
+                    </Link>
                 </div>
                 <div className="section-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-between">
                     <div className="card bg-lime-300 p-6 hover:bg-lime-400 shadow-lg transition-shadow duration-300 ease-in-out rounded-lg w-80 h-56 flex flex-col items-center justify-center space-y-3 ml-24">
@@ -80,9 +81,9 @@ function Emphome() {
             <div className="section mb-8">
                 <div className="section-header flex justify-between items-center mb-8">
                     <h2 className="text-xl font-semibold">Assign Tasks</h2>
-                    <a href="/employees/tasks" className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition duration-300">
+                    <Link to="/employees/tasks" className="bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition duration-300">
                         View All Tasks
-                    </a>
+                    </Link>
                 </div>
                 <div className="section-content grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-between">
                     <div

@@ -1,5 +1,6 @@
 import React from 'react';
 import { HomeIcon } from '@heroicons/react/24/outline';
+import {Link} from "react-router-dom";
 
 function Breadcrumb({ items }) {
     return (
@@ -8,9 +9,9 @@ function Breadcrumb({ items }) {
                 {/* Render the Home icon with the specified path */}
                 <li className="inline-flex items-center">
                     <HomeIcon className="w-4 h-4 mr-1 text-gray-700 dark:text-gray-400" />
-                    <a href="/dashboard" className="inline-flex items-center text-sm font-normal text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500">
+                    <Link to="/dashboard" className="inline-flex items-center text-sm font-normal text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500">
                         Dashboard
-                    </a>
+                    </Link>
                 </li>
                 {/* Render other breadcrumb items */}
                 {items.map((item, index) => (

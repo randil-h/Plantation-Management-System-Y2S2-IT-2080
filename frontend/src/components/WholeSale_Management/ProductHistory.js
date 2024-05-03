@@ -98,11 +98,11 @@ const ProductHistory = () =>{
                 <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
                     <div className="flex justify-betwee">
                         <div className="px-6">
-                            <a href="/OperationManager/AddingProduct"
+                            <Link to="/OperationManager/AddingProduct"
                                className="mt-10 block rounded-md bg-black px-8 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
                                        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 left-2"> Add
                                 a Product
-                            </a>
+                            </Link>
                         </div>
 
                         <button

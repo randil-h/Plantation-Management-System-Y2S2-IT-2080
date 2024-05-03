@@ -36,12 +36,12 @@ export default function ViewPlantingPage() {
                                 id="plantingButton"
                                 className="bg-lime-500 text-black px-4 py-2 rounded-l-lg hover:bg-lime-400 h-12 "> Planting
                             </button>
-                            <a href="/crop/input/chemical/view">
+                            <Link to="/crop/input/chemical/view">
                                 <button
                                     id="chemicalButton"
                                     className="bg-gray-300 text-black px-4 py-2 rounded-r-lg hover:bg-gray-400 h-12">Agrochemical
                                 </button>
-                            </a>
+                            </Link>
                             <div id="plantingList">
                                 <PlantingList/>
                             </div>

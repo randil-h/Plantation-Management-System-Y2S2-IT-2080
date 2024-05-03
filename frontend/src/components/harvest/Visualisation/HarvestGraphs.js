@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { select, scaleBand, scaleLinear, axisBottom, axisLeft, line, curveMonotoneX, scaleTime } from "d3";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import {Link} from "react-router-dom";
 
 
 export default function HarvestGraphs() {
@@ -381,7 +382,7 @@ export default function HarvestGraphs() {
             </div>
             {HarvestRecords.length === 0 ? (
                 <div className=" text-base font-semibold text-left px-8">
-                    There is no data available to generate graphs.. <a href="/diseases/records/addDisease" className=" text-lime-400"> Click here</a>
+                    There is no data available to generate graphs.. <Link to="/diseases/records/addDisease" className=" text-lime-400"> Click here</Link>
                 </div>
             ) : (
                 <>

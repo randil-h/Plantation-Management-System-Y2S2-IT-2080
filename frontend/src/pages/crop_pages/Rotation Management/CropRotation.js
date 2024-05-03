@@ -21,7 +21,7 @@ export default function CropRotation() {
                         <CropNavigation/>
                     </div>
                     <div className="fixed top-36 right-5 z-10">
-                        <a href="/crop/rotation/add"
+                        <Link to="/crop/rotation/add"
                            className="inline-flex items-center justify-center rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                             Record crop rotation <span aria-hidden="true" className="ml-1">&rarr;</span>
                         </a>
