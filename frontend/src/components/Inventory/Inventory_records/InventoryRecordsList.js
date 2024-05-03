@@ -72,21 +72,17 @@ const InventoryRecordList = () => {
         setFilteredRecords(
             inventoryInputs.filter((record) => {
                 const sizeString = String(record.size);
+                const values = Object.values(record).map((value) =>
+                    value ? value.toString().toLowerCase() : ''
+                );
 
-                const matchesSearchQuery =
-                    (record.type && record.type.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                    (record.record_ID && record.record_ID.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                    (record.record_name && record.record_name.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                    (record.storage && record.storage.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                    (sizeString && sizeString.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                    (record.unit && record.unit.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                    (record.quantity && record.quantity.toString().toLowerCase().includes(searchQuery.toLowerCase())) ||
-                    (record.expire_date && record.expire_date.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                    (record.description && record.description.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                    (record.ava_status && record.ava_status.toLowerCase().includes(searchQuery.toLowerCase()));
+                const matchesSearchQuery = values.some((value) =>
+                    value.includes(searchQuery.toLowerCase())
+                );
 
                 return (
-                    (selectedFieldFilter === 'All Types' || record.type.toLowerCase() === selectedFieldFilter.toLowerCase()) &&
+                    (selectedFieldFilter === 'All Types' ||
+                        record.type.toLowerCase() === selectedFieldFilter.toLowerCase()) &&
                     matchesSearchQuery
                 );
             })

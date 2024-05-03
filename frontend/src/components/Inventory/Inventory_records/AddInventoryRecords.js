@@ -82,7 +82,7 @@ export default function AddInventoryRecords() {
                     type: 'expense',
                     subtype: 'Inventory Fee',
                     amount: formData.quantity * formData.unit_price,
-                    description: `Quantity purchased - ${formData.quantity}\n${formData.description}`,
+                    description: `${formData.record_name} , Quantity purchased - ${formData.quantity}`,
                     payer_payee: formData.payer,
                     method: 'Automated Entry',
                 };
