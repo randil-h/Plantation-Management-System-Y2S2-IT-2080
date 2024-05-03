@@ -94,7 +94,7 @@ export default function AddDisease() {
                 //if treatment available
                 if(response.data.available) {*/
                     axios
-                        .post(`http://localhost:5555/diseases`, data)
+                        .post(`https://elemahana-backend.vercel.app/diseases`, data)
                         .then(() => {
                             setLoading(false);
                             navigate('/diseases/records');

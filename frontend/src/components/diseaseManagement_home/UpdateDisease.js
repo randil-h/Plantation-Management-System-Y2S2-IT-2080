@@ -99,7 +99,7 @@ export default function UpdateDisease() {
                 //if treatment available
                 if(response.data.available) {
                     axios
-                        .put(`http://localhost:5555/diseases/${id}`, data)
+                        .put(`https://elemahana-backend.vercel.app/diseases/${id}`, data)
                         .then(() => {
                             setLoading(false);
                             enqueueSnackbar('Record Updated successfully', { variant: 'success' });
