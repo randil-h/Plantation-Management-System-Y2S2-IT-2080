@@ -17,7 +17,7 @@ function classNames(...classes) {
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading } = useKindeAuth();
+    const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
 
     useEffect(() => {
         const handleRedirectCallback = async () => {
@@ -32,6 +32,21 @@ export default function Navbar() {
 
         handleRedirectCallback();
     }, [onRedirectCallback]);
+
+    const fetchData = async () => {
+        try {
+            const accessToken = await getToken();
+            const res = await fetch(`https://elemahana.kinde.com/api`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+            const { data } = await res.json();
+            console.log({ data });
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     if (isLoading) {
         return <p>Loading</p>;
@@ -64,11 +79,16 @@ export default function Navbar() {
                         Us
                     </div>
                 </a>
+
                 <a href="/dashboard" className="nav-item">
-                    <div
-                        className="h-full font-medium px-6 rounded-full transition-all duration-200 hover:bg-lime-200">Dashboard
-                    </div>
+                    {isAuthenticated && (
+                        <div
+                            className="h-full font-medium px-6 rounded-full transition-all duration-200 hover:bg-lime-200">
+                            Dashboard
+                        </div>
+                    )}
                 </a>
+
                 <div
                     className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 font-medium content-center items-center align-middle">
                     {isAuthenticated ? (
@@ -94,6 +114,13 @@ export default function Navbar() {
                 </div>
 
             </nav>
+
+            {/* Include your additional code here */}
+            {/* For example, you can add a div to display additional content */}
+            <div className="bg-gray-100 p-4">
+                <h1 className="text-lg font-semibold">Additional Content</h1>
+                <p>This is some additional content you want to include in the Navbar.</p>
+            </div>
         </header>
     );
 }
