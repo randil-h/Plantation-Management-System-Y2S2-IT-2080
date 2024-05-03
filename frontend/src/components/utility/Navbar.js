@@ -1,5 +1,7 @@
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 import { Fragment, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
 import {
     Bars3Icon,
@@ -19,6 +21,8 @@ function classNames(...classes) {
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
+    const location = useLocation();
+
 
     useEffect(() => {
         const handleRedirectCallback = async () => {
