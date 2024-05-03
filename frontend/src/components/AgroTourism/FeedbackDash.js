@@ -145,7 +145,7 @@ export default function FeedbackDashboard() {
 
     const handleGeneratePDF = () => {
         const ratingsCount = new Map();
-
+        const rowCount = feedbackData.length
         feedbackData.forEach((feedback) => {
             const rating = feedback.rating;
             ratingsCount.set(
@@ -154,21 +154,16 @@ export default function FeedbackDashboard() {
             );
         });
 
-        let dataString = 'Rating Analysis\n\n';
+        let dataString = `Total number of Ratings: ${rowCount}
+
+`;
 
         ratingsCount.forEach((count, rating) => {
             dataString += `Rating: ${rating}, Number of Ratings: ${count}\n`;
         });
 
-        let tempFeedbackString = 'Latest Feedbacks \n\n';
-
-        feedbackData.slice(-10).forEach((feedback, index) => {
-            tempFeedbackString += `Feedback ${index + 1}:\n`;
-            tempFeedbackString += `Email: ${feedback.email}\n`;
-            tempFeedbackString += `Rating: ${feedback.rating}\n\n`;
-        });
-
-        const pdf = new jsPDF();
+        const currentDate = new Date().toLocaleString('en-GB');
+        const pdf = new jsPDF('p', 'mm', 'a4');
 
         // Add Title
         pdf.setFontSize(20);
@@ -178,11 +173,35 @@ export default function FeedbackDashboard() {
         pdf.setFontSize(12);
         pdf.text(dataString, 10, 30);
 
-        // Add the feedback data below the ratings data with reduced spacing
+        // Add the "Latest Feedbacks" topic
         pdf.setFontSize(12);
-        pdf.text(tempFeedbackString, 10, 80); // Adjusted vertical offset
+        pdf.text('Latest Feedbacks', 10, 73);
 
-        pdf.save('feedback-analysis.pdf');
+        // Add the feedback data as a table
+        const headers = ['No', 'Name', 'Email', 'Feedback', 'Rating'];
+        const data = feedbackData.slice(-10).map((feedback, index) => [
+            index + 1,
+            feedback.name || '', // Add fallback value if name is undefined
+            feedback.email,
+            feedback.feedback || '', // Add fallback value if feedback is undefined
+            feedback.rating,
+        ]);
+
+        pdf.autoTable({
+            head: [headers],
+            body: data,
+            startY: 80, // Adjust start Y position if needed
+            theme: 'grid', // Add grid theme for table borders
+            columnStyles: {
+                0: { halign: 'center' },
+                1: { halign: 'left' },
+                2: { halign: 'left' },
+                3: { halign: 'left' },
+                4: { halign: 'center' },
+            },
+        });
+
+        pdf.save(`feedback-analysis_${currentDate}.pdf`);
     };
 
 
