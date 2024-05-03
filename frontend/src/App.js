@@ -135,6 +135,11 @@ export default function App() {
             domain="https://elemahana.kinde.com"
             redirectUri="https://elemahana.vercel.app"
             logoutUri="https://elemahana.vercel.app"
+            onRedirectCallback={(user, app_state) => {
+                if (app_state?.redirectTo) {
+                    window.location = app_state?.redirectTo;
+                }
+            }}
         >
         <div className="App">
             {loading ? (

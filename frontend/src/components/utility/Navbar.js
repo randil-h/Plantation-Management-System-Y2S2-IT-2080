@@ -103,7 +103,14 @@ export default function Navbar() {
                             <button onClick={register} type="button"
                                     className="px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-full text-black bg-lime-200 transition-all duration-200  hover:bg-lime-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500">Register
                             </button>
-                            <button onClick={() => login({authUrlParams: {login_hint: "john@exmail.com"}})}
+                            <button onClick={() => login(
+                                {
+                                    authUrlParams: {login_hint: "john@exmail.com"},
+                                    app_state: {
+                                        redirectTo: location.state ? location.state?.from?.pathname : null
+                                    }
+                                }
+                                )}
                                     type="button"
                                     className="px-3 py-1 border border-lime-500 text-sm leading-4 font-medium rounded-full text-black transition-all duration-200 hover:bg-lime-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lime-500">Log
                                 In
