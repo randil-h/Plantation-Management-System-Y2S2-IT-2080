@@ -86,7 +86,7 @@ const AllBookings = () => {
         setBookingRecords(filteredRecords);
     };
     const handlePrint = () => {
-        const doc = new jsPDF('l', 'pt', 'a4');
+        const doc = new jsPDF('l', 'mm', 'a4'); // Change units to 'mm' and paper size to 'a4'
         doc.setFontSize(12);
 
         const headers = [
@@ -117,40 +117,28 @@ const AllBookings = () => {
             calculateTotalPayment(record),
         ]);
 
-        const styles = {
-            header: {
-                fillColor: [202, 202, 202],
-                textColor: [0, 0, 0],
-                fontStyle: 'bold',
-            },
-            alternateRow: {
-                fillColor: [240, 240, 240],
-            },
-        };
+        const currentDate = new Date().toLocaleString('en-GB');
+        const recordCount = bookingRecords.length;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const textWidth = doc.getStringUnitWidth('Booking Details') * doc.internal.getFontSize() / doc.internal.scaleFactor;
+        const centerPosition = (pageWidth - textWidth) / 2;
+
+        doc.setFontSize(16);
+        doc.text('Booking Details', centerPosition, 10); // Add topic text centered
+        doc.setFontSize(12);
+        doc.text(`As At: ${currentDate}`, centerPosition, 20); // Add current date centered
+        doc.text(`Number of Bookings: ${recordCount}`, 10, 40); // Add total bookings count
 
         doc.autoTable({
             head: [headers],
             body: data,
-            styles: styles,
-            headStyles: { fillColor: [128, 128, 128] },
-            alternateRowStyles: { fillColor: [240, 240, 240] },
-            columnStyles: {
-                0: { halign: 'center' },
-                1: { halign: 'center' },
-                2: { halign: 'left' },
-                3: { halign: 'center' },
-                4: { halign: 'center' },
-                5: { halign: 'left' },
-                6: { halign: 'center' },
-                7: { halign: 'center' },
-                8: { halign: 'left' },
-                9: { halign: 'center' },
-                10: { halign: 'right' },
-            },
+            startY: 50, // Adjust start Y position if needed
+            theme: 'grid', // Add grid theme for table borders
         });
 
-        doc.save('booking-list.pdf');
+        doc.save(`Booking-list_generatedAt_${currentDate}.pdf`);
     };
+
     const handleDelete = (recordId) => {
         axios
             .delete(`https://elemahana-backend.vercel.app/booking/${recordId}`)

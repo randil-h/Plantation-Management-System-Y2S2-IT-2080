@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 export default function BookingForm() {
     const [formData, setFormData] = useState({
         name: '',
@@ -16,6 +16,7 @@ export default function BookingForm() {
     });
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
