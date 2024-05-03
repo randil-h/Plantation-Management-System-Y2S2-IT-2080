@@ -97,21 +97,25 @@ const ProductHistory = () =>{
             <div className="flex justify-between items-center">
                 <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
                     <div className="flex justify-betwee">
-                        <div className="px-6">
-                            <a href="/OperationManager/AddingProduct"
-                               className="mt-10 block rounded-md bg-black px-8 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
+                        <div className="space-y-12">
+                            <h2 className="py-1 px-10 text-xl font-semibold leading-7 right-3 text-gray-900 mt-4">Product
+                                Management</h2>
+                            <div className="px-6">
+                                <a href="/OperationManager/AddingProduct"
+                                   className="mt-10 block rounded-md bg-black px-8 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
                                        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 left-2"> Add
-                                a Product
-                            </a>
+                                    a Product
+                                </a>
+                            </div>
+                            <button
+                                onClick={generatePDF}
+                                className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+                            focus-visible:outline-gray-900 absolute top-8 right-10"
+                            >
+                                Print PDF
+                            </button>
                         </div>
 
-                        <button
-                            onClick={generatePDF}
-                            className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-                            focus-visible:outline-gray-900 absolute top-24 right-5"
-                        >
-                            Print PDF
-                        </button>
                     </div>
                 </div>
                 <div className="mt-10">
