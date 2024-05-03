@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {enqueueSnackbar, useSnackbar} from "notistack";
 
 
 export default function AddDisease() {
@@ -17,6 +18,7 @@ export default function AddDisease() {
     const navigate = useNavigate();
     const [diseaseIdError, setDiseaseIdError] = useState('');
     const [dateError, setDateError] = useState('');
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleDiseaseChange = (e) => {
         const selectedDisease = e.target.value;
@@ -92,10 +94,11 @@ export default function AddDisease() {
                 //if treatment available
                 if(response.data.available) {*/
                     axios
-                        .post(`https://elemahana-backend.vercel.app/diseases`, data)
+                        .post(`http://localhost:5555/diseases`, data)
                         .then(() => {
                             setLoading(false);
                             navigate('/diseases/records');
+                            enqueueSnackbar('Record Added successfully', { variant: 'success' });
                             window.alert("Record Added Successfully!");
                         })
                         .catch((error) => {

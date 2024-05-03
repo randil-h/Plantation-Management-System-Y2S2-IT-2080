@@ -218,15 +218,15 @@ export default function DiseaseList() {
                     className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500 ">
                 <tr className=" ">
                     <th></th>
-                    <th scope="col" className="px-6 py-3"> Disease ID</th>
-                    <th scope="col" className="px-6 py-3">Disease Name</th>
-                    <th scope="col" className="px-6 py-3">Crop Type</th>
-                    <th scope="col" className="px-6 py-3">Date</th>
-                    <th scope="col" className="px-6 py-3">Location</th>
-                    <th scope="col" className="px-6 py-3">Trees Affected</th>
-                    <th scope="col" className="px-6 py-3">Severity</th>
-                    <th scope="col" className="px-6 py-3">Treatment</th>
-                    <th scope="col" className="px-6 py-3">Status</th>
+                    <th scope="col" className="px-6 py-3 text-center"> Disease ID</th>
+                    <th scope="col" className="px-6 py-3 text-center">Disease Name</th>
+                    <th scope="col" className="px-6 py-3 text-center">Crop Type</th>
+                    <th scope="col" className="px-6 py-3 text-center">Date</th>
+                    <th scope="col" className="px-6 py-3 text-center">Location</th>
+                    <th scope="col" className="px-6 py-3 text-center">Trees Affected</th>
+                    <th scope="col" className="px-6 py-3 text-center">Severity</th>
+                    <th scope="col" className="px-6 py-3 text-center">Treatment</th>
+                    <th scope="col" className="px-6 py-3 text-center">Status</th>
                     <th scope="col" className=" py-3"><span className="sr-only">Info</span></th>
                     <th scope="col" className=" py-3"><span className="sr-only">Edit</span></th>
                     <th scope="col" className=" py-3"><span className="sr-only">Delete</span></th>
@@ -236,34 +236,39 @@ export default function DiseaseList() {
                 <tbody className="border-b border-green-400">
 
                 {filteredRecords.map((drecord, index) => (
-                    <tr key={drecord._id} className='divide-y'>
+                    <tr key={drecord._id} className = {`divide-y ${
+                        drecord.status === 'Under Treatment' ? 'border-l-4 border-blue-400' : drecord.status === 'Not Treated' ? 'border-l-4 border-red-500' :  'border-l-4 border-green-400'
+                    }`}>
                         <td></td>
-                        <td className='px-6 py-4'>
+                        <td className='px-6 py-4 text-center'>
                             {drecord.plant_id}
                         </td>
-                        <td className='px-6 py-4'>
+                        <td className='px-6 py-4 text-center'>
                             {drecord.disease_name}
                         </td>
-                        <td className='px-6 py-4'>
+                        <td className='px-6 py-4 text-center'>
                             {drecord.crop}
                         </td>
-                        <td className='px-6 py-4'>
+                        <td className='px-6 py-4 text-center'>
                             {drecord.date}
                         </td>
-                        <td className='px-6 py-4'>
+                        <td className='px-6 py-4 text-center'>
                             {drecord.location}
                         </td>
-                        <td className='px-6 py-4'>
+                        <td className='px-6 py-4 text-center'>
                             {drecord.plant_count}
                         </td>
-                        <td className='px-6 py-4'>
+                        <td className='px-6 py-4 text-center'>
                             {drecord.severity}
                         </td>
-                        <td className='px-6 py-4'>
+                        <td className='px-6 py-4 text-center'>
                             {drecord.treatment}
                         </td>
-                        <td className='px-6 py-4'>
-                            {drecord.status}
+                        <td className= 'px-6 py-4'>
+                            <div
+                                className={` px-1 py-1 text-white text-center font-semibold rounded-lg ${drecord.status === 'Under Treatment' ? 'bg-blue-500' : drecord.status === 'Recovered' ? 'bg-green-500' : 'bg-red-500'} `}>
+                                {drecord.status}
+                            </div>
                         </td>
                         <td className=" py-4 text-right">
                             <Link to={`/diseases/records/viewDisease/${drecord._id}`}>
