@@ -9,7 +9,7 @@ export default function Welcome_banner(){
                 <div className="hidden sm:mb-8 sm:flex sm:justify-center">
                     <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-white ring-1 ring-gray-400 hover:ring-lime-600">
                         Visit Elemahana for an unforgettable experience{' '}
-                        <a href="/tourism" className="font-semibold text-lime-500">
+                        <Link to="/tourism" className="font-semibold text-lime-500">
                             <span className="absolute inset-0" aria-hidden="true" />
                             Visit Us <span aria-hidden="true">&rarr;</span>
                         </a>
