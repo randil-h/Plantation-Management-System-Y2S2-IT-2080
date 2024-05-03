@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
-import { SnackbarProvider, useSnackbar } from "notistack"; // Import SnackbarProvider
+import { SnackbarProvider, useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 
 export default function AddInventoryRecords() {
@@ -18,36 +18,10 @@ export default function AddInventoryRecords() {
         description: "",
         ava_status: "in stock"
     });
+
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
     const [autoSaveTransaction, setAutoSaveTransaction] = useState(true);
-
-    useEffect(() => {
-        const fetchLatestRecordID = async () => {
-            try {
-                let latestRecordID = '';
-                const response = await axios.get(`https://elemahana-backend.vercel.app/inventoryinputs/latest/${formData.type}`);
-                if (response.data && response.data.latestRecordID) {
-                    latestRecordID = response.data.latestRecordID;
-                }
-                const prefix = formData.type.charAt(0);
-                const numericPart = latestRecordID.slice(1) || '0000';
-                const nextRecordID = `${prefix}${String(parseInt(numericPart.slice(1)) + 1).padStart(3, '0')}`;
-                setFormData((prevData) => ({ ...prevData, record_ID: nextRecordID }));
-            } catch (error) {
-                console.error('Error fetching latest record ID:', error);
-                // Handle error, e.g., set a default record ID
-                const prefix = formData.type.charAt(0);
-                const defaultRecordID = `${prefix}001`;
-                setFormData((prevData) => ({ ...prevData, record_ID: defaultRecordID }));
-            }
-        };
-
-        if (formData.type) {
-            fetchLatestRecordID();
-        }
-    }, [formData.type]);
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -58,13 +32,24 @@ export default function AddInventoryRecords() {
                 return;
             }
         }
-        setFormData({ ...formData, [name]: value });
+
+        if (name === "type") {
+            // Logic to generate record_ID based on type and month
+            const typeCode = value.charAt(0).toUpperCase(); // Take first letter of type
+            const monthCode = new Date().getMonth() + 1; // Get current month (1-indexed)
+            const randomLetters = generateRandomLetters(3); // Generate 3 random letters
+            const newRecordID = `${typeCode}${monthCode.toString().padStart(2, '0')}${randomLetters}`;
+            setFormData({ ...formData, record_ID: newRecordID, [name]: value });
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await axios.post("https://elemahana-backend.vercel.app/inventoryinputs", formData);
+
             enqueueSnackbar('Record Created Successfully!', {
                 variant: 'success',
                 autoHideDuration: 6000,
@@ -73,8 +58,11 @@ export default function AddInventoryRecords() {
                     horizontal: 'left',
                 },
             });
+
             navigate('/inventory/inventoryrecords', { state: { highlighted: true } });
+
             setFormData({
+                type: "",
                 record_ID: "",
                 record_name: "",
                 storage: "",
@@ -85,17 +73,16 @@ export default function AddInventoryRecords() {
                 payer: "",
                 expire_date: "",
                 description: "",
-                ava_status: "in stock",
-                type: "Planting"
+                ava_status: "in stock"
             });
 
             if (autoSaveTransaction) {
                 const transactionData = {
-                    date: new Date().toISOString().slice(0, 10), // Convert date to YYYY-MM-DD format
+                    date: new Date().toISOString().slice(0, 10),
                     type: 'expense',
                     subtype: 'Inventory Fee',
                     amount: formData.quantity * formData.unit_price,
-                    description: `Quantity purchased - ${formData.quantity}\n${formData.description}`, // Added line break
+                    description: `Quantity purchased - ${formData.quantity}\n${formData.description}`,
                     payer_payee: formData.payer,
                     method: 'Automated Entry',
                 };
@@ -124,6 +111,16 @@ export default function AddInventoryRecords() {
             description: "",
             ava_status: "in stock"
         });
+    };
+
+    // Helper function to generate random letters
+    const generateRandomLetters = (length) => {
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            result += letters.charAt(Math.floor(Math.random() * letters.length));
+        }
+        return result;
     };
 
     return (
