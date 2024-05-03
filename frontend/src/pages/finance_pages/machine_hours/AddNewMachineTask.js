@@ -9,7 +9,10 @@ import Breadcrumb from '../../../components/utility/Breadcrumbs';
 import BackButton from '../../../components/utility/BackButton';
 import {message} from "antd";
 
-function AddNewMachineRecord() {
+function AddNewMachineTask() {
+    //const [start_date, setStartDate] = useState('');
+    //const [name, setName] = useState('');
+
     const [date, setDate] = useState('');
     const [type, setType] = useState('Excavator small');
     const [hours_nos, setHours] = useState('');
@@ -35,8 +38,6 @@ function AddNewMachineRecord() {
             message.warning('Hours/Numbers and Rate must be positive numbers.');
             return;
         }
-
-
 
         const machineData = {
             date,
@@ -316,4 +317,4 @@ function AddNewMachineRecord() {
     );
 }
 
-export default AddNewMachineRecord;
+export default AddNewMachineTask;

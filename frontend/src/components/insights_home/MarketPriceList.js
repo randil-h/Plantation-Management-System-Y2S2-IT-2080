@@ -618,6 +618,7 @@ export default function MarketPriceList() {
                                 </div>
                                 <div
                                     className="bg-green-100 border-2 border-blue-600 px-2 py-2 mr-2 ml-2 rounded-lg mb-4">
+                                    <h2 className="text-center text-lg font-semibold">{selectedFilter}</h2>
                                     <svg ref={futurePricesChartContainer} width="1200" height="400"></svg>
                                 </div>
                                 <div className="flex justify-center mt-4 mb-3">
@@ -638,6 +639,7 @@ export default function MarketPriceList() {
                                     <h4 className=" text-lg font-semibold text-center">HISTORICAL PRICES</h4>
                                 </div>
                                 <div className="bg-green-100 border-2 border-blue-600 px-2 py-2 mr-2 ml-2 rounded-lg">
+                                    <h2 className="text-center text-lg font-semibold">{selectedFilter}</h2>
                                     <svg ref={priceChartContainer} width="1200" height="400"></svg>
                                 </div>
                                 <div className="flex justify-center mt-4 mb-3">

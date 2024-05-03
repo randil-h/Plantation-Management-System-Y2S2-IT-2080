@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useSnackbar} from "notistack";
 import axios from "axios";
 
@@ -36,7 +36,7 @@ export default function DiseaseHome() {
             enqueueSnackbar(
                 <div>
                     There are plants under treatment !{' '}
-                    <a href="/diseases/records" >Click Here</a>
+                    <Link to="/diseases/records" >Click Here</Link>
                 </div>,
                 { variant: 'warning' }
             );
@@ -45,7 +45,7 @@ export default function DiseaseHome() {
         {
             enqueueSnackbar( <div>
                     There are untreated plants !{' '}
-                    <a href="/diseases/records" >Click Here</a>
+                    <Link to="/diseases/records" >Click Here</Link>
                 </div>,
                 { variant: 'warning' }
             );

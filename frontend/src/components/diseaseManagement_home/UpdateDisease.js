@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
-import {useSnackbar} from "notistack";
+import {enqueueSnackbar,useSnackbar} from "notistack";
 
 export default function UpdateDisease() {
     const [disease_name, setName] = useState('');

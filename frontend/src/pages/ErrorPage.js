@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 function ErrorPage() {
     return (
@@ -9,9 +10,9 @@ function ErrorPage() {
                     </h2>
                     <p className="text-2xl md:text-3xl dark:text-black">Sorry, we couldn't find this page.</p>
                     <p className = "text-xl md:text-xl dark:text-black">If the issue persists, please contact Admin at +94 77 185 3755</p>
-                    <a href="/" className="px-8 py-4 text-xl font-semibold rounded-3xl bg-lime-100 text-black hover:text-white hover:bg-lime-600">
+                    <Link to="/" className="px-8 py-4 text-xl font-semibold rounded-3xl bg-lime-100 text-black hover:text-white hover:bg-lime-600">
                         Back to home
-                    </a>
+                    </Link>
                 </div>
             </div>
         </section>

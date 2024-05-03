@@ -4,6 +4,7 @@ import { PencilSquareIcon, TrashIcon, InformationCircleIcon } from '@heroicons/r
 import { enqueueSnackbar } from "notistack";
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
+import {Link} from "react-router-dom";
 
 export default function HarvestList() {
     const [harvestRecords, setHarvestRecords] = useState([]);
@@ -112,10 +113,10 @@ export default function HarvestList() {
                     </button>
                 </div>
                 <div>
-                    <a href="/harvest/records/addRecord"
+                    <Link to="/harvest/records/addRecord"
                        className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                         Add New Harvest Record <span aria-hidden="true">&rarr;</span>
-                    </a>
+                    </Link>
                     <button
                         onClick={handlePrint}
                         className="ml-4 flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">

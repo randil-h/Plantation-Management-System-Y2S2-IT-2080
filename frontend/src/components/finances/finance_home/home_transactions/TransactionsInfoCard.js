@@ -4,9 +4,13 @@ import * as d3 from "d3";
 import { select } from 'd3-selection';
 import { scaleTime, scaleLinear } from 'd3-scale';
 import { axisBottom, axisLeft } from 'd3-axis';
-import { line, curveCardinal, area } from 'd3-shape';
+import { line, area } from 'd3-shape';
 import { extent } from 'd3-array';
-import { curveBumpX } from "d3";
+import {
+
+    curveBumpX,
+
+} from "d3";
 
 export default function TransactionsInfoCard() {
     const [transactionsRecords, setTransactionsRecords] = useState([]);

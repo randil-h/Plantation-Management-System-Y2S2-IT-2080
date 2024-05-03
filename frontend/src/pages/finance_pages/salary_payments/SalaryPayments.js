@@ -6,6 +6,7 @@ import FinanceNavigation from "../../../components/finances/FinanceNavigation";
 import BackButton from "../../../components/utility/BackButton";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 import SalaryProcessingSection from "../../../components/finances/finance_salary/SalaryProcessingSection";
+import {Link} from "react-router-dom";
 
 
 export default function SalaryPayments() {
@@ -41,10 +42,10 @@ export default function SalaryPayments() {
                                 </div>
 
                                 <div>
-                                    <a href="/finances/salaryPayment/pastRecords"
+                                    <Link to="/finances/salaryPayment/pastRecords"
                                        className="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">
                                         View Past Payments <span aria-hidden="true">&rarr;</span>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                             <div>

@@ -1,7 +1,11 @@
 import mongoose from 'mongoose';
 const FinanceSchema = mongoose.Schema(
     {
-        date: {
+        start_date: {
+            type: String,
+            required: true,
+        },
+        name: {
             type: String,
             required: true,
         },
@@ -9,24 +13,23 @@ const FinanceSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        hours_nos: {
+        rate: {
             type: Number,
             required: true,
         },
-        rate: {
-            type: Number,
+        payee: {
+            type: String,
             required: true,
         },
         description: {
             type: String,
             required: true,
         },
-        payer_payee: {
-            type: String,
-            required: true,
+        total_amount: {
+            type: Number,
         },
-        paid: {
-            type: String,
+        paid_amount: {
+            type: Number,
         }
     },
     {

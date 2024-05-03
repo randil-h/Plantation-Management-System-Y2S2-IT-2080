@@ -108,16 +108,14 @@ const ProductHistory = () =>{
                             >
                                 Print PDF
                             </button>
-                        </div>
-
                     </div>
                     <div className="px-6">
-                        <a href="/OperationManager/AddingProduct"
-                           className="mt-10 block rounded-md bg-black px-8 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-black-300
-                                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black-300 left-2"> Add
-                            a Product
-                        </a>
-                    </div>
+                            <Link to="/OperationManager/AddingProduct"
+                               className="mt-10 block rounded-md bg-black px-8 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
+                                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 left-2"> Add
+                                a Product
+                            </Link>
+                        </div>
                 </div>
                 <div className="mt-10">
                     <div className="max-w-xs px-8">

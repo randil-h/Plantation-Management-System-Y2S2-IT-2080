@@ -210,7 +210,7 @@ const EditInventoryRecords = () => {
                             </div>
                             {selectedType === "Planting" && (
                                 <>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-2 sm:col-start-1">
                                         <label
                                             htmlFor="record_ID"
                                             className="block text-sm font-medium leading-6 text-gray-900">
@@ -228,7 +228,7 @@ const EditInventoryRecords = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-3">
                                         <label htmlFor="record_name"
                                                className="block text-sm font-medium leading-6 text-gray-900">
                                             Plant Name
@@ -255,9 +255,9 @@ const EditInventoryRecords = () => {
                                     </div>
                                 </>
                             )}
-                            {selectedType.type === "Agrochemical" && (
+                            {formData.type === "Agrochemical" && (
                                 <>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-2 sm:col-start-1">
                                         <label
                                             htmlFor="record_ID"
                                             className="block text-sm font-medium leading-6 text-gray-900">
@@ -275,7 +275,7 @@ const EditInventoryRecords = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-3">
                                         <label
                                             htmlFor="record_name"
                                             className="block text-sm font-medium leading-6 text-gray-900"
@@ -321,9 +321,9 @@ const EditInventoryRecords = () => {
 
                                 </>
                             )}
-                            {selectedType.type === "Equipments" && (
+                            {formData.type === "Equipments" && (
                                 <>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-2 sm:col-start-1">
                                         <label
                                             htmlFor="record_ID"
                                             className="block text-sm font-medium leading-6 text-gray-900">
@@ -340,7 +340,7 @@ const EditInventoryRecords = () => {
                                                 required/>
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-3">
                                         <label
                                             htmlFor="record_name"
                                             className="block text-sm font-medium leading-6 text-gray-900">
@@ -361,7 +361,7 @@ const EditInventoryRecords = () => {
                             )}
                             {formData.type === "Fertilizer" && (
                                 <>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-2 sm:col-start-1">
                                         <label
                                             htmlFor="record_ID"
                                             className="block text-sm font-medium leading-6 text-gray-900">
@@ -379,7 +379,7 @@ const EditInventoryRecords = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className="sm:col-span-2 sm:col-start-1 mt-4">
+                                    <div className="sm:col-span-3">
                                         <label
                                             htmlFor="record_name"
                                             className="block text-sm font-medium leading-6 text-gray-900"
@@ -441,6 +441,23 @@ const EditInventoryRecords = () => {
                                     </select>
                                 </div>
                             </div>
+                            <div className="sm:col-span-3">
+                                <label
+                                    htmlFor="quantity"
+                                    className="block text-sm font-medium leading-6 text-gray-900">
+                                    Stocked Quantity
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="number"
+                                        id="quantity"
+                                        name="quantity"
+                                        onChange={handleChange}
+                                        value={formData.quantity}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        required/>
+                                </div>
+                            </div>
                             {(formData.type === "Agrochemical" || formData.type === "Fertilizer") && (
                                 <>
                                     <div className="sm:col-span-2 sm:col-start-1">
@@ -481,23 +498,6 @@ const EditInventoryRecords = () => {
                                     </div>
                                 </>
                             )}
-                            <div className="sm:col-span-2 sm:col-start-1 mt-4">
-                                <label
-                                    htmlFor="quantity"
-                                    className="block text-sm font-medium leading-6 text-gray-900">
-                                    Stocked Quantity
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        type="number"
-                                        id="quantity"
-                                        name="quantity"
-                                        onChange={handleChange}
-                                        value={formData.quantity}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                        required/>
-                                </div>
-                            </div>
                             <div className="sm:col-span-2 sm:col-start-1">
                                 <label htmlFor="unit_price"
                                        className="block text-sm font-medium leading-6 text-gray-900">

@@ -32,14 +32,14 @@ export default function ViewPlantingPage() {
                             <Breadcrumb items={breadcrumbItems}/>
                         </div>
                         <div className="flex justify-center mt-4 left-16">
-                            <a href="/crop/input/planting/view">
+                            <Link to="/crop/input/planting/view">
                                 <button
                                     id="plantingButton"
                                     className="bg-gray-300 text-black px-4 py-2 rounded-l-lg hover:bg-gray-400 h-12"
                                 >
                                     Planting
                                 </button>
-                            </a>
+                            </Link>
                             <button
                                 id="chemicalButton"
                                 className="bg-lime-500 text-black px-4 py-2 rounded-r-lg hover:bg-lime-400 h-12">Agrochemical
