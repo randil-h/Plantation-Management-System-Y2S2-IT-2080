@@ -212,6 +212,7 @@ const ProductHistory = () =>{
                 </div>
             </div>
         </div>
+        </div>
     );
 }
 
