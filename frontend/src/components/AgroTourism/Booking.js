@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 export default function BookingForm() {
+    const { isAuthenticated } = useKindeAuth(); // Check if the user is authenticated
+
     const [formData, setFormData] = useState({
         name: '',
         telNo: '',
@@ -134,6 +136,20 @@ export default function BookingForm() {
                     numberOfPeople: '',
                     visitorType: '',
                 });
+                /// Create transaction data
+                const transactionData = {
+                    date: new Date().toISOString().slice(0, 10),
+                    type: 'income', // Set type to income
+                    subtype: 'Booking', // Set subtype to booking
+                    amount: totalPayment, // Set the amount to the totalPayment
+                    description: `Booking: ${formData.nicNo}`, // Description includes NIC Number
+                    payer_payee: formData.name,
+                    method: 'Automated Entry',
+                };
+
+                // Post the transaction data
+                await axios.post('https://elemahana-backend.vercel.app/transactions', transactionData);
+
 
                 // Redirect to a confirmation page or any other page after successful submission
                 navigate('/payment', { state: { totalPayment } });
@@ -142,7 +158,11 @@ export default function BookingForm() {
             }
         }
     };
-
+/* Redirect to login page if user is not authenticated
+    if (!isAuthenticated) {
+        navigate('/login');
+        return null; // Render nothing while redirecting
+    }*/
     return (
         <div className="max-w-lg mx-auto mt-8 mb-8 p-4 rounded-md shadow-md">
             <h2 className="text-3xl font-bold mb-4 text-center">Join With Us to Explore the Farm</h2>
