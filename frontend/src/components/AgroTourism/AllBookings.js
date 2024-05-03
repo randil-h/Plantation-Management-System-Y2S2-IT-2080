@@ -218,15 +218,15 @@ const AllBookings = () => {
                        className="w-10/12 bg-white shadow-md rounded-md overflow-hidden  top-1/3 mb-10">
                     <thead className="text-xs text-gray-700 shadow-md uppercase bg-gray-100 border-l-4 border-gray-500">
                     <tr>
-                        <th className="px-6 py-3">No</th>
-                        <th className="px-6 py-3">Date</th>
-                        <th className="px-6 py-3">Name</th>
-                        <th className="px-6 py-3">Tel No</th>
-                        <th className="px-6 py-3">NIC No</th>
-                        <th className="px-6 py-3">Email</th>
-                        <th className="px-6 py-3">Type</th>
-                        <th className="px-6 py-3">No Of People</th>
-                        <th className="px-6 py-3">Package</th>
+                        <th className="px-0.5 py-1">No</th>
+                        <th className="px-0.5 py-1">Date</th>
+                        <th className="px-0.5 py-1">Name</th>
+                        <th className="px-0.5 py-1">Tel No</th>
+                        <th className="px-0.5 py-1">NIC No</th>
+                        <th className="px-0.5 py-1">Email</th>
+                        <th className="px-0.5 py-1">Type</th>
+                        <th className="px-0.5 py-1">No Of People</th>
+                        <th className="px-0.5 py-1">Package</th>
                         {/* Conditionally show the column based on the selected package */}
                         {bookingRecords.some(record => record.selectedPackage === 'guidedFarmTour') && (
                             <th className="px-6 py-3">Number of Days</th>
@@ -238,15 +238,15 @@ const AllBookings = () => {
                     <tbody>
                     {bookingRecords.map((record, index) => (
                         <tr className="hover:bg-gray-100 divide-y divide-gray-200 text-sm" key={index}>
-                            <td className="px-6 py-3">{index + 1}</td>
-                            <td className="px-6 py-3">{new Date(record.date).toLocaleDateString('en-GB')}</td>
-                            <td className="px-6 py-3">{record.name}</td>
-                            <td className="px-6 py-3">{record.telNo}</td>
-                            <td className="px-6 py-3">{record.nicNo}</td>
-                            <td className="px-6 py-3">{record.email}</td>
-                            <th className="px-6 py-3">{mapVisitorType(record.visitorType)}</th>
-                            <th className="px-6 py-3">{record.numberOfPeople}</th>
-                            <td className="px-6 py-3">{mapPackageName(record.selectedPackage)}</td>
+                            <td className="px-3 py-1">{index + 1}</td>
+                            <td className="px-3 py-1">{new Date(record.date).toLocaleDateString('en-GB')}</td>
+                            <td className="px-3 py-1">{record.name}</td>
+                            <td className="px-3 py-1">{record.telNo}</td>
+                            <td className="px-3 py-1">{record.nicNo}</td>
+                            <td className="px-3 py-1">{record.email}</td>
+                            <th className="px-3 py-1">{mapVisitorType(record.visitorType)}</th>
+                            <th className="px-3 py-1">{record.numberOfPeople}</th>
+                            <td className="px-3 py-1">{mapPackageName(record.selectedPackage)}</td>
                             {/* Conditionally show the column based on the selected package */}
                             {record.selectedPackage === 'guidedFarmTour' && (
                                 <td className="py-2 px-4 border border-gray-400">{record.numberOfDays}</td>
