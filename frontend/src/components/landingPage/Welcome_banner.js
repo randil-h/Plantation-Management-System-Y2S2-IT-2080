@@ -12,7 +12,7 @@ export default function Welcome_banner(){
                         <Link to="/tourism" className="font-semibold text-lime-500">
                             <span className="absolute inset-0" aria-hidden="true" />
                             Visit Us <span aria-hidden="true">&rarr;</span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
                 <div className="text-6xl  text-white font-medium mb-4">Elemahana Plantations</div>
