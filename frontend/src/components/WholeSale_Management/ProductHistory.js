@@ -108,14 +108,16 @@ const ProductHistory = () =>{
                             >
                                 Print PDF
                             </button>
-                    </div>
-                    <div className="px-6">
-                            <Link to="/OperationManager/AddingProduct"
-                               className="mt-10 block rounded-md bg-black px-8 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500
-                                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 left-2"> Add
-                                a Product
-                            </Link>
+
+                            <div className="px-6">
+                                <Link to="/OperationManager/AddingProduct"
+                                      className="mt-10 block rounded-md bg-black px-8 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-black-500
+                                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black-600 left-2"> Add
+                                    a Product
+                                </Link>
+                            </div>
                         </div>
+                    </div>
                 </div>
                 <div className="mt-10">
                     <div className="max-w-xs px-8">
@@ -128,38 +130,43 @@ const ProductHistory = () =>{
                         />
                         <FaSearch className="absolute left-3 top-2 text-gray-400"/>
                     </div>
-
                 </div>
             </div>
-
-            <div class="flex flex-col">
-                <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
-                    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-                        <div class="overflow-hidden">
-                            <table class="min-w-full"
-                            id = "product-table">
-                                <thead class="bg-gray-200 border-b">
+            <div className="flex flex-col">
+                <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
+                    <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                        <div className="overflow-hidden">
+                            <table className="min-w-full"
+                                   id="product-table">
+                                <thead className="bg-gray-200 border-b">
                                 <tr>
-                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    <th scope="col"
+                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                     </th>
-                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    <th scope="col"
+                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Product ID
                                     </th>
-                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    <th scope="col"
+                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Product Name
                                     </th>
-                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                    <th scope="col"
+                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                                         // style={{ maxWidth: '100px', wordWrap: 'break-word' }}
                                     >
                                         Product Description
                                     </th>
-                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    <th scope="col"
+                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Product Quantity
                                     </th>
-                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    <th scope="col"
+                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Product Price
                                     </th>
-                                    <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                    <th scope="col"
+                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Info
                                     </th>
                                     {/*<th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">*/}
@@ -179,13 +186,18 @@ const ProductHistory = () =>{
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{record.productID}</td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productName}</td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                                            style={{maxWidth: '300px', wordWrap: 'break-word', whiteSpace: 'pre-wrap'}}>
+                                            style={{
+                                                maxWidth: '300px',
+                                                wordWrap: 'break-word',
+                                                whiteSpace: 'pre-wrap'
+                                            }}>
                                             {record.productDescription}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productQuantity}</td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productPrice}</td>
                                         <td className=" py-4 text-right flex flex-col items-center">
-                                            <a href="#" className="font-medium text-blue-600 hover:underline">
+                                            <a href="#"
+                                               className="font-medium text-blue-600 hover:underline">
                                                 <InformationCircleIcon
                                                     className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500 mt-2"
                                                     aria-hidden="true"/>
@@ -211,7 +223,6 @@ const ProductHistory = () =>{
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     );
 }
