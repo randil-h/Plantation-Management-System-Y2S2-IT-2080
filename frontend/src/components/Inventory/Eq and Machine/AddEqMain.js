@@ -18,6 +18,7 @@ const AddEqMain = () => {
     const [comment, setComment] = useState('');
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
+    const [autoSaveTransaction, setAutoSaveTransaction] = useState(true);
 
     useEffect(() => {
         axios
@@ -83,6 +84,20 @@ const AddEqMain = () => {
         if (date_receivedError) {
             enqueueSnackbar(date_receivedError, { variant: 'error' });
             return;
+        }
+
+        if (autoSaveTransaction) {
+            const transactionData = {
+                date: new Date().toISOString().slice(0, 10),
+                type: 'expense',
+                subtype: 'Maintenance Fee',
+                amount: price,
+                description: selectedEquipment,
+                payer_payee: pay_person,
+                method: 'Automated Entry',
+            };
+
+            await axios.post('https://elemahana-backend.vercel.app/transactions', transactionData);
         }
 
         const data = {
@@ -281,6 +296,18 @@ const AddEqMain = () => {
                         </div>
                     </div>
                     <div className="mt-6 flex items-center justify-end gap-x-6">
+                        <div
+                            className="flex  justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
+                            <label className="bg-gray-200 py-1 pl-4 rounded-full">
+                                Automatically save to transactions
+                                <input
+                                    className="size-6 ml-4 mr-1 form-checkbox text-lime-600 bg-white border-gray-300 rounded-full focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50 hover:bg-lime-100 checked:bg-lime-500"
+                                    type="checkbox"
+                                    checked={autoSaveTransaction}
+                                    onChange={(e) => setAutoSaveTransaction(e.target.checked)}/>
+
+                            </label>
+                        </div>
                         <button
                             type="button"
                             className="rounded-full bg-gray-300 px-4 py-1 hover:bg-gray-400 text-sm font-semibold  text-gray-900"

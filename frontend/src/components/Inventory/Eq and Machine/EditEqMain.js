@@ -19,7 +19,7 @@ const EditEqMain = () => {
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
     const { id } = useParams(); // Extracting id from route parameters
-
+    const [autoSaveTransaction, setAutoSaveTransaction] = useState(true);
 
     useEffect(() => {
         setLoading(true);
@@ -86,12 +86,30 @@ const EditEqMain = () => {
         }
     };
 
-    const handleEdit = (e) => {
+    const handleEdit = async (e) => {
         e.preventDefault();
 
         if (date_receivedError) {
             enqueueSnackbar(date_receivedError, { variant: 'error' });
             return;
+        }
+
+        if (autoSaveTransaction) {
+            const transactionData = {
+                date: new Date().toISOString().slice(0, 10),
+                type: 'expense',
+                subtype: 'Maintenance Fee',
+                amount: price,
+                description: selectedEquipment,
+                payer_payee: pay_person,
+                method: 'Automated Entry',
+            };
+
+            try {
+                await axios.post('https://elemahana-backend.vercel.app/transactions', transactionData);
+            } catch (error) {
+                console.error('Error saving transaction:', error);
+            }
         }
 
         const data = {
@@ -126,9 +144,10 @@ const EditEqMain = () => {
             .catch((error) => {
                 setLoading(false);
                 enqueueSnackbar('Error', { variant: 'error' });
-                console.log(error);
+                console.error('Error editing record:', error);
             });
     };
+
 
     return (
         <div className="pt-2">
@@ -295,6 +314,18 @@ const EditEqMain = () => {
                     </div>
 
                     <div className="mt-6 flex items-center justify-end gap-x-6">
+                        <div
+                            className="flex  justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
+                            <label className="bg-gray-200 py-1 pl-4 rounded-full">
+                                Automatically save to transactions
+                                <input
+                                    className="size-6 ml-4 mr-1 form-checkbox text-lime-600 bg-white border-gray-300 rounded-full focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50 hover:bg-lime-100 checked:bg-lime-500"
+                                    type="checkbox"
+                                    checked={autoSaveTransaction}
+                                    onChange={(e) => setAutoSaveTransaction(e.target.checked)}/>
+
+                            </label>
+                        </div>
                         <button type="button"
                                 className="rounded-full bg-gray-300 px-4 py-1 hover:bg-gray-400 text-sm font-semibold  text-gray-900">
 
