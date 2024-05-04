@@ -22,6 +22,7 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
     const location = useLocation();
+    const {getPermission, getPermissions} = useKindeAuth();
 
 
     useEffect(() => {
@@ -85,14 +86,18 @@ export default function Navbar() {
                     </div>
                 </Link>
 
-                <Link to="/dashboard" className="nav-item">
-                    {isAuthenticated && (
+
+                    {
+                        getPermission("view:dashboard").isGranted ?
+                            <Link to="/dashboard" className="nav-item">
                         <div
                             className="h-full font-medium px-6 rounded-full transition-all duration-200 hover:bg-lime-200">
                             Dashboard
                         </div>
-                    )}
-                </Link>
+                            </Link>
+                        : null
+                    }
+
 
                 <div
                     className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 font-medium content-center items-center align-middle">
