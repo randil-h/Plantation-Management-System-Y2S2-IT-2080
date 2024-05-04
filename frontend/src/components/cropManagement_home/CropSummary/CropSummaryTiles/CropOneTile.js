@@ -9,6 +9,7 @@ export default function CropOneTile() {
     const [showPopup, setShowPopup] = useState(false);
     const [averageCropAge, setAverageCropAge] = useState(null);
     const [harvestArea, setHarvestArea] = useState(null);
+    const [totalPlantingCost, setTotalPlantingCost] = useState(null);
 
     const handleTileClick = () => {
         setShowPopup(true);
@@ -56,6 +57,9 @@ export default function CropOneTile() {
                 const fields = filteredPlantingRecords.map(record => record.field);
                 const totalArea = calculateHarvestArea(fields);
                 setHarvestArea(totalArea);
+
+                const totalCost = calculateTotalCost(filteredPlantingRecords);
+                setTotalPlantingCost(totalCost);
             })
             .catch((error) => {
                 console.log(error);
@@ -85,6 +89,12 @@ export default function CropOneTile() {
         }
     };
 
+    const calculateTotalCost = (records) => {
+        return records.reduce((total, record) => {
+            return total + (record.unitCost * record.quantity);
+        }, 0);
+    };
+
     return (
         <div>
             <li className="rounded-xl text-center bg-lime-200 px-6 py-8 items-center hover:transform hover:scale-110 transition-transform duration-300" onClick={handleTileClick}>
@@ -92,18 +102,21 @@ export default function CropOneTile() {
                 <h3 className="my-3 font-display font-medium">Coconut</h3>
                 <p className="mt-1.5 text-sm leading-6 text-secondary-500">
                     {loading ? 'Loading...' : `Harvest Area - ${harvestArea} acres`} <br/>
-                    {averageCropAge && `Crop Age - ${averageCropAge}`}
+                    {averageCropAge && `Average Crop Age - ${averageCropAge}`}
                 </p>
             </li>
             {showPopup && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur bg-opacity-50">
-                    <div className="shadow-lg bg-white rounded-lg p-8 max-w-sm relative border border-gray-300">
-                        <IoCloseCircle onClick={() => setShowPopup(false)} className="absolute top-2 right-2 cursor-pointer"/>
+                    <div
+                        className="shadow-lg bg-white rounded-lg p-8 w-1/4 max-w-sm min-w-32 relative border border-gray-300">
+                        <IoCloseCircle onClick={() => setShowPopup(false)}
+                                       className="absolute top-2 right-2 cursor-pointer"/>
                         <GiCoconuts className="mx-auto h-10 w-10"/>
                         <h3 className="text-lg font-semibold mb-2">Coconut</h3>
                         <p>Planted in: {plantingRecords.map((record) => (
                             <span key={record.id}>{record.field}</span>
                         ))}</p>
+                        <p>Total Planting Cost: Rs. {totalPlantingCost ? totalPlantingCost.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : 'Loading...'}</p>
                     </div>
                 </div>
             )}
