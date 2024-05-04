@@ -10,25 +10,26 @@ import BackButton from '../../../components/utility/BackButton';
 import {message} from "antd";
 
 function AddNewMachineTask() {
-    //const [start_date, setStartDate] = useState('');
-    //const [name, setName] = useState('');
-
-    const [date, setDate] = useState('');
+    const [start_date, setStartDate] = useState('');
+    const [name, setName] = useState('');
     const [type, setType] = useState('Excavator small');
-    const [hours_nos, setHours] = useState('');
     const [rate, setRate] = useState('');
+    const [payee, setPayee] = useState('');
     const [description, setDescription] = useState('');
-    const [payerPayee, setPayerPayee] = useState('');
-    const [paid, setPaid] = useState('false');
+    const [total_amount, setTotalAmount] = useState('');
+    const [paid_amount, setPaidAmount] = useState('');
+    const [record_date, setRecordDate] = useState('');
+    const [record_reading, setRecordReading] = useState('');
+    const [record_pay, setRecordPay] = useState('');
 
-    const [autoSaveTransaction, setAutoSaveTransaction] = useState(true);
+    const [autoSaveTransaction, setAutoSaveTransaction] = useState(false);
 
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
 
     const handleSaveMachineRecord = () => {
-        if (!date || !type || !hours_nos || !rate || !description || !payerPayee || paid === undefined) {
+       /* if (!date || !type || !hours_nos || !rate || !description || !payerPayee || paid === undefined) {
             message.warning('Please fill in all fields.  The record will not be saved with incomplete data');
             return;
         }
@@ -37,34 +38,38 @@ function AddNewMachineTask() {
         if (isNaN(hours_nos) || isNaN(rate) || hours_nos <= 0 || rate <= 0) {
             message.warning('Hours/Numbers and Rate must be positive numbers.');
             return;
-        }
+        }*/
 
         const machineData = {
-            date,
+            start_date,
+            name,
             type,
-            hours_nos,
             rate,
+            payee,
             description,
-            payer_payee: payerPayee,
-            paid,
+            total_amount,
+            paid_amount,
+            record_date,
+            record_reading,
+            record_pay,
         };
         setLoading(true);
         axios
             .post('https://elemahana-backend.vercel.app/machines', machineData)
             .then(() => {
                 setLoading(false);
-                message.success('Machine record has successfully saved.');
+                message.success('Machine task has successfully saved.');
 
                 // Construct the transaction data based on the saved machine fee data
                 if (autoSaveTransaction) {
                     // Construct the transaction data based on the saved machine fee data
                     const transactionData = {
-                        date: machineData.date,
+                        date: machineData.start_date,
                         type: 'expense',
                         subtype: 'Machine Fee',
-                        amount: machineData.hours_nos * machineData.rate,
+                        amount: machineData.paid_amount,
                         description: machineData.description,
-                        payer_payee: machineData.payer_payee,
+                        payer_payee: machineData.payee,
                         method: 'Automated Entry',
                     };
 
@@ -165,15 +170,15 @@ function AddNewMachineTask() {
 
                                             {/* Date */}
                                             <div className="sm:col-span-3">
-                                                <label htmlFor="date"
+                                                <label htmlFor="start_date"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Date
+                                                    Task Start Date
                                                 </label>
                                                 <input
                                                     type="date"
-                                                    value={date}
-                                                    onChange={(e) => setDate(e.target.value)}
-                                                    id="date"
+                                                    value={start_date}
+                                                    onChange={(e) => setStartDate(e.target.value)}
+                                                    id="start_date"
                                                     required
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
@@ -181,19 +186,17 @@ function AddNewMachineTask() {
 
                                             {/* Amount */}
                                             <div className="sm:col-span-3">
-                                                <label htmlFor="hours_nos"
+                                                <label htmlFor="name"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Hours/nos.
+                                                    Task Name
                                                 </label>
                                                 <input
-                                                    id="hours_nos"
-                                                    name="hours_nos"
-                                                    value={hours_nos}
-                                                    onChange={(e) => setHours(e.target.value)}
+                                                    id="name"
+                                                    name="name"
+                                                    value={name}
+                                                    onChange={(e) => setName(e.target.value)}
                                                     type="text"
-                                                    pattern="\d+" // Only allows non-negative integers
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                    title="Please enter a non-negative number"// Error message if pattern doesn't match
                                                     required // Makes the field required
                                                 />
                                             </div>
@@ -203,7 +206,7 @@ function AddNewMachineTask() {
                                                     Rate
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="number"
                                                     name="rate"
                                                     required
                                                     value={rate}
@@ -233,38 +236,19 @@ function AddNewMachineTask() {
 
                                             {/* Payer/Payee */}
                                             <div className="col-span-full">
-                                                <label htmlFor="payer_payee"
+                                                <label htmlFor="payee"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Payer/Payee
+                                                    Payee
                                                 </label>
                                                 <input
                                                     type="text"
-                                                    name="payer_payee"
+                                                    name="payee"
                                                     required
-                                                    value={payerPayee}
-                                                    onChange={(e) => setPayerPayee(e.target.value)}
-                                                    id="payer_payee"
+                                                    value={payee}
+                                                    onChange={(e) => setPayee(e.target.value)}
+                                                    id="payee"
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
-                                            </div>
-
-                                            {/* Payment Method */}
-
-                                            <div className="sm:col-span-2 sm:col-start-1">
-                                                <div className="relative flex gap-x-4 align-baseline items-center">
-                                                    <label htmlFor="paid"
-                                                           className="block text-sm font-medium leading-6 text-gray-900">
-                                                        Work is already paid
-                                                    </label>
-                                                    <input
-                                                        type="checkbox"
-                                                        name="paid"
-                                                        checked={paid === 'true'}
-                                                        onChange={(e) => setPaid(e.target.checked ? 'true' : 'false')}
-                                                        id="paid"
-                                                        className="h-5 w-5 rounded border-gray-300 text-lime-600 focus:ring-lime-600"
-                                                    />
-                                                </div>
                                             </div>
 
 

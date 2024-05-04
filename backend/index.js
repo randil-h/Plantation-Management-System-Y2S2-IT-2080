@@ -10,7 +10,7 @@ import FeedbackRoute from "./routes/AgroTourism Routes/FeedbackRoute.js";
 
 import TransactionsRoute from "./routes/Finance Routes/TransactionsRoute.js";
 import ValuationRoute from "./routes/Finance Routes/ValuationRoute.js";
-import MachineRoute from "./routes/Finance Routes/MachineRoute.js";
+import MachineTaskRoute from "./routes/Finance Routes/MachineTaskRoute.js";
 import SalaryRoute from "./routes/Finance Routes/SalaryRoute.js";
 import WeatherAPI from "./routes/Weather Route/WeatherAPI.js";
 
@@ -65,7 +65,8 @@ app.get('/', (request, response) => {
 app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
 app.use('/valuation', ValuationRoute);
-app.use('/machines', MachineRoute);
+app.use('/machines', MachineTaskRoute);
+app.use('/machinesRecords', Mach);
 app.use('/salary', SalaryRoute);
 app.use('/weather', WeatherAPI)
 
