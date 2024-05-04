@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 
-import {DatePicker, Button, Popover, Radio, message} from 'antd'; // Assuming you're using Ant Design for popover and date picker
-
+import {DatePicker, Button, Radio, message} from 'antd'; // Assuming you're using Ant Design for popover and date picker
+import { Popover, Transition } from '@headlessui/react'
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 
@@ -23,6 +23,7 @@ export default function MachineRecordsList() {
     const [loading, setLoading] = useState(false);
     const { id } = useParams();
     const [machineRecords, setMachineRecords] = useState([]);
+    const [machineRecordDetails, setMachineRecordDetails] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('start_date');
     const [sortOrder, setSortOrder] = useState('asc');
@@ -32,12 +33,32 @@ export default function MachineRecordsList() {
     const [popoverVisible, setPopoverVisible] = useState(false);
     const [transactions, setTransactions] = useState([]);
 
+    const [taskId, setTaskId] = useState('');
+    const [recordDate, setRecordDate] = useState('');
+    const [recordReading, setRecordReading] = useState('');
+    const [recordPay, setRecordPay] = useState('');
+
+
     useEffect(() => {
         setLoading(true);
         axios
             .get('https://elemahana-backend.vercel.app/machines')
             .then((response) => {
                 setMachineRecords(response.data.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get('https://elemahana-backend.vercel.app/machineRecord')
+            .then((response) => {
+                setMachineRecordDetails(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -139,6 +160,41 @@ export default function MachineRecordsList() {
 
         doc.save('machine_records_report.pdf');
     };
+
+    const handleDetailsSubmit = async (e) => {
+        e.preventDefault();
+
+        // Create a payload object with form data
+        const payload = {
+            task_id: taskId,
+            record_date: recordDate,
+            record_reading: parseInt(recordReading), // Ensure record_reading is converted to a number
+            record_pay: recordPay
+        };
+
+        try {
+            // Make POST request to the API endpoint
+            const response = await
+                axios.post('https://elemahana-backend.vercel.app/machineRecord', payload);
+
+            // Handle success response
+            console.log('Record added successfully:', response.data);
+
+            message.success('Machine record detail has successfully saved.');
+
+            // Reset form fields after successful submission
+            setRecordDate('');
+            setRecordReading('');
+            setRecordPay('');
+
+        } catch (error) {
+            // Handle error response
+            console.error('Error adding record:', error);
+
+            // Optionally, you can show an error message here
+        }
+    };
+
 
 
     return (
@@ -266,9 +322,6 @@ export default function MachineRecordsList() {
                     <tr className=" ">
                         <th></th>
                         <th scope="col" className="px-6 py-3">
-                            ID
-                        </th>
-                        <th scope="col" className="px-6 py-3">
                             Start Date
                         </th>
                         <th scope="col" className="px-6 py-3">
@@ -293,15 +346,13 @@ export default function MachineRecordsList() {
                             Paid Amount
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            record_date
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            record_reading
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            record_pay
+                            Payable
                         </th>
 
+
+                        <th scope="col" className=" py-3">
+                            <span className="sr-only">Info</span>
+                        </th>
                         <th scope="col" className=" py-3">
                             <span className="sr-only">Info</span>
                         </th>
@@ -321,7 +372,6 @@ export default function MachineRecordsList() {
                                     ${record.paid === 'false' ? 'border-l-4 border-red-500 ' : 'border-l-4 border-lime-500 '}`}
                         >
                             <td></td>
-                            <td className="px-6 py-4">{record.task_id}</td>
                             <td className="px-6 py-4">{record.start_date}</td>
                             <td className="px-6 py-4">{record.name}</td>
                             <td className="px-6 py-4">{record.type}</td>
@@ -330,19 +380,104 @@ export default function MachineRecordsList() {
                             <td className="px-6 py-4">{record.description}</td>
                             <td className="px-6 py-4">{record.total_amount}</td>
                             <td className="px-6 py-4">{record.paid_amount}</td>
-                            <td className="px-6 py-4">{record.record_date}</td>
-                            <td className="px-6 py-4">{record.record_reading}</td>
-                            <td className="px-6 py-4">{record.record_pay}</td>
                             <td className="px-6 py-4">
                                 <div>
                                     Rs.{(record.total_amount - record.paid_amount).toLocaleString()}
                                 </div>
                             </td>
+                            <td className="  text-right py-4 px-4 ">
 
+                                <Popover className="relative ">
+                                    <Popover.Button onClick={() => setTaskId(record._id)} // Pass the _id to setTaskId
+                                        className="align-middle   content-center inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+                                        <PlusIcon
+                                            className="h-6 w-6 flex-none bg-lime-200 p-1 rounded-full text-gray-800 hover:bg-lime-500"
+                                            aria-hidden="true"
+                                        />
+                                    </Popover.Button>
+
+                                    <Transition
+                                        as={Fragment}
+                                        enter="transition ease-out duration-200"
+                                        enterFrom="opacity-0 translate-y-1"
+                                        enterTo="opacity-100 translate-y-0"
+                                        leave="transition ease-in duration-150"
+                                        leaveFrom="opacity-100 translate-y-0"
+                                        leaveTo="opacity-0 translate-y-1"
+                                    >
+                                        <Popover.Panel className="absolute right-full z-10 mt-2 flex flex-col w-screen max-w-md -translate-x-0 px-4">
+                                            <div className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+                                                <div className="p-4">
+                                                    <form onSubmit={handleDetailsSubmit}
+                                                          className="flex flex-col items-center justify-center space-y-4">
+                                                        <div className="space-y-4">
+                                                            <label htmlFor="task_id"
+                                                                   className="text-sm font-semibold leading-6 text-gray-900">Task
+                                                                ID</label>
+                                                            <input
+                                                                type="text"
+                                                                id="task_id"
+                                                                value={taskId}
+                                                                onChange={(e) => setTaskId(e.target.value)}
+                                                                required
+                                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                            />
+
+                                                            <label htmlFor="record_date"
+                                                                   className="text-sm font-semibold leading-6 text-gray-900">Record
+                                                                Date</label>
+                                                            <input
+                                                                type="text"
+                                                                id="record_date"
+                                                                value={recordDate}
+                                                                onChange={(e) => setRecordDate(e.target.value)}
+                                                                required
+                                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                            />
+
+                                                            <label htmlFor="record_reading"
+                                                                   className="text-sm font-semibold leading-6 text-gray-900">Record
+                                                                Reading</label>
+                                                            <input
+                                                                type="number"
+                                                                id="record_reading"
+                                                                value={recordReading}
+                                                                onChange={(e) => setRecordReading(e.target.value)}
+                                                                required
+                                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                            />
+
+                                                            <label htmlFor="record_pay"
+                                                                   className="text-sm font-semibold leading-6 text-gray-900">Record
+                                                                Pay</label>
+                                                            <input
+                                                                type="number"
+                                                                id="record_pay"
+                                                                value={recordPay}
+                                                                onChange={(e) => setRecordPay(e.target.value)}
+                                                                required
+                                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                            />
+
+                                                        </div>
+
+                                                        <button type="submit"
+                                                                className="px-4 py-2 bg-lime-200 text-black rounded-full shadow-md hover:bg-lime-600 focus:outline-none focus:ring focus:ring-lime-300 focus:ring-opacity-50">Submit
+                                                        </button>
+                                                    </form>
+
+
+                                                </div>
+
+                                            </div>
+                                        </Popover.Panel>
+                                    </Transition>
+                                </Popover>
+                            </td>
 
                             <td className=" py-4 text-right">
                                 <Link to={`/finances/machineHours/editMachineRecords/${record._id}`}>
-                                    <PlusIcon
+                                    <PencilSquareIcon
                                         className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
                                         aria-hidden="true"
                                     />
