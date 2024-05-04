@@ -24,7 +24,7 @@ export default function MachineRecordsList() {
     const { id } = useParams();
     const [machineRecords, setMachineRecords] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [sortBy, setSortBy] = useState('date');
+    const [sortBy, setSortBy] = useState('start_date');
     const [sortOrder, setSortOrder] = useState('asc');
     const { enqueueSnackbar } = useSnackbar();
 
@@ -66,8 +66,8 @@ export default function MachineRecordsList() {
     };
 
     const sortedRecords = [...machineRecords].sort((a, b) => {
-        if (sortBy === 'date') {
-            return sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
+        if (sortBy === 'start_date') {
+            return sortOrder === 'asc' ? new Date(a.start_date) - new Date(b.start_date) : new Date(b.start_date) - new Date(a.start_date);
         }
     });
 
@@ -92,7 +92,7 @@ export default function MachineRecordsList() {
 
     const handleClearFilters = () => {
         setSearchQuery('');
-        setSortBy('date');
+        setSortBy('start_date');
         setSortOrder('asc');
     };
 
@@ -104,13 +104,13 @@ export default function MachineRecordsList() {
 
     const handleDownloadPDF = () => {
         const sortedRecords = machineRecords.sort((a, b) => {
-            if (sortBy === 'date') {
-                return sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
+            if (sortBy === 'start_date') {
+                return sortOrder === 'asc' ? new Date(a.start_date) - new Date(b.start_date) : new Date(b.start_date) - new Date(a.start_date);
             }
         });
 
         const filteredRecords = sortedRecords.filter(machine => {
-            const transactionDate = new Date(machine.date);
+            const transactionDate = new Date(machine.start_date);
             return transactionDate >= selectedDates[0] && transactionDate <= selectedDates[1];
         });
 
@@ -119,14 +119,16 @@ export default function MachineRecordsList() {
 
         const headers = [['Date', 'Type', 'Hours/nos.', 'Rate', 'Description', 'Payer/Payee', 'Paid', 'Total']];
         const data = filteredRecords.map(machine => [
-            machine.date,
+            machine.task_id,
+            machine.start_date,
+            machine.name,
             machine.type,
-            machine.hours_nos,
             machine.rate,
+            machine.payee,
             machine.description,
-            machine.payer_payee,
-            machine.paid,
-            machine.hours_nos * machine.rate
+            machine.total_amount,
+            machine.paid_amount,
+            machine.record_date
         ]);
 
         doc.autoTable({
@@ -175,10 +177,10 @@ export default function MachineRecordsList() {
                         <div className="flex items-center space-x-4 relative px-4">
                             <button
                                 className="flex items-center space-x-1 cursor-pointer bg-lime-200 px-4 py-1 rounded-full hover:bg-lime-400"
-                                onClick={() => handleSortBy('date')}
+                                onClick={() => handleSortBy('start_date')}
                             >
                                 <span className="text-sm text-gray-600">Date</span>
-                                {sortBy === 'date' && (
+                                {sortBy === 'start_date' && (
                                     sortOrder === 'asc' ? (
                                         <ChevronUpIcon
                                             className="w-4 h-4 bg-green-800 text-white stroke-2 rounded-full"/>
@@ -264,26 +266,40 @@ export default function MachineRecordsList() {
                     <tr className=" ">
                         <th></th>
                         <th scope="col" className="px-6 py-3">
-                            Date
+                            ID
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Start Date
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            Name
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Type
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Hours/nos.
+                            Rate
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Rate
+                            Payee
                         </th>
                         <th scope="col" className="px-6 py-3">
                             Description
                         </th>
-
                         <th scope="col" className="px-6 py-3">
-                            Payer/Payee
+                            Total Amount
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            Fee
+                            Paid Amount
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            record_date
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            record_reading
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            record_pay
                         </th>
 
                         <th scope="col" className=" py-3">
@@ -305,16 +321,21 @@ export default function MachineRecordsList() {
                                     ${record.paid === 'false' ? 'border-l-4 border-red-500 ' : 'border-l-4 border-lime-500 '}`}
                         >
                             <td></td>
-                            <td className="px-6 py-4">{record.date}</td>
+                            <td className="px-6 py-4">{record.task_id}</td>
+                            <td className="px-6 py-4">{record.start_date}</td>
+                            <td className="px-6 py-4">{record.name}</td>
                             <td className="px-6 py-4">{record.type}</td>
-                            <td className="px-6 py-4">{record.hours_nos}</td>
                             <td className="px-6 py-4">Rs.{record.rate.toLocaleString()}</td>
+                            <td className="px-6 py-4">{record.payee}</td>
                             <td className="px-6 py-4">{record.description}</td>
-                            <td className="px-6 py-4">{record.payer_payee}</td>
+                            <td className="px-6 py-4">{record.total_amount}</td>
+                            <td className="px-6 py-4">{record.paid_amount}</td>
+                            <td className="px-6 py-4">{record.record_date}</td>
+                            <td className="px-6 py-4">{record.record_reading}</td>
+                            <td className="px-6 py-4">{record.record_pay}</td>
                             <td className="px-6 py-4">
-                                <div
-                                    className={record.paid === "true" ? "bg-lime-600 text-base font-semibold text-center text-white rounded-full hover:bg-lime-500" : "bg-red-600 text-base font-semibold text-center text-white rounded-full hover:bg-red-500"}>
-                                    Rs.{(record.hours_nos * record.rate).toLocaleString()}
+                                <div>
+                                    Rs.{(record.total_amount - record.paid_amount).toLocaleString()}
                                 </div>
                             </td>
 
