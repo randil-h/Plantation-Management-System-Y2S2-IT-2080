@@ -9,6 +9,7 @@ import Breadcrumb from "../../../components/utility/Breadcrumbs";
 export default function EditProduct(){
 
     const breadcrumbItems = [
+        { name: 'Orders', href: '/orders/confirm' },
         { name: 'Products', href: '/wholesaleDashboard' },
         { name: 'Edit Product', href: '/editProduct/:id' },
     ];

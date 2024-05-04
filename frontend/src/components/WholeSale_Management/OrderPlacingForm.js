@@ -15,10 +15,11 @@ const OrderPlacingForm = () => {
     const [orderDate, setOrderDate] = useState(''); 
     const [orderQuantity, setOrderQuantity] = useState('60');
 
+
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`https://elemahana-backend.vercel.app/productRecords/${id}`)
+            .get(`http://localhost:5555/productRecords/${id}`)
             .then((response) => {
                 setProduct(response.data);
                 setLoading(false);
@@ -77,7 +78,8 @@ const OrderPlacingForm = () => {
             orderDate,
             orderQuantity,
             orderPrice: totalPrice,
-            orderProductPricePerKilo: orderProductPricePerKilo
+            orderProductPricePerKilo: orderProductPricePerKilo,
+            orderStatus: 'Pending'
         };
 
 

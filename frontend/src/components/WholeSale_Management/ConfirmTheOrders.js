@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 import ProgressBar from "./ProgressBar";
 
@@ -10,6 +10,7 @@ const ConfirmTheOrders = () =>{
     const [loading,setLoading] = useState(false);
     const [filteredRecords, setFilteredRecords] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const { id } = useParams();
 
     useEffect(() => {
         setLoading(true);
@@ -24,6 +25,19 @@ const ConfirmTheOrders = () =>{
                 setLoading(false);
             });
     }, []);
+
+    const confirmOrder = async (record) => {
+        try {
+            const response = await axios.put(`http://localhost:5555/orderRecords/${record._id}`, {
+                orderStatus: 'confirmed',
+                orderQuantity: record.orderQuantity // include all required fields
+            });
+            console.log(response.data);
+            // Here you can update your component state to re-render the component
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     return (
         <div className="bg-white p-8 rounded-md w-full">
@@ -63,10 +77,10 @@ const ConfirmTheOrders = () =>{
                                     className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Status
                                 </th>
-                                {/*<th*/}
-                                {/*    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">*/}
-                                {/*    Update*/}
-                                {/*</th>*/}
+                                <th
+                                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Confirm
+                                </th>
                                 {/*<th*/}
                                 {/*    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">*/}
                                 {/*    Delete*/}
@@ -110,6 +124,14 @@ const ConfirmTheOrders = () =>{
                                             <p className="text-gray-900 whitespace-no-wrap">
                                                 {record.orderStatus}
                                             </p>
+                                        </td>
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white">
+                                            <button
+                                                onClick={() => confirmOrder(record)} // Pass the record ID and record itself to the confirmOrder function
+                                                className="bg-black text-white font-semibold py-1 px-2 rounded">
+                                                Confirm
+                                            </button>
+
                                         </td>
                                     </tr>
                                 </React.Fragment>

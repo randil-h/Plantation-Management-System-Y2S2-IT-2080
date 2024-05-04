@@ -41,7 +41,6 @@ const OrderHistory = () => {
 
 
     return (
-
         <div class="bg-white p-8 rounded-md w-full">
             <div>
                 <div class="-mx-4 px-4 sm:px-12 py-4 overflow-x-auto">

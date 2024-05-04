@@ -37,7 +37,7 @@ const Payment = () => {
         if (validateForm()) {
             // Implement your payment logic here
             console.log('Payment submitted:', formData);
-            // Show booking confirmation alert using Snackbar
+
             enqueueSnackbar('Order Place successfully!', {
                 variant: 'success',
                 autoHideDuration: 6000,
