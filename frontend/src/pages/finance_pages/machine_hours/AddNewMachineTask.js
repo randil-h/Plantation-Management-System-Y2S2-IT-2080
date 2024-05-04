@@ -10,6 +10,7 @@ import BackButton from '../../../components/utility/BackButton';
 import {message} from "antd";
 
 function AddNewMachineTask() {
+    const [task_id, setTaskID] = useState('');
     const [start_date, setStartDate] = useState('');
     const [name, setName] = useState('');
     const [type, setType] = useState('Excavator small');
@@ -29,18 +30,15 @@ function AddNewMachineTask() {
     const { enqueueSnackbar } = useSnackbar();
 
     const handleSaveMachineRecord = () => {
-       /* if (!date || !type || !hours_nos || !rate || !description || !payerPayee || paid === undefined) {
+        if (!start_date || !type || !task_id || !description || !payee || !paid_amount === undefined) {
             message.warning('Please fill in all fields.  The record will not be saved with incomplete data');
             return;
         }
 
-        // Validate numeric fields
-        if (isNaN(hours_nos) || isNaN(rate) || hours_nos <= 0 || rate <= 0) {
-            message.warning('Hours/Numbers and Rate must be positive numbers.');
-            return;
-        }*/
+
 
         const machineData = {
+            task_id,
             start_date,
             name,
             type,
@@ -142,6 +140,21 @@ function AddNewMachineTask() {
                                         </legend>
                                         <p className="mt-1 text-sm leading-6 text-gray-600">Specify the type of the rented machine.</p>
                                         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
+                                            {/* id */}
+                                            <div className="sm:col-span-3">
+                                                <label htmlFor="start_date"
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Task ID
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    value={task_id}
+                                                    onChange={(e) => setTaskID(e.target.value)}
+                                                    id="task_id"
+                                                    required
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                />
+                                            </div>
 
                                             <div className="sm:col-span-2 sm:col-start-1">
                                                 <label htmlFor="type"
