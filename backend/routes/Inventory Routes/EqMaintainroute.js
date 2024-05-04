@@ -12,13 +12,15 @@ router.post('/', async (request, response) => {
             Eq_id_main,
             date_referred,
             date_received,
+            price,
+            pay_person,
             ref_loc,
             status,
             comment
         } = request.body;
 
         // Check if all required fields are present - validation
-        if (!Eq_machine_main || !Eq_id_main || !date_referred || !date_received || !ref_loc || !status || !comment) {
+        if (!Eq_machine_main || !Eq_id_main || !date_referred || !date_received || !price || !pay_person || !ref_loc || !status || !comment) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });
@@ -30,6 +32,8 @@ router.post('/', async (request, response) => {
             Eq_id_main,
             date_referred,
             date_received,
+            price,
+            pay_person,
             ref_loc,
             status,
             comment
@@ -87,13 +91,15 @@ router.put('/:id', async (request, response) => {
             Eq_id_main,
             date_referred,
             date_received,
+            price,
+            pay_person,
             ref_loc,
             status,
             comment
         } = request.body;
 
         // Check if all required fields are present
-        if (!Eq_machine_main || !Eq_id_main || !date_referred || !date_received || !ref_loc || !status || !comment) {
+        if (!Eq_machine_main || !Eq_id_main || !date_referred || !date_received || !price || !pay_person || !ref_loc || !status || !comment) {
             return response.status(400).send({
                 message: 'All required data must be provided',
             });

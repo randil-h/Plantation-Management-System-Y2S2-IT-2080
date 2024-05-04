@@ -10,6 +10,8 @@ const EditEqMain = () => {
     const [date_referred, setDate_referred] = useState('');
     const [date_received, setDate_received] = useState('');
     const [date_receivedError, setDate_receivedError] = useState('');
+    const [price, setPrice] = useState('');
+    const [pay_person, setPayPerson] = useState('');
     const [ref_loc, setRef_loc] = useState('');
     const [status, setStatus] = useState('');
     const [comment, setComment] = useState('');
@@ -27,6 +29,8 @@ const EditEqMain = () => {
                 setEq_id_main(response.data.Eq_id_main);
                 setDate_referred(response.data.date_referred.split("T")[0]); // Extracting date part
                 setDate_received(response.data.date_received.split("T")[0]); // Extracting date part
+                setPrice(response.data.price);
+                setPayPerson(response.data.pay_person);
                 setRef_loc(response.data.ref_loc);
                 setStatus(response.data.status);
                 setComment(response.data.comment);
@@ -95,6 +99,8 @@ const EditEqMain = () => {
             Eq_id_main,
             date_referred,
             date_received,
+            price,
+            pay_person,
             ref_loc,
             status,
             comment,
@@ -205,7 +211,38 @@ const EditEqMain = () => {
                                     {date_receivedError && <p className="text-red-500">{date_receivedError}</p>}
                                 </div>
                             </div>
-
+                            <div className="sm:col-span-3">
+                                <label htmlFor="price"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Price
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="number"
+                                        name="price"
+                                        value={price}
+                                        onChange={(e) => setPrice(e.target.value)}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="sm:col-span-3">
+                                <label htmlFor="pay_person"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Payer / Payee
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        name="pay_person"
+                                        value={pay_person}
+                                        onChange={(e) => setPayPerson(e.target.value)}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        required
+                                    />
+                                </div>
+                            </div>
                             <div className="col-span-full">
                                 <label htmlFor="ref_loc" className="block text-sm font-medium leading-6 text-gray-900">
                                     Referred location for maintenance

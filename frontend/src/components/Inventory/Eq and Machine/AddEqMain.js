@@ -11,6 +11,8 @@ const AddEqMain = () => {
     const [date_referredError, setDate_referredError] = useState('');
     const [date_received, setDate_received] = useState('');
     const [date_receivedError, setDate_receivedError] = useState('');
+    const [price, setPrice] = useState('');
+    const [pay_person, setPayPerson] = useState('');
     const [ref_loc, setRef_loc] = useState('');
     const [status, setStatus] = useState('');
     const [comment, setComment] = useState('');
@@ -88,6 +90,8 @@ const AddEqMain = () => {
             Eq_id_main: selectedEquipmentId,
             date_referred,
             date_received,
+            price,
+            pay_person,
             ref_loc,
             status,
             comment,
@@ -109,6 +113,8 @@ const AddEqMain = () => {
         setDate_referred('');
         setDate_referredError('');
         setDate_received('');
+        setPrice('');
+        setPayPerson('');
         setRef_loc('');
         setStatus('');
         setComment('');
@@ -193,6 +199,38 @@ const AddEqMain = () => {
                                         required
                                     />
                                     {date_receivedError && <p className="text-red-500">{date_receivedError}</p>}
+                                </div>
+                            </div>
+                            <div className="sm:col-span-3">
+                                <label htmlFor="price"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Price
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="number"
+                                        name="price"
+                                        value={price}
+                                        onChange={(e) => setPrice(e.target.value)}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div className="sm:col-span-3">
+                                <label htmlFor="pay_person"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    Payer / Payee
+                                </label>
+                                <div className="mt-2">
+                                    <input
+                                        type="text"
+                                        name="pay_person"
+                                        value={pay_person}
+                                        onChange={(e) => setPayPerson(e.target.value)}
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                        required
+                                    />
                                 </div>
                             </div>
                             <div className="col-span-full">

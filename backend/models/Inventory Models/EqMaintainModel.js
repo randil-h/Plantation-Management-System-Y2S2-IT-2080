@@ -17,6 +17,14 @@ const InventoryMaintainSchema = mongoose.Schema(
             type: Date,
             required: true,
         },
+        price:{
+            type: Number,
+            required: true,
+        },
+        pay_person:{
+            type: String,
+            required: true,
+        },
         ref_loc: {
             type: String,
             required: true,
