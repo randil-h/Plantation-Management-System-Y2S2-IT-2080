@@ -413,7 +413,7 @@ export default function MachineRecordsList() {
                                             <Popover.Panel
                                                 className="absolute right-full z-10 my-2 flex flex-col   w-screen max-w-2xl -translate-x-0 px-4">
                                                 <div
-                                                    className="w-screen max-w-2xl flex-auto overflow-hidden rounded-3xl  text-sm leading-6 shadow-xl bg-gray-100 ring-1 ring-gray-900/5">
+                                                    className="w-screen max-w-2xl flex-auto overflow-hidden rounded-3xl  text-sm leading-6 shadow-2xl bg-gray-200 bg-opacity-40 backdrop-blur ring-1 ring-gray-900/5">
                                                     <div className="py-6">
                                                         <form onSubmit={handleDetailsSubmit}
                                                               className="flex flex-col w-full items-center justify-center space-y-4">

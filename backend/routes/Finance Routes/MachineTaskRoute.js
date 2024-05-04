@@ -74,18 +74,12 @@ router.get('/:id', async (request, response) => {
 // Route for Update a transaction
 router.put('/:id', async (request, response) => {
     try {
-        if (
-            !request.body.start_date ||
-            !request.body.name ||
-            !request.body.type ||
-            !request.body.rate ||
-            !request.body.payee ||
-            !request.body.description ||
-            !request.body.total_amount ||
-            !request.body.paid_amount
-        ) {
+        const requiredFields = ['start_date', 'name', 'type', 'rate', 'payee', 'description', 'total_amount', 'paid_amount'];
+        let missingFields = requiredFields.filter(field => !request.body[field]);
+
+        if (missingFields.length > 0) {
             return response.status(400).send({
-                message: 'Send all required fields',
+                message: `Missing required fields: ${missingFields.join(', ')}`,
             });
         }
 
