@@ -87,16 +87,16 @@ export default function Navbar() {
                 </Link>
 
 
-                    {
-                        getPermission("view:dashboard").isGranted ?
-                            <Link to="/dashboard" className="nav-item">
-                        <div
-                            className="h-full font-medium px-6 rounded-full transition-all duration-200 hover:bg-lime-200">
-                            Dashboard
-                        </div>
-                            </Link>
-                        : null
-                    }
+                {
+                    getPermission("view:dashboard").isGranted ? (
+                        <Link to="/dashboard" className="nav-item">
+                            <div className="h-full font-medium px-6 rounded-full transition-all duration-200 hover:bg-lime-200">
+                                Dashboard
+                            </div>
+                        </Link>
+                    ) : null
+                }
+
 
 
                 <div
