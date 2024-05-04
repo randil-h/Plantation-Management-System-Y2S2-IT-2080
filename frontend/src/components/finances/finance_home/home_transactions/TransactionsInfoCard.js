@@ -12,6 +12,8 @@ import {
 
 } from "d3";
 
+import { timeFormat } from 'd3-time-format';
+
 export default function TransactionsInfoCard() {
     const [transactionsRecords, setTransactionsRecords] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -37,28 +39,54 @@ export default function TransactionsInfoCard() {
         // Sort the transaction records in ascending order by date
         const sortedRecords = [...transactionsRecords].sort((a, b) => new Date(a.date) - new Date(b.date));
 
+        // Preprocess data to aggregate transactions by date
+        const aggregatedIncomeRecords = [];
+        const aggregatedExpenseRecords = [];
+
+        sortedRecords.forEach(record => {
+            const date = new Date(record.date).toISOString().split('T')[0];
+            const existingIncomeRecord = aggregatedIncomeRecords.find(item => item.date === date);
+            const existingExpenseRecord = aggregatedExpenseRecords.find(item => item.date === date);
+
+            if (record.type === 'income') {
+                if (existingIncomeRecord) {
+                    existingIncomeRecord.amount += record.amount;
+                } else {
+                    aggregatedIncomeRecords.push({ date, amount: record.amount });
+                }
+            } else if (record.type === 'expense') {
+                if (existingExpenseRecord) {
+                    existingExpenseRecord.amount += record.amount;
+                } else {
+                    aggregatedExpenseRecords.push({ date, amount: record.amount });
+                }
+            }
+        });
+
         const svg = select(svgRef.current);
         const margin = { top: 20, right: 20, bottom: 60, left: 50 }; // Increased bottom margin for labels
         const width = svg.node().parentElement.clientWidth - margin.left - margin.right; // Calculate width based on parent element's width
         const height = 340 - margin.top - margin.bottom; // Use a fixed height
 
         // Calculate the domain for the y-axis
-        const maxAmount = Math.max(...sortedRecords.map(d => d.amount));
-        const minAmount = Math.min(...sortedRecords.map(d => d.amount));
+        const maxAmount = Math.max(
+            ...aggregatedIncomeRecords.map(d => d.amount),
+            ...aggregatedExpenseRecords.map(d => d.amount)
+        );
+        const minAmount = 0; // Assuming expenses cannot be negative
         const yDomainMax = Math.ceil(maxAmount / 40000) * 40000; // Round up to the nearest 40000
-        const yDomainMin = Math.floor(minAmount / 40000) * 40000; // Round down to the nearest 40000
 
         const x = scaleTime()
-            .domain(extent(sortedRecords, d => new Date(d.date)))
+            .domain(extent(aggregatedIncomeRecords.concat(aggregatedExpenseRecords), d => new Date(d.date)))
             .range([margin.left, width + margin.left]);
 
         const y = scaleLinear()
-            .domain([yDomainMin, yDomainMax]) // Set the domain with rounded values
+            .domain([minAmount, yDomainMax]) // Set the domain with rounded values
             .nice()
             .range([height + margin.top, margin.top]);
 
         const xAxis = axisBottom(x).ticks(width / 80).tickSizeOuter(0);
-        const yAxis = axisLeft(y).tickValues(d3.range(yDomainMin, yDomainMax + 1, 40000)); // Set tick values at intervals of 40000
+        const yAxis = axisLeft(y).tickValues(d3.range(0, yDomainMax + 1, 40000)); // Set tick values at intervals of 40000
 
         svg.selectAll("*").remove();
 
@@ -99,6 +127,7 @@ export default function TransactionsInfoCard() {
             .attr("x", width / 2)
             .attr("y", 40) // Adjust position
             .attr("fill", "currentColor")
+            .text("Date");
 
         svg.append("g")
             .attr("transform", `translate(${margin.left},0)`)
@@ -127,18 +156,14 @@ export default function TransactionsInfoCard() {
             .y(d => y(d.amount))
             .curve(curveBumpX); // Use a curve interpolation method for smoother lines
 
-        // Filter records based on transaction type
-        const incomeRecords = sortedRecords.filter(record => record.type === 'income');
-        const expenseRecords = sortedRecords.filter(record => record.type === 'expense');
-
         // Draw area and line for income transactions
         svg.append("path")
-            .datum(incomeRecords)
+            .datum(aggregatedIncomeRecords)
             .attr("fill", "url(#incomeGradient)") // Apply gradient
             .attr("d", areaGenerator);
 
         svg.append("path")
-            .datum(incomeRecords)
+            .datum(aggregatedIncomeRecords)
             .attr("stroke", "#84cc16") // Adjust color as needed
             .attr("stroke-width", 2)
             .attr("fill", "none")
@@ -146,18 +171,70 @@ export default function TransactionsInfoCard() {
 
         // Draw area and line for expense transactions
         svg.append("path")
-            .datum(expenseRecords)
+            .datum(aggregatedExpenseRecords)
             .attr("fill", "url(#expenseGradient)") // Apply gradient
             .attr("d", areaGenerator);
 
         svg.append("path")
-            .datum(expenseRecords)
+            .datum(aggregatedExpenseRecords)
             .attr("stroke", "#ef4444") // Adjust color as needed
             .attr("stroke-width", 2)
             .attr("fill", "none")
             .attr("d", lineGenerator);
 
+        // Draw circles for income transactions
+        const incomeCircles = svg.selectAll(".income-circle")
+            .data(aggregatedIncomeRecords)
+            .enter().append("circle")
+            .attr("class", "income-circle")
+            .attr("cx", d => x(new Date(d.date)))
+            .attr("cy", d => y(d.amount))
+            .attr("r", 4) // Set the radius of the circle
+            .attr("fill", "#84cc16"); // Adjust color as needed
+
+// Display value and date when hovering over income circles
+        incomeCircles.on("mouseover", function (event, d) {
+            const formatTime = timeFormat("%Y-%m-%d");
+            svg.append("text")
+                .attr("class", "value-text")
+                .attr("x", x(new Date(d.date)) + 10) // Adjust position relative to circle
+                .attr("y", y(d.amount) - 10) // Adjust position relative to circle
+                .text(`${d.amount} , ${formatTime(new Date(d.date))}`)
+                .attr("fill", "#000")
+                .attr("font-size", "12px")
+                .attr("font-weight", "bold");
+        }).on("mouseout", function () {
+            svg.selectAll(".value-text").remove();
+        });
+
+// Draw circles for expense transactions
+        const expenseCircles = svg.selectAll(".expense-circle")
+            .data(aggregatedExpenseRecords)
+            .enter().append("circle")
+            .attr("class", "expense-circle")
+            .attr("cx", d => x(new Date(d.date)))
+            .attr("cy", d => y(d.amount))
+            .attr("r", 4) // Set the radius of the circle
+            .attr("fill", "#ef4444"); // Adjust color as needed
+
+// Display value and date when hovering over expense circles
+        expenseCircles.on("mouseover", function (event, d) {
+            const formatTime = timeFormat("%Y-%m-%d");
+            svg.append("text")
+                .attr("class", "value-text")
+                .attr("x", x(new Date(d.date)) + 10) // Adjust position relative to circle
+                .attr("y", y(d.amount) - 10) // Adjust position relative to circle
+                .text(`${d.amount} , ${formatTime(new Date(d.date))}`)
+                .attr("fill", "#000")
+                .attr("font-size", "12px")
+                .attr("font-weight", "bold");
+        }).on("mouseout", function () {
+            svg.selectAll(".value-text").remove();
+        });
+
+
     }, [transactionsRecords]);
+
 
     return (
         <div className="pt-12 flex flex-col items-center justify-center align-middle h-[26rem] w-full bg-orange-50">
