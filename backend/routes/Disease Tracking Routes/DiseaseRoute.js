@@ -2,6 +2,7 @@ import {DiseasesRecord} from "../../models/Disease Tracking Models/DiseasesModel
 import express, {request, response} from "express";
 import {InventoryRecord} from "../../models/Inventory Models/EqMaintainModel.js";
 import {InventoryInput} from "../../models/Inventory Models/InventoryRecordModel.js";
+import {subMonths, subYears, format, subWeeks} from "date-fns";
 
 const router = express.Router();
 
@@ -92,6 +93,41 @@ router.get('/', async (request, response) => {
     }catch (error){
         console.log(error.message);
         response.status(500).send({message: error.message});
+    }
+});
+
+router.get('/g', async (request, response) => {
+    try {
+        const timeline = request.query.timeline
+        let startDate;
+
+        // Determine the start date based on the timeline filter
+        if (timeline === '1 Year') {
+            startDate = subYears(new Date(), 1); // Subtract 1 year from the current date
+        } else if (timeline === '1 Month') {
+            startDate = subMonths(new Date(), 1); // Subtract 1 month from the current date
+        } else if (timeline === '1 Week') {
+            startDate = subWeeks(new Date(), 1);// Calculate start date for 1 week
+        } else {
+            // Default to current date if timeline filter is not provided or invalid
+            startDate = new Date();
+        }
+
+        // Convert the start date to string format 'yyyy-MM-dd'
+        const formattedStartDate = format(startDate, 'yyyy-MM-dd');
+
+        // Query the database for records within the specified time range
+        const diseases = await DiseasesRecord.find({
+            date: { $gte: formattedStartDate, $lte: format(new Date(), 'yyyy-MM-dd') } // Filter records from start date to current date
+        });
+
+        return response.status(200).json({
+            count: diseases.length,
+            data: diseases
+        });
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
     }
 });
 
