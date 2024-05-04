@@ -87,6 +87,25 @@ export default function MachineRecordsList() {
         }
     };
 
+    const handleDeleteMachineDetailRecord = (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this machine record?");
+        if (confirmDelete) {
+            setLoading(true);
+            axios
+                .delete(`https://elemahana-backend.vercel.app/machineRecord/${id}`)
+                .then(() => {
+                    setMachineRecordDetails((prevRecords) => prevRecords.filter((record) => record._id !== id));
+                    message.success('Machine detail record successfully deleted.');
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    message.error('Machine detail record deletion failed.');
+                    console.log(error);
+                });
+        }
+    };
+
     const sortedRecords = [...machineRecords].sort((a, b) => {
         if (sortBy === 'start_date') {
             return sortOrder === 'asc' ? new Date(a.start_date) - new Date(b.start_date) : new Date(b.start_date) - new Date(a.start_date);
@@ -178,6 +197,8 @@ export default function MachineRecordsList() {
             // Make POST request to the API endpoint
             const response = await
                 axios.post('https://elemahana-backend.vercel.app/machineRecord', payload);
+
+            setMachineRecordDetails((prevRecords) => prevRecords.filter((record) => record._id !== id));
 
             // Handle success response
             console.log('Record added successfully:', response.data);
@@ -514,22 +535,32 @@ export default function MachineRecordsList() {
                                                             <th scope="col" className="px-6 py-3">
                                                                 Payment
                                                             </th>
+                                                            <th scope="col" className="px-6 py-3">
+
+                                                            </th>
 
 
                                                         </tr>
                                                         </thead>
                                                         <tbody className="border-b border-gray-300 ">
-                                                        {machineRecordDetails.map((record, index) => (
-                                                            <tr key={record._id}
-                                                                className={`divide-y divide-gray-300 `}>
-                                                                <td></td>
-                                                                <td className="px-6 py-4">{record.task_id}</td>
-                                                                <td className="px-6 py-4">{record.record_date}</td>
-                                                                <td className="px-6 py-4">{record.reading_start}</td>
-                                                                <td className="px-6 py-4">{record.reading_end}</td>
-                                                                <td className="px-6 py-4">{record.record_pay.toLocaleString()}</td>
-                                                            </tr>
-                                                        ))}
+                                                        {machineRecordDetails
+                                                            .filter(detail_record => detail_record.task_id === record._id) // Filter records by taskId
+                                                            .map((detail_record, index) => (
+                                                                <tr key={detail_record._id} className={`divide-y divide-gray-300 `}>
+                                                                    <td></td>
+                                                                    <td className="px-6 py-4">{detail_record.task_id}</td>
+                                                                    <td className="px-6 py-4">{detail_record.record_date}</td>
+                                                                    <td className="px-6 py-4">{detail_record.reading_start}</td>
+                                                                    <td className="px-6 py-4">{detail_record.reading_end}</td>
+                                                                    <td className="px-6 py-4">{detail_record.record_pay.toLocaleString()}</td>
+                                                                    <td className=" ">
+                                                                        <Button shape="circle" type="text" onClick={() => handleDeleteMachineDetailRecord(detail_record._id)}>
+                                                                            <TrashIcon className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500" aria-hidden="true" />
+                                                                        </Button>
+                                                                    </td>
+                                                                </tr>
+                                                            ))
+                                                        }
                                                         </tbody>
                                                     </table>
 
@@ -543,7 +574,7 @@ export default function MachineRecordsList() {
                             </td>
 
                             <td className=" py-4 text-right">
-                                <Link to={`/finances/machineHours/editMachineRecords/${record._id}`}>
+                            <Link to={`/finances/machineHours/editMachineRecords/${record._id}`}>
                                     <PencilSquareIcon
                                         className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
                                         aria-hidden="true"
