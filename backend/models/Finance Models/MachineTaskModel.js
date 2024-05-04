@@ -1,10 +1,6 @@
 import mongoose from 'mongoose';
 const FinanceSchema = mongoose.Schema(
     {
-        task_id: {
-            type: String,
-            required: true,
-        },
         start_date: {
             type: String,
             required: true,

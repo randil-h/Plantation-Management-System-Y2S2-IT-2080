@@ -7,7 +7,6 @@ const router = express.Router();
 router.post('/', async (request, response) => {
     try {
         if (
-            !request.body.task_id ||
             !request.body.start_date ||
             !request.body.name ||
             !request.body.type ||
@@ -26,7 +25,6 @@ router.post('/', async (request, response) => {
         }
 
         const NewMachinesRecord = {
-            task_id:request.body.task_id,
             start_date: request.body.start_date,
             name: request.body.name,
             type: request.body.type,
@@ -83,7 +81,6 @@ router.get('/:id', async (request, response) => {
 router.put('/:id', async (request, response) => {
     try {
         if (
-            !request.body.task_id ||
             !request.body.start_date ||
             !request.body.name ||
             !request.body.type ||
