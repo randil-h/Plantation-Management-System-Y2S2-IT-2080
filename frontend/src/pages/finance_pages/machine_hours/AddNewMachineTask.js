@@ -16,11 +16,11 @@ function AddNewMachineTask() {
     const [rate, setRate] = useState('');
     const [payee, setPayee] = useState('');
     const [description, setDescription] = useState('');
-    const [total_amount, setTotalAmount] = useState('');
-    const [paid_amount, setPaidAmount] = useState('');
-    const [record_date, setRecordDate] = useState('');
-    const [record_reading, setRecordReading] = useState('');
-    const [record_pay, setRecordPay] = useState('');
+    const [total_amount, setTotalAmount] = useState('0');
+    const [paid_amount, setPaidAmount] = useState('0');
+    const [record_date, setRecordDate] = useState('2024-01-01');
+    const [record_reading, setRecordReading] = useState('0');
+    const [record_pay, setRecordPay] = useState('0');
 
     const [autoSaveTransaction, setAutoSaveTransaction] = useState(false);
 
@@ -200,7 +200,7 @@ function AddNewMachineTask() {
                                                     required // Makes the field required
                                                 />
                                             </div>
-                                            <div className="sm:col-span-3 sm:col-start-1">
+                                            <div className="sm:col-span-2 sm:col-start-1">
                                                 <label htmlFor="rate"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
                                                     Rate
@@ -235,7 +235,7 @@ function AddNewMachineTask() {
                                             </div>
 
                                             {/* Payer/Payee */}
-                                            <div className="col-span-full">
+                                            <div className="col-span-2">
                                                 <label htmlFor="payee"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
                                                     Payee

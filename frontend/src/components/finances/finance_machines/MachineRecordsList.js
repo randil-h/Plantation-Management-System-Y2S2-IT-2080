@@ -24,7 +24,7 @@ export default function MachineRecordsList() {
     const { id } = useParams();
     const [machineRecords, setMachineRecords] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [sortBy, setSortBy] = useState('date');
+    const [sortBy, setSortBy] = useState('start_date');
     const [sortOrder, setSortOrder] = useState('asc');
     const { enqueueSnackbar } = useSnackbar();
 
@@ -66,8 +66,8 @@ export default function MachineRecordsList() {
     };
 
     const sortedRecords = [...machineRecords].sort((a, b) => {
-        if (sortBy === 'date') {
-            return sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
+        if (sortBy === 'start_date') {
+            return sortOrder === 'asc' ? new Date(a.start_date) - new Date(b.start_date) : new Date(b.start_date) - new Date(a.start_date);
         }
     });
 
@@ -92,7 +92,7 @@ export default function MachineRecordsList() {
 
     const handleClearFilters = () => {
         setSearchQuery('');
-        setSortBy('date');
+        setSortBy('start_date');
         setSortOrder('asc');
     };
 
@@ -104,13 +104,13 @@ export default function MachineRecordsList() {
 
     const handleDownloadPDF = () => {
         const sortedRecords = machineRecords.sort((a, b) => {
-            if (sortBy === 'date') {
-                return sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
+            if (sortBy === 'start_date') {
+                return sortOrder === 'asc' ? new Date(a.start_date) - new Date(b.start_date) : new Date(b.start_date) - new Date(a.start_date);
             }
         });
 
         const filteredRecords = sortedRecords.filter(machine => {
-            const transactionDate = new Date(machine.date);
+            const transactionDate = new Date(machine.start_date);
             return transactionDate >= selectedDates[0] && transactionDate <= selectedDates[1];
         });
 
@@ -119,7 +119,7 @@ export default function MachineRecordsList() {
 
         const headers = [['Date', 'Type', 'Hours/nos.', 'Rate', 'Description', 'Payer/Payee', 'Paid', 'Total']];
         const data = filteredRecords.map(machine => [
-            machine.date,
+            machine.start_date,
             machine.type,
             machine.hours_nos,
             machine.rate,
