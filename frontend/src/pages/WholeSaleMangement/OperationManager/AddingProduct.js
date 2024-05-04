@@ -10,6 +10,7 @@ import Breadcrumb from "../../../components/utility/Breadcrumbs";
 export default function AddingProduct() {
 
     const breadcrumbItems = [
+        { name: 'Orders', href: '/orders/confirm' },
         { name: 'Products', href: '/wholesaleDashboard' },
         { name: 'Add Product', href: 'OperationManager/AddingProduct' },
     ];

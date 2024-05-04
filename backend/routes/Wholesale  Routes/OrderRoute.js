@@ -11,7 +11,8 @@ router.post('/', async(request, response) =>{
             !request.body.orderDate ||
             !request.body.orderQuantity ||
             !request.body.orderPrice ||
-            !request.body.orderProductPricePerKilo
+            !request.body.orderProductPricePerKilo ||
+            !request.body.orderStatus
         ){
             return response.status(400).send ({
                 message: 'Send all required fields',
@@ -24,6 +25,7 @@ router.post('/', async(request, response) =>{
             orderQuantity: request.body.orderQuantity,
             orderPrice: request.body.orderPrice,
             orderProductPricePerKilo: request.body.orderProductPricePerKilo,
+            orderStatus: request.body.orderStatus,
         };
 
         const order = await Orders.create(newOrder);
