@@ -66,7 +66,7 @@ app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
 app.use('/valuation', ValuationRoute);
 app.use('/machines', MachineTaskRoute);
-app.use('/machinesRecords', Mach);
+
 app.use('/salary', SalaryRoute);
 app.use('/weather', WeatherAPI)
 
