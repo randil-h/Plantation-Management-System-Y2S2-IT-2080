@@ -25,6 +25,7 @@ const EditInventoryRecords = () => {
         ava_status: 'in stock'
     });
     const [selectedType, setSelectedType] = useState('');
+    const [autoSaveTransaction, setAutoSaveTransaction] = useState(true);
 
     useEffect(() => {
         setLoading(true);
@@ -76,7 +77,7 @@ const EditInventoryRecords = () => {
             ava_status: "in stock"
         });
     };
-    const handleEdit = (e) => {
+    const handleEdit = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
         setLoading(true);
 
@@ -98,26 +99,39 @@ const EditInventoryRecords = () => {
             ava_status
         };
 
-        axios
-            .put(`https://elemahana-backend.vercel.app/inventoryinputs/${id}`, updatedData)
-            .then(() => {
-                setLoading(false);
-                enqueueSnackbar('Record Edited Successfully!', {
-                    variant: 'success',
-                    autoHideDuration: 6000,
-                    anchorOrigin: {
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    },
-                });
-                navigate('/inventory/inventoryrecords');
-            })
-            .catch((error) => {
-                setLoading(false);
-                enqueueSnackbar('Error editing record', { variant: 'error' });
-                console.log(error);
+        try {
+            await axios.put(`https://elemahana-backend.vercel.app/inventoryinputs/${id}`, updatedData);
+            setLoading(false);
+            enqueueSnackbar('Record Edited Successfully!', {
+                variant: 'success',
+                autoHideDuration: 6000,
+                anchorOrigin: {
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                },
             });
+            navigate('/inventory/inventoryrecords');
+
+            if (autoSaveTransaction) {
+                const transactionData = {
+                    date: new Date().toISOString().slice(0, 10),
+                    type: 'expense',
+                    subtype: 'Inventory Fee',
+                    amount: formData.quantity * formData.unit_price,
+                    description: `${formData.record_name} , Quantity purchased - ${formData.quantity}`,
+                    payer_payee: formData.payer,
+                    method: 'Automated Entry',
+                };
+
+                await axios.post('https://elemahana-backend.vercel.app/transactions', transactionData);
+            }
+        } catch (error) {
+            setLoading(false);
+            enqueueSnackbar('Error editing record', { variant: 'error' });
+            console.log(error);
+        }
     };
+
 
     return (
         <div className="pt-2">
@@ -453,6 +467,7 @@ const EditInventoryRecords = () => {
                                         id="quantity"
                                         name="quantity"
                                         onChange={handleChange}
+                                        min="1"
                                         value={formData.quantity}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                         required/>
@@ -470,6 +485,7 @@ const EditInventoryRecords = () => {
                                                 type="number"
                                                 name="size"
                                                 value={formData.size}
+                                                min="1"
                                                 onChange={handleChange}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 required/>
@@ -508,6 +524,7 @@ const EditInventoryRecords = () => {
                                         type="number"
                                         name="unit_price"
                                         value={formData.unit_price}
+                                        min="1"
                                         onChange={handleChange}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                         required/>
@@ -583,6 +600,18 @@ const EditInventoryRecords = () => {
                         </div>
                     </div>
                     <div className="mt-6 flex items-center justify-end space-x-4">
+                        <div
+                            className="flex  justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
+                            <label className="bg-gray-200 py-1 pl-4 rounded-full">
+                                Automatically save to transactions
+                                <input
+                                    className="size-6 ml-4 mr-1 form-checkbox text-lime-600 bg-white border-gray-300 rounded-full focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50 hover:bg-lime-100 checked:bg-lime-500"
+                                    type="checkbox"
+                                    checked={autoSaveTransaction}
+                                    onChange={(e) => setAutoSaveTransaction(e.target.checked)}/>
+
+                            </label>
+                        </div>
                         <button
                             type="button"
                             onClick={handleCancel}

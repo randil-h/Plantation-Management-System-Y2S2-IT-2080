@@ -82,7 +82,7 @@ export default function AddInventoryRecords() {
                     type: 'expense',
                     subtype: 'Inventory Fee',
                     amount: formData.quantity * formData.unit_price,
-                    description: `Quantity purchased - ${formData.quantity}\n${formData.description}`,
+                    description: `${formData.record_name} , Quantity purchased - ${formData.quantity}`,
                     payer_payee: formData.payer,
                     method: 'Automated Entry',
                 };
@@ -416,6 +416,7 @@ export default function AddInventoryRecords() {
                                         id="quantity"
                                         name="quantity"
                                         onChange={handleChange}
+                                        min="1"
                                         value={formData.quantity}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                         required/>
@@ -433,6 +434,7 @@ export default function AddInventoryRecords() {
                                                 type="number"
                                                 name="size"
                                                 value={formData.size}
+                                                min="1"
                                                 onChange={handleChange}
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 required/>
@@ -471,6 +473,7 @@ export default function AddInventoryRecords() {
                                         type="number"
                                         name="unit_price"
                                         value={formData.unit_price}
+                                        min="1"
                                         onChange={handleChange}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                         required/>

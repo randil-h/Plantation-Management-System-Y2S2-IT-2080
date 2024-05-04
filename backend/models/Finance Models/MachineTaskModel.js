@@ -1,50 +1,61 @@
 import mongoose from 'mongoose';
-const InventoryMaintainSchema = mongoose.Schema(
+const FinanceSchema = mongoose.Schema(
     {
-        Eq_machine_main: {
+        task_id: {
             type: String,
             required: true,
         },
-        Eq_id_main: {
+        start_date: {
             type: String,
             required: true,
         },
-        date_referred: {
-            type: Date, // Assuming you want to store dates
+        name: {
+            type: String,
             required: true,
         },
-        date_received: {
-            type: Date,
+        type: {
+            type: String,
             required: true,
         },
-        price:{
+        rate: {
             type: Number,
             required: true,
         },
-        pay_person:{
+        payee: {
             type: String,
             required: true,
         },
-        ref_loc: {
+        description: {
             type: String,
             required: true,
         },
-        status: {
+        total_amount: {
+            type: Number,
+            required: true,
+        },
+        paid_amount: {
+            type: Number,
+            required: true,
+        },
+        record_date: {
             type: String,
             required: true,
         },
-        comment: {
+        record_reading: {
+            type: Number,
+            required: true,
+        },
+        record_pay: {
             type: String,
             required: true,
         },
-
     },
     {
         timestamps:true,
     }
 );
 
-export const InventoryRecord = mongoose.model('InventoryRecord', InventoryMaintainSchema);
+export const MachinesTask = mongoose.model('MachinesTask', FinanceSchema);
 
 
 

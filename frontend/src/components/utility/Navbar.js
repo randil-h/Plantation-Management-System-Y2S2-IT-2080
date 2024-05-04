@@ -11,7 +11,7 @@ import {
     XMarkIcon,
     UserCircleIcon
 } from '@heroicons/react/24/outline';
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid';
+import { ChevronDownIcon, PhoneIcon, PlayCircleIcon, UserCircleIcon as UserCircleIconSolid } from '@heroicons/react/20/solid';
 import {Link} from "react-router-dom";
 
 function classNames(...classes) {
@@ -22,6 +22,7 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
     const location = useLocation();
+    const {getPermission, getPermissions} = useKindeAuth();
 
 
     useEffect(() => {
@@ -85,20 +86,24 @@ export default function Navbar() {
                     </div>
                 </Link>
 
-                <Link to="/dashboard" className="nav-item">
-                    {isAuthenticated && (
-                        <div
-                            className="h-full font-medium px-6 rounded-full transition-all duration-200 hover:bg-lime-200">
-                            Dashboard
-                        </div>
-                    )}
-                </Link>
+
+                {
+                    getPermission("view:dashboard").isGranted ? (
+                        <Link to="/dashboard" className="nav-item">
+                            <div className="h-full font-medium px-6 rounded-full transition-all duration-200 hover:bg-lime-200">
+                                Dashboard
+                            </div>
+                        </Link>
+                    ) : null
+                }
+
+
 
                 <div
                     className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 font-medium content-center items-center align-middle">
                     {isAuthenticated ? (
                         <>
-                            <UserCircleIcon className="w-6 h-6"/>
+                            <UserCircleIconSolid className="w-6 h-6"/>
                             <div className="text-xs text-gray-400">{user.email}</div>
                             <button onClick={logout}
                                     className="px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-full text-black bg-red-200 hover:bg-red-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Logout

@@ -10,13 +10,18 @@ import BackButton from '../../../components/utility/BackButton';
 import {message} from "antd";
 
 function EditMachineRecord() {
-    const [date, setDate] = useState('');
-    const [type, setType] = useState('');
-    const [hours_nos, setHours] = useState('');
+    const [task_id, setTaskID] = useState('');
+    const [start_date, setStartDate] = useState('');
+    const [name, setName] = useState('');
+    const [type, setType] = useState('Excavator small');
     const [rate, setRate] = useState('');
+    const [payee, setPayee] = useState('');
     const [description, setDescription] = useState('');
-    const [payerPayee, setPayerPayee] = useState('');
-    const [paid, setPaid] = useState('false');
+    const [total_amount, setTotalAmount] = useState('');
+    const [paid_amount, setPaidAmount] = useState('');
+    const [record_date, setRecordDate] = useState('');
+    const [record_reading, setRecordReading] = useState('');
+    const [record_pay, setRecordPay] = useState('');
 
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -29,13 +34,17 @@ function EditMachineRecord() {
         axios
             .get(`https://elemahana-backend.vercel.app/machines/${id}`)
             .then((response) => {
-                setDate(response.data.date);
+                setStartDate(response.data.start_date);
+                setName(response.data.name);
                 setType(response.data.type);
-                setHours(response.data.hours_nos);
                 setRate(response.data.rate);
+                setPayee(response.data.payee);
                 setDescription(response.data.description);
-                setPayerPayee(response.data.payer_payee);
-                setPaid(response.data.paid);
+                setTotalAmount(response.data.total_amount);
+                setPaidAmount(response.data.paid_amount);
+                setRecordDate(response.data.record_date);
+                setRecordReading(response.data.record_reading);
+                setRecordPay(response.data.record_pay);
                 setLoading(false);
             })
             .catch((error) => {
@@ -46,7 +55,7 @@ function EditMachineRecord() {
 
     const handleEditMachineRecord = () => {
 
-        if (!date || !type || !hours_nos || !rate || !description || !payerPayee || paid === undefined) {
+        /*if (!date || !type || !hours_nos || !rate || !description || !payerPayee || paid === undefined) {
             message.warning('Please fill in all fields.  The record will not be saved with incomplete data');
             return;
         }
@@ -55,15 +64,19 @@ function EditMachineRecord() {
         if (isNaN(hours_nos) || isNaN(rate) || hours_nos <= 0 || rate <= 0) {
             message.warning('Hours/Numbers and Rate must be positive numbers.');
             return;
-        }
+        }*/
         const data = {
-            date,
+            start_date,
+            name,
             type,
-            hours_nos,
             rate,
+            payee,
             description,
-            payer_payee: payerPayee,
-            paid,
+            total_amount,
+            paid_amount,
+            record_date,
+            record_reading,
+            record_pay
         };
         setLoading(true);
         axios
@@ -118,6 +131,22 @@ function EditMachineRecord() {
                                         <p className="mt-1 text-sm leading-6 text-gray-600">Specify the type of the
                                             rented machine.</p>
                                         <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 ">
+
+                                            <div className="sm:col-span-3">
+                                                <label htmlFor="start_date"
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Task Start Date
+                                                </label>
+                                                <input
+                                                    type="date"
+                                                    value={start_date}
+                                                    onChange={(e) => setStartDate(e.target.value)}
+                                                    id="start_date"
+                                                    required
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                />
+                                            </div>
+
                                             <div className="sm:col-span-2 sm:col-start-1">
                                                 <label htmlFor="type"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
@@ -129,6 +158,7 @@ function EditMachineRecord() {
                                                         value={type}
                                                         onChange={(e) => setType(e.target.value)}
                                                         id="type"
+                                                        required
                                                         autoComplete="type"
                                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                     >
@@ -144,15 +174,15 @@ function EditMachineRecord() {
 
                                             {/* Date */}
                                             <div className="sm:col-span-3">
-                                                <label htmlFor="date"
+                                                <label htmlFor="start_date"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Date
+                                                    Task Start Date
                                                 </label>
                                                 <input
                                                     type="date"
-                                                    value={date}
-                                                    onChange={(e) => setDate(e.target.value)}
-                                                    id="date"
+                                                    value={start_date}
+                                                    onChange={(e) => setStartDate(e.target.value)}
+                                                    id="start_date"
                                                     required
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
@@ -160,19 +190,17 @@ function EditMachineRecord() {
 
                                             {/* Amount */}
                                             <div className="sm:col-span-3">
-                                                <label htmlFor="hours_nos"
+                                                <label htmlFor="name"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Hours/nos.
+                                                    Task Name
                                                 </label>
                                                 <input
-                                                    id="hours_nos"
-                                                    name="hours_nos"
-                                                    value={hours_nos}
-                                                    onChange={(e) => setHours(e.target.value)}
+                                                    id="name"
+                                                    name="name"
+                                                    value={name}
+                                                    onChange={(e) => setName(e.target.value)}
                                                     type="text"
-                                                    pattern="[1-9]\d*" // Only allows positive integers
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
-                                                    title="Please enter only numbers" // Error message if pattern doesn't match
                                                     required // Makes the field required
                                                 />
                                             </div>
@@ -182,7 +210,7 @@ function EditMachineRecord() {
                                                     Rate
                                                 </label>
                                                 <input
-                                                    type="text"
+                                                    type="number"
                                                     name="rate"
                                                     required
                                                     value={rate}
@@ -210,40 +238,72 @@ function EditMachineRecord() {
                                                 />
                                             </div>
 
-                                            {/* Payer/Payee */}
-                                            <div className="col-span-full">
-                                                <label htmlFor="payer_payee"
+                                            {/* Payee */}
+                                            <div className="col-span-3">
+                                                <label htmlFor="payee"
                                                        className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Payer/Payee
+                                                    Payee
                                                 </label>
                                                 <input
                                                     type="text"
-                                                    name="payer_payee"
+                                                    name="payee"
                                                     required
-                                                    value={payerPayee}
-                                                    onChange={(e) => setPayerPayee(e.target.value)}
-                                                    id="payer_payee"
+                                                    value={payee}
+                                                    onChange={(e) => setPayee(e.target.value)}
+                                                    id="payee"
                                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 />
                                             </div>
 
-                                            {/* Payment Method */}
+                                            {/* Payee */}
+                                            <div className="col-span-full">
+                                                <label htmlFor="payee"
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Payee
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="payee"
+                                                    required
+                                                    value={payee}
+                                                    onChange={(e) => setPayee(e.target.value)}
+                                                    id="payee"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                />
+                                            </div>
 
-                                            <div className="sm:col-span-2 sm:col-start-1">
-                                                <div className="relative flex gap-x-4 align-baseline items-center">
-                                                    <label htmlFor="paid"
-                                                           className="block text-sm font-medium leading-6 text-gray-900">
-                                                        Work is already paid
-                                                    </label>
-                                                    <input
-                                                        type="checkbox"
-                                                        name="paid"
-                                                        checked={paid === 'true'}
-                                                        onChange={(e) => setPaid(e.target.checked ? 'true' : 'false')}
-                                                        id="paid"
-                                                        className="h-5 w-5 rounded border-gray-300 text-lime-600 focus:ring-lime-600"
-                                                    />
-                                                </div>
+                                            {/* Payee */}
+                                            <div className="col-span-full">
+                                                <label htmlFor="payee"
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Payee
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="payee"
+                                                    required
+                                                    value={payee}
+                                                    onChange={(e) => setPayee(e.target.value)}
+                                                    id="payee"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                />
+                                            </div>
+
+                                            {/* Payee */}
+                                            <div className="col-span-full">
+                                                <label htmlFor="payee"
+                                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                                    Payee
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="payee"
+                                                    required
+                                                    value={payee}
+                                                    onChange={(e) => setPayee(e.target.value)}
+                                                    id="payee"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                />
                                             </div>
 
 

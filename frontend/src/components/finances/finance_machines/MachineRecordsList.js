@@ -15,7 +15,8 @@ import {
     MagnifyingGlassIcon,
     ChevronDownIcon,
     ChevronUpIcon,
-    XMarkIcon, ArrowDownTrayIcon
+    XMarkIcon, ArrowDownTrayIcon,
+    PlusIcon
 } from '@heroicons/react/24/outline';
 
 export default function MachineRecordsList() {
@@ -319,6 +320,14 @@ export default function MachineRecordsList() {
 
 
                             <td className=" py-4 text-right">
+                                <Link to={`/finances/machineHours/editMachineRecords/${record._id}`}>
+                                    <PlusIcon
+                                        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                        aria-hidden="true"
+                                    />
+                                </Link>
+                            </td>
+                            <td className=" py-4 text-right">
                                 <Link to={`/finances/machineHours/viewMachineRecords/${record._id}`}>
                                     <InformationCircleIcon
                                         className="h-6 w-6 flex-none bg-gray-200 p-1 rounded-full text-gray-800 hover:bg-gray-500"
@@ -326,23 +335,15 @@ export default function MachineRecordsList() {
                                     />
                                 </Link>
                             </td>
-                            <td className=" py-4 text-right">
-                                <Link to={`/finances/machineHours/editMachineRecords/${record._id}`}>
-                                    <PencilSquareIcon
-                                        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                            <td className=" ">
+                                <Button shape="circle" type="text" onClick={() => {
+                                    handleDeleteMachineRecord(record._id);
+                                }}>
+                                    <TrashIcon
+                                        className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
                                         aria-hidden="true"
                                     />
-                                </Link>
-                            </td>
-                            <td className=" ">
-                                    <Button shape="circle" type="text" onClick={() => {
-                                        handleDeleteMachineRecord(record._id);
-                                    }}>
-                                        <TrashIcon
-                                            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                            aria-hidden="true"
-                                        />
-                                    </Button>
+                                </Button>
 
                             </td>
                         </tr>
