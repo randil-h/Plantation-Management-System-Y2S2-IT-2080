@@ -42,7 +42,7 @@ const FinanceSchema = mongoose.Schema(
             required: true,
         },
         record_pay: {
-            type: String,
+            type: Number,
             required: true,
         },
     },

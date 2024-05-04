@@ -389,7 +389,25 @@ export default function MachineRecordsList() {
                     </tr>
                     </thead>
                     <tbody className="border-b border-gray-200">
-                    {filteredMachineRecords.map((record, index) => (
+                    {filteredMachineRecords.map((record, index) => {
+                        // Filter detail records relevant to the current machine record
+                        const relevantDetailRecords = machineRecordDetails.filter(detail_record => detail_record.task_id === record._id);
+
+                        // Calculate the paid amount based on relevant detail records
+                        const paidAmount = relevantDetailRecords.reduce((total, detail) => {
+                            // Add the record_pay to the total
+                            return total + detail.record_pay;
+                        }, 0);
+
+                        // Calculate the total amount based on relevant detail records
+                        const totalAmount = relevantDetailRecords.reduce((total, detail_record) => {
+                            // Calculate the amount for each detail record
+                            const amount = (detail_record.reading_end - detail_record.reading_start) * record.rate;
+                            // Add the amount to the total
+                            return total + amount;
+                        }, 0);
+
+                        return (
                         <tr
                             key={record._id}
                             className={` divide-y
@@ -402,11 +420,11 @@ export default function MachineRecordsList() {
                             <td className="px-6 py-4">Rs.{record.rate.toLocaleString()}</td>
                             <td className="px-6 py-4">{record.payee}</td>
                             <td className="px-6 py-4">{record.description}</td>
-                            <td className="px-6 py-4">{record.total_amount}</td>
-                            <td className="px-6 py-4">{record.paid_amount}</td>
+                            <td className="px-6 py-4">Rs.{totalAmount.toLocaleString()}</td>
+                            <td className="px-6 py-4">Rs.{paidAmount.toLocaleString()}</td>
                             <td className="px-6 py-4">
                                 <div>
-                                    Rs.{(record.total_amount - record.paid_amount).toLocaleString()}
+                                    Rs.{(totalAmount - paidAmount).toLocaleString()}
                                 </div>
                             </td>
                             <td className="  text-right py-4 px-4 ">
@@ -601,7 +619,8 @@ export default function MachineRecordsList() {
 
                             </td>
                         </tr>
-                    ))}
+                        );
+                    })}
                     </tbody>
                 </table>
             </div>
