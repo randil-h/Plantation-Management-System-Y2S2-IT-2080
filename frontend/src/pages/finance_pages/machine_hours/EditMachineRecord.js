@@ -16,8 +16,6 @@ function EditMachineRecord() {
     const [rate, setRate] = useState('');
     const [payee, setPayee] = useState('');
     const [description, setDescription] = useState('');
-    const [total_amount, setTotalAmount] = useState('0');
-    const [paid_amount, setPaidAmount] = useState('0');
 
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -36,8 +34,6 @@ function EditMachineRecord() {
                 setRate(response.data.rate);
                 setPayee(response.data.payee);
                 setDescription(response.data.description);
-                setTotalAmount(response.data.total_amount);
-                setPaidAmount(response.data.paid_amount);
             })
             .catch((error) => {
                 console.log(error);
@@ -47,7 +43,7 @@ function EditMachineRecord() {
 
     const handleEditMachineRecord = () => {
 
-        if (!start_date || !name || !type || !rate || !description || !payee) {
+        if (!start_date || !name || !type || !rate || !description || !payee ) {
             message.warning('Please fill in all fields. The record will not be saved with incomplete data.');
             return;
         }
@@ -58,6 +54,8 @@ function EditMachineRecord() {
             message.warning('Hours/Numbers and Rate must be positive numbers.');
             return;
         }
+
+
         const data = {
             start_date,
             name,
@@ -65,8 +63,6 @@ function EditMachineRecord() {
             rate,
             payee,
             description,
-            total_amount,
-            paid_amount
         };
         setLoading(true);
         axios

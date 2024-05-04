@@ -12,9 +12,7 @@ router.post('/', async (request, response) => {
             !request.body.type ||
             !request.body.rate ||
             !request.body.payee ||
-            !request.body.description ||
-            !request.body.total_amount ||
-            !request.body.paid_amount
+            !request.body.description
         ) {
             return response.status(400).send({
                 message: 'Send all required fields',
@@ -27,9 +25,7 @@ router.post('/', async (request, response) => {
             type: request.body.type,
             rate: request.body.rate,
             payee: request.body.payee,
-            description: request.body.description,
-            total_amount: request.body.total_amount,
-            paid_amount: request.body.paid_amount
+            description: request.body.description
         };
 
         const MachineRecord = await MachinesTask.create(NewMachinesRecord);
@@ -74,7 +70,7 @@ router.get('/:id', async (request, response) => {
 // Route for Update a transaction
 router.put('/:id', async (request, response) => {
     try {
-        const requiredFields = ['start_date', 'name', 'type', 'rate', 'payee', 'description', 'total_amount', 'paid_amount'];
+        const requiredFields = ['start_date', 'name', 'type', 'rate', 'payee', 'description'];
         let missingFields = requiredFields.filter(field => !request.body[field]);
 
         if (missingFields.length > 0) {

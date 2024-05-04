@@ -24,14 +24,6 @@ const FinanceSchema = mongoose.Schema(
         description: {
             type: String,
             required: true,
-        },
-        total_amount: {
-            type: Number,
-            required: true,
-        },
-        paid_amount: {
-            type: Number,
-            required: true,
         }
     },
     {

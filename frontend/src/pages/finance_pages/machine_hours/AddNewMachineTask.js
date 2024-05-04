@@ -16,8 +16,6 @@ function AddNewMachineTask() {
     const [rate, setRate] = useState('');
     const [payee, setPayee] = useState('');
     const [description, setDescription] = useState('');
-    const [total_amount, setTotalAmount] = useState('0');
-    const [paid_amount, setPaidAmount] = useState('0');
 
     const [autoSaveTransaction, setAutoSaveTransaction] = useState(false);
 
@@ -26,7 +24,7 @@ function AddNewMachineTask() {
     const { enqueueSnackbar } = useSnackbar();
 
     const handleSaveMachineRecord = () => {
-        if (!start_date || !name || !type || !rate || !description || !payee || !total_amount || !paid_amount) {
+        if (!start_date || !name || !type || !rate || !description || !payee ) {
             message.warning('Please fill in all fields. The record will not be saved with incomplete data.');
             return;
         }
@@ -46,8 +44,6 @@ function AddNewMachineTask() {
             rate,
             payee,
             description,
-            total_amount,
-            paid_amount
         };
         setLoading(true);
         axios
