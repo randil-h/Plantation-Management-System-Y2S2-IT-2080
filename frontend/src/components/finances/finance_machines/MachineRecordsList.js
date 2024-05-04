@@ -503,10 +503,13 @@ export default function MachineRecordsList() {
                                                                 Record ID
                                                             </th>
                                                             <th scope="col" className="px-6 py-3">
-                                                            Record Date
+                                                                Record Date
                                                             </th>
                                                             <th scope="col" className="px-6 py-3">
-                                                                Record Reading
+                                                                Reading Start
+                                                            </th>
+                                                            <th scope="col" className="px-6 py-3">
+                                                                Reading End
                                                             </th>
                                                             <th scope="col" className="px-6 py-3">
                                                                 Payment
@@ -522,7 +525,8 @@ export default function MachineRecordsList() {
                                                                 <td></td>
                                                                 <td className="px-6 py-4">{record.task_id}</td>
                                                                 <td className="px-6 py-4">{record.record_date}</td>
-                                                                <td className="px-6 py-4">{record.record_reading}</td>
+                                                                <td className="px-6 py-4">{record.reading_start}</td>
+                                                                <td className="px-6 py-4">{record.reading_end}</td>
                                                                 <td className="px-6 py-4">{record.record_pay.toLocaleString()}</td>
                                                             </tr>
                                                         ))}
