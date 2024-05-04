@@ -37,7 +37,7 @@ const Payment = () => {
         if (validateForm()) {
             // Implement your payment logic here
             console.log('Payment submitted:', formData);
-            // Show booking confirmation alert using Snackbar
+
             enqueueSnackbar('Order Place successfully!', {
                 variant: 'success',
                 autoHideDuration: 6000,
@@ -50,7 +50,7 @@ const Payment = () => {
             setTimeout(() => {
                 // Post order data
                 axios
-                    .post('http://localhost:5555/orderRecords', orderData)
+                    .post('http://elemahana-backend.vercel.app/orderRecords', orderData)
                     .then(() => {
                         enqueueSnackbar('Record Created Successfully', { variant: 'success' });
                         // Navigate to the confirmation page

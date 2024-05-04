@@ -77,7 +77,7 @@ import WholeSaleDashBoard from "./pages/WholeSaleMangement/OperationManager/Whol
 import EditProduct from "./pages/WholeSaleMangement/OperationManager/EditProduct";
 import EditOrder from "./pages/WholeSaleMangement/WholeSaleCustomer/EditOrder";
 import PaymentGateway from "./pages/WholeSaleMangement/WholeSaleCustomer/PaymentGateway";
-import Home from "./pages/WholeSaleMangement/OperationManager/Home"
+import ConfirmOrders from "./pages/WholeSaleMangement/OperationManager/ConfirmOrders";
 
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
@@ -217,7 +217,7 @@ export default function App() {
                     <Route path="/editProduct/:id" element={<EditProduct />}/>
                     <Route path="/editOrder/:id" element={<EditOrder />}/>
                     <Route path="wholesale/Payment" element={PaymentGateway()}/>
-                    <Route path="/wholesale/dashboard/home" element={Home()}/>
+                    <Route path="/orders/confirm" element={ConfirmOrders()}/>
 
 
                     <Route path = "diseases/home" element={DiseaseTracking()}/>
