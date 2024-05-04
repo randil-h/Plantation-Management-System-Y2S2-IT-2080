@@ -1,4 +1,4 @@
-import {MachinesRecord} from "../../models/Finance Models/MachineModel.js";
+import {MachinesTask} from "../../models/Finance Models/MachineTaskModel.js";
 import express from "express";
 
 const router = express.Router();
@@ -32,7 +32,7 @@ router.post('/', async (request, response) => {
             paid_amount: request.body.paid_amount,
         };
 
-        const MachineRecord = await MachinesRecord.create(NewMachinesRecord);
+        const MachineRecord = await MachinesTask.create(NewMachinesRecord);
         return response.status(201).send(MachineRecord);
 
     }catch (error) {
@@ -45,7 +45,7 @@ router.post('/', async (request, response) => {
 
 router.get('/', async (request, response) => {
     try {
-        const MachineRecord = await MachinesRecord.find({});
+        const MachineRecord = await MachinesTask.find({});
 
         return response.status(200).json({
             count: MachineRecord.length,
@@ -62,7 +62,7 @@ router.get('/:id', async (request, response) => {
     try {
         const { id } = request.params;
 
-        const MachineRecord = await MachinesRecord.findById(id);
+        const MachineRecord = await MachinesTask.findById(id);
 
         return response.status(200).json(MachineRecord);
     } catch (error) {
@@ -91,7 +91,7 @@ router.put('/:id', async (request, response) => {
 
         const { id } = request.params;
 
-        const result = await MachinesRecord.findByIdAndUpdate(id, request.body);
+        const result = await MachinesTask.findByIdAndUpdate(id, request.body);
 
         if (!result) {
             return response.status(404).json({ message: 'Transaction record not found' });
@@ -109,7 +109,7 @@ router.delete('/:id', async (request, response) => {
     try {
         const { id } = request.params;
 
-        const result = await MachinesRecord.findByIdAndDelete(id);
+        const result = await MachinesTask.findByIdAndDelete(id);
 
         if (!result) {
             return response.status(404).json({ message: 'Transaction record not found' });
