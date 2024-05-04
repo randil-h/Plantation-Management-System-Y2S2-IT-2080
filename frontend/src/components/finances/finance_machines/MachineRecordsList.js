@@ -35,7 +35,8 @@ export default function MachineRecordsList() {
 
     const [taskId, setTaskId] = useState('');
     const [recordDate, setRecordDate] = useState('');
-    const [recordReading, setRecordReading] = useState('');
+    const [reading_start, setReadingStart] = useState('');
+    const [reading_end, setReadingEnd] = useState('');
     const [recordPay, setRecordPay] = useState('');
 
 
@@ -168,7 +169,8 @@ export default function MachineRecordsList() {
         const payload = {
             task_id: taskId,
             record_date: recordDate,
-            record_reading: parseInt(recordReading), // Ensure record_reading is converted to a number
+            reading_start,
+            reading_end,
             record_pay: recordPay
         };
 
@@ -184,7 +186,8 @@ export default function MachineRecordsList() {
 
             // Reset form fields after successful submission
             setRecordDate('');
-            setRecordReading('');
+            setReadingStart('');
+            setReadingEnd('');
             setRecordPay('');
 
         } catch (error) {
@@ -405,66 +408,126 @@ export default function MachineRecordsList() {
                                         leaveFrom="opacity-100 translate-y-0"
                                         leaveTo="opacity-0 translate-y-1"
                                     >
-                                        <Popover.Panel className="absolute right-full z-10 mt-2 flex flex-col w-screen max-w-md -translate-x-0 px-4">
-                                            <div className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
-                                                <div className="p-4">
+                                        <Popover.Panel className="absolute right-full z-10 my-2 flex flex-col   w-screen max-w-2xl -translate-x-0 px-4">
+                                            <div className="w-screen max-w-2xl flex-auto overflow-hidden rounded-3xl  text-sm leading-6 shadow-xl bg-gray-100 ring-1 ring-gray-900/5">
+                                                <div className="py-6">
                                                     <form onSubmit={handleDetailsSubmit}
-                                                          className="flex flex-col items-center justify-center space-y-4">
-                                                        <div className="space-y-4">
-                                                            <label htmlFor="task_id"
-                                                                   className="text-sm font-semibold leading-6 text-gray-900">Task
-                                                                ID</label>
-                                                            <input
-                                                                type="text"
-                                                                id="task_id"
-                                                                value={taskId}
-                                                                onChange={(e) => setTaskId(e.target.value)}
-                                                                required
-                                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
-                                                            />
+                                                          className="flex flex-col w-full items-center justify-center space-y-4">
+                                                        <div className=" w-full px-8 grid grid-cols-2 gap-4">
+                                                            <div
+                                                                className="flex flex-col items-start"> {/* Added items-start class for vertical alignment */}
+                                                                <label htmlFor="task_id"
+                                                                       className="text-sm font-semibold leading-6 text-gray-900">Task
+                                                                    ID</label>
+                                                                <input
+                                                                    type="text"
+                                                                    id="task_id"
+                                                                    value={taskId}
+                                                                    onChange={(e) => setTaskId(e.target.value)}
+                                                                    required
+                                                                    readOnly
+                                                                    className="block w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                                />
+                                                            </div>
 
-                                                            <label htmlFor="record_date"
-                                                                   className="text-sm font-semibold leading-6 text-gray-900">Record
-                                                                Date</label>
-                                                            <input
-                                                                type="text"
-                                                                id="record_date"
-                                                                value={recordDate}
-                                                                onChange={(e) => setRecordDate(e.target.value)}
-                                                                required
-                                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
-                                                            />
+                                                            <div
+                                                                className="flex flex-col items-start"> {/* Added items-start class for vertical alignment */}
+                                                                <label htmlFor="record_date"
+                                                                       className="text-sm font-semibold leading-6 text-gray-900">Record
+                                                                    Date</label>
+                                                                <input
+                                                                    type="date"
+                                                                    id="record_date"
+                                                                    value={recordDate}
+                                                                    onChange={(e) => setRecordDate(e.target.value)}
+                                                                    required
+                                                                    className="block w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                                />
+                                                            </div>
 
-                                                            <label htmlFor="record_reading"
-                                                                   className="text-sm font-semibold leading-6 text-gray-900">Record
-                                                                Reading</label>
-                                                            <input
-                                                                type="number"
-                                                                id="record_reading"
-                                                                value={recordReading}
-                                                                onChange={(e) => setRecordReading(e.target.value)}
-                                                                required
-                                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
-                                                            />
+                                                            <div
+                                                                className="flex flex-col items-start"> {/* Added items-start class for vertical alignment */}
+                                                                <label htmlFor="reading_start"
+                                                                       className="text-sm font-semibold leading-6 text-gray-900">Reading Start</label>
+                                                                <input
+                                                                    type="number"
+                                                                    id="reading_start"
+                                                                    value={reading_start}
+                                                                    onChange={(e) => setReadingStart(e.target.value)}
+                                                                    required
+                                                                    className="block w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                                />
+                                                            </div>
+                                                            <div
+                                                                className="flex flex-col items-start"> {/* Added items-start class for vertical alignment */}
+                                                                <label htmlFor="reading_end"
+                                                                       className="text-sm font-semibold leading-6 text-gray-900">Reading End</label>
+                                                                <input
+                                                                    type="number"
+                                                                    id="reading_end"
+                                                                    value={reading_end}
+                                                                    onChange={(e) => setReadingEnd(e.target.value)}
+                                                                    required
+                                                                    className="block w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                                />
+                                                            </div>
 
-                                                            <label htmlFor="record_pay"
-                                                                   className="text-sm font-semibold leading-6 text-gray-900">Record
-                                                                Pay</label>
-                                                            <input
-                                                                type="number"
-                                                                id="record_pay"
-                                                                value={recordPay}
-                                                                onChange={(e) => setRecordPay(e.target.value)}
-                                                                required
-                                                                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
-                                                            />
-
+                                                            <div
+                                                                className="flex flex-col items-start"> {/* Added items-start class for vertical alignment */}
+                                                                <label htmlFor="record_pay"
+                                                                       className="text-sm font-semibold leading-6 text-gray-900">Payment</label>
+                                                                <input
+                                                                    type="number"
+                                                                    id="record_pay"
+                                                                    value={recordPay}
+                                                                    onChange={(e) => setRecordPay(e.target.value)}
+                                                                    required
+                                                                    className="block w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                                />
+                                                            </div>
                                                         </div>
 
                                                         <button type="submit"
-                                                                className="px-4 py-2 bg-lime-200 text-black rounded-full shadow-md hover:bg-lime-600 focus:outline-none focus:ring focus:ring-lime-300 focus:ring-opacity-50">Submit
+                                                                className="self-end mx-8 px-4 py-1 bg-lime-200 text-black font-semibold rounded-full hover:bg-lime-400 focus:outline-none focus:ring focus:ring-lime-300 focus:ring-opacity-50">Submit
                                                         </button>
                                                     </form>
+
+
+                                                    <table
+                                                        className="w-full mt-4 text-sm text-left rtl:text-right text-gray-500 ">
+                                                        <thead
+                                                            className="text-xs text-gray-700  uppercase bg-gray-100 border-y border-gray-300 ">
+                                                        <tr className=" ">
+                                                            <th></th>
+                                                            <th scope="col" className="px-6 py-3">
+                                                                Record ID
+                                                            </th>
+                                                            <th scope="col" className="px-6 py-3">
+                                                            Record Date
+                                                            </th>
+                                                            <th scope="col" className="px-6 py-3">
+                                                                Record Reading
+                                                            </th>
+                                                            <th scope="col" className="px-6 py-3">
+                                                                Payment
+                                                            </th>
+
+
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody className="border-b border-gray-300 ">
+                                                        {machineRecordDetails.map((record, index) => (
+                                                            <tr key={record._id}
+                                                                className={`divide-y divide-gray-300 `}>
+                                                                <td></td>
+                                                                <td className="px-6 py-4">{record.task_id}</td>
+                                                                <td className="px-6 py-4">{record.record_date}</td>
+                                                                <td className="px-6 py-4">{record.record_reading}</td>
+                                                                <td className="px-6 py-4">{record.record_pay.toLocaleString()}</td>
+                                                            </tr>
+                                                        ))}
+                                                        </tbody>
+                                                    </table>
 
 
                                                 </div>
