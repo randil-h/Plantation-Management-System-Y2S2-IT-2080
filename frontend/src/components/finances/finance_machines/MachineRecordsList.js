@@ -33,6 +33,8 @@ export default function MachineRecordsList() {
     const [popoverVisible, setPopoverVisible] = useState(false);
     const [transactions, setTransactions] = useState([]);
 
+    const [autoSaveTransaction, setAutoSaveTransaction] = useState(true);
+
     const [taskId, setTaskId] = useState('');
     const [recordDate, setRecordDate] = useState('');
     const [reading_start, setReadingStart] = useState('');
@@ -143,43 +145,7 @@ export default function MachineRecordsList() {
         setSortOrder('asc');
     };
 
-    const handleDownloadPDF = () => {
-        const sortedRecords = machineRecords.sort((a, b) => {
-            if (sortBy === 'start_date') {
-                return sortOrder === 'asc' ? new Date(a.start_date) - new Date(b.start_date) : new Date(b.start_date) - new Date(a.start_date);
-            }
-        });
 
-        const filteredRecords = sortedRecords.filter(machine => {
-            const transactionDate = new Date(machine.start_date);
-            return transactionDate >= selectedDates[0] && transactionDate <= selectedDates[1];
-        });
-
-        const doc = new jsPDF();
-        doc.text('Machine Records Report', 10, 10);
-
-        const headers = [['Date', 'Type', 'Hours/nos.', 'Rate', 'Description', 'Payer/Payee', 'Paid', 'Total']];
-        const data = filteredRecords.map(machine => [
-            machine.task_id,
-            machine.start_date,
-            machine.name,
-            machine.type,
-            machine.rate,
-            machine.payee,
-            machine.description,
-            machine.total_amount,
-            machine.paid_amount,
-            machine.record_date
-        ]);
-
-        doc.autoTable({
-            head: headers,
-            body: data,
-            startY: 20,
-        });
-
-        doc.save('machine_records_report.pdf');
-    };
 
     const handleDetailsSubmit = async (e) => {
         e.preventDefault();
@@ -198,12 +164,27 @@ export default function MachineRecordsList() {
             const response = await
                 axios.post('https://elemahana-backend.vercel.app/machineRecord', payload);
 
-            setMachineRecordDetails((prevRecords) => prevRecords.filter((record) => record._id !== id));
-
             // Handle success response
             console.log('Record added successfully:', response.data);
 
             message.success('Machine record detail has successfully saved.');
+
+            // Construct the transaction data based on the saved machine fee data
+            if (autoSaveTransaction) {
+                // Construct the transaction data based on the saved machine fee data
+                const transactionData = {
+                    date: payload.record_date,
+                    type: 'expense',
+                    subtype: 'Machine Fee',
+                    amount: payload.record_pay,
+                    description: `from ${payload.reading_start} to ${payload.reading_end}`,
+                    payer_payee: 'Machine Pay',
+                    method: 'Automated Entry',
+                };
+
+                // Save the transaction record
+                handleSaveTransactionRecord(transactionData);
+            }
 
             // Reset form fields after successful submission
             setRecordDate('');
@@ -219,7 +200,22 @@ export default function MachineRecordsList() {
         }
     };
 
+    const handleSaveTransactionRecord = (transactionData) => {
+        setLoading(true);
+        axios
+            .post('https://elemahana-backend.vercel.app/transactions', transactionData)
+            .then(() => {
+                setLoading(false);
+                message.success('Transaction record has automatically saved.');
 
+            })
+            .catch((error) => {
+                setLoading(false);
+                message.error('Automatic Transaction record saving failed.');
+                console.log(error);
+
+            });
+    };
 
     return (
         <div>
@@ -278,48 +274,7 @@ export default function MachineRecordsList() {
                                 <XMarkIcon className="w-4 h-4 "/>
                             </button>
 
-                            <div>
-                                <Button
-                                    shape="round"
-                                    className="flex flex-row gap-2 items-center font-semibold bg-amber-200 text-gray-700 hover:bg-amber-500 border-none"
-                                    onClick={() => setPopoverVisible(true)}>
-                                    Download PDF Report <ArrowDownTrayIcon className="w-4 h-4 self-center"/>
-                                </Button>
-                                <Popover
-                                    content={
-                                        <div className="text-gray-600">
-                                            <DatePicker.RangePicker
-                                                onChange={(dates) => setSelectedDates(dates)}
-                                            />
-                                            <div className="flex flex-col space-y-4 py-4">
-                                                <span>Select sorting criteria:</span>
-                                                <Radio.Group
-                                                    onChange={(e) => setSortBy(e.target.value)}
-                                                    value={sortBy}
-                                                >
-                                                    <Radio value="date">Date</Radio>
 
-                                                </Radio.Group>
-                                                <span>Select sorting order:</span>
-                                                <Radio.Group
-                                                    onChange={(e) => setSortOrder(e.target.value)}
-                                                    value={sortOrder}
-                                                >
-                                                    <Radio value="asc">Ascending</Radio>
-                                                    <Radio value="desc">Descending</Radio>
-                                                </Radio.Group>
-                                            </div>
-                                            <Button shape="round"
-                                                    className="bg-lime-600 border-none hover:text-lime-600 text-white"
-                                                    onClick={handleDownloadPDF}>Download</Button>
-                                        </div>
-                                    }
-                                    title="Select Date Range and Sorting"
-                                    trigger="click"
-                                    visible={popoverVisible}
-                                    onVisibleChange={setPopoverVisible}
-                                />
-                            </div>
 
 
                         </div>
@@ -456,9 +411,9 @@ export default function MachineRecordsList() {
                                             leaveTo="opacity-0 translate-y-1"
                                         >
                                             <Popover.Panel
-                                                className="absolute right-full z-10 my-2 flex flex-col   w-screen max-w-3xl -translate-x-0 px-4">
+                                                className="absolute right-full z-10 my-2 flex flex-col   w-screen max-w-2xl -translate-x-0 px-4">
                                                 <div
-                                                    className="w-screen max-w-3xl flex-auto overflow-hidden rounded-3xl  text-sm leading-6 shadow-xl bg-gray-100 ring-1 ring-gray-900/5">
+                                                    className="w-screen max-w-2xl flex-auto overflow-hidden rounded-3xl  text-sm leading-6 shadow-xl bg-gray-100 ring-1 ring-gray-900/5">
                                                     <div className="py-6">
                                                         <form onSubmit={handleDetailsSubmit}
                                                               className="flex flex-col w-full items-center justify-center space-y-4">
@@ -538,10 +493,22 @@ export default function MachineRecordsList() {
                                                                     />
                                                                 </div>
                                                             </div>
+                                                            <div className="flex flex-row">
+                                                                <label className="bg-gray-200 py-1 pl-4 rounded-full">
+                                                                    Automatically save to transactions
+                                                                    <input
+                                                                        className="size-6 ml-4 mr-1 form-checkbox text-lime-600 bg-white border-gray-300 rounded-full focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50 hover:bg-lime-100 checked:bg-lime-500"
+                                                                        type="checkbox"
+                                                                        checked={autoSaveTransaction}
+                                                                        onChange={(e) => setAutoSaveTransaction(e.target.checked)}
+                                                                    />
 
-                                                            <button type="submit"
-                                                                    className="self-end mx-8 px-4 py-1 bg-lime-200 text-black font-semibold rounded-full hover:bg-lime-400 focus:outline-none focus:ring focus:ring-lime-300 focus:ring-opacity-50">Submit
-                                                            </button>
+                                                                </label>
+                                                                <button type="submit"
+                                                                        className="self-end mx-8 px-4 py-1 bg-lime-200 text-black font-semibold rounded-full hover:bg-lime-400 focus:outline-none focus:ring focus:ring-lime-300 focus:ring-opacity-50">Submit
+                                                                </button>
+                                                            </div>
+
                                                         </form>
 
 
@@ -552,13 +519,10 @@ export default function MachineRecordsList() {
                                                             <tr className=" ">
                                                                 <th></th>
                                                                 <th scope="col" className="px-6 py-3">
-                                                                    Record ID
-                                                                </th>
-                                                                <th scope="col" className="px-6 py-3">
                                                                     Record Date
                                                                 </th>
                                                                 <th scope="col" className="px-6 py-3">
-                                                                    Reading Start
+                                                                Reading Start
                                                                 </th>
                                                                 <th scope="col" className="px-6 py-3">
                                                                     Reading End
@@ -580,7 +544,6 @@ export default function MachineRecordsList() {
                                                                     <tr key={detail_record._id}
                                                                         className={`divide-y divide-gray-300 `}>
                                                                         <td></td>
-                                                                        <td className="px-6 py-4">{detail_record.task_id}</td>
                                                                         <td className="px-6 py-4">{detail_record.record_date}</td>
                                                                         <td className="px-6 py-4">{detail_record.reading_start}</td>
                                                                         <td className="px-6 py-4">{detail_record.reading_end}</td>

@@ -32,19 +32,7 @@ const FinanceSchema = mongoose.Schema(
         paid_amount: {
             type: Number,
             required: true,
-        },
-        record_date: {
-            type: String,
-            required: true,
-        },
-        record_reading: {
-            type: Number,
-            required: true,
-        },
-        record_pay: {
-            type: Number,
-            required: true,
-        },
+        }
     },
     {
         timestamps:true,
