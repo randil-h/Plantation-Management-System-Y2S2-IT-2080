@@ -69,12 +69,19 @@ export default function BookingForm() {
             errors.numberOfPeople = "Number of people is required";
         } else if (!/^\d+$/.test(formData.numberOfPeople)) {
             errors.numberOfPeople = "Invalid number of people";
+        } else if(parseInt(formData.numberOfPeople) > 20) {
+            errors.numberOfPeople = "Number of people cannot exceed 20";
         }
 
-        // If guidedFarmTour is selected, validate number of days
-        if (formData.selectedPackage === 'guidedFarmTour' && !formData.numberOfDays.trim()) {
-            errors.numberOfDays = "Number of days is required";
+        // Validate number of days for guidedFarmTour package
+        if (formData.selectedPackage === 'guidedFarmTour') {
+            if (!formData.numberOfDays.trim()) {
+                errors.numberOfDays = "Number of days is required";
+            } else if (parseInt(formData.numberOfDays) > 10) {
+                errors.numberOfDays = "Number of days cannot exceed 10";
+            }
         }
+
 
         // Set the errors state
         setErrors(errors);
@@ -304,6 +311,7 @@ export default function BookingForm() {
                         onChange={handleChange}
                         className={`mt-1 p-2 w-full border rounded-md ${errors.date ? 'border-red-500' : ''}`}
                         required
+                        min={new Date().toISOString().split('T')[0]} // Set the minimum date to today
                     />
                     {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
                 </div>
