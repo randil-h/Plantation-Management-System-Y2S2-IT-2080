@@ -28,7 +28,7 @@ const ProductHistory = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/productRecords')
+            .get('https://elemahana-backend.vercel.app/productRecords')
             .then((response) => {
                 setProductRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
                 setLoading(false);
@@ -198,7 +198,7 @@ const ProductHistory = () => {
                                             </td>
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productQuantity}</td>
                                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productPrice}</td>
-                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productImage ? <img src={`http://localhost:5555/productRecords/productImageFromName/${record.productImage}`} alt="Product" />: ''}</td>
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productImage ? <img src={`https://elemahana-backend.vercel.app/productRecords/productImageFromName/${record.productImage}`} alt="Product" />: ''}</td>
                                             <td className=" py-4 text-right flex flex-col items-center">
                                                 <a href="#"
                                                     className="font-medium text-blue-600 hover:underline">
