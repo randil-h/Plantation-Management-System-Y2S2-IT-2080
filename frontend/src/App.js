@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoadingAnimation from "./components/utility/LoadingAnimation";
 import {KindeProvider} from "@kinde-oss/kinde-auth-react";
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
@@ -129,6 +130,7 @@ export default function App() {
         }, 100); // Simulate 2 seconds loading time
         return () => clearTimeout(timer);
     }, []);
+
 
     return (
         <KindeProvider
@@ -269,6 +271,7 @@ export default function App() {
                 </Routes>
             )}
         </div>
+            <SpeedInsights/>
         </KindeProvider>
     );
 }
