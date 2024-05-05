@@ -122,7 +122,7 @@ export default function BookingForm() {
                     totalPayment,
                 };
                 // Post booking data
-                await axios.post('http://localhost:5555/booking', bookingData);
+                await axios.post('https://elemahana-backend.vercel.app/booking', bookingData);
                 // <-- Issue here, formData should be bookingData
                 // Reset form data
                 setFormData({
