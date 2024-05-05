@@ -304,6 +304,7 @@ export default function BookingForm() {
                         onChange={handleChange}
                         className={`mt-1 p-2 w-full border rounded-md ${errors.date ? 'border-red-500' : ''}`}
                         required
+                        min={new Date().toISOString().split('T')[0]} // Set the minimum date to today
                     />
                     {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
                 </div>
