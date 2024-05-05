@@ -174,6 +174,42 @@ export default function SalaryProcessingSection() {
     const handleSaveSalaryRecord = async (e) => {
         e.preventDefault();
 
+        // Validation for empty fields
+        if (
+            !payment_date ||
+            !emp_name ||
+            !salary_start_date ||
+            !salary_end_date ||
+            !nic ||
+            !type ||
+            !basic_days ||
+            !basic_rate ||
+            !bonus_salary ||
+            !ot_hours ||
+            !ot_rate ||
+            !epf_etf ||
+            !description
+        ) {
+            message.error('Please fill in all fields.');
+            return;
+        }
+
+        // Validation checks
+        if (basic_days < 0 || basic_rate <= 0 || basic_rate < 0 || bonus_salary < 0 || ot_hours < 0 || ot_rate < 0 || epf_etf < 0 || isNaN(basic_days) || isNaN(basic_rate) || isNaN(bonus_salary) || isNaN(ot_hours) || isNaN(ot_rate) || isNaN(epf_etf)) {
+            message.error('Please enter valid positive values for days, rates, and amounts.');
+            return;
+        }
+
+        if (new Date(payment_date) > new Date()) {
+            message.error('Payment date cannot be in the future.');
+            return;
+        }
+
+        if (description.length > 100) {
+            message.error('Description should be shorter than 100 characters.');
+            return;
+        }
+
         const data = {
             payment_date,
             emp_name,
@@ -262,6 +298,26 @@ export default function SalaryProcessingSection() {
 
 
     const generatePayslipPDF = () => {
+        // Validation for empty fields
+        if (
+            !emp_name ||
+            !nic ||
+            !salary_start_date ||
+            !salary_end_date ||
+            !basic_days ||
+            !payment_date ||
+            !type ||
+            !basic_rate ||
+            !bonus_salary ||
+            !ot_hours ||
+            !ot_rate ||
+            !epf_etf
+        ) {
+            message.error('Please fill in all fields.');
+            return;
+        }
+
+
         // Calculate total pay
         const basicDaysValue = parseFloat(basic_days);
         const basicRateValue = parseFloat(basic_rate);

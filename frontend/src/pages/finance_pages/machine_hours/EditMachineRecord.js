@@ -51,7 +51,12 @@ function EditMachineRecord() {
 
         // Validate numeric fields
         if (isNaN(rate) || rate <= 0) {
-            message.warning('Hours/Numbers and Rate must be positive numbers.');
+            message.warning('Rate must be a positive number.');
+            return;
+        }
+
+        if (new Date(start_date) > new Date()) {
+            message.error('Please select a date on or before today.');
             return;
         }
 

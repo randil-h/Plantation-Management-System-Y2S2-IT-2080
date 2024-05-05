@@ -49,8 +49,26 @@ export default function EditTransaction() {
 
     const handleEditTransactionRecord = async (e) => {
         e.preventDefault();
-        if (!validation.amount) {
-            alert('Please correct the errors before saving.');
+
+        // Check for empty fields
+        if (!date || !type || !subtype || !amount || !description || !payerPayee || !method) {
+            message.error('Please fill in all fields.');
+            return;
+        }
+
+        // Validation
+        if (!amount || amount <= 0 || amount > 10000000) {
+            message.error('Please enter a valid amount between 0 and 10 million.');
+            return;
+        }
+
+        if (!date || new Date(date) > new Date()) {
+            message.error('Please select a date on or before today.');
+            return;
+        }
+
+        if (!description || description.length > 300) {
+            message.error('Please enter a description with less than 300 characters.');
             return;
         }
 

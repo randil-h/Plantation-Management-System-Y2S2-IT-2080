@@ -27,12 +27,30 @@ function AddNewTransaction() {
 
     const handleSaveTransactionRecord = async (e) => {
         e.preventDefault();
-        if (!validation.amount) {
-            alert('Please correct the errors before saving.');
+
+        // Check for empty fields
+        if (!date || !type || !subtype || !amount || !description || !payerPayee || !method) {
+            message.error('Please fill in all fields.');
             return;
         }
 
-        // Placeholder for actual save logic
+        // Validation
+        if (!amount || amount <= 0 || amount > 10000000) {
+            message.error('Please enter a valid amount between 0 and 10 million.');
+            return;
+        }
+
+        if (!date || new Date(date) > new Date()) {
+            message.error('Please select a date on or before today.');
+            return;
+        }
+
+        if (!description || description.length > 300) {
+            message.error('Please enter a description with less than 300 characters.');
+            return;
+        }
+
+        // Proceed with saving
         console.log('Saving transaction record...');
         const data = {
             date,
@@ -43,21 +61,21 @@ function AddNewTransaction() {
             payer_payee: payerPayee,
             method,
         };
+
         setLoading(true);
-        axios
-            .post('https://elemahana-backend.vercel.app/transactions', data)
-            .then(() => {
-                setLoading(false);
-               message.success('Transaction record has successfully saved.');
-                navigate('/finances/transactions');
-            })
-            .catch((error) => {
-                setLoading(false);
-                message.error('Transaction record saving failed.');
-                console.log(error);
-                navigate('/finances/transactions');
-            });
+        try {
+            await axios.post('https://elemahana-backend.vercel.app/transactions', data);
+            setLoading(false);
+            message.success('Transaction record has successfully saved.');
+            navigate('/finances/transactions');
+        } catch (error) {
+            setLoading(false);
+            message.error('Transaction record saving failed.');
+            console.error(error);
+            navigate('/finances/transactions');
+        }
     };
+
 
     const breadcrumbItems = [
         { name: 'Finance', href: '/finances' },

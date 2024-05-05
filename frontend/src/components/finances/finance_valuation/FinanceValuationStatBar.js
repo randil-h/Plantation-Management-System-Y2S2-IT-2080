@@ -153,45 +153,6 @@ export default function FinanceValuationStatBar() {
                         <dt className="text-base leading-7 text-gray-900">Net Worth in 5 Years</dt>
                     </div>
                 </div>
-                <div className="pr-8 text-gray-600">
-                    <Popover content={
-                        <div>
-                            <p className="text-sm text-gray-500 font-semibold">Transactions this week</p>
-                            <p className="text-gray-500">Displays the number of transactions that<br/>happened in the
-                                current week started<br/> from Monday and
-                                ending in Sunday.</p>
-                            <br/>
-                            <p className="text-sm text-gray-500 font-semibold">Income this week</p>
-                            <p className="text-gray-500">Displays the sum of income records that<br/>
-                                happened within this week.</p>
-                            <br/>
-                            <p className="text-sm text-gray-500 font-semibold">Expenses this week</p>
-                            <p className="text-gray-500">Displays the sum of expense records that<br/>
-                                happened within
-                                this week.</p>
-                            <br/>
-                            <p className="text-sm text-gray-500 font-semibold">Profit/Loss this week</p>
-                            <p className="text-gray-500">Displays the profit/loss that happened<br/>
-                                within this week. Calculated by<br/> subtracting expense from income.</p>
-                            <br/>
-                            <p className="text-sm text-gray-500 font-semibold">Percentages</p>
-                            <p className="text-gray-500">Calculated by comparing the current week's<br/> data to
-                                previous week's data.</p>
-
-                            <br/>
-                            <p className="text-sm text-gray-500 font-semibold">Arrow Icons</p>
-                            <p className="text-gray-500">Arrow points up if the current weeks<br/>
-                                value is increased compared to the previous<br/>
-                                week's value.</p>
-                        </div>
-                    } title={
-                        <div className="text-base text-gray-500 flex flex-row gap-2"><InformationCircleIcon className="w-6 h-6 stroke-gray-500"/>Statistics Bar
-                        </div>}>
-                        <div className="pr-8">
-                            <InformationCircleIcon className="w-6 h-6 stroke-gray-500"/>
-                        </div>
-                    </Popover>
-                </div>
             </div>
 
         </div>

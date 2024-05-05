@@ -143,6 +143,7 @@ export default function App() {
                     window.location = app_state?.redirectTo;
                 }
             }}
+            isDangerouslyUseLocalStorage
         >
         <div className="App">
             {loading ? (

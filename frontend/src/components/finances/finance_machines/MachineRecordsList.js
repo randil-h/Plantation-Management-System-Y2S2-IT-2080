@@ -151,6 +151,23 @@ export default function MachineRecordsList() {
     const handleDetailsSubmit = async (e) => {
         e.preventDefault();
 
+        // Validation
+        if (isNaN(reading_start) || isNaN(reading_end) || isNaN(recordPay) ||
+            reading_start < 0 || reading_end < 0 || recordPay <= 0 || recordPay > 2000000) {
+            message.error('Please enter valid values for readings and payment.');
+            return;
+        }
+
+        if (new Date(recordDate) > new Date()) {
+            message.error('Please select a date on or before today.');
+            return;
+        }
+
+        if (reading_start >= reading_end) {
+            message.error('The starting reading must be less than the ending reading.');
+            return;
+        }
+
         // Create a payload object with form data
         const payload = {
             task_id: taskId,

@@ -31,11 +31,14 @@ function AddNewValuation() {
         }
 
         if (isNaN(quantity) || quantity <= 0 || isNaN(price) || price <= 0) {
-            message.error('Quantity and price must be positive numbers.');
+            message.warning('Quantity and price must be positive numbers.');
             return;
         }
 
-
+        if (!date || new Date(date) > new Date()) {
+            message.warning('Please select a date on or before today.');
+            return;
+        }
 
 
         const data = {
