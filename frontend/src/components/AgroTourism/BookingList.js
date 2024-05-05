@@ -43,23 +43,21 @@ const BookingList = () => {
     const location = useLocation();
     const {getPermission} = useKindeAuth();
 
-    useEffect(() => {
-        if (getPermission("view:booking").isGranted) {
-            const fetchData = async () => {
-                try {
-                    const response = await axios.get(`https://elemahana-backend.vercel.app/booking`);
-                    const fetchedData = response.data.data;
-                    setBookingRecords(fetchedData); // Update bookingRecords
-                    setOriginalRecords(fetchedData); // Update originalRecords with the same data
-                    setLoading(false);
-                } catch (error) {
-                    console.error("Error fetching bookings:", error);
-                    setLoading(false);
+            useEffect(() => {
+                if (getPermission("view:booking").isGranted) {
+                    const fetchData = async () => {
+                        try {
+                            const response = await axios.get(`https://elemahana-backend.vercel.app/booking`);
+                            setBookingRecords(response.data.data);
+                            setLoading(false);
+                        } catch (error) {
+                            console.error("Error fetching bookings:", error);
+                            setLoading(false);
+                        }
+                    };
+                    fetchData();
                 }
-            };
-            fetchData();
-        }
-    }, []);
+            }, []);
 
     useEffect(() => {
         const totalPaymentFromPreviousPage = location.state?.totalPayment;
@@ -127,7 +125,7 @@ const BookingList = () => {
         const centerPosition = (pageWidth - textWidth) / 2;
 
         doc.setFontSize(16);
-        doc.text('Booking Details', centerPosition, 10); // Add topic text centered
+        doc.text('My Booking Details', centerPosition, 10); // Add topic text centered
         doc.setFontSize(12);
         doc.text(`As At: ${currentDate}`, centerPosition, 20); // Add current date centered
         doc.text(`Number of Bookings: ${recordCount}`, 10, 40); // Add total bookings count
