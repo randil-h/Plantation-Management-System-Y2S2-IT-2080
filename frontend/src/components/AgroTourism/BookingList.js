@@ -169,23 +169,17 @@ const BookingList = () => {
                 price = 0;
         }
 
-        return `Rs.${price}/=`;
+        return price; // Return numeric value without currency formatting
     };
 
     const calculateTotalAmount = () => {
         let total = 0;
         bookingRecords.forEach(record => {
-            const priceString = calculateTotalPayment(record);
-            const price = parseFloat(priceString.replace(/[^\d.-]/g, ''));
-            if (!isNaN(price)) {
-                total += price;
-            } else {
-                console.log("error");
-            }
+            total += calculateTotalPayment(record); // Sum up numeric payment values
         });
-        console.log('Total calculated:', total);
-        return total.toFixed(2)*100000;
+        return total.toFixed(2); // Format the total to display with two decimal places
     };
+
 
     return (
         <div className="mx-6">
