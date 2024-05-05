@@ -10,6 +10,7 @@ export default function CropThreeTile() {
     const [harvestArea, setHarvestArea] = useState(null);
     const [totalPlantingCost, setTotalPlantingCost] = useState(null);
     const [totalAgrochemicalCost, setTotalAgrochemicalCost] = useState(null);
+    const [marketPriceRecord, setMarketPriceRecord] = useState(null);
 
     const handleTileClick = () => {
         setShowPopup(true);
@@ -35,7 +36,6 @@ export default function CropThreeTile() {
                 setPlantingRecords(filteredPlantingRecords);
                 setLoading(false);
 
-                // Calculate average crop age
                 const totalAgeInDays = filteredPlantingRecords.reduce((total, record) => {
                     const plantingDate = new Date(record.date);
                     const currentDate = new Date();
@@ -46,14 +46,12 @@ export default function CropThreeTile() {
                 const averageAgeInMonths = Math.floor(totalAgeInDays / 30);
                 const averageAgeInYears = Math.floor(totalAgeInDays / 365);
 
-                // Set average crop age based on duration
                 if (averageAgeInYears >= 1) {
                     setAverageCropAge(`${averageAgeInYears} years`);
                 } else {
                     setAverageCropAge(`${averageAgeInMonths} months`);
                 }
 
-                // Calculate and set harvest area
                 const fields = filteredPlantingRecords.map(record => record.field);
                 const totalArea = calculateHarvestArea(fields);
                 setHarvestArea(totalArea);
@@ -69,6 +67,17 @@ export default function CropThreeTile() {
                 console.log(error);
                 setLoading(false);
             });
+
+        axios
+            .get('https://elemahana-backend.vercel.app/marketprice')
+            .then((response) => {
+                const marketPriceData = response.data.data;
+                const closestRecord = findClosestRecord(marketPriceData);
+                setMarketPriceRecord(closestRecord);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
 
     const calculateHarvestArea = (fields) => {
@@ -81,6 +90,21 @@ export default function CropThreeTile() {
             }
         });
         return totalArea;
+    };
+
+    const findClosestRecord = (records) => {
+        const currentDate = new Date();
+        let closestRecord = null;
+        let minDifference = Infinity;
+        records.filter(record => record.name === "Apple Guava").forEach(record => {
+            const recordDate = new Date(record.date);
+            const difference = Math.abs(currentDate - recordDate);
+            if (difference < minDifference) {
+                minDifference = difference;
+                closestRecord = record;
+            }
+        });
+        return closestRecord;
     };
 
     const toArray = (fields) => {
@@ -111,7 +135,7 @@ export default function CropThreeTile() {
             </li>
             {showPopup && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur bg-opacity-50">
-                    <div className="shadow-lg bg-white rounded-lg p-8 w-1/4 max-w-sm relative border border-gray-300">
+                    <div className="shadow-lg bg-white rounded-lg p-8 w-4/12 relative border border-gray-300">
                         <IoCloseCircle onClick={() => setShowPopup(false)}
                                        className="absolute top-2 right-2 cursor-pointer"/>
                         <img src="https://cdn-icons-png.flaticon.com/512/5928/5928547.png" className="mx-auto h-10 w-10"
@@ -119,10 +143,17 @@ export default function CropThreeTile() {
                         <h3 className="text-lg font-semibold mb-2 text-center">Apple Guava</h3>
                         <p>Planted in: {plantingRecords.map((record, index) => (
                             <span key={record.id}>{index > 0 && ", "}{record.field}</span>
-                        ))}</p>
+                        ))}</p> <br/>
                         <p>Total Planting Cost: Rs. {totalPlantingCost ? totalPlantingCost.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : 'Loading...'}</p>
                         <p>Total Agrochemical Cost: Rs. {totalAgrochemicalCost ? totalAgrochemicalCost.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : 'Loading...'}</p>
-                        <p>Total Cost for Apple Guava: Rs. {totalPlantingCost && totalAgrochemicalCost ? (totalPlantingCost + totalAgrochemicalCost).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : 'Loading...'}</p>
+                        <p>Total Cost for Apple Guava: Rs. {totalPlantingCost && totalAgrochemicalCost ? (totalPlantingCost + totalAgrochemicalCost).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : 'Loading...'}</p> <br/>
+                        {marketPriceRecord && (
+                            <p>Most recent market price :
+                                Rs. {(marketPriceRecord.min_price + marketPriceRecord.max_price) / 2} on {marketPriceRecord.date}</p>
+                        )}
+                        {marketPriceRecord && (
+                            <p>Harvest to break-even at above price: {((totalPlantingCost + totalAgrochemicalCost) / ((marketPriceRecord.min_price + marketPriceRecord.max_price) / 2)).toLocaleString()} kg</p>
+                        )}
                     </div>
                 </div>
             )}
