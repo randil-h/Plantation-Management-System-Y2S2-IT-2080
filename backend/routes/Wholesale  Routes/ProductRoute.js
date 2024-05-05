@@ -1,19 +1,19 @@
 import express, {request, response} from "express";
 import { Products } from '../../models/Wholesale Models/ProductModel.js';
-import upload from "../../ProductPictures/Pictures.js";
+// import upload from "../../ProductPictures/Pictures.js";
 
 
 const router = express.Router();
 
-router.post('/', upload.single('productImage'), async (request, response) => {
+router.post('/', async (request, response) => {
     try {
         if (
             !request.body.productID ||
             !request.body.productName ||
             !request.body.productDescription ||
             !request.body.productQuantity ||
-            !request.body.productPrice ||
-            !request.file
+            !request.body.productPrice
+            // !request.file
         ) {
             return response.status(400).send({
                 message: 'Send all required fields',
@@ -26,7 +26,7 @@ router.post('/', upload.single('productImage'), async (request, response) => {
             productDescription: request.body.productDescription,
             productQuantity: request.body.productQuantity,
             productPrice: request.body.productPrice,
-            productImage: request.file.path,
+            // productImage: request.file.path,
         };
 
         const product = await Products.create(newProduct);
