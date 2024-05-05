@@ -43,7 +43,7 @@ const ProductHistory = () =>{
 
     const handleDelete = (recordId) => {
         axios
-            .delete(`http://localhost:5555/${recordId}`)
+            .delete(`https://elemahana-backend.vercel.app/${recordId}`)
             .then(() => {
                 setProductRecords(prevRecord => prevRecord.filter(record => record._id !== recordId));
             })
