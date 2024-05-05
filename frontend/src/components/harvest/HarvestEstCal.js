@@ -75,7 +75,7 @@ function HarvestCalculator() {
     return (
         <div style={{fontFamily: "Arial, sans-serif", padding: "20px"}}>
             <div className="flex justify-center py-6">
-                <h1 className="text-3xl font-semibold text-left ">Harvest Calculator</h1>
+                <h1 className="text-3xl font-semibold text-left">Harvest Calculator</h1>
             </div>
             <div className="flex flex-wrap justify-center">
                 <div className="w-full lg:w-1/2 px-4">
@@ -86,9 +86,7 @@ function HarvestCalculator() {
                             <div className="flex flex-col items-center mb-4">
                                 <div className="flex mb-4">
                                     <div className="mr-4">
-                                        <label htmlFor="treesPicked" className="mr-4">
-                                            Enter Number of Trees:
-                                        </label>
+                                        <label htmlFor="treesPicked" className="mr-4">Enter Number of Trees:</label>
                                         <input
                                             type="number"
                                             id="treesPicked"
@@ -101,9 +99,7 @@ function HarvestCalculator() {
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="cropType" className="mr-4">
-                                            Select Crop Type:
-                                        </label>
+                                        <label htmlFor="cropType" className="mr-4">Select Crop Type:</label>
                                         <select
                                             id="cropType"
                                             name="cropType"
@@ -128,13 +124,13 @@ function HarvestCalculator() {
                             </div>
 
                             <div className="py-2 px-4 mt-4 bg-amber-50 rounded border border-green-700">
-                                <div className="flex">
+                                <div className="flex justify-between">
                                     {averageYield !== null ? (
-                                        <p className="px-16">Average Yield: {averageYield} kg/tree</p>
+                                        <p className="font-semibold">Average Yield: {averageYield} kg/tree</p>
                                     ) : (
-                                        <p className="px-16">Select a crop type</p>
+                                        <p className="font-semibold">Select a crop type</p>
                                     )}
-                                    <p className="font-semibold px-16">Expected Harvest: {expectedHarvest} kg</p>
+                                    <p className="font-semibold">Expected Harvest: {expectedHarvest} kg</p>
                                 </div>
                             </div>
                         </div>
@@ -158,6 +154,7 @@ function HarvestCalculator() {
                 </div>
             </div>
         </div>
+
 
     );
 }

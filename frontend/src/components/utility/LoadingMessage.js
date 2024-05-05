@@ -10,8 +10,7 @@ const LoadingMessage = () => {
             </div>
             <div>
                 <p className= "font-medium text-lg text-center">
-                    Prices are being generated. This may take a while..... ඉවසන්න pls!<br/>
-                    (ඉවසන ධනා රුපු උදයට ජය කොඩිය)
+                    Prices are being generated. This may take a while......
                 </p>
             </div>
 

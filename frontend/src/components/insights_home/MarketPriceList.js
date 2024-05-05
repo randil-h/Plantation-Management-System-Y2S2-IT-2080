@@ -571,13 +571,7 @@ export default function MarketPriceList() {
 
     return (
         <div>
-            {loadingPrediction ? ( // Conditionally render the loading spinner
-                <>
-                    <LoadingMessage/>
-                </>
-            ) : (
-                <>
-                    <div className=" overflow-x-auto  ">
+            <div className=" overflow-x-auto  ">
                         <div className="flex flex-row justify-between items-center px-8 mt-1 mb-4">
                             <div>
                                 <h1 className=" text-lg font-semibold text-left">MARKET PRICES</h1>
@@ -586,6 +580,13 @@ export default function MarketPriceList() {
                         <div>
                             <AddPrice/>
                         </div>
+                        {loadingPrediction ? ( // Conditionally render the loading spinner
+                            <>
+                                <LoadingMessage/>
+                            </>
+                        ) : (
+                            <>
+
                         <div className=" flex flex-wrap items-center justify-center mt-4 mb-4">
                             <div className="mr-2">
                                 <button
@@ -654,9 +655,9 @@ export default function MarketPriceList() {
                                 </div>
                             </>
                         )}
+                            </>
+                        )}
                     </div>
-                </>
-            )}
         </div>
 
     )
