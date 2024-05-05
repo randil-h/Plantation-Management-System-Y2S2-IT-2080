@@ -66,7 +66,7 @@ const AddEqMain = () => {
         const oneYearFuture = new Date();
         oneYearFuture.setFullYear(oneYearFuture.getFullYear() + 1);
 
-        if (receivedDate <= referredDate || receivedDate > oneYearFuture || receivedDate > today) {
+        if (receivedDate <= referredDate || receivedDate > oneYearFuture) {
             setDate_receivedError("Please select a date within one year from today and date not after the referred date");
         } else {
             setDate_receivedError("");
