@@ -169,7 +169,7 @@ const AllBookings = () => {
                 price = 0;
         }
 
-        return `${price}/=`;
+        return `Rs.${price}/=`;
     };
 
     const calculateTotalAmount = () => {

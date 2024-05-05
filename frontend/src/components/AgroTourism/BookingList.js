@@ -7,7 +7,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import {HiOutlineDownload} from "react-icons/hi";
 import { useLocation } from 'react-router-dom';
-import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
+import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 const mapPackageName = (packageName) => {
     switch (packageName) {
         case 'guidedFarmTour':
@@ -41,23 +41,27 @@ const BookingList = () => {
     const [searchInput, setSearchInput] = useState('');
     const [totalPayment, setTotalPayment] = useState(0);
     const location = useLocation();
-    const {getPermission} = useKindeAuth();
 
-            useEffect(() => {
+    const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
+    /*const { isAuthenticated, user } = useKindeAuth();
+    const authenticatedUserId = user ? user.userId : null;*/
 
-                    const fetchData = async () => {
-                        try {
-                            const response = await axios.get(`https://elemahana-backend.vercel.app/booking`);
-                            setBookingRecords(response.data.data);
-                            setLoading(false);
-                        } catch (error) {
-                            console.error("Error fetching bookings:", error);
-                            setLoading(false);
-                        }
-                    };
-                    fetchData();
+    /*useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(
+                    https://elemahana-backend.vercel.app/booking?userId=${authenticatedUserId}
+                );
+                setBookingRecords(response.data.data);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching bookings:", error);
+                setLoading(false);
+            }
+        };
 
-            }, []);
+        fetchData();
+    }, [authenticatedUserId]);*/
 
     useEffect(() => {
         const totalPaymentFromPreviousPage = location.state?.totalPayment;
@@ -125,7 +129,7 @@ const BookingList = () => {
         const centerPosition = (pageWidth - textWidth) / 2;
 
         doc.setFontSize(16);
-        doc.text('My Booking Details', centerPosition, 10); // Add topic text centered
+        doc.text('All Bookings', centerPosition, 10); // Add topic text centered
         doc.setFontSize(12);
         doc.text(`As At: ${currentDate}`, centerPosition, 20); // Add current date centered
         doc.text(`Number of Bookings: ${recordCount}`, 10, 40); // Add total bookings count
@@ -169,7 +173,7 @@ const BookingList = () => {
                 price = 0;
         }
 
-        return `${price}`;
+        return `Rs.${price}/=`;
     };
 
     const calculateTotalAmount = () => {
@@ -202,13 +206,12 @@ const BookingList = () => {
                 </div>
                 <div className="bg-lime-200 rounded-lg px-7 py-3 mb-4 items ml-12">
                     <p className="text-center text-black font-light">Total Bookings: {bookingRecords.length}</p>
-                    <p className="text-black font-light">Total Amount: Rs.{calculateTotalAmount()}/=</p>
-
+                    <p className="text-black font-light">Total Amount: {calculateTotalAmount()}/=</p>
 
                 </div>
                 <div className="flex">
                     <Link to="/booking">
-                    <button
+                        <button
                             className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none mr-2"
                         >
                             Add Another Booking <span aria-hidden="true"> &rarr;</span>
@@ -248,7 +251,7 @@ const BookingList = () => {
                     </thead>
                     <tbody>
                     {bookingRecords.map((record, index) => (
-
+                            /* user.email === record.email && (*/
                             <tr className="hover:bg-gray-100 divide-y divide-gray-200 text-sm" key={index}>
                                 <td className="px-6 py-3">{index + 1}</td>
                                 <td className="px-6 py-3">{new Date(record.date).toLocaleDateString('en-GB')}</td>
@@ -270,30 +273,23 @@ const BookingList = () => {
                                 <th className="px-6 py-3">{calculateTotalPayment(record)}</th>
                                 <td className="py-2 px-4 border border-gray-400">
                                     <div className="flex">
-                                        {getPermission("update:records").isGranted && (
                                         <Link to={`/booking/edit/${record._id}`}
                                               className="bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500">
                                             <PencilSquareIcon className="h-6 w-6 flex-none"/>
                                         </Link>
-                                            )}
-                                        {getPermission("update:records").isGranted && (
                                         <button onClick={() => handleDelete(record._id)}
                                                 className="bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500">
                                             <TrashIcon className="h-6 w-6 flex-none"/>
                                         </button>
-                                        )}
                                     </div>
                                 </td>
                             </tr>
-                        )
-                    )}
+                    ))}
                     </tbody>
-
                 </table>
             </div>
         </div>
     );
-
 };
 
 export default BookingList;
