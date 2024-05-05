@@ -124,10 +124,16 @@ const BookingList = () => {
         const centerPosition = (pageWidth - textWidth) / 2;
 
         doc.setFontSize(16);
-        doc.text('All Bookings', centerPosition, 10); // Add topic text centered
+        doc.text('Bookings', centerPosition, 10); // Add topic text centered
         doc.setFontSize(12);
         doc.text(`As At: ${currentDate}`, centerPosition, 20); // Add current date centered
         doc.text(`Number of Bookings: ${recordCount}`, 10, 40); // Add total bookings count
+
+
+        // Add total cost text
+        const totalCost = calculateTotalAmount();
+        doc.text(`Total Cost: ${totalCost}`, 10, 45);
+
 
         doc.autoTable({
             head: [headers],
