@@ -44,7 +44,7 @@ const BookingList = () => {
     const {getPermission} = useKindeAuth();
 
             useEffect(() => {
-                if (getPermission("view:booking").isGranted) {
+
                     const fetchData = async () => {
                         try {
                             const response = await axios.get(`https://elemahana-backend.vercel.app/booking`);
@@ -56,7 +56,7 @@ const BookingList = () => {
                         }
                     };
                     fetchData();
-                }
+
             }, []);
 
     useEffect(() => {
