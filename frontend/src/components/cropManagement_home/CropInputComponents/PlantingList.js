@@ -8,6 +8,7 @@ import jsPDF from 'jspdf';
 import { useSnackbar } from "notistack";
 import { FiDownload } from "react-icons/fi";
 import {GoAlert} from "react-icons/go";
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 
 const PlantingList = () => {
     const { enqueueSnackbar } = useSnackbar();
@@ -17,6 +18,7 @@ const PlantingList = () => {
     const [filteredRecords, setFilteredRecords] = useState([]);
     const [recordToDelete, setRecordToDelete] = useState(null);
     const [selectedFieldFilter, setSelectedFieldFilter] = useState('All Fields');
+    const {getPermission, getPermissions} = useKindeAuth();
 
     const fieldAcreageData = [
         { Field: 'Field A', Area: 2 },
@@ -241,11 +243,14 @@ const PlantingList = () => {
                                             className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
                                             aria-hidden="true"/>
                                     </Link>
+                                    {getPermission("update:records").isGranted ? (
                                     <Link to={`/crop/input/update/${record._id}`}>
                                         <PencilSquareIcon
                                             className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
                                             aria-hidden="true"/>
                                     </Link>
+                                    ) : null}
+                                    {getPermission("update:records").isGranted ? (
                                     <button
                                         className="flex items-center"
                                         onClick={() => handleDelete(record._id)}
@@ -255,6 +260,7 @@ const PlantingList = () => {
                                             aria-hidden="true"
                                         />
                                     </button>
+                                    ) : null}
                                 </div>
                             </td>
                         </tr>

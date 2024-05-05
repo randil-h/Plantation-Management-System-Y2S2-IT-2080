@@ -74,6 +74,7 @@ const EditCropInput = () => {
                         return acc;
                     }, {});
                 setAgrochemicals(Object.keys(agrochemicalsWithQuantity));
+                setCropTypes(Object.keys(cropTypesWithQuantity));
                 setLoading(false);
             })
             .catch((error) => {
