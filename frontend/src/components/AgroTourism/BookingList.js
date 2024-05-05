@@ -49,13 +49,14 @@ const BookingList = () => {
                 const response = await axios.get(
                     `https://elemahana-backend.vercel.app/booking?userId=${authenticatedUserId}`
                 );
-                setBookingRecords(response.data.data);
+                setBookingRecords(response.data);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching bookings:", error);
                 setLoading(false);
             }
         };
+
 
         fetchData();
     }, []);
