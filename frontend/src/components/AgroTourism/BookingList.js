@@ -21,7 +21,7 @@ const mapPackageName = (packageName) => {
     }
 };
 
-const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
+
 
 const mapVisitorType = (visitorType) => {
     switch (visitorType) {
@@ -41,6 +41,8 @@ const BookingList = () => {
     const [searchInput, setSearchInput] = useState('');
     const [totalPayment, setTotalPayment] = useState(0);
     const location = useLocation();
+
+    const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
     /*const { isAuthenticated, user } = useKindeAuth();
     const authenticatedUserId = user ? user.userId : null;*/
 
