@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import {TrashIcon} from "@heroicons/react/24/outline";
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 function PercentageRuler() {
     return (
         <div className="percentage-ruler absolute h-full top-0 left-0 flex flex-col justify-between items-center">
@@ -29,6 +30,7 @@ function WaterTank() {
     const navigate = useNavigate();
     const [waterRecords, setWaterRecord] = useState([]);
     const [loading, setLoading] = useState(false);
+    const {getPermission, getPermissions} = useKindeAuth();
 
     const tank1Capacity = 100000;
     const tank2Capacity = 100000;
@@ -258,6 +260,9 @@ function WaterTank() {
                                 <td className="px-6 py-4 border-r">{record.water_level2}</td>
                                 <td className="px-6 py-4 border-r whitespace-nowrap">{record.water_date.split("T")[0]}</td>
                                 <td className="px-6 py-4 border-r">{record.water_des ? record.water_des : "N/A"}</td>
+
+                                {
+                                    getPermission("update:records").isGranted ? (
                                 <td className="px-6 py-4">
                                     <div className="flex">
                                         <button
@@ -269,6 +274,8 @@ function WaterTank() {
                                         </button>
                                     </div>
                                 </td>
+                                    ): null
+                                }
                             </tr>
                             {index !== waterRecords.length - 1 && (
                                 <tr>
