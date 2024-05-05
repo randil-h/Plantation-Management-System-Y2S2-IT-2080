@@ -299,21 +299,36 @@ export default function SalaryProcessingSection() {
 
     const generatePayslipPDF = () => {
         // Validation for empty fields
-        if (
-            !emp_name ||
-            !nic ||
-            !salary_start_date ||
-            !salary_end_date ||
-            !basic_days ||
-            !payment_date ||
-            !type ||
-            !basic_rate ||
-            !bonus_salary ||
-            !ot_hours ||
-            !ot_rate ||
-            !epf_etf
-        ) {
-            message.error('Please fill in all fields.');
+        const missingFields = [];
+        if (!payment_date) missingFields.push('Payment Date');
+        if (!salary_start_date) missingFields.push('Salary Start Date');
+        if (!salary_end_date) missingFields.push('Salary End Date');
+        if (!basic_days) missingFields.push('Basic Days');
+        if (!basic_rate) missingFields.push('Basic Rate');
+        if (!bonus_salary) missingFields.push('Bonus Salary');
+        if (!ot_hours) missingFields.push('OT Hours');
+        if (!ot_rate) missingFields.push('OT Rate');
+        if (!epf_etf) missingFields.push('EPF/ETF');
+        if (!description) missingFields.push('Description');
+
+        if (missingFields.length > 0) {
+            message.error(`Please fill in the following fields: ${missingFields.join(', ')}.`);
+            return;
+        }
+
+        // Validation checks
+        if (basic_days < 0 || basic_rate <= 0 || basic_rate < 0 || bonus_salary < 0 || ot_hours < 0 || ot_rate < 0 || epf_etf < 0 || isNaN(basic_days) || isNaN(basic_rate) || isNaN(bonus_salary) || isNaN(ot_hours) || isNaN(ot_rate) || isNaN(epf_etf)) {
+            message.error('Please enter valid positive values for days, rates, and amounts.');
+            return;
+        }
+
+        if (new Date(payment_date) > new Date()) {
+            message.error('Payment date cannot be in the future.');
+            return;
+        }
+
+        if (description.length > 100) {
+            message.error('Description should be shorter than 100 characters.');
             return;
         }
 
@@ -700,10 +715,15 @@ export default function SalaryProcessingSection() {
                     id="savebar">
                     <div
                         className="flex justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
-                        <div className=" border-gray-500 border rounded-full py-1 px-6 mx-8 text-base font-semibold">
-                            Total Salary: <span className="text-lime-600 text-xl">
-                            Rs.{calculateTotalSalary()}</span>
+                        <div className="border-gray-500 border rounded-full py-1 px-6 mx-8 text-base font-semibold">
+                            Total Salary:
+                            {calculateTotalSalary() <= 0 || calculateTotalSalary() > 1000000 ? (
+                                <span className="text-red-500">Invalid salary</span>
+                            ) : (
+                                <span className="text-lime-600 text-xl">Rs.{calculateTotalSalary()}</span>
+                            )}
                         </div>
+
                         <button onClick={generatePayslipPDF}
                                 className="bg-amber-200 rounded-full py-1 px-4 hover:bg-amber-300">
                             Generate Receipt
