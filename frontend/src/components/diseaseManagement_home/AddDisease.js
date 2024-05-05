@@ -149,6 +149,7 @@ export default function AddDisease() {
                             onChange={(e) => setType(e.target.value)}
                             className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                         >
+                            <option>Select Crop</option>
                             <option value="Papaya">Papaya</option>
                             <option value="Apple Guava">Apple Guava</option>
                             <option value="Coconut">Coconut</option>
