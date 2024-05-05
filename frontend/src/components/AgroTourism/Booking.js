@@ -18,7 +18,7 @@ export default function BookingForm() {
     });
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
-
+    /*const authenticatedUserId = user?.userId || null;*/
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -122,7 +122,7 @@ export default function BookingForm() {
                     totalPayment,
                 };
                 // Post booking data
-                await axios.post('http://localhost:5555/booking', formData);
+                await axios.post('http://localhost:5555/booking', bookingData);
                 // <-- Issue here, formData should be bookingData
                 // Reset form data
                 setFormData({

@@ -9,6 +9,7 @@ const ProductAddingForm = () => {
     const [productDescription, setProductDescription] = useState('');
     const [productQuantity, setProductQuantity] = useState('');
     const [productPrice, setProductPrice] = useState('');
+    // const [productImage, setProductImage] = useState('');
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
 
@@ -33,7 +34,8 @@ const ProductAddingForm = () => {
                 enqueueSnackbar('Error', { variant: 'error' });
                 console.log(error);
             });
-    };
+    }
+
 
     const validateProductID = (value) => {
         return /^[A-Z]{2}\d{4}$/.test(value);

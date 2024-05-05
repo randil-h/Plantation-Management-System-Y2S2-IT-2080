@@ -16,11 +16,6 @@ function AddNewMachineTask() {
     const [rate, setRate] = useState('');
     const [payee, setPayee] = useState('');
     const [description, setDescription] = useState('');
-    const [total_amount, setTotalAmount] = useState('0');
-    const [paid_amount, setPaidAmount] = useState('0');
-    const [record_date, setRecordDate] = useState('2024-01-01');
-    const [record_reading, setRecordReading] = useState('0');
-    const [record_pay, setRecordPay] = useState('0');
 
     const [autoSaveTransaction, setAutoSaveTransaction] = useState(false);
 
@@ -29,11 +24,17 @@ function AddNewMachineTask() {
     const { enqueueSnackbar } = useSnackbar();
 
     const handleSaveMachineRecord = () => {
-        if (!start_date || !type || !description || !payee || !paid_amount === undefined) {
-            message.warning('Please fill in all fields.  The record will not be saved with incomplete data');
+        if (!start_date || !name || !type || !rate || !description || !payee ) {
+            message.warning('Please fill in all fields. The record will not be saved with incomplete data.');
             return;
         }
 
+
+        // Validate numeric fields
+        if (isNaN(rate) || rate <= 0) {
+            message.warning('Hours/Numbers and Rate must be positive numbers.');
+            return;
+        }
 
 
         const machineData = {
@@ -43,11 +44,6 @@ function AddNewMachineTask() {
             rate,
             payee,
             description,
-            total_amount,
-            paid_amount,
-            record_date,
-            record_reading,
-            record_pay,
         };
         setLoading(true);
         axios
@@ -56,22 +52,7 @@ function AddNewMachineTask() {
                 setLoading(false);
                 message.success('Machine task has successfully saved.');
 
-                // Construct the transaction data based on the saved machine fee data
-                if (autoSaveTransaction) {
-                    // Construct the transaction data based on the saved machine fee data
-                    const transactionData = {
-                        date: machineData.start_date,
-                        type: 'expense',
-                        subtype: 'Machine Fee',
-                        amount: machineData.paid_amount,
-                        description: machineData.description,
-                        payer_payee: machineData.payee,
-                        method: 'Automated Entry',
-                    };
 
-                    // Save the transaction record
-                    handleSaveTransactionRecord(transactionData);
-                }
 
                 navigate('/finances/machineHours');
             })
@@ -262,16 +243,7 @@ function AddNewMachineTask() {
                                 id="savebar">
                                 <div
                                     className="flex  justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
-                                    <label className="bg-gray-200 py-1 pl-4 rounded-full">
-                                        Automatically save to transactions
-                                        <input
-                                            className="size-6 ml-4 mr-1 form-checkbox text-lime-600 bg-white border-gray-300 rounded-full focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50 hover:bg-lime-100 checked:bg-lime-500"
-                                            type="checkbox"
-                                            checked={autoSaveTransaction}
-                                            onChange={(e) => setAutoSaveTransaction(e.target.checked)}
-                                        />
 
-                                    </label>
 
                                     <div className="space-x-3 justify-center">
                                         <button type="button"

@@ -18,6 +18,7 @@ import {
     XMarkIcon,
     ArrowDownTrayIcon
 } from '@heroicons/react/24/outline';
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 
 export default function TransactionsList() {
     const [loading, setLoading] = useState(false);
@@ -31,6 +32,7 @@ export default function TransactionsList() {
     const [selectedDates, setSelectedDates] = useState([]);
     const [popoverVisible, setPopoverVisible] = useState(false);
     const [transactions, setTransactions] = useState([]);
+    const {getPermission, getPermissions} = useKindeAuth();
 
     useEffect(() => {
         setLoading(true);
@@ -393,6 +395,9 @@ export default function TransactionsList() {
                                     />
                                 </Link>
                             </td>
+
+                            {
+                                getPermission("update:records").isGranted ? (
                             <td className=" py-4 text-right">
                                 <Link to={`/finances/transactions/editTransaction/${record._id}`}>
                                     <PencilSquareIcon
@@ -401,6 +406,10 @@ export default function TransactionsList() {
                                     />
                                 </Link>
                             </td>
+
+                                ): null
+                            }
+                            { getPermission("update:records").isGranted ? (
                             <td className=" ">
                                     <Button shape="circle" type="text" onClick={() => {
                                         handleDeleteTransaction(record._id);
@@ -411,6 +420,8 @@ export default function TransactionsList() {
                                         />
                                     </Button>
                             </td>
+                            ): null
+                            }
                         </tr>
                     ))}
                     </tbody>

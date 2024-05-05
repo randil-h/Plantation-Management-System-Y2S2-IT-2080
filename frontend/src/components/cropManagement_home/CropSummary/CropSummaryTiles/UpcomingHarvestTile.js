@@ -90,7 +90,7 @@ const UpcomingHarvestTile = ({ setHarvestTileBg }) => {
     return (
         <div>
             {closestHarvest && (
-                <li className={`rounded-xl px-6 py-8 hover:transform hover:scale-110 transition-transform duration-300 ${harvestTileBg}`}>
+                <li className={`rounded-xl px-6 py-9 hover:transform hover:scale-110 transition-transform duration-300 ${harvestTileBg}`}>
                     <div className="flex justify-center">
                         <GiSandsOfTime className="h-12 w-12 mt-6 "/>
                     </div>

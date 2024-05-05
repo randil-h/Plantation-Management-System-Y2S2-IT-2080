@@ -5,12 +5,15 @@ import { enqueueSnackbar } from "notistack";
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
 import {Link} from "react-router-dom";
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
+
 
 export default function HarvestList() {
     const [harvestRecords, setHarvestRecords] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectedCropType, setSelectedCropType] = useState('');
     const [filteredRecords, setFilteredRecords] = useState([]);
+    const {getPermission, getPermissions} = useKindeAuth();
 
     useEffect(() => {
         setLoading(true);
@@ -158,6 +161,8 @@ export default function HarvestList() {
                             <td className="py-4 text-right">
 
                             </td>
+                            {
+                                getPermission("update:records").isGranted ? (
                             <td className="py-4 text-right">
                                 <a href={`/harvest/records/updateRecord/${record._id}`}
                                    className="font-medium text-blue-600 hover:underline">
@@ -166,6 +171,10 @@ export default function HarvestList() {
                                         aria-hidden="true"/>
                                 </a>
                             </td>
+                                ): null
+                            }
+                            {
+                                getPermission("update:records").isGranted ? (
                             <td className="py-4 text-right">
                                 <button className="flex items-center" onClick={() => handleDeleteHarvest(record._id)}>
                                     <TrashIcon
@@ -173,6 +182,8 @@ export default function HarvestList() {
                                         aria-hidden="true"/>
                                 </button>
                             </td>
+                                    ): null
+                            }
                         </tr>
                     ))}
                     </tbody>

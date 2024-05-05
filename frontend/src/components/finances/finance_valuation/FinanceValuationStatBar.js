@@ -18,6 +18,7 @@ export default function FinanceValuationStatBar() {
     const [totalAssets, setTotalAssets] = useState(0);
     const [totalLiabilities, setTotalLiabilities] = useState(0);
     const [netValue, setNetValue] = useState(0);
+    const [futureNetValue, setFutureNetValue] = useState(0); // New state for future
 
     useEffect(() => {
         // Fetch total records from your API or set it from somewhere
@@ -25,21 +26,28 @@ export default function FinanceValuationStatBar() {
             .then(response => {
                 setTotalRecords(response.data.data);
 
-                // Calculate total income and total expenses
                 let assets = 0;
                 let liabilities = 0;
+                let futureAssets = 0;
+                let futureLiabilities = 0;
+
                 response.data.data.forEach(valuation => {
+                    const currentVal = valuation.price * valuation.quantity;
+                    const appreciationFactor = Math.pow(1 + valuation.appreciationOrDepreciation / 100, 5); // Compound appreciation or depreciation over 5 years
+
                     if (valuation.type === "asset") {
-                        assets += (valuation.price * valuation.quantity);
+                        assets += currentVal;
+                        futureAssets += currentVal * appreciationFactor;
                     } else if (valuation.type === "liability") {
-                        liabilities += (valuation.price * valuation.quantity);
+                        liabilities += currentVal;
+                        futureLiabilities += currentVal * appreciationFactor;
                     }
                 });
+
                 setTotalAssets(assets);
                 setTotalLiabilities(liabilities);
-
-                // Calculate profit or loss
                 setNetValue(assets - liabilities);
+                setFutureNetValue(futureAssets - futureLiabilities); // Calculate future net worth
             })
             .catch(error => {
                 console.error('Error fetching total records: ', error);
@@ -133,6 +141,16 @@ export default function FinanceValuationStatBar() {
                             {/*{renderProfitLossIcon(profitLoss)}*/}
                         </div>
                         <dt className="text-base leading-7 text-gray-900">Net Worth</dt>
+                    </div>
+                    <div className="mx-auto flex max-w-xs flex-col gap-y-1">
+                        {/* Expense this week */}
+                        <div className="flex flex-row items-center gap-4">
+                            <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
+                                {renderProfitLoss(Math.round(futureNetValue).toLocaleString())}
+                            </dd>
+                            {/*{renderProfitLossIcon(profitLoss)}*/}
+                        </div>
+                        <dt className="text-base leading-7 text-gray-900">Net Worth in 5 Years</dt>
                     </div>
                 </div>
                 <div className="pr-8 text-gray-600">

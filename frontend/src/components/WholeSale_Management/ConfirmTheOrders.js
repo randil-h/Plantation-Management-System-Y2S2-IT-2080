@@ -1,18 +1,16 @@
 import React, {useEffect, useState} from "react";
-import { TbShoppingCartCopy } from "react-icons/tb";
-import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
 import axios from "axios";
-//import {useId} from 'react';
-import { Link } from "react-router-dom";
-import ProgressBar from "../../components/WholeSale_Management/ProgressBar"
+import {Link, useParams} from "react-router-dom";
+import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
+import ProgressBar from "./ProgressBar";
 
-const OrderHistory = () => {
+const ConfirmTheOrders = () =>{
+
     const [orderRecords, setOrderRecords] = useState([]);
     const [loading,setLoading] = useState(false);
     const [filteredRecords, setFilteredRecords] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    // const id = useId();
-    const [progress, setProgress] = useState(50);
+    const { id } = useParams();
 
     useEffect(() => {
         setLoading(true);
@@ -28,24 +26,31 @@ const OrderHistory = () => {
             });
     }, []);
 
-    const handleDelete = (recordId) => {
-        axios
-            .delete(`https://elemahana-backend.vercel.app/orderRecords/${recordId}`)
-            .then(() => {
-                setOrderRecords(prevRecord => prevRecord.filter(record => record._id !== recordId));
-            })
-            .catch((error) => {
-                console.log(error);
+    const confirmOrder = async (record) => {
+        try {
+            const response = await axios.put(`https://elemahana-backend.vercel.app/orderRecords/${record._id}`, {
+                orderStatus: 'confirmed',
+                orderQuantity: record.orderQuantity // include all required fields
             });
+            console.log(response.data);
+            // Here you can update your component state to re-render the component
+        } catch (error) {
+            console.error(error);
+        }
     };
 
-
     return (
-        <div class="bg-white p-8 rounded-md w-full">
+        <div className="bg-white p-8 rounded-md w-full">
             <div>
-                <div class="-mx-4 px-4 sm:px-12 py-4 overflow-x-auto">
-                    <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-                        <table class="min-w-full leading-normal">
+                <div className="-mx-4 px-4 sm:px-12 py-4 overflow-x-auto">
+                    <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                        <div className="flex px-10 ">
+                            <Link to="/wholesaleDashboard"
+                                  className=" block rounded-md bg-black px-4 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-black-500
+                                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black-600 left-2"> Go to Product Details
+                            </Link>
+                        </div>
+                        <table className="min-w-full leading-normal mt-8">
                             <thead>
                             <tr>
                                 <th
@@ -74,12 +79,12 @@ const OrderHistory = () => {
                                 </th>
                                 <th
                                     className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Update
+                                    Confirm
                                 </th>
-                                <th
-                                    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Delete
-                                </th>
+                                {/*<th*/}
+                                {/*    className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">*/}
+                                {/*    Delete*/}
+                                {/*</th>*/}
                             </tr>
                             </thead>
                             <tbody>
@@ -120,31 +125,15 @@ const OrderHistory = () => {
                                                 {record.orderStatus}
                                             </p>
                                         </td>
-                                        <td className=" px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <Link
-                                                to={`/editOrder/${record._id}`}
-                                                className="font-medium text-blue-600 hover:underline">
-                                                <PencilSquareIcon
-                                                    className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                                    aria-hidden="true"/>
-                                            </Link>
-                                        </td>
-                                        <td className=" ">
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white">
                                             <button
-                                                className="flex items-center"
-                                                onClick={() => handleDelete(record._id)}
-                                            >
-                                                <TrashIcon
-                                                    className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                                    aria-hidden="true"/>
+                                                onClick={() => confirmOrder(record)} // Pass the record ID and record itself to the confirmOrder function
+                                                className="bg-black text-white font-semibold py-1 px-2 rounded">
+                                                Confirm
                                             </button>
+
                                         </td>
                                     </tr>
-                                    {/*<tr>*/}
-                                    {/*    <td colSpan="7">*/}
-                                    {/*        <ProgressBar progress={progress}/>*/}
-                                    {/*    </td>*/}
-                                    {/*</tr>*/}
                                 </React.Fragment>
                             ))}
                             </tbody>
@@ -156,4 +145,4 @@ const OrderHistory = () => {
     );
 }
 
-export default OrderHistory;
+export default ConfirmTheOrders

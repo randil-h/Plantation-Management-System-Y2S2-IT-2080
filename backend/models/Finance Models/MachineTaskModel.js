@@ -24,27 +24,7 @@ const FinanceSchema = mongoose.Schema(
         description: {
             type: String,
             required: true,
-        },
-        total_amount: {
-            type: Number,
-            required: true,
-        },
-        paid_amount: {
-            type: Number,
-            required: true,
-        },
-        record_date: {
-            type: String,
-            required: true,
-        },
-        record_reading: {
-            type: Number,
-            required: true,
-        },
-        record_pay: {
-            type: String,
-            required: true,
-        },
+        }
     },
     {
         timestamps:true,

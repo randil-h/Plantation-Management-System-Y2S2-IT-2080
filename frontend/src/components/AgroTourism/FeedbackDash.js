@@ -215,7 +215,7 @@ export default function FeedbackDashboard() {
                             Feedbacks
                         </h1>
                         <p className="mt-1 text-s font-normal text-black">
-                            Visualization of Rating Analysis
+                            Visualization of Ratings
                         </p>
                     </div>
                     <button

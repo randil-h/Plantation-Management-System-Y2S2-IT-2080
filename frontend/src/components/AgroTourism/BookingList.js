@@ -7,7 +7,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import {HiOutlineDownload} from "react-icons/hi";
 import { useLocation } from 'react-router-dom';
-import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 const mapPackageName = (packageName) => {
     switch (packageName) {
         case 'guidedFarmTour':
@@ -20,6 +20,8 @@ const mapPackageName = (packageName) => {
             return packageName;
     }
 };
+
+
 
 const mapVisitorType = (visitorType) => {
     switch (visitorType) {
@@ -39,24 +41,27 @@ const BookingList = () => {
     const [searchInput, setSearchInput] = useState('');
     const [totalPayment, setTotalPayment] = useState(0);
     const location = useLocation();
+    const {getPermission} = useKindeAuth();
+    /*const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
     const { isAuthenticated, user } = useKindeAuth();
-
-    const authenticatedUserId = user?.userId || null;
+    const authenticatedUserId = user ? user.userId : null;*/
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://elemahana-backend.vercel.app/booking`);
+                const response = await axios.get(
+                    `https://elemahana-backend.vercel.app/booking?userId}`
+                );
                 setBookingRecords(response.data.data);
                 setLoading(false);
             } catch (error) {
-                console.error('Error fetching bookings:', error);
-                setLoading(false); // Ensure loading state is set to false in case of error
+                console.error("Error fetching bookings:", error);
+                setLoading(false);
             }
         };
 
         fetchData();
-    }, []);
+    }, );
 
     useEffect(() => {
         const totalPaymentFromPreviousPage = location.state?.totalPayment;
@@ -168,7 +173,7 @@ const BookingList = () => {
                 price = 0;
         }
 
-        return `${price}/=`;
+        return `${price}`;
     };
 
     const calculateTotalAmount = () => {
@@ -201,12 +206,13 @@ const BookingList = () => {
                 </div>
                 <div className="bg-lime-200 rounded-lg px-7 py-3 mb-4 items ml-12">
                     <p className="text-center text-black font-light">Total Bookings: {bookingRecords.length}</p>
-                    <p className="text-black font-light">Total Amount: {calculateTotalAmount()}/=</p>
+                    <p className="text-black font-light">Total Amount: Rs.{calculateTotalAmount()}/=</p>
+
 
                 </div>
                 <div className="flex">
                     <Link to="/booking">
-                        <button
+                    <button
                             className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none mr-2"
                         >
                             Add Another Booking <span aria-hidden="true"> &rarr;</span>
@@ -246,40 +252,47 @@ const BookingList = () => {
                     </thead>
                     <tbody>
                     {bookingRecords.map((record, index) => (
-                        <tr className="hover:bg-gray-100 divide-y divide-gray-200 text-sm" key={index}>
-                            <td className="px-6 py-3">{index + 1}</td>
-                            <td className="px-6 py-3">{new Date(record.date).toLocaleDateString('en-GB')}</td>
-                            <td className="px-6 py-3">{record.name}</td>
-                            <td className="px-6 py-3">{record.telNo}</td>
-                            <td className="px-6 py-3">{record.nicNo}</td>
-                            <td className="px-6 py-3">{record.email}</td>
-                            <th className="px-6 py-3">{mapVisitorType(record.visitorType)}</th>
-                            <th className="px-6 py-3">{record.numberOfPeople}</th>
-                            <td className="px-6 py-3">{mapPackageName(record.selectedPackage)}</td>
-                            {/* Conditionally show the column based on the selected package */}
-                            {record.selectedPackage === 'guidedFarmTour' && (
-                                <td className="py-2 px-4 border border-gray-400">{record.numberOfDays}</td>
-                            )}
-                            {/* Add an empty cell if the selected package is 'Fruit and Vegetable Picking' or 'Farm Chore Activity' */}
-                            {['fruitAndVegetablePicking', 'farmChoreExperience'].includes(record.selectedPackage) && (
-                                <td className="py-2 px-4 border border-gray-400"></td>
-                            )}
-                            <th className="px-6 py-3">{calculateTotalPayment(record)}</th>
-                            <td className="py-2 px-4 border border-gray-400">
-                                <div className="flex">
-                                    <Link to={`/booking/edit/${record._id}`}
-                                          className="bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500">
-                                        <PencilSquareIcon className="h-6 w-6 flex-none"/>
-                                    </Link>
-                                    <button onClick={() => handleDelete(record._id)}
-                                            className="bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500">
-                                        <TrashIcon className="h-6 w-6 flex-none"/>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
+
+                            <tr className="hover:bg-gray-100 divide-y divide-gray-200 text-sm" key={index}>
+                                <td className="px-6 py-3">{index + 1}</td>
+                                <td className="px-6 py-3">{new Date(record.date).toLocaleDateString('en-GB')}</td>
+                                <td className="px-6 py-3">{record.name}</td>
+                                <td className="px-6 py-3">{record.telNo}</td>
+                                <td className="px-6 py-3">{record.nicNo}</td>
+                                <td className="px-6 py-3">{record.email}</td>
+                                <th className="px-6 py-3">{mapVisitorType(record.visitorType)}</th>
+                                <th className="px-6 py-3">{record.numberOfPeople}</th>
+                                <td className="px-6 py-3">{mapPackageName(record.selectedPackage)}</td>
+                                {/* Conditionally show the column based on the selected package */}
+                                {record.selectedPackage === 'guidedFarmTour' && (
+                                    <td className="py-2 px-4 border border-gray-400">{record.numberOfDays}</td>
+                                )}
+                                {/* Add an empty cell if the selected package is 'Fruit and Vegetable Picking' or 'Farm Chore Activity' */}
+                                {['fruitAndVegetablePicking', 'farmChoreExperience'].includes(record.selectedPackage) && (
+                                    <td className="py-2 px-4 border border-gray-400"></td>
+                                )}
+                                <th className="px-6 py-3">{calculateTotalPayment(record)}</th>
+                                <td className="py-2 px-4 border border-gray-400">
+                                    <div className="flex">
+                                        {getPermission("update:records").isGranted && (
+                                        <Link to={`/booking/edit/${record._id}`}
+                                              className="bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500">
+                                            <PencilSquareIcon className="h-6 w-6 flex-none"/>
+                                        </Link>
+                                            )}
+                                        {getPermission("update:records").isGranted && (
+                                        <button onClick={() => handleDelete(record._id)}
+                                                className="bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500">
+                                            <TrashIcon className="h-6 w-6 flex-none"/>
+                                        </button>
+                                        )}
+                                    </div>
+                                </td>
+                            </tr>
+                        )
+                    )}
                     </tbody>
+
                 </table>
             </div>
         </div>

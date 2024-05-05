@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 
-import {DatePicker, Button, Popover, Radio, message} from 'antd'; // Assuming you're using Ant Design for popover and date picker
-
+import {DatePicker, Button, Radio, message} from 'antd';
+import { Popover, Transition } from '@headlessui/react'
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 
@@ -18,19 +18,30 @@ import {
     XMarkIcon, ArrowDownTrayIcon,
     PlusIcon
 } from '@heroicons/react/24/outline';
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 
 export default function MachineRecordsList() {
     const [loading, setLoading] = useState(false);
     const { id } = useParams();
     const [machineRecords, setMachineRecords] = useState([]);
+    const [machineRecordDetails, setMachineRecordDetails] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('start_date');
     const [sortOrder, setSortOrder] = useState('asc');
     const { enqueueSnackbar } = useSnackbar();
-
+    const {getPermission, getPermissions} = useKindeAuth();
     const [selectedDates, setSelectedDates] = useState([]);
     const [popoverVisible, setPopoverVisible] = useState(false);
     const [transactions, setTransactions] = useState([]);
+
+    const [autoSaveTransaction, setAutoSaveTransaction] = useState(true);
+
+    const [taskId, setTaskId] = useState('');
+    const [recordDate, setRecordDate] = useState('');
+    const [reading_start, setReadingStart] = useState('');
+    const [reading_end, setReadingEnd] = useState('');
+    const [recordPay, setRecordPay] = useState('');
+
 
     useEffect(() => {
         setLoading(true);
@@ -38,6 +49,20 @@ export default function MachineRecordsList() {
             .get('https://elemahana-backend.vercel.app/machines')
             .then((response) => {
                 setMachineRecords(response.data.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get('https://elemahana-backend.vercel.app/machineRecord')
+            .then((response) => {
+                setMachineRecordDetails(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -60,6 +85,25 @@ export default function MachineRecordsList() {
                 .catch((error) => {
                     setLoading(false);
                     message.error('Machine record deletion failed.');
+                    console.log(error);
+                });
+        }
+    };
+
+    const handleDeleteMachineDetailRecord = (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this machine record?");
+        if (confirmDelete) {
+            setLoading(true);
+            axios
+                .delete(`https://elemahana-backend.vercel.app/machineRecord/${id}`)
+                .then(() => {
+                    setMachineRecordDetails((prevRecords) => prevRecords.filter((record) => record._id !== id));
+                    message.success('Machine detail record successfully deleted.');
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    setLoading(false);
+                    message.error('Machine detail record deletion failed.');
                     console.log(error);
                 });
         }
@@ -102,44 +146,77 @@ export default function MachineRecordsList() {
         setSortOrder('asc');
     };
 
-    const handleDownloadPDF = () => {
-        const sortedRecords = machineRecords.sort((a, b) => {
-            if (sortBy === 'start_date') {
-                return sortOrder === 'asc' ? new Date(a.start_date) - new Date(b.start_date) : new Date(b.start_date) - new Date(a.start_date);
+
+
+    const handleDetailsSubmit = async (e) => {
+        e.preventDefault();
+
+        // Create a payload object with form data
+        const payload = {
+            task_id: taskId,
+            record_date: recordDate,
+            reading_start,
+            reading_end,
+            record_pay: recordPay
+        };
+
+        try {
+            // Make POST request to the API endpoint
+            const response = await
+                axios.post('https://elemahana-backend.vercel.app/machineRecord', payload);
+
+            // Handle success response
+            console.log('Record added successfully:', response.data);
+
+            message.success('Machine record detail has successfully saved.');
+
+            // Construct the transaction data based on the saved machine fee data
+            if (autoSaveTransaction) {
+                // Construct the transaction data based on the saved machine fee data
+                const transactionData = {
+                    date: payload.record_date,
+                    type: 'expense',
+                    subtype: 'Machine Fee',
+                    amount: payload.record_pay,
+                    description: `from ${payload.reading_start} to ${payload.reading_end}`,
+                    payer_payee: 'Machine Pay',
+                    method: 'Automated Entry',
+                };
+
+                // Save the transaction record
+                handleSaveTransactionRecord(transactionData);
             }
-        });
 
-        const filteredRecords = sortedRecords.filter(machine => {
-            const transactionDate = new Date(machine.start_date);
-            return transactionDate >= selectedDates[0] && transactionDate <= selectedDates[1];
-        });
+            // Reset form fields after successful submission
+            setRecordDate('');
+            setReadingStart('');
+            setReadingEnd('');
+            setRecordPay('');
 
-        const doc = new jsPDF();
-        doc.text('Machine Records Report', 10, 10);
+        } catch (error) {
+            // Handle error response
+            console.error('Error adding record:', error);
 
-        const headers = [['Date', 'Type', 'Hours/nos.', 'Rate', 'Description', 'Payer/Payee', 'Paid', 'Total']];
-        const data = filteredRecords.map(machine => [
-            machine.task_id,
-            machine.start_date,
-            machine.name,
-            machine.type,
-            machine.rate,
-            machine.payee,
-            machine.description,
-            machine.total_amount,
-            machine.paid_amount,
-            machine.record_date
-        ]);
-
-        doc.autoTable({
-            head: headers,
-            body: data,
-            startY: 20,
-        });
-
-        doc.save('machine_records_report.pdf');
+            // Optionally, you can show an error message here
+        }
     };
 
+    const handleSaveTransactionRecord = (transactionData) => {
+        setLoading(true);
+        axios
+            .post('https://elemahana-backend.vercel.app/transactions', transactionData)
+            .then(() => {
+                setLoading(false);
+                message.success('Transaction record has automatically saved.');
+
+            })
+            .catch((error) => {
+                setLoading(false);
+                message.error('Automatic Transaction record saving failed.');
+                console.log(error);
+
+            });
+    };
 
     return (
         <div>
@@ -198,48 +275,7 @@ export default function MachineRecordsList() {
                                 <XMarkIcon className="w-4 h-4 "/>
                             </button>
 
-                            <div>
-                                <Button
-                                    shape="round"
-                                    className="flex flex-row gap-2 items-center font-semibold bg-amber-200 text-gray-700 hover:bg-amber-500 border-none"
-                                    onClick={() => setPopoverVisible(true)}>
-                                    Download PDF Report <ArrowDownTrayIcon className="w-4 h-4 self-center"/>
-                                </Button>
-                                <Popover
-                                    content={
-                                        <div className="text-gray-600">
-                                            <DatePicker.RangePicker
-                                                onChange={(dates) => setSelectedDates(dates)}
-                                            />
-                                            <div className="flex flex-col space-y-4 py-4">
-                                                <span>Select sorting criteria:</span>
-                                                <Radio.Group
-                                                    onChange={(e) => setSortBy(e.target.value)}
-                                                    value={sortBy}
-                                                >
-                                                    <Radio value="date">Date</Radio>
 
-                                                </Radio.Group>
-                                                <span>Select sorting order:</span>
-                                                <Radio.Group
-                                                    onChange={(e) => setSortOrder(e.target.value)}
-                                                    value={sortOrder}
-                                                >
-                                                    <Radio value="asc">Ascending</Radio>
-                                                    <Radio value="desc">Descending</Radio>
-                                                </Radio.Group>
-                                            </div>
-                                            <Button shape="round"
-                                                    className="bg-lime-600 border-none hover:text-lime-600 text-white"
-                                                    onClick={handleDownloadPDF}>Download</Button>
-                                        </div>
-                                    }
-                                    title="Select Date Range and Sorting"
-                                    trigger="click"
-                                    visible={popoverVisible}
-                                    onVisibleChange={setPopoverVisible}
-                                />
-                            </div>
 
 
                         </div>
@@ -266,9 +302,6 @@ export default function MachineRecordsList() {
                     <tr className=" ">
                         <th></th>
                         <th scope="col" className="px-6 py-3">
-                            ID
-                        </th>
-                        <th scope="col" className="px-6 py-3">
                             Start Date
                         </th>
                         <th scope="col" className="px-6 py-3">
@@ -293,15 +326,13 @@ export default function MachineRecordsList() {
                             Paid Amount
                         </th>
                         <th scope="col" className="px-6 py-3">
-                            record_date
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            record_reading
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            record_pay
+                            Payable
                         </th>
 
+
+                        <th scope="col" className=" py-3">
+                            <span className="sr-only">Info</span>
+                        </th>
                         <th scope="col" className=" py-3">
                             <span className="sr-only">Info</span>
                         </th>
@@ -314,61 +345,281 @@ export default function MachineRecordsList() {
                     </tr>
                     </thead>
                     <tbody className="border-b border-gray-200">
-                    {filteredMachineRecords.map((record, index) => (
-                        <tr
-                            key={record._id}
-                            className={` divide-y
+                    {filteredMachineRecords.map((record, index) => {
+                        // Filter detail records relevant to the current machine record
+                        const relevantDetailRecords = machineRecordDetails.filter(detail_record => detail_record.task_id === record._id);
+
+                        // Calculate the paid amount based on relevant detail records
+                        const paidAmount = relevantDetailRecords.reduce((total, detail) => {
+                            // Add the record_pay to the total
+                            return total + detail.record_pay;
+                        }, 0);
+
+                        // Calculate the total amount based on relevant detail records
+                        const totalAmount = relevantDetailRecords.reduce((total, detail_record) => {
+                            // Calculate the amount for each detail record
+                            const amount = (detail_record.reading_end - detail_record.reading_start) * record.rate;
+                            // Add the amount to the total
+                            return total + amount;
+                        }, 0);
+
+                        return (
+                            <tr
+                                key={record._id}
+                                className={` divide-y
                                     ${record.paid === 'false' ? 'border-l-4 border-red-500 ' : 'border-l-4 border-lime-500 '}`}
-                        >
-                            <td></td>
-                            <td className="px-6 py-4">{record.task_id}</td>
-                            <td className="px-6 py-4">{record.start_date}</td>
-                            <td className="px-6 py-4">{record.name}</td>
-                            <td className="px-6 py-4">{record.type}</td>
-                            <td className="px-6 py-4">Rs.{record.rate.toLocaleString()}</td>
-                            <td className="px-6 py-4">{record.payee}</td>
-                            <td className="px-6 py-4">{record.description}</td>
-                            <td className="px-6 py-4">{record.total_amount}</td>
-                            <td className="px-6 py-4">{record.paid_amount}</td>
-                            <td className="px-6 py-4">{record.record_date}</td>
-                            <td className="px-6 py-4">{record.record_reading}</td>
-                            <td className="px-6 py-4">{record.record_pay}</td>
-                            <td className="px-6 py-4">
-                                <div>
-                                    Rs.{(record.total_amount - record.paid_amount).toLocaleString()}
-                                </div>
-                            </td>
+                            >
+                                <td></td>
+                                <td className="px-6 py-4">{record.start_date}</td>
+                                <td className="px-6 py-4">{record.name}</td>
+                                <td className="px-6 py-4">{record.type}</td>
+                                <td className="px-6 py-4">Rs.{record.rate.toLocaleString()}</td>
+                                <td className="px-6 py-4">{record.payee}</td>
+                                <td className="px-6 py-4">{record.description}</td>
+                                <td className="px-6 py-4">Rs.{totalAmount.toLocaleString()}</td>
+                                <td className="px-6 py-4">Rs.{paidAmount.toLocaleString()}</td>
+                                <td className="px-6 py-4">
+                                    <div>
+                                        {totalAmount - paidAmount < 0 ?
+                                            <span
+                                                className="text-red-600">Overpaid: Rs.{(paidAmount - totalAmount).toLocaleString()}</span> :
+                                            <span
+                                                className="text-lime-600">Rs.{(totalAmount - paidAmount).toLocaleString()}</span>
+                                        }
+                                    </div>
+                                </td>
 
 
-                            <td className=" py-4 text-right">
-                                <Link to={`/finances/machineHours/editMachineRecords/${record._id}`}>
-                                    <PlusIcon
-                                        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                        aria-hidden="true"
-                                    />
-                                </Link>
-                            </td>
-                            <td className=" py-4 text-right">
-                                <Link to={`/finances/machineHours/viewMachineRecords/${record._id}`}>
-                                    <InformationCircleIcon
-                                        className="h-6 w-6 flex-none bg-gray-200 p-1 rounded-full text-gray-800 hover:bg-gray-500"
-                                        aria-hidden="true"
-                                    />
-                                </Link>
-                            </td>
-                            <td className=" ">
-                                <Button shape="circle" type="text" onClick={() => {
-                                    handleDeleteMachineRecord(record._id);
-                                }}>
-                                    <TrashIcon
-                                        className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                        aria-hidden="true"
-                                    />
-                                </Button>
+                                <td className="  text-right py-4 px-4 ">
 
-                            </td>
-                        </tr>
-                    ))}
+                                    <Popover className="relative ">
+                                        <Popover.Button
+                                            onClick={() => setTaskId(record._id)} // Pass the _id to setTaskId
+                                            className="align-middle   content-center inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+                                            <PlusIcon
+                                                className="h-6 w-6 flex-none bg-lime-200 p-1 rounded-full text-gray-800 hover:bg-lime-500"
+                                                aria-hidden="true"
+                                            />
+                                        </Popover.Button>
+
+                                        <Transition
+                                            as={Fragment}
+                                            enter="transition ease-out duration-200"
+                                            enterFrom="opacity-0 translate-y-1"
+                                            enterTo="opacity-100 translate-y-0"
+                                            leave="transition ease-in duration-150"
+                                            leaveFrom="opacity-100 translate-y-0"
+                                            leaveTo="opacity-0 translate-y-1"
+                                        >
+                                            <Popover.Panel
+                                                className="absolute right-full z-10 my-2 flex flex-col   w-screen max-w-2xl -translate-x-0 px-4">
+                                                <div
+                                                    className="w-screen max-w-2xl flex-auto overflow-hidden rounded-3xl  text-sm leading-6 shadow-2xl bg-gray-200 bg-opacity-40 backdrop-blur ring-1 ring-gray-900/5">
+                                                    <div className="py-6">
+                                                        <form onSubmit={handleDetailsSubmit}
+                                                              className="flex flex-col w-full items-center justify-center space-y-4">
+                                                            <div className=" w-full px-8 grid grid-cols-2 gap-4">
+                                                                <div
+                                                                    className="flex flex-col col-span-2 items-start"> {/* Added items-start class for vertical alignment */}
+                                                                    <label htmlFor="task_id"
+                                                                           className="text-sm font-semibold leading-6 text-gray-900">Task
+                                                                        ID</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        id="task_id"
+                                                                        value={taskId}
+                                                                        onChange={(e) => setTaskId(e.target.value)}
+                                                                        required
+                                                                        readOnly
+                                                                        className="block w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                                    />
+                                                                </div>
+
+
+                                                                <div
+                                                                    className="flex flex-col items-start"> {/* Added items-start class for vertical alignment */}
+                                                                    <label htmlFor="reading_start"
+                                                                           className="text-sm font-semibold leading-6 text-gray-900">Reading
+                                                                        Start</label>
+                                                                    <input
+                                                                        type="number"
+                                                                        id="reading_start"
+                                                                        value={reading_start}
+                                                                        onChange={(e) => setReadingStart(e.target.value)}
+                                                                        required
+                                                                        className="block w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                                    />
+                                                                </div>
+                                                                <div
+                                                                    className="flex flex-col items-start"> {/* Added items-start class for vertical alignment */}
+                                                                    <label htmlFor="reading_end"
+                                                                           className="text-sm font-semibold leading-6 text-gray-900">Reading
+                                                                        End</label>
+                                                                    <input
+                                                                        type="number"
+                                                                        id="reading_end"
+                                                                        value={reading_end}
+                                                                        onChange={(e) => setReadingEnd(e.target.value)}
+                                                                        required
+                                                                        className="block w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                                    />
+                                                                </div>
+
+                                                                <div
+                                                                    className="flex flex-col items-start"> {/* Added items-start class for vertical alignment */}
+                                                                    <label htmlFor="record_date"
+                                                                           className="text-sm font-semibold leading-6 text-gray-900">Record
+                                                                        Date</label>
+                                                                    <input
+                                                                        type="date"
+                                                                        id="record_date"
+                                                                        value={recordDate}
+                                                                        onChange={(e) => setRecordDate(e.target.value)}
+                                                                        required
+                                                                        className="block w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                                    />
+                                                                </div>
+
+                                                                <div
+                                                                    className="flex flex-col items-start"> {/* Added items-start class for vertical alignment */}
+                                                                    <label htmlFor="record_pay"
+                                                                           className="text-sm font-semibold leading-6 text-gray-900">Payment</label>
+                                                                    <input
+                                                                        type="number"
+                                                                        id="record_pay"
+                                                                        value={recordPay}
+                                                                        onChange={(e) => setRecordPay(e.target.value)}
+                                                                        required
+                                                                        className="block w-full text-xs rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div className="flex flex-row">
+                                                                <label className="bg-gray-200 py-1 pl-4 rounded-full">
+                                                                    Automatically save to transactions
+                                                                    <input
+                                                                        className="size-6 ml-4 mr-1 form-checkbox text-lime-600 bg-white border-gray-300 rounded-full focus:border-lime-500 focus:ring focus:ring-lime-500 focus:ring-opacity-50 hover:bg-lime-100 checked:bg-lime-500"
+                                                                        type="checkbox"
+                                                                        checked={autoSaveTransaction}
+                                                                        onChange={(e) => setAutoSaveTransaction(e.target.checked)}
+                                                                    />
+
+                                                                </label>
+                                                                <button type="submit"
+                                                                        className="self-end mx-8 px-4 py-1 bg-lime-200 text-black font-semibold rounded-full hover:bg-lime-400 focus:outline-none focus:ring focus:ring-lime-300 focus:ring-opacity-50">Submit
+                                                                </button>
+                                                            </div>
+
+                                                        </form>
+
+
+                                                        <table
+                                                            className="w-full mt-4 text-sm text-left rtl:text-right text-gray-500 ">
+                                                            <thead
+                                                                className="text-xs text-gray-700  uppercase bg-gray-100 border-y border-gray-300 ">
+                                                            <tr className=" ">
+                                                                <th></th>
+                                                                <th scope="col" className="px-6 py-3">
+                                                                    Record Date
+                                                                </th>
+                                                                <th scope="col" className="px-6 py-3">
+                                                                Reading Start
+                                                                </th>
+                                                                <th scope="col" className="px-6 py-3">
+                                                                    Reading End
+                                                                </th>
+                                                                <th scope="col" className="px-6 py-3">
+                                                                    Payment
+                                                                </th>
+                                                                <th scope="col" className="px-6 py-3">
+
+                                                                </th>
+
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody className="border-b border-gray-300 ">
+                                                            {machineRecordDetails
+                                                                .filter(detail_record => detail_record.task_id === record._id) // Filter records by taskId
+                                                                .map((detail_record, index) => (
+                                                                    <tr key={detail_record._id}
+                                                                        className={`divide-y divide-gray-300 `}>
+                                                                        <td></td>
+                                                                        <td className="px-6 py-4">{detail_record.record_date}</td>
+                                                                        <td className="px-6 py-4">{detail_record.reading_start}</td>
+                                                                        <td className="px-6 py-4">{detail_record.reading_end}</td>
+                                                                        <td className="px-6 py-4">{detail_record.record_pay.toLocaleString()}</td>
+
+                                                                        { getPermission("update:records").isGranted ? (
+
+                                                                        <td className=" ">
+                                                                            <Button shape="circle" type="text"
+                                                                                    onClick={() => handleDeleteMachineDetailRecord(detail_record._id)}>
+                                                                                <TrashIcon
+                                                                                    className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                                                                    aria-hidden="true"/>
+                                                                            </Button>
+                                                                        </td>
+                                                                        ) : null
+                                                                        }
+                                                                    </tr>
+                                                                ))
+                                                            }
+                                                            </tbody>
+                                                        </table>
+
+
+                                                    </div>
+
+                                                </div>
+                                            </Popover.Panel>
+                                        </Transition>
+                                    </Popover>
+                                </td>
+
+                                { getPermission("update:records").isGranted ? (
+
+                                <td className=" py-4 text-right">
+                                    <Link to={`/finances/machineHours/editMachineRecords/${record._id}`}>
+                                        <PencilSquareIcon
+                                            className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                            aria-hidden="true"
+                                        />
+                                    </Link>
+                                </td>
+
+                                ) : null
+                                }
+
+                                { getPermission("update:records").isGranted ? (
+                                <td className=" py-4 text-right">
+                                    <Link to={`/finances/machineHours/viewMachineRecords/${record._id}`}>
+                                        <InformationCircleIcon
+                                            className="h-6 w-6 flex-none bg-gray-200 p-1 rounded-full text-gray-800 hover:bg-gray-500"
+                                            aria-hidden="true"
+                                        />
+                                    </Link>
+                                </td>
+                                ) : null
+                                }
+
+                                { getPermission("update:records").isGranted ? (
+                                <td className=" ">
+                                    <Button shape="circle" type="text" onClick={() => {
+                                        handleDeleteMachineRecord(record._id);
+                                    }}>
+                                        <TrashIcon
+                                            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                            aria-hidden="true"
+                                        />
+                                    </Button>
+
+                                </td>
+                    ) : null
+                    }
+                            </tr>
+                        );
+                    })}
                     </tbody>
                 </table>
             </div>

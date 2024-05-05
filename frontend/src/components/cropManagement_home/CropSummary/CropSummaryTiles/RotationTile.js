@@ -87,7 +87,7 @@ export default function RotationTile() {
 
     return (
         <div>
-            <li className="rounded-xl bg-lime-200 px-6 py-8  hover:transform hover:scale-110 transition-transform duration-300">
+            <li className="rounded-xl bg-lime-200 px-6 py-6  hover:transform hover:scale-110 transition-transform duration-300">
                 <FaRotate className="mx-auto h-10 w-10 " />
                 <h3 className="my-3 font-display font-medium group-hover:text-primary-500 text-center">Rotation</h3>
                 {loading ? (

@@ -13,7 +13,7 @@ export function PaymentConfirmation() {
             className="max-w-lg mx-auto mt-8 mb-8 px-14 py-4 rounded-md shadow-md bg-lime-200">
             <h2 className="text-3xl font-bold mb-4 text-center">Payment Confirmation</h2>
             <div className="text-center">
-                <p className="text-lg">Total Payment: ${totalPayment}</p>
+                <p className="text-lg">Total Payment: Rs.{totalPayment}/=</p>
             </div>
         </div>
 

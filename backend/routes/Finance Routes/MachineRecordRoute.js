@@ -9,7 +9,8 @@ router.post('/', async (request, response) => {
         if (
             !request.body.task_id ||
             !request.body.record_date ||
-            !request.body.record_reading ||
+            !request.body.reading_start ||
+            !request.body.reading_end ||
             !request.body.record_pay
         ) {
             return response.status(400).send({
@@ -20,7 +21,8 @@ router.post('/', async (request, response) => {
         const NewMachinesRecord = {
             task_id: request.body.task_id,
             record_date: request.body.record_date,
-            record_reading: request.body.record_reading,
+            reading_start: request.body.reading_start,
+            reading_end: request.body.reading_end,
             record_pay: request.body.record_pay,
         };
 
@@ -69,7 +71,8 @@ router.put('/:id', async (request, response) => {
         if (
             !request.body.task_id ||
             !request.body.record_date ||
-            !request.body.record_reading ||
+            !request.body.reading_start ||
+            !request.body.reading_end ||
             !request.body.record_pay
         ) {
             return response.status(400).send({

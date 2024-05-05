@@ -9,12 +9,16 @@ const FinanceSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-        record_reading: {
+        reading_start: {
+            type: Number,
+            required: true,
+        },
+        reading_end: {
             type: Number,
             required: true,
         },
         record_pay: {
-            type: String,
+            type: Number,
             required: true,
         },
     },

@@ -1,17 +1,14 @@
 import React from "react";
 import Navbar from "../../../components/utility/Navbar";
-import ProductEdtingForm from "../../../components/WholeSale_Management/ProductEditingForm";
 import SideBar from "../../../components/SideBar";
+import ConfirmTheOrders from "../../../components/WholeSale_Management/ConfirmTheOrders";
 import {SnackbarProvider} from "notistack";
 import BackButton from "../../../components/utility/BackButton";
 import Breadcrumb from "../../../components/utility/Breadcrumbs";
 
-export default function EditProduct(){
-
+export default function ConfirmOrders(){
     const breadcrumbItems = [
         { name: 'Orders', href: '/orders/confirm' },
-        { name: 'Products', href: '/wholesaleDashboard' },
-        { name: 'Edit Product', href: '/editProduct/:id' },
     ];
 
     return(
@@ -27,12 +24,15 @@ export default function EditProduct(){
                     <div className="flex flex-row  ">
                         <BackButton/>
                         <Breadcrumb items={breadcrumbItems}/>
-
                     </div>
-                    <ProductEdtingForm/>
+                    <div className=" flex items-center justify-between pb-2">
+                        <div>
+                            <h1 className="text-gray-700 text-3xl font-semibold ml-32 mt-10">ORDERS</h1>
+                        </div>
+                    </div>
+                    <ConfirmTheOrders/>
                 </div>
             </div>
         </SnackbarProvider>
-
-    );
+    )
 }
