@@ -45,11 +45,11 @@ const BookingList = () => {
     const { isAuthenticated, user } = useKindeAuth();
     const authenticatedUserId = user ? user.userId : null;*/
 
-    /*useEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    `https://elemahana-backend.vercel.app/booking?userId=${authenticatedUserId}`
+                    `https://elemahana-backend.vercel.app/booking?userId}`
                 );
                 setBookingRecords(response.data.data);
                 setLoading(false);
@@ -60,7 +60,7 @@ const BookingList = () => {
         };
 
         fetchData();
-    }, [authenticatedUserId]);*/
+    }, );
 
     useEffect(() => {
         const totalPaymentFromPreviousPage = location.state?.totalPayment;
