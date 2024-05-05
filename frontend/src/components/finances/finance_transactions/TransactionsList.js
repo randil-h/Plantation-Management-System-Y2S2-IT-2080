@@ -18,6 +18,7 @@ import {
     XMarkIcon,
     ArrowDownTrayIcon
 } from '@heroicons/react/24/outline';
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 
 export default function TransactionsList() {
     const [loading, setLoading] = useState(false);
