@@ -26,6 +26,11 @@ const OrderSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
+        orderStatus: {
+            type: String,
+            default: 'Pending',
+
+        },
     },
 );
 

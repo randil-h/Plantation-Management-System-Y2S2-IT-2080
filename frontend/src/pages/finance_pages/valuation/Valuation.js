@@ -62,16 +62,6 @@ export default function Valuation() {
             });
     }, []);
 
-    const filteredRecords = ValuationRecords.filter((record) =>
-        Object.values(record).some((value) => {
-            const query = searchQuery !== undefined ? searchQuery : ''; // Using ternary operator to set default value
-            if (typeof value === 'string' || typeof value === 'number') {
-                // Convert value to string and check if it includes the search query
-                return String(value).toLowerCase().includes(query.toLowerCase());
-            }
-            return false;
-        })
-    );
 
 
 
@@ -116,13 +106,6 @@ export default function Valuation() {
 
 
 
-
-
-
-
-
-
-
     const sortedRecords = [...ValuationRecords].sort((a, b) => {
         if (sortBy === 'date') {
             return sortOrder === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date);
@@ -131,7 +114,7 @@ export default function Valuation() {
 
     const filteredValuationRecords = sortedRecords.filter(record => {
         // Convert all values to lowercase for case-insensitive search
-        const searchTerm = searchQuery.toLowerCase();
+        const searchTerm = searchQuery;
 
         // Check if any field in the record contains the search query
         return Object.values(record).some(value =>
@@ -237,7 +220,7 @@ export default function Valuation() {
 
                         <div className="">
                             <div className=" flex flex-row w-full bg-gray-200  h-72 ">
-                                <button value="Land" onClick={(e) => setSearchQuery(e.target.value)}
+                                <button value="land" onClick={(e) => setSearchQuery(e.target.value)}
                                     className="w-full overflow-hidden h-full bg-lime-100 flex flex-col justify-between items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle justify-between pb-8  pt-8">
@@ -249,9 +232,9 @@ export default function Valuation() {
                                         </dd>
                                     </div>
                                 </button>
-                                <button value="Machinery" onClick={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full overflow-hidden bg-green-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
-                                    <div
+                                <button value="machinery" onClick={(e) => setSearchQuery(e.target.value)}
+                                    className=" w-full overflow-hidden bg-green-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
+                                    <span
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                                         <div className="w-8 h-8">
                                             <TruckIcon/>
@@ -263,9 +246,9 @@ export default function Valuation() {
                                         </div>
 
 
-                                    </div>
+                                    </span>
                                 </button>
-                                <button value="Crops" onClick={(e) => setSearchQuery(e.target.value)}
+                                <button value="crops" onClick={(e) => setSearchQuery(e.target.value)}
                                     className="w-full overflow-hidden bg-teal-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
@@ -281,7 +264,7 @@ export default function Valuation() {
 
                                     </div>
                                 </button>
-                                <button value="Infrastruscture" onClick={(e) => setSearchQuery(e.target.value)}
+                                <button value="infrastruscture" onClick={(e) => setSearchQuery(e.target.value)}
                                     className="w-full overflow-hidden bg-cyan-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
@@ -294,7 +277,7 @@ export default function Valuation() {
                                         </div>
                                     </div>
                                 </button>
-                                <button value="Utilities" onClick={(e) => setSearchQuery(e.target.value)}
+                                <button value="utilities" onClick={(e) => setSearchQuery(e.target.value)}
                                     className="w-full overflow-hidden bg-sky-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
@@ -307,7 +290,7 @@ export default function Valuation() {
                                         </div>
                                     </div>
                                 </button>
-                                <button value="Water" onClick={(e) => setSearchQuery(e.target.value)}
+                                <button value="water" onClick={(e) => setSearchQuery(e.target.value)}
                                     className="w-full overflow-hidden bg-blue-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
@@ -320,7 +303,7 @@ export default function Valuation() {
                                         </div>
                                     </div>
                                 </button>
-                                <button value="Loans" onClick={(e) => setSearchQuery(e.target.value)}
+                                <button value="loans" onClick={(e) => setSearchQuery(e.target.value)}
                                     className="w-full overflow-hidden bg-rose-200 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
@@ -333,7 +316,7 @@ export default function Valuation() {
                                         </div>
                                     </div>
                                 </button>
-                                <button value="Debts" onClick={(e) => setSearchQuery(e.target.value)}
+                                <button value="debts" onClick={(e) => setSearchQuery(e.target.value)}
                                     className="w-full overflow-hidden bg-red-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
@@ -346,7 +329,7 @@ export default function Valuation() {
                                         </div>
                                     </div>
                                 </button>
-                                <button value="Leases" onClick={(e) => setSearchQuery(e.target.value)}
+                                <button value="leases" onClick={(e) => setSearchQuery(e.target.value)}
                                     className="w-full overflow-hidden bg-pink-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
@@ -359,7 +342,7 @@ export default function Valuation() {
                                         </div>
                                     </div>
                                 </button>
-                                <button value="Taxes" onClick={(e) => setSearchQuery(e.target.value)}
+                                <button value="taxes" onClick={(e) => setSearchQuery(e.target.value)}
                                     className="w-full overflow-hidden bg-violet-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <div
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">

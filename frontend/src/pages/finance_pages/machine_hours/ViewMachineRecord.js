@@ -18,6 +18,7 @@ export default function ViewMachineRecord() {
     ];
 
     const [machineRecord, setMachineRecord] = useState({});
+    const [machineRecordDetails, setMachineRecordDetails] = useState([]);
     const [loading, setLoading] = useState(false);
     const { id } = useParams();
 
@@ -27,6 +28,20 @@ export default function ViewMachineRecord() {
             .get(`https://elemahana-backend.vercel.app/machines/${id}`)
             .then((response) => {
                 setMachineRecord(response.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, [id]);
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(`https://elemahana-backend.vercel.app/machineRecord`)
+            .then((response) => {
+                setMachineRecordDetails(response.data);
                 setLoading(false);
             })
             .catch((error) => {

@@ -7,18 +7,12 @@ const router = express.Router();
 router.post('/', async (request, response) => {
     try {
         if (
-            !request.body.task_id ||
             !request.body.start_date ||
             !request.body.name ||
             !request.body.type ||
             !request.body.rate ||
             !request.body.payee ||
-            !request.body.description ||
-            !request.body.total_amount ||
-            !request.body.paid_amount ||
-            !request.body.record_date ||
-            !request.body.record_reading ||
-            !request.body.record_pay
+            !request.body.description
         ) {
             return response.status(400).send({
                 message: 'Send all required fields',
@@ -26,18 +20,12 @@ router.post('/', async (request, response) => {
         }
 
         const NewMachinesRecord = {
-            task_id:request.body.task_id,
             start_date: request.body.start_date,
             name: request.body.name,
             type: request.body.type,
             rate: request.body.rate,
             payee: request.body.payee,
-            description: request.body.description,
-            total_amount: request.body.total_amount,
-            paid_amount: request.body.paid_amount,
-            record_date: request.body.record_date,
-            record_reading: request.body.record_reading,
-            record_pay: request.body.record_pay,
+            description: request.body.description
         };
 
         const MachineRecord = await MachinesTask.create(NewMachinesRecord);
@@ -82,22 +70,12 @@ router.get('/:id', async (request, response) => {
 // Route for Update a transaction
 router.put('/:id', async (request, response) => {
     try {
-        if (
-            !request.body.task_id ||
-            !request.body.start_date ||
-            !request.body.name ||
-            !request.body.type ||
-            !request.body.rate ||
-            !request.body.payee ||
-            !request.body.description ||
-            !request.body.total_amount ||
-            !request.body.paid_amount ||
-            !request.body.record_date ||
-            !request.body.record_reading ||
-            !request.body.record_pay
-        ) {
+        const requiredFields = ['start_date', 'name', 'type', 'rate', 'payee', 'description'];
+        let missingFields = requiredFields.filter(field => !request.body[field]);
+
+        if (missingFields.length > 0) {
             return response.status(400).send({
-                message: 'Send all required fields',
+                message: `Missing required fields: ${missingFields.join(', ')}`,
             });
         }
 

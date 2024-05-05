@@ -22,14 +22,13 @@ const ProductSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
-        // ProdcutImage: {
-        //     type: String,
-        //     required: true,
-        // }
+        prodcutImage: {
+            type: String,
+            required: false,
+        },
     },
     {
         timestamps: true,
-       // collection: "ImageDetails"
     }
 );
 

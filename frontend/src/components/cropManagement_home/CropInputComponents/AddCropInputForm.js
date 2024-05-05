@@ -6,7 +6,9 @@ import {enqueueSnackbar, useSnackbar} from "notistack";
 export default function AddCropInputForm() {
     const navigate = useNavigate();
     const [dateError, setDateError] = useState("");
+    const [loading, setLoading] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
+    const [cropTypesWithQuantity, setCropTypesWithQuantity] = useState({});
     const [formData, setFormData] = useState({
         date: "",
         type: "",
@@ -27,72 +29,67 @@ export default function AddCropInputForm() {
         }
     }, []);
 
-    const [agrochemicals, setAgrochemicals] = useState({
-        Coconut: [
-            { name: "Urea, 50 kg", price: 14000},
-            { name: "YPM, 50 kg", price: 12000},
-            { name: "Dolomite, 50 kg", price: 6000},
-            { name: "Muriate of Potash, 50 kg", price: 15000},
-        ],
-        Papaya: [
-            { name: "NPK, 25 kg", price: 24000 },
-        ],
-        AppleGuava: [
-            { name: "NPK, 25kg", price: 18000 },
-        ],
-    });
+    const [cropTypes, setCropTypes] = useState([]);
+    const [agrochemicals, setAgrochemicals] = useState([]);
 
-    const agrochemicalsData = [
-        {
-            name: "Mitsu Abamectin (abamectin 18g/l EC) insecticide",
-            quantity: "50ml bottle",
-            price: 1050,
-        },
-        {
-            name: "Marshal 20 SC (carbosulfan 200g/l SC) insecticide",
-            quantity: "400ml bottle",
-            price: 3680,
-        },
-        {
-            name: "Daconil Chlorothalonil 500g/l fungicide",
-            quantity: "400ml bottle",
-            price: 4250,
-        },
-        {
-            name: "Booster K 45%",
-            quantity: "400ml bottle",
-            price: 820,
-        },
-        {
-            name: "Alberts solution",
-            quantity: "1kg packet",
-            price: 2950,
-        },
-        {
-            name: "Crop Master solution",
-            quantity: "1l bottle",
-            price: 4020,
-        },
-        {
-            name: "Oasis Thiram fungicide",
-            quantity: "1kg packet",
-            price: 3850,
-        },
-        {
-            name: "Glyphosate",
-            quantity: "4l bottle",
-            price: null,
-        },
-        {
-            name: "Rootone",
-            quantity: "500ml bottle",
-            price: 2450,
-        },
-    ];
-
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(`https://elemahana-backend.vercel.app/inventoryinputs`)
+            .then((response) => {
+                const inventoryInputsData = response.data.data;
+                const cropTypesWithQuantity = inventoryInputsData
+                    .filter(record => record.type === 'Planting')
+                    .reduce((acc, record) => {
+                        if (!acc[record.record_name]) {
+                            acc[record.record_name] = 0;
+                        }
+                        acc[record.record_name] += record.quantity;
+                        return acc;
+                    }, {});
+                const agrochemicalsWithQuantity = inventoryInputsData
+                    .filter(record => record.type === "Agrochemical" || record.type === "Fertilizer")
+                    .reduce((acc, record) => {
+                        if (!acc[record.record_name]) {
+                            acc[record.record_name] = 0;
+                        }
+                        acc[record.record_name] += record.quantity;
+                        return acc;
+                    }, {});
+                setAgrochemicals(Object.keys(agrochemicalsWithQuantity));
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        /*if (name === "quantity") {
+            // Get the maximum quantity allowed based on the selected crop type
+            let maxQuantity = 0;
+            if (formData.type === "Planting" && formData.cropType) {
+                // Find the selected crop type in cropTypesWithQuantity object
+                const cropQuantity = cropTypesWithQuantity[formData.cropType];
+                if (cropQuantity) {
+                    // Use the fetched quantity directly as the maximum quantity
+                    maxQuantity = cropQuantity;
+                }
+            }
+
+            // Convert value to a number
+            const enteredQuantity = Number(value);
+
+            // Check if the entered quantity exceeds the maximum allowed
+            if (enteredQuantity > maxQuantity) {
+                // Display an error message
+                enqueueSnackbar(`Maximum inventory stock for ${formData.cropType} is ${maxQuantity}.`, { variant: 'error' });
+                return;
+            }
+        } */
 
         if (name === "quantity" || name === "unitCost") {
             if (isNaN(value) || Number(value) < 0) {
@@ -294,9 +291,9 @@ export default function AddCropInputForm() {
                                                 required
                                             >
                                                 <option value="">Select an option</option>
-                                                <option value="Coconut">Coconut</option>
-                                                <option value="Apple Guava">Apple Guava</option>
-                                                <option value="Papaya">Papaya</option>
+                                                {cropTypes.map((cropType, index) => (
+                                                    <option key={index} value={cropType}>{cropType}</option>
+                                                ))}
                                             </select>
                                         </div>
                                     </div>
@@ -331,16 +328,20 @@ export default function AddCropInputForm() {
                                         Chemical Name
                                     </label>
                                     <div className="mt-2">
-                                        <input
-                                            type="text"
+                                        <select
                                             id="chemicalName"
                                             name="chemicalName"
                                             onChange={handleChange}
                                             value={formData.chemicalName}
                                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                             required
-                                        />
-                                    </div>
+                                        >
+                                            <option value="">Select an option</option>
+                                            {agrochemicals.map((agrochemical, index) => (
+                                                <option key={index} value={agrochemical}>{agrochemical}</option>
+                                            ))}
+                                        </select>
+                                </div>
                                 </div>
                             )}
                             <div className="sm:col-span-2 sm:col-start-1 mt-4">

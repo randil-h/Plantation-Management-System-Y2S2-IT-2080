@@ -15,6 +15,7 @@ const OrderPlacingForm = () => {
     const [orderDate, setOrderDate] = useState(''); 
     const [orderQuantity, setOrderQuantity] = useState('60');
 
+
     useEffect(() => {
         setLoading(true);
         axios
@@ -77,7 +78,8 @@ const OrderPlacingForm = () => {
             orderDate,
             orderQuantity,
             orderPrice: totalPrice,
-            orderProductPricePerKilo: orderProductPricePerKilo
+            orderProductPricePerKilo: orderProductPricePerKilo,
+            orderStatus: 'Pending'
         };
 
 

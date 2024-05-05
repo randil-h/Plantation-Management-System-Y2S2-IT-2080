@@ -43,7 +43,7 @@ const ProductHistory = () =>{
 
     const handleDelete = (recordId) => {
         axios
-            .delete(`https://elemahana-backend.vercel.app/productRecords/${recordId}`)
+            .delete(`https://elemahana-backend.vercel.app/${recordId}`)
             .then(() => {
                 setProductRecords(prevRecord => prevRecord.filter(record => record._id !== recordId));
             })
@@ -167,6 +167,10 @@ const ProductHistory = () =>{
                                     </th>
                                     <th scope="col"
                                         className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        Product Image
+                                    </th>
+                                    <th scope="col"
+                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Info
                                     </th>
                                     {/*<th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">*/}
@@ -195,6 +199,7 @@ const ProductHistory = () =>{
                                         </td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productQuantity}</td>
                                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productPrice}</td>
+                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productImage}</td>
                                         <td className=" py-4 text-right flex flex-col items-center">
                                             <a href="#"
                                                className="font-medium text-blue-600 hover:underline">

@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 export default function GenerateGraphs() {
     const [DiseaseRecords, setDiseaseRecords] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [timeLineFilter, setTimeLineFilter] = useState("1 Year");
     const chartContainer = useRef(null);
     const lineChartContainer = useRef(null);
     const cropBarChartContainer = useRef(null);
@@ -15,17 +16,20 @@ export default function GenerateGraphs() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get("https://elemahana-backend.vercel.app/diseases")
+            .get(`https://elemahana-backend.vercel.app/diseases/g?timeline=${timeLineFilter}`)
             .then((response) => {
                 setDiseaseRecords(response.data.data);
-                console.log("DiseaseRecords:", response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
                 setLoading(false);
             });
-    }, []);
+    }, [timeLineFilter]);
+
+    const handleTimeLineFilterChange = (e) => {
+        setTimeLineFilter(e.target.value);
+    };
 
     useEffect(() => {
         renderBarChart();
@@ -416,25 +420,67 @@ export default function GenerateGraphs() {
             ) : (
                 <>
                     <div className="mx-auto px-8  w-fit border-2 rounded-xl border-green-400">
-                        <h1 className=" mt-4 text-lg font-bold text-left flex justify-center items-center">
-                            Disease V Records
-                        </h1>
+                        <div className="flex flex-row items-center justify-center mt-2">
+                            <div className="mr-2">
+                                <h1 className=" mt-4 text-lg font-bold text-left flex justify-center items-center">
+                                    Disease V Records
+                                </h1>
+                            </div>
+                            <div className="ml-2">
+                                <select
+                                    className="rounded-full px-auto py-1 w-auto"
+                                    value={timeLineFilter}
+                                    onChange={handleTimeLineFilterChange}>
+                                    <option value="1 Year">1Y</option>
+                                    <option value="1 Month">1M</option>
+                                    <option value="1 Week">1W</option>
+                                </select>
+                            </div>
+                        </div>
                         <div className="  py-4 ">
                             <svg ref={chartContainer} width="800" height="400"></svg>
                         </div>
                     </div>
                     <div className="mx-auto px-8 w-fit py-4 border-2 mt-6 rounded-xl border-green-400">
-                        <h1 className="  text-lg font-bold text-left flex justify-center items-center">
-                            Number of Diseased Plants V Time
-                        </h1>
+                        <div className="flex flex-row items-center justify-center">
+                            <div className="mr-2">
+                                <h1 className=" mt-4 text-lg font-bold text-left flex justify-center items-center">
+                                    Number of Diseased Plants V Time
+                                </h1>
+                            </div>
+                            <div className="ml-2">
+                                <select
+                                    className="rounded-full px-auto py-1 w-auto"
+                                    value={timeLineFilter}
+                                    onChange={handleTimeLineFilterChange}>
+                                    <option value="1 Year">1Y</option>
+                                    <option value="1 Month">1M</option>
+                                    <option value="1 Week">1W</option>
+                                </select>
+                            </div>
+                        </div>
                         <div className=" w-2/3 h-1/4  py-4 ">
                             <svg ref={lineChartContainer} width="800" height="400"></svg>
                         </div>
                     </div>
                     <div className=" w-fit mx-auto px-8 py-4 border-2 mt-6 rounded-xl border-green-400">
-                        <h1 className=" mb-2 text-lg font-bold text-left flex justify-center items-center">
-                            Amount of Diseased Plants V Crop Type
-                        </h1>
+                        <div className="flex flex-row items-center justify-center">
+                            <div className="mr-2">
+                                <h1 className=" mt-4 text-lg font-bold text-left flex justify-center items-center">
+                                    Amount of Diseased Plants V Crop Type
+                                </h1>
+                            </div>
+                            <div className="ml-2">
+                                <select
+                                    className="rounded-full px-auto py-1 w-auto"
+                                    value={timeLineFilter}
+                                    onChange={handleTimeLineFilterChange}>
+                                    <option value="1 Year">1Y</option>
+                                    <option value="1 Month">1M</option>
+                                    <option value="1 Week">1W</option>
+                                </select>
+                            </div>
+                        </div>
                         <div className=" w-2/3 h-1/4 py-4 ">
                             <svg ref={cropBarChartContainer} width="800" height="300"></svg>
                         </div>

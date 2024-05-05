@@ -32,12 +32,11 @@ import OrderRoute from "./routes/Wholesale  Routes/OrderRoute.js";
 import recordRoute from "./routes/Harvest Routes/RecordRoute.js";
 import AttendanceRoute from "./routes/Employee Routes/AttendanceRoute.js";
 
-//import productModel from "./models/Wholesale Models/ProductModel.js";
-
 import MarketPriceRoute from "./routes/FarmAnalysis Routes/MarketPriceRoute.js";
 import DiseaseCountRoute from "./routes/Disease Tracking Routes/DiseaseCountRoute.js";
 import TreatmentSelectionRoute from "./routes/Disease Tracking Routes/TreatmentSelectionRoute.js";
 import PredictMarketPriceRoute from "./routes/FarmAnalysis Routes/PredictMarketPriceRoute.js";
+import MachineRecordRoute from "./routes/Finance Routes/MachineRecordRoute.js";
 
 
 const app = express();
@@ -66,7 +65,7 @@ app.use('/financeincome', testRoute);
 app.use('/transactions', TransactionsRoute);
 app.use('/valuation', ValuationRoute);
 app.use('/machines', MachineTaskRoute);
-
+app.use('/machineRecord', MachineRecordRoute);
 app.use('/salary', SalaryRoute);
 app.use('/weather', WeatherAPI)
 

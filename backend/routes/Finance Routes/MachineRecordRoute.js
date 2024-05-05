@@ -7,14 +7,11 @@ const router = express.Router();
 router.post('/', async (request, response) => {
     try {
         if (
-            !request.body.start_date ||
-            !request.body.name ||
-            !request.body.type ||
-            !request.body.rate ||
-            !request.body.payee ||
-            !request.body.description ||
-            !request.body.total_amount ||
-            !request.body.paid_amount
+            !request.body.task_id ||
+            !request.body.record_date ||
+            !request.body.reading_start ||
+            !request.body.reading_end ||
+            !request.body.record_pay
         ) {
             return response.status(400).send({
                 message: 'Send all required fields',
@@ -22,14 +19,11 @@ router.post('/', async (request, response) => {
         }
 
         const NewMachinesRecord = {
-            start_date: request.body.start_date,
-            name: request.body.name,
-            type: request.body.type,
-            rate: request.body.rate,
-            payee: request.body.payee,
-            description: request.body.description,
-            total_amount: request.body.total_amount,
-            paid_amount: request.body.paid_amount,
+            task_id: request.body.task_id,
+            record_date: request.body.record_date,
+            reading_start: request.body.reading_start,
+            reading_end: request.body.reading_end,
+            record_pay: request.body.record_pay,
         };
 
         const MachineRecord = await MachinesRecord.create(NewMachinesRecord);
@@ -75,14 +69,11 @@ router.get('/:id', async (request, response) => {
 router.put('/:id', async (request, response) => {
     try {
         if (
-            !request.body.start_date ||
-            !request.body.name ||
-            !request.body.type ||
-            !request.body.rate ||
-            !request.body.payee ||
-            !request.body.description ||
-            !request.body.total_amount ||
-            !request.body.paid_amount
+            !request.body.task_id ||
+            !request.body.record_date ||
+            !request.body.reading_start ||
+            !request.body.reading_end ||
+            !request.body.record_pay
         ) {
             return response.status(400).send({
                 message: 'Send all required fields',

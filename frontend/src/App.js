@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoadingAnimation from "./components/utility/LoadingAnimation";
 import {KindeProvider} from "@kinde-oss/kinde-auth-react";
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 import LandingPage from "./pages/landingPage.js";
 import SigninPage from "./pages/signinPage.js";
@@ -77,7 +78,7 @@ import WholeSaleDashBoard from "./pages/WholeSaleMangement/OperationManager/Whol
 import EditProduct from "./pages/WholeSaleMangement/OperationManager/EditProduct";
 import EditOrder from "./pages/WholeSaleMangement/WholeSaleCustomer/EditOrder";
 import PaymentGateway from "./pages/WholeSaleMangement/WholeSaleCustomer/PaymentGateway";
-import Home from "./pages/WholeSaleMangement/OperationManager/Home"
+import ConfirmOrders from "./pages/WholeSaleMangement/OperationManager/ConfirmOrders";
 
 import Employee from "./pages/employee_pages/Employee.js";
 import AddEmployee from "./pages/employee_pages/emp_registation/AddEmployee";
@@ -129,6 +130,7 @@ export default function App() {
         }, 100); // Simulate 2 seconds loading time
         return () => clearTimeout(timer);
     }, []);
+
 
     return (
         <KindeProvider
@@ -217,7 +219,7 @@ export default function App() {
                     <Route path="/editProduct/:id" element={<EditProduct />}/>
                     <Route path="/editOrder/:id" element={<EditOrder />}/>
                     <Route path="wholesale/Payment" element={PaymentGateway()}/>
-                    <Route path="/wholesale/dashboard/home" element={Home()}/>
+                    <Route path="/orders/confirm" element={ConfirmOrders()}/>
 
 
                     <Route path = "diseases/home" element={DiseaseTracking()}/>
@@ -269,6 +271,7 @@ export default function App() {
                 </Routes>
             )}
         </div>
+            <SpeedInsights/>
         </KindeProvider>
     );
 }
