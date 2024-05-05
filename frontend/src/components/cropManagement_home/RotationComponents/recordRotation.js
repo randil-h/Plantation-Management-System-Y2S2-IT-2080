@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {enqueueSnackbar} from "notistack";
+import {useNavigate} from "react-router-dom";
 
 export default function RecordRotation() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         season: '',
         fieldName: '',
@@ -27,7 +30,6 @@ export default function RecordRotation() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await axios.post('https://elemahana-backend.vercel.app/rotation', formData);
             console.log(response.data);
@@ -40,6 +42,8 @@ export default function RecordRotation() {
                 yield: '',
                 remarks: ''
             });
+            enqueueSnackbar('Record Added successfully', { variant: 'success' });
+            navigate('/crop/rotation')
         } catch (error) {
             console.log(error.message);
         }
@@ -73,7 +77,7 @@ export default function RecordRotation() {
                             <div className="sm:col-span-2 sm:col-start-1">
                                 <label htmlFor="season"
                                        className="block text-sm font-medium leading-6 text-gray-900">
-                                    season
+                                    Season
                                 </label>
                                 <div className="mt-2">
                                     <select
@@ -83,6 +87,7 @@ export default function RecordRotation() {
                                         value={formData.season}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                     >
+                                        <option value="">Select Season</option>
                                         <option value="1 Season Ago">1 Season Ago</option>
                                         <option value="2 Seasons Ago">2 Seasons Ago</option>
                                     </select>
@@ -172,7 +177,7 @@ export default function RecordRotation() {
                             <div className="col-span-full">
                                 <label htmlFor="yield"
                                        className="block text-sm font-medium leading-6 text-gray-900">
-                                    Yield
+                                    Yield (mt/ha)
                                 </label>
                                 <div className="mt-2">
                                     <input
