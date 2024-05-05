@@ -49,19 +49,14 @@ const BookingList = () => {
                 const response = await axios.get(
                     `https://elemahana-backend.vercel.app/booking?userId=${authenticatedUserId}`
                 );
-                // Ensure the response data is an array
-                if (Array.isArray(response.data)) {
-                    setBookingRecords(response.data);
-                } else {
-                    // If the response data is not an array, handle the error or set default value
-                    console.error("Invalid response data format:", response.data);
-                }
+                setBookingRecords(response.data);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching bookings:", error);
                 setLoading(false);
             }
         };
+
 
         fetchData();
     }, []);
