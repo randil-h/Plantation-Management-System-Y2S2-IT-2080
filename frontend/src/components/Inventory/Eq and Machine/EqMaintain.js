@@ -6,6 +6,7 @@ import { GoAlert } from "react-icons/go";
 import { jsPDF } from "jspdf";
 import html2canvas from 'html2canvas';
 import {FiDownload} from "react-icons/fi";
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 
 const EqMaintain = () => {
     const [inventoryRecords, setInventoryRecords] = useState([]);
@@ -13,6 +14,7 @@ const EqMaintain = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
+    const {getPermission, getPermissions} = useKindeAuth();
 
     useEffect(() => {
         setLoading(true);
@@ -268,6 +270,8 @@ const EqMaintain = () => {
                                             aria-hidden="true"/>
                                     </Link>
                                 </td>
+                                {
+                                    getPermission("update:records").isGranted ? (
                                 <td className="px-6 py-4">
                                     <button className="flex items-center" onClick={() => handleDelete(record._id)}>
                                         <TrashIcon
@@ -275,6 +279,8 @@ const EqMaintain = () => {
                                             aria-hidden="true"/>
                                     </button>
                                 </td>
+                                    ): null
+                                }
                             </tr>
                         ))}
                         </tbody>

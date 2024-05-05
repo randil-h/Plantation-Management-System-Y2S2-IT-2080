@@ -7,6 +7,7 @@ import { jsPDF } from "jspdf";
 import { GoAlert } from "react-icons/go";
 import { useSnackbar } from 'notistack';
 import { FiDownload } from "react-icons/fi";
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 
 const InventoryRecordList = () => {
     const { enqueueSnackbar } = useSnackbar();
@@ -15,6 +16,7 @@ const InventoryRecordList = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedFieldFilter, setSelectedFieldFilter] = useState('All Fields');
     const [showConfirmation, setShowConfirmation] = useState(false);
+    const {getPermission, getPermissions} = useKindeAuth();
 
     useEffect(() => {
         setLoading(true);
@@ -291,6 +293,8 @@ const InventoryRecordList = () => {
                                             aria-hidden="true"/>
                                     </Link>
                                 </td>
+                                {
+                                    getPermission("update:records").isGranted ? (
                                 <td className="py-4 text-right">
                                     <Link
                                         to={`/inventory/inventoryrecords/editinventorypage/${record._id}`}
@@ -301,6 +305,10 @@ const InventoryRecordList = () => {
                                             aria-hidden="true"/>
                                     </Link>
                                 </td>
+                                    ): null
+                                }
+                                        {
+                                            getPermission("update:records").isGranted ? (
                                 <td className="">
                                     <button
                                         className="flex items-center"
@@ -311,6 +319,8 @@ const InventoryRecordList = () => {
                                             aria-hidden="true"/>
                                     </button>
                                 </td>
+                                            ): null
+                                        }
                             </tr>
                         ))}
                         </tbody>
