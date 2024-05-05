@@ -167,6 +167,52 @@ router.put('/:id', async (request, response) => {
         }
 
         const {id} = request.params;
+        const updatedRecord = request.body;
+        const currentRecord = await DiseasesRecord.findById(id);
+
+        const diffPlantCount = updatedRecord.plant_count - currentRecord.plant_count;
+
+        if(diffPlantCount !==0 && request.body.status === "Under Treatment") {
+            const {treatment} = request.body;
+            const {plant_count} = request.body;
+            const amountUsedPerTree = 50;
+            const totalAmountNeeded = Math.abs(diffPlantCount) * amountUsedPerTree;
+
+            let foundSufficientInventory = false;
+            let insufficientInventoryMessage = "Insufficient Quantity in the Inventory!!";
+            let treatmentNotFoundMessage = "Treatment not Available in Inventory!!";
+
+            // Find all records with the specified treatment name
+            const inventoryRecords = await InventoryInput.find({ record_name: treatment });
+
+            if (inventoryRecords.length === 0) {
+                return response.status(400).json({ message: treatmentNotFoundMessage });
+            }
+
+            for (const inventoryRecord of inventoryRecords) {
+                // Calculate the remaining amount after deducting the total amount needed
+                if(diffPlantCount > 0){
+                    const remainingAmount = inventoryRecord.quantity * inventoryRecord.size - totalAmountNeeded;
+                    // If remaining amount is sufficient or equal to zero, update the record and break the loop
+                    if (remainingAmount >= 0) {
+                        inventoryRecord.quantity = remainingAmount / inventoryRecord.size;
+                        await inventoryRecord.save();
+                        foundSufficientInventory = true;
+                        break;
+                    }
+                }else if(diffPlantCount < 0) {
+                    inventoryRecord.quantity += totalAmountNeeded / inventoryRecord.size;
+                    await inventoryRecord.save();
+                    foundSufficientInventory = true;
+                    break;
+                }
+
+            }
+            // If no record had sufficient quantity, return a message
+            if (!foundSufficientInventory) {
+                return response.status(400).json({ message: insufficientInventoryMessage });
+            }
+        }
 
         const result = await DiseasesRecord.findByIdAndUpdate(id, request.body);
 
@@ -202,15 +248,18 @@ router.delete('/:id', async (request, response) => {
 
 router.get('/cropTypes', async (req, res) => {
     const { location } = req.query;
+    console.log('Selected location:', location);
     try {
-        const cropTypes = await CropInputs.findOne({ field: location }).select('cropType');
-        if (cropTypes) {
-            res.status(200).json({ cropType: cropTypes.cropType });
-        } else {
-            res.status(404).json({ message: 'Crop type not found for the selected location' });
-        }
+        const cropRecords = await CropInputs.find({ field: location, cropType: {$exists: true} });
+        console.log('Crop Types',cropRecords);
+
+        const crops = cropRecords.map(record => record.cropType);
+        const uniqueCropTypes = [...new Set(crops)];
+
+        res.json(uniqueCropTypes);
+
     } catch (error) {
-        console.error('Error fetching crop type:', error);
+        console.error('Error fetching crop types:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });

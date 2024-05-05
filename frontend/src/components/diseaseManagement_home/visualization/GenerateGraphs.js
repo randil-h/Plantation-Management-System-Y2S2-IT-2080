@@ -104,7 +104,7 @@ export default function GenerateGraphs() {
             .attr("width", x.bandwidth())
             .attr("height", (d) => height - y(d[1]))
             .style("fill", "rgba(0, 226, 29, 0.28)")
-            .style("stroke", "rgba(212, 225, 87)")
+            .style("stroke", "rgb(13, 128, 0)")
             .style("stroke-width", 1)
             .on("mouseover", (event, d) => {
                 tooltip.style("opacity", 1);
@@ -219,7 +219,7 @@ export default function GenerateGraphs() {
             .attr("width", x.bandwidth())
             .attr("height", (d) => height - y(d[1]))
             .style("fill", "rgba(0, 226, 29, 0.28)")
-            .style("stroke", "rgba(212, 225, 87)")
+            .style("stroke", "rgb(13, 128, 0)")
             .style("stroke-width", 1)
             .on("mouseover", (event, d) => {
 
