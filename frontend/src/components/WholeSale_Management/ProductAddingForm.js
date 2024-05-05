@@ -25,7 +25,7 @@ const ProductAddingForm = () => {
         formData.append('productImage', e.target.productImage.files[0]); // Get the file from the input element
 
         axios
-            .post('http://localhost:5555/productRecords', formData, {
+            .post('https://elemahana-backend.vercel.app/productRecords', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data for file upload
                 },
