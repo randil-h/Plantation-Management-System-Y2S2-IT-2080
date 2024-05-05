@@ -7,6 +7,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import {HiOutlineDownload} from "react-icons/hi";
 import { useLocation } from 'react-router-dom';
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 const mapPackageName = (packageName) => {
     switch (packageName) {
         case 'guidedFarmTour':
@@ -40,7 +41,7 @@ const BookingList = () => {
     const [searchInput, setSearchInput] = useState('');
     const [totalPayment, setTotalPayment] = useState(0);
     const location = useLocation();
-
+    const {getPermission} = useKindeAuth();
     /*const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
     const { isAuthenticated, user } = useKindeAuth();
     const authenticatedUserId = user ? user.userId : null;*/
@@ -273,14 +274,18 @@ const BookingList = () => {
                                 <th className="px-6 py-3">{calculateTotalPayment(record)}</th>
                                 <td className="py-2 px-4 border border-gray-400">
                                     <div className="flex">
+                                        {getPermission("update:records").isGranted && (
                                         <Link to={`/booking/edit/${record._id}`}
                                               className="bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500">
                                             <PencilSquareIcon className="h-6 w-6 flex-none"/>
                                         </Link>
+                                            )}
+                                        {getPermission("update:records").isGranted && (
                                         <button onClick={() => handleDelete(record._id)}
                                                 className="bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500">
                                             <TrashIcon className="h-6 w-6 flex-none"/>
                                         </button>
+                                        )}
                                     </div>
                                 </td>
                             </tr>
