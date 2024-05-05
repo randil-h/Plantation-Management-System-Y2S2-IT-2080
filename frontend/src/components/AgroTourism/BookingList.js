@@ -172,7 +172,7 @@ const BookingList = () => {
                 price = 0;
         }
 
-        return `Rs.${price}/=`;
+        return `${price}`;
     };
 
     const calculateTotalAmount = () => {
@@ -205,12 +205,13 @@ const BookingList = () => {
                 </div>
                 <div className="bg-lime-200 rounded-lg px-7 py-3 mb-4 items ml-12">
                     <p className="text-center text-black font-light">Total Bookings: {bookingRecords.length}</p>
-                    <p className="text-black font-light">Total Amount: {calculateTotalAmount()}/=</p>
+                    <p className="text-black font-light">Total Amount: Rs.{calculateTotalAmount()}/=</p>
+
 
                 </div>
                 <div className="flex">
                     <Link to="/booking">
-                        <button
+                    <button
                             className="bg-black text-white px-3 py-1 rounded-full hover:bg-emerald-700 focus:outline-none mr-2"
                         >
                             Add Another Booking <span aria-hidden="true"> &rarr;</span>
