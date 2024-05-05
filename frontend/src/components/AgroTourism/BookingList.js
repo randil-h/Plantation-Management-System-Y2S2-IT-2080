@@ -21,6 +21,8 @@ const mapPackageName = (packageName) => {
     }
 };
 
+
+
 const mapVisitorType = (visitorType) => {
     switch (visitorType) {
         case 'local':
@@ -39,6 +41,8 @@ const BookingList = () => {
     const [searchInput, setSearchInput] = useState('');
     const [totalPayment, setTotalPayment] = useState(0);
     const location = useLocation();
+
+    const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
     /*const { isAuthenticated, user } = useKindeAuth();
     const authenticatedUserId = user ? user.userId : null;*/
 
@@ -247,40 +251,43 @@ const BookingList = () => {
                     </thead>
                     <tbody>
                     {bookingRecords.map((record, index) => (
-                        <tr className="hover:bg-gray-100 divide-y divide-gray-200 text-sm" key={index}>
-                            <td className="px-6 py-3">{index + 1}</td>
-                            <td className="px-6 py-3">{new Date(record.date).toLocaleDateString('en-GB')}</td>
-                            <td className="px-6 py-3">{record.name}</td>
-                            <td className="px-6 py-3">{record.telNo}</td>
-                            <td className="px-6 py-3">{record.nicNo}</td>
-                            <td className="px-6 py-3">{record.email}</td>
-                            <th className="px-6 py-3">{mapVisitorType(record.visitorType)}</th>
-                            <th className="px-6 py-3">{record.numberOfPeople}</th>
-                            <td className="px-6 py-3">{mapPackageName(record.selectedPackage)}</td>
-                            {/* Conditionally show the column based on the selected package */}
-                            {record.selectedPackage === 'guidedFarmTour' && (
-                                <td className="py-2 px-4 border border-gray-400">{record.numberOfDays}</td>
-                            )}
-                            {/* Add an empty cell if the selected package is 'Fruit and Vegetable Picking' or 'Farm Chore Activity' */}
-                            {['fruitAndVegetablePicking', 'farmChoreExperience'].includes(record.selectedPackage) && (
-                                <td className="py-2 px-4 border border-gray-400"></td>
-                            )}
-                            <th className="px-6 py-3">{calculateTotalPayment(record)}</th>
-                            <td className="py-2 px-4 border border-gray-400">
-                                <div className="flex">
-                                    <Link to={`/booking/edit/${record._id}`}
-                                          className="bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500">
-                                        <PencilSquareIcon className="h-6 w-6 flex-none"/>
-                                    </Link>
-                                    <button onClick={() => handleDelete(record._id)}
-                                            className="bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500">
-                                        <TrashIcon className="h-6 w-6 flex-none"/>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
+                        /* user.email === record.email && (*/
+                            <tr className="hover:bg-gray-100 divide-y divide-gray-200 text-sm" key={index}>
+                                <td className="px-6 py-3">{index + 1}</td>
+                                <td className="px-6 py-3">{new Date(record.date).toLocaleDateString('en-GB')}</td>
+                                <td className="px-6 py-3">{record.name}</td>
+                                <td className="px-6 py-3">{record.telNo}</td>
+                                <td className="px-6 py-3">{record.nicNo}</td>
+                                <td className="px-6 py-3">{record.email}</td>
+                                <th className="px-6 py-3">{mapVisitorType(record.visitorType)}</th>
+                                <th className="px-6 py-3">{record.numberOfPeople}</th>
+                                <td className="px-6 py-3">{mapPackageName(record.selectedPackage)}</td>
+                                {/* Conditionally show the column based on the selected package */}
+                                {record.selectedPackage === 'guidedFarmTour' && (
+                                    <td className="py-2 px-4 border border-gray-400">{record.numberOfDays}</td>
+                                )}
+                                {/* Add an empty cell if the selected package is 'Fruit and Vegetable Picking' or 'Farm Chore Activity' */}
+                                {['fruitAndVegetablePicking', 'farmChoreExperience'].includes(record.selectedPackage) && (
+                                    <td className="py-2 px-4 border border-gray-400"></td>
+                                )}
+                                <th className="px-6 py-3">{calculateTotalPayment(record)}</th>
+                                <td className="py-2 px-4 border border-gray-400">
+                                    <div className="flex">
+                                        <Link to={`/booking/edit/${record._id}`}
+                                              className="bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500">
+                                            <PencilSquareIcon className="h-6 w-6 flex-none"/>
+                                        </Link>
+                                        <button onClick={() => handleDelete(record._id)}
+                                                className="bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500">
+                                            <TrashIcon className="h-6 w-6 flex-none"/>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        )
+                    )/*)*/}
                     </tbody>
+
                 </table>
             </div>
         </div>

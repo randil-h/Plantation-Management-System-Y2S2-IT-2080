@@ -146,7 +146,7 @@ export default function FinanceValuationStatBar() {
                         {/* Expense this week */}
                         <div className="flex flex-row items-center gap-4">
                             <dd className="text-xl font-semibold text-gray-900 tracking-tight sm:text-3xl">
-                                {renderProfitLoss(futureNetValue.toLocaleString())}
+                                {renderProfitLoss(Math.round(futureNetValue).toLocaleString())}
                             </dd>
                             {/*{renderProfitLossIcon(profitLoss)}*/}
                         </div>
