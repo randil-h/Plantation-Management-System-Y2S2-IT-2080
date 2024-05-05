@@ -3,6 +3,7 @@ import express, {request, response} from "express";
 import {InventoryRecord} from "../../models/Inventory Models/EqMaintainModel.js";
 import {InventoryInput} from "../../models/Inventory Models/InventoryRecordModel.js";
 import {subMonths, subYears, format, subWeeks} from "date-fns";
+import {CropInputs} from "../../models/Crop Models/CropInputModel.js";
 
 const router = express.Router();
 
@@ -196,6 +197,21 @@ router.delete('/:id', async (request, response) => {
     }catch(error){
         console.log(error.message);
         response.status(500).send({message: error.message});
+    }
+});
+
+router.get('/cropTypes', async (req, res) => {
+    const { location } = req.query;
+    try {
+        const cropTypes = await CropInputs.findOne({ field: location }).select('cropType');
+        if (cropTypes) {
+            res.status(200).json({ cropType: cropTypes.cropType });
+        } else {
+            res.status(404).json({ message: 'Crop type not found for the selected location' });
+        }
+    } catch (error) {
+        console.error('Error fetching crop type:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 

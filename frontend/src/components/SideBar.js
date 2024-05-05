@@ -101,7 +101,7 @@ export default function SideBar() {
         { name: "Crops", path: "/crop/home", icon: PiPlant },
         { name: "Employees", path: "/employees/home", icon: PiUsers },
         { name: "Inventory", path: "/inventory/home", icon: MdOutlineInventory2 },
-        { name: "Insights", path: "/insights/home", icon: PresentationChartLineIcon },
+        { name: "Insights", path: "/insights/marketprice", icon: PresentationChartLineIcon },
         { name: "Disease Tracking", path: "/diseases/home", icon: PiVirus },
         { name: "Harvest", path: "/harvest/home", icon: PiTree },
         { name: "Bookings", path: "/allBookings", icon: HiMiniCalendarDays},
