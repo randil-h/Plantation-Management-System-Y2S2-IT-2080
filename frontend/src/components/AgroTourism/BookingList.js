@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import {FaEdit, FaPrint, FaSearch, FaTrash} from "react-icons/fa";
 import axios from 'axios';
 import {PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
-import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import {HiOutlineDownload} from "react-icons/hi";
 import { useLocation } from 'react-router-dom';
-import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+
+
 const mapPackageName = (packageName) => {
     switch (packageName) {
         case 'guidedFarmTour':
@@ -21,8 +23,6 @@ const mapPackageName = (packageName) => {
     }
 };
 
-
-
 const mapVisitorType = (visitorType) => {
     switch (visitorType) {
         case 'local':
@@ -34,36 +34,31 @@ const mapVisitorType = (visitorType) => {
     }
 };
 
-const BookingList = () => {
+const AllBookings = () => {
     const [originalRecords, setOriginalRecords] = useState([]);
     const [bookingRecords, setBookingRecords] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [totalPayment, setTotalPayment] = useState(0);
     const location = useLocation();
 
-    const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
-    /*const { isAuthenticated, user } = useKindeAuth();
-    const authenticatedUserId = user ? user.userId : null;*/
-
-    /*useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(
-                    https://elemahana-backend.vercel.app/booking?userId=${authenticatedUserId}
-                );
-                setBookingRecords(response.data.data);
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(`https://elemahana-backend.vercel.app/booking`)
+            .then((response) => {
+                setOriginalRecords(response.data.data); // Set original records here
+                setBookingRecords(response.data.data); // Also set booking records here initially
                 setLoading(false);
-            } catch (error) {
-                console.error("Error fetching bookings:", error);
+            })
+            .catch((error) => {
+                console.log(error);
                 setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [authenticatedUserId]);*/
+            });
+    }, []);
 
     useEffect(() => {
+        // Fetch total payment from the previous page if available
         const totalPaymentFromPreviousPage = location.state?.totalPayment;
         if (totalPaymentFromPreviousPage) {
             setTotalPayment(totalPaymentFromPreviousPage);
@@ -143,6 +138,7 @@ const BookingList = () => {
 
         doc.save(`Booking-list_generatedAt_${currentDate}.pdf`);
     };
+
     const handleDelete = (recordId) => {
         axios
             .delete(`https://elemahana-backend.vercel.app/booking/${recordId}`)
@@ -183,11 +179,6 @@ const BookingList = () => {
         });
         return total.toFixed(2); // Format the total to display with two decimal places
     };
-    // Render a loading state or a message while data is being fetched
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
 
     return (
         <div className="mx-6">
