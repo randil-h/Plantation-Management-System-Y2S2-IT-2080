@@ -10,7 +10,7 @@ const InventoryMaintainSchema = mongoose.Schema(
             required: true,
         },
         date_referred: {
-            type: Date, // Assuming you want to store dates
+            type: Date,
             required: true,
         },
         date_received: {
