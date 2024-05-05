@@ -7,7 +7,6 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import {HiOutlineDownload} from "react-icons/hi";
 import { useLocation } from 'react-router-dom';
-import { useKindeAuth } from "@kinde-oss/kinde-auth-react";
 const mapPackageName = (packageName) => {
     switch (packageName) {
         case 'guidedFarmTour':
@@ -42,8 +41,8 @@ const BookingList = () => {
     const [totalPayment, setTotalPayment] = useState(0);
     const location = useLocation();
 
-    const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
-    /*const { isAuthenticated, user } = useKindeAuth();
+    /*const { login, register, onRedirectCallback, logout, user, isAuthenticated, isLoading, getToken } = useKindeAuth();
+    const { isAuthenticated, user } = useKindeAuth();
     const authenticatedUserId = user ? user.userId : null;*/
 
     /*useEffect(() => {
