@@ -95,12 +95,12 @@ const FeedbackList = () => {
                         <tbody>
                         {filteredRecords.map((record, index) => (
                             <tr className="hover:bg-gray-100" key={index}>
-                                <td className="py-2 px-4 border border-gray-400">{index + 1}</td>
-                                <td className="py-2 px-4 border border-gray-400">{record.name}</td>
-                                <td className="py-2 px-4 border border-gray-400">{record.email}</td>
-                                <td className="py-2 px-4 border border-gray-400">{record.feedback}</td>
-                                <td className="py-2 px-4 border border-gray-400">{record.rating}</td>
-                                <td className="py-2 px-4 border border-gray-400">
+                                <td className="py-1 px-2 border border-gray-400">{index + 1}</td>
+                                <td className="py-1 px-2 border border-gray-400">{record.name}</td>
+                                <td className="py-1 px-2 border border-gray-400">{record.email}</td>
+                                <td className="py-1 px-2 border border-gray-400">{record.feedback}</td>
+                                <td className="py-1 px-2 border border-gray-400">{record.rating}</td>
+                                <td className="py-1 px-2 border border-gray-400">
                                     <div className="flex">
                                         <Link
                                             to={`/feedback/${record._id}`} // Update the path to match the feedback form URL
