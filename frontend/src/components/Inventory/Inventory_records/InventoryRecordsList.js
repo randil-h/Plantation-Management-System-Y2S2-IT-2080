@@ -295,32 +295,32 @@ const InventoryRecordList = () => {
                                 </td>
                                 {
                                     getPermission("update:records").isGranted ? (
-                                <td className="py-4 text-right">
-                                    <Link
-                                        to={`/inventory/inventoryrecords/editinventorypage/${record._id}`}
-                                        className="font-medium text-blue-600 hover:underline"
-                                    >
-                                        <PencilSquareIcon
-                                            className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
-                                            aria-hidden="true"/>
-                                    </Link>
-                                </td>
+                                        <td className="py-4 text-right">
+                                            <Link
+                                                to={`/inventory/inventoryrecords/editinventorypage/${record._id}`}
+                                                className="font-medium text-blue-600 hover:underline"
+                                            >
+                                                <PencilSquareIcon
+                                                    className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                                    aria-hidden="true"/>
+                                            </Link>
+                                        </td>
                                     ): null
                                 }
-                                        {
-                                            getPermission("update:records").isGranted ? (
-                                <td className="">
-                                    <button
-                                        className="flex items-center"
-                                        onClick={() => handleDelete(record._id)}
-                                    >
-                                        <TrashIcon
-                                            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                            aria-hidden="true"/>
-                                    </button>
-                                </td>
-                                            ): null
-                                        }
+                                {
+                                    getPermission("update:records").isGranted ? (
+                                        <td className="">
+                                            <button
+                                                className="flex items-center"
+                                                onClick={() => handleDelete(record._id)}
+                                            >
+                                                <TrashIcon
+                                                    className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                                    aria-hidden="true"/>
+                                            </button>
+                                        </td>
+                                    ): null
+                                }
                             </tr>
                         ))}
                         </tbody>
