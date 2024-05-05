@@ -30,6 +30,7 @@ const EqMaintain = () => {
             });
     }, []);
 
+    //show equipments received today logic
     useEffect(() => {
         const today = new Date().toISOString().split('T')[0];
         const hasRecordToday = inventoryRecords.some(record => record.date_received.split('T')[0] === today);

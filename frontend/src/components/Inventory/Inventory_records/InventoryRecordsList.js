@@ -73,7 +73,6 @@ const InventoryRecordList = () => {
     useEffect(() => {
         setFilteredRecords(
             inventoryInputs.filter((record) => {
-                const sizeString = String(record.size);
                 const values = Object.values(record).map((value) =>
                     value ? value.toString().toLowerCase() : ''
                 );
@@ -82,14 +81,10 @@ const InventoryRecordList = () => {
                     value.includes(searchQuery.toLowerCase())
                 );
 
-                return (
-                    (selectedFieldFilter === 'All Types' ||
-                        record.type.toLowerCase() === selectedFieldFilter.toLowerCase()) &&
-                    matchesSearchQuery
-                );
+                return matchesSearchQuery;
             })
         );
-    }, [inventoryInputs, searchQuery, selectedFieldFilter]);
+    }, [inventoryInputs, searchQuery]);
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
