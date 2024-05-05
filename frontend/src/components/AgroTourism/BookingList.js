@@ -43,6 +43,7 @@ const BookingList = () => {
     const location = useLocation();
     const {getPermission} = useKindeAuth();
     const authenticatedUserId = "kp_b9caa9c95147431a98f407b88bfc5967";
+
     useEffect(() => {
         const fetchData = async () => {
             try {
