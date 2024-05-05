@@ -48,22 +48,23 @@ const BookingList = () => {
     const { isAuthenticated, user } = useKindeAuth();
     const authenticatedUserId = user ? user.userId : null;*/
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(
-                    `https://elemahana-backend.vercel.app/booking?userId}`
-                );
-                setBookingRecords(response.data.data);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching bookings:", error);
-                setLoading(false);
-            }
-        };
 
-        fetchData();
-    }, );
+        useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const response = await axios.get(
+                        `https://elemahana-backend.vercel.app/booking`
+                    );
+                    setBookingRecords(response.data.data);
+                    setLoading(false);
+                } catch (error) {
+                    console.error("Error fetching bookings:", error);
+                    setLoading(false);
+                }
+            };
+
+            fetchData();
+        }, []);
 
     useEffect(() => {
         const totalPaymentFromPreviousPage = location.state?.totalPayment;
