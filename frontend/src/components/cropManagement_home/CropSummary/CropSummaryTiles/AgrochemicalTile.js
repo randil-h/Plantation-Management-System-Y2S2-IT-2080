@@ -62,7 +62,7 @@ export default function AgrochemicalTile() {
 
     return (
         <div>
-            <li className={`rounded-xl ${AgrochemicalTileBg} px-6 py-8 hover:transform hover:scale-110 transition-transform duration-300 text-center`}
+            <li className={`rounded-xl ${AgrochemicalTileBg} px-6 py-10 hover:transform hover:scale-110 transition-transform duration-300 text-center`}
                 onClick={handleTileClick}>
                 <GiChemicalDrop className="mx-auto h-10 w-10 "/>
                 <h3 className="my-3 font-display font-medium">Agrochemicals</h3>

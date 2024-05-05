@@ -13,6 +13,7 @@ import {FaSearch} from "react-icons/fa";
 import {useSnackbar} from "notistack";
 import {GoAlert} from "react-icons/go";
 import {FiDownload} from "react-icons/fi";
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 
 const pdfStyles = StyleSheet.create({
     page: {
@@ -34,6 +35,7 @@ const RotationList = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [recordToDelete, setRecordToDelete] = useState(null);
     const [selectedFieldFilter, setSelectedFieldFilter] = useState('All Fields');
+    const {getPermission, getPermissions} = useKindeAuth();
 
     useEffect(() => {
         setLoading(true);
@@ -241,28 +243,28 @@ const RotationList = () => {
                             <td className="px-6 py-4">{record.yield}</td>
                             <td className="px-6 py-4">{record.remarks}</td>
                             <td className="px-6 py-4">
-                                <div className="flex justify-between">
-                                        <Link to={`/crop/rotation/record/${record._id}`}
-                                              className="mx-1 font-medium text-blue-600  hover:underline">
-                                            <InformationCircleIcon
-                                                className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
-                                                aria-hidden="true"/>
-                                        </Link>
-                                    <Link to={`/crop/rotation/update/${record._id}`}
-                                        className="mx-1 font-medium text-blue-600  hover:underline">
-                                        <PencilSquareIcon
-                                            className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                <div className="flex justify-between items-center">
+                                    <Link to={`/crop/rotation/record/${record._id}`}
+                                          className="mx-1 font-medium text-blue-600 hover:underline">
+                                        <InformationCircleIcon
+                                            className="h-6 w-6 bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
                                             aria-hidden="true"/>
                                     </Link>
-                                    <button
-                                        className="flex items-center"
-                                        onClick={() => handleDelete(record._id)}
-                                    >
+                                    {getPermission("update:records").isGranted ? (
+                                        <Link to={`/crop/rotation/update/${record._id}`}
+                                              className="mx-1 font-medium text-blue-600 hover:underline">
+                                            <PencilSquareIcon
+                                                className="h-6 w-6 bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
+                                                aria-hidden="true"/>
+                                        </Link>
+                                    ) : null}
+                                    {getPermission("update:records").isGranted ? (
+                                    <button className="flex items-center" onClick={() => handleDelete(record._id)}>
                                         <TrashIcon
-                                            className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
-                                            aria-hidden="true"
-                                        />
+                                            className="h-6 w-6 bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500"
+                                            aria-hidden="true"/>
                                     </button>
+                                    ) : null}
                                 </div>
                             </td>
                         </tr>
@@ -273,10 +275,12 @@ const RotationList = () => {
                     <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur confirm-dialog">
                         <div className="relative px-4 min-h-screen md:flex md:items-center md:justify-center">
                             <div className="opacity-25 w-full h-full absolute z-10 inset-0"></div>
-                            <div className="bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative shadow-lg">
+                            <div
+                                className="bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative shadow-lg">
                                 <div className="md:flex items-center">
-                                    <div className="rounded-full border border-gray-300 flex items-center justify-center w-16 h-16 flex-shrink-0 mx-auto">
-                                        <GoAlert className = "w-10 h-10" />                                    </div>
+                                    <div
+                                        className="rounded-full border border-gray-300 flex items-center justify-center w-16 h-16 flex-shrink-0 mx-auto">
+                                        <GoAlert className="w-10 h-10"/></div>
                                     <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
                                         <p className="font-bold">Confirm Deletion</p>
                                         <p className="text-sm text-gray-700 mt-1">Are you sure you want to delete this record?</p>

@@ -34,7 +34,7 @@ const EditCropInput = () => {
                     ...response.data,
                     date: formattedDate,
                     field: response.data.field,
-                    cropType: response.data.cropType // Set cropType from API response
+                    cropType: response.data.cropType
                 });
                 setLoading(false);
             } catch (error) {
@@ -46,6 +46,41 @@ const EditCropInput = () => {
         fetchData();
     }, [id, enqueueSnackbar]);
 
+    const [cropTypes, setCropTypes] = useState([]);
+    const [agrochemicals, setAgrochemicals] = useState([]);
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get(`https://elemahana-backend.vercel.app/inventoryinputs`)
+            .then((response) => {
+                const inventoryInputsData = response.data.data;
+                const cropTypesWithQuantity = inventoryInputsData
+                    .filter(record => record.type === 'Planting')
+                    .reduce((acc, record) => {
+                        if (!acc[record.record_name]) {
+                            acc[record.record_name] = 0;
+                        }
+                        acc[record.record_name] += record.quantity;
+                        return acc;
+                    }, {});
+                const agrochemicalsWithQuantity = inventoryInputsData
+                    .filter(record => record.type === "Agrochemical" || record.type === "Fertilizer")
+                    .reduce((acc, record) => {
+                        if (!acc[record.record_name]) {
+                            acc[record.record_name] = 0;
+                        }
+                        acc[record.record_name] += record.quantity;
+                        return acc;
+                    }, {});
+                setAgrochemicals(Object.keys(agrochemicalsWithQuantity));
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -229,13 +264,14 @@ const EditCropInput = () => {
                                                 name="cropType"
                                                 onChange={handleChange}
                                                 value={formData.cropType}
-                                                autoComplete="cropType"
+                                                autoComplete = "cropType"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
+                                                required
                                             >
                                                 <option value="">Select an option</option>
-                                                <option value="Coconut">Coconut</option>
-                                                <option value="Apple Guava">Apple Guava</option>
-                                                <option value="Papaya">Papaya</option>
+                                                {cropTypes.map((cropType, index) => (
+                                                    <option key={index} value={cropType}>{cropType}</option>
+                                                ))}
                                             </select>
                                         </div>
                                     </div>
@@ -331,15 +367,20 @@ const EditCropInput = () => {
                                             Chemical Name
                                         </label>
                                         <div className="mt-2">
-                                            <input
-                                                type="text"
+                                            <select
                                                 id="chemicalName"
                                                 name="chemicalName"
                                                 onChange={handleChange}
                                                 value={formData.chemicalName}
+                                                autoComplete="chemicalName"
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lime-600 sm:text-sm sm:leading-6"
                                                 required
-                                            />
+                                            >
+                                                <option value="">Select an option</option>
+                                                {agrochemicals.map((agrochemical, index) => (
+                                                    <option key={index} value={agrochemical}>{agrochemical}</option>
+                                                ))}
+                                            </select>
                                         </div>
                                     </div>
                                     <div className="sm:col-span-2 sm:col-start-1 mt-4">
