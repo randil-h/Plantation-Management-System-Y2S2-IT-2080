@@ -18,7 +18,7 @@ export default function BookingForm() {
     });
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
-    const authenticatedUserId = user?.userId || null;
+    /*const authenticatedUserId = user?.userId || null;*/
 
     const handleChange = (e) => {
         const { name, value } = e.target;

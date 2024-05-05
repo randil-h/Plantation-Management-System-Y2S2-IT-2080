@@ -39,10 +39,10 @@ const BookingList = () => {
     const [searchInput, setSearchInput] = useState('');
     const [totalPayment, setTotalPayment] = useState(0);
     const location = useLocation();
-    const { isAuthenticated, user } = useKindeAuth();
-    const authenticatedUserId = user?.userId || null;
+    /*const { isAuthenticated, user } = useKindeAuth();
+    const authenticatedUserId = user ? user.userId : null;*/
 
-    useEffect(() => {
+    /*useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
@@ -57,7 +57,7 @@ const BookingList = () => {
         };
 
         fetchData();
-    }, [authenticatedUserId]);
+    }, [authenticatedUserId]);*/
 
     useEffect(() => {
         const totalPaymentFromPreviousPage = location.state?.totalPayment;
@@ -169,7 +169,7 @@ const BookingList = () => {
                 price = 0;
         }
 
-        return `${price}/=`;
+        return `Rs.${price}/=`;
     };
 
     const calculateTotalAmount = () => {
