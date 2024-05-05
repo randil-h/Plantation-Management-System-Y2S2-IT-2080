@@ -32,8 +32,6 @@ import OrderRoute from "./routes/Wholesale  Routes/OrderRoute.js";
 import recordRoute from "./routes/Harvest Routes/RecordRoute.js";
 import AttendanceRoute from "./routes/Employee Routes/AttendanceRoute.js";
 
-//import productModel from "./models/Wholesale Models/ProductModel.js";
-
 import MarketPriceRoute from "./routes/FarmAnalysis Routes/MarketPriceRoute.js";
 import DiseaseCountRoute from "./routes/Disease Tracking Routes/DiseaseCountRoute.js";
 import TreatmentSelectionRoute from "./routes/Disease Tracking Routes/TreatmentSelectionRoute.js";
