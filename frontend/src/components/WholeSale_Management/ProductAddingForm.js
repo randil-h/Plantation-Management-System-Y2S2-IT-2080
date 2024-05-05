@@ -9,27 +9,23 @@ const ProductAddingForm = () => {
     const [productDescription, setProductDescription] = useState('');
     const [productQuantity, setProductQuantity] = useState('');
     const [productPrice, setProductPrice] = useState('');
-    const [productImage, setProductImage] = useState('');
+    // const [productImage, setProductImage] = useState('');
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('productID', productID);
-        formData.append('productName', productName);
-        formData.append('productDescription', productDescription);
-        formData.append('productQuantity', productQuantity);
-        formData.append('productPrice', productPrice);
-        formData.append('productImage', e.target.productImage.files[0]); // Get the file from the input element
+        const data = {
+            productID,
+            productName,
+            productDescription,
+            productQuantity,
+            productPrice,
+        };
 
         axios
-            .post('https://elemahana-backend.vercel.app/productRecords', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data for file upload
-                },
-            })
+            .post('https://elemahana-backend.vercel.app/productRecords', data)
             .then(() => {
                 enqueueSnackbar('Record Created Successfully', { variant: 'success' });
                 navigate('/wholesaleDashboard', { state: { highlighted: true } });
@@ -38,7 +34,7 @@ const ProductAddingForm = () => {
                 enqueueSnackbar('Error', { variant: 'error' });
                 console.log(error);
             });
-    };
+    }
 
 
     const validateProductID = (value) => {

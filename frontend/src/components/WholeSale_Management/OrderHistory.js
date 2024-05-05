@@ -140,11 +140,11 @@ const OrderHistory = () => {
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td colSpan="7">
-                                            <ProgressBar progress={progress}/>
-                                        </td>
-                                    </tr>
+                                    {/*<tr>*/}
+                                    {/*    <td colSpan="7">*/}
+                                    {/*        <ProgressBar progress={progress}/>*/}
+                                    {/*    </td>*/}
+                                    {/*</tr>*/}
                                 </React.Fragment>
                             ))}
                             </tbody>
