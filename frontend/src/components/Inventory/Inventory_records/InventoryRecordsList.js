@@ -81,10 +81,15 @@ const InventoryRecordList = () => {
                     value.includes(searchQuery.toLowerCase())
                 );
 
+                // Filter based on selected field filter
+                if (selectedFieldFilter !== 'All Types') {
+                    return record.type === selectedFieldFilter && matchesSearchQuery;
+                }
+
                 return matchesSearchQuery;
             })
         );
-    }, [inventoryInputs, searchQuery]);
+    }, [inventoryInputs, searchQuery, selectedFieldFilter]);
 
     const handleSearch = (event) => {
         setSearchQuery(event.target.value);
