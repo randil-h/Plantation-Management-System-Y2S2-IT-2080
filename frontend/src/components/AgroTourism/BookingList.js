@@ -200,6 +200,7 @@ const AllBookings = () => {
                     <p className="text-black font-light">Total Amount: {calculateTotalAmount()}/=</p>
 
                 </div>
+
                 <div className="flex">
                     <Link to="/booking">
                         <button
