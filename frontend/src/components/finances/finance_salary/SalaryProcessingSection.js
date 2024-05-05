@@ -715,10 +715,15 @@ export default function SalaryProcessingSection() {
                     id="savebar">
                     <div
                         className="flex justify-end gap-2 align-middle items-center text-sm font-semibold h-full pr-8 z-30">
-                        <div className=" border-gray-500 border rounded-full py-1 px-6 mx-8 text-base font-semibold">
-                            Total Salary: <span className="text-lime-600 text-xl">
-                            Rs.{calculateTotalSalary()}</span>
+                        <div className="border-gray-500 border rounded-full py-1 px-6 mx-8 text-base font-semibold">
+                            Total Salary:
+                            {calculateTotalSalary() <= 0 || calculateTotalSalary() > 1000000 ? (
+                                <span className="text-red-500">Invalid salary</span>
+                            ) : (
+                                <span className="text-lime-600 text-xl">Rs.{calculateTotalSalary()}</span>
+                            )}
                         </div>
+
                         <button onClick={generatePayslipPDF}
                                 className="bg-amber-200 rounded-full py-1 px-4 hover:bg-amber-300">
                             Generate Receipt
