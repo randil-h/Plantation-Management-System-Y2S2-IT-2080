@@ -251,7 +251,7 @@ const BookingList = () => {
                     </thead>
                     <tbody>
                     {bookingRecords.map((record, index) => (
-                        user.email === record.email && (
+                        /* user.email === record.email && (*/
                             <tr className="hover:bg-gray-100 divide-y divide-gray-200 text-sm" key={index}>
                                 <td className="px-6 py-3">{index + 1}</td>
                                 <td className="px-6 py-3">{new Date(record.date).toLocaleDateString('en-GB')}</td>
@@ -285,7 +285,7 @@ const BookingList = () => {
                                 </td>
                             </tr>
                         )
-                    ))}
+                    )/*)*/}
                     </tbody>
 
                 </table>
