@@ -34,7 +34,7 @@ const mapVisitorType = (visitorType) => {
     }
 };
 
-const AllBookings = () => {
+const BookingList = () => {
     const [originalRecords, setOriginalRecords] = useState([]);
     const [bookingRecords, setBookingRecords] = useState([]);
     const [loading, setLoading] = useState(false);

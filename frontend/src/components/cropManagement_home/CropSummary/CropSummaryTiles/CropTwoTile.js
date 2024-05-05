@@ -9,6 +9,7 @@ export default function CropTwoTile() {
     const [averageCropAge, setAverageCropAge] = useState(null);
     const [cropArea, setCropArea] = useState(null);
     const [totalPlantingCost, setTotalPlantingCost] = useState(null);
+    const [totalAgrochemicalCost, setTotalAgrochemicalCost] = useState(null);
 
     const handleTileClick = () => {
         setShowPopup(true);
@@ -57,8 +58,13 @@ export default function CropTwoTile() {
                 const totalArea = calculateCropArea(fields);
                 setCropArea(totalArea);
 
-                const totalCost = calculateTotalCost(filteredPlantingRecords);
-                setTotalPlantingCost(totalCost);
+                const totalPlantingCost = calculateTotalCost(filteredPlantingRecords);
+                setTotalPlantingCost(totalPlantingCost);
+
+                // Calculate total agrochemical cost
+                const agrochemicalRecords = response.data.data.filter(record => record.type === 'Agrochemical' && fields.includes(record.field));
+                const totalAgrochemicalCost = calculateTotalCost(agrochemicalRecords);
+                setTotalAgrochemicalCost(totalAgrochemicalCost);
             })
             .catch((error) => {
                 console.log(error);
@@ -115,7 +121,18 @@ export default function CropTwoTile() {
                         <p>Planted in: {plantingRecords.map((record, index) => (
                             <span key={record.id}>{index > 0 && ", "}{record.field}</span>
                         ))}</p>
-                        <p>Total Planting Cost: Rs. {totalPlantingCost ? totalPlantingCost.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : 'Loading...'}</p>
+                        <p>Total Planting Cost: Rs. {totalPlantingCost ? totalPlantingCost.toLocaleString('en-US', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }) : 'Loading...'}</p>
+                        <p>Total Agrochemical Cost: Rs. {totalAgrochemicalCost ? totalAgrochemicalCost.toLocaleString('en-US', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }) : 'Loading...'}</p>
+                        <p>Total Cost for Papaya: {totalPlantingCost && totalAgrochemicalCost ? (totalPlantingCost + totalAgrochemicalCost).toLocaleString('en-US', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }) : 'Loading...'}</p>
                     </div>
                 </div>
             )}

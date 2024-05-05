@@ -10,6 +10,7 @@ export default function CropOneTile() {
     const [averageCropAge, setAverageCropAge] = useState(null);
     const [harvestArea, setHarvestArea] = useState(null);
     const [totalPlantingCost, setTotalPlantingCost] = useState(null);
+    const [agrochemicalSum, setAgrochemicalSum] = useState(null);
 
     const handleTileClick = () => {
         setShowPopup(true);
@@ -60,6 +61,11 @@ export default function CropOneTile() {
 
                 const totalCost = calculateTotalCost(filteredPlantingRecords);
                 setTotalPlantingCost(totalCost);
+
+                // Filter agrochemical records where Coconut is planted
+                const filteredAgrochemicalRecords = response.data.data.filter(record => record.type === 'Agrochemical' && filteredPlantingRecords.some(plantingRecord => plantingRecord.field === record.field));
+                const agrochemicalSumByField = calculateAgrochemicalSum(filteredAgrochemicalRecords);
+                setAgrochemicalSum(agrochemicalSumByField);
             })
             .catch((error) => {
                 console.log(error);
@@ -95,6 +101,16 @@ export default function CropOneTile() {
         }, 0);
     };
 
+    const calculateAgrochemicalSum = (records) => {
+        return records.reduce((sums, record) => {
+            if (!sums[record.field]) {
+                sums[record.field] = 0;
+            }
+            sums[record.field] += record.unitCost * record.quantity;
+            return sums;
+        }, {});
+    };
+
     return (
         <div>
             <li className="rounded-xl text-center bg-lime-200 px-6 py-8 items-center hover:transform hover:scale-110 transition-transform duration-300" onClick={handleTileClick}>
@@ -116,7 +132,18 @@ export default function CropOneTile() {
                         <p>Planted in: {plantingRecords.map((record) => (
                             <span key={record.id}>{record.field}</span>
                         ))}</p>
-                        <p>Total Planting Cost: Rs. {totalPlantingCost ? totalPlantingCost.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) : 'Loading...'}</p>
+                        <p>Planting Cost: Rs. {totalPlantingCost ? totalPlantingCost.toLocaleString('en-US', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }) : 'Loading...'}</p>
+                        <p>Agrochemical Cost: {agrochemicalSum ? Object.entries(agrochemicalSum).map(([field, sum]) => `${field}: Rs. ${sum.toLocaleString('en-US', {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            })}`).join(', ') : 'Loading...'}</p>
+                        <p>Total Cost for Coconut: {totalPlantingCost && agrochemicalSum ? (totalPlantingCost + Object.values(agrochemicalSum).reduce((total, sum) => total + sum, 0)).toLocaleString('en-US', {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            }) : 'Loading...'}</p>
                     </div>
                 </div>
             )}
