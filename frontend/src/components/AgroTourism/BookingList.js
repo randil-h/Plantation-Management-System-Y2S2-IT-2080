@@ -42,7 +42,6 @@ const BookingList = () => {
     const [totalPayment, setTotalPayment] = useState(0);
     const location = useLocation();
     const {getPermission} = useKindeAuth();
-    const authenticatedUserId = "kp_b9caa9c95147431a98f407b88bfc5967";
 
     useEffect(() => {
         const fetchData = async () => {
@@ -50,14 +49,13 @@ const BookingList = () => {
                 const response = await axios.get(
                     `https://elemahana-backend.vercel.app/booking?userId=${authenticatedUserId}`
                 );
-                setBookingRecords(response.data);
+                setBookingRecords(response.data.data);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching bookings:", error);
                 setLoading(false);
             }
         };
-
 
         fetchData();
     }, []);
