@@ -24,7 +24,7 @@ const ProductSchema = mongoose.Schema(
         },
         prodcutImage: {
             type: String,
-            required: true,
+            required: false,
         },
     },
     {
