@@ -175,9 +175,16 @@ const BookingList = () => {
     const calculateTotalAmount = () => {
         let total = 0;
         bookingRecords.forEach(record => {
-            total += parseFloat(calculateTotalPayment(record));
+            const priceString = calculateTotalPayment(record);
+            const price = parseFloat(priceString.replace(/[^\d.-]/g, ''));
+            if (!isNaN(price)) {
+                total += price;
+            } else {
+                console.log("error");
+            }
         });
-        return total.toFixed(2); // Format the total to display with two decimal places
+        console.log('Total calculated:', total);
+        return total.toFixed(2)*100000;
     };
 
     return (
