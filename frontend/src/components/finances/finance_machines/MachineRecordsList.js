@@ -18,6 +18,7 @@ import {
     XMarkIcon, ArrowDownTrayIcon,
     PlusIcon
 } from '@heroicons/react/24/outline';
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 
 export default function MachineRecordsList() {
     const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ export default function MachineRecordsList() {
     const [sortBy, setSortBy] = useState('start_date');
     const [sortOrder, setSortOrder] = useState('asc');
     const { enqueueSnackbar } = useSnackbar();
-
+    const {getPermission, getPermissions} = useKindeAuth();
     const [selectedDates, setSelectedDates] = useState([]);
     const [popoverVisible, setPopoverVisible] = useState(false);
     const [transactions, setTransactions] = useState([]);
@@ -548,6 +549,9 @@ export default function MachineRecordsList() {
                                                                         <td className="px-6 py-4">{detail_record.reading_start}</td>
                                                                         <td className="px-6 py-4">{detail_record.reading_end}</td>
                                                                         <td className="px-6 py-4">{detail_record.record_pay.toLocaleString()}</td>
+
+                                                                        { getPermission("update:records").isGranted ? (
+
                                                                         <td className=" ">
                                                                             <Button shape="circle" type="text"
                                                                                     onClick={() => handleDeleteMachineDetailRecord(detail_record._id)}>
@@ -556,6 +560,8 @@ export default function MachineRecordsList() {
                                                                                     aria-hidden="true"/>
                                                                             </Button>
                                                                         </td>
+                                                                        ) : null
+                                                                        }
                                                                     </tr>
                                                                 ))
                                                             }

@@ -25,6 +25,7 @@ import FinanceValuationStatBar from "../../../components/finances/finance_valuat
 
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 
 
 export default function Valuation() {
@@ -34,7 +35,7 @@ export default function Valuation() {
     const [ValuationRecords, setValuationRecords] = useState([]);
     let [searchQuery, setSearchQuery] = useState('');
     const { enqueueSnackbar } = useSnackbar();
-
+    const {getPermission, getPermissions} = useKindeAuth();
     const [machineRecords, setMachineRecords] = useState([]);
 
     const [sortBy, setSortBy] = useState('date');
@@ -547,6 +548,7 @@ export default function Valuation() {
                                                 aria-hidden="true"/>
                                         </Link>
                                     </td>
+                                    { getPermission("update:records").isGranted ? (
                                     <td className=" py-4 text-right">
                                         <Link to={`/finances/valuation/editValuation/${record._id}`}>
                                             <PencilSquareIcon
@@ -554,6 +556,9 @@ export default function Valuation() {
                                                 aria-hidden="true"/>
                                         </Link>
                                     </td>
+                                    ) : null
+                                    }
+                                        { getPermission("update:records").isGranted ? (
                                     <td className=" ">
                                             <Button shape="circle" type="text" onClick={() => {
                                                 handleDeleteValuation(record._id);
@@ -564,6 +569,10 @@ export default function Valuation() {
                                                 />
                                             </Button>
                                     </td>
+
+                                        ) : null
+                                        }
+
                                 </tr>
                             ))}
 

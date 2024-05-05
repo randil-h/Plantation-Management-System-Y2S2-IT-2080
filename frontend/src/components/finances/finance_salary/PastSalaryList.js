@@ -17,6 +17,7 @@ import {
     ChevronUpIcon,
     XMarkIcon, ArrowDownTrayIcon
 } from '@heroicons/react/24/outline';
+import {useKindeAuth} from "@kinde-oss/kinde-auth-react";
 
 export default function PastSalaryList() {
     const [loading, setLoading] = useState(false);
@@ -26,6 +27,8 @@ export default function PastSalaryList() {
     const [sortBy, setSortBy] = useState('date');
     const [sortOrder, setSortOrder] = useState('asc');
     const { enqueueSnackbar } = useSnackbar();
+
+    const {getPermission, getPermissions} = useKindeAuth();
 
     const [selectedDates, setSelectedDates] = useState([]);
     const [popoverVisible, setPopoverVisible] = useState(false);
@@ -325,7 +328,8 @@ export default function PastSalaryList() {
                             <td className="px-6 py-4">{record.description}</td>
 
 
-                            <td className=" ">
+                            { getPermission("update:records").isGranted ? (
+                                <td className=" ">
 
                                     <Button shape="circle" type="text" onClick={() => {
                                         handleDeleteSalaryRecord(record._id);
@@ -335,7 +339,9 @@ export default function PastSalaryList() {
                                             aria-hidden="true"
                                         />
                                     </Button>
-                            </td>
+                                </td>
+                            ) : null
+                            }
                         </tr>
                     ))}
                     </tbody>
