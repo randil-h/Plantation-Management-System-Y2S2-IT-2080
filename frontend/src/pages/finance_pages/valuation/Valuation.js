@@ -233,7 +233,7 @@ export default function Valuation() {
                                     </div>
                                 </button>
                                 <button value="machinery" onClick={(e) => setSearchQuery(e.target.value)}
-                                    className="z-20 w-full overflow-hidden bg-green-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
+                                    className=" w-full overflow-hidden bg-green-100 flex justify-center items-center hover:w-[120%] hover:h-[105%] hover:shadow-xl transition-all duration-300 ease-in-out">
                                     <span
                                         className="flex flex-col h-full items-center content-center align-middle pt-8 pb-8  justify-between ">
                                         <div className="w-8 h-8">
