@@ -5,17 +5,15 @@ import {Link} from "react-router-dom";
 
 function Emphome() {
     const [loading, setLoading] = useState(false);
-    const [totalRecords, setTotalRecords] = useState(0);
     const [employeeRecords, setEmployeeRecords] = useState([]);
     const [taskRecords, setTaskRecords] = useState([]);
-    const [permanentEmployees, setPermanentEmployees] = useState(0);
     const [completedTasks, setCompletedTasks] = useState(0);
+    const [registeredThisWeek, setRegisteredThisWeek] = useState(0);
 
     useEffect(() => {
         setLoading(true);
         axios.get('https://elemahana-backend.vercel.app/employeeRecords')
             .then(response => {
-                setTotalRecords(response.data.data);
                 setEmployeeRecords(response.data.data)
                 setLoading(false);
             })
@@ -38,6 +36,22 @@ function Emphome() {
                 setLoading(false);
             });
     }, []);
+
+    // Calculate the count of employees registered in the current week
+    useEffect(() => {
+        const today = new Date();
+        const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay()); // Start of current week
+        const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + (6 - today.getDay())); // End of current week
+
+        const registeredThisWeekCount = employeeRecords.filter(record => {
+            const createdAtDate = new Date(record.createdAt);
+            return createdAtDate >= startOfWeek && createdAtDate <= endOfWeek;
+        }).length;
+
+        setRegisteredThisWeek(registeredThisWeekCount);
+    }, [employeeRecords]);
+
+
 
     const getPermanentEmpCount = employeeRecords.filter(
         (record) => record.emp_type === "permanent"
@@ -64,12 +78,12 @@ function Emphome() {
                     <div className="card bg-lime-300 p-6 hover:bg-lime-400 shadow-lg transition-shadow duration-300 ease-in-out rounded-lg w-80 h-56 flex flex-col items-center justify-center space-y-3 ml-24">
                         <FaUsers className="text-black text-3xl"/>
                         <h3 className="text-lg font-semibold text-black">Total No of Employees</h3>
-                        <p className="text-xl text-black">{totalRecords.length}</p>
+                        <p className="text-xl text-black">{employeeRecords.length}</p>
                     </div>
                     <div className="card bg-lime-300 p-6 hover:bg-lime-400 shadow-lg transition-shadow duration-300 ease-in-out rounded-lg w-80 h-56 flex flex-col items-center justify-center space-y-3 ml-36">
                         <FaUserPlus className="text-black text-3xl"/>
                         <h3 className="text-lg font-semibold text-black">Registered in this week</h3>
-                        <p className="text-xl text-black">2</p>
+                        <p className="text-xl text-black">{registeredThisWeek}</p>
                     </div>
                     <div className="card bg-lime-300 p-6 hover:bg-lime-400 shadow-lg transition-shadow duration-300 ease-in-out rounded-lg w-80 h-56 flex flex-col items-center justify-center space-y-3 ml-48">
                         <FaRegUser className="text-black text-3xl"/>
