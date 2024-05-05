@@ -14,7 +14,7 @@ const WholeSaleProduct = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('https://elemahana-backend.vercel.app/productRecords')
+            .get('http://localhost:5555/productRecords')
             .then((response) => {
                 setProductRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
                 setLoading(false);
@@ -89,7 +89,7 @@ const WholeSaleProduct = () => {
                                         className="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
                                         <div className="mx-auto max-w-xs px-8">
                                             <div className="mx-auto w-full h-auto rounded-full">
-                                                <img src={Guava} alt="Guava"/>
+                                                <img src={record.prodcutImage} alt="productImage"/>
                                             </div>
                                             <div>
                                                 <Link to={`/WholeSale/transactions/${record._id}`}>
