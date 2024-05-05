@@ -226,7 +226,7 @@ const InventoryRecordList = () => {
                             <th scope="col" className="px-4 py-3">
                                 Size
                             </th>
-                            <th scope="col" className="px-3 py-3">
+                            <th scope="col" className="px-1 py-3">
                                 Unit
                             </th>
                             <th scope="col" className="px-4 py-3">
@@ -238,7 +238,7 @@ const InventoryRecordList = () => {
                             <th scope="col" className="px-6 py-3">
                                 Description
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-10 py-3">
                                 Status
                             </th>
                             <th scope="col" className="py-3">
@@ -262,22 +262,25 @@ const InventoryRecordList = () => {
                             >
                                 <td></td>
                                 <td className="px-4 py-4">{index + 1}</td>
-                                <td className="px-4 py-4">{new Date(record.createdAt).toLocaleDateString()}</td>
+                                <td className="px-2 py-4">{new Date(record.createdAt).toLocaleDateString()}</td>
                                 <td className="px-4 py-4">{record.type}</td>
                                 <td className="px-4 py-4">{record.record_ID}</td>
-                                <td className="px-8 py-4">{record.record_name}</td>
+                                <td className="px-6 py-4">{record.record_name}</td>
                                 <td className="px-3 py-4">{record.storage}</td>
                                 <td className="px-4 py-4">{record.size ? record.size : "N/A"}</td>
-                                <td className="px-3 py-4">{record.unit ? record.unit : "N/A"}</td>
-                                <td className="px-4 py-4">{record.quantity}</td>
+                                <td className="px-1 py-4">{record.unit ? record.unit : "N/A"}</td>
+                                <td className="px-8 py-4">{record.quantity}</td>
                                 <td className="px-4 py-4 whitespace-nowrap">{record.expire_date ? new Date(record.expire_date).toISOString().split('T')[0] : "N/A"}</td>
                                 <td className="px-6 py-4">{record.description}</td>
                                 <td className="px-6 py-4">
                                     <div
-                                        className={record.quantity === 0 ? 'bg-red-600 text-base font-semibold text-white rounded-full hover:bg-red-500 text-center py-2' : 'bg-lime-600 text-base font-semibold text-center text-white rounded-full hover:bg-lime-500 w-full flex justify-center items-center  px-4'}>
+                                        className={`px-1 py-1 text-black text-center font-semibold rounded-lg ${record.quantity === 0 ? 'bg-red-500' : 'bg-lime-400'}`}
+                                        style={{minWidth: "100px"}} // Adjust the width as needed
+                                    >
                                         {record.quantity === 0 ? 'Out of Stock' : record.ava_status}
                                     </div>
                                 </td>
+
                                 <td className="py-4 text-right">
                                     <Link
                                         to={`/inventory/inventoryrecords/viewRecord/${record._id}`}
