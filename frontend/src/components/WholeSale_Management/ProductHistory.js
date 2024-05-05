@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {Link} from "react-router-dom"
-import {InformationCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/24/outline";
-import {FaSearch} from "react-icons/fa";
-import {StyleSheet} from "@react-pdf/renderer";
+import { Link } from "react-router-dom"
+import { InformationCircleIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { FaSearch } from "react-icons/fa";
+import { StyleSheet } from "@react-pdf/renderer";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
@@ -19,17 +19,17 @@ const pdfStyles = StyleSheet.create({
     }
 });
 
-const ProductHistory = () =>{
+const ProductHistory = () => {
     const [productRecords, setProductRecords] = useState([]);
-    const [loading,setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [filteredRecords, setFilteredRecords] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         setLoading(true);
         axios
-            .get('https://elemahana-backend.vercel.app/productRecords')
-            .then((response) =>{
+            .get('http://localhost:5555/productRecords')
+            .then((response) => {
                 setProductRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
                 setLoading(false);
             })
@@ -43,7 +43,7 @@ const ProductHistory = () =>{
 
     const handleDelete = (recordId) => {
         axios
-            .delete(`https://elemahana-backend.vercel.app/${recordId}`)
+            .delete(`https://elemahana-backend.vercel.app/productRecords/${recordId}`)
             .then(() => {
                 setProductRecords(prevRecord => prevRecord.filter(record => record._id !== recordId));
             })
@@ -91,8 +91,7 @@ const ProductHistory = () =>{
         }
     };
 
-
-    return(
+    return (
         <div>
             <div className="flex justify-between items-center">
                 <div className="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
@@ -111,7 +110,7 @@ const ProductHistory = () =>{
 
                             <div className="px-6">
                                 <Link to="/OperationManager/AddingProduct"
-                                      className="mt-10 block rounded-md bg-black px-8 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-black-500
+                                    className="mt-10 block rounded-md bg-black px-8 py-1 text-center text-sm font-semibold text-white shadow-sm hover:bg-black-500
                                        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black-600 left-2"> Add
                                     a Product
                                 </Link>
@@ -128,7 +127,7 @@ const ProductHistory = () =>{
                             onChange={handleSearch}
                             className="border border-gray-300 rounded-full px-3 py-1"
                         />
-                        <FaSearch className="absolute left-3 top-2 text-gray-400"/>
+                        <FaSearch className="absolute left-3 top-2 text-gray-400" />
                     </div>
                 </div>
             </div>
@@ -137,91 +136,91 @@ const ProductHistory = () =>{
                     <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div className="overflow-hidden">
                             <table className="min-w-full"
-                                   id="product-table">
+                                id="product-table">
                                 <thead className="bg-gray-200 border-b">
-                                <tr>
-                                    <th scope="col"
-                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    </th>
-                                    <th scope="col"
-                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Product ID
-                                    </th>
-                                    <th scope="col"
-                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Product Name
-                                    </th>
-                                    <th scope="col"
-                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
+                                    <tr>
+                                        <th scope="col"
+                                            className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        </th>
+                                        <th scope="col"
+                                            className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Product ID
+                                        </th>
+                                        <th scope="col"
+                                            className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Product Name
+                                        </th>
+                                        <th scope="col"
+                                            className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                                         // style={{ maxWidth: '100px', wordWrap: 'break-word' }}
-                                    >
-                                        Product Description
-                                    </th>
-                                    <th scope="col"
-                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Product Quantity
-                                    </th>
-                                    <th scope="col"
-                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Product Price
-                                    </th>
-                                    {/*<th scope="col"*/}
-                                    {/*    className="text-sm font-medium text-gray-900 px-6 py-4 text-left">*/}
-                                    {/*    Product Image*/}
-                                    {/*</th>*/}
-                                    <th scope="col"
-                                        className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Info
-                                    </th>
-                                    {/*<th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">*/}
-                                    {/*    Edit*/}
-                                    {/*</th>*/}
-                                    {/*<th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">*/}
-                                    {/*    Delete*/}
-                                    {/*</th>*/}
-                                </tr>
+                                        >
+                                            Product Description
+                                        </th>
+                                        <th scope="col"
+                                            className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Product Quantity
+                                        </th>
+                                        <th scope="col"
+                                            className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Product Price
+                                        </th>
+                                        <th scope="col"
+                                            className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Product Image
+                                        </th>
+                                        <th scope="col"
+                                            className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Info
+                                        </th>
+                                        {/*<th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">*/}
+                                        {/*    Edit*/}
+                                        {/*</th>*/}
+                                        {/*<th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">*/}
+                                        {/*    Delete*/}
+                                        {/*</th>*/}
+                                    </tr>
                                 </thead>
 
                                 <tbody>
-                                {(searchQuery ? filteredRecords : productRecords).map((record, index) => (
-                                    <tr key={index}
-                                        className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{index + 1}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{record.productID}</td>
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productName}</td>
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
-                                            style={{
-                                                maxWidth: '300px',
-                                                wordWrap: 'break-word',
-                                                whiteSpace: 'pre-wrap'
-                                            }}>
-                                            {record.productDescription}
-                                        </td>
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productQuantity}</td>
-                                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productPrice}</td>
-                                        {/*<td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productImage}</td>*/}
-                                        <td className=" py-4 text-right flex flex-col items-center">
-                                            <a href="#"
-                                               className="font-medium text-blue-600 hover:underline">
-                                                <InformationCircleIcon
-                                                    className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500 mt-2"
-                                                    aria-hidden="true"/>
-                                            </a>
-                                            <Link to={`/editProduct/${record._id}`}
-                                                  className="font-medium text-blue-600 hover:underline">
-                                                <PencilSquareIcon
-                                                    className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500 mt-2"
-                                                    aria-hidden="true"/>
-                                            </Link>
-                                            <button className="flex items-center"
+                                    {(searchQuery ? filteredRecords : productRecords).map((record, index) => (
+                                        <tr key={index}
+                                            className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{index + 1}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{record.productID}</td>
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productName}</td>
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                                style={{
+                                                    maxWidth: '300px',
+                                                    wordWrap: 'break-word',
+                                                    whiteSpace: 'pre-wrap'
+                                                }}>
+                                                {record.productDescription}
+                                            </td>
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productQuantity}</td>
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productPrice}</td>
+                                            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">{record.productImage ? <img src={`http://localhost:5555/productRecords/productImageFromName/${record.productImage}`} alt="Product" />: ''}</td>
+                                            <td className=" py-4 text-right flex flex-col items-center">
+                                                <a href="#"
+                                                    className="font-medium text-blue-600 hover:underline">
+                                                    <InformationCircleIcon
+                                                        className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500 mt-2"
+                                                        aria-hidden="true" />
+                                                </a>
+                                                <Link to={`/editProduct/${record._id}`}
+                                                    className="font-medium text-blue-600 hover:underline">
+                                                    <PencilSquareIcon
+                                                        className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500 mt-2"
+                                                        aria-hidden="true" />
+                                                </Link>
+                                                <button className="flex items-center"
                                                     onClick={() => handleDelete(record._id)}>
-                                                <TrashIcon
-                                                    className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500 mt-2"
-                                                    aria-hidden="true"/>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
+                                                    <TrashIcon
+                                                        className="h-6 w-6 flex-none bg-red-200 p-1 rounded-full text-gray-800 hover:bg-red-500 mt-2"
+                                                        aria-hidden="true" />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>

@@ -9,23 +9,30 @@ const ProductAddingForm = () => {
     const [productDescription, setProductDescription] = useState('');
     const [productQuantity, setProductQuantity] = useState('');
     const [productPrice, setProductPrice] = useState('');
-    // const [productImage, setProductImage] = useState('');
+    const [productImage, setProductImage] = useState('');
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        console.log('productImage => ', productImage)
 
-        const data = {
-            productID,
-            productName,
-            productDescription,
-            productQuantity,
-            productPrice,
-        };
+        formData.append("image", productImage);
+        formData.append("productID", productID);
+        formData.append("productName", productName);
+        formData.append("productDescription", productDescription);
+        formData.append("productQuantity", productQuantity);
+        formData.append("productPrice", productPrice);
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        }
 
         axios
-            .post('https://elemahana-backend.vercel.app/productRecords', data)
+            .post('http://localhost:5555/productRecords', formData, config)
             .then(() => {
                 enqueueSnackbar('Record Created Successfully', { variant: 'success' });
                 navigate('/wholesaleDashboard', { state: { highlighted: true } });
@@ -36,6 +43,10 @@ const ProductAddingForm = () => {
             });
     }
 
+    function handleImageSelect(e) {
+        console.log('e.target.files => ', e.target.files[0]);
+        setProductImage(e.target.files[0]);
+    }
 
     const validateProductID = (value) => {
         return /^[A-Z]{2}\d{4}$/.test(value);
@@ -62,14 +73,13 @@ const ProductAddingForm = () => {
                                     <label className="block text-sm font-medium leading-6 text-gray-900">Product ID</label>
                                     <div className="mt-2">
                                         <input type="text"
-                                               name="productID"
-                                               id="productID"
-                                               onChange={(e) => setProductID(e.target.value)}
-                                               value={productID}
-                                               className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
-                                                   !validateProductID(productID) ? 'border-red-500' : ''
-                                               }`}
-                                               required
+                                            name="productID"
+                                            id="productID"
+                                            onChange={(e) => setProductID(e.target.value)}
+                                            value={productID}
+                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${!validateProductID(productID) ? 'border-red-500' : ''
+                                                }`}
+                                            required
                                         />
                                     </div>
                                     {!validateProductID(productID) && (
@@ -81,11 +91,11 @@ const ProductAddingForm = () => {
                                     <label className="block text-sm font-medium leading-6 text-gray-900">Product Name</label>
                                     <div className="mt-2">
                                         <input type="text"
-                                               name="productName"
-                                               id="productName"
-                                               onChange={(e) => setProductName(e.target.value)}
-                                               value={productName}
-                                               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            name="productName"
+                                            id="productName"
+                                            onChange={(e) => setProductName(e.target.value)}
+                                            value={productName}
+                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         />
                                     </div>
                                 </div>
@@ -93,13 +103,13 @@ const ProductAddingForm = () => {
                                 <div className="col-span-full">
                                     <label className="block text-sm font-medium leading-6 text-gray-900">Description</label>
                                     <div className="mt-2">
-                    <textarea id="productDescription"
-                              name="productDescription"
-                              onChange={(e) => setProductDescription(e.target.value)}
-                              value={productDescription}
-                              rows="3"
-                              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    ></textarea>
+                                        <textarea id="productDescription"
+                                            name="productDescription"
+                                            onChange={(e) => setProductDescription(e.target.value)}
+                                            value={productDescription}
+                                            rows="3"
+                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        ></textarea>
                                     </div>
                                 </div>
 
@@ -107,14 +117,13 @@ const ProductAddingForm = () => {
                                     <label className="block text-sm font-medium leading-6 text-gray-900">Quantity</label>
                                     <div className="mt-2">
                                         <input type="text"
-                                               name="productQuantity"
-                                               id="productQuantity"
-                                               onChange={(e) => setProductQuantity(e.target.value)}
-                                               value={productQuantity}
-                                               className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
-                                                   !validateNumber(productQuantity) ? 'border-red-500' : ''
-                                               }`}
-                                               required
+                                            name="productQuantity"
+                                            id="productQuantity"
+                                            onChange={(e) => setProductQuantity(e.target.value)}
+                                            value={productQuantity}
+                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${!validateNumber(productQuantity) ? 'border-red-500' : ''
+                                                }`}
+                                            required
                                         />
                                     </div>
                                     {!validateNumber(productQuantity) && (
@@ -126,14 +135,13 @@ const ProductAddingForm = () => {
                                     <label className="block text-sm font-medium leading-6 text-gray-900">Price Per 1Kg</label>
                                     <div className="mt-2">
                                         <input type="text"
-                                               name="productPrice"
-                                               id="productPrice"
-                                               onChange={(e) => setProductPrice(e.target.value)}
-                                               value={productPrice}
-                                               className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
-                                                   !validateNumber(productPrice) ? 'border-red-500' : ''
-                                               }`}
-                                               required
+                                            name="productPrice"
+                                            id="productPrice"
+                                            onChange={(e) => setProductPrice(e.target.value)}
+                                            value={productPrice}
+                                            className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${!validateNumber(productPrice) ? 'border-red-500' : ''
+                                                }`}
+                                            required
                                         />
                                     </div>
                                     {!validateNumber(productPrice) && (
@@ -145,9 +153,10 @@ const ProductAddingForm = () => {
                                 <div className="sm:col-span-3">
                                     <label className="block text-sm font-medium leading-6 text-gray-900">Add A picture</label>
                                     <input type="file"
-                                           accept="image/*"
-                                           name="productImage"
-                                           id="productImage"
+                                        accept="image/*"
+                                        name="productImage"
+                                        id="productImage"
+                                        onChange={handleImageSelect}
                                     />
                                 </div>
                             </div>
@@ -156,7 +165,7 @@ const ProductAddingForm = () => {
 
                     <div className="mt-6 flex items-center justify-end gap-x-6">
                         <button type="submit"
-                                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save
+                            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save
                         </button>
                     </div>
                 </div>
