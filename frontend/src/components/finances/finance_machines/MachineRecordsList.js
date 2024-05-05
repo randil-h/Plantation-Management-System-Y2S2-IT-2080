@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 
-import {DatePicker, Button, Radio, message} from 'antd'; // Assuming you're using Ant Design for popover and date picker
+import {DatePicker, Button, Radio, message} from 'antd';
 import { Popover, Transition } from '@headlessui/react'
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
@@ -577,6 +577,8 @@ export default function MachineRecordsList() {
                                     </Popover>
                                 </td>
 
+                                { getPermission("update:records").isGranted ? (
+
                                 <td className=" py-4 text-right">
                                     <Link to={`/finances/machineHours/editMachineRecords/${record._id}`}>
                                         <PencilSquareIcon
@@ -585,6 +587,11 @@ export default function MachineRecordsList() {
                                         />
                                     </Link>
                                 </td>
+
+                                ) : null
+                                }
+
+                                { getPermission("update:records").isGranted ? (
                                 <td className=" py-4 text-right">
                                     <Link to={`/finances/machineHours/viewMachineRecords/${record._id}`}>
                                         <InformationCircleIcon
@@ -593,6 +600,10 @@ export default function MachineRecordsList() {
                                         />
                                     </Link>
                                 </td>
+                                ) : null
+                                }
+
+                                { getPermission("update:records").isGranted ? (
                                 <td className=" ">
                                     <Button shape="circle" type="text" onClick={() => {
                                         handleDeleteMachineRecord(record._id);
@@ -604,6 +615,8 @@ export default function MachineRecordsList() {
                                     </Button>
 
                                 </td>
+                    ) : null
+                    }
                             </tr>
                         );
                     })}
