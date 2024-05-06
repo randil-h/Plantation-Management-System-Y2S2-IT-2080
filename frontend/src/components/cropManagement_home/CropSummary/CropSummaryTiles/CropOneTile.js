@@ -11,6 +11,8 @@ export default function CropOneTile() {
     const [harvestArea, setHarvestArea] = useState(null);
     const [totalPlantingCost, setTotalPlantingCost] = useState(null);
     const [agrochemicalSum, setAgrochemicalSum] = useState(null);
+    const [marketPriceRecord, setMarketPriceRecord] = useState(null);
+    const [totalAgrochemicalCost, setTotalAgrochemicalCost] = useState(null);
 
     const handleTileClick = () => {
         setShowPopup(true);
@@ -66,12 +68,41 @@ export default function CropOneTile() {
                 const filteredAgrochemicalRecords = response.data.data.filter(record => record.type === 'Agrochemical' && filteredPlantingRecords.some(plantingRecord => plantingRecord.field === record.field));
                 const agrochemicalSumByField = calculateAgrochemicalSum(filteredAgrochemicalRecords);
                 setAgrochemicalSum(agrochemicalSumByField);
+
+                // Calculate total agrochemical cost
+                const totalAgrochemicalCost = Object.values(agrochemicalSumByField).reduce((total, sum) => total + sum, 0);
+                setTotalAgrochemicalCost(totalAgrochemicalCost);
             })
             .catch((error) => {
                 console.log(error);
                 setLoading(false);
             });
+        axios
+            .get('https://elemahana-backend.vercel.app/marketprice')
+            .then((response) => {
+                const marketPriceData = response.data.data;
+                const closestRecord = findClosestRecord(marketPriceData);
+                setMarketPriceRecord(closestRecord);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
+
+    const findClosestRecord = (records) => {
+        const currentDate = new Date();
+        let closestRecord = null;
+        let minDifference = Infinity;
+        records.filter(record => record.name === "Coconut").forEach(record => {
+            const recordDate = new Date(record.date);
+            const difference = Math.abs(currentDate - recordDate);
+            if (difference < minDifference) {
+                minDifference = difference;
+                closestRecord = record;
+            }
+        });
+        return closestRecord;
+    };
 
     const calculateHarvestArea = (fields) => {
         let totalArea = 0;
@@ -124,7 +155,7 @@ export default function CropOneTile() {
             {showPopup && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur bg-opacity-50">
                     <div
-                        className="shadow-lg bg-white rounded-lg p-8 w-1/4 max-w-sm min-w-32 relative border border-gray-300">
+                        className="shadow-lg bg-white rounded-lg p-8 w-1/3 min-w-32 relative border border-gray-300">
                         <IoCloseCircle onClick={() => setShowPopup(false)}
                                        className="absolute top-2 right-2 cursor-pointer"/>
                         <GiCoconuts className="mx-auto h-10 w-10"/>
@@ -137,13 +168,16 @@ export default function CropOneTile() {
                             maximumFractionDigits: 2
                         }) : 'Loading...'}</p>
                         <p>Agrochemical Cost: {agrochemicalSum ? Object.entries(agrochemicalSum).map(([field, sum]) => `${field}: Rs. ${sum.toLocaleString('en-US', {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2
-                            })}`).join(', ') : 'Loading...'}</p>
-                        <p>Total Cost for Coconut: {totalPlantingCost && agrochemicalSum ? (totalPlantingCost + Object.values(agrochemicalSum).reduce((total, sum) => total + sum, 0)).toLocaleString('en-US', {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2
-                            }) : 'Loading...'}</p>
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        })}`).join(', ') : 'Loading...'}</p>
+                        <p>Total Cost for Coconut: {totalPlantingCost && totalAgrochemicalCost ? (totalPlantingCost + totalAgrochemicalCost).toLocaleString('en-US', {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }) : 'Loading...'}</p><br/>
+                            <p>Most recent market price :
+                                Rs. {80} on 2024-05-05</p>
+                        <p>Harvest to break-even at above price: {Math.ceil((totalPlantingCost + totalAgrochemicalCost) / 80).toLocaleString('en-US')} coconuts</p>
                     </div>
                 </div>
             )}

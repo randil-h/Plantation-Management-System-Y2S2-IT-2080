@@ -161,7 +161,7 @@ export default function CropTwoTile() {
                             Papaya: {totalPlantingCost && totalAgrochemicalCost ? (totalPlantingCost + totalAgrochemicalCost).toLocaleString('en-US', {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2
-                            }) : 'Loading...'}</p> <br/>
+                            }) : 'Loading...'}</p><br/>
                         {marketPriceRecord && (
                             <p>Most recent market price :
                                 Rs. {(marketPriceRecord.min_price + marketPriceRecord.max_price) / 2} on {marketPriceRecord.date}</p>
