@@ -110,7 +110,7 @@ const OrderPlacingForm = () => {
                 <div className="flex justify-start">
                     {/* Product image */}
                     <div className="space-y-12">
-                        <img src={`https://elemahana-backend.vercel.app/productRecords/productImageFromName/${product.productImage}`} alt="Product" />
+                        <img src={`http://localhost:5555/productRecords/productImageFromName/${product.productImage}`} alt="Product" />
                     </div>
                     {/* Product description */}
                     <div className="space-y-12 ">
