@@ -153,7 +153,7 @@ export default function MachineRecordsList() {
 
         // Validation
         if (isNaN(reading_start) || isNaN(reading_end) || isNaN(recordPay) ||
-            reading_start < 0 || reading_end < 0 || recordPay <= 0 || recordPay > 2000000) {
+            reading_start < 0 || reading_end < 0 || recordPay < 0 || recordPay > 2000000) {
             message.error('Please enter valid values for readings and payment.');
             return;
         }

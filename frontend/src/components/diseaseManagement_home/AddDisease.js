@@ -10,7 +10,6 @@ export default function AddDisease() {
     const [crop, setType] = useState('');
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
-    const [cropType, setCropType] = useState([]);
     const [treatment, setTreatment] = useState([]);
     const [plant_count, setPlantCount] = useState('');
     const [severity, setSeverity] = useState('');
@@ -20,22 +19,7 @@ export default function AddDisease() {
     const [diseaseIdError, setDiseaseIdError] = useState('');
     const [dateError, setDateError] = useState('');
     const { enqueueSnackbar } = useSnackbar();
-
-    useEffect(() => {
-        if(location) {
-            fetchCropTypes(location);
-        }
-    }, [location]);
-
-    const fetchCropTypes = async (selectedLocation) => {
-        try{
-            const response = await axios.get(`http://localhost:5555/diseases/cropTypes?location=${selectedLocation}`);
-            setCropType(response.data.cropType);
-        } catch (error) {
-            console.error('Error fetching crop types: ', error);
-        }
-    };
-
+    const [cropTypes, setCropTypes] = useState([]);
     const handleDiseaseChange = (e) => {
         const selectedDisease = e.target.value;
         setName(selectedDisease); // Update diseaseName state
@@ -66,6 +50,24 @@ export default function AddDisease() {
         }
     };
 
+    /*const fetchCropTypes = async (selectedLocation) => {
+        try{
+            const response = await axios.get(`https://localhost:5555/diseases/cropTypes?field=${selectedLocation}`);
+            const crops = response.data.map((record) => record.cropType);
+
+            const uniqueCropTypes = [...new Set(crops)];
+            setCropTypes(uniqueCropTypes);
+        }catch (error) {
+            console.error("Error fetching crop types: ", error);
+        }
+    };
+*/
+    /*useEffect(() => {
+        if(location) {
+            fetchCropTypes(location);
+        }
+    }, [location]);*/
+
     const handleSaveDisease = (e) => {
         e.preventDefault();
 
@@ -90,12 +92,6 @@ export default function AddDisease() {
         }
 
         setLoading(true);
-       /* axios
-            .post(`https://elemahana-backend.vercel.app/checkTreatment`, {treatment}) //checking availability of treatment
-            .then((response) => {
-                setLoading(false);
-                //if treatment available
-                if(response.data.available) {*/
                     axios
                         .post(`https://elemahana-backend.vercel.app/diseases`, data)
                         .then(() => {
@@ -109,15 +105,6 @@ export default function AddDisease() {
                             alert(`${error.response.data.message}`);
                             console.log(error);
                         });
-               /* } else {
-                    window.alert("Treatment is not available in Inventory!!"); //if treatment is not found or unavailable
-                }
-            })
-            .catch((error) => {
-                setLoading(false);
-                alert('An error happened. Please check console');
-                console.log(error);
-            });*/
     };
     return (
         <div className='flex items-center justify-center'>
@@ -166,7 +153,6 @@ export default function AddDisease() {
                             <option value="Papaya">Papaya</option>
                             <option value="Apple Guava">Apple Guava</option>
                             <option value="Coconut">Coconut</option>
-
                         </select>
                     </div>
                     <div className="w-full md:w-1/2 pr-4">
@@ -218,6 +204,7 @@ export default function AddDisease() {
                             onChange={(e) => setPlantCount(e.target.value)}
                             placeholder="Enter number of trees affected"
                             min={1}
+                            max={1000}
                             className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                         />
                     </div>

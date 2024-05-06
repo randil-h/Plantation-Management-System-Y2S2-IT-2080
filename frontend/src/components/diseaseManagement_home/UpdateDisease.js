@@ -18,6 +18,7 @@ export default function UpdateDisease() {
     const {id} = useParams();
     const { enqueueSnackbar } = useSnackbar();
     const [diseaseIdError, setDiseaseIdError] = useState('');
+    const [dateError, setDateError] = useState('');
 
     const handleDiseaseChange = (e) => {
         const selectedDisease = e.target.value;
@@ -75,6 +76,11 @@ export default function UpdateDisease() {
 
     const handleUpdateDisease = (e) => {
         e.preventDefault()
+
+        if(dateError) {
+            return;  //don't proceed if there is an error
+        }
+
         const data = {
             disease_name,
             plant_id,
@@ -92,12 +98,6 @@ export default function UpdateDisease() {
         }
 
         setLoading(true);
-        axios
-            .post(`https://elemahana-backend.vercel.app/checkTreatment`, {treatment}) //checking availability of treatment
-            .then((response) => {
-                setLoading(false);
-                //if treatment available
-                if(response.data.available) {
                     axios
                         .put(`https://elemahana-backend.vercel.app/diseases/${id}`, data)
                         .then(() => {
@@ -108,18 +108,9 @@ export default function UpdateDisease() {
                         })
                         .catch((error) => {
                             setLoading(false);
-                            alert('An error happened. Please check console');
+                            alert(`${error.response.data.message}`);
                             console.log(error);
                         });
-                } else {
-                    window.alert("Treatment is not available in Inventory!!"); //if treatment is not found or unavailable
-                }
-            })
-            .catch((error) => {
-                setLoading(false);
-                alert('An error happened. Please check console');
-                console.log(error);
-            });
     };
     return (
         <div className='items-center justify-center flex'>
@@ -174,9 +165,20 @@ export default function UpdateDisease() {
                             type='date'
                             required
                             value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                            className='border-2 rounded-md mb-5 border-gray-500 px-4 py-2 w-full'
+                            onChange={(e) => {
+                                const selectedDate = new Date(e.target.value);
+                                const currentDate = new Date();
+                                if (selectedDate > currentDate) {
+                                    setDate(e.target.value);
+                                    setDateError("Future Dates cannot be selected");
+                                } else {
+                                    setDate(e.target.value);
+                                    setDateError("");
+                                }
+                            }}
+                            className='border-2 rounded-md mb-1 border-gray-500 px-4 py-2 w-full'
                         />
+                        {dateError && <span className="text-red-500 text-sm mb-2">{dateError}</span>}
                     </div>
                 </div>
                 <div className="flex flex-row w-full">
@@ -205,6 +207,7 @@ export default function UpdateDisease() {
                             onChange={(e) => setPlantCount(e.target.value)}
                             placeholder="Enter number of trees affected"
                             min={1}
+                            max={1000}
                             className='border-2 rounded-md mb-4 border-gray-500 px-4 py-2 w-full'
                         />
                     </div>
