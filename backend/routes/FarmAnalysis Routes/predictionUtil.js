@@ -24,7 +24,7 @@ export async function predictFuturePricesTF1(dates, minPrices, maxPrices) {
 
         const xs = normalizeDates.data.reshape([-1, 1]);
         const ys = tf.concat([normalizeMinPrices.data.reshape([-1, 1]), normalizeMaxPrices.data.reshape([-1, 1])], 1);
-        await model.fit(xs, ys, { epochs: 1000 });
+        await model.fit(xs, ys, { epochs: 500 });
 
         const startDate = new Date(dates[dates.length - 1].getTime() + 24 * 60 * 60 * 1000);
         const numDays = 365;
