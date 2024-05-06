@@ -1,7 +1,4 @@
 import express from "express";
-import morgan from 'morgan';
-// impo
-// const multer = require('multer');
 import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import { TestRecord } from "./models/TestModel.js";
@@ -40,42 +37,15 @@ import DiseaseCountRoute from "./routes/Disease Tracking Routes/DiseaseCountRout
 import TreatmentSelectionRoute from "./routes/Disease Tracking Routes/TreatmentSelectionRoute.js";
 import PredictMarketPriceRoute from "./routes/FarmAnalysis Routes/PredictMarketPriceRoute.js";
 import MachineRecordRoute from "./routes/Finance Routes/MachineRecordRoute.js";
-import multer from "multer";
-// const bodyparser = require('body-parser')
-import path from 'path';
-import { fileURLToPath } from 'url';
-const upload = multer({dest: 'uploads/'});
 
-const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
-const __dirname = path.dirname(__filename); // get the name of the directory
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(morgan('dev'));
-app.use(express.static('uploads'));
-// parse application/x-www-form-urlencoded
-// app.use(bodyParser.urlencoded({ extended: false }))
 
-// parse application/json
-// app.use(bodyParser.json())
+app.use(express.json());
  
 //app.use(cors());
 
 //const Images = mongoose.model("productModel");
-// const multer = require('multer');
-
-const storage = multer.diskStorage({
-    destination: function(req, file, callback) {
-        callback(null, '/uploads');
-    },
-    filename: function (req, file, callback) {
-        callback(null, file.fieldname);
-    }
-});
-
-// const host = req.host;
-// const filePath = req.protocol + "://" + host + '/' + req.file.path;
 
 
 app.use(cors({
