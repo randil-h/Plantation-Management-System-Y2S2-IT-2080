@@ -21,9 +21,9 @@ export default function Welcome_banner(){
                 </p>
 
                 <div className=" flex items-center justify-center gap-x-6">
-                    <Link to="/dashboard" className="ring-1 ring-lime-500 text-white px-8 py-1 rounded-full font-semibold text-lg transition duration-300 hover:bg-lime-500">
+                    <button className="ring-1 ring-lime-500 text-white px-8 py-1 rounded-full font-semibold text-lg transition duration-300 hover:bg-lime-500">
                         View Dashboard
-                    </Link>
+                    </button>
                     <button className="bg-black text-white px-8 py-1 rounded-full font-semibold text-lg transition duration-300 hover:bg-lime-500">
                         Learn More
                     </button>
