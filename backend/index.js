@@ -111,5 +111,3 @@ mongoose
         console.log(error);
     });
 
-
-module.exports = app;
