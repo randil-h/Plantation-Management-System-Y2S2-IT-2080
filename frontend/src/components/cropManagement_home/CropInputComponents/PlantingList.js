@@ -46,7 +46,7 @@ const PlantingList = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`https://elemahana-backend.vercel.app/cropinput`)
+            .get(`${process.env.REACT_APP_API_BASE_URL}/cropinput`)
             .then((response) => {
                 const formattedRecords = response.data.data
                     .filter(record => record.type === "Planting")
@@ -84,7 +84,7 @@ const PlantingList = () => {
     const confirmDelete = () => {
         if (recordToDelete) {
             axios
-                .delete(`https://elemahana-backend.vercel.app/cropinput/${recordToDelete}`)
+                .delete(`${process.env.REACT_APP_API_BASE_URL}/cropinput/${recordToDelete}`)
                 .then(() => {
                     setPlantingRecords(prevRecords =>
                         prevRecords.filter(record => record._id !== recordToDelete)
@@ -243,14 +243,14 @@ const PlantingList = () => {
                                             className="h-6 w-6 flex-none bg-gray-300 p-1 rounded-full text-gray-800 hover:bg-gray-500"
                                             aria-hidden="true"/>
                                     </Link>
-                                    {getPermission("update:records").isGranted ? (
+                                   
                                     <Link to={`/crop/input/update/${record._id}`}>
                                         <PencilSquareIcon
                                             className="h-6 w-6 flex-none bg-blue-200 p-1 rounded-full text-gray-800 hover:bg-blue-500"
                                             aria-hidden="true"/>
                                     </Link>
-                                    ) : null}
-                                    {getPermission("update:records").isGranted ? (
+                                   
+                                    
                                     <button
                                         className="flex items-center"
                                         onClick={() => handleDelete(record._id)}
@@ -260,7 +260,7 @@ const PlantingList = () => {
                                             aria-hidden="true"
                                         />
                                     </button>
-                                    ) : null}
+                                   
                                 </div>
                             </td>
                         </tr>

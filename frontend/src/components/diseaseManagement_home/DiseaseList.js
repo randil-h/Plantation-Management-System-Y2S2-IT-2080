@@ -28,7 +28,7 @@ export default function DiseaseList() {
    useEffect(() => {
        setLoading(true);
        axios
-           .get('https://elemahana-backend.vercel.app/diseases')
+           .get('${process.env.REACT_APP_API_BASE_URL}/diseases')
            .then((response) => {
                setDiseaseRecords(response.data.data);
                setLoading(false);
@@ -44,7 +44,7 @@ export default function DiseaseList() {
         if (confirmDelete) {
             setLoading(true);
             axios
-                .delete(`https://elemahana-backend.vercel.app/diseases/${id}`)
+                .delete(`${process.env.REACT_APP_API_BASE_URL}/diseases/${id}`)
                 .then(() => {
                     // Update state after successful deletion
                     setDiseaseRecords(prevRecords => prevRecords.filter(record => record._id !== id));
@@ -280,7 +280,7 @@ export default function DiseaseList() {
                             </Link>
                         </td>
                         {
-                            getPermission("update:records").isGranted? (
+                            
                                 <td className=" py-4 text-right">
                                     <Link to={`/diseases/records/updateDisease/${drecord._id}`}>
                                         <PencilSquareIcon
@@ -288,10 +288,10 @@ export default function DiseaseList() {
                                             aria-hidden="true"/>
                                     </Link>
                                 </td>
-                            ):null
+                            
                         }
                         {
-                            getPermission("update:records").isGranted? (
+                            
                                 <td className=" ">
                                     <button
                                         className="flex items-center"
@@ -302,7 +302,7 @@ export default function DiseaseList() {
                                             aria-hidden="true"/>
                                     </button>
                                 </td>
-                            ):null
+                            
                         }
                     </tr>
                 ))}

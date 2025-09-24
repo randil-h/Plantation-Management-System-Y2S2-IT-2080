@@ -1,10 +1,13 @@
 import express from "express";
 import {InventoryInput} from "../../models/Inventory Models/InventoryRecordModel.js";
+import { asyncHandler } from "../../middleware/errorMiddleware.js";
+import { createValidationError } from "../../utils/errors.js";
+import { protect, authorize } from "../../middleware/auth.js";
+
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
-    try {
+router.post('/',protect, authorize('user'), asyncHandler(async (req, res) => {
         const { treatment } = req.body;
 
         // Find all records with the specified treatment name
@@ -18,23 +21,19 @@ router.post('/', async (req, res) => {
 
         // If at least one record with status "in stock" is found, treatment is available
         if (hasInStockRecord) {
-            res.json({ available: true });
+            return res.success({ available: true });
         } else {
-            res.json({ available: false });
+            return res.success({ available: false });
         }
-    } catch (error) {
-        console.error('An error occurred: ', error);
-        return res.status(500).json({ message: 'An error occurred, please try again' });
-    }
-});
+}));
 
-router.post('/recommendTreatment', (req, res) => {
+router.post('/recommendTreatment',protect, authorize('user'), (req, res) => {
 
     const {disease_name} = req.body;
 
     const treatment = recommendTreatment(disease_name);
 
-    res.json({treatment});
+    res.success({treatment});
 
 });
 

@@ -1,19 +1,21 @@
 import express from "express";
+import mongoose from 'mongoose';
 import {MarketPriceRecord} from "../../models/FarmAnalysis Models/MarketPriceModel.js";
+import { asyncHandler } from "../../middleware/errorMiddleware.js";
+import { createNotFoundError, createValidationError } from "../../utils/errors.js";
+import { protect, authorize } from "../../middleware/auth.js";
+
 
 const router = express.Router();
 
-router.post('/', async (request, response) => {
-    try{
+router.post('/',protect, authorize('user'), asyncHandler(async (request, response) => {
         console.log('Request Body:', request.body);
 
         const {name, date} = request.body;
 
         const existingRecord = await MarketPriceRecord.findOne({name, date});
         if(existingRecord) {
-            return response.status(400).send({
-                message: 'A Record already exists for this Given Date!',
-            });
+            throw createValidationError('A Record already exists for this Given Date!');
         }
         if (
             !request.body.name ||
@@ -22,9 +24,7 @@ router.post('/', async (request, response) => {
             !request.body.min_price||
             !request.body.max_price
         ) {
-            return response.status(400).send({
-                message: 'Send all required fields',
-            });
+            throw createValidationError('Send all required fields');
         }
         /*if(request.body.min_price > request.body.max_price)
         {
@@ -42,16 +42,10 @@ router.post('/', async (request, response) => {
         };
 
         const marketPrice = await MarketPriceRecord.create(newMarketPriceRecord);
+        return response.success(marketPrice, 201);
+}));
 
-        return response.status(201).send(marketPrice);
-    }catch(error) {
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-} );
-
-router.get('/', async (request, response) => {
-    try{
+router.get('/',protect, authorize('user'), asyncHandler(async (request, response) => {
         let filter = {};
         // Check if a name filter is provided in the query parameters
         if (request.query.name) {
@@ -60,19 +54,10 @@ router.get('/', async (request, response) => {
         }
 
         const marketPrice = await MarketPriceRecord.find({});
+        return response.success({ count : marketPrice.length, data : marketPrice });
+}));
 
-        return response.status(200).json({
-            count : marketPrice.length,
-            data : marketPrice
-        });
-    }catch (error){
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
-
-router.put('/:id', async (request, response) => {
-    try{
+router.put('/:id',protect, authorize('user'), asyncHandler(async (request, response) => {
         if (
             !request.body.name ||
             !request.body.type ||
@@ -80,42 +65,42 @@ router.put('/:id', async (request, response) => {
             !request.body.min_price||
             !request.body.max_price
         ) {
-            return response.status(400).send({
-                message : 'Send all required fields'
-            });
+            throw createValidationError('Send all required fields');
         }
 
         const {id} = request.params;
 
-        const result = await MarketPriceRecord.findByIdAndUpdate(id, request.body);
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
+
+        // Extract only allowed fields from request body
+        const { name, type, date, min_price, max_price } = request.body;
+
+        // Create update object with only allowed fields
+        const updateData = { name, type, date, min_price, max_price };
+
+        const result = await MarketPriceRecord.findByIdAndUpdate(id, updateData, { new: true });
 
         if(!result){
-            return response.status(404).json({message : 'Market Price record not found'});
+            throw createNotFoundError('Market Price record');
         }
+        return response.success({message : 'Market Price record updated successfully', data: result});
+}));
 
-        return response.status(200).send({message : 'Market Price record updated successfully'});
-    }catch(error){
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
-
-router.delete('/:id', async (request, response) => {
-    try{
+router.delete('/:id',protect, authorize('user'), asyncHandler(async (request, response) => {
         const {id} = request.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
 
         const result = await MarketPriceRecord.findByIdAndDelete(id);
 
         if(!result){
-            return response.status(404).json({message: 'Market Price record not found' });
+            throw createNotFoundError('Market Price record');
         }
-
-        return response.status(200).send({message : 'Market Price record deleted successfully'});
-
-    }catch(error){
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
+        return response.success({message : 'Market Price record deleted successfully'});
+}));
 
 export default router;

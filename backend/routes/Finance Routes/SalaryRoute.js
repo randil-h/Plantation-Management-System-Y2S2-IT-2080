@@ -1,10 +1,13 @@
 import {SalariesRecord} from "../../models/Finance Models/SalaryModel.js";
 import express from "express";
+import mongoose from 'mongoose';
+import { protect, authorize } from "../../middleware/auth.js";
+
 
 const router = express.Router();
 
 // create a new record
-router.post('/', async (request, response) => {
+router.post('/',protect, authorize('user'), async (request, response) => {
     try {
         const requiredFields = [
             'payment_date',
@@ -58,7 +61,7 @@ router.post('/', async (request, response) => {
 
 // Route for Get All from database
 
-router.get('/', async (request, response) => {
+router.get('/',protect, authorize('user'), async (request, response) => {
     try {
         const SalaryRecord = await SalariesRecord.find({});
 
@@ -73,10 +76,12 @@ router.get('/', async (request, response) => {
 });
 
 // Route for Get One transaction from database by id
-router.get('/:id', async (request, response) => {
+router.get('/:id',protect, authorize('user'), async (request, response) => {
     try {
         const { id } = request.params;
-
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return response.status(400).json({ message: 'Invalid ID format' });
+        }
         const SalaryRecord = await SalariesRecord.findById(id);
 
         return response.status(200).json(SalaryRecord);
@@ -87,7 +92,7 @@ router.get('/:id', async (request, response) => {
 });
 
 // Route for Update a transaction
-router.put('/:id', async (request, response) => {
+router.put('/:id',protect, authorize('user'), async (request, response) => {
     try {
         if (
             !request.body.payment_date ||
@@ -111,7 +116,17 @@ router.put('/:id', async (request, response) => {
 
         const { id } = request.params;
 
-        const result = await SalariesRecord.findByIdAndUpdate(id, request.body);
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return response.status(400).json({ message: 'Invalid ID format' });
+        }
+
+        // Extract only allowed fields from request body
+        const { payment_date, emp_name, salary_start_date, salary_end_date, nic, type, basic_days, basic_rate, bonus_salary, ot_hours, ot_rate, epf_etf, description } = request.body;
+
+        // Create update object with only allowed fields
+        const updateData = { payment_date, emp_name, salary_start_date, salary_end_date, nic, type, basic_days, basic_rate, bonus_salary, ot_hours, ot_rate, epf_etf, description };
+
+        const result = await SalariesRecord.findByIdAndUpdate(id, updateData);
 
         if (!result) {
             return response.status(404).json({ message: 'Transaction record not found' });
@@ -125,10 +140,12 @@ router.put('/:id', async (request, response) => {
 });
 
 // Route for Delete a book
-router.delete('/:id', async (request, response) => {
+router.delete('/:id',protect, authorize('user'), async (request, response) => {
     try {
         const { id } = request.params;
-
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return response.status(400).json({ message: 'Invalid ID format' });
+        }
         const result = await SalariesRecord.findByIdAndDelete(id);
 
         if (!result) {

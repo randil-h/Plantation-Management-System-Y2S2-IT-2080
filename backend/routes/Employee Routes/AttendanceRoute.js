@@ -1,22 +1,24 @@
 import express from "express";
+import mongoose from 'mongoose';
 import {AttendanceRecord} from "../../models/EmpManagement/AttendanceModel.js";
+import { asyncHandler } from "../../middleware/errorMiddleware.js";
+import { createNotFoundError, createValidationError } from "../../utils/errors.js";
+import { protect, authorize } from "../../middleware/auth.js";
+
 
 
 
 const router = express.Router();
 
 //Route for save a new attendance
-router.post('/', async(request, response) => {
-    try {
+router.post('/',protect, authorize('user'), asyncHandler(async(request, response) => {
         if (
             !request.body.e_name ||
             !request.body.e_date||
             !request.body.att_status
 
         ) {
-            return response.status(400).send ({
-                message: 'Send all required fields',
-            });
+            throw createValidationError('Send all required fields');
         }
 
         const NewAttendance = {
@@ -28,50 +30,33 @@ router.post('/', async(request, response) => {
         };
 
         const AttendanceRecords = await AttendanceRecord.create(NewAttendance)
-        return response.status(201).send(AttendanceRecords);
-
-    } catch(error) {
-
-        console.log(error.message);
-        response.status(500).send({message:error.message});
-    }
-});
+        return response.success(AttendanceRecords, 201);
+}));
 
 //Route to get all the attendance from the database
-router.get('/', async (request, response) => {
-    try {
+router.get('/',protect, authorize('user'), asyncHandler(async (request, response) => {
         const AttendanceRecords = await AttendanceRecord.find({});
-
-        return response.status(200).json({
+        return response.success({
             count: AttendanceRecords.length,
             data: AttendanceRecords,
         });
-    } catch (error) {
-
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+}));
 
 //Route for get one attendance from database by id
-router.get('/:id', async (request, response) => {
-    try {
+router.get('/:id',protect, authorize('user'), asyncHandler(async (request, response) => {
         const { id } = request.params;
 
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
         const AttendanceRecords = await AttendanceRecord.findById(id);
-
-        return response.status(200).json(AttendanceRecords);
-    } catch (error) {
-
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+        if (!AttendanceRecords) throw createNotFoundError('Attendance record');
+        return response.success(AttendanceRecords);
+}));
 
 //Route for update attendance
 
-router.put('/:id', async (request, response) => {
-    try {
+router.put('/:id',protect, authorize('user'), asyncHandler(async (request, response) => {
         if (
 
             !request.body.e_name ||
@@ -79,45 +64,44 @@ router.put('/:id', async (request, response) => {
             !request.body.att_status
 
         ) {
-            return response.status(400).send({
-                message: 'Send all required fields',
-            });
+            throw createValidationError('Send all required fields');
         }
 
         const { id } = request.params;
 
-        const result = await AttendanceRecord.findByIdAndUpdate(id, request.body);
-
-        if (!result) {
-            return response.status(404).json({ message: 'Attendance record not found' });
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
         }
 
-        return response.status(200).send({ message: 'Attendance record updated successfully' });
+        // Extract only allowed fields from request body
+        const { e_name, e_date, att_status } = request.body;
 
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+        // Create update object with only allowed fields
+        const updateData = { e_name, e_date, att_status };
+
+        const result = await AttendanceRecord.findByIdAndUpdate(id, updateData, { new: true });
+
+        if (!result) {
+            throw createNotFoundError('Attendance record');
+        }
+        return response.success({ message: 'Attendance record updated successfully', data: result });
+}));
 
 //Route to delete an attendance record
 
-router.delete('/:id', async (request, response) => {
-    try {
+router.delete('/:id',protect, authorize('user'), asyncHandler(async (request, response) => {
         const { id } = request.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
 
         const result = await AttendanceRecord.findByIdAndDelete(id);
 
         if (!result) {
-            return response.status(404).json({ message: 'Attendance record not found' });
+            throw createNotFoundError('Attendance record');
         }
-
-        return response.status(200).send({ message: 'Attendance record deleted successfully' });
-    } catch (error) {
-
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+        return response.success({ message: 'Attendance record deleted successfully' });
+}));
 
 export default router;

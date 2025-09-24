@@ -93,7 +93,7 @@ export default function AddDisease() {
 
         setLoading(true);
                     axios
-                        .post(`https://elemahana-backend.vercel.app/diseases`, data)
+                        .post(`${process.env.REACT_APP_API_BASE_URL}/diseases`, data)
                         .then(() => {
                             setLoading(false);
                             navigate('/diseases/records');

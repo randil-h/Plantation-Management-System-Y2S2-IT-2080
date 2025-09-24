@@ -24,7 +24,7 @@ export default function ViewTransactionDetails() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`https://elemahana-backend.vercel.app/transactions/${id}`)
+            .get(`${process.env.REACT_APP_API_BASE_URL}/transactions/${id}`)
             .then((response) => {
                 setTransactionRecord(response.data);
                 setLoading(false);

@@ -1,13 +1,17 @@
 import express from "express";
+import mongoose from 'mongoose';
 import {RegistrationRecord} from "../../models/EmpManagement/RegistrationModel.js";
+import { asyncHandler } from "../../middleware/errorMiddleware.js";
+import { createNotFoundError, createValidationError } from "../../utils/errors.js";
+import { protect, authorize } from "../../middleware/auth.js";
+
 
 
 
 const router = express.Router();
 
 //Route for save a new employee
-router.post('/', async(request, response) => {
-    try {
+router.post('/',protect, authorize('user'), asyncHandler(async(request, response) => {
         if (
             !request.body.f_name ||
             !request.body.l_name||
@@ -23,9 +27,7 @@ router.post('/', async(request, response) => {
             !request.body.h_rate
 
         ) {
-            return response.status(400).send ({
-                message: 'Send all required fields',
-            });
+            throw createValidationError('Send all required fields');
         }
 
         const NewRegistration = {
@@ -46,50 +48,34 @@ router.post('/', async(request, response) => {
         };
 
         const RegistrationsRecords = await RegistrationRecord.create(NewRegistration)
-        return response.status(201).send(RegistrationsRecords);
-
-    } catch(error) {
-
-        console.log(error.message);
-        response.status(500).send({message:error.message});
-    }
-});
+        return response.success(RegistrationsRecords, 201);
+}));
 
 //Route to get all the register employees from the database
-router.get('/', async (request, response) => {
-    try {
+router.get('/',protect, authorize('user'), asyncHandler(async (request, response) => {
         const RegistrationsRecords = await RegistrationRecord.find({});
-
-        return response.status(200).json({
+        return response.success({
             count: RegistrationsRecords.length,
             data: RegistrationsRecords,
         });
-    } catch (error) {
-
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+}));
 
 //Route for get one register employee from database by id
-router.get('/:id', async (request, response) => {
-    try {
+router.get('/:id',protect, authorize('user'), asyncHandler(async (request, response) => {
         const { id } = request.params;
 
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
+
         const RegistrationsRecords = await RegistrationRecord.findById(id);
-
-        return response.status(200).json(RegistrationsRecords);
-    } catch (error) {
-
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+        if (!RegistrationsRecords) throw createNotFoundError('Registration record');
+        return response.success(RegistrationsRecords);
+}));
 
 //Route for update employee
 
-router.put('/:id', async (request, response) => {
-    try {
+router.put('/:id',protect, authorize('user'), asyncHandler(async (request, response) => {
         if (
 
             !request.body.f_name ||
@@ -106,46 +92,45 @@ router.put('/:id', async (request, response) => {
             !request.body.h_rate
 
         ) {
-            return response.status(400).send({
-                message: 'Send all required fields',
-            });
+            throw createValidationError('Send all required fields');
         }
 
         const { id } = request.params;
 
-        const result = await RegistrationRecord.findByIdAndUpdate(id, request.body);
-
-        if (!result) {
-            return response.status(404).json({ message: 'Registration record not found' });
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
         }
 
-        return response.status(200).send({ message: 'Registration record updated successfully' });
+        // Extract only allowed fields from request body
+        const { f_name, l_name, dob, gender, contact_no, emp_email, nic, e_address, emp_type, qualifications, h_date, h_rate } = request.body;
 
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+        // Create update object with only allowed fields
+        const updateData = { f_name, l_name, dob, gender, contact_no, emp_email, nic, e_address, emp_type, qualifications, h_date, h_rate };
+
+        const result = await RegistrationRecord.findByIdAndUpdate(id, updateData, { new: true });
+
+        if (!result) {
+            throw createNotFoundError('Registration record');
+        }
+        return response.success({ message: 'Registration record updated successfully', data: result });
+}));
 
 //Route to delete a registration record
 
-router.delete('/:id', async (request, response) => {
-    try {
+router.delete('/:id',protect, authorize('user'), asyncHandler(async (request, response) => {
         const { id } = request.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
 
         const result = await RegistrationRecord.findByIdAndDelete(id);
 
         if (!result) {
-            return response.status(404).json({ message: 'Registration record not found' });
+            throw createNotFoundError('Registration record');
         }
-
-        return response.status(200).send({ message: 'Registration record deleted successfully' });
-    } catch (error) {
-
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+        return response.success({ message: 'Registration record deleted successfully' });
+}));
 
 export default router;
 

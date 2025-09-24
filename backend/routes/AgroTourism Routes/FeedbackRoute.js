@@ -1,118 +1,114 @@
 // Import the necessary modules and models
 import express from 'express';
+import mongoose from 'mongoose';
 import Feedback from '../../models/AgroTourism Models/FeedbackModel.js';
+import { asyncHandler } from '../../middleware/errorMiddleware.js';
+import { createNotFoundError, createValidationError } from '../../utils/errors.js';
+import { protect, authorize } from "../../middleware/auth.js";
+
 
 // Create an Express router
 const router = express.Router();
 
 // Route to save a new feedback
-router.post('/', async (req, res) => {
-    try {
+router.post('/', protect, authorize('user'),asyncHandler(async (req, res) => {
         // Extract data from the request body
         const { name, email, feedback, rating } = req.body;
 
         // Check if all required fields are provided
         if (!name || !email || !feedback || !rating) {
-            return res.status(400).send({
-                message: 'All required fields must be provided: name, email, feedback, rating',
-            });
+            throw createValidationError('All required fields must be provided: name, email, feedback, rating');
         }
 
         // Create a new feedback document in the database
         const newFeedback = await Feedback.create({ name, email, feedback, rating });
 
         // Send a success response with the newly created feedback document
-        return res.status(201).send(newFeedback);
-    } catch (error) {
-        // Handle errors by logging them and sending an error response
-        console.error('Error saving feedback:', error);
-        res.status(500).send({ message: 'An error occurred while processing the request' });
-    }
-});
+        return res.success(newFeedback, 201);
+}));
 
 // Route to get all feedbacks from the database
-router.get('/', async (req, res) => {
-    try {
+router.get('/',protect, authorize('user'), asyncHandler(async (req, res) => {
         // Fetch all feedback documents from the database
         const feedbacks = await Feedback.find({});
 
         // Send a success response with the fetched feedback documents
-        res.status(200).json({ count: feedbacks.length, data: feedbacks });
-    } catch (error) {
-        // Handle errors by logging them and sending an error response
-        console.error('Error fetching feedbacks:', error);
-        res.status(500).send({ message: 'An error occurred while processing the request' });
-    }
-});
+        res.success({ count: feedbacks.length, data: feedbacks });
+}));
 
 // Route to get a feedback by ID
-router.get('/:id', async (req, res) => {
-    try {
+router.get('/:id',protect, authorize('user'), asyncHandler(async (req, res) => {
         // Extract the feedback ID from the request parameters
         const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
 
         // Find the feedback document by ID in the database
         const feedback = await Feedback.findById(id);
 
         // If the feedback document is not found, send a 404 response
         if (!feedback) {
-            return res.status(404).json({ message: 'Feedback not found' });
+            throw createNotFoundError('Feedback');
         }
 
         // Send a success response with the fetched feedback document
-        res.status(200).json(feedback);
-    } catch (error) {
-        // Handle errors by logging them and sending an error response
-        console.error('Error fetching feedback by ID:', error);
-        res.status(500).send({ message: 'An error occurred while processing the request' });
-    }
-});
+        res.success(feedback);
+}));
 
 // Route to update a feedback
-router.put('/:id', async (req, res) => {
-    try {
+router.put('/:id',protect, authorize('user'), asyncHandler(async (req, res) => {
         // Extract the feedback ID from the request parameters
         const { id } = req.params;
 
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
+
+        // Extract only allowed fields from request body
+        const { name, email, feedback, rating } = req.body;
+
+        // Check if all required fields are provided
+        if (!name || !email || !feedback || !rating) {
+            throw createValidationError('All required fields must be provided: name, email, feedback, rating');
+        }
+
+        // Create update object with only allowed fields
+        const updateData = { name, email, feedback, rating };
+
         // Find and update the feedback document by ID in the database
-        const updatedFeedback = await Feedback.findByIdAndUpdate(id, req.body, { new: true });
+        const updatedFeedback = await Feedback.findByIdAndUpdate(id, updateData, { new: true });
 
         // If the feedback document is not found, send a 404 response
         if (!updatedFeedback) {
-            return res.status(404).json({ message: 'Feedback not found' });
+            throw createNotFoundError('Feedback');
         }
 
         // Send a success response with the updated feedback document
-        res.status(200).send({ message: 'Feedback updated successfully', data: updatedFeedback });
-    } catch (error) {
-        // Handle errors by logging them and sending an error response
-        console.error('Error updating feedback:', error);
-        res.status(500).send({ message: 'An error occurred while processing the request' });
-    }
-});
+        res.success({ message: 'Feedback updated successfully', data: updatedFeedback });
+}));
 
 // Route to delete a feedback
-router.delete('/:id', async (req, res) => {
-    try {
+router.delete('/:id',protect, authorize('user'), asyncHandler(async (req, res) => {
         // Extract the feedback ID from the request parameters
         const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
 
         // Find and delete the feedback document by ID in the database
         const deletedFeedback = await Feedback.findByIdAndDelete(id);
 
         // If the feedback document is not found, send a 404 response
         if (!deletedFeedback) {
-            return res.status(404).json({ message: 'Feedback not found' });
+            throw createNotFoundError('Feedback');
         }
 
         // Send a success response with the deleted feedback document
-        res.status(200).send({ message: 'Feedback deleted successfully', data: deletedFeedback });
-    } catch (error) {
-        // Handle errors by logging them and sending an error response
-        console.error('Error deleting feedback:', error);
-        res.status(500).send({ message: 'An error occurred while processing the request' });
-    }
-});
+        res.success({ message: 'Feedback deleted successfully', data: deletedFeedback });
+}));
 
 // Export the router for use in other modules
 export default router;

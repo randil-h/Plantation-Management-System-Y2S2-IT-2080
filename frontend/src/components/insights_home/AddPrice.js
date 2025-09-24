@@ -38,7 +38,7 @@ export default function AddPrice() {
         };
         setLoading(true);
         axios
-            .post(`https://elemahana-backend.vercel.app/marketprice`, data)
+            .post(`${process.env.REACT_APP_API_BASE_URL}/marketprice`, data)
             .then(() => {
                 setLoading(false);
                 navigate('/insights/marketprice');

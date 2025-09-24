@@ -26,7 +26,7 @@ function EditMachineRecord() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`https://elemahana-backend.vercel.app/machines/${id}`)
+            .get(`${process.env.REACT_APP_API_BASE_URL}/machines/${id}`)
             .then((response) => {
                 setStartDate(response.data.start_date);
                 setName(response.data.name);
@@ -71,7 +71,7 @@ function EditMachineRecord() {
         };
         setLoading(true);
         axios
-            .put(`https://elemahana-backend.vercel.app/machines/${id}`, data)
+            .put(`${process.env.REACT_APP_API_BASE_URL}/machines/${id}`, data)
             .then(() => {
                 setLoading(false);
                 message.success('Machine record updated successfully');

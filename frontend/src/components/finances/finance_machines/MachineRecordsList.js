@@ -46,7 +46,7 @@ export default function MachineRecordsList() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('https://elemahana-backend.vercel.app/machines')
+            .get(`${process.env.REACT_APP_API_BASE_URL}/machines`)
             .then((response) => {
                 setMachineRecords(response.data.data);
                 setLoading(false);
@@ -60,7 +60,7 @@ export default function MachineRecordsList() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('https://elemahana-backend.vercel.app/machineRecord')
+            .get(`${process.env.REACT_APP_API_BASE_URL}/machineRecord`)
             .then((response) => {
                 setMachineRecordDetails(response.data.data);
                 setLoading(false);
@@ -76,7 +76,7 @@ export default function MachineRecordsList() {
         if (confirmDelete) {
             setLoading(true);
             axios
-                .delete(`https://elemahana-backend.vercel.app/machines/${id}`)
+                .delete(`${process.env.REACT_APP_API_BASE_URL}/machines/${id}`)
                 .then(() => {
                     setMachineRecords((prevRecords) => prevRecords.filter((record) => record._id !== id));
                     message.success('Machine record successfully deleted.');
@@ -95,7 +95,7 @@ export default function MachineRecordsList() {
         if (confirmDelete) {
             setLoading(true);
             axios
-                .delete(`https://elemahana-backend.vercel.app/machineRecord/${id}`)
+                .delete(`${process.env.REACT_APP_API_BASE_URL}/machineRecord/${id}`)
                 .then(() => {
                     setMachineRecordDetails((prevRecords) => prevRecords.filter((record) => record._id !== id));
                     message.success('Machine detail record successfully deleted.');
@@ -180,7 +180,7 @@ export default function MachineRecordsList() {
         try {
             // Make POST request to the API endpoint
             const response = await
-                axios.post('https://elemahana-backend.vercel.app/machineRecord', payload);
+                axios.post(`${process.env.REACT_APP_API_BASE_URL}/machineRecord`, payload);
 
             // Handle success response
             console.log('Record added successfully:', response.data);
@@ -221,7 +221,7 @@ export default function MachineRecordsList() {
     const handleSaveTransactionRecord = (transactionData) => {
         setLoading(true);
         axios
-            .post('https://elemahana-backend.vercel.app/transactions', transactionData)
+            .post(`${process.env.REACT_APP_API_BASE_URL}/transactions`, transactionData)
             .then(() => {
                 setLoading(false);
                 message.success('Transaction record has automatically saved.');
@@ -567,7 +567,7 @@ export default function MachineRecordsList() {
                                                                         <td className="px-6 py-4">{detail_record.reading_end}</td>
                                                                         <td className="px-6 py-4">{detail_record.record_pay.toLocaleString()}</td>
 
-                                                                        { getPermission("update:records").isGranted ? (
+                                                                        
 
                                                                         <td className=" ">
                                                                             <Button shape="circle" type="text"
@@ -577,8 +577,7 @@ export default function MachineRecordsList() {
                                                                                     aria-hidden="true"/>
                                                                             </Button>
                                                                         </td>
-                                                                        ) : null
-                                                                        }
+                                                                        
                                                                     </tr>
                                                                 ))
                                                             }
@@ -594,7 +593,7 @@ export default function MachineRecordsList() {
                                     </Popover>
                                 </td>
 
-                                { getPermission("update:records").isGranted ? (
+                                
 
                                 <td className=" py-4 text-right">
                                     <Link to={`/finances/machineHours/editMachineRecords/${record._id}`}>
@@ -605,10 +604,9 @@ export default function MachineRecordsList() {
                                     </Link>
                                 </td>
 
-                                ) : null
-                                }
+                                
 
-                                { getPermission("update:records").isGranted ? (
+                                
                                 <td className=" py-4 text-right">
                                     <Link to={`/finances/machineHours/viewMachineRecords/${record._id}`}>
                                         <InformationCircleIcon
@@ -617,10 +615,9 @@ export default function MachineRecordsList() {
                                         />
                                     </Link>
                                 </td>
-                                ) : null
-                                }
+                                
 
-                                { getPermission("update:records").isGranted ? (
+                              
                                 <td className=" ">
                                     <Button shape="circle" type="text" onClick={() => {
                                         handleDeleteMachineRecord(record._id);
@@ -632,8 +629,7 @@ export default function MachineRecordsList() {
                                     </Button>
 
                                 </td>
-                    ) : null
-                    }
+                   
                             </tr>
                         );
                     })}

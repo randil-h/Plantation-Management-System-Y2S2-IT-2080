@@ -27,7 +27,7 @@ function EditValuation() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`https://elemahana-backend.vercel.app/valuation/${id}`)
+            .get(`${process.env.REACT_APP_API_BASE_URL}/valuation/${id}`)
             .then((response) => {
                 setDate(response.data.date);
                 setType(response.data.type);
@@ -73,7 +73,7 @@ function EditValuation() {
         };
         setLoading(true);
         axios
-            .put(`https://elemahana-backend.vercel.app/valuation/${id}`, data)
+            .put(`${process.env.REACT_APP_API_BASE_URL}/valuation/${id}`, data)
             .then(() => {
                 setLoading(false);
                 message.success('Valuation record has successfully updated.');

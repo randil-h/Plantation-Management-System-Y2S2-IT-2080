@@ -35,7 +35,7 @@ export default function ViewDisease() {
 
         setLoading(true);
         axios
-            .get(`https://elemahana-backend.vercel.app/diseases/${id}`)
+            .get(`${process.env.REACT_APP_API_BASE_URL}/diseases/${id}`)
             .then((response) => {
                 setDiseaseRecord(response.data);
                 setLoading(false);

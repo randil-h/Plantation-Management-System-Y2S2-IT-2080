@@ -1,11 +1,15 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import { Rotation } from '../../models/Crop Models/RotationModel.js';
+import { asyncHandler } from '../../middleware/errorMiddleware.js';
+import { createNotFoundError, createValidationError } from '../../utils/errors.js';
+import { protect, authorize } from "../../middleware/auth.js";
+
 
 const router = express.Router();
 
 //Save new record
-router.post('/', async(request, response) => {
-    try {
+router.post('/',protect, authorize('user'), asyncHandler(async(request, response) => {
         if (
             !request.body.season||
             !request.body.fieldName||
@@ -15,9 +19,7 @@ router.post('/', async(request, response) => {
             !request.body.yield||
             !request.body.remarks
         ) {
-            return response.status(400).send ({
-                message: 'Send all required fields',
-            });
+            throw createValidationError('Send all required fields');
         }
         const newRecord = {
             season: request.body.season,
@@ -30,46 +32,29 @@ router.post('/', async(request, response) => {
         };
 
         const result = await Rotation.create(newRecord);
-
-        return response.status(201).send(result);
-    } catch(error) {
-        console.log(error.message);
-        response.status(500).send({message:error.message});
-    }
-});
+        return response.success(result, 201);
+}));
 
 //Get all records
-router.get('/', async(request, response) => {
-    try {
+router.get('/',protect, authorize('user'), asyncHandler(async(request, response) => {
         const result = await Rotation.find({});
-
-        return response.status(200).json({
-            count: result.length,
-            data:result
-        })
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
+        return response.success({ count: result.length, data: result })
+}));
 
 //Get one record by id
-router.get('/:id', async(request, response) => {
-    try {
+router.get('/:id',protect, authorize('user'), asyncHandler(async(request, response) => {
         const {id} = request.params;
-
+        
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
         const result = await Rotation.findById(id);
-
-        return response.status(200).json(result);
-    } catch(error) {
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
+        if (!result) throw createNotFoundError('Rotation record');
+        return response.success(result);
+}));
 
 //Update record
-router.put('/:id', async(request, response) => {
-    try {
+router.put('/:id',protect, authorize('user'), asyncHandler(async(request, response) => {
         if (
             !request.body.season||
             !request.body.fieldName||
@@ -79,41 +64,42 @@ router.put('/:id', async(request, response) => {
             !request.body.yield||
             !request.body.remarks 
         ) {
-            return response.status(400).send({
-                mesage: 'Send all required fields'
-            });
+            throw createValidationError('Send all required fields');
         }
 
         const {id} = request.params;
 
-        const result = await Rotation.findByIdAndUpdate(id, request.body);
-        
-        if (!result) {
-            return response.status(404).json({message: 'Record not found'});
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
         }
 
-        return response.status(200).send({message: 'Record updated successfully'});
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
+        // Extract only allowed fields from request body (alias reserved word 'yield')
+        const { season, fieldName, cropType, variety, quantity, remarks, yield: cropYield } = request.body;
+
+        // Create update object with only allowed fields
+        const updateData = { season, fieldName, cropType, variety, quantity, yield: cropYield, remarks };
+
+        const result = await Rotation.findByIdAndUpdate(id, updateData, { new: true });
+        
+        if (!result) {
+            throw createNotFoundError('Rotation record');
+        }
+        return response.success({message: 'Record updated successfully', data: result});
+}));
 
 //Route to delete a Record
-router.delete('/:id', async(request, response) => {
-    try {
+router.delete('/:id',protect, authorize('user'), asyncHandler(async(request, response) => {
         const {id} = request.params
+        
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
         const result = await Rotation.findByIdAndDelete(id);
 
         if (!result) {
-            return response.status(404).json({ message: 'Record not found'});
+            throw createNotFoundError('Rotation record');
         }
-
-        return response.status(200).send({message: 'Record deleted successfully'});
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
+        return response.success({message: 'Record deleted successfully'});
+}));
 
 export default router;

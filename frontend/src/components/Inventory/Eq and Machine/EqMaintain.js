@@ -19,7 +19,7 @@ const EqMaintain = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`https://elemahana-backend.vercel.app/inventoryrecords`)
+            .get(`${process.env.REACT_APP_API_BASE_URL}/inventoryrecords`)
             .then((response) => {
                 setInventoryRecords(response.data.data);
                 setLoading(false);
@@ -46,7 +46,7 @@ const EqMaintain = () => {
     const handleConfirmDelete = () => {
         const recordId = selectedRecordId;
         axios
-            .delete(`https://elemahana-backend.vercel.app/inventoryrecords/${recordId}`)
+            .delete(`${process.env.REACT_APP_API_BASE_URL}/inventoryrecords/${recordId}`)
             .then(() => {
                 setInventoryRecords(prevRecords => prevRecords.filter(record => record._id !== recordId));
                 setShowConfirmation(false);
@@ -271,8 +271,7 @@ const EqMaintain = () => {
                                             aria-hidden="true"/>
                                     </Link>
                                 </td>
-                                {
-                                    getPermission("update:records").isGranted ? (
+                               
                                 <td className="px-6 py-4">
                                     <button className="flex items-center" onClick={() => handleDelete(record._id)}>
                                         <TrashIcon
@@ -280,8 +279,7 @@ const EqMaintain = () => {
                                             aria-hidden="true"/>
                                     </button>
                                 </td>
-                                    ): null
-                                }
+                                    
                             </tr>
                         ))}
                         </tbody>

@@ -52,7 +52,7 @@ export default function Valuation() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('https://elemahana-backend.vercel.app/valuation')
+            .get('${process.env.REACT_APP_API_BASE_URL}/valuation')
             .then((response) => {
                 setValuationRecords(response.data.data);
                 setLoading(false);
@@ -71,7 +71,7 @@ export default function Valuation() {
         if (confirmDelete) {
             setLoading(true);
             axios
-                .delete(`https://elemahana-backend.vercel.app/valuation/${id}`)
+                .delete(`${process.env.REACT_APP_API_BASE_URL}/valuation/${id}`)
                 .then(() => {
                     setValuationRecords(prevRecords => prevRecords.filter(record => record._id !== id));
                     message.success('Valuation record has been successfully deleted.');
@@ -548,7 +548,7 @@ export default function Valuation() {
                                                 aria-hidden="true"/>
                                         </Link>
                                     </td>
-                                    { getPermission("update:records").isGranted ? (
+                                   
                                     <td className=" py-4 text-right">
                                         <Link to={`/finances/valuation/editValuation/${record._id}`}>
                                             <PencilSquareIcon
@@ -556,9 +556,8 @@ export default function Valuation() {
                                                 aria-hidden="true"/>
                                         </Link>
                                     </td>
-                                    ) : null
-                                    }
-                                        { getPermission("update:records").isGranted ? (
+                                    
+                                        
                                     <td className=" ">
                                             <Button shape="circle" type="text" onClick={() => {
                                                 handleDeleteValuation(record._id);
@@ -570,8 +569,7 @@ export default function Valuation() {
                                             </Button>
                                     </td>
 
-                                        ) : null
-                                        }
+                                    
 
                                 </tr>
                             ))}

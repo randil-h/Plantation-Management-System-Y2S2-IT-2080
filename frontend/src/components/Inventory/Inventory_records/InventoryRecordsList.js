@@ -21,7 +21,7 @@ const InventoryRecordList = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`https://elemahana-backend.vercel.app/inventoryinputs`)
+            .get(`${process.env.REACT_APP_API_BASE_URL}/inventoryinputs`)
             .then((response) => {
                 setInventoryInputs(response.data.data);
                 setLoading(false);
@@ -40,7 +40,7 @@ const InventoryRecordList = () => {
     const handleConfirmDelete = () => {
         const recordId = selectedRecordId;
         axios
-            .delete(`https://elemahana-backend.vercel.app/inventoryinputs/${recordId}`)
+            .delete(`${process.env.REACT_APP_API_BASE_URL}/inventoryinputs/${recordId}`)
             .then(() => {
                 setInventoryInputs((prevInputs) => prevInputs.filter((input) => input._id !== recordId));
                 setShowConfirmation(false);
@@ -293,8 +293,8 @@ const InventoryRecordList = () => {
                                             aria-hidden="true"/>
                                     </Link>
                                 </td>
-                                {
-                                    getPermission("update:records").isGranted ? (
+                                
+                                  
                                         <td className="py-4 text-right">
                                             <Link
                                                 to={`/inventory/inventoryrecords/editinventorypage/${record._id}`}
@@ -305,10 +305,8 @@ const InventoryRecordList = () => {
                                                     aria-hidden="true"/>
                                             </Link>
                                         </td>
-                                    ): null
-                                }
-                                {
-                                    getPermission("update:records").isGranted ? (
+                                    
+                               
                                         <td className="">
                                             <button
                                                 className="flex items-center"
@@ -319,8 +317,7 @@ const InventoryRecordList = () => {
                                                     aria-hidden="true"/>
                                             </button>
                                         </td>
-                                    ): null
-                                }
+                                    
                             </tr>
                         ))}
                         </tbody>

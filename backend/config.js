@@ -1,3 +1,13 @@
-  export const PORT = 5555;
+import dotenv from "dotenv";
 
-export const mongoDBURL = 'mongodb+srv://bimidu:tOHvxcrOSjVzb3Rq@farmmanagementdb.esb3sna.mongodb.net/?retryWrites=true&w=majority';
+// Load environment variables from .env file
+dotenv.config();
+
+export const PORT = process.env.PORT || 5555;
+
+export const mongoDBURL =
+    process.env.NODE_ENV === "test"
+        ? process.env.MONGODB_TEST_URL
+        : process.env.MONGODB_URL;
+export const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY;
+export const CORS_ORIGINS = process.env.CORS_ORIGINS;

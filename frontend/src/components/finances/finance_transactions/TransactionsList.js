@@ -37,7 +37,7 @@ export default function TransactionsList() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('https://elemahana-backend.vercel.app/transactions')
+            .get(`${process.env.REACT_APP_API_BASE_URL}/transactions`)
             .then((response) => {
                 setTransactionsRecords(response.data.data);
                 setLoading(false);
@@ -53,7 +53,7 @@ export default function TransactionsList() {
         if (confirmDelete) {
             setLoading(true);
             axios
-                .delete(`https://elemahana-backend.vercel.app/transactions/${id}`)
+                .delete(`${process.env.REACT_APP_API_BASE_URL}/transactions/${id}`)
                 .then(() => {
                     setTransactionsRecords((prevRecords) => prevRecords.filter((record) => record._id !== id));
                     message.success('Transaction record has successfully deleted.');
@@ -110,7 +110,7 @@ export default function TransactionsList() {
     }, []);
 
     const fetchTransactions = () => {
-        axios.get('https://elemahana-backend.vercel.app/transactions')
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/transactions`)
             .then(response => {
                 setTransactions(response.data.data);
             })
@@ -396,8 +396,7 @@ export default function TransactionsList() {
                                 </Link>
                             </td>
 
-                            {
-                                getPermission("update:records").isGranted ? (
+                            
                             <td className=" py-4 text-right">
                                 <Link to={`/finances/transactions/editTransaction/${record._id}`}>
                                     <PencilSquareIcon
@@ -407,9 +406,8 @@ export default function TransactionsList() {
                                 </Link>
                             </td>
 
-                                ): null
-                            }
-                            { getPermission("update:records").isGranted ? (
+                               
+                           
                             <td className=" ">
                                     <Button shape="circle" type="text" onClick={() => {
                                         handleDeleteTransaction(record._id);
@@ -420,8 +418,7 @@ export default function TransactionsList() {
                                         />
                                     </Button>
                             </td>
-                            ): null
-                            }
+                           
                         </tr>
                     ))}
                     </tbody>

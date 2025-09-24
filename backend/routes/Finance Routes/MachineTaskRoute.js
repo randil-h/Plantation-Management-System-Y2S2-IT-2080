@@ -1,10 +1,13 @@
 import {MachinesTask} from "../../models/Finance Models/MachineTaskModel.js";
 import express from "express";
+import mongoose from 'mongoose';
+import { protect, authorize } from "../../middleware/auth.js";
+
 
 const router = express.Router();
 
 // create a new record
-router.post('/', async (request, response) => {
+router.post('/',protect, authorize('user'), async (request, response) => {
     try {
         if (
             !request.body.start_date ||
@@ -39,7 +42,7 @@ router.post('/', async (request, response) => {
 
 // Route for Get All from database
 
-router.get('/', async (request, response) => {
+router.get('/',protect, authorize('user'), async (request, response) => {
     try {
         const MachineRecord = await MachinesTask.find({});
 
@@ -54,10 +57,13 @@ router.get('/', async (request, response) => {
 });
 
 // Route for Get One transaction from database by id
-router.get('/:id', async (request, response) => {
+router.get('/:id',protect, authorize('user'), async (request, response) => {
     try {
         const { id } = request.params;
 
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return response.status(400).json({ message: 'Invalid ID format' });
+        }
         const MachineRecord = await MachinesTask.findById(id);
 
         return response.status(200).json(MachineRecord);
@@ -68,7 +74,7 @@ router.get('/:id', async (request, response) => {
 });
 
 // Route for Update a transaction
-router.put('/:id', async (request, response) => {
+router.put('/:id',protect, authorize('user'), async (request, response) => {
     try {
         const requiredFields = ['start_date', 'name', 'type', 'rate', 'payee', 'description'];
         let missingFields = requiredFields.filter(field => !request.body[field]);
@@ -81,7 +87,17 @@ router.put('/:id', async (request, response) => {
 
         const { id } = request.params;
 
-        const result = await MachinesTask.findByIdAndUpdate(id, request.body);
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return response.status(400).json({ message: 'Invalid ID format' });
+        }
+
+        // Extract only allowed fields from request body
+        const { start_date, name, type, rate, payee, description } = request.body;
+
+        // Create update object with only allowed fields
+        const updateData = { start_date, name, type, rate, payee, description };
+
+        const result = await MachinesTask.findByIdAndUpdate(id, updateData);
 
         if (!result) {
             return response.status(404).json({ message: 'Transaction record not found' });
@@ -95,10 +111,13 @@ router.put('/:id', async (request, response) => {
 });
 
 // Route for Delete a book
-router.delete('/:id', async (request, response) => {
+router.delete('/:id',protect, authorize('user'), async (request, response) => {
     try {
         const { id } = request.params;
 
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return response.status(400).json({ message: 'Invalid ID format' });
+        }
         const result = await MachinesTask.findByIdAndDelete(id);
 
         if (!result) {

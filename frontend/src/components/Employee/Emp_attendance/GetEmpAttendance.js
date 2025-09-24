@@ -14,7 +14,7 @@ const GetEmpAttendance = () => {
     useEffect(() => {
         const loadData = async () => {
             try {
-                const response = await axios.get(`https://elemahana-backend.vercel.app/employeeRecords`);
+                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/employeeRecords`);
                 const employeeRecords = response.data.data;
                 setFilteredEmployeeRecords(employeeRecords);
             } catch (error) {
@@ -40,7 +40,7 @@ const GetEmpAttendance = () => {
                 att_status: value,
             };
 
-            await axios.post('https://elemahana-backend.vercel.app/attendanceRecords', attendanceRecord);
+            await axios.post('${process.env.REACT_APP_API_BASE_URL}/attendanceRecords', attendanceRecord);
             enqueueSnackbar('Attendance recorded successfully', { variant: 'success' });
         } catch (error) {
             enqueueSnackbar('Error recording attendance', { variant: 'error' });

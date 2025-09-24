@@ -19,7 +19,7 @@ const OrderPlacingForm = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`https://elemahana-backend.vercel.app/productRecords/${id}`)
+            .get(`${process.env.REACT_APP_API_BASE_URL}/productRecords/${id}`)
             .then((response) => {
                 setProduct(response.data);
                 setLoading(false);

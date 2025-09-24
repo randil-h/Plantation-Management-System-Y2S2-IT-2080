@@ -18,7 +18,7 @@ export default function HarvestList() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('https://elemahana-backend.vercel.app/record')
+            .get('${process.env.REACT_APP_API_BASE_URL}/record')
             .then((response) => {
                 setHarvestRecords(response.data.data);
                 setLoading(false);
@@ -34,7 +34,7 @@ export default function HarvestList() {
         if (confirmDelete) {
             setLoading(true);
             axios
-                .delete(`https://elemahana-backend.vercel.app/record/${id}`)
+                .delete(`${process.env.REACT_APP_API_BASE_URL}/record/${id}`)
                 .then(() => {
                     setHarvestRecords(prevRecords => prevRecords.filter(record => record._id !== id));
                     setLoading(false);
@@ -161,8 +161,7 @@ export default function HarvestList() {
                             <td className="py-4 text-right">
 
                             </td>
-                            {
-                                getPermission("update:records").isGranted ? (
+                           
                             <td className="py-4 text-right">
                                 <a href={`/harvest/records/updateRecord/${record._id}`}
                                    className="font-medium text-blue-600 hover:underline">
@@ -171,10 +170,8 @@ export default function HarvestList() {
                                         aria-hidden="true"/>
                                 </a>
                             </td>
-                                ): null
-                            }
-                            {
-                                getPermission("update:records").isGranted ? (
+                               
+                           
                             <td className="py-4 text-right">
                                 <button className="flex items-center" onClick={() => handleDeleteHarvest(record._id)}>
                                     <TrashIcon
@@ -182,8 +179,7 @@ export default function HarvestList() {
                                         aria-hidden="true"/>
                                 </button>
                             </td>
-                                    ): null
-                            }
+                                    
                         </tr>
                     ))}
                     </tbody>

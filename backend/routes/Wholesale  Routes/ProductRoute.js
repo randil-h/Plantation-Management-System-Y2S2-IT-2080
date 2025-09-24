@@ -1,12 +1,12 @@
-import express, {request, response} from "express";
+import express from "express";
+import mongoose from 'mongoose';
 import { Products } from '../../models/Wholesale Models/ProductModel.js';
-// import upload from "../../ProductPictures/Pictures.js";
-
-
+import { asyncHandler } from "../../middleware/errorMiddleware.js";
+import { createNotFoundError, createValidationError } from "../../utils/errors.js";
+import { protect, authorize } from "../../middleware/auth.js";
 const router = express.Router();
 
-router.post('/', async (request, response) => {
-    try {
+router.post('/',protect, authorize('user'), asyncHandler(async (request, response) => {
         if (
             !request.body.productID ||
             !request.body.productName ||
@@ -15,9 +15,7 @@ router.post('/', async (request, response) => {
             !request.body.productPrice
             // !request.file
         ) {
-            return response.status(400).send({
-                message: 'Send all required fields',
-            });
+            throw createValidationError('Send all required fields');
         }
 
         const newProduct = {
@@ -30,62 +28,36 @@ router.post('/', async (request, response) => {
         };
 
         const product = await Products.create(newProduct);
-
-        return response.status(201).send(product);
-    } catch (error) {
-        console.log(error.message);
-
-        // If the error is a Mongoose validation error, return a 400 Bad Request with the error messages
-        if (error.name === 'ValidationError') {
-            return response.status(400).send({ message: error.message });
-        }
-
-        // For other errors, return a 500 Internal Server Error with the error message
-        return response.status(500).send({ message: 'Internal Server Error' });
-    }
-});
+        return response.success(product, 201);
+}));
 
 
-router.get('/', async (request, response) => {
-    try {
+router.get('/',protect, authorize('user'), asyncHandler(async (request, response) => {
         const productrecords = await Products.find({});
-        return response.status(200).json({
+        return response.success({
             count: productrecords.length,
             data: productrecords
         });
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+}));
 
 
 
 
-router.get('/:id', async(request,response) =>{
-    try{
+router.get('/:id',protect, authorize('user'), asyncHandler(async(request,response) =>{
         const  {id} = request.params;
 
-        // if(!id){
-        //     return response.status(400).json({ message: 'ID parameter is required' });
-        // }
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
+
 
         const  productRecords = await Products.findById(id);
-
-        return response.status(200).json(productRecords);
-        // if(!productRecords){
-        //     return response.status(404).json({ message: 'Product Record not found' });
-        // }
-        //return response.status(200).jason(productRecords);
-    }catch(error){
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+        if (!productRecords) throw createNotFoundError('Product record');
+        return response.success(productRecords);
+}));
 
 
-router.put('/:id', async (request, response) => {
-    try{
+router.put('/:id',protect, authorize('user'), asyncHandler(async (request, response) => {
         if(
             !request.body.productID ||
             !request.body.productName ||
@@ -93,42 +65,42 @@ router.put('/:id', async (request, response) => {
             !request.body.productQuantity ||
             !request.body.productPrice
         ) {
-            return response.status(400).send({
-                message: 'Send all required fields'
-            });
+            throw createValidationError('Send all required fields');
         }
 
         const { id } = request.params;
 
-        const result = await Products.findByIdAndUpdate(id, request.body);
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
+
+        // Extract only allowed fields from request body
+        const { productID, productName, productDescription, productQuantity, productPrice } = request.body;
+
+        // Create update object with only allowed fields
+        const updateData = { productID, productName, productDescription, productQuantity, productPrice };
+
+        const result = await Products.findByIdAndUpdate(id, updateData, { new: true });
 
         if(!result){
-            return response.status(404).json({message: 'Product Records not Founded'});
+            throw createNotFoundError('Product record');
         }
+        return response.success({ message: 'Product record updated successfully', data: result });
+}));
 
-        return response.status(200).send({ message: 'Product record updated successfully' });
-
-    }catch (error){
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
-
-router.delete('/:id', async (request, response) =>{
-    try{
+router.delete('/:id',protect, authorize('user'), async (request, response) =>{
         const { id } = request.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
 
         const  result = await Products.findByIdAndDelete(id);
 
         if(!result){
-            return response.status(404).json({message: 'Product Record not found'});
+            throw createNotFoundError('Product record');
         }
-
-        return response.status(200).send({message: 'Product Record delete Successfully'});
-    }catch (error){
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
+        return response.success({message: 'Product Record delete Successfully'});
 });
 
 export default router;

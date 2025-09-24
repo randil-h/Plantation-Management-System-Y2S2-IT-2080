@@ -1,11 +1,13 @@
 import {TestRecord} from "../models/TestModel.js";
 import express from "express";
+import mongoose from 'mongoose';
+import { asyncHandler } from "../middleware/errorMiddleware.js";
+import { createNotFoundError, createValidationError } from "../utils/errors.js";
 
 const router = express.Router();
 
 // create a new record
-router.post('/', async (request, response) => {
-    try {
+router.post('/', asyncHandler(async (request, response) => {
         if (
             !request.body.first_name ||
             !request.body.last_name ||
@@ -16,9 +18,7 @@ router.post('/', async (request, response) => {
             !request.body.region ||
             !request.body.postal_code
         ) {
-            return response.status(400).send({
-                message: 'Send all required fields: name, country, city',
-            });
+            throw createValidationError('Send all required fields: first_name, last_name, uemail, country, street_address, city, region, postal_code');
         }
 
         const NewTestRecord = {
@@ -33,47 +33,34 @@ router.post('/', async (request, response) => {
         };
 
         const testRecord = await TestRecord.create(NewTestRecord);
-        return response.status(201).send(testRecord);
-
-    }catch (error) {
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
+        return response.success(testRecord, 201);
+}));
 
 // Route for Get All from database
 
-router.get('/', async (request, response) => {
-    try {
+router.get('/', asyncHandler(async (request, response) => {
         const testRecords = await TestRecord.find({});
-
-        return response.status(200).json({
+        return response.success({
             count: testRecords.length,
             data: testRecords,
         });
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+}));
 
 // Route for Get One Book from database by id
-router.get('/:id', async (request, response) => {
-    try {
+router.get('/:id', asyncHandler(async (request, response) => {
         const { id } = request.params;
 
-        const testRecord = await TestRecord.findById(id);
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
 
-        return response.status(200).json(testRecord);
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+        const testRecord = await TestRecord.findById(id);
+        if (!testRecord) throw createNotFoundError('Test record');
+        return response.success(testRecord);
+}));
 
 // Route for Update a Book
-router.put('/:id', async (request, response) => {
-    try {
+router.put('/:id', asyncHandler(async (request, response) => {
         if (
             !request.body.first_name ||
             !request.body.last_name ||
@@ -84,43 +71,44 @@ router.put('/:id', async (request, response) => {
             !request.body.region ||
             !request.body.postal_code
         ) {
-            return response.status(400).send({
-                message: 'Send all required fields: title, author, publishYear',
-            });
+            throw createValidationError('Send all required fields');
         }
 
         const { id } = request.params;
 
-        const result = await TestRecord.findByIdAndUpdate(id, request.body);
-
-        if (!result) {
-            return response.status(404).json({ message: 'Book not found' });
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
         }
 
-        return response.status(200).send({ message: 'Book updated successfully' });
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+        // Extract only allowed fields from request body
+        const { first_name, last_name, uemail, country, street_address, city, region, postal_code } = request.body;
+
+        // Create update object with only allowed fields
+        const updateData = { first_name, last_name, uemail, country, street_address, city, region, postal_code };
+
+        const result = await TestRecord.findByIdAndUpdate(id, updateData, { new: true });
+
+        if (!result) {
+            throw createNotFoundError('Test record');
+        }
+        return response.success({ message: 'Record updated successfully', data: result });
+}));
 
 
 // Route for Delete a book
-router.delete('/:id', async (request, response) => {
-    try {
+router.delete('/:id', asyncHandler(async (request, response) => {
         const { id } = request.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
 
         const result = await TestRecord.findByIdAndDelete(id);
 
         if (!result) {
-            return response.status(404).json({ message: 'Book not found' });
+            throw createNotFoundError('Test record');
         }
-
-        return response.status(200).send({ message: 'Book deleted successfully' });
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+        return response.success({ message: 'Record deleted successfully' });
+}));
 
 export default router;

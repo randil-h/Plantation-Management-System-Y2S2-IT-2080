@@ -52,7 +52,7 @@ export default function UpdateDisease() {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`https://elemahana-backend.vercel.app/diseases/${id}`)
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/diseases/${id}`)
             .then((response) => {
                 setName(response.data.disease_name);
                 setId(response.data.plant_id);
@@ -99,7 +99,7 @@ export default function UpdateDisease() {
 
         setLoading(true);
                     axios
-                        .put(`https://elemahana-backend.vercel.app/diseases/${id}`, data)
+                        .put(`${process.env.REACT_APP_API_BASE_URL}/diseases/${id}`, data)
                         .then(() => {
                             setLoading(false);
                             enqueueSnackbar('Record Updated successfully', { variant: 'success' });

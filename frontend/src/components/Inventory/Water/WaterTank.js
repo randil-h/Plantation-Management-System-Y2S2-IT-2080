@@ -44,7 +44,7 @@ function WaterTank() {
             water_des
         };
         axios
-            .post('https://elemahana-backend.vercel.app/waterRecords', data)
+            .post('${process.env.REACT_APP_API_BASE_URL}/waterRecords', data)
             .then((response) => {
                 enqueueSnackbar('Record Created successfully', { variant: 'success' });
                 setWaterRecord(prevRecords => [...prevRecords, response.data]);
@@ -93,7 +93,7 @@ function WaterTank() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`https://elemahana-backend.vercel.app/waterRecords`)
+            .get(`${process.env.REACT_APP_API_BASE_URL}/waterRecords`)
             .then((response) => {
                 setWaterRecord(response.data.data);
                 setLoading(false);
@@ -109,7 +109,7 @@ function WaterTank() {
 
     const handleDelete = (recordId) => {
         axios
-            .delete(`https://elemahana-backend.vercel.app/waterRecords/${recordId}`)
+            .delete(`${process.env.REACT_APP_API_BASE_URL}/waterRecords/${recordId}`)
             .then(() => {
                 setWaterRecord(prevRecords => prevRecords.filter(record => record._id !== recordId));
                 enqueueSnackbar('Record Deleted Successfully!', {
@@ -261,8 +261,7 @@ function WaterTank() {
                                 <td className="px-6 py-4 border-r whitespace-nowrap">{record.water_date.split("T")[0]}</td>
                                 <td className="px-6 py-4 border-r">{record.water_des ? record.water_des : "N/A"}</td>
 
-                                {
-                                    getPermission("update:records").isGranted ? (
+                             
                                 <td className="px-6 py-4">
                                     <div className="flex">
                                         <button
@@ -274,8 +273,6 @@ function WaterTank() {
                                         </button>
                                     </div>
                                 </td>
-                                    ): null
-                                }
                             </tr>
                             {index !== waterRecords.length - 1 && (
                                 <tr>

@@ -1,16 +1,16 @@
 import {HarvestingRecord} from "../../models/Harvest Models/RecordModels.js";
 import express from "express";
-
-
-
+import mongoose from 'mongoose';
+import { asyncHandler } from "../../middleware/errorMiddleware.js";
+import { createNotFoundError, createValidationError } from "../../utils/errors.js";
+import { protect, authorize } from "../../middleware/auth.js";
 
 const router = express.Router();
 
 
 //Route to create new harvest record
-router.post('/', async(request, response) =>
+router.post('/', protect, authorize('user'),asyncHandler(async(request, response) =>
 {
-    try{
         if(
             !request.body.date ||
             !request.body.cropType ||
@@ -20,9 +20,7 @@ router.post('/', async(request, response) =>
             !request.body.quantity ||
             !request.body.remarks
             ){
-            return response.status(400).send({
-                message: 'Send all required fields',
-            });
+            throw createValidationError('Send all required fields');
          }
 
         const NewHarvestRecord = {
@@ -36,52 +34,35 @@ router.post('/', async(request, response) =>
         };
 
         const HarvestRecord = await HarvestingRecord.create(NewHarvestRecord);
-        return response.status(201).send(NewHarvestRecord);
-
-    }catch(error)
-    {
-        console.log(error.message);
-        response.status(500).send({message: error.message});
-    }
-});
+        return response.success(HarvestRecord, 201);
+}));
 
 //Route to get harvest records
-router.get('/', async (request, response) => {
-    try {
+router.get('/', protect, authorize('user'),asyncHandler(async (request, response) => {
         const Records = await HarvestingRecord.find({});
-        return response.status(200).json({
-            count: Records.length, // Corrected to use Records.length
-            data: Records // Corrected to use Records
-        });
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).json({ message: error.message }); // Corrected to use response.json()
-    }
-});
+        return response.success({ count: Records.length, data: Records });
+}));
 
 //Route to get a harvest record by ID
-router.get('/:id', async (request, response) => {
-    try {
+router.get('/:id',protect, authorize('user'), asyncHandler(async (request, response) => {
         const { id } = request.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
 
         const record = await HarvestingRecord.findById(id);
 
         if (!record) {
-            return response.status(404).json({ message: 'Record not found' });
+            throw createNotFoundError('Harvest record');
         }
-
-        return response.status(200).json(record);
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).json({ message: error.message });
-    }
-});
+        return response.success(record);
+}));
 
 
 
 //Route to update harvest record
-router.put('/:id', async (request, response) => {
-    try {
+router.put('/:id',protect, authorize('user'), asyncHandler(async (request, response) => {
         if(
             !request.body.date ||
             !request.body.cropType ||
@@ -91,44 +72,44 @@ router.put('/:id', async (request, response) => {
             !request.body.quantity ||
             !request.body.remarks
         ){
-
-            return response.status(400).send({
-                message: 'Send all required fields: title, author, publishYear',
-            });
+            throw createValidationError('Send all required fields');
         }
 
         const { id } = request.params;
+        
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
 
-        const result = await HarvestingRecord.findByIdAndUpdate(id, request.body);
+        // Extract only allowed fields from request body
+        const { date, cropType, ageOfYield, wayPicked, treesPicked, quantity, remarks } = request.body;
+
+        // Create update object with only allowed fields
+        const updateData = { date, cropType, ageOfYield, wayPicked, treesPicked, quantity, remarks };
+
+        const result = await HarvestingRecord.findByIdAndUpdate(id, updateData, { new: true });
 
         if (!result) {
-            return response.status(404).json({ message: 'Harvest record not found' });
+            throw createNotFoundError('Harvest record');
         }
-
-        return response.status(200).send({ message: 'Harvest record updated successfully' });
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+        return response.success({ message: 'Harvest record updated successfully', data: result });
+}));
 
 // Route for Delete a harvest record
-router.delete('/:id', async (request, response) => {
-    try {
+router.delete('/:id',protect, authorize('user'), asyncHandler(async (request, response) => {
         const { id } = request.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            throw createValidationError('Invalid ID format');
+        }
 
         const result = await HarvestingRecord.findByIdAndDelete(id);
 
         if (!result) {
-            return response.status(404).json({ message: 'Harvest record not found' });
+            throw createNotFoundError('Harvest record');
         }
-
-        return response.status(200).send({ message: 'Harvest record deleted successfully' });
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
+        return response.success({ message: 'Harvest record deleted successfully' });
+}));
 
 
 export default router;

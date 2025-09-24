@@ -17,7 +17,7 @@ const OrderHistory = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('https://elemahana-backend.vercel.app/orderRecords')
+            .get('${process.env.REACT_APP_API_BASE_URL}/orderRecords')
             .then((response) =>{
                 setOrderRecords(response.data.data); // Assuming response.data is an object with a 'data' property containing an array of records
                 setLoading(false);
@@ -30,7 +30,7 @@ const OrderHistory = () => {
 
     const handleDelete = (recordId) => {
         axios
-            .delete(`https://elemahana-backend.vercel.app/orderRecords/${recordId}`)
+            .delete(`${process.env.REACT_APP_API_BASE_URL}/orderRecords/${recordId}`)
             .then(() => {
                 setOrderRecords(prevRecord => prevRecord.filter(record => record._id !== recordId));
             })

@@ -22,7 +22,7 @@ export default function TransactionsInfoCard() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get("https://elemahana-backend.vercel.app/transactions")
+            .get("${process.env.REACT_APP_API_BASE_URL}/transactions")
             .then((response) => {
                 setTransactionsRecords(response.data.data);
                 setLoading(false);
